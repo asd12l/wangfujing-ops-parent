@@ -90,4 +90,8 @@
           p:refreshByCategory="${refreshByCategory}" p:fullyIndex="${fullyIndex}"
           p:onlinePath="${onlinePath}"/>
 
+    <bean id="gpConfig" class="com.wangfj.search.utils.GpConfig"
+            p:gpUrlTemplate="${gpUrlTemplate}" p:gpPath="${gpPath}"
+            p:gpAdd="${gpAdd}" p:gpGetList="${gpGetList}"/>
+
 </beans>
