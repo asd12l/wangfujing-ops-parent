@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.ChannelAdsMapper" >
+  <resultMap id="ChannelAdsResutlMap" type="com.wangfj.wms.domain.entity.ChannelAds" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="shop_channel_sid" property="shopChannelSid" jdbcType="INTEGER" />
+    <result column="positiotag" property="positiotag" jdbcType="VARCHAR" />
+    <result column="positioname" property="positioname" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, shop_channel_sid, positiotag, positioname, pic, link, memo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ChannelAdsResutlMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from channel_ad
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByChannelSid" resultMap="ChannelAdsResutlMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from channel_ad
+    where shop_channel_sid = #{shopChannelSid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from channel_ad
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.ChannelAds" >
+    insert into channel_ad (sid, shop_channel_sid, positiotag, 
+      positioname, pic, link, 
+      memo)
+    values (#{sid,jdbcType=INTEGER}, #{shopChannelSid,jdbcType=INTEGER}, #{positiotag,jdbcType=VARCHAR}, 
+      #{positioname,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.ChannelAds" >
+    insert into channel_ad
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="shopChannelSid != null" >
+        shop_channel_sid,
+      </if>
+      <if test="positiotag != null" >
+        positiotag,
+      </if>
+      <if test="positioname != null" >
+        positioname,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="link != null" >
+        link,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="shopChannelSid != null" >
+        #{shopChannelSid,jdbcType=INTEGER},
+      </if>
+      <if test="positiotag != null" >
+        #{positiotag,jdbcType=VARCHAR},
+      </if>
+      <if test="positioname != null" >
+        #{positioname,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.ChannelAds" >
+    update channel_ad
+    <set >
+      <if test="shopChannelSid != null" >
+        shop_channel_sid = #{shopChannelSid,jdbcType=INTEGER},
+      </if>
+      <if test="positiotag != null" >
+        positiotag = #{positiotag,jdbcType=VARCHAR},
+      </if>
+      <if test="positioname != null" >
+        positioname = #{positioname,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.ChannelAds" >
+    update channel_ad
+    set shop_channel_sid = #{shopChannelSid,jdbcType=INTEGER},
+      positiotag = #{positiotag,jdbcType=VARCHAR},
+      positioname = #{positioname,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

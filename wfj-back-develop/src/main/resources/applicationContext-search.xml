@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <description>搜索配置</description>
+    <bean id="placeholderConfig"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:search.properties</value><!-- 搜索相关配置文件 -->
+            </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+    <bean id="rsa" class="com.wangfj.search.utils.RsaResource">
+        <property name="resourceLoader">
+            <bean class="org.springframework.core.io.DefaultResourceLoader"/>
+        </property>
+    </bean>
+
+    <bean id="privateSignatureHandler"
+          class="com.wfj.platform.util.signature.handler.PrivateSignatureHandler"
+          p:caller="${caller}"/>
+
+    <bean id="MonitorConfig" class="com.wangfj.search.utils.MonitorConfig"
+          p:monitor_path="${monitor_path}" p:monitor_appRead="${monitor_appRead}"
+          p:monitor_appCreate="${monitor_appCreate}" p:monitor_appUpdate="${monitor_appUpdate}"
+          p:monitor_appDestory="${monitor_appDestory}" p:monitor_appEmailRead="${monitor_appEmailRead}"
+          p:monitor_appEmailCreate="${monitor_appEmailCreate}" p:monitor_appEmailUpdate="${monitor_appEmailUpdate}"
+          p:monitor_appEmailDestory="${monitor_appEmailDestory}" p:monitor_appInstanceRead="${monitor_appInstanceRead}"
+          p:monitor_appInstanceCreate="${monitor_appInstanceCreate}"
+          p:monitor_appInstanceUpdate="${monitor_appInstanceUpdate}"
+          p:monitor_appInstanceDestory="${monitor_appInstanceDestory}"
+          p:monitor_appInstanceEnabled="${monitor_appInstanceEnabled}"
+          p:monitor_appInstanceDisabled="${monitor_appInstanceDisabled}"/>
+
+    <bean id="intervalConfig" class="com.wangfj.search.utils.IntervalConfig"
+          p:interval_path="${interval_path}" p:interval_read="${interval_read}"
+          p:interval_create="${interval_create}" p:interval_update="${interval_update}"
+          p:interval_destroy="${interval_destroy}" p:intervalDetail_list="${intervalDetail_list}"
+          p:intervalDetail_create="${intervalDetail_create}" p:intervalDetail_update="${intervalDetail_update}"
+          p:intervalDetail_destroy="${intervalDetail_destroy}" p:channelList="${channelList}"
+          p:doSelected="${doSelected}"/>
+
+    <bean id="sortRuleConfig" class="com.wangfj.search.utils.SortRuleConfig"
+          p:sortRule_path="${sortRule_path}" p:sortRule_sortRuleRetrieve="${sortRule_sortRuleRetrieve}"
+          p:sortRule_sortRuleCreate="${sortRule_sortRuleCreate}" p:sortRule_sortRuleUpdate="${sortRule_sortRuleUpdate}"
+          p:sortRule_sortRuleDestory="${sortRule_sortRuleDestory}" p:sortDetail="${sortDetail}"
+          p:sortDetail_Create="${sortDetail_Create}" p:sortDetail_Update="${sortDetail_Update}"
+          p:sortDetail_Destory="${sortDetail_Destory}"/>
+
+    <bean id="brandStickConfig" class="com.wangfj.search.utils.BrandStickConfig"
+          p:brand_path="${brand_path}" p:brand_list="${brand_list}"
+          p:brand_read="${brand_read}" p:brand_create="${brand_create}"
+          p:brand_destroy="${brand_destroy}"/>
+
+    <bean id="sortListBoxConfig" class="com.wangfj.search.utils.SortListBoxConfig"
+          p:sortList_path="${SortList_path}" p:sortList_SortListRetrieve="${SortList_SortListRetrieve}"
+          p:sortList_SortListCreate="${SortList_SortListCreate}" p:sortList_SortListSelect="${SortList_SortListSelect}"
+          p:sortList_SortListDestory="${SortList_SortListDestory}"/>
+
+    <bean id="shoppeConfig" class="com.wangfj.search.utils.ShoppeConfig"
+          p:shoppe_path="${shoppe_path}" p:brandUpdate="${brandUpdate}"
+          p:freshIndex="${freshIndex}" p:itemIndex="${itemIndex}"
+          p:freshERPIndex="${freshERPIndex}" p:updateItemByParam="${updateItemByParam}"/>
+
+    <bean id="blackListConfig" class="com.wangfj.search.utils.BlackListConfig"
+          p:black_path="${black_path}" p:read="${read}"
+          p:create="${create}" p:delete="${delete}"/>
+
+    <bean id="weightBoostConfig" class="com.wangfj.search.utils.WeightBoostConfig"
+          p:weight_path="${weight_path}" p:weight_read="${weight_read}"
+          p:weight_save="${weight_save}" p:weight_delete="${weight_delete}"/>
+
+    <bean id="hotWordConfig" class="com.wangfj.search.utils.HotWordConfig"
+          p:hot_word_path="${hot_word_path}" p:hot_word_read="${hot_word_read}"
+          p:hot_word_create="${hot_word_create}" p:hot_word_update="${hot_word_update}"
+          p:hot_word_destroy="${hot_word_destroy}" p:hot_word_enabled="${hot_word_enabled}"
+          p:hot_word_disabled="${hot_word_disabled}" p:hot_word_site="${hot_word_site}"
+          p:hot_word_channel="${hot_word_channel}"/>
+
+    <bean id="onlineIndexConfig" class="com.wangfj.search.utils.OnlineIndexConfig"
+          p:refreshByBrand="${refreshByBrand}" p:removeByBrand="${removeByBrand}"
+          p:refreshBySPU="${refreshBySPU}" p:removeBySPU="${removeBySPU}"
+          p:refreshBySKU="${refreshBySKU}" p:removeBySKU="${removeBySKU}"
+          p:refreshItem="${refreshItem}" p:removeItem="${removeItem}"
+          p:refreshByCategory="${refreshByCategory}" p:fullyIndex="${fullyIndex}"
+          p:onlinePath="${onlinePath}"/>
+
+</beans>

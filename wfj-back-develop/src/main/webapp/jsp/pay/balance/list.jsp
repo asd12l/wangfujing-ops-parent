@@ -1,0 +1,731 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <!--Page Related Scripts-->
+<html>
+<head>
+<script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script> 
+<script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script> 
+<script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dateTime/datePicker.css"/>
+<!--Bootstrap Date Range Picker-->
+<script src="${pageContext.request.contextPath}/assets/js/datetime/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/datetime/datepicker.js"></script>
+<style type="text/css">
+.trClick>td,.trClick>th{
+ color:red;
+}
+</style>
+<script type="text/javascript">
+//上下文路径
+__ctxPath = "${pageContext.request.contextPath}";
+
+//页码
+var olvPagination;
+//var format=new RegExp("^(((01[0-9]{2}|0[2-9][0-9]{2}|[1-9][0-9]{3})/(0?[13578]|1[02])/(0?[1-9]|[12]\\d|3[01]))|((01[0-9]{2}|0[2-9][0-9]{2}|[1-9][0-9]{3})/(0?[13456789]|1[012])/(0?[1-9]|[12]\\d|30))|((01[0-9]{2}|0[2-9][0-9]{2}|[1-9][0-9]{3})/0?2/(0?[1-9]|1\\d|2[0-8]))|(((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((04|08|12|16|[2468][048]|[3579][26])00))/0?2-29)) (20|21|22|23|[0-1]?\\d):[0-5]?\\d:[0-5]?\\d$");
+//只做了简单的日期格式效验(不能效验瑞年) 格式为  yyyy-MM-dd hh:mm:ss 年月日分隔符可以为(-和/)  
+var format=/^[\s]*[\d]{4}(\/|-)(0?[1-9]|1[012])(\/|-)(0?[1-9]|[12][0-9]|30|31)[\s]*(0?[0-9]|1[0-9]|2[0-3])(:([0-5][0-9])){2}[\s]*$/;
+//初始时间选择器
+function timePickInit(){
+	var endTime=new Date();
+	var startTime=new Date();
+	startTime.setDate(endTime.getDate()-30);
+	$('#timeStart_input').daterangepicker({
+		startDate:startTime,
+//		endDate:endTime,
+		timePicker:true,
+		timePickerSeconds:true,
+		timePicker24Hour:true,
+//		minDate:startTime,
+		maxDate:endTime,
+//		linkedCalendars:false,
+		opens:'center',
+		showDropdowns : true,
+		locale : {
+		  	format: "YYYY/MM/DD HH:mm:ss",
+        applyLabel : '确定',
+        cancelLabel : '取消',
+        fromLabel : '起始时间',
+        toLabel : '结束时间',
+        customRangeLabel : '自定义',
+        daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+        monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+            '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+        firstDay : 1
+    },
+		singleDatePicker:true});
+	$('#timeEnd_input').daterangepicker({
+		startDate:endTime,
+//		endDate:endTime,
+		timePicker:true,
+		timePickerSeconds:true,
+		timePicker24Hour:true,
+//		minDate:startTime,
+		maxDate:endTime,
+//		linkedCalendars:false,
+		opens:'center',
+		showDropdowns : true,
+		locale : {
+		  	format: "YYYY/MM/DD HH:mm:ss",
+        applyLabel : '确定',
+        cancelLabel : '取消',
+        fromLabel : '起始时间',
+        toLabel : '结束时间',
+        customRangeLabel : '自定义',
+        daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+        monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+            '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+        firstDay : 1
+    },
+		singleDatePicker:true});
+}
+//页面加载完成后自动执行
+$(function() {
+	//渲染日期
+	timePickInit();
+	//初始化
+  initOlv();
+});
+function parseTime1(strTime){
+	if(format.test(strTime)){
+		var ymdArr=strTime.split(" ")[0].split("/");//年月日
+		var hmsArr=strTime.split(" ")[1].split(":");//时分秒
+		return new Date(ymdArr[0],ymdArr[1]-1,ymdArr[2],hmsArr[0],hmsArr[1],hmsArr[2]).getTime();
+	}
+	return "";
+}
+//解析时间
+function parseTime(strTime){
+	if(format.test(strTime)){
+		var ymdArr=strTime.split(" ")[0].split("-");//年月日
+		var hmsArr=strTime.split(" ")[1].split(":");//时分秒
+		return new Date(ymdArr[0],ymdArr[1]-1,ymdArr[2],hmsArr[0],hmsArr[1],hmsArr[2]).getTime();
+	}
+}
+
+//解析时间
+/* function parseTime(str,separator,type){
+	if(str){
+		var arr=str.split(separator);
+		var date=new Date(arr[0],arr[1]-1,arr[2]);
+		if(type==1){
+			date.setHours(0);
+			date.setMinutes(0);
+			date.setSeconds(0);
+		}
+		if(type==2){
+			date.setHours(23);
+			date.setMinutes(59);
+			date.setSeconds(59);
+		}
+		return date.getTime();
+	}
+}
+ */
+//以特定格式格式日期           格式：  年-月-日 时：分：秒
+function formatDate(time){
+	if(isNaN(time)){
+		return;
+	}
+	var date=new Date(parseInt(time));
+	var year=date.getFullYear();
+	var month=date.getMonth()+1;
+	month=month>9?month:'0'+month;
+	var day=date.getDate();
+	day=day>9?day:'0'+day;
+	var hour=date.getHours();
+	hour=hour>9?hour:'0'+hour;
+	var minute=date.getMinutes();
+	minute=minute>9?minute:'0'+minute;
+	var second=date.getSeconds();
+	second=second>9?second:'0'+second;
+	return year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+}
+//格式化时间二
+function formateDate2(date){
+	var year=date.getFullYear();
+	var month=date.getMonth()+1;
+	var day=date.getDate();
+	var hour=date.getHours();
+	var minute=date.getMinutes();
+	var second=date.getSeconds();
+	return year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second; 
+}
+//导出excel
+function excelBalance() {
+	var url=__ctxPath+"/wfjpay/balance/checkBalanceExport";
+//	var remoteUrl="http://10.6.2.150:8080/wfjpay/admin/verifica/export.do?";
+	var remoteUrl=__ctxPath+"/wfjpay/balance/getBalanceToExcel?";
+	var params = $("#olv_form").serialize();
+  params = decodeURI(params);
+  var downloadUrl=remoteUrl+params;
+	$.post(url,params,function(data){
+		if($("#olv_tab tbody tr").size()==0){
+			$("#model-body-warning")
+			.html(
+					"<div class='alert alert-warning fade in'><strong>查询结果为空，无法导出Excel!</strong></div>");
+			$("#modal-warning").attr({
+				"style" : "display:block;",
+				"aria-hidden" : "false",
+				"class" : "modal modal-message modal-warning"
+			});
+			return;
+		}
+		if(data.success=="true"){
+//			$("#downloadLink").attr("href",downloadUrl);
+//			$("#excelDiv").show();
+			window.open(downloadUrl);
+		}else{
+			$("#model-body-warning")
+			.html(
+					"<div class='alert alert-warning fade in'><strong>参数检查失败，无法正常导出Excel!</strong></div>");
+			$("#modal-warning").attr({
+				"style" : "display:block;",
+				"aria-hidden" : "false",
+				"class" : "modal modal-message modal-warning"
+			});
+		}
+	},"json");
+}
+//设置表单
+function setFormData(){
+	$("#bpId_form").val($("#bpId_input").val());
+	$("#userName_form").val($("#userName_input").val());
+	$("#finalPayTerminal_form").val($("#finalPayTerminal_input").val());
+	$("#payType_form").val($("#payType_input").val());
+	$("#payService_form").val($("#payService_input").val());
+	if($("#payBank_input").val()!="0"){
+		$("#payBank_form").val($("#payBank_input").val());
+	}else{
+		$("#payBank_form").val("");
+	}
+	var strStartTime = $("#timeStart_input").val();
+	var strEndTime = $("#timeEnd_input").val();
+	$("#startTime_form").val(parseTime1(strStartTime));
+	$("#endTime_form").val(parseTime1(strEndTime));
+}
+//查询数据
+function olvQuery(){
+	//设置表单数据
+	setFormData();
+	//生成表单请求参数
+    var params = $("#olv_form").serialize();
+    params = decodeURI(params);
+    //根据参数读取数据
+    olvPagination.onLoad(params);
+    //查询统计数据
+    queryCount();
+}
+//重置
+function reset(){
+	$("#bpId_input").val("");
+	$("#pageNo").val("1");
+	$("#userName_input").val("");
+	$("#payType_input").val("");
+	$("#finalPayTerminal_input").val("");
+	$("#payType_input").html("");
+	$("#payService_input").html("");
+	$("#payBank_input").html("");
+	$("#payBank_input option:eq(0)").attr('selected','selected');
+	$("#payBank_input").html("");
+	timePickInit();
+	olvQuery();
+}
+//统计查询
+function queryCount(){
+	var countDataUrl=__ctxPath+"/wfjpay/balance/count";
+	//设置表单数据
+	setFormData();
+	var param=$("#olv_form").serialize();
+	$.post(countDataUrl,param,function(data){
+		if(data.success=="true"){
+			var obj=data.object;
+			var incomingCount=obj.TOTAL_COUNT+"(元)";
+			var payCount=obj.TOTAL_FEE+"(元)";
+			$("#incomingCount").html(incomingCount);
+			$("#payCount").html(payCount);
+		}else{
+			$("#incomingCount").html("0(元)");
+			$("#payCount").html("0(元)");
+		}
+	},"json");
+}
+//初始化函数
+	function initOlv() {
+	//请求地址
+	var url = __ctxPath+"/wfjpay/balance";
+	setFormData();
+	
+	//分页工具
+	olvPagination = $("#olvPagination").myPagination({
+       panel: {
+		//启用跳页
+         tipInfo_on: true,
+         //跳页信息
+         tipInfo: '&nbsp;&nbsp;跳{input}/{sumPage}页',
+         //跳页样式
+         tipInfo_css: {
+           width: '25px',
+           height: "20px",
+           border: "2px solid #f0f0f0",
+           padding: "0 0 0 5px",
+           margin: "0 5px 0 5px",
+           color: "#48b9ef"
+         }
+       },
+       debug: false,
+       //ajax请求
+       ajax: {
+         on: true,
+         url: url,
+         //数据类型
+         dataType: 'json',
+         param:$("#olv_form").serialize(),
+         //请求开始函数
+//         ajaxStart: function() {
+//           ZENG.msgbox.show(" 正在加载中，请稍后...", 1, 1000);
+//         },
+//         //请求结束函数
+//         ajaxStop: function() {
+//           //隐藏加载提示
+//           setTimeout(function() {
+//             ZENG.msgbox.hide();
+//           }, 300);
+//         },
+         ajaxStart : function() {
+				$("#loading-container").attr("class","loading-container");
+			},
+			ajaxStop : function() {
+				//隐藏加载提示
+				setTimeout(function() {
+					$("#loading-container").addClass("loading-inactive");
+				}, 300);
+			},
+         //回调
+         callback: function(data) {
+			if(data.success=="true"){
+		    	for(var i in data.list){
+		    		data.list[i].payDate=formatDate(data.list[i].payDate);
+		    	}
+		   		$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
+		   		$("#page_form").val(data.pageNo);
+			}else{
+				$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate("");
+				$("#page_form").val(1);
+			}
+         }
+       }
+     });
+	
+	//业务接口
+	var bpIdDateUrl=__ctxPath+"/wfjpay/businessStation";
+	$.post(bpIdDateUrl,{flag:"0"},function(data){
+		if(data.success=="true"){
+			var html="";
+			var arr=data.list;
+			for(var i=0;i<arr.length;i++){
+				html+="<option value='"+arr[i].id+"'>"+arr[i].name+"</option>";
+			}
+			$("#bpId_input").html(html);
+		}
+		
+	},"json");
+    
+	//统计数据
+	queryCount();
+	
+	setFormData();
+	
+	//菜单联动
+	var payChannelOption="<option value=''>全部</option>"
+						+"<option value='ALIPAY'>支付宝</option>"
+						+"<option value='TENPAY'>财付通</option>"
+						+"<option value='NETPAY'>银联</option>"
+						+"<option value='ICBCPAY'>工商银行</option>"
+    					+"<option value='CMBPAY'>招商银行</option>"
+    					+"<option value='CGBPAY'>广发银行</option>"
+    					+"<option value='WECHATPAY'>微信</option>"
+    					+"<option value='WECHATPAY_SHB'>微信扫货邦</option>"
+    					+"<option value='ALIPAY_OFFLINE'>支付宝线下</option>"
+    					+"<option value='ALIPAY_MOBILE'>支付宝WAP</option>"
+    					+"<option value='WECHATPAY_MOBILE'>微信WAP</option>";
+	var payServiceOption0="<option value='0'>全部</option>"
+						+"<option value='1'>网银直连</option>"
+						+"<option value='2'>第三方渠道</option>"
+						+"<option value='3'>银行直连</option>"
+						+"<option value='4'>IC卡</option>";
+	var payServiceOption1="<option value=''>全部</option>"
+						+"<option value='3'>手机卡支付</option>"
+						+"<option value='4'>游戏卡支付</option>";
+	var payServiceOption2="<option value='5'>移动支付</option>";
+	
+	var terminalValue;
+	var typeValue;
+	$("#finalPayTerminal_input").on("change",function(){
+		$("#payType_input").html("");
+		$("#payService_input").html("");
+		$("#payBank_input").html("");
+		terminalValue=$("#finalPayTerminal_input").val();
+		if(terminalValue=="01"){
+			$("#payType_input").html(payChannelOption);
+		}else if(terminalValue=="02"){
+			$("#payType_input").html(payChannelOption);
+		}else if(terminalValue=="03"){
+		$("#payType_input").html(payChannelOption);
+		}else if(terminalValue=="04"){
+		$("#payType_input").html(payChannelOption);
+	}
+	});
+	//支付渠道改变选择时，动态改变支付服务的下拉列表
+	$("#payType_input").on("change",function(){
+		typeValue=$(this).val();
+		$("#payService_input").html("");
+		$("#payBank_input").html("");
+		if(typeValue==""){
+			return;
+		}
+		if(terminalValue=="01"){
+			$("#payService_input").html(payServiceOption0);
+		}else if(terminalValue=="02"){
+			$("#payService_input").html(payServiceOption2);
+		}
+	});
+	//支付服务改变时，动态改变支付方式的下拉列表
+	$("#payService_input").on("change",function(){
+		$("#payBank_input").html("");
+		payService=$(this).val();
+		findPayBank(payService);
+	});
+}
+//查询支付方式
+function findPayBank(payService){
+	var url=__ctxPath+"/wfjpay/business/selectBankList";
+	var param={
+			payService:payService
+	};
+	$.post(url,param,function(data){
+		if(data.success=="true"){
+			var html="<option value='0'>全部</option>";
+			var arr=data.list;
+			for(var i=0;i<arr.length;i++){
+				html+="<option value='"+arr[i].name+"'>"+arr[i].value+"</option>";
+			}
+			$("#payBank_input").html(html);
+		}
+		
+	},"json");
+}
+//关闭导出Excel面板
+function closeExcelDiv(){
+	$("#excelDiv").hide();
+}
+	
+//折叠页面
+function tab(data){
+	if($("#"+data+"-i").attr("class")=="fa fa-minus"){
+		$("#"+data+"-i").attr("class","fa fa-plus");
+		$("#"+data).css({"display":"none"});
+	}else if(data=='pro'){
+		$("#"+data+"-i").attr("class","fa fa-minus");
+		$("#"+data).css({"display":"block"});
+	}else{
+		$("#"+data+"-i").attr("class","fa fa-minus");
+		$("#"+data).css({"display":"block"});
+		$("#"+data).parent().siblings().find(".widget-body").css({"display":"none"});
+		$("#"+data).parent().siblings().find(".fa-minus").attr("class","fa fa-plus");
+	}
+}
+
+function successBtn(){
+	$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
+	$("#pageBody").load(__ctxPath+"/jsp/OrderListView.jsp");
+}
+</script> 
+</head>
+<body>
+<input type="hidden" id="ctxPath" value="${pageContext.request.contextPath}" />
+<!-- Main Container -->
+<div class="main-container container-fluid">
+    <!-- 内容显示区域 -->
+    <div class="page-container">
+            <!-- Page Body -->
+            <div class="page-body" id="pageBodyRight">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h5 class="widget-caption">对账明细</h5>
+                                <div class="widget-buttons">
+                                    <a href="#" data-toggle="maximize"></a>
+                                    <a href="#" data-toggle="collapse" onclick="tab('pro');">
+                                        <i class="fa fa-minus" id="pro-i"></i>
+                                    </a>
+                                    <a href="#" data-toggle="dispose"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body" id="pro">
+                                <div class="table-toolbar">
+                               			<ul class="topList clearfix"> 
+	                               			<li class="col-md-4">
+		                						<label class="titname">订单开始时间：</label>
+			                    				<input type="text" id="timeStart_input" />
+			                   				</li>
+			                   				<li class="col-md-4">
+			                    				<label class="titname">订单结束时间：</label>
+			                    				<input type="text" id="timeEnd_input" />
+			                				</li>
+                                			<li class="col-md-4">
+                                					<label class="titname">所属业务接口：</label>
+                                    				<select id="bpId_input" style="padding:0 0;">
+			                                		</select>
+                            				</li>
+                                			<li class="col-md-4">
+                               					<label class="titname">订单终端类型：</label>
+                               					<select id="finalPayTerminal_input" style="padding:0 0;">
+	                               					<option value="">全部</option>
+	                               					<option value="01">PC端</option>
+													<option value="02">移动端</option>
+													<option value="03">PAD端</option>
+													<option value="04">POS端</option>
+			                                	</select>
+                               				</li>
+                               				<li class="col-md-4">
+                               					<label class="titname">支付渠道：</label>
+	                               				<select id="payType_input" style="padding:0 0;">
+	                               				</select>
+                               				</li>
+                               				<li class="col-md-4">
+                           					<label class="titname">支付服务：</label>
+	                           					<select id="payService_input" style="padding:0 0;">
+			                                	</select>
+		                                	</li>
+		                                	<li class="col-md-4">
+                           					<label class="titname">支付方式：</label>
+	                           					<select id="payBank_input" style="padding:0 0;">
+			                                	</select>
+		                                	</li>
+		                                	<li class="col-md-4">
+	                            				<label class="titname">支付账号：</label>
+	                            				<input type="text" id="userName_input"/>
+                            				</li>      
+                            				<li class="col-md-4">
+                            					<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
+                            					<a class="btn btn-default shiny" onclick="reset();">重置</a>&nbsp;&nbsp;
+												<a class="btn btn-yellow" onclick="excelBalance();">导出Excel</a>
+											</li>
+                                		</ul>
+                                	<!--隐藏参数-->
+                           			<form id="olv_form" action="">
+										<input type="hidden" id="pageSize_form" name="pageSize" value="10"/>
+										<input type="hidden" id="userName_form" name="userName"/>
+										<input type="hidden" id="page_form" name="page" value="1">
+										<input type="hidden" id="bpId_form" name="bpId"/>
+										<input type="hidden" id="payType_form" name="payType"/>
+										<input type="hidden" id="startTime_form" name="startTime"/>
+										<input type="hidden" id="endTime_form" name="endTime"/>
+										<input type="hidden" id="finalPayTerminal_form" name="finalPayTerminal"/>
+										<input type="hidden" id="payBank_form" name="payBank"/>
+										<input type="hidden" id="sortType_form" name="sortType" value="-1"/>
+										<input type="hidden" id="sortParam_form" name="sortParam" value="payDate"/>
+										<input type="hidden" id="payService_form" name="payService"/>
+                                  	</form>
+                                <!--数据列表显示区域-->
+                            	<div style="width:100%; min-height:400px; overflow-Y: hidden;">
+                                <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
+                                    <thead>
+                                        <tr role="row" style='height:35px;'>
+                                            <th width="3%" style="text-align: center;">业务流水号</th>
+                                            <th width="3%" style="text-align: center;">业务接口</th>
+                                            <th width="3%" style="text-align: center;">订单号</th>
+                                            <th width="3%" style="text-align: center;">付款时间</th>
+                                            <th width="2%" style="text-align: center;">订单内容</th>
+                                            <th width="2%" style="text-align: center;">支付账号</th>
+                                            <th width="2%" style="text-align: center;display:none;">UID</th>
+                                            <th width="2%" style="text-align: center;">支付金额(元)</th>
+                                            <th width="2%" style="text-align: center;">应付金额(元)</th>
+                                            <th width="2%" style="text-align: center;">订单终端类型</th>
+                                            <th width="2%" style="text-align: center;">支付渠道</th>
+                                            <th width="2%" style="text-align: center;">支付服务</th>
+                                            <th width="2%" style="text-align: center;">支付方式</th>
+                                            <th width="2%" style="text-align: center;">支付平台流水号</th>
+                                            <th width="2%" style="text-align: center;">费率</th>
+                                            <th width="2%" style="text-align: center;">手续费支出(元)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                </div>
+
+                                <div style="width:100%;height;100px;margin-top:10px;">
+                        			<table style="width:200px;height:60px;text-align:left;">
+                        				<tr>
+                        					<td>收入合计:</td>
+                        					<td><span id="incomingCount"></span></td>
+                        				<tr>
+                        				<tr>
+	                    					<td>渠道费支出合计:</td>
+	                    					<td><span id="payCount"></span></td>
+                    					<tr>
+                        			</table>
+                       			</div>
+                                
+                                <!--分页工具-->
+                                <div id="olvPagination"></div>
+                            </div>
+                            <!--模板数据-->
+							<!-- Templates -->
+							<!--默认隐藏-->
+							<p style="display:none">
+								<textarea id="olv-list" rows="0" cols="0">
+								{#template MAIN}
+									{#foreach $T.list as Result}
+										<tr class="gradeX" id="gradeX{$T.Result.orderTradeNo}" onclick="" style="height:35px;">
+											<!--业务流水号-->	
+											<td align="center" id="bpOrderId_{$T.Result.bpOrderId}">
+												{#if $T.Result.bpOrderId != '[object Object]'}{$T.Result.bpOrderId}
+				                   				{#/if}
+											</td>
+											<!--业务接口-->
+											<td align="center" id="outOrderNo_{$T.Result.bpName}">
+												{#if $T.Result.bpName != '[object Object]'}{$T.Result.bpName}
+				                   				{#/if}
+											</td>
+											<!--订单号-->
+											<td align="center" id="accountNo_{$T.Result.orderTradeNo}">
+												{#if $T.Result.orderTradeNo!= '[object Object]'}{$T.Result.orderTradeNo}
+				                   				{#/if}
+											</td>
+											<!--付款时间-->
+											<td align="center" id="memberNo_{$T.Result.payDate}">
+												{#if $T.Result.payDate!= '[object Object]'}{$T.Result.payDate}
+				                   				{#/if}
+											</td>
+											<!--订单内容-->
+											<td align="center" id="orderStatusDesc_{$T.Result.content}">
+											{#if $T.Result.content!= '[object Object]'}{$T.Result.content}
+											{#/if}
+											</td>
+											<td align="center" id="userName_{$T.Result.orderTradeNo}">
+												{#if $T.Result.userName != '[object Object]'}{$T.Result.userName}
+				                   				{#/if}
+			                   				</td>
+											<!--UID-->
+											<td align="center" id="memberType_{$T.Result.unid}" style="display:none">
+												{#if $T.Result.unid != '[object Object]'}{$T.Result.unid}
+				                   				{#/if}
+											</td>
+											<!--支付金额(元)-->
+											<td align="center" id="paymentNo_{$T.Result.totalFee}">
+												{#if $T.Result.totalFee!= '[object Object]'}{$T.Result.totalFee}
+				                   				{#/if}
+											</td>
+											<!--应付金额(元)-->
+											<td align="center" id="salesPaymentNo_{$T.Result.needPayPrice}">
+												{#if $T.Result.needPayPrice != '[object Object]'}{$T.Result.needPayPrice}
+				                   				{#/if}
+											</td>
+											<!--订单终端类型-->
+											<td align="center" id="orderSource_{$T.Result.finalPayTerminalName}">
+												{#if $T.Result.finalPayTerminalName != '[object Object]'}{$T.Result.finalPayTerminalName}
+				                   				{#/if}
+											</td>
+											<!--支付渠道-->
+											<td align="center" id="orderType_{$T.Result.payTypeName}">
+												{#if $T.Result.payTypeName != '[object Object]'}{$T.Result.payTypeName}
+				                   				{#/if}
+											</td>
+											<!--支付服务-->
+											<td align="center" id="orderType_{$T.Result.payServiceName}">
+												{#if $T.Result.payServiceName != '[object Object]'}{$T.Result.payServiceName}
+				                   				{#/if}
+											</td>
+											<!--支付方式-->
+											<td align="center" id="orderType_{$T.Result.payBankName}">
+												{#if $T.Result.payBankName != '[object Object]'}{$T.Result.payBankName}
+				                   				{#/if}
+											</td>
+											<!--支付平台流水号-->
+											<td align="center" id="orderType_{$T.Result.paySerialNumber}">
+												{#if $T.Result.paySerialNumber != '[object Object]'}{$T.Result.paySerialNumber}
+				                   				{#/if}
+											</td>
+											<!--费率-->
+											<td align="center" id="orderType_{$T.Result.rate}">
+												{#if $T.Result.rate != '[object Object]'}{$T.Result.rate}
+				                   				{#/if}
+											</td>
+											<!--手续费支出(元)-->
+											<td align="center" id="orderType_{$T.Result.channelFeeCost}">
+												{#if $T.Result.channelFeeCost != '[object Object]'}{$T.Result.channelFeeCost}
+				                   				{#/if}
+											</td>
+											<!--议价收入(元)-->
+											<!-- <td align="center" id="orderType_{$T.Result.bargainIncome}" style="display:none;">
+												{#if $T.Result.bargainIncome != '[object Object]'}{$T.Result.bargainIncome}
+				                   				{#/if}
+											</td> -->
+							       		</tr>
+									{#/for}
+							    {#/template MAIN}	
+								</textarea>
+							</p>
+								
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+    </div>
+    <!-- /Page Container -->
+    <!-- Main Container -->
+</div>   
+<!--下载显示区域-->
+<div class="modal modal-darkorange" id="excelDiv">
+<div class="modal-dialog" style="width: 450px;height:50%;margin: 10% auto;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closeExcelDiv();">×</button>
+            <h4 class="modal-title" id="dowloadTitle">下载</h4>
+        </div>
+        <div class="page-body" id="pageBodyRight">
+        	<a class="btn btn-default shiny" href="" id="downloadLink">点击下载</a>
+        </div>
+        
+		<!--关闭按钮-->
+        <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" onclick="closeExcelDiv();" type="button">关闭</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div> 
+<script>
+//页面加载完成后执行函数
+jQuery(document).ready(
+		function () {
+			$('#divTitle').mousedown(
+				function (event) {
+					var isMove = true;
+					var abs_x = event.pageX - $('#btDiv').offset().left;
+					var abs_y = event.pageY - $('#btDiv').offset().top;
+					$(document).mousemove(function (event) {
+						if (isMove) {
+							var obj = $('#btDiv');
+							obj.css({'left':event.pageX - abs_x, 'top':event.pageY - abs_y});
+							}
+						}
+					).mouseup(
+						function () {
+							isMove = false;
+						}
+					);
+				}
+			);
+		}
+	);	
+</script> 
+</body>
+</html>

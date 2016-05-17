@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.SiteMapMapper" >
+	<select id="selectChallelUrl" parameterType="java.util.Map" resultType="java.lang.String">
+    select channel_url 
+    from shop_channels where is_show = 1
+    limit #{startRecord},#{pageCount}
+	</select>
+	
+	<select id="selectArticleUrl" parameterType="java.util.Map" resultType="java.lang.String">
+  	select link 
+  	from shop_notices where status = 1 AND link is not NULL and link != ''
+  	limit #{startRecord},#{pageCount}
+	</select>
+	
+	<select id="selectPromotionUrl" parameterType="java.util.Map" resultType="java.lang.String">
+  	select promotion_link 
+  	from promotions where promotion_begin_time &lt;= #{promotionTime,jdbcType=TIMESTAMP} and promotion_end_time &gt;= #{promotionTime,jdbcType=TIMESTAMP} and 
+  	promotion_status = 1
+  	limit #{startRecord},#{pageCount} 	    
+	</select>
+	
+	<select id="selectChannelCount" resultType="java.lang.Integer">
+  	select count(sid) 
+  	from shop_channels where is_show = 1
+	</select>
+		
+	<select id="selectArticleCount" resultType="java.lang.Integer">
+  	select count(sid) 
+  	from shop_notices where status = 1 AND link is not NULL and link != ''
+	</select>
+	
+	<select id="selectPromotionCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(sid) 
+  	from promotions where promotion_begin_time &lt;= #{promotionTime,jdbcType=TIMESTAMP} and promotion_end_time &gt;= #{promotionTime,jdbcType=TIMESTAMP} and 
+  	promotion_status = 1
+	</select>
+	
+	<select id="selectBrandCount" resultType="java.lang.Integer">
+	    select count(sid)
+	    from seo_brand where flag = 1 AND brand_link is not NULL and brand_link != ''
+	</select>
+	
+	<select id="selectHotWordCount" resultType="java.lang.Integer">
+	    select count(sid)
+	    from seo_hot_word where flag = 1 AND hot_link is not NULL and hot_link != ''
+	</select>
+	
+	<select id="selectLongKeyWordCount" resultType="java.lang.Integer">
+	    select count(sid)
+	    from seo_long_keyword where flag = 1 AND long_link is not NULL and long_link != ''
+	</select>
+	
+	<select id="selectBrandLinks" parameterType="java.util.Map" resultType="java.lang.String">
+	  	select brand_link 
+	  	from seo_brand where flag = 1 AND brand_link is not NULL and brand_link != ''
+	  	limit #{startRecord},#{pageCount}
+	</select>
+	
+	<select id="selectHotWordLinks" parameterType="java.util.Map" resultType="java.lang.String">
+	  	select hot_link 
+	  	from seo_hot_word where flag = 1 AND hot_link is not NULL and hot_link != ''
+	  	limit #{startRecord},#{pageCount}
+	</select>
+	
+	<select id="selectLongKeyWordLinks" parameterType="java.util.Map" resultType="java.lang.String">
+	  	select long_link 
+	  	from seo_long_keyword where flag = 1 AND long_link is not NULL and long_link != ''
+	  	limit #{startRecord},#{pageCount}
+	</select>
+</mapper>

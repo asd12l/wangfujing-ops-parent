@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.CommentParametersMapper" >
+  <resultMap id="CommentParametersResultMap" type="com.wangfj.wms.domain.entity.CommentParameters" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="comment_times" property="commentTimes" jdbcType="INTEGER" />
+    <result column="intervals" property="intervals" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, comment_times, intervals
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="CommentParametersResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment_parameters
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="querytByselective" resultMap="CommentParametersResultMap" parameterType="com.wangfj.wms.domain.entity.CommentParameters" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment_parameters
+    <where>
+    	1=1
+    	<if test="sid != null" >
+    	 and sid = #{sid,jdbcType=INTEGER}
+      </if>
+      <if test="commentTimes != null" >
+       and comment_times = #{commentTimes,jdbcType=INTEGER}
+      </if>
+      <if test="intervals != null" >
+      and intervals = #{intervals,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment_parameters
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.CommentParameters" >
+    insert into comment_parameters (sid, comment_times, intervals
+      )
+    values (#{sid,jdbcType=INTEGER}, #{commentTimes,jdbcType=INTEGER}, #{intervals,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.CommentParameters" >
+    insert into comment_parameters
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="commentTimes != null" >
+        comment_times,
+      </if>
+      <if test="intervals != null" >
+        intervals,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="commentTimes != null" >
+        #{commentTimes,jdbcType=INTEGER},
+      </if>
+      <if test="intervals != null" >
+        #{intervals,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.CommentParameters" >
+    update comment_parameters
+    <set >
+      <if test="commentTimes != null" >
+        comment_times = #{commentTimes,jdbcType=INTEGER},
+      </if>
+      <if test="intervals != null" >
+        intervals = #{intervals,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.CommentParameters" >
+    update comment_parameters
+    set comment_times = #{commentTimes,jdbcType=INTEGER},
+      intervals = #{intervals,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

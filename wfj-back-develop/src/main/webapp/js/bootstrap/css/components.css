@@ -1,0 +1,43 @@
+/***
+Input icons
+***/
+.input-icon {
+  position: relative;
+}
+.input-group .input-icon > .form-control {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  -ms-border-radius: 4px 0 0 4px;
+  -o-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+.input-icon > i {
+  color: #ccc;
+  display: block;
+  position: absolute;
+  margin: 0px 0px 0px -30px;
+  z-index: 3;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  text-align: center;
+}
+.modal .input-icon > i {
+  z-index: 10055;
+}
+.has-success .input-icon > i {
+  color: #45b6af;
+}
+.has-warning .input-icon > i {
+  color: #dfba49;
+}
+.has-info .input-icon > i {
+  color: #89c4f4;
+}
+.has-error .input-icon > i {
+  color: #f3565d;
+}
+.input-icon > input {
+    padding-left: 1px;
+    padding-right: 1px;
+}

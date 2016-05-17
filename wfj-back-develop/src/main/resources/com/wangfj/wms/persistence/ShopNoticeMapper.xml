@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.ShopNoticeMapper" >
+  <resultMap id="ShopNoticeResultMap" type="com.wangfj.wms.domain.entity.ShopNotice" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="notice_type_sid" property="noticeTypeSid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="notices_time" property="noticesTime" jdbcType="TIMESTAMP" />
+    <result column="seq" property="seq" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, notice_type_sid, title, content, notices_time, seq, status, link
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ShopNoticeResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_notices
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+   <select id="selectByNoticeType" resultMap="ShopNoticeResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_notices
+    where notice_type_sid = #{typeSid,jdbcType=INTEGER}
+    order by
+    	seq asc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop_notices
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.ShopNotice" >
+    insert into shop_notices (sid, notice_type_sid, title, 
+      content, notices_time, seq, 
+      status, link)
+    values (#{sid,jdbcType=INTEGER}, #{noticeTypeSid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{noticesTime,jdbcType=TIMESTAMP}, #{seq,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.ShopNotice" >
+    insert into shop_notices
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="noticeTypeSid != null" >
+        notice_type_sid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="noticesTime != null" >
+        notices_time,
+      </if>
+      <if test="seq != null" >
+        seq,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="link != null" >
+        link,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTypeSid != null" >
+        #{noticeTypeSid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="noticesTime != null" >
+        #{noticesTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="link != null" >
+        #{link,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.ShopNotice" >
+    update shop_notices
+    <set >
+      <if test="noticeTypeSid != null" >
+        notice_type_sid = #{noticeTypeSid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="noticesTime != null" >
+        notices_time = #{noticesTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seq != null" >
+        seq = #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="link != null" >
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.ShopNotice" >
+    update shop_notices
+    set notice_type_sid = #{noticeTypeSid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      notices_time = #{noticesTime,jdbcType=TIMESTAMP},
+      seq = #{seq,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      link = #{link,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.MobilePromotionProductMapper" >
+  <resultMap id="MobilePromotionProductResultMap" type="com.wangfj.wms.domain.entity.MobilePromotionProduct" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="promotion_sid" property="promotionSid" jdbcType="INTEGER" />
+    <result column="product_sid" property="productSid" jdbcType="INTEGER" />
+     <result column="shop_sid" property="shopSid" jdbcType="INTEGER" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="supplySid" property="supplySid" jdbcType="VARCHAR" />
+    <result column="stock_flag" property="stockFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, promotion_sid, product_sid,shop_sid, seq, stock_flag,supplySid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="MobilePromotionProductResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mobile_promotion_product
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="queryBySelect" resultMap="MobilePromotionProductResultMap" parameterType="com.wangfj.wms.domain.entity.MobilePromotionProduct" >
+    select 
+    <include refid="Base_Column_List" />
+    from mobile_promotion_product
+    <where>
+    	1=1
+    	 <if test="shopSid != null and shopSid != '' " >
+		and  shop_sid = #{shopSid} 
+		 </if>
+    	 <if test="promotionSid != null and promotionSid != '' " >
+		and  promotion_sid = #{promotionSid,jdbcType=INTEGER} 
+		 </if>
+    	 <if test="productSid != null and shopSid != '' " >
+		and  product_sid = #{productSid,jdbcType=INTEGER} 
+		 </if>
+    	 <if test="supplySid != null and shopSid != '' " >
+		and  supplySid = #{supplySid,jdbcType=VARCHAR} 
+		 </if>
+    </where>
+  </select>
+  
+  
+   <select id="selectByPromotionSid" resultMap="MobilePromotionProductResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mobile_promotion_product
+    where promotion_sid = #{promotionSid,jdbcType=INTEGER}
+    order by seq asc
+    
+  </select>
+  
+   <select id="selectByStockFlag" resultMap="MobilePromotionProductResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mobile_promotion_product
+    where promotion_sid = #{promotionSid,jdbcType=INTEGER}
+    and stock_flag=1
+    order by seq asc
+    
+  </select>
+  
+  <select id="selectMaxSid" resultType="java.lang.Integer">
+    select max(sid)
+    from mobile_promotion_product
+  </select>
+  
+  <select id="queryMaxSeqBypromotionSid" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select max(seq)
+    from mobile_promotion_product
+    where promotion_sid= #{promotionSid}
+  </select>
+  
+  <select id="queryCountSeqBypromotionSid" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(*)
+    from mobile_promotion_product
+    where promotion_sid= #{promotionSid}
+  </select>
+  	<select id="queryExist" parameterType="com.wangfj.wms.domain.entity.MobilePromotionProduct" resultType="java.lang.Integer" >
+	  select count(*) from  mobile_promotion_product  
+	  <where>1=1
+		        <if test="productSid != null and productSid != '' " >
+				      and  product_sid = #{productSid} 
+				</if>
+				<if test="shopSid != null and shopSid != '' " >
+				      and  shop_sid = #{shopSid} 
+				</if>
+				<if test="promotionSid != null and promotionSid != '' " >
+				      and promotion_sid = #{promotionSid} 
+				</if>
+				<if test="supplySid != null and supplySid != '' " >
+				      and supplySid = #{supplySid} 
+				</if>
+
+	   </where>
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mobile_promotion_product
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByInfo" parameterType="com.wangfj.wms.domain.entity.MobilePromotionProduct" >
+		 delete from mobile_promotion_product  
+		 <where>
+		 promotion_sid= #{promotionSid} and product_sid = #{productSid}
+		  <if test="shopSid != null and shopSid != '' " >
+				      and  shop_sid = #{shopSid} 
+		 </if>
+		 </where> 
+		  
+	</delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.MobilePromotionProduct" >
+    insert into mobile_promotion_product (sid, promotion_sid, product_sid, shop_sid,
+      seq,stock_flag,supplySid)
+    values (#{sid,jdbcType=INTEGER}, #{promotionSid,jdbcType=INTEGER}, #{productSid,jdbcType=INTEGER}, #{shopSid,jdbcType=INTEGER}, 
+      #{seq,jdbcType=INTEGER},#{stockFlag,jdbcType=INTEGER},#{supplySid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.MobilePromotionProduct" >
+    insert into mobile_promotion_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="promotionSid != null" >
+        promotion_sid,
+      </if>
+      <if test="productSid != null" >
+        product_sid,
+      </if>
+       <if test="shopSid != null" >
+        shop_sid,
+      </if>
+      <if test="seq != null" >
+        seq,
+      </if>
+      <if test="stockFlag != null" >
+        stock_flag,
+      </if>
+      <if test="supplySid != null" >
+        supplySid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="promotionSid != null" >
+        #{promotionSid,jdbcType=INTEGER},
+      </if>
+      <if test="productSid != null" >
+        #{productSid,jdbcType=INTEGER},
+      </if>
+      <if test="shopSid != null" >
+        #{shopSid,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="stockFlag != null" >
+        #{stockFlag,jdbcType=INTEGER},
+      </if>
+      <if test="supplySid != null" >
+        #{supplySid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.MobilePromotionProduct" >
+    update mobile_promotion_product
+    <set >
+      <if test="promotionSid != null" >
+        promotion_sid = #{promotionSid,jdbcType=INTEGER},
+      </if>
+      <if test="productSid != null" >
+        product_sid = #{productSid,jdbcType=INTEGER},
+      </if>
+      <if test="shopSid != null" >
+        shop_sid = #{shopSid,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="stockFlag != null" >
+        stock_flag=#{stockFlag,jdbcType=INTEGER},
+      </if>
+      <if test="supplySid != null" >
+        supplySid=#{supplySid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.MobilePromotionProduct" >
+    update mobile_promotion_product
+    set promotion_sid = #{promotionSid,jdbcType=INTEGER},
+      product_sid = #{productSid,jdbcType=INTEGER},
+      shop_sid = #{shopSid,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      stock_flag = #{stockFlag,jdbcType=INTEGER},
+      supplySid = #{supplySid,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

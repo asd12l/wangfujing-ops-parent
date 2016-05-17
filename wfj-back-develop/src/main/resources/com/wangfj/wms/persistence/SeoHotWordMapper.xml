@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.SeoHotWordMapper" >
+  <resultMap id="SeoHotWordResultMap" type="com.wangfj.wms.domain.entity.SeoHotWord" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="hot_name" property="hotName" jdbcType="VARCHAR" />
+    <result column="hot_link" property="hotLink" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, hot_name, hot_link, flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SeoHotWordResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from seo_hot_word
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectListByParam" parameterType="com.wangfj.wms.domain.entity.SeoHotWord" resultMap="SeoHotWordResultMap">
+  	select 
+			<include refid="Base_Column_List" />
+		from 
+	       seo_hot_word
+		<where>
+		  <if test="flag != null and flag !='' " >
+	     	  flag = #{flag,jdbcType=INTEGER}
+	     </if>
+		</where>
+  </select>
+  
+   <select id="queryAllHotWord" resultMap="SeoHotWordResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from seo_hot_word
+  </select>
+  
+  
+  <select id="selectCountByHotName" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*)
+    from seo_hot_word 
+      where hot_name = #{hotName,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from seo_hot_word
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.SeoHotWord" >
+    insert into seo_hot_word (sid, hot_name, hot_link, 
+      flag)
+    values (#{sid,jdbcType=INTEGER}, #{hotName,jdbcType=VARCHAR}, #{hotLink,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=INTEGER})
+  </insert>
+  <!--插入不重复的brandName -->
+  <!-- 
+   <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.SeoHotWord" >
+   INSERT INTO seo_hot_word(hot_name,hot_link,flag) SELECT #{hotName,jdbcType=VARCHAR}, #{hotLink,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=INTEGER} FROM DUAL WHERE #{hotName,jdbcType=VARCHAR} NOT IN (SELECT hot_name FROM seo_hot_word);
+  </insert>
+  -->
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.SeoHotWord" >
+    insert into seo_hot_word
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="hotName != null" >
+        hot_name,
+      </if>
+      <if test="hotLink != null" >
+        hot_link,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="hotName != null" >
+        #{hotName,jdbcType=VARCHAR},
+      </if>
+      <if test="hotLink != null" >
+        #{hotLink,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.SeoHotWord" >
+    update seo_hot_word
+    <set >
+      <if test="hotName != null" >
+        hot_name = #{hotName,jdbcType=VARCHAR},
+      </if>
+      <if test="hotLink != null" >
+        hot_link = #{hotLink,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.SeoHotWord" >
+    update seo_hot_word
+    set hot_name = #{hotName,jdbcType=VARCHAR},
+      hot_link = #{hotLink,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

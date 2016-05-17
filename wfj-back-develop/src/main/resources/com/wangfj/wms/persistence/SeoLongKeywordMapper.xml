@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.SeoLongKeywordMapper" >
+  <resultMap id="SeoLongKeywordResultMap" type="com.wangfj.wms.domain.entity.SeoLongKeyword" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="long_name" property="longName" jdbcType="VARCHAR" />
+    <result column="long_link" property="longLink" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, long_name, long_link, flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SeoLongKeywordResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from seo_long_keyword
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectListByParam" parameterType="com.wangfj.wms.domain.entity.SeoLongKeyword" resultMap="SeoLongKeywordResultMap">
+  	select 
+			<include refid="Base_Column_List" />
+		from 
+	       seo_long_keyword
+		<where>
+		  <if test="flag != null and flag !='' " >
+	     	  flag = #{flag,jdbcType=INTEGER}
+	     </if>
+		</where>
+  </select>
+  
+  
+  <select id="queryAllLongkey" resultMap="SeoLongKeywordResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from seo_long_keyword
+  </select>
+  
+  <select id="selectCountByLongName" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*)
+    from seo_long_keyword 
+      where long_name = #{longName,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from seo_long_keyword
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.SeoLongKeyword" >
+    insert into seo_long_keyword (sid, long_name, long_link, 
+      flag)
+    values (#{sid,jdbcType=INTEGER}, #{longName,jdbcType=VARCHAR}, #{longLink,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=INTEGER})
+  </insert>
+  <!--
+   <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.SeoLongKeyword" >
+   INSERT INTO seo_long_keyword(long_name,long_link,flag) SELECT #{longName,jdbcType=VARCHAR}, #{longLink,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=INTEGER} FROM DUAL WHERE #{longName,jdbcType=VARCHAR} NOT IN (SELECT long_name FROM seo_long_keyword);
+  </insert>
+  -->
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.SeoLongKeyword" >
+    insert into seo_long_keyword
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="longName != null" >
+        long_name,
+      </if>
+      <if test="longLink != null" >
+        long_link,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="longName != null" >
+        #{longName,jdbcType=VARCHAR},
+      </if>
+      <if test="longLink != null" >
+        #{longLink,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.SeoLongKeyword" >
+    update seo_long_keyword
+    <set >
+      <if test="longName != null" >
+        long_name = #{longName,jdbcType=VARCHAR},
+      </if>
+      <if test="longLink != null" >
+        long_link = #{longLink,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.SeoLongKeyword" >
+    update seo_long_keyword
+    set long_name = #{longName,jdbcType=VARCHAR},
+      long_link = #{longLink,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.PromotionCornerPicMapper" >
+  <resultMap id="PromotionCornerPicResultMap" type="com.wangfj.wms.domain.entity.PromotionCornerPic" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="corner_name" property="cornerName" jdbcType="VARCHAR" />
+    <result column="pic_link" property="picLink" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, corner_name, pic_link, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="PromotionCornerPicResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from promotion_corner_pic
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectCountByPrams" resultType="java.lang.Integer" parameterType="com.wangfj.wms.domain.view.CornerPicVO">
+  	select count(sid)
+  	<include refid="Base_Column_List" />
+  	from promotion_corner_pic
+  	<where>
+  	 	<if test="sid != null and sid !='' ">
+  			sid = #{sid}
+  		</if>
+  		<if test="cornerName != null and cornerName !='' ">
+			and corner_name like "%"#{cornerName,jdbcType=VARCHAR}"%"
+		</if>
+ 
+		<if test="endTime != null and endTime !='' ">
+			and create_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
+		</if>
+		
+		<if test="startTime != null and startTime !=''" >
+       and create_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
+      </if>
+		
+  	</where>
+  </select>
+  
+  <select id="queryMaxSid" resultType="java.lang.Integer">
+		SELECT max(p.sid) 
+		from promotion_corner_pic p  
+		
+  </select>
+   <select id="selectByPrams" resultMap="PromotionCornerPicResultMap" parameterType="com.wangfj.wms.domain.view.CornerPicVO">
+  	select
+  	<include refid="Base_Column_List" />
+  	from promotion_corner_pic
+  	<where>1=1
+  		<if test="sid != null and sid !='' ">
+  			and sid = #{sid}
+  		</if>
+  		<if test="cornerName != null and cornerName !='' ">
+			and corner_name like "%"#{cornerName,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="endTime != null and endTime !='' ">
+			and create_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
+		</if>
+		<if test="startTime != null and startTime !='' ">
+			and create_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
+		</if>
+  	</where>
+  	order by sid desc
+  	limit
+  		#{startRecords},#{pageSize}
+  </select>
+
+  
+  <select id="selectAllCorners" resultMap="PromotionCornerPicResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from promotion_corner_pic
+    order by create_time desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from promotion_corner_pic
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.PromotionCornerPic" >
+    insert into promotion_corner_pic (sid, corner_name, pic_link, 
+      create_time)
+    values (#{sid,jdbcType=INTEGER}, #{cornerName,jdbcType=VARCHAR}, #{picLink,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.PromotionCornerPic" >
+    insert into promotion_corner_pic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="cornerName != null" >
+        corner_name,
+      </if>
+      <if test="picLink != null" >
+        pic_link,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="cornerName != null" >
+        #{cornerName,jdbcType=VARCHAR},
+      </if>
+      <if test="picLink != null" >
+        #{picLink,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.PromotionCornerPic" >
+    update promotion_corner_pic
+    <set >
+      <if test="cornerName != null" >
+        corner_name = #{cornerName,jdbcType=VARCHAR},
+      </if>
+      <if test="picLink != null" >
+        pic_link = #{picLink,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.PromotionCornerPic" >
+    update promotion_corner_pic
+    set corner_name = #{cornerName,jdbcType=VARCHAR},
+      pic_link = #{picLink,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

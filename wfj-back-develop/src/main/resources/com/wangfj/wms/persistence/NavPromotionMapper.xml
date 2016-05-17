@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.NavPromotionMapper" >
+  <resultMap id="NavPromotionResultMap" type="com.wangfj.wms.domain.entity.NavPromotion" >
+  	<result column="sid" property="sid" jdbcType="BIGINT" />
+    <result column="nav_sid" property="navSid" jdbcType="BIGINT" />
+    <result column="promotion_sid" property="promotionSid" jdbcType="INTEGER" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="promotion_name" property="promotionName" jdbcType="VARCHAR" />
+    <result column="promotion_link" property="promotionLink" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <sql id="Base_Column_List" >
+    sid,nav_sid, promotion_sid,seq,is_show,flag,promotion_name,promotion_link
+  </sql>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.NavPromotion" >
+    insert into nav_promotion (sid,nav_sid, promotion_sid,seq,is_show,flag,promotion_name,promotion_link)
+    values (#{sid,jdbcType=BIGINT},#{navSid,jdbcType=BIGINT}, #{promotionSid,jdbcType=INTEGER},#{seq,jdbcType=INTEGER},#{isShow,jdbcType=INTEGER},#{flag,jdbcType=INTEGER},#{promotionName,jdbcType=VARCHAR},#{promotionLink,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.NavPromotion" >
+    insert into nav_promotion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="navSid != null" >
+        nav_sid,
+      </if>
+      <if test="promotionSid != null" >
+        promotion_sid,
+      </if>
+       <if test="seq != null" >
+        seq,
+      </if>
+        <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="promotionName != null" >
+        promotion_name,
+      </if>
+      <if test="promotionLink != null" >
+        promotion_link,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+    	<if test="sid != null" >
+        #{sid,jdbcType=BIGINT},
+      </if>
+      <if test="navSid != null" >
+        #{navSid,jdbcType=BIGINT},
+      </if>
+      <if test="promotionSid != null" >
+        #{promotionSid,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="promotionName != null" >
+        #{promotionName,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionLink != null" >
+        #{promotionLink,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <select id="selectByNavSid" resultMap="NavPromotionResultMap" parameterType="com.wangfj.wms.domain.entity.NavPromotion"  >
+    select 
+    <include refid="Base_Column_List" />
+    from nav_promotion  
+    <where>
+	       <if test="navSid != null">
+				 nav_sid = #{navSid,jdbcType=BIGINT}
+			</if>
+	 </where>
+	 order by seq asc
+  </select>
+  
+  <select id="selectByInfo" resultMap="NavPromotionResultMap" parameterType="com.wangfj.wms.domain.entity.NavPromotion"  >
+    select 
+    <include refid="Base_Column_List" />
+    from nav_promotion  
+    <where>1=1
+	       <if test="navSid != null">
+				and nav_sid = #{navSid,jdbcType=BIGINT}
+			</if>
+			<if test="navSid != null">
+				and promotion_sid = #{promotionSid,jdbcType=INTEGER}
+			</if>
+	 </where>
+	 group by promotion_sid
+  </select>
+  
+  <select id="countNavPromotionRecord"  parameterType="com.wangfj.wms.domain.entity.NavPromotion"  resultType="Integer">
+    select 
+    count(*) 
+    from nav_promotion
+    where nav_sid = #{navSid,jdbcType=BIGINT} and promotion_sid = #{promotionSid,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectMaxSeq"  parameterType="java.lang.Long" resultType="Integer">
+    select IFNULL(max(seq),0)
+    from nav_promotion
+    where nav_sid=#{navSid,jdbcType=BIGINT}
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.NavPromotion" >
+  update nav_promotion
+  <set>
+  	<if test="navSid!=null">
+  	nav_sid = #{navSid,jdbcType=BIGINT},
+  	</if>
+  	<if test="promotionSid!=null">
+  	promotion_sid=#{promotionSid,jdbcType=INTEGER},
+  	</if>
+  	<if test="seq!=null">
+  	seq=#{seq,jdbcType=INTEGER},
+  	</if>
+  	<if test="isShow!=null">
+  	is_show=#{isShow,jdbcType=INTEGER},
+  	</if>
+  	<if test="flag!=null">
+  	flag=#{flag,jdbcType=INTEGER},
+  	</if>
+  	<if test="promotionName!=null">
+  	promotion_name=#{promotionName,jdbcType=VARCHAR},
+  	</if>
+  	<if test="promotionLink!=null">
+  	promotion_link=#{promotionLink,jdbcType=VARCHAR},
+  	</if>
+  </set>
+  where sid=#{sid,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteByNavPro"  parameterType="com.wangfj.wms.domain.entity.NavPromotion" >
+    delete from nav_promotion
+    where promotion_sid = #{promotionSid,jdbcType=BIGINT} and nav_sid = #{navSid,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteBySid"  parameterType="com.wangfj.wms.domain.entity.NavPromotion" >
+    delete from nav_promotion
+    where sid = #{sid,jdbcType=BIGINT}
+  </delete>
+  
+</mapper>

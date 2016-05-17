@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.PriceRuleMapper" >
+  <resultMap id="PriceRuleResultMap" type="com.wangfj.wms.domain.entity.PriceRule" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="tsid" property="tsid" jdbcType="INTEGER" />
+    <result column="page_layout_sid" property="pageLayoutSid" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="DECIMAL" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="supplySids" property="supplysids" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, tsid, page_layout_sid, value, begin_time, end_time, flag, supplySids
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="PriceRuleResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from price_rule
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="queryBySelect" resultMap="PriceRuleResultMap" parameterType="com.wangfj.wms.domain.entity.PriceRule" >
+    select 
+    <include refid="Base_Column_List" />
+    from price_rule
+    <where>
+    	<if test="tsid != null" >
+        sid = #{sid,jdbcType=INTEGER}
+     	</if>
+    	<if test="tsid != null" >
+        and tsid = #{tsid,jdbcType=INTEGER}
+      </if>
+      <if test="pageLayoutSid != null" >
+        and page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER}
+      </if>
+      <if test="value != null" >
+        and value = #{value,jdbcType=DECIMAL}
+      </if>
+      <if test="beginTime != null" >
+        and begin_time = #{beginTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null" >
+        and end_time = #{endTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="flag != null" >
+        and flag = #{flag,jdbcType=INTEGER}
+      </if>
+      <if test="supplysids != null" >
+        and supplySids = #{supplysids,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  
+  
+  <select id="queryPageLayoutByTime" resultMap="PriceRuleResultMap" parameterType="com.wangfj.wms.util.PriceRuleKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from price_rule
+    <where>
+    	flag=0
+    	 <if test="endDay != null" >
+        and begin_time &lt;= DATE_FORMAT(#{endDay},'%Y-%m-%d %T')
+      </if>
+      <if test="startDay != null" >
+       and begin_time &gt;= DATE_FORMAT(#{startDay},'%Y-%m-%d %T')
+      </if>
+    </where>
+  </select>
+  
+  <select id="changPriceBackByEndTime" resultMap="PriceRuleResultMap" parameterType="com.wangfj.wms.util.PriceRuleKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from price_rule
+    <where>
+    	flag=1
+    	 <if test="endDay != null" >
+        and end_time &lt;= DATE_FORMAT(#{endDay},'%Y-%m-%d %T')
+      </if>
+      <if test="startDay != null" >
+       and end_time &gt;= DATE_FORMAT(#{startDay},'%Y-%m-%d %T')
+      </if>
+    </where>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from price_rule
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.PriceRule" >
+    insert into price_rule (sid, tsid, page_layout_sid, 
+      value, begin_time, end_time, 
+      flag, supplySids)
+    values (#{sid,jdbcType=INTEGER}, #{tsid,jdbcType=INTEGER}, #{pageLayoutSid,jdbcType=INTEGER}, 
+      #{value,jdbcType=DECIMAL}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{flag,jdbcType=INTEGER}, #{supplysids,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.PriceRule" >
+    insert into price_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="tsid != null" >
+        tsid,
+      </if>
+      <if test="pageLayoutSid != null" >
+        page_layout_sid,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="supplysids != null" >
+        supplySids,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="tsid != null" >
+        #{tsid,jdbcType=INTEGER},
+      </if>
+      <if test="pageLayoutSid != null" >
+        #{pageLayoutSid,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=DECIMAL},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="supplysids != null" >
+        #{supplysids,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.PriceRule" >
+    update price_rule
+    <set >
+      <if test="tsid != null" >
+        tsid = #{tsid,jdbcType=INTEGER},
+      </if>
+      <if test="pageLayoutSid != null" >
+        page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=DECIMAL},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="supplysids != null" >
+        supplySids = #{supplysids,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.PriceRule" >
+    update price_rule
+    set tsid = #{tsid,jdbcType=INTEGER},
+      page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER},
+      value = #{value,jdbcType=DECIMAL},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      flag = #{flag,jdbcType=INTEGER},
+      supplySids = #{supplysids,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

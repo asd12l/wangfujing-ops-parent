@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.SalesMsgMapper" >
+  <resultMap id="SalesMsgResultMap" type="com.wangfj.wms.domain.entity.SalesMsg" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="daogou_name" property="daogouName" jdbcType="VARCHAR" />
+    <result column="support_count" property="supportCount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="shop_sid" property="shopSid" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, type, title, content, daogou_name, support_count, create_time, shop_sid, pic
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SalesMsgResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sales_msg
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sales_msg
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.SalesMsg" >
+    insert into sales_msg (sid, type, title, 
+      content, daogou_name, support_count, 
+      create_time, shop_sid, pic
+      )
+    values (#{sid,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{daogouName,jdbcType=VARCHAR}, #{supportCount,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=DATE}, #{shopSid,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.SalesMsg" >
+    insert into sales_msg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="daogouName != null" >
+        daogou_name,
+      </if>
+      <if test="supportCount != null" >
+        support_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="shopSid != null" >
+        shop_sid,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="daogouName != null" >
+        #{daogouName,jdbcType=VARCHAR},
+      </if>
+      <if test="supportCount != null" >
+        #{supportCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="shopSid != null" >
+        #{shopSid,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.SalesMsg" >
+    update sales_msg
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="daogouName != null" >
+        daogou_name = #{daogouName,jdbcType=VARCHAR},
+      </if>
+      <if test="supportCount != null" >
+        support_count = #{supportCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="shopSid != null" >
+        shop_sid = #{shopSid,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.SalesMsg" >
+    update sales_msg
+    set type = #{type,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      daogou_name = #{daogouName,jdbcType=VARCHAR},
+      support_count = #{supportCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=DATE},
+      shop_sid = #{shopSid,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectCountByParms" resultType="java.lang.Integer" parameterType="com.wangfj.wms.domain.view.saleMsgVO">
+  	select count(sid)
+  	<include refid="Base_Column_List" />
+  	from sales_msg
+  	<where>
+  	 	<if test="sid != null and sid !='' ">
+  			 sid = #{sid}
+  		</if>
+  		<if test="type != null and type !='' ">
+  			and type = #{type}
+  		</if>
+  		<if test="title != null and title !='' ">
+			and title like "%"#{title,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="content != null and content !='' ">
+  			and content = #{content}
+  		</if>
+  		<if test="daogouName != null and daogouName !='' ">
+  			and daogou_name = #{daogouName}
+  		</if>
+  		<if test="supportCount != null and supportCount !='' ">
+  			and support_count = #{supportCount}
+  		</if>
+  		<if test="createTime != null and createTime !='' ">
+  			and create_time = #{createTime}
+  		</if>
+  		<if test="shopSid != null and shopSid !='' ">
+  			and shop_sid = #{shopSid}
+  		</if>
+  		<if test="pic != null and pic !='' ">
+  			and pic = #{pic}
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="selectByPrams" resultMap="SalesMsgResultMap" parameterType="com.wangfj.wms.domain.view.saleMsgVO">
+  	select
+  	<include refid="Base_Column_List" />
+  	from sales_msg
+  	<where>
+  		<if test="sid != null and sid !='' ">
+  			 sid = #{sid}
+  		</if>
+  		<if test="type != null and type !='' ">
+  			and type = #{type}
+  		</if>
+  		<if test="title != null and title !='' ">
+			and title like "%"#{title,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="content != null and content !='' ">
+  			and content = #{content}
+  		</if>
+  		<if test="daogouName != null and daogouName !='' ">
+  			and daogou_name = #{daogouName}
+  		</if>
+  		<if test="supportCount != null and supportCount !='' ">
+  			and support_count = #{supportCount}
+  		</if>
+  		<if test="shopSid != null and shopSid !='' ">
+  			and shop_sid = #{shopSid}
+  		</if>
+  		<if test="pic != null and pic !='' ">
+  			and pic = #{pic}
+  		</if>
+  		<if test="startTime != null and startTime !='' ">
+			and create_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
+		</if>
+		<if test="endTime != null and endTime !='' ">
+			and create_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
+		</if>
+  	</where>
+  	order 
+  		by sid desc
+  	limit
+  		#{startRecords},#{pageSize}
+  </select>
+  
+</mapper>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.RolePermissionMapper" >
+  <resultMap id="RolePermissionResultMap" type="com.wangfj.wms.domain.entity.RolePermission" >
+    <id column="sid" property="sid" jdbcType="BIGINT" />
+    <result column="role_sid" property="roleSid" jdbcType="BIGINT" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="permission_type" property="permissionType" jdbcType="INTEGER" />
+    <result column="opttime" property="opttime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="col1" property="col1" jdbcType="VARCHAR" />
+    <result column="col2" property="col2" jdbcType="VARCHAR" />
+    <result column="col3" property="col3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, role_sid, permission, permission_type, opttime, status, col1, col2, col3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="RolePermissionResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_permission
+    where sid = #{sid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from role_permission
+    where sid = #{sid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.RolePermission" >
+    insert into role_permission (sid, role_sid, permission, 
+      permission_type, opttime, status, 
+      col1, col2, col3)
+    values (#{sid,jdbcType=BIGINT}, #{roleSid,jdbcType=BIGINT}, #{permission,jdbcType=VARCHAR}, 
+      #{permissionType,jdbcType=INTEGER}, #{opttime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{col1,jdbcType=VARCHAR}, #{col2,jdbcType=VARCHAR}, #{col3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.RolePermission" >
+    insert into role_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="roleSid != null" >
+        role_sid,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="permissionType != null" >
+        permission_type,
+      </if>
+      <if test="opttime != null" >
+        opttime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="col1 != null" >
+        col1,
+      </if>
+      <if test="col2 != null" >
+        col2,
+      </if>
+      <if test="col3 != null" >
+        col3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=BIGINT},
+      </if>
+      <if test="roleSid != null" >
+        #{roleSid,jdbcType=BIGINT},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        #{permissionType,jdbcType=INTEGER},
+      </if>
+      <if test="opttime != null" >
+        #{opttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="col1 != null" >
+        #{col1,jdbcType=VARCHAR},
+      </if>
+      <if test="col2 != null" >
+        #{col2,jdbcType=VARCHAR},
+      </if>
+      <if test="col3 != null" >
+        #{col3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.RolePermission" >
+    update role_permission
+    <set >
+      <if test="roleSid != null" >
+        role_sid = #{roleSid,jdbcType=BIGINT},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        permission_type = #{permissionType,jdbcType=INTEGER},
+      </if>
+      <if test="opttime != null" >
+        opttime = #{opttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="col1 != null" >
+        col1 = #{col1,jdbcType=VARCHAR},
+      </if>
+      <if test="col2 != null" >
+        col2 = #{col2,jdbcType=VARCHAR},
+      </if>
+      <if test="col3 != null" >
+        col3 = #{col3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.RolePermission" >
+    update role_permission
+    set role_sid = #{roleSid,jdbcType=BIGINT},
+      permission = #{permission,jdbcType=VARCHAR},
+      permission_type = #{permissionType,jdbcType=INTEGER},
+      opttime = #{opttime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      col1 = #{col1,jdbcType=VARCHAR},
+      col2 = #{col2,jdbcType=VARCHAR},
+      col3 = #{col3,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateStatusByroleSid" parameterType="com.wangfj.wms.domain.entity.RolePermission" >
+    update role_permission
+    <set>
+      status = #{status,jdbcType=INTEGER}
+    </set>
+    <where>
+    	<if test="sid != null" >
+	      and sid = #{sid,jdbcType=BIGINT}
+	    </if>
+    	<if test="roleSid != null" >
+	      and role_sid = #{roleSid,jdbcType=BIGINT}
+	    </if>
+	    <if test="permission != null" >
+	      and permission = #{permission,jdbcType=VARCHAR}
+	    </if>
+	    <if test="permissionType != null" >
+	      and permission_type = #{permissionType,jdbcType=INTEGER}
+	    </if>
+	    <if test="opttime != null" >
+	      and opttime = #{opttime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="col1 != null" >
+	      and col1 = #{col1,jdbcType=VARCHAR}
+	    </if>
+	    <if test="col2 != null" >
+	      and col2 = #{col2,jdbcType=VARCHAR}
+	    </if>
+	    <if test="col3 != null" >
+	      and col3 = #{col3,jdbcType=VARCHAR}
+	    </if>
+    </where>
+  </update>
+  
+  <select id="selectBySelective" resultMap="RolePermissionResultMap" 
+  			parameterType="com.wangfj.wms.domain.entity.RolePermission" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_permission
+    <where>
+    	<if test="sid != null" >
+	      and sid = #{sid,jdbcType=BIGINT}
+	    </if>
+    	<if test="roleSid != null" >
+	      and role_sid = #{roleSid,jdbcType=BIGINT}
+	    </if>
+	    <if test="permission != null" >
+	      and permission = #{permission,jdbcType=VARCHAR}
+	    </if>
+	    <if test="permissionType != null" >
+	      and permission_type = #{permissionType,jdbcType=INTEGER}
+	    </if>
+	    <if test="opttime != null" >
+	      and opttime = #{opttime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="status != null" >
+	      and status = #{status,jdbcType=INTEGER}
+	    </if>
+	    <if test="col1 != null" >
+	      and col1 = #{col1,jdbcType=VARCHAR}
+	    </if>
+	    <if test="col2 != null" >
+	      and col2 = #{col2,jdbcType=VARCHAR}
+	    </if>
+	    <if test="col3 != null" >
+	      and col3 = #{col3,jdbcType=VARCHAR}
+	    </if>
+    </where>
+  </select>
+  
+   <select id="selectByRoleCodesOrTypes" resultMap="RolePermissionResultMap" 
+  			parameterType="java.util.Map" >
+    select DISTINCT rp.* 
+    FROM role_permission rp
+    JOIN limit_role lr ON rp.role_sid = lr.sid
+    <where>
+    	status = 1 
+    	<if test="roleCodes != null">
+    		and lr.roleCode in
+    		<foreach collection="roleCodes" item="roleCode" index="index"
+				open="(" close=")" separator=",">
+				#{roleCode,jdbcType=VARCHAR}
+			</foreach>
+    	</if>
+    	<if test="permissionTypes != null">
+    		and rp.permission_type in
+    		<foreach collection="permissionTypes" item="type" index="index"
+				open="(" close=")" separator=",">
+				#{type,jdbcType=VARCHAR}
+			</foreach>
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectManageCateByShopSidAndLevel" resultMap="RolePermissionResultMap" 
+  			parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_permission
+    <where>
+	    <if test="permissionType != null" >
+	      and permission_type = #{permissionType,jdbcType=INTEGER}
+	    </if>
+	    <if test="status != null" >
+	      and status = #{status,jdbcType=INTEGER}
+	    </if>
+	    <if test="col1 != null" >
+	      and col1 = #{col1,jdbcType=VARCHAR}
+	    </if>
+	    <if test="levels != null" >
+	      and col2 in
+    		<foreach collection="levels" item="level" index="index"
+				open="(" close=")" separator=",">
+				#{level,jdbcType=VARCHAR}
+			</foreach>
+	    </if>
+    </where>
+  </select>
+</mapper>

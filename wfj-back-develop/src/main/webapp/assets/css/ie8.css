@@ -1,0 +1,29 @@
+.ie8 .page-sidebar .sidebar-menu > li a.last-child{border-bottom:1px solid #f3f3f3;}
+.ie8 .page-sidebar .sidebar-menu{margin:0 0 0 1px;}
+.ie8 .page-sidebar .sidebar-menu li{border-left:4px solid #fff;}
+.ie8 .page-sidebar .sidebar-menu li.active{border-left:4px solid #cc324b;}
+.ie8 .page-sidebar .sidebar-menu li:hover{border-left:4px solid #8cc474;}
+.ie8 .page-sidebar .sidebar-menu li.open{border-left:none;}
+.ie8 .page-sidebar .sidebar-menu li.open a.menu-dropdown{border-bottom:1px solid #f3f3f3;}
+.ie8 .widget-header{border-bottom:1px solid #f3f3f3;}
+.ie8 .widget-body{border:1px solid #ccc;}
+.ie8 select{vertical-align: -7px;}
+.ie8 #home .col-md-4{height:53px;overflow: hidden;}
+.ie8 #home .col-md-4 .form-control{width:184px;}
+.ie8 input[type="checkbox"], .ie8 input[type="radio"]{left:33px;opacity:1;}
+.ie8 input[type="checkbox"]+.text:before, .ie8 input[type="radio"]+.text:before{
+	border:none;box-shadow:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

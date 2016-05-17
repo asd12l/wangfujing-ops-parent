@@ -1,0 +1,154 @@
+@CHARSET "UTF-8";
+body, p, ul, li, dl, dd {
+	margin:0;
+}
+ul {
+	padding:0;
+}
+* {
+	font-family:"Microsoft Yahei", Arial, Helvetica, sans-serif;
+}
+input {
+	border:none;
+}
+img, p {
+	display:block;
+}
+li {
+	list-style:none;
+}
+a {
+	text-decoration:none;
+	display:block;
+	cursor:pointer;
+}
+body {
+	background-color:#c51100;
+}
+.wenzi {
+	width:446px;
+	height:47px;
+	margin:auto;
+	margin-top:60px;
+}
+.header {
+	font-size:22px;
+	color:#FFF;
+	text-align:center;
+	margin-top:6px;
+}
+.box {
+	background-color:#FFF;
+	width:500px;
+	height:320px;
+	border-radius:6px;
+	margin:auto;
+	margin-top:30px;
+}
+.box input {
+	width:335px;
+	height:45px;
+	line-height:45px;
+	border:1px solid #c51100;
+	/* color:#ccc; */
+	font-size:18px;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+}
+.submit-input{
+	height:45px;
+	border:1px solid #c51100;
+	color:#ccc;
+	font-size:18px;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+}
+.kuang {
+	margin:auto;
+	width:380px;
+	padding-top:40px;
+}
+.cloud {
+	width:100%;
+	height:475px;
+	margin:auto;
+	margin-top:-147px;
+	background-image:url(../images/cloud.png);
+	background-repeat:repeat-x;
+}
+.user {
+	margin:0px auto;
+	width:390px;
+	height:50px;
+	margin-top:25px;
+}
+.password01 {
+	margin:0px auto;
+	width:390px;
+	height:50px;
+	margin-top:20px;
+	
+}
+.tag {
+	width:47px;
+	height:47px;
+	border:1px solid #c51100;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	float:left;
+	background:#c51100;
+}
+.tag img {
+	margin:auto;
+	margin-top:13px;
+}
+.model {
+	width:335px;
+	height:47px;
+	float:left;
+	background:#c51100;	
+}
+.dianji{ 
+	width:390px;
+	overflow:hidden; 
+	margin:auto;
+}
+.yes{
+	width:24px;
+	height:24px; 
+	background-color:#c51100; 
+	float:left;
+	border-radius:4px;
+	margin-top:35px;
+}
+.mima{
+	font-size:18px;
+	color:#666; 
+	float:left;
+	margin-top:36px;
+	margin-left:10px;
+}
+.login{
+	font-size:18px; 
+	color:#FFF;
+	background-color:#c51100; 
+	width:120px; 
+	height:46px; 
+	border-radius:4px; 
+	text-align:center;
+	line-height:46px;
+	float:right;
+	margin-top:25px;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #cc324b;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #cc324b;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #cc324b;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #cc324b;
+}

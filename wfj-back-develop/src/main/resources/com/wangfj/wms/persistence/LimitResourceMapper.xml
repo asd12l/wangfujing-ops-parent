@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangfj.wms.persistence.LimitResourceMapper">
+
+<resultMap id="LimitResourceResultMap" type="com.wangfj.wms.domain.entity.LimitResource" >
+    <id column="sid" property="sid" jdbcType="BIGINT" />
+    <result column="rsName" property="rsName" jdbcType="VARCHAR" />
+    <result column="rsCode" property="rsCode" jdbcType="VARCHAR" />
+     <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+     <result column="delFlag" property="delFlag" jdbcType="INTEGER" />
+    <result column="parentSid" property="parentSid" jdbcType="BIGINT" />
+     <result column="isLeaf" property="isLeaf" jdbcType="INTEGER" />
+  	</resultMap>
+  	<sql id="Base_Column_List">
+  		sid,rsName,rsCode,createTime,updateTime,delFlag,parentSid,isLeaf
+  	</sql>
+  	<select id="getAllLimitResource" resultMap="LimitResourceResultMap">
+  		select * 
+  		from
+  		limit_resources 
+  		where delFlag = 0
+  	</select>
+	
+	<select id="getLimitResourceByparam" parameterType="com.wangfj.wms.domain.entity.LimitResource" resultMap="LimitResourceResultMap">
+		select *
+		from
+		limit_resources
+		<where>
+		1=1
+		<!-- delFlag=0 -->
+			<if test="delFlag==null">
+				and delFlag=0
+			</if>
+			<if test="sid != null">
+				and sid = #{sid,jdbcType=BIGINT}
+			</if>
+			<if test="rsName != null">
+				and rsName = #{rsName,jdbcType=VARCHAR}
+			</if>
+			<if test="rsCode != null">
+				and rsCode = #{rsCode,jdbcType=VARCHAR}
+			</if>
+			<if test="parentSid != null">
+				and parentSid = #{parentSid,jdbcType=BIGINT}
+			</if>
+			<if test="isLeaf != null">
+				and isLeaf = #{isLeaf ,jdbcType=INTEGER}
+			</if>
+		</where>
+		order by orderno
+	</select>
+	
+	<select id="getSlideResourcesByparam" parameterType="java.util.Map" resultMap="LimitResourceResultMap">
+		SELECT a.* 
+		FROM limit_resources a 
+		LEFT JOIN (
+			SELECT DISTINCT d.rs_sid  FROM  limit_role c 
+			LEFT JOIN 
+			limit_role_resources d 
+			ON c.sid = d.role_sid 
+			WHERE c.sid=#{role_id,jdbcType=BIGINT}
+		) b 
+		ON a.sid=b.rs_sid WHERE a.parentSid =#{parentSid,jdbcType=BIGINT} and a.delFlag=0;		
+	</select>
+	
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.LimitResource" useGeneratedKeys="true" keyProperty="sid">
+		insert into limit_resources(
+			sid,rsName,rsCode,createTime,updateTime,delFlag,parentSid,isLeaf,rsUrl
+		)values(
+			#{sid,jdbcType=BIGINT},
+			#{rsName,jdbcType=VARCHAR},
+			#{rsCode,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{updateTime,jdbcType=TIMESTAMP},
+			#{delFlag,jdbcType=INTEGER},
+			#{parentSid,jdbcType=BIGINT},
+			#{isLeaf,jdbcType=INTEGER},
+			#{rsUrl,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.wangfj.wms.domain.entity.LimitResource">
+		update limit_resources
+		<set>
+			<if test="rsName != null">
+				rsName = #{rsName,jdbcType=VARCHAR},
+			</if>
+			<if test="rsCode != null">
+				rsCode = #{rsCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				createTime = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				updateTime = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delFlag != null">
+				delFlag = #{delFlag,jdbcType=INTEGER},
+			</if>
+			<if test="parentSid != null">
+				parentSid = #{parentSid,jdbcType=BIGINT},
+			</if>
+			<if test="isLeaf != null">
+				isLeaf = #{isLeaf,jdbcType=INTEGER},
+			</if>
+			<if test="rsUrl != null">
+				rsUrl = #{rsUrl,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=BIGINT}
+	</update>
+	<delete id="delete" parameterType="com.wangfj.wms.domain.entity.LimitResource">
+		delete from limit_resources where sid = #{sid,jdbcType=BIGINT}
+	</delete>
+	
+	<select id="getAllResourcesByUserRolesCode"  parameterType="java.util.List" resultMap="LimitResourceResultMap">
+		SELECT DISTINCT s.* FROM limit_resources s
+		JOIN limit_role_resources rs ON rs.rs_sid = s.sid
+		JOIN limit_role r ON rs.role_sid = r.sid 
+		AND r.roleCode IN
+		<foreach collection="list" item="itemCode" index="index"
+			open="(" close=")" separator=",">
+			#{itemCode,jdbcType=VARCHAR}
+		</foreach> 
+		 WHERE s.delFlag = 0 
+		 ORDER BY s.orderno
+	</select>
+	
+	<select id="getResourcesByParentSid"  
+			parameterType="java.util.Map"
+			resultMap="LimitResourceResultMap">
+		SELECT DISTINCT s.* FROM limit_resources s
+		JOIN limit_role_resources rs ON rs.rs_sid = s.sid
+		JOIN limit_role r ON rs.role_sid = r.sid 
+		<if test="roleList != null">
+			AND r.roleCode IN
+			<foreach collection="roleList" item="itemCode" index="index"
+				open="(" close=")" separator=",">
+				#{itemCode,jdbcType=VARCHAR}
+			</foreach> 
+		</if>
+		WHERE s.delFlag = 0 
+		<if test="parentSid != null">
+			and parentSid = #{parentSid,jdbcType=BIGINT}
+		</if>
+		ORDER BY s.orderno
+	</select>
+	
+</mapper>

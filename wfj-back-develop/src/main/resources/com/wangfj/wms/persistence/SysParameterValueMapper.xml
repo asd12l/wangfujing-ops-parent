@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.wms.persistence.SysParameterValueMapper" >
+  <resultMap id="SysParameterValueResultMap" type="com.wangfj.wms.domain.entity.SysParameterValue" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="sys_parameter_type_sid" property="sysParameterTypeSid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, sys_parameter_type_sid, name, value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysParameterValueResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_parameter_value
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByParamType" resultMap="SysParameterValueResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_parameter_value
+    where sys_parameter_type_sid = #{typeSid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_parameter_value
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.SysParameterValue" >
+    insert into sys_parameter_value (sid, sys_parameter_type_sid, name, 
+      value)
+    values (#{sid,jdbcType=INTEGER}, #{sysParameterTypeSid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.SysParameterValue" >
+    insert into sys_parameter_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="sysParameterTypeSid != null" >
+        sys_parameter_type_sid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="sysParameterTypeSid != null" >
+        #{sysParameterTypeSid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.SysParameterValue" >
+    update sys_parameter_value
+    <set >
+      <if test="sysParameterTypeSid != null" >
+        sys_parameter_type_sid = #{sysParameterTypeSid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.SysParameterValue" >
+    update sys_parameter_value
+    set sys_parameter_type_sid = #{sysParameterTypeSid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>
