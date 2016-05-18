@@ -5,16 +5,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <description>搜索配置</description>
-    <bean id="placeholderConfig"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath*:search.properties</value><!-- 搜索相关配置文件 -->
-            </list>
-        </property>
-        <property name="fileEncoding" value="UTF-8"/>
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+
+    <bean id="zkClientFactory" class="com.wfj.search.utils.zookeeper.CuratorClientFactory">
+        <constructor-arg name="connectString" value="${search.zkAddresses}"/>
     </bean>
+    <bean id="zkClient" factory-bean="zkClientFactory"
+          factory-method="createClient" destroy-method="close" init-method="start"/>
+    <bean id="springWebMvcServiceProvider" class="com.wfj.search.utils.zookeeper.discovery.SpringWebMvcServiceProvider">
+        <constructor-arg name="zkClient" ref="zkClient"/>
+        <constructor-arg name="basePath" value="${search.discovery.basePath}"/>
+    </bean>
+
     <bean id="rsa" class="com.wangfj.search.utils.RsaResource">
         <property name="resourceLoader">
             <bean class="org.springframework.core.io.DefaultResourceLoader"/>

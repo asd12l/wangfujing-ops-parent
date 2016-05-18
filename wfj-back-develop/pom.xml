@@ -178,6 +178,14 @@
             <artifactId>json-rsa-signature</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.wfj.search-utils</groupId>
+            <artifactId>curator-client-factory</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.wfj.search-utils</groupId>
+            <artifactId>curator-spring-mvc-simple-discovery</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
         </dependency>
