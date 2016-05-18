@@ -165,11 +165,13 @@ function qureyShowViewUrl(){
 
 //选择楼层样式时预览
 function view(obj){
+	
 	if(obj==0){
 		var filename = $("#style_list").val();
 	}else{
 		var filename = $("#floor_style_edit").val();
 	}
+	
 	$.ajax({
         type:"post",
         dataType: "json",

@@ -534,7 +534,7 @@ public class TopicFloorController {
 	@ResponseBody
 	@RequestMapping(value = "/editFloor", method = { RequestMethod.GET, RequestMethod.POST })
 	public String editdiv(String id, String title, String type, String flag,
-			String enTitle, String styleList, HttpServletRequest request) {
+			String enTitle, String styleList,String seq, HttpServletRequest request) {
 		String methodName = "editdiv";
 		String json = "";
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -550,7 +550,9 @@ public class TopicFloorController {
 		if (styleList != null && styleList != "") {
 			resultMap.put("styleList", styleList);
 		}
-		resultMap.put("seq", 1);
+		if(seq != null && !seq.equals("")){
+			resultMap.put("seq", seq);
+		}
 		if (type != null && type != "") {
 			resultMap.put("type", type);
 		}
