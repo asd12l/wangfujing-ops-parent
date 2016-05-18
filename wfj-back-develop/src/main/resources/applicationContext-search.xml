@@ -38,13 +38,6 @@
           p:intervalDetail_destroy="${intervalDetail_destroy}" p:channelList="${channelList}"
           p:doSelected="${doSelected}"/>
 
-    <bean id="sortRuleConfig" class="com.wangfj.search.utils.SortRuleConfig"
-          p:sortRule_path="${sortRule_path}" p:sortRule_sortRuleRetrieve="${sortRule_sortRuleRetrieve}"
-          p:sortRule_sortRuleCreate="${sortRule_sortRuleCreate}" p:sortRule_sortRuleUpdate="${sortRule_sortRuleUpdate}"
-          p:sortRule_sortRuleDestory="${sortRule_sortRuleDestory}" p:sortDetail="${sortDetail}"
-          p:sortDetail_Create="${sortDetail_Create}" p:sortDetail_Update="${sortDetail_Update}"
-          p:sortDetail_Destory="${sortDetail_Destory}"/>
-
     <bean id="brandStickConfig" class="com.wangfj.search.utils.BrandStickConfig"
           p:brand_path="${brand_path}" p:brand_list="${brand_list}"
           p:brand_read="${brand_read}" p:brand_create="${brand_create}"
