@@ -16,6 +16,10 @@
         <constructor-arg name="basePath" value="${search.discovery.basePath}"/>
     </bean>
 
+    <bean id="privateRsaKeyProvider" class="com.wangfj.search.utils.PrivateRsaKeyProvider">
+        <property name="privateKeyFileLocation" value="classpath:rsaKey"/>
+    </bean>
+
     <bean id="rsa" class="com.wangfj.search.utils.RsaResource">
         <property name="resourceLoader">
             <bean class="org.springframework.core.io.DefaultResourceLoader"/>
