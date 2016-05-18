@@ -30,18 +30,6 @@
           class="com.wfj.platform.util.signature.handler.PrivateSignatureHandler"
           p:caller="${caller}"/>
 
-    <bean id="MonitorConfig" class="com.wangfj.search.utils.MonitorConfig"
-          p:monitor_path="${monitor_path}" p:monitor_appRead="${monitor_appRead}"
-          p:monitor_appCreate="${monitor_appCreate}" p:monitor_appUpdate="${monitor_appUpdate}"
-          p:monitor_appDestory="${monitor_appDestory}" p:monitor_appEmailRead="${monitor_appEmailRead}"
-          p:monitor_appEmailCreate="${monitor_appEmailCreate}" p:monitor_appEmailUpdate="${monitor_appEmailUpdate}"
-          p:monitor_appEmailDestory="${monitor_appEmailDestory}" p:monitor_appInstanceRead="${monitor_appInstanceRead}"
-          p:monitor_appInstanceCreate="${monitor_appInstanceCreate}"
-          p:monitor_appInstanceUpdate="${monitor_appInstanceUpdate}"
-          p:monitor_appInstanceDestory="${monitor_appInstanceDestory}"
-          p:monitor_appInstanceEnabled="${monitor_appInstanceEnabled}"
-          p:monitor_appInstanceDisabled="${monitor_appInstanceDisabled}"/>
-
     <bean id="intervalConfig" class="com.wangfj.search.utils.IntervalConfig"
           p:interval_path="${interval_path}" p:interval_read="${interval_read}"
           p:interval_create="${interval_create}" p:interval_update="${interval_update}"
