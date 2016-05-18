@@ -20,6 +20,12 @@
         <property name="privateKeyFileLocation" value="classpath:rsaKey"/>
     </bean>
 
+    <bean id="okHttpClientFactory" class="com.wfj.search.utils.http.OkHttpClientFactory"/>
+    <bean id="okHttpClient" factory-bean="okHttpClientFactory" factory-method="getOkHttpClient"/>
+    <bean id="okHttpOperator" class="com.wfj.search.utils.http.OkHttpOperator">
+        <constructor-arg name="okHttpClient" ref="okHttpClient"/>
+    </bean>
+
     <bean id="rsa" class="com.wangfj.search.utils.RsaResource">
         <property name="resourceLoader">
             <bean class="org.springframework.core.io.DefaultResourceLoader"/>
@@ -52,10 +58,6 @@
           p:shoppe_path="${shoppe_path}" p:brandUpdate="${brandUpdate}"
           p:freshIndex="${freshIndex}" p:itemIndex="${itemIndex}"
           p:freshERPIndex="${freshERPIndex}" p:updateItemByParam="${updateItemByParam}"/>
-
-    <bean id="blackListConfig" class="com.wangfj.search.utils.BlackListConfig"
-          p:black_path="${black_path}" p:read="${read}"
-          p:create="${create}" p:delete="${delete}"/>
 
     <bean id="weightBoostConfig" class="com.wangfj.search.utils.WeightBoostConfig"
           p:weight_path="${weight_path}" p:weight_read="${weight_read}"

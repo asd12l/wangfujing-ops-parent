@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wangfj.search.utils.CommonProperties;
 import com.wangfj.search.utils.CookieUtil;
 import com.wangfj.search.utils.HttpRequestException;
 import com.wangfj.search.utils.HttpRequester;
-import com.wangfj.search.utils.MonitorConfig;
 import com.wangfj.search.utils.OnlineIndexConfig;
 import com.wangfj.search.utils.RsaResource;
 import com.wfj.platform.util.signature.handler.PrivateSignatureHandler;

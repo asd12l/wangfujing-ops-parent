@@ -3,8 +3,6 @@ package com.wangfj.search.utils;
 import com.wfj.search.utils.signature.ras.KeyUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.ResourceLoader;
@@ -23,7 +21,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 1.0.0
  */
 public class PrivateRsaKeyProvider implements ResourceLoaderAware {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final AtomicReference<String> rsaPriKeyBase64String = new AtomicReference<>("");
     private final Timer timer = new Timer("privateKeyFileReload", true);
     private String privateKeyFileLocation;
@@ -50,14 +47,12 @@ public class PrivateRsaKeyProvider implements ResourceLoaderAware {
     public PrivateKey get() {
         String keyString = rsaPriKeyBase64String.get();
         if (StringUtils.isBlank(keyString)) {
-            logger.error("私钥Base64为空");
-            return null;
+            throw new RuntimeException("私钥Base64为空");
         } else {
             try {
                 return KeyUtils.base64String2RSAPrivateKey(keyString);
             } catch (InvalidKeySpecException e) {
-                logger.error("不是合法私钥格式:{}", keyString, e);
-                return null;
+                throw new RuntimeException("不是合法私钥格式:" + keyString, e);
             }
         }
     }

@@ -13,6 +13,7 @@
         <property name="locations">
             <list>
                 <value>classpath*:search.properties</value><!-- 搜索相关配置文件 -->
+                <value>classpath*:search_service.properties</value>
             </list>
         </property>
         <property name="fileEncoding" value="UTF-8"/>
