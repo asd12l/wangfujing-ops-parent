@@ -8,6 +8,7 @@ public class GpConfig {
     private String gpPath;
     private String gpGetList;
     private String gpAdd;
+    private String gpConfirm;
 
     public String getGpUrlTemplate() {
         return gpUrlTemplate;
@@ -39,5 +40,13 @@ public class GpConfig {
 
     public void setGpAdd(String gpAdd) {
         this.gpAdd = gpAdd;
+    }
+
+    public String getGpConfirm() {
+        return gpConfirm;
+    }
+
+    public void setGpConfirm(String gpConfirm) {
+        this.gpConfirm = gpConfirm;
     }
 }

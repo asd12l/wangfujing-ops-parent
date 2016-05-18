@@ -6,6 +6,7 @@ import java.security.spec.InvalidKeySpecException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +137,7 @@ public class BrandTopSpotController {
 		//PrivateSignatureHandler handler = new PrivateSignatureHandler();
 		signatureHandler.setPrivateKeyString(rsaResource.get());
 		System.out.println(brandId);
-		if(brandId==""||brandId==null){
+		if(StringUtils.isNotBlank(brandId)){
 			brandId = null;
 		
 		}

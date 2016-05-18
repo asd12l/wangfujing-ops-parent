@@ -78,6 +78,7 @@
 
     <bean id="gpConfig" class="com.wangfj.search.utils.GpConfig"
             p:gpUrlTemplate="${gpUrlTemplate}" p:gpPath="${gpPath}"
-            p:gpAdd="${gpAdd}" p:gpGetList="${gpGetList}"/>
+            p:gpAdd="${gpAdd}" p:gpGetList="${gpGetList}"
+            p:gpConfirm="${gpConfirm}"/>
 
 </beans>

@@ -6,6 +6,7 @@ import java.security.spec.InvalidKeySpecException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,10 +54,10 @@ public class BlackListContoller {
 		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		int start = (currPage - 1) * size;
 		JSONObject messageBody = new JSONObject();
-		if (blackType != null && blackType != "") {
+		if (StringUtils.isNotBlank(blackType)) {
 			messageBody.put("type", blackType);
 		}
-		if (id != null && id != "") {
+		if (StringUtils.isNotBlank(id)) {
 			messageBody.put("id", id);
 		}
 		messageBody.put("limit", size);
@@ -98,10 +99,10 @@ public class BlackListContoller {
 		//PrivateSignatureHandler handler = new PrivateSignatureHandler();
 		privateSignatureHandler.setPrivateKeyString(rsaResource.get());
 		JSONObject messageBody = new JSONObject();
-		if (type != null && type != "") {
+		if (StringUtils.isNotBlank(type)) {
 			messageBody.put("type", type);
 		}
-		if (id != null && id != "") {
+		if (StringUtils.isNotBlank(id)) {
 			messageBody.put("id", id);
 		}
 		String signatureJson = null;
@@ -132,10 +133,10 @@ public class BlackListContoller {
 		privateSignatureHandler.setPrivateKeyString(rsaResource.get());
 		//PrivateSignatureHandler handler = new PrivateSignatureHandler();
 		JSONObject messageBody = new JSONObject();
-		if (type != null && type != "") {
+		if (StringUtils.isNotBlank(type)) {
 			messageBody.put("type", type);
 		}
-		if (id != null && id != "") {
+		if (StringUtils.isNotBlank(id)) {
 			messageBody.put("id", id);
 		}
 		String signatureJson = null;

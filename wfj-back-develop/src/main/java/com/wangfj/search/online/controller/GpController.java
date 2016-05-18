@@ -29,9 +29,13 @@ public class GpController {
     @Autowired
     private GpConfig gpConfig;
 
+    /**
+     *查询gp
+     *
+     */
     @RequestMapping("/getGpList")
     @ResponseBody
-    public JSONObject getGpList(HttpServletRequest request) {
+    public String getGpList(HttpServletRequest request) {
         privateSignatureHandler.setPrivateKeyString(rsaResource.get());
         Integer size = request.getParameter("pageSize") == null ? null
                 : Integer.parseInt(request.getParameter("pageSize"));
@@ -65,14 +69,19 @@ public class GpController {
         int pageCount = total % size == 0 ? total / size : (total / size + 1);
         json.put("pageCount",pageCount);
         json.put("urlTemplate",gpConfig.getGpUrlTemplate());
-        return json;
+        return json.toString();
     }
+
+    /**
+     *
+     * 添加gp
+     */
     @RequestMapping("add")
     @ResponseBody
-    public String add(HttpServletRequest request, String title, String itemsIds){
-        String[] ids = itemsIds.split(",");
+    public String add(HttpServletRequest request, String title, String ids){
+        String[] itemIds = ids.split(",");
         JSONArray jsonArray = new JSONArray();
-        for(String id:ids){
+        for(String id:itemIds){
             jsonArray.add(id);
         }
         JSONObject jsonrequest = new JSONObject();
@@ -80,6 +89,43 @@ public class GpController {
         jsonrequest.put("itemsIds",jsonArray);
         String signatureJson = null;
         signatureJson = privateSignatureHandler.sign(jsonrequest,CookieUtil.getUserName(request));
-        return signatureJson;
+        String resultJson = null;
+        try {
+            resultJson = HttpRequester.httpPostString(gpConfig.getGpPath() + gpConfig.getGpAdd(),
+                    signatureJson);
+            logger.debug("gp添加{}", resultJson);
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        } catch (HttpRequestException e) {
+            logger.error(e.getMessage(),e);
+        } catch (URISyntaxException e) {
+            logger.error(e.getMessage(),e);
+        }
+        return resultJson;
+    }
+
+    /**
+     * 确认gp
+     */
+    @RequestMapping("/confirm")
+    @ResponseBody
+    public String confirm(HttpServletRequest request, String gp){
+        JSONObject jsonrequest = new JSONObject();
+        jsonrequest.put("gp",gp);
+        String signatureJson = null;
+        signatureJson = privateSignatureHandler.sign(jsonrequest,CookieUtil.getUserName(request));
+        String resultJson = null;
+        try {
+            resultJson = HttpRequester.httpPostString(gpConfig.getGpPath() + gpConfig.getGpConfirm(),
+                    signatureJson);
+            logger.debug("gp确认{}", resultJson);
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        } catch (HttpRequestException e) {
+            logger.error(e.getMessage(),e);
+        } catch (URISyntaxException e) {
+            logger.error(e.getMessage(),e);
+        }
+        return resultJson;
     }
 }

@@ -6,6 +6,7 @@ import java.security.spec.InvalidKeySpecException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,10 @@ public class SearchHotWordController {
 		int start = (currPage - 1) * size;
 		JSONObject messageBody = new JSONObject();
 		JSONObject messageBody1 = new JSONObject();
-		if (hotWordSite != null && hotWordSite != "") {
+		if (StringUtils.isNotBlank(hotWordSite)) {
 			messageBody.put("site", hotWordSite);
 		}
-		if (hotWordChannel != null && hotWordChannel != "") {
+		if (StringUtils.isNotBlank(hotWordChannel)) {
 			messageBody.put("channel", hotWordChannel);
 		}
 		messageBody.put("limit", size);
