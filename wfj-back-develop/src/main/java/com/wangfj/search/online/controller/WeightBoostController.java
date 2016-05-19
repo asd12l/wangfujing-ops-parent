@@ -1,8 +1,6 @@
 package com.wangfj.search.online.controller;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.spec.InvalidKeySpecException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wfj.platform.util.signature.handler.PrivateSignatureHandler;
 /**
  * 加权管理
  * @Class Name WeightBoostController
@@ -46,13 +43,6 @@ public class WeightBoostController {
 	private String serviceNameSave;
 	@Value("${search.service.weightBoost.delete}")
 	private String serviceNameDelete;
-
-	@Autowired
-	private WeightBoostConfig weightBoostConfig;
-	@Autowired
-	private PrivateSignatureHandler signatureHandler;
-	@Autowired
-	private RsaResource rsaResource;
 	
 	@ResponseBody
 	@RequestMapping(value="/getList", method={RequestMethod.GET,
