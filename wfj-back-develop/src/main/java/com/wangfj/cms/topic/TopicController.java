@@ -88,7 +88,7 @@ public class TopicController {
 		} else {
 			Map<String, String> ftpMap = this.getFtp(String.valueOf(_site_id_param), 2);
 			JSONObject j = JSONObject.fromObject(json);
-			j.put("cmsImageServer", getImageServer() + ftpMap.get("siteResourcePath"));
+			j.put("cmsImageServer", getImageServer() );
 			return j.toString();
 		}
 	}
