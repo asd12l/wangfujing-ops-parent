@@ -4,7 +4,7 @@
 <head>
 <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script> 
 <script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script> 
-<script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
+<script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js">   </script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/>
 <style type='text/css'>
@@ -17,7 +17,7 @@ td,th{text-align:center;}
 <script type="text/javascript">
 			__ctxPath = "${pageContext.request.contextPath}";
 			var productPagination;
-			$(function() {
+			/* $(function() {
 			    initUserRole();
 			    $("#pageSelect").change(userRoleQuery);
 			});
@@ -89,13 +89,8 @@ td,th{text-align:center;}
 			               }, 300);
 			             },
 		             callback: function(data) {
-						 if(data.success == true){
-							 $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
-						 }else{
-							 $("#hotWord_tab tbody").setTemplateElement("hotWord-list").processTemplate(data);
-							 $("#model-body-warning").html("<div class='alert alert-warning fade in'><i></i><strong>"+data.message+"</strong></div>");
-							 $("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-error"});
-						 }
+		               //使用模板
+		               $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
 		             }
 		           }
 		         });
@@ -236,7 +231,7 @@ td,th{text-align:center;}
 			function successBtn(){
 				$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 				$("#pageBody").load(__ctxPath+"/jsp/search/Interval/IntervalMessage.jsp");
-			}
+			} */
 </script> 
 </head>
 <body>
@@ -250,7 +245,7 @@ td,th{text-align:center;}
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <span class="widget-caption"><h5>区间管理</h5></span>
+                                    <span class="widget-caption"><h5>余额年设置列表</h5></span>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize"></a>
                                         <a href="#" data-toggle="collapse" onclick="tab('pro');">
@@ -265,26 +260,10 @@ td,th{text-align:center;}
                                         <a id="editabledatatable_new" onclick="addBackUser();" class="btn btn-primary glyphicon glyphicon-plus">
 										新增区间
                                         </a>&nbsp;&nbsp;
-                                        <a id="editabledatatable_new" onclick="delBackUser();" class="btn btn-danger glyphicon glyphicon-trash">
-										删除区间
-                                        </a>&nbsp;&nbsp;
                                          <a id="editabledatatable_new" onclick="setApp();" class="btn btn-info glyphicon glyphicon-wrench">
 										修改区间
                                         </a>&nbsp;&nbsp;
-                                       <!--  <a id="editabledatatable_new" onclick="setappExample();" class="btn btn-danger glyphicon glyphicon-trash">
-										添加区间详情
-                                        </a> -->
-                                        <a id="editabledatatable_new" onclick="appExample();" class="btn btn-yellow">
-										<i class="fa fa-eye"></i>
-										查看区间详情
-                                        </a>&nbsp;&nbsp;
-              							<a id="editabledatatable_new" onclick="toselected()" class="btn btn-danger">
-										<i class="fa fa-eye"></i>
-										使有效/无效
-                                        </a>
-              					
                                        <div class="btn-group pull-right">
-                                       		
 	                                        	<select id="pageSelect" name="pageSize">
 													<option selected="selected">5</option>
 													<option >10</option>
@@ -298,11 +277,11 @@ td,th{text-align:center;}
                                         <thead class="flip-content bordered-darkorange">
                                             <tr role="row">
                                             	<th id="sid0"></th>
-                                            	<th>sid</th>
-                                                <th>field</th>
-                                                <th>区间描述</th>
-                                                <th>渠道</th>
-                                                <th>是否有效</th>
+                                            	<th>年份</th>
+                                                <th>已设置投诉补偿额度</th>
+                                                <th>可用投诉补偿余额</th>
+                                                <th>已设置运费补偿额度</th>
+                                                <th>可用运费补偿余额</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -313,7 +292,6 @@ td,th{text-align:center;}
 								<!-- Templates -->
 								<p style="display:none">
 									<textarea id="product-list" rows="0" cols="0">
-										<!--
 										{#template MAIN}
 											{#foreach $T.list as Result}
 												<tr class="gradeX">
@@ -340,7 +318,7 @@ td,th{text-align:center;}
 													</td>
 									       		</tr>
 											{#/for}
-									    {#/template MAIN}	-->
+									    {#/template MAIN}
 									</textarea>
 								</p>
                             </div>

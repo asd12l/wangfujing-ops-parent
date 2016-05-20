@@ -82,8 +82,14 @@
 	           }, 300);
 	         },
 	         callback: function(data) {
-	           //使用模板
-	           $("#resource_tab tbody").setTemplateElement("resource-list").processTemplate(data);
+				 if(data.success == true){
+					 $("#resource_tab tbody").setTemplateElement("resource-list").processTemplate(data);
+
+				 }else{
+					 $("#hotWord_tab tbody").setTemplateElement("hotWord-list").processTemplate(data);
+					 $("#model-body-warning").html("<div class='alert alert-warning fade in'><i></i><strong>"+data.message+"</strong></div>");
+					 $("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-error"});
+				 }
 	         }
 	       }
 	     });
