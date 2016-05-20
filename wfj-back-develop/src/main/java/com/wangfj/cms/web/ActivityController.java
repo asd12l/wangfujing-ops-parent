@@ -44,6 +44,7 @@ public class ActivityController {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/active/a_list.do", map);
 			jsonobj.put("list", json);
+			jsonobj.put("resource_root_path",SystemConfig.CMS_IMAGE_SERVER);
 		} catch (Exception e) {
 			logger.info(className + ":" + methodName + " " + e.getMessage());
 		}

@@ -241,7 +241,6 @@
 		var formData = new FormData($(".uploadForm")[0]);
 		formData.append("time",new Date().getTime());
 		formData.append("siteId",siteSid);		
-		
 		$.ajax({
 			type : "post",
 			url : __ctxPath + "/template/uploadfile",
