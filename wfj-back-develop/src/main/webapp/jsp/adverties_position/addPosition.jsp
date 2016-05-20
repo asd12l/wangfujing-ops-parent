@@ -31,9 +31,9 @@
 									<div class="input-icon ">
 										<i class="fa"></i> <input type="text" style="width: 84%"
 											class="form-control clear_input" id="en_position"
-											onkeyup="value=value.replace(/[^\a-\z\A-\Z\.\_]/g,'')" 
-											onpaste="value=value.replace(/[^\a-\z\A-\Z\.\_]/g,'')" 
-											oncontextmenu = "value=value.replace(/[^\a-\z\A-\Z\.\_]/g,'')"
+											onkeyup="value=value.replace(/[^\0-\9\a-\z\A-\Z\.\_]/g,'')" 
+											onpaste="value=value.replace(/[^\0-\9\a-\z\A-\Z\.\_]/g,'')" 
+											oncontextmenu = "value=value.replace(/[^\0-\9\a-\z\A-\Z\.\_]/g,'')"
 											name="position" />
 									</div>
 								</div>

@@ -5,7 +5,7 @@ var editor = "";
 $(function(){
 	    validform();
 		editor = CKEDITOR.replace( 'attr_text_title_' );
-		
+
 		//查询版位
   		var adspaceId = $("#adspaceId_");
 		$.ajax({
@@ -13,6 +13,9 @@ $(function(){
 			type: "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
 			url: __ctxPath+"/adverties/findAdspace",
+			data : {
+				"_site_id_param" : siteSid
+			},
 			dataType: "json", 
 			success: function(response) {
 				var result = response.list;
