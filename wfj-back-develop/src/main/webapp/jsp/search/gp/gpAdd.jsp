@@ -73,7 +73,7 @@
 
 	$("#show").click(function(){
 		var url = $("#regp").html();
-		window.open(url);
+		window.open("http://"+url);
 	});
 
 	function cancel(){
