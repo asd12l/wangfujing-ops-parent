@@ -69,8 +69,13 @@
                         }, 300);
                     },
                     callback: function(data) {
-                        //使用模板
-                        $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
+                        if(data.success == true){
+                            $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
+                        }else{
+                            $("#model-body-warning").html("<div class='alert alert-warning fade in'><i></i><strong>"+data.message+"</strong></div>");
+                            $("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-error"});
+                        }
+
                     }
                 }
             });
