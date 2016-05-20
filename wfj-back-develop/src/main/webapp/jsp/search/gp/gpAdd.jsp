@@ -18,10 +18,11 @@
 				alert("标题不能为空！");
 				return;
 			}
-			var reg = /^(\d+,?)+$/;
+
+			var reg = /^[\r\n0-9]*$/;
 			var ids = $("#ids").val();
 			if(!reg.test(ids)){
-				alert("商品id只能填写数字和,");
+				alert("商品id只能填写数字");
 				return;
 			}
   			saveFrom();
