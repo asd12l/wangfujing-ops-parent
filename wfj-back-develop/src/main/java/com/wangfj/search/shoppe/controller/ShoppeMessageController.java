@@ -66,7 +66,7 @@ public class ShoppeMessageController {
             logger.error("签名处理失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "签名处理失败, BLC0132");
+            json.put("message", "签名处理失败, SMC0069");
             return json.toJSONString();
         }
         Optional<String> serviceAddress;
@@ -76,14 +76,14 @@ public class ShoppeMessageController {
             logger.error("获取服务{}地址失败", serviceNameBrandUpdate, e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "获取后台服务地址失败, BLC0142");
+            json.put("message", "获取后台服务地址失败, SMC0079");
             return json.toJSONString();
         }
         String address = serviceAddress.orNull();
         if (StringUtils.isBlank(address)) {
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "后台无活动的服务节点, BLC0149");
+            json.put("message", "后台无活动的服务节点, SMC0086");
             return json.toJSONString();
         }
         String resultJson;
@@ -93,7 +93,7 @@ public class ShoppeMessageController {
             logger.error("请求后台服务失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "请求后台服务失败, BLC0161");
+            json.put("message", "请求后台服务失败, SMC0096");
             return json.toJSONString();
         }
         JSONObject Json = JSONObject.parseObject(resultJson);
@@ -122,7 +122,7 @@ public class ShoppeMessageController {
             logger.error("签名处理失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "签名处理失败, BLC0132");
+            json.put("message", "签名处理失败, SMC0125");
             return json.toJSONString();
         }
         Optional<String> serviceAddress;
@@ -132,14 +132,14 @@ public class ShoppeMessageController {
             logger.error("获取服务{}地址失败", serviceNameUpdateItemByParam, e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "获取后台服务地址失败, BLC0142");
+            json.put("message", "获取后台服务地址失败, SMC0135");
             return json.toJSONString();
         }
         String address = serviceAddress.orNull();
         if (StringUtils.isBlank(address)) {
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "后台无活动的服务节点, BLC0149");
+            json.put("message", "后台无活动的服务节点, SMC0142");
             return json.toJSONString();
         }
         String resultJson;
@@ -149,7 +149,7 @@ public class ShoppeMessageController {
             logger.error("请求后台服务失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "请求后台服务失败, BLC0161");
+            json.put("message", "请求后台服务失败, SMC0152");
             return json.toJSONString();
         }
         JSONObject Json = JSONObject.parseObject(resultJson);
@@ -174,7 +174,7 @@ public class ShoppeMessageController {
             logger.error("签名处理失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "签名处理失败, BLC0132");
+            json.put("message", "签名处理失败, SMC0177");
             return json.toJSONString();
         }
         Optional<String> serviceAddress;
@@ -184,14 +184,14 @@ public class ShoppeMessageController {
             logger.error("获取服务{}地址失败", serviceNameItemIndex, e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "获取后台服务地址失败, BLC0142");
+            json.put("message", "获取后台服务地址失败, SMC0187");
             return json.toJSONString();
         }
         String address = serviceAddress.orNull();
         if (StringUtils.isBlank(address)) {
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "后台无活动的服务节点, BLC0149");
+            json.put("message", "后台无活动的服务节点, SMC0194");
             return json.toJSONString();
         }
         String resultJson;
@@ -201,7 +201,7 @@ public class ShoppeMessageController {
             logger.error("请求后台服务失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "请求后台服务失败, BLC0161");
+            json.put("message", "请求后台服务失败, SMC0204");
             return json.toJSONString();
         }
         JSONObject Json = JSONObject.parseObject(resultJson);
@@ -226,7 +226,7 @@ public class ShoppeMessageController {
             logger.error("签名处理失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "签名处理失败, BLC0132");
+            json.put("message", "签名处理失败, SMC0229");
             return json.toJSONString();
         }
         Optional<String> serviceAddress;
@@ -236,14 +236,14 @@ public class ShoppeMessageController {
             logger.error("获取服务{}地址失败", serviceNameFreshIndex, e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "获取后台服务地址失败, BLC0142");
+            json.put("message", "获取后台服务地址失败, SMC0239");
             return json.toJSONString();
         }
         String address = serviceAddress.orNull();
         if (StringUtils.isBlank(address)) {
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "后台无活动的服务节点, BLC0149");
+            json.put("message", "后台无活动的服务节点, SMC0246");
             return json.toJSONString();
         }
         String resultJson;
@@ -253,7 +253,7 @@ public class ShoppeMessageController {
             logger.error("请求后台服务失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "请求后台服务失败, BLC0161");
+            json.put("message", "请求后台服务失败, SMC0256");
             return json.toJSONString();
         }
         JSONObject Json = JSONObject.parseObject(resultJson);
@@ -277,7 +277,7 @@ public class ShoppeMessageController {
             logger.error("签名处理失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "签名处理失败, BLC0132");
+            json.put("message", "签名处理失败, SMC0280");
             return json.toJSONString();
         }
         Optional<String> serviceAddress;
@@ -287,14 +287,14 @@ public class ShoppeMessageController {
             logger.error("获取服务{}地址失败", serviceNameAllErpIndex, e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "获取后台服务地址失败, BLC0142");
+            json.put("message", "获取后台服务地址失败, SMC0290");
             return json.toJSONString();
         }
         String address = serviceAddress.orNull();
         if (StringUtils.isBlank(address)) {
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "后台无活动的服务节点, BLC0149");
+            json.put("message", "后台无活动的服务节点, SMC0297");
             return json.toJSONString();
         }
         String resultJson;
@@ -304,7 +304,7 @@ public class ShoppeMessageController {
             logger.error("请求后台服务失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "请求后台服务失败, BLC0161");
+            json.put("message", "请求后台服务失败, SMC0307");
             return json.toJSONString();
         }
         JSONObject Json = JSONObject.parseObject(resultJson);

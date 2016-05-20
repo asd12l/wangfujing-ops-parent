@@ -66,7 +66,7 @@ public class GpController {
             logger.error("签名处理失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "签名处理失败, BLC0072");
+            json.put("message", "签名处理失败, GC0069");
             return json.toJSONString();
         }
         Optional<String> serviceAddress;
@@ -76,14 +76,14 @@ public class GpController {
             logger.error("获取服务{}地址失败", serviceNameList, e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "获取后台服务地址失败, BLC0082");
+            json.put("message", "获取后台服务地址失败, GC0079");
             return json.toJSONString();
         }
         String address = serviceAddress.orNull();
         if (StringUtils.isBlank(address)) {
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "后台无活动的服务节点, BLC0089");
+            json.put("message", "后台无活动的服务节点, GC0086");
             return json.toJSONString();
         }
         String resultJson;
@@ -93,7 +93,7 @@ public class GpController {
             logger.error("请求后台服务失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "请求后台服务失败, BLC0101");
+            json.put("message", "请求后台服务失败, GC096");
             return json.toJSONString();
         }
         JSONObject jsonObject = JSONObject.parseObject(resultJson);
@@ -132,7 +132,7 @@ public class GpController {
             logger.error("签名处理失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "签名处理失败, BLC0072");
+            json.put("message", "签名处理失败, GC0135");
             return json.toJSONString();
         }
         Optional<String> serviceAddress;
@@ -142,14 +142,14 @@ public class GpController {
             logger.error("获取服务{}地址失败", serviceNameCreate, e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "获取后台服务地址失败, BLC0082");
+            json.put("message", "获取后台服务地址失败, GC0145");
             return json.toJSONString();
         }
         String address = serviceAddress.orNull();
         if (StringUtils.isBlank(address)) {
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "后台无活动的服务节点, BLC0089");
+            json.put("message", "后台无活动的服务节点, GC0152");
             return json.toJSONString();
         }
         String resultJson;
@@ -159,7 +159,7 @@ public class GpController {
             logger.error("请求后台服务失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "请求后台服务失败, BLC0161");
+            json.put("message", "请求后台服务失败, GC0162");
             return json.toJSONString();
         }
         JSONObject Json = JSONObject.parseObject(resultJson);
@@ -182,7 +182,7 @@ public class GpController {
             logger.error("签名处理失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "签名处理失败, BLC0072");
+            json.put("message", "签名处理失败, GC0185");
             return json.toJSONString();
         }
         Optional<String> serviceAddress;
@@ -192,14 +192,14 @@ public class GpController {
             logger.error("获取服务{}地址失败", serviceNameConfirm, e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "获取后台服务地址失败, BLC0082");
+            json.put("message", "获取后台服务地址失败, GC0195");
             return json.toJSONString();
         }
         String address = serviceAddress.orNull();
         if (StringUtils.isBlank(address)) {
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "后台无活动的服务节点, BLC0089");
+            json.put("message", "后台无活动的服务节点, GC0202");
             return json.toJSONString();
         }
         String resultJson;
@@ -209,7 +209,7 @@ public class GpController {
             logger.error("请求后台服务失败", e);
             JSONObject json = new JSONObject();
             json.put("success", false);
-            json.put("message", "请求后台服务失败, BLC0161");
+            json.put("message", "请求后台服务失败, GC0212");
             return json.toJSONString();
         }
         JSONObject Json = JSONObject.parseObject(resultJson);

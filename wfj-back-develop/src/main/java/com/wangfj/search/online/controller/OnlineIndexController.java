@@ -76,7 +76,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0079");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -86,14 +86,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameFreshAll, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0089");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0096");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -103,7 +103,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0106");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -129,7 +129,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0072");
+			json.put("message", "签名处理失败, OIC0132");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -139,14 +139,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameFreshByCategory, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0082");
+			json.put("message", "获取后台服务地址失败, OIC0142");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0089");
+			json.put("message", "后台无活动的服务节点, OIC0149");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -156,7 +156,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0159");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -181,7 +181,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0184");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -191,14 +191,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameFreshByBrand, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0194");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0201");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -208,7 +208,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0211");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -233,7 +233,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0236");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -243,14 +243,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameRemoveByBrand, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0246");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0253");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -260,7 +260,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0263");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -284,7 +284,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0287");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -294,14 +294,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameFreshBySpu, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0297");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0304");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -311,7 +311,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0314");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -336,7 +336,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0339");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -346,14 +346,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameRemoveBySpu, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0349");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0356");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -363,7 +363,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0366");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -388,7 +388,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0391");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -398,14 +398,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameFreshBySku, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0401");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0408");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -415,7 +415,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0418");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -440,7 +440,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0443");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -450,14 +450,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameRemoveBySku, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0453");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0460");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -467,7 +467,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0470");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -492,7 +492,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0495");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -502,14 +502,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameFreshItem, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0505");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0512");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -519,7 +519,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0522");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -544,7 +544,7 @@ public class OnlineIndexController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, OIC0547");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -554,14 +554,14 @@ public class OnlineIndexController {
 			logger.error("获取服务{}地址失败", serviceNameRemoveItem, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, OIC0557");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, OIC0564");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -571,7 +571,7 @@ public class OnlineIndexController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, OIC0574");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);

@@ -60,7 +60,7 @@ public class CategoryTopSpotController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0072");
+			json.put("message", "签名处理失败, CTSC0063");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -70,14 +70,14 @@ public class CategoryTopSpotController {
 			logger.error("获取服务{}地址失败", serviceNameCategory, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0082");
+			json.put("message", "获取后台服务地址失败, CTSC0073");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0089");
+			json.put("message", "后台无活动的服务节点, CTSC0080");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -87,7 +87,7 @@ public class CategoryTopSpotController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0101");
+			json.put("message", "请求后台服务失败, CTSC0090");
 			return json.toJSONString();
 		}
 		String resultJson1 = resultJson.replaceAll("categoryName", "text");
@@ -121,7 +121,7 @@ public class CategoryTopSpotController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0072");
+			json.put("message", "签名处理失败, CTSC0124");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -131,14 +131,14 @@ public class CategoryTopSpotController {
 			logger.error("获取服务{}地址失败", serviceNameRead, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0082");
+			json.put("message", "获取后台服务地址失败, CTSC0134");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0089");
+			json.put("message", "后台无活动的服务节点, CTSC0141");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -148,7 +148,7 @@ public class CategoryTopSpotController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0101");
+			json.put("message", "请求后台服务失败, CTSC0151");
 			return json.toJSONString();
 		}
 		JSONObject jsonObject = JSONObject.parseObject(resultJson);
@@ -188,7 +188,7 @@ public class CategoryTopSpotController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, CTSC0191");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -198,14 +198,14 @@ public class CategoryTopSpotController {
 			logger.error("获取服务{}地址失败", serviceNameCreate, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, CTSC0201");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, CTSC0208");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -215,7 +215,7 @@ public class CategoryTopSpotController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, CTSC0218");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -237,7 +237,7 @@ public class CategoryTopSpotController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0186");
+			json.put("message", "签名处理失败, CTSC0240");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -247,14 +247,14 @@ public class CategoryTopSpotController {
 			logger.error("获取服务{}地址失败", serviceNameDestory, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0196");
+			json.put("message", "获取后台服务地址失败, CTSC0250");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0203");
+			json.put("message", "后台无活动的服务节点, CTSC0257");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -264,7 +264,7 @@ public class CategoryTopSpotController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0214");
+			json.put("message", "请求后台服务失败, CTSC0267");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);

@@ -71,7 +71,7 @@ public class IntervalDetailController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0072");
+			json.put("message", "签名处理失败, IDC0074");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -81,14 +81,14 @@ public class IntervalDetailController {
 			logger.error("获取服务{}地址失败", serviceNameList, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, IDC0084");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, IDC0091");
 			return json.toJSONString();
 		}
 		String address1 = address.replace("{contentSid}",contentSid);
@@ -99,7 +99,7 @@ public class IntervalDetailController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0101");
+			json.put("message", "请求后台服务失败, IDC0102");
 			return json.toJSONString();
 		}
 		JSONObject jsonObject = JSONObject.parseObject(resultJson);
@@ -139,7 +139,7 @@ public class IntervalDetailController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, IDC0142");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -149,14 +149,14 @@ public class IntervalDetailController {
 			logger.error("获取服务{}地址失败", serviceNameUpdate, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, IDC0152");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, IDC0159");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -166,7 +166,7 @@ public class IntervalDetailController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, IDC0169");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -196,7 +196,7 @@ public class IntervalDetailController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0132");
+			json.put("message", "签名处理失败, IDC0199");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -206,14 +206,14 @@ public class IntervalDetailController {
 			logger.error("获取服务{}地址失败", serviceNameCreate, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0142");
+			json.put("message", "获取后台服务地址失败, IDC0209");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0149");
+			json.put("message", "后台无活动的服务节点, IDC0216");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -223,7 +223,7 @@ public class IntervalDetailController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0161");
+			json.put("message", "请求后台服务失败, IDC0226");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
@@ -254,7 +254,7 @@ public class IntervalDetailController {
 			logger.error("签名处理失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "签名处理失败, BLC0186");
+			json.put("message", "签名处理失败, IDC0257");
 			return json.toJSONString();
 		}
 		Optional<String> serviceAddress;
@@ -264,14 +264,14 @@ public class IntervalDetailController {
 			logger.error("获取服务{}地址失败", serviceNameDestroy, e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "获取后台服务地址失败, BLC0196");
+			json.put("message", "获取后台服务地址失败, IDC0267");
 			return json.toJSONString();
 		}
 		String address = serviceAddress.orNull();
 		if (StringUtils.isBlank(address)) {
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "后台无活动的服务节点, BLC0203");
+			json.put("message", "后台无活动的服务节点, IDC0274");
 			return json.toJSONString();
 		}
 		String resultJson;
@@ -281,7 +281,7 @@ public class IntervalDetailController {
 			logger.error("请求后台服务失败", e);
 			JSONObject json = new JSONObject();
 			json.put("success", false);
-			json.put("message", "请求后台服务失败, BLC0214");
+			json.put("message", "请求后台服务失败, IDC0284");
 			return json.toJSONString();
 		}
 		JSONObject Json = JSONObject.parseObject(resultJson);
