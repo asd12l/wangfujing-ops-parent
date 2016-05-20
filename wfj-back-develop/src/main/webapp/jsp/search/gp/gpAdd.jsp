@@ -31,7 +31,6 @@
 	});
   	//保存数据
   	function saveFrom(){
-
   		$.ajax({
 	        type:"post",
 	        contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -40,8 +39,8 @@
 	        data:$("#theForm").serialize(),
 	        success:function(response) {
 	        	if(response.success == true){
-					$("#hidGpId").val(response.gp);
-					$("#regp").html(response.gp);
+					$("#hidGpId").val(response.gp.gp);
+					$("#regp").html(response.urlTemplate+response.gp.gp);
 					$("#addDIV").show();
 				}else{
 					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.msg+"</strong></div>");
@@ -71,6 +70,12 @@
 		});
 
 	});
+
+	$("#show").click(function(){
+		var url = $("#regp").html();
+		window.open(url);
+	});
+
 	function cancel(){
 		$("#addDIV").hide();
 	}
@@ -121,7 +126,7 @@
 	</div>
 
 	<div class="modal modal-darkorange" id="addDIV">
-		<div class="modal-dialog" style="width: 400px; margin: 100px auto;">
+		<div class="modal-dialog" style="width: 800px; margin: 100px auto;">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button aria-hidden="true" data-dismiss="modal" class="close"
@@ -134,16 +139,18 @@
 							<form id="addPositionForm" method="post" class="form-horizontal">
 								<input type="hidden" id="gpnum" name="gpnum">
 								<div class="form-group">
-									<label class="col-lg-3 control-label">gp编码为：</label>
+									<label class="col-lg-3 control-label">链接：</label>
 									<div class="col-lg-6" id="regp">
 
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-lg-offset-4 col-lg-6">
-										<input class="btn btn-success" style="width: 35%;" id="confirm"
-											   type="button" value="保存" />&emsp;&emsp; <input
-											class="btn btn-danger" style="width: 35%;" id="close"
+									<div class="col-lg-offset-4 col-lg-8">
+										<input class="btn btn-success" style="width: 20%;" id="show"
+											   type="button" value="预览" />&emsp;&emsp;
+										<input class="btn btn-success" style="width: 20%;" id="confirm"
+											   type="button" value="确认" />&emsp;&emsp;
+										<input class="btn btn-danger" style="width: 20%;" id="close"
 											onclick="cancel();" type="button" value="取消" />
 									</div>
 								</div>

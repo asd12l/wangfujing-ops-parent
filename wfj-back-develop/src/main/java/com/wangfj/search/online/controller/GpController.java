@@ -163,6 +163,7 @@ public class GpController {
             return json.toJSONString();
         }
         JSONObject Json = JSONObject.parseObject(resultJson);
+        Json.put("urlTemplate",searchUrlTemplate);
         return Json.toString();
     }
 
