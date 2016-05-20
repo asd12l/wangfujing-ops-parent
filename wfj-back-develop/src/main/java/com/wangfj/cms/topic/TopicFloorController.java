@@ -233,7 +233,7 @@ public class TopicFloorController {
 	@RequestMapping(value = "/addFloor", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addDirectiveTpl(String title, String styleList, String flag,
 			String divtype, String enTitle, String topicId, String floorId, String type,
-			HttpServletRequest request) {
+			String seq,HttpServletRequest request) {
 		String methodName = "addDirectiveTpl";
 		String json = "";
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -261,6 +261,9 @@ public class TopicFloorController {
 		}
 		if (flag != null && !flag.equals("")) {
 			resultMap.put("flag", flag);
+		}
+		if (seq != null && !seq.equals("")) {
+			resultMap.put("seq", seq);
 		}
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic_floor/f_save.do",
