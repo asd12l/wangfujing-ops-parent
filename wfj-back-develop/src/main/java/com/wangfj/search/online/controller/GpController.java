@@ -123,7 +123,7 @@ public class GpController {
         }
         JSONObject jsonrequest = new JSONObject();
         jsonrequest.put("title",title);
-        jsonrequest.put("itemsIds",jsonArray);
+        jsonrequest.put("itemIds",jsonArray);
         String signatureJson;
         try {
             signatureJson = SignatureHandler
