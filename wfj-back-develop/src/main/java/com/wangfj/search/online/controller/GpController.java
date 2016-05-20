@@ -116,7 +116,7 @@ public class GpController {
     @RequestMapping("add")
     @ResponseBody
     public String add(HttpServletRequest request, String title, String ids){
-        String[] itemIds = ids.split(",");
+        String[] itemIds = ids.split("\\n|\\r");
         JSONArray jsonArray = new JSONArray();
         for(String id:itemIds){
             jsonArray.add(id);

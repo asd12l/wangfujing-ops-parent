@@ -102,7 +102,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">商品ID</label>
 										<div class="col-lg-2">
-											<input type="text" class="form-control" id="ids"  name="ids" placeholder="多个id用英文标点,隔开"/>
+											<textarea type="text" class="form-control" id="ids"  name="ids" placeholder="一行一个编码" rows="12"/>
 										</div>
 									</div>
          							<div class="form-group">
