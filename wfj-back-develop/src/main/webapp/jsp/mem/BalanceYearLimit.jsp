@@ -17,7 +17,7 @@ td,th{text-align:center;}
 <script type="text/javascript">
 			__ctxPath = "${pageContext.request.contextPath}";
 			var productPagination;
-			/* $(function() {
+			$(function() {
 			    initUserRole();
 			    $("#pageSelect").change(userRoleQuery);
 			});
@@ -31,14 +31,14 @@ td,th{text-align:center;}
 				$("#name").val("");
 				$("#type").val("");
 			}
-			//新增区间
-			function addBackUser(){
-				var url = __ctxPath+"/jsp/search/Interval/IntervalAdd.jsp";
+			//新增
+			function add(){
+				var url = __ctxPath+"/jsp/mem/BalanceYearLimitAdd.jsp";
 				$("#pageBody").load(url);
 			}
+
 			
-			
-			//查看区间详情
+			//查看
 			function appExample(){
 				var checkboxArray=[];
 				$("input[type='checkbox']:checked").each(function(i, team){
@@ -60,7 +60,7 @@ td,th{text-align:center;}
 			
 			//初始化
 		 	function initUserRole() {
-				var url = __ctxPath+"/back/intervalList";
+				var url = __ctxPath+"/balanceYearLimit/getList";
 				productPagination = $("#productPagination").myPagination({
 		           panel: {
 		             tipInfo_on: true,
@@ -90,119 +90,13 @@ td,th{text-align:center;}
 			             },
 		             callback: function(data) {
 		               //使用模板
-		               $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
+		               $("#product_tab tbody").setTemplateElement("balance-list").processTemplate(data);
 		             }
 		           }
 		         });
-		    }	
-		 	//删除区间
-			function delBackUser(){
-				var checkboxArray=[];
-				$("input[type='checkbox']:checked").each(function(i, team){
-					var productSid = $(this).val();
-					checkboxArray.push(productSid);
-				});
-				if(checkboxArray.length>1){
-					ZENG.msgbox.show(" 只能选择一列", 5, 2000);
-					 return false;
-				}else if(checkboxArray.length==0){
-					ZENG.msgbox.show("请选取要删除的记录", 5, 2000);
-					 return false;
-				}
-				bootbox.confirm("确定要删除吗?", function(r){
-					if(r){
-						var value=	checkboxArray[0];
-						var field = $("#field_"+value).attr("value");
-						var show_text = $("#show_text_"+value).attr("value");
-						var channel = $("#channel_"+value).attr("value");
-						var selected = $("#selected_"+value).attr("value");
-						$.ajax({
-							type: "post",
-							contentType: "application/x-www-form-urlencoded;charset=utf-8",
-							url: __ctxPath+"/back/intervalDelete",
-							dataType: "json",
-							data: {
-									"sid":value,
-									"field":field,
-									"show_text":show_text,
-									"channel":channel,
-									"selected":selected
-									},
-							ajaxStart: function() {$("#loading-container").attr("class","loading-container");},
-							ajaxStop: function() {
-							setTimeout(function() {$("#loading-container").addClass("loading-inactive");},300);
-							},
-							success: function(response) {
-								console.log(response);
-								if(response.success == true){
-									$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
-										"<i class='fa-fw fa fa-times'></i><strong>删除成功，返回列表页!</strong></div>");
-					  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
-								}else{
-									$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.message+"</strong></div>");
-									$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
-								}
-								return;
-							}
-						});
-					}
-				});
-			}
-		 	
-		 	//使有效、无效
-			function toselected(){
-				var checkboxArray=[];
-				$("input[type='checkbox']:checked").each(function(i, team){
-					var productSid = $(this).val();
-					checkboxArray.push(productSid);
-				});
-				if(checkboxArray.length>1){
-					ZENG.msgbox.show(" 只能选择一列", 5, 2000);
-					 return false;
-				}else if(checkboxArray.length==0){
-					ZENG.msgbox.show("请选择", 5, 2000);
-					 return false;
-				}
-			
-						var value=	checkboxArray[0];
-						var field = $("#field_"+value).attr("value");
-						var show_text = $("#show_text_"+value).attr("value");
-						var channel = $("#channel_"+value).attr("value");
-						var selected = $("#selected_"+value).attr("value");
-						$.ajax({
-							type: "post",
-							contentType: "application/x-www-form-urlencoded;charset=utf-8",
-							url: __ctxPath+"/back/toSelected",
-							dataType: "json",
-							data: {
-									"sid":value,
-									"field":field,
-									"show_text":show_text,
-									"channel":channel,
-									"selected":selected
-									
-									},
-							ajaxStart: function() {$("#loading-container").attr("class","loading-container");},
-							ajaxStop: function() {
-							setTimeout(function() {$("#loading-container").addClass("loading-inactive");},300);
-							},
-							success: function(response) {
-								console.log(response);
-								if(response.success == true){
-									$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
-										"<i class=''></i><strong>操作成功，返回列表页!</strong></div>");
-					  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
-								}else{
-									
-									$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.message+"</strong></div>");
-									$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"}); 
-								}
-								return;
-							}
-						});
-					
-			}
-		 	
+		    }
+
+		 	/*
 		 	//修改区间
 		 	function setApp(){
 		 		var checkboxArray=[];
@@ -257,10 +151,10 @@ td,th{text-align:center;}
                                 <div class="widget-body" id="pro">
                                  <form id="product_form" action="">
                                     <div class="table-toolbar">
-                                        <a id="editabledatatable_new" onclick="addBackUser();" class="btn btn-primary glyphicon glyphicon-plus">
+                                        <a id="add" onclick="add();" class="btn btn-primary glyphicon glyphicon-plus">
 										新增
                                         </a>&nbsp;&nbsp;
-                                         <a id="editabledatatable_new" onclick="setApp();" class="btn btn-info glyphicon glyphicon-wrench">
+                                         <a id="edit" onclick="edit();" class="btn btn-info glyphicon glyphicon-wrench">
 										修改
                                         </a>&nbsp;&nbsp;
                                        <div class="btn-group pull-right">
@@ -292,10 +186,9 @@ td,th{text-align:center;}
                                 </div>
 								<!-- Templates -->
 								<p style="display:none">
-									<textarea id="product-list" rows="0" cols="0">
-										<!--
+									<textarea id="balance-list" rows="0" cols="0">
 										{#template MAIN}
-											{#foreach $T.list as Result}
+											{#foreach $T.object as Result}
 												<tr class="gradeX">
 													<td align="left">
 														<div class="checkbox">
@@ -305,22 +198,14 @@ td,th{text-align:center;}
 															</label>
 														</div>
 													</td>
-													<td id="sid_{$T.Result.sid}">
-														{$T.Result.sid}
-													</td>
-													<td id="field_{$T.Result.sid}" value="{$T.Result.field}">{$T.Result.field}</td>
-													<td id="show_text_{$T.Result.sid}" value="{$T.Result.showText}">{$T.Result.showText}</td>
-													<td id="channel_{$T.Result.sid}" value="{$T.Result.channel}">{$T.Result.channelName}</td>
-													<td align="center" id="selected_{$T.Result.sid}" value="{$T.Result.selected}">
-														{#if $T.Result.selected == false}
-						           							<span class="label label-darkorange graded">无效</span>
-						                      			{#elseif $T.Result.selected == true}
-						           							<span class="label label-success graded">有效</span>
-						                   				{#/if}
-													</td>
+													<td id="year_{$T.Result.sid}" value="{$T.Result.year}">{$T.Result.year}</td>
+													<td id="setupComplaintBal_{$T.Result.sid}" value="{$T.Result.setupComplaintBal}">{$T.Result.setupComplaintBal}</td>
+													<td id="usableComplaintBal_{$T.Result.sid}" value="{$T.Result.usableComplaintBal}">{$T.Result.usableComplaintBal}</td>
+													<td id="setupCarriageBal_{$T.Result.sid}" value="{$T.Result.setupCarriageBal}">{$T.Result.setupCarriageBal}</td>
+													<td id="usableCarriageBal_{$T.Result.sid}" value="{$T.Result.usableCarriageBal}">{$T.Result.usableCarriageBal}</td>
 									       		</tr>
 											{#/for}
-									    {#/template MAIN}	-->
+									    {#/template MAIN}
 									</textarea>
 								</p>
                             </div>
