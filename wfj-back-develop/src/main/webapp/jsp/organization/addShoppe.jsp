@@ -443,7 +443,8 @@
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label">专柜名称：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6">
 												<input maxlength="20" type="text" class="form-control"
-													id="shoppeName" name="shoppeName" placeholder="必填"/>
+													id="shoppeName" name="shoppeName" placeholder="必填"
+													onpaste="return false;" />
 											</div>
 										</div>
 									</div>
