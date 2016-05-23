@@ -142,7 +142,7 @@
 														{$T.Result.title}
 													</td>
 													<td id="{$T.Result.gp}" value="{$T.Result.field}">
-                                                        <a href="{$T.urlTemplate}{$T.Result.gp}">{$T.urlTemplate}{$T.Result.gp}</a>
+                                                        <a href="http://{$T.urlTemplate}{$T.Result.gp}">http://{$T.urlTemplate}{$T.Result.gp}</a>
                                                     </td>
 									       		</tr>
 											{#/for}
