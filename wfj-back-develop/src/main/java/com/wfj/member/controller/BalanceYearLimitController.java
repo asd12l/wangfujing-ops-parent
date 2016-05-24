@@ -62,7 +62,7 @@ public class BalanceYearLimitController {
     public String insert(HttpServletRequest request, String setupComplaintBal, String setupCarriageBal, String year){
         Map<String,String> map = new HashMap<>();
         map.put("sid",Long.toString(System.currentTimeMillis()));
-        map.put("setupComplaintBal",setupComplaintBal);
+        map.put("setupComplaintBal", setupComplaintBal);
         map.put("usableComplaintBal",setupComplaintBal);
         map.put("setupCarriageBal",setupCarriageBal);
         map.put("usableCarriageBal",setupCarriageBal);
@@ -80,5 +80,38 @@ public class BalanceYearLimitController {
             errJson.put("desc", "添加失败！");
             return errJson.toString();
         }
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public String update(HttpServletRequest request, String sid, String setupComplaintBal, String setupCarriageBal, String year){
+        Map<String,String> map = new HashMap<>();
+        map.put("sid",sid);
+        String url = CommonProperties.get("member_ops_url");
+        String method = "/setYearBal/getBySid.do";
+        String req;
+        try {
+            req = HttpUtil.HttpPost(url,method, map);
+        } catch (Exception e) {
+            log.error("以sid查询出错！",e);
+            JSONObject errJson = new JSONObject();
+            errJson.put("code","0");
+            errJson.put("desc", "修改失败！查询出错");
+            return errJson.toString();
+        }
+        JSONObject jsonObject = JSONObject.parseObject(req);
+        Map<String,String> mapRequest = new HashMap<>();
+        if(jsonObject.getJSONObject("object") != null){
+            JSONObject json = jsonObject.getJSONObject("object");
+            String setupComplaintBalOld = json.getString("setupComplaintBal");
+            String setupCarriageBalOld = json.getString("setupCarriageBal");
+            String usableComplaintBalOld = json.getString("usableComplaintBal");
+            String usableCarriageBalOld = json.getString("usableCarriageBal");
+            if((Long.parseLong(setupComplaintBal) < Long.parseLong(setupComplaintBalOld)) &&
+                    (Long.parseLong(setupComplaintBal) < Long.parseLong(usableComplaintBalOld))){
+
+            }
+        }
+        return null;
     }
 }
