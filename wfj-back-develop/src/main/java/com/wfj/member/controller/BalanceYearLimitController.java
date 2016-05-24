@@ -107,8 +107,7 @@ public class BalanceYearLimitController {
             String setupCarriageBalOld = json.getString("setupCarriageBal");
             String usableComplaintBalOld = json.getString("usableComplaintBal");
             String usableCarriageBalOld = json.getString("usableCarriageBal");
-            if((Long.parseLong(setupComplaintBal) < Long.parseLong(setupComplaintBalOld)) &&
-                    (Long.parseLong(setupComplaintBal) < Long.parseLong(usableComplaintBalOld))){
+            if(Long.parseLong(setupComplaintBal) < Long.parseLong(usableComplaintBalOld)){
 
             }
         }

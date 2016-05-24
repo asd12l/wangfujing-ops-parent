@@ -28,8 +28,7 @@
 
 			});
 			$("#close").click(function(){
-				var contentSid = $("#contentSid").attr("value");
-				$("#pageBody").load(__ctxPath+"/jsp/search/Interval/showIntervalDetail.jsp"+"?contentSid="+contentSid);
+				$("#pageBody").load(__ctxPath+"/jsp/mem/BalanceYearLimit.jsp");
 			});
 		});
 

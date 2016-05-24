@@ -105,7 +105,7 @@
                         <div class="widget-body" id="pro">
                             <form id="gp_form" action="">
                                 <div class="table-toolbar">
-                                    <a id="editabledatatable_new" onclick="addGp();" class="btn btn-primary glyphicon glyphicon-plus">
+                                    <a id="add" onclick="addGp();" class="btn btn-primary glyphicon glyphicon-plus">
                                         新增
                                     </a>
                                     <div class="btn-group pull-right">
