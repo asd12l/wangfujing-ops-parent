@@ -30,7 +30,7 @@ import net.sf.json.JSONObject;
  * 广告管理
  * @Class Name AdvertisingController
  * @Author chengsj
- * @Create In 2015年9月14日
+ * @Create In 2015年9月14日   
  */
 @Controller
 @RequestMapping(value="adverties")
