@@ -67,6 +67,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 		$("#msg"+param).addClass('hide');
 		$("#msg"+param).html("");
 		$("#input_img"+param).val("");
+		$("#loading-container").attr('class','loading-container');
 		$.ajaxFileUpload({
 			 contentType: "application/x-www-form-urlencoded;charset=utf-8",
 	         url:__ctxPath+"/topic/uploadImg-noMulti",
@@ -89,10 +90,12 @@ Date.prototype.Format = function (fmt) { //author: meizz
 	           	 }
 	             $("#msg"+param).html(str);
 	             $("#msg"+param).removeClass('hide');
+	             $("#loading-container").attr('class','loading-container loading-inactive');
 	         },
   		error: function (data, status, e)//服务器响应失败处理函数
         {
-  			 $("#msg"+param).html("<span class='img_error'>"+data.msg+"</span>");
+  			$("#loading-container").attr('class','loading-container loading-inactive');
+  			$("#msg"+param).html("<span class='img_error'>"+data.msg+"</span>");
   			 $("#msg"+param).removeClass('hide');
   			$("#input_img"+param).val("");
         }  
@@ -107,6 +110,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 		$("#msg"+param).addClass('hide');
 		$("#msg"+param).html("");
 		$("#input_img"+param).val("");
+		$("#loading-container").attr('class','loading-container');
 		$.ajaxFileUpload({
 			 contentType: "application/x-www-form-urlencoded;charset=utf-8",
 	         url:__ctxPath+"/topic_floor/uploadImg-noMulti",
@@ -129,10 +133,12 @@ Date.prototype.Format = function (fmt) { //author: meizz
 	           	 }
 	             $("#msg"+param).html(str);
 	             $("#msg"+param).removeClass('hide');
+	             $("#loading-container").attr('class','loading-container loading-inactive');
 	         },
   		error: function (data, status, e)//服务器响应失败处理函数
         {
-  			 $("#msg"+param).html("<span class='img_error'>"+data.msg+"</span>");
+  			$("#loading-container").attr('class','loading-container loading-inactive');
+  			$("#msg"+param).html("<span class='img_error'>"+data.msg+"</span>");
   			 $("#msg"+param).removeClass('hide');
   			 $("#input_img"+param).val("");
         }  
@@ -632,7 +638,9 @@ function initTplList(path){
 		shortName_=$("#shortName_"+value).val().trim();
 		description_ = $("#description_" + value).val();
 		path_ = $("#path_" + value).val().trim();
-		titleImg_=$("#titleImg_"+value).val().trim();
+		//titleImg_=$("#titleImg_"+value).val().trim();
+		titleImg_=$("#titleImg_"+value).val().trim().split("com")[1];
+		
 		tplContent_ = $("#tplContent_" + value).val().trim();
 		recommend_ = $("#recommend_" + value).val();
 		startTime_ = $("#startTime_" + value).text();
@@ -650,7 +658,7 @@ function initTplList(path){
 		$("#edit_startTime").val(startTime_);
 		$("#edit_endTime").val(endTime_);
 		
-		$("#input_img2").val(titleImg_);
+		$("#input_img2").val($("#titleImg_"+value).val().trim());
 		if(titleImg_!=''){
 			$("#msg2").removeClass("hide");
 			$("#msg2").html("<img width='100' height='100' src='"+cmsImageServer+titleImg_+"' />");

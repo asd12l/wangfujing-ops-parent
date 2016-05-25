@@ -1,4 +1,5 @@
 function uploadImg1(__ctxPath, ip, username, password, port, path, site_name, fileElementId){
+	$("#loading-container").attr('class','loading-container');
 	$.ajaxFileUpload({
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
 		//url : __ctxPath + "/adverties/uploadImg-noMulti",
@@ -23,8 +24,10 @@ function uploadImg1(__ctxPath, ip, username, password, port, path, site_name, fi
 
 				$("input[name='" + fileElementId.substring(3) + "']").val(data.url);
 			}
+			$("#loading-container").attr('class','loading-container loading-inactive');
 		},
 		error : function(data, status, e){
+			$("#loading-container").attr('class','loading-container loading-inactive');
 			console.log(data);
 		}
 	});
@@ -56,6 +59,7 @@ function uploadImg(__ctxPath, siteId, fileElementId){
 	if(adspaceIdFun==87) sizeNo = "220_220";// 买了还买了广告位
 	if(adspaceIdFun==88) sizeNo = "220_220";// 看了还看了广告位
 	if(adspaceIdFun==89) sizeNo = "220_220";// 同品牌推荐
+	$("#loading-container").attr('class','loading-container');
 	$.ajaxFileUpload({
 		
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -79,8 +83,10 @@ function uploadImg(__ctxPath, siteId, fileElementId){
 				$("#warning2").attr("style", "z-index:9999");
 				$("#warning2").show();
 			}
+			$("#loading-container").attr('class','loading-container loading-inactive');
 		},
 		error : function(data, status, e){
+			$("#loading-container").attr('class','loading-container loading-inactive');
 			console.log(data);
 		}
 	});
@@ -88,6 +94,7 @@ function uploadImg(__ctxPath, siteId, fileElementId){
 
 function uploadFlash(__ctxPath, siteId, fileElementId){
 	alert(fileElementId);
+	$("#loading-container").attr('class','loading-container');
 	$.ajaxFileUpload({
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
 		url : __ctxPath + "/cms/file/uploadFlash-noMulti",
@@ -105,8 +112,10 @@ function uploadFlash(__ctxPath, siteId, fileElementId){
 
 				$("input[name='" + fileElementId.substring(3) + "']").val(data.path);
 			}
+			$("#loading-container").attr('class','loading-container loading-inactive');
 		},
 		error : function(data, status, e){
+			$("#loading-container").attr('class','loading-container loading-inactive');
 			console.log(data);
 		}
 	});

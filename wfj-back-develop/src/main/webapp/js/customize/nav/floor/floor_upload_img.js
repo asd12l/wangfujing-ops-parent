@@ -8,6 +8,8 @@ function uploadlinkImg(fileElementId) {
 }
 
 function uploadImg(__ctxPath, siteId, fileElementId){
+	 // 开始上传文件时显示  loading-container loading-inactive
+	$("#loading-container").attr('class','loading-container');
 	$.ajaxFileUpload({
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
 		url : __ctxPath + "/cms/file/uploadImg-noMulti",
@@ -26,10 +28,12 @@ function uploadImg(__ctxPath, siteId, fileElementId){
 				$("#img_" + fileElementId.substring(3)).attr('src', data.url); 
 				$("#hidden_" + fileElementId.substring(3)).val(data.path);
 			}
+			$("#loading-container").attr('class','loading-container loading-inactive');
 		},
 		error : function(data, status, e){
+			$("#loading-container").attr('class','loading-container loading-inactive');
 			console.log(data);
 		}
 	});
-	
+
 }

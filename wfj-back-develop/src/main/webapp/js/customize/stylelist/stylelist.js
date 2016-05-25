@@ -58,8 +58,8 @@ function upLoadImg(param) {
 					var password = response.password;
 					var port = response.port;
 					var path = response.path;
-					$
-							.ajaxFileUpload({
+					$("#loading-container").attr('class','loading-container');
+					$.ajaxFileUpload({
 								contentType : "application/x-www-form-urlencoded;charset=utf-8",
 								url : __ctxPath
 										+ "/stylelist/uploadImg-noMulti",
@@ -91,9 +91,11 @@ function upLoadImg(param) {
 									}
 									$("#msg" + param).html(str);
 									$("#msg" + param).removeClass('hide');
+									$("#loading-container").attr('class','loading-container loading-inactive');
 								},
 								error : function(data, status, e)// 服务器响应失败处理函数
 								{
+									$("#loading-container").attr('class','loading-container loading-inactive');
 									$("#msg" + param)
 											.html(
 													"<span class='img_error'>系统错误，上传失败</span>");
@@ -244,8 +246,7 @@ function uploadZipFile(obj) {
 function saveFrom() {
 	var path = $("#select_path").val();
 	var source = $("#tpl_edit").val();
-	$
-			.ajax({
+	$.ajax({
 				type : "post",
 				dataType : "json",
 				contentType : "application/x-www-form-urlencoded;charset=utf-8",

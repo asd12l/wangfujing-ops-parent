@@ -879,10 +879,10 @@ public class FloorWeb {
 					object.put("pict",  getImageServer() + pict);
 				}
 			}
-			if(object.containsKey("sub_title")){
-				String subTitle = object.getString("sub_title");
+			if(object.containsKey("subTitle")){
+				String subTitle = object.getString("subTitle");
 				if(StringUtils.isNotEmpty(subTitle)) {
-					object.put("sub_title", getImageServer() + subTitle);
+					object.put("subTitle", getImageServer() + subTitle);
 				}
 			}
 		}
