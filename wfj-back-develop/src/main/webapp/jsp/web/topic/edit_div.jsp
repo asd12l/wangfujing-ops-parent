@@ -52,6 +52,31 @@
                                         </div>
 		                            </div>
 		                        </div> -->
+		                        
+		                        
+		                        <div class="form-group" style="display: none">
+		                            <label class="col-sm-3 control-label">
+		                            	<span style="color:red;">*</span>顺&#12288;&#12288;序：
+		                            </label>
+		                            <div class="col-sm-9">
+		                            	<div class="spinner spinner-horizontal spinner-two-sided">
+                                            <div class="spinner-buttons	btn-group spinner-buttons-left">
+                                                <button type="button" class="btn spinner-down danger">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="text" class="spinner-input form-control clear_input" id="div_seq_edit"
+												name="seq" placeholder="" />
+                                            <div class="spinner-buttons	btn-group spinner-buttons-right">
+                                                <button type="button" class="btn spinner-up blue">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+		                            </div>
+		                        </div>
+							
+							
 								<div class="form-group">
 		                            <label class="col-sm-3 control-label">块&nbsp;类&nbsp;&nbsp;型：</label>
 		                            <div class="col-sm-9">
