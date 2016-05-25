@@ -101,16 +101,46 @@ public class BalanceYearLimitController {
         }
         JSONObject jsonObject = JSONObject.parseObject(req);
         Map<String,String> mapRequest = new HashMap<>();
+        mapRequest.put("sid",sid);
+        mapRequest.put("year",year);
+        String method2 = "/setYearBal/update.do";
+        String req2;
         if(jsonObject.getJSONObject("object") != null){
             JSONObject json = jsonObject.getJSONObject("object");
             String setupComplaintBalOld = json.getString("setupComplaintBal");
             String setupCarriageBalOld = json.getString("setupCarriageBal");
             String usableComplaintBalOld = json.getString("usableComplaintBal");
             String usableCarriageBalOld = json.getString("usableCarriageBal");
-            if(Long.parseLong(setupComplaintBal) < Long.parseLong(usableComplaintBalOld)){
-
+            if(Double.parseDouble(setupComplaintBal) < Double.parseDouble(setupComplaintBalOld)){
+                mapRequest.put("setupComplaintBal",setupComplaintBal);
+                mapRequest.put("usableComplaintBal",Double.toString(Double.parseDouble(usableComplaintBalOld) - (Double.parseDouble(setupComplaintBalOld) - Double.parseDouble(setupComplaintBal))));
+            }else {
+                mapRequest.put("setupComplaintBal",setupComplaintBal);
+                mapRequest.put("usableComplaintBal",Double.toString(Double.parseDouble(usableComplaintBalOld) + (Double.parseDouble(setupComplaintBal) - Double.parseDouble(setupComplaintBalOld))));
             }
+            if(Double.parseDouble(setupCarriageBal) < Double.parseDouble(setupCarriageBalOld)){
+                mapRequest.put("setupCarriageBal",setupCarriageBal);
+                mapRequest.put("usableCarriageBal",Double.toString(Double.parseDouble(usableCarriageBalOld) - (Double.parseDouble(setupCarriageBalOld) - Double.parseDouble(setupCarriageBal))));
+            }else {
+                mapRequest.put("setupCarriageBal",setupCarriageBal);
+                mapRequest.put("usableCarriageBal",Double.toString(Double.parseDouble(usableCarriageBalOld) + (Double.parseDouble(setupCarriageBal) - Double.parseDouble(setupCarriageBalOld))));
+            }
+
+            try {
+                req2 = HttpUtil.HttpPost(url,method2, mapRequest);
+            } catch (Exception e) {
+                log.error("修改年限制出错！",e);
+                JSONObject errJson = new JSONObject();
+                errJson.put("code","0");
+                errJson.put("desc", "修改失败！");
+                return errJson.toString();
+            }
+            return req2;
+        }else {
+            JSONObject errJson = new JSONObject();
+            errJson.put("code","0");
+            errJson.put("desc", "没有改修改记录！");
+            return errJson.toString();
         }
-        return null;
     }
 }

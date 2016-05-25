@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/>
 	<style type='text/css'>
-		#product_tab{width:70%;margin-left:130px;}
+		/*#product_tab{width:70%;margin-left:130px;}*/
 		#sid0{width:30px;}
 		td,th{text-align:center;}
 	</style>
@@ -36,7 +36,7 @@
 
 		//初始化
 		function initUserRole() {
-			var url = __ctxPath+"/balanceYearLimit/getList";
+			var url = __ctxPath+"/balanceMonthLimit/getList";
 			productPagination = $("#productPagination").myPagination({
 				panel: {
 					tipInfo_on: true,
@@ -133,15 +133,12 @@
 									<a id="edit" onclick="edit();" class="btn btn-info glyphicon glyphicon-wrench">
 										修改
 									</a>&nbsp;&nbsp;
-									<div class="btn-group pull-right">
-
-										<select id="pageSelect" name="pageSize">
-											<option selected="selected">5</option>
-											<option >10</option>
-											<option>15</option>
-											<option>20</option>
-										</select>
+									<div class="mtb10">
+										<span>年份：</span>
+										<input type="text" id="year" />&nbsp;&nbsp;&nbsp;&nbsp;
+										<a class="btn btn-default shiny" onclick="find();">查询</a>
 									</div>
+
 								</div>
 							</form>
 							<table class="table table-striped table-hover table-bordered" id="product_tab">

@@ -15,67 +15,38 @@
         __ctxPath = "${pageContext.request.contextPath}";
         $(function(){
             $("#save").click(function(){
-                var lower_limit=$("#lower_limit").val();
-                var upper_limit=$("#upper_limit").val();
-                var order_by=$("#order_by").val();
-                if(Check1(lower_limit)&&Check1(upper_limit)&&Check2(order_by)){
-                    if(Check3(lower_limit)&&Check3(upper_limit)){
-                        if(upper_limit >= lower_limit){
-                            saveFrom();
-                        }else{
-                            alert("上限必须大于等于下限");
-                            return;
-                        }
-                    }
+                var setupComplaintBal=$("#setupComplaintBal").val();
+                var setupCarriageBal=$("#setupCarriageBal").val();
+                var filter  = /^[0-9].*$/;
+                if(filter.test(setupComplaintBal) && filter.test(setupCarriageBal)){
                     saveFrom();
                 }else{
-
-                    return;
+                    alert("请输入正数！");
+                    return false;
                 }
-                saveFrom();
+
             });
             $("#close").click(function(){
                 $("#pageBody").load(__ctxPath+"/jsp/mem/BalanceYearLimit.jsp");
             });
         });
 
-        function Check1(limit) {
-            var filter  =  /[\d\*]/g ;
-            if (filter.test(limit)) return true;
-            else {
-                alert('上限或下限只能输入数字或*');
-                return false;}
-        }
-        function Check2(order) {
-            var filter  = /[\d]/g;
-            if (filter.test(order)) return true;
-            else {
-                alert('顺序只能是数字');
-                return false;}
-        }
-        function Check3(order) {
-            var filter  = /[\d]/g;
-            if (filter.test(order)) return true;
-            else {
-                return false;}
-        }
-
         //保存数据
         function saveFrom(){
             $.ajax({
                 type:"post",
                 contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                url:__ctxPath + "/back/intervalDetailUpdate",
+                url:__ctxPath + "/balanceYearLimit/update",
                 dataType: "json",
                 data: $("#theForm").serialize(),
 
                 success:function(response) {
-                    if(response.success == true){
+                    if(response.code == "1"){
                         $("#modal-body-success").html("<div class='alert alert-success fade in'>"+
                                 "<i class='fa-fw fa fa-times'></i><strong>修改成功，返回列表页!</strong></div>");
                         $("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
                     }else{
-                        $("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.message+"</strong></div>");
+                        $("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.desc+"</strong></div>");
                         $("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
                     }
                 }

@@ -22,9 +22,13 @@
 			$("#save").click(function(){
 				var setupComplaintBal=$("#setupComplaintBal").val();
 				var setupCarriageBal=$("#setupCarriageBal").val();
-				Check(setupComplaintBal);
-				Check(setupCarriageBal);
-				saveFrom();
+				var filter  = /^[0-9].*$/;
+				if(filter.test(setupComplaintBal) && filter.test(setupCarriageBal)){
+					saveFrom();
+				}else{
+					alert("请输入正数！");
+					return false;
+				}
 
 			});
 			$("#close").click(function(){
