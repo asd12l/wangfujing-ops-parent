@@ -24,9 +24,13 @@
             $("#save").click(function(){
                 var setupComplaintBal=$("#setupComplaintBal").val();
                 var setupCarriageBal=$("#setupCarriageBal").val();
-                Check(setupComplaintBal);
-                Check(setupCarriageBal);
-                saveFrom();
+                var filter  = /^[0-9].*$/;
+                if(filter.test(setupComplaintBal) && filter.test(setupCarriageBal)){
+                    saveFrom();
+                }else{
+                    alert("请输入正数！");
+                    return false;
+                }
 
             });
             $("#close").click(function(){
@@ -34,21 +38,12 @@
             });
         });
 
-
-
-        function Check(limit) {
-            var filter  = /^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$/;
-            if (filter.test(limit)) return true;
-            else {
-                alert('只能填写正数！');
-                return false;}
-        }
         //保存数据
         function saveFrom(){
             $.ajax({
                 type:"post",
                 contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                url:__ctxPath + "/balanceYearLimit/insert",
+                url:__ctxPath + "/balanceMonthLimit/insert",
                 dataType: "json",
                 data: $("#theForm").serialize(),
 
@@ -100,7 +95,7 @@
                                     <label class="col-lg-3 control-label">年月份</label>
                                     <div class="col-lg-6">
                                         <div class="input-append date form_datetime">
-                                            <input size="16" type="text" name="year" id="year" value="" readonly>
+                                            <input size="16" type="text" name="yearMonth" id="yearMonth" value="" readonly>
                                             <span class="add-on"><i class="icon-th"></i></span>
                                         </div>
                                     </div>

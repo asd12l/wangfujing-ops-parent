@@ -19,11 +19,10 @@
 		var productPagination;
 		$(function() {
 			initUserRole();
-			$("#pageSelect").change(userRoleQuery);
+			$("#find").click(userRoleQuery);
 		});
 		function userRoleQuery(){
 			var params = $("#product_form").serialize();
-			//alert("表单序列化后请求参数:"+params);
 			params = decodeURI(params);
 			productPagination.onLoad(params);
 		}
@@ -90,12 +89,19 @@
 				return false;
 			}
 			var value=	checkboxArray[0];
-			var year_ = $("#year_"+value).text().trim();
-			var setupComplaintBal_ = $("#setupComplaintBal_"+value).text().trim();
-			var setupCarriageBal_ = $("#setupCarriageBal_"+value).attr("value");
+			var yearSid = $("#yearSid_"+value).val();
+			var yearMonth = $("#yearMonth_"+value).text().trim();
+			var setupComplaintBal = $("#setupComplaintBal_"+value).text().trim();
+			var usableMonthcptBal = $("#usableMonthcptBal_"+value).text().trim();
+			var usedMonthcptBal = $("#usedMonthcptBal_"+value).text().trim();
+			var setupCarriageBal = $("#setupCarriageBal_"+value).attr("value");
+			var usableMonthcrgBal = $("#usableMonthcrgBal_"+value).text().trim();
+			var usedMonthcrgBal = $("#usedMonthcrgBal_"+value).text().trim();
 
-			var url = __ctxPath+"/jsp/mem/BalanceYearLimitEdit.jsp"+"?sid="+value+"&year="+year_
-					+"&setupComplaintBal="+setupComplaintBal_+"&setupCarriageBal="+setupCarriageBal_;
+
+			var url = __ctxPath+"/jsp/mem/BalanceMonthLimitEdit.jsp"+"?sid="+value+"&yearSid="+yearSid+"&yearMonth="+yearMonth
+					+"&setupComplaintBal="+setupComplaintBal+"&usableMonthcptBal="+usableMonthcptBal+"&usedMonthcptBal="+usedMonthcptBal+"&setupCarriageBal="+setupCarriageBal
+					+"&usableMonthcrgBal="+usableMonthcrgBal+"&usedMonthcrgBal="+usedMonthcrgBal;
 			$("#pageBody").load(url);
 		}
 		function successBtn(){
@@ -135,8 +141,8 @@
 									</a>&nbsp;&nbsp;
 									<div class="mtb10">
 										<span>年份：</span>
-										<input type="text" id="year" />&nbsp;&nbsp;&nbsp;&nbsp;
-										<a class="btn btn-default shiny" onclick="find();">查询</a>
+										<input type="text" id="year" name="year"/>&nbsp;&nbsp;&nbsp;&nbsp;
+										<a class="btn btn-default shiny" id="find">查询</a>
 									</div>
 
 								</div>
@@ -168,6 +174,7 @@
 													<td align="left">
 														<div class="checkbox">
 															<label>
+																<input type="hidden" id="yearSid_{$T.Result.sid}" value="{$T.Result.yearSid}">
 																<input type="checkbox" id="tdCheckbox_{$T.Result.sid}" value="{$T.Result.sid}" >
 																<span class="text"></span>
 															</label>

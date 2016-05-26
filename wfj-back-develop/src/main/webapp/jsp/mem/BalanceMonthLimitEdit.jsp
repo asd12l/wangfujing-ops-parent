@@ -27,18 +27,22 @@
 
             });
             $("#close").click(function(){
-                $("#pageBody").load(__ctxPath+"/jsp/mem/BalanceYearLimit.jsp");
+                $("#pageBody").load(__ctxPath+"/jsp/mem/BalanceMonthLimit.jsp");
             });
+
         });
+
+
 
         //保存数据
         function saveFrom(){
             $.ajax({
                 type:"post",
                 contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                url:__ctxPath + "/balanceYearLimit/update",
+                url:__ctxPath + "/balanceMonthLimit/update",
                 dataType: "json",
                 data: $("#theForm").serialize(),
+
                 success:function(response) {
                     if(response.code == "1"){
                         $("#modal-body-success").html("<div class='alert alert-success fade in'>"+
@@ -53,7 +57,7 @@
         }
         function successBtn(){
             $("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
-            $("#pageBody").load(__ctxPath+"/jsp/mem/BalanceYearLimit.jsp");
+            $("#pageBody").load(__ctxPath+"/jsp/mem/BalanceMonthLimit.jsp");
         }
     </script>
 </head>
@@ -71,6 +75,11 @@
                         <div class="widget-body">
                             <form id="theForm" method="post" class="form-horizontal">
                                 <input type="hidden" id="sid" name="sid" value="${param.sid }"/>
+                                <input type="hidden" id="yearSid" name="yearSid" value="${param.yearSid }">
+                                <input type="hidden" id="usableMonthcptBal" name="usableMonthcptBal" value="${param.usableMonthcptBal }">
+                                <input type="hidden" id="usedMonthcptBal" name="usedMonthcptBal" value="${param.usedMonthcptBal }">
+                                <input type="hidden" id="usableMonthcrgBal" name="usableMonthcrgBal" value="${param.usableMonthcrgBal }">
+                                <input type="hidden" id="usedMonthcrgBal" name="usedMonthcrgBal" value="${param.usedMonthcrgBal }">
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">投诉补偿额度</label>
                                     <div class="col-lg-6">
@@ -84,9 +93,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">年份</label>
+                                    <label class="col-lg-3 control-label">年月份</label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="year" value="${param.year }" name="year" readonly="readonly"/>
+                                        <input type="text" class="form-control" id="yearMonth" value="${param.yearMonth }" name="yearMonth" readonly="readonly"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
