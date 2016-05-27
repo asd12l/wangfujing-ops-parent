@@ -495,6 +495,8 @@ function initTplList(path){
 		var time2 = new Date().Format("yyyy-MM-dd hh:mm:ss");
 		$("#msg1").addClass("hide");
 		$("#startTime").val(time2);
+		$(".error").html("");
+		$("#image_name1").removeClass("error");
 		$("#addTopicDIV").show();
 		$("#add_site_sid").val(siteSid);
 		initTplList($("#add_tpl_path").val());
