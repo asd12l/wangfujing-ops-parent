@@ -78,21 +78,21 @@ Author: WangSy
 <script type="text/javascript">
 	$("#li_show a").click(function() {
 		var status = $("#li_show a").attr("data-toggle");
-	  　　if(status == " "){
-		  　　$("#warning2Body").text("请先添加产品基本信息！");
-		　  　$("#warning2").show();
-	  　　} else {
+	  	if(status == " "){
+		  	$("#warning2Body").text("请先添加产品基本信息！");
+			$("#warning2").show();
+	  	} else {
 		   loadColors();
-	  　　}
+	  	}
 	});
 	$("#li_FinePack a").click(function() {
 		var status = $("#li_FinePack a").attr("data-toggle");
-	  　　if(status == " "){
-		  　　$("#warning2Body").text("请先添加产品基本信息！");
-		　  　$("#warning2").show();
-	  　　} else {
-		   loadProPacking();
-	  　　}
+	  	if(status == " "){
+		$("#warning2Body").text("请先添加产品基本信息！");
+			$("#warning2").show();
+	  	} else {
+			loadProPacking();
+	  	}
 	});
 
 	var channelCodeList = new Array();
@@ -1526,9 +1526,13 @@ Author: WangSy
 								$("#divJyType").hide();
 								$("#discountLimitDiv").hide();
 								$("#managerDiv_font").hide();
+								$("#divSm").hide();
+								$("#divGg").hide();
+								$("#divTxys").show();
+								$("#divTxcm").show();
 								$("#eConDivShow").show();
 								
-								for (var i = 0; i < dictResponse.data.length; i++) {
+								/* for (var i = 0; i < dictResponse.data.length; i++) {
 									if (dictResponse.data[i].wllx != null) {
 										var wllx = dictResponse.data[i].wllx;
 										var option="<option value='-1'>全部</option>";
@@ -1539,7 +1543,7 @@ Author: WangSy
 										}
 										$("#tmsParam").html(option);
 									} 
-								}
+								} */
 								
 							} else {
 								$("#divProcessingType").show();
@@ -1558,6 +1562,10 @@ Author: WangSy
 								$("#divJyType").show();
 								$("#discountLimitDiv").show();
 								$("#managerDiv_font").show();
+								$("#divSm").show();
+								$("#divGg").show();
+								$("#divTxys").hide();
+								$("#divTxcm").hide();
 								$("#eConDivShow").hide();
 							}
 							if (YTtype == 0 && $("#manageType").val() == 2) {
@@ -3972,7 +3980,7 @@ function clearAll(){
 												<h4 class="panel-title">
 													<a onclick="aClick(this.id);" id="skuDiv"
 														class="accordion-toggle" style="cursor: pointer;">
-														专柜商品信息<font style="color: red;">(以下信息是必填项)</font>
+														专柜商品信息<font style="color: red;">(以下带*是必填项)</font>
 													</a>
 												</h4>
 											</div>
@@ -4008,13 +4016,24 @@ function clearAll(){
 															<span id="sm"></span>
 														</div>
 													</div>
-													<div class="col-md-3">
+													<div class="col-md-3" id="divGg">
 														<label class="col-md-4">规格：</label>
 														<div class="col-md-8">
 															<span id="gg"></span>
 														</div>
-														&nbsp;
 													</div>
+													<div class="col-md-4" style="padding: 0" id="divShoppeProType">
+														<label class="col-md-4 control-label"
+															style="padding: 8px 0"><font style="color: red;">*</font>电商商品类型：</label>
+														<div class="col-md-8">
+															<select id="shoppeProType" name="shoppeProType"
+																style="width: 100%; height: 32px; margin-bottom: 4px;">
+																<option value="0">正常商品</option>
+																<option value="1">低值易耗</option>
+															</select>
+														</div>
+													</div>
+													<br><br>
 													<div class="col-md-4" style="padding: 0">
 														<label class="col-md-4 control-label" style="padding: 8px 0"><font
 															style="color: red;">*</font>专柜商品名称：</label>
@@ -4078,26 +4097,56 @@ function clearAll(){
 														</div>
 														&nbsp;
 													</div>
+													<div class="col-md-4" id="divTxys" style="padding: 0;">
+														<label class="col-md-4 control-label"
+														style="padding: 8px 0;"><font
+															style="color: red;">*</font>特性颜色：</label>
+														<div class="col-md-8">
+															<input class="form-control" id="zzColorCode"
+																	maxLength=20
+																	name="zzColorCode" style="width: 100%" />
+														</div>
+													</div>
+													<div class="col-md-4" id="divTxcm" style="padding: 0;">
+														<label class="col-md-4 control-label"
+														style="padding: 8px 0;"><font
+															style="color: red;">*</font>特性尺码：</label>
+														<div class="col-md-8">
+															<input class="form-control" id="zzSizeCode"
+																	maxLength=20
+																	name="zzSizeCode" style="width: 100%" />
+														</div>
+														&nbsp;
+													</div>
 													<div id="eConDivShow"
 														style="overflow-y: auto; width: 100%;margin:0;">
-														<div class="col-md-4"  style="padding: 0">
-															<label class="col-md-4 control-label" style="padding: 8px 0">供应商商品编码：</label>
-															<div class="col-md-8">
+														<div class="col-md-4" style="padding: 0">
+															<label style="width:109px;float:left;padding: 8px 0;"><font
+															style="color: red;">*</font>供应商商品编码：</label>
+															<div style="width:186px;float:left;margin-left:15px;">
 																<input class="form-control" id="supplyProductCode"
 																	onkeyup="clearNoNum(event,this)"
-																	onblur="checkNum(this)" onpaste="return false;"
-																	maxLength=20 name="supplyProductCode" style="width: 100%"/>
+																	onblur="checkNum(this)"
+																	maxLength=20 name="supplyProductCode"
+																	style="width: 100%" />
 															</div>
 															&nbsp;
 														</div>
 														<div class="col-md-4" style="padding: 0" >
-															<label class="col-md-4 control-label" style="padding: 8px 0">物流类型：</label>
+															<label class="col-md-4 control-label" style="padding: 8px 0"><font
+															style="color: red;">*</font>物流类型：</label>
 															<div class="col-md-8" style="height:36px;">
-															    <select id="tmsParam" name="tmsParam" style="width: 100%;height: 32px;"></select>
+															    <select id="tmsParam" name="tmsParam" style="width: 100%;height: 32px;">
+															    	<option value="1" code="Z001">液体</option>
+															    	<option value="2" code="Z002">易碎</option>
+															    	<option value="3" code="Z003">液体与易碎</option>
+															    	<option value="4" code="Z004">粉末</option>
+															    </select>
 															</div>
 														</div>
 														<div class="col-md-4" style="padding: 0" >
-															<label class="col-md-4 control-label" style="padding: 8px 0">基本计量单位：</label>
+															<label class="col-md-4 control-label" style="padding: 8px 0"><font
+															style="color: red;">*</font>基本计量单位：</label>
 															<div class="col-md-8">
 																<input class="form-control" id="baseUnitCode"onpaste="return false;"
 																	name="baseUnitCode" style="width: 100%"/>
@@ -4105,7 +4154,8 @@ function clearAll(){
 															&nbsp;
 														</div>
 														<div class="col-md-4" style="padding: 0" >
-															<label class="col-md-4 control-label" style="padding: 8px 0">原产国：</label>
+															<label class="col-md-4 control-label" style="padding: 8px 0"><font
+															style="color: red;">*</font>原产国：</label>
 															<div class="col-md-8">
 																<input class="form-control" id="originCountry" onpaste="return false;"
 																	maxLength=20 name="originCountry" style="width: 100%"/>
@@ -4113,7 +4163,8 @@ function clearAll(){
 															&nbsp;
 														</div>
 														<div class="col-md-4" style="padding: 0" >
-															<label class="col-md-4 control-label" style="padding: 8px 0">原产地：</label>
+															<label class="col-md-4 control-label" style="padding: 8px 0"><font
+															style="color: red;">*</font>原产地：</label>
 															<div class="col-md-8">
 																<input class="form-control" id="countryOfOrigin" onpaste="return false;"
 																	maxLength=20 name="countryOfOrigin" style="width: 100%"/>
@@ -4121,13 +4172,91 @@ function clearAll(){
 															&nbsp;
 														</div>
 														<div class="col-md-4"  style="padding: 0">
-															<label class="col-md-4 control-label" style="padding: 8px 0">赠品范围：</label>
+															<label class="col-md-4 control-label" style="padding: 8px 0"><font
+															style="color: red;">*</font>赠品范围：</label>
 															<div class="col-md-8">
 																<input class="form-control" id="isGift" onpaste="return false;"
 																	maxLength=20 name="isGift" style="width: 100%"/>
 															</div>
 															&nbsp;
 														</div>
+														
+														<div class="col-md-4" style="padding: 0">
+															<label class="col-md-4 control-label"
+																style="padding: 8px 0"><font
+															style="color: red;">*</font>上市日期：</label>
+															<div class="col-md-8">
+																<input class="form-control" id="launchDate"
+																	maxLength=20 name="launchDate"
+																	style="width: 100%" />
+															</div>
+														</div>
+														<div class="col-md-4" style="padding: 0">
+															<label class="col-md-4 control-label"
+																style="padding: 8px 0"><font
+															style="color: red;">*</font>季节：</label>
+															<div class="col-md-8">
+																<select name="season"
+																	style="width: 100%; height: 32px;">
+																	<option value="01">春季</option>
+																	<option value="02">夏季</option>
+																	<option value="03">秋季</option>
+																	<option value="04">冬季</option>
+																	<option value="0102">春夏</option>
+																	<option value="0103">春秋</option>
+																	<option value="0304">秋冬</option>
+																	<option value="010203">春夏秋</option>
+																	<option value="01020304" selected="selected">四季皆宜</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-4" style="padding: 0">
+															<label class="col-md-4 control-label"
+																style="padding: 8px 0"><font
+															style="color: red;">*</font>适用人群：</label>
+															<div class="col-md-8">
+																<select name="applicablePeople"
+																	style="width: 100%; height: 32px;">
+																	<option value="1" selected="selected">男</option>
+																	<option value="2">女</option>
+																	<option value="3">老人</option>
+																	<option value="4">儿童</option>
+																</select>
+															</div>
+															&nbsp;
+														</div>
+														<div class="col-md-4" style="padding: 0">
+															<label class="col-md-4 control-label"
+																style="padding: 8px 0"><font
+															style="color: red;">*</font>货源地：</label>
+															<div class="col-md-8">
+																<input class="form-control" id="supplyOriginLand"
+																	maxLength=20 name="supplyOriginLand"
+																	style="width: 100%" />
+															</div>
+															&nbsp;
+														</div>
+														<div class="col-md-4" style="padding: 0">
+															<label class="col-md-4 control-label"
+																style="padding: 8px 0">总货架寿命：</label>
+															<div class="col-md-8">
+																<input class="form-control" id="shelfLife"
+																	maxLength=20 name="shelfLife"
+																	style="width: 100%" />
+															</div>
+															&nbsp;
+														</div>
+														<div class="col-md-4" style="padding: 0">
+															<label class="col-md-4 control-label"
+																style="padding: 8px 0">剩余货架寿命：</label>
+															<div class="col-md-8">
+																<input class="form-control" id="remainShelLife"
+																	maxLength=20 name="remainShelLife"
+																	style="width: 100%" />
+															</div>
+															&nbsp;
+														</div>
+														
 														<div class="col-md-4" style="padding: 0" >
 															<label class="col-md-4 control-label" style="padding: 8px 0">虚库标志：</label>
 															<div class="col-md-8">

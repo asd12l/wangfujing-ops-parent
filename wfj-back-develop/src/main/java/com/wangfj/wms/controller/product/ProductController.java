@@ -2252,6 +2252,34 @@ public class ProductController {
             if (StringUtils.isNotEmpty(saveShoppeProductVO.getBaseUnitCode())) {
                 map.put("baseUnitCode", saveShoppeProductVO.getBaseUnitCode());
             }
+            
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getZzColorCode())) {
+                map.put("zzColorCode", saveShoppeProductVO.getZzColorCode());
+            }
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getZzSizeCode())) {
+                map.put("zzSizeCode", saveShoppeProductVO.getZzSizeCode());
+            }
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getSupplyOriginLand())) {
+                map.put("supplyOriginLand", saveShoppeProductVO.getSupplyOriginLand());
+            }
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getShelfLife())) {
+                map.put("shelfLife", saveShoppeProductVO.getShelfLife());
+            }
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getRemainShelLife())) {
+                map.put("remainShelLife", saveShoppeProductVO.getRemainShelLife());
+            }
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getLaunchDate())) {
+                map.put("launchDate", saveShoppeProductVO.getLaunchDate());
+            }
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getSeason())) {
+                map.put("season", saveShoppeProductVO.getSeason());
+            }
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getApplicablePeople())) {
+                map.put("applicablePeople", saveShoppeProductVO.getApplicablePeople());
+            }
+            if (StringUtils.isNotEmpty(saveShoppeProductVO.getShoppeProType())) {
+                map.put("shoppeProType", saveShoppeProductVO.getShoppeProType());
+            }
         }
         try {
             json = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
