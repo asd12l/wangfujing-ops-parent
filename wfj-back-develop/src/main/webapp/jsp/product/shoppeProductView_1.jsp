@@ -2144,7 +2144,7 @@ var KLNum_decimalLength = 0;
 															</div>
 															&nbsp;
 														</div>
-														
+														<!-- 
 														<div class="col-md-4" style="padding: 0">
 															<label class="col-md-4 control-label"
 																style="padding: 8px 0"><font
@@ -2188,7 +2188,7 @@ var KLNum_decimalLength = 0;
 																</select>
 															</div>
 															&nbsp;
-														</div>
+														</div> -->
 														<div class="col-md-4" style="padding: 0">
 															<label class="col-md-4 control-label"
 																style="padding: 8px 0"><font

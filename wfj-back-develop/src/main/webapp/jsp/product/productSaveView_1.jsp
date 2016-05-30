@@ -4181,7 +4181,7 @@ function clearAll(){
 															&nbsp;
 														</div>
 														
-														<div class="col-md-4" style="padding: 0">
+														<!-- <div class="col-md-4" style="padding: 0">
 															<label class="col-md-4 control-label"
 																style="padding: 8px 0"><font
 															style="color: red;">*</font>上市日期：</label>
@@ -4224,7 +4224,7 @@ function clearAll(){
 																</select>
 															</div>
 															&nbsp;
-														</div>
+														</div> -->
 														<div class="col-md-4" style="padding: 0">
 															<label class="col-md-4 control-label"
 																style="padding: 8px 0"><font
