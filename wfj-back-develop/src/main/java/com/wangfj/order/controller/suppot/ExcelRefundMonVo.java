@@ -9,7 +9,14 @@ private String refundMonNo;
 	
 	private String orderNo;
 	private String outOrderNo;
+	private String applyNo;
 	
+	public String getApplyNo() {
+		return applyNo;
+	}
+	public void setApplyNo(String applyNo) {
+		this.applyNo = applyNo;
+	}
 	public String getOutOrderNo() {
 		return outOrderNo;
 	}

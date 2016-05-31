@@ -1789,7 +1789,12 @@ public class OmsOrderController {
 			inlist.add(vo.getRefundClass()==null?"":refundClass);
 			
 	//		inlist.add(vo.getRefundClass()==null?"":vo.getRefundClass());
-			inlist.add(vo.getNeedRefundMon()==null?"":vo.getNeedRefundMon().toString());
+			BigDecimal a = new BigDecimal("0");
+			if(vo.getNeedRefundMon().compareTo(a)==1){
+				inlist.add(vo.getNeedRefundMon()==null?"":"-"+vo.getNeedRefundMon().toString());
+			}else{
+				inlist.add(vo.getNeedRefundMon()==null?"":vo.getNeedRefundMon().toString());
+			}
 			inlist.add(vo.getPaymentType()==null?"":vo.getPaymentType());
 			inlist.add(vo.getBankName()==null?"":vo.getBankName());
 			inlist.add(vo.getBankUser()==null?"":vo.getBankUser());
@@ -2602,6 +2607,9 @@ public class OmsOrderController {
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("refundType"))){
 			map.put("refundType", request.getParameter("refundType"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("refundClass"))){
+			map.put("refundClass", request.getParameter("refundClass"));
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("endRefundTime"))){
 			map.put("endRefundTimeStr", request.getParameter("endRefundTime").trim());

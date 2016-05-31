@@ -134,7 +134,27 @@
 				return;
 			}
 		});
-		
+		//退货类别
+		$("#refundClass_select").one("click",function(){
+			$.ajax({
+				type: "post",
+				contentType: "application/x-www-form-urlencoded;charset=utf-8",
+				url: __ctxPath+"/testOnlineOmsOrder/selectCodelist?typeValue=refund_class",
+				dataType: "json",
+				success: function(response) {
+					var result = response;
+					var codeValue = $("#refundClass_select");
+					for ( var i = 0; i < result.list.length; i++) {
+						var ele = result.list[i];
+						var option;
+						option = $("<option value='" + ele.codeValue + "'>"
+								+ ele.codeName + "</option>");
+						option.appendTo(codeValue);
+					}
+					return;
+				}
+			});
+		}); 
  		$('#reservation').daterangepicker({
  			timePicker: true,
 			timePickerIncrement: 30,
@@ -164,6 +184,7 @@
 		$("#shopNo_form").val($("#shopNo_input").val());
 		$("#rebateStatus_form").val($("#rebateStatus_select").val());
 		$("#refundType_form").val($("#refundType_select").val());
+		$("#refundClass_form").val($("#refundClass_select").val());
 		var strTime = $("#reservation").val();
 		if(strTime!=""){
 			strTime = strTime.split("-");
@@ -189,6 +210,7 @@
 		$("#rebateStatus_select").val("");
 		$("#refundType_select").val("");
 		$("#reservation").val("");
+		$("#refundClass_select").val("");
 		olvQuery();
 	}
 	//初始化包装单位列表
@@ -3463,6 +3485,7 @@
 		var shopNo = $("#shopNo_input").val();
 		var rebateStatus = $("#rebateStatus_select").val();
 		var refundType = $("#refundType_select").val();
+		var refundClass = $("#refundClass_select").val();
 		
 		var strTime = $("#reservation").val();
 		var endRefundTime;
@@ -3483,7 +3506,7 @@
 			window.open(__ctxPath + "/omsOrder/getRefundToExcel?refundApplyNo="
 					+ refundApplyNo + "&&orderNo=" + orderNo + "&&refundNo=" + refundNo + "&&originalSalesNo=" + originalSalesNo + "&&memberNo=" + memberNo
 					+ "&&salesPaymentNo=" + salesPaymentNo + "&&endRefundTime=" + endRefundTime + "&&startRefundTime=" + startRefundTime + "&&refundStatus="
-					+ refundStatus + "&&shopNo=" + shopNo + "&&rebateStatus=" + rebateStatus + "&&refundType=" + refundType + "&&title="
+					+ refundStatus + "&&shopNo=" + shopNo + "&&rebateStatus=" + rebateStatus + "&&refundType=" + refundType + "&&refundClass=" + refundClass + "&&title="
 					+ title);
 		} else {
 			$("#model-body-warning")
@@ -3629,6 +3652,12 @@
                                                     </select>
 										        </li>
 										        <li class="col-md-4">
+										            <label class="titname">退货类别：</label>
+													<select id="refundClass_select" style="padding:0 0;">
+                                                        <option value="">所有</option>
+                                                    </select>
+										        </li>
+										        <li class="col-md-4">
 										            <label class="titname">会员卡号：</label>
 													<input type="text" id="memberNo_input"/>
 											    </li>
@@ -3658,6 +3687,7 @@
 											<input type="hidden" id="shopNo_form" name="shopNo"/>
 											<input type="hidden" id="rebateStatus_form" name="rebateStatus"/>
 											<input type="hidden" id="refundType_form" name="refundType"/>
+											<input type="hidden" id="refundClass_form" name="refundClass"/>
 											<input type="hidden" id="startRefundTime_form" name="startRefundTime"/>
 											<input type="hidden" id="endRefundTime_form" name="endRefundTime"/>
                                       	</form>

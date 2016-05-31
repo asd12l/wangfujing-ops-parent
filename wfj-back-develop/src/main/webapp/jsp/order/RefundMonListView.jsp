@@ -3117,7 +3117,7 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="reMonStatus_{$T.Result.sid}">
-														{#if $T.Result.reMonStatus == '0'}未退款
+														{#if $T.Result.reMonStatus == '0'}待退款
 						                      			{#elseif $T.Result.reMonStatus == '1'}退款成功	
 						                   				{#/if}
 													</td>
@@ -3129,7 +3129,8 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="needRefundMon_{$T.Result.sid}">
-														{#if $T.Result.needRefundMon != '[object Object]'}{$T.Result.needRefundMon}
+						                   				{#if $T.Result.needRefundMon > 0}-{$T.Result.needRefundMon}
+														{#elseif $T.Result.needRefundMon <= 0}{$T.Result.needRefundMon}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentType_{$T.Result.sid}">
