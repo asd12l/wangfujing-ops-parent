@@ -404,7 +404,8 @@ function reset(){
 //初始化函数
 	function initOlv() {
 	//请求地址
-	var url = __ctxPath+"/memDrawback/getWithdrawlsList";
+		var url = __ctxPath+"/balanceApply/getList";
+	//var url = __ctxPath+"/memDrawback/getWithdrawlsList";
 	/* setFormData(); */
 	
 	
