@@ -174,9 +174,28 @@ function checkApply(){
 		return false;
 	}
 	var value = checkboxArray[0];
-	var status = $("#checkStatus_"+value).html().trim();
-	alert(status);
-	if(status == "审核通过"){
+	var status = $("#status_"+value).val();
+	if(status == "0"){
+		$("#c_sid").val(value);
+		$("#c_memberNum").html($("#memberNum_"+value).html().trim());
+		$("#c_applyName").html($("#applyName_"+value).html().trim());
+		$("#c_memberAccount").html($("#memberAccount_"+value).html().trim());
+		$("#c_applyType").val($("#applyType_"+value).val());
+		var i = $("#applyType_"+value).val();
+		if(i == "0"){
+			$("#c_applyType1").html("运费补偿");
+		}else{
+			$("#c_applyType1").html("投诉补偿");
+		}
+		var j = $("#voucherType_"+value).val();
+		if(j == "0"){
+			$("#c_voucherType").html("子订单号");
+		}else{
+			$("#c_voucherType").html("退换货单号");
+		}
+		$("#c_voucherNum").html($("#voucherNum_"+value).val());
+		$("#c_money").html($("#money_"+value).html().trim());
+		$("#c_applyReason").html($("#applyReason_"+value).html().trim());
 		//待续
 		$("#check_apply").show();
 	}else{
@@ -186,132 +205,39 @@ function checkApply(){
 	}
 
 }
-//退款失败
-function checknopass(){
-	$("#editDiv").hide();
-	$("#nopassDiv").show();
-}
-function nopasstrue(){
-	$("#nopassDiv").hide();
-	var sid = $("#hsid").val();
-	var failReason = $("#check_memo2").val();
-	var billno = $("#hbillno").val();
+
+function check(status){
+	var sid = $("#c_sid").val();
+	var checkReason = $("#c_checkReason").val();
+	var money = $("#c_money").html().trim();
+	var applyType = $("#c_applyType").val();
 	$.ajax({
-		type: "post",
+		type:"post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/memDrawback/refundFalse",
-		dataType:"json",
-		data: {
+		url:__ctxPath + "/balanceApply/update",
+		dataType: "json",
+		data:{
 			"sid":sid,
-			"failReason":failReason,
-			"billno":billno
+			"checkReason":checkReason,
+			"money":money,
+			"applyType":applyType,
+			"status":status
 		},
-		ajaxStart: function() {$("#loading-container").attr("class","loading-container");},
-		ajaxStop: function() {
-			setTimeout(function() {$("#loading-container").addClass("loading-inactive");},300);
-		},
-		success: function(response) {
+
+		success:function(response) {
 			if(response.code == "1"){
-				$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>退款失败成功!</strong></div>");
-	     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
+				$("#check_apply").hide();
+				$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
+						"<i class=''></i><strong>审核成功，返回列表页!</strong></div>");
+				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
 			}else{
-				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>退款失败失败</strong></div>");
-     	  		$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
-				
+				$("#check_apply").hide();
+				$("#model-body-success").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>审核失败!"+response.desc+"</strong></div>");
+				$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 			}
-			return;
 		}
 	});
 }
-
-
-
-//退款成功
-function checkPass(){
-	var sid = $("#hsid").val();
-	var billno = $("#hbillno").val();
-	$("#editDiv").hide();
-	$.ajax({
-		type: "post",
-		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/memDrawback/refundTrue",
-		dataType:"json",
-		data: {
-			"sid":sid,
-			"billno":billno
-		},
-		ajaxStart: function() {$("#loading-container").attr("class","loading-container");},
-		ajaxStop: function() {
-			setTimeout(function() {$("#loading-container").addClass("loading-inactive");},300);
-		},
-		success: function(response) {
-			if(response.code == "1"){
-				$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>退款成功!</strong></div>");
-	     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
-			}else{
-				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>退款失败</strong></div>");
-     	  		$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
-				
-			}
-			return;
-		}
-	});
-}
-
-//查看详细
-function editMerchant(id){
-	$("#hsid").val(id);
-	$("#phone").html($("#applyName_"+id).html().trim());
-	$.ajax({
-		type: "post",
-		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/memDrawback/getFuJiBalanceMoeny",
-		dataType:"json",
-		data: {
-			"phone":$("#applyName_"+id).html().trim()
-		},
-		ajaxStart: function() {$("#loading-container").attr("class","loading-container");},
-		ajaxStop: function() {
-			setTimeout(function() {$("#loading-container").addClass("loading-inactive");},300);
-		},
-		success: function(response) {
-			if(response.code == "1"){
-				$("#balance").html("<span style=\"color:red;\">"+response.object.balance+"￥</span>");
-				//$("#memberSid").val(response.object.memberSid);
-			}else{
-				$("#balance").html("<span style=\"color:red\">"+ response.desc +"</span>");
-				return false;
-		}
-		}
-	});
-	
-	$("#withdrowMoney").html($("#withdrowMoney_"+id).html().trim());
-	$("#name").html($("#name_"+id).val());
-	$("#bank").html($("#bank_"+id).html().trim());
-	$("#bankCard").html($("#bankCardNo_"+id).val());
-	$("#bankCard1").html($("#bankCardNo_"+id).val());
-	$("#withdrowReason").html($("#withdrowReason_"+id).val());
-	$("#hseqno").val($("#seqno_"+id).val());
-	$("#hbillno").val($("#billno_"+id).val());
-	$("#editDiv").show();
-}
-
-
-//查看详细
-function editMerchant1(id){
-	$("#phone1").html($("#applyName_"+id).html().trim());
-	$("#withdrowMoney1").html($("#withdrowMoney_"+id).html().trim());
-	$("#name1").html($("#name_"+id).val());
-	$("#bank1").html($("#bank_"+id).html().trim());
-	$("#balance1").html($("#balance_"+id).html().trim());
-	$("#bankCard11").html($("#bankCardNo_"+id).val());
-	$("#bankCard22").html($("#bankCardNo_"+id).val());
-	$("#withdrowReason1").html($("#withdrowReason_"+id).val());
-	$("#seqno1").html($("#seqno_"+id).val());
-	$("#billno1").html($("#billno_"+id).val());
-	$("#editDiv1").show();
-}
-
 
 //导出excel
 function excelOrder() {
@@ -457,11 +383,6 @@ function reset(){
 			},
          //回调
          callback: function(data) {
-    		 for(var i in data.object){
-    			 data.object[i].checkTimeStr=formatDate(data.object[i].checkTime);
-    			 data.object[i].applyTimeStr=formatDate(data.object[i].applyTime);
-    			 data.object[i].refundTimeStr=formatDate(data.object[i].refundTime);
-    		 }
     		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
          }
        }
@@ -567,7 +488,7 @@ function successBtn(){
                             				<li class="col-md-4">
                             					<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
                             					<a class="btn btn-default shiny" onclick="reset();">重置</a>&nbsp;&nbsp;
-												<a class="btn btn-yellow" onclick="excelOrder();">导出</a>
+												<%--<a class="btn btn-yellow" onclick="excelOrder();">导出</a>--%>
 											</li>
                                 		</ul>
                                 	<!--隐藏参数-->
@@ -646,10 +567,11 @@ function successBtn(){
 				                   				{#/if}
 											</td>
 											<td align="center" id="checkStatus_{$T.Result.sid}">
-												{#if $T.Result.checkStatus == '0'}待审核
-												{#elseif $T.Result.checkStatus == '1'}审核通过
-												{#elseif $T.Result.checkStatus == '2'}驳回
-												{#elseif $T.Result.checkStatus == '3'}取消
+												<input type="hidden" id="status_{$T.Result.sid}" value="{$T.Result.status}">
+												{#if $T.Result.status == '0'}待审核
+												{#elseif $T.Result.status == '1'}审核通过
+												{#elseif $T.Result.status == '2'}驳回
+												{#elseif $T.Result.status == '3'}取消
 												{#/if}
 											</td>
 											<td align="center" id="checkName_{$T.Result.sid}">
@@ -660,13 +582,19 @@ function successBtn(){
 												{#if $T.Result.checkTime != '[object Object]'}{formatDate($T.Result.checkTime)}
 				                   				{#/if}
 			                   				</td>
-											<td align="center" id="applyType_{$T.Result.sid}">
-												{#if $T.Result.applyType_ == '0'}运费补偿
-												{#elseif $T.Result.applyType_ == '1'}投诉补偿
+											<td align="center" id="applyType1_{$T.Result.sid}">
+												<input type="hidden" id="applyType_{$T.Result.sid}" value="{$T.Result.applyType}"/>
+												{#if $T.Result.applyType == '0'}运费补偿
+												{#elseif $T.Result.applyType == '1'}投诉补偿
 												{#/if}
 											</td>
-			                   				<td align="center" id="voucherType_{$T.Result.sid}">
-												{#if $T.Result.voucherType != '[object Object]' && $T.Result.voucherType != null}{$T.Result.voucherType}:{$T.Result.voucherNum}
+			                   				<td align="center" id="voucherType1_{$T.Result.sid}">
+												<input type="hidden" id="voucherType_{$T.Result.sid}" value="{$T.Result.voucherType}">
+												<input type="hidden" id="voucherNum_{$T.Result.sid}" value="{$T.Result.voucherNum}">
+												{#if $T.Result.voucherType != '[object Object]' && $T.Result.voucherType != null}
+												{#if $T.Result.voucherType == '0'}子订单号:{$T.Result.voucherNum}
+												{#elseif $T.Result.voucherType == '1'}退货运单号:{$T.Result.voucherNum}
+												{#/if}
 				                   				{#/if}
 			                   				</td>
 											<td align="center" id="applyReason_{$T.Result.sid}">
@@ -707,9 +635,8 @@ function successBtn(){
 					<div class="row">
 						<form method="post" class="form-horizontal" id="editForm">
 							<div class="col-xs-12 col-md-12">
-								<input type="hidden" name="hsid" id="hsid" value=""/>
-								<input type="hidden" name="hseqno" id="hseqno" value=""/>
-								<input type="hidden" name="hbillno" id="hbillno" value=""/>
+								<input type="hidden" name="c_sid" id="c_sid" value=""/>
+								<input type="hidden" name="c_applyType" id="c_applyType"/>
 									<div class="col-md-12"  style="padding: 10px 100px;">
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">客户编号：</label>
@@ -740,7 +667,7 @@ function successBtn(){
 								  <div class="col-md-12" style="padding: 10px 100px;">
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">申请类型：</label>
-									<div class="col-md-6" id="c_applyType">
+									<div class="col-md-6" id="c_applyType1">
 										
 									</div>
 									<br>&nbsp;
@@ -795,11 +722,11 @@ function successBtn(){
 							<br>&nbsp;
 							<div class="form-group">
 								<div class="col-lg-offset-4 col-lg-7">
-									<button onclick="checkPass();" style="width: 90px;" id="pass" type="button">通过</button>
+									<button onclick="check('1');" style="width: 90px;" id="pass" type="button">通过</button>
 									&emsp;&emsp;&emsp;&emsp;
-									<button onclick="checknopass();" style="width: 90px;" id="nopass" type="button">驳回</button>
+									<button onclick="check('2');" style="width: 90px;" id="nopass" type="button">驳回</button>
 									&emsp;&emsp;&emsp;&emsp;
-									<button onclick="cancel();" style="width: 90px;" id="cancel" type="button">取消申请</button>
+									<button onclick="check('3');" style="width: 90px;" id="cancel" type="button">取消申请</button>
 								</div>
 							</div>
 						</form>

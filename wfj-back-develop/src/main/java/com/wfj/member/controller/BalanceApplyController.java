@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.search.utils.CookieUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -106,9 +108,72 @@ public class BalanceApplyController {
         } catch (Exception e) {
             JSONObject json = new JSONObject();
             json.put("code", "0");
+            json.put("desc","查询出错");
             reqJsonString = json.toString();
             return reqJsonString;
         }
 
+    }
+
+    @RequestMapping("/insert")
+    @ResponseBody
+    public String insert(HttpServletRequest request, String memberAccount, String applyType, String voucherType,
+                         String voucherNum, String money, String applyReason){
+        logger.info("======== getList  =========");
+        String method = "/balanceApply/insert.do";
+        Map<Object,Object> map = new HashMap<>();
+        map.put("memberAccount",memberAccount);
+        map.put("applyType",applyType);
+        map.put("voucherType",voucherType);
+        map.put("voucherNum",voucherNum);
+        map.put("money",money);
+        map.put("applyReason",applyReason);
+        map.put("applyTime",new Date());
+        map.put("status","0");
+        map.put("applyName", CookieUtil.getUserName(request));
+        String reqJsonString;
+        try {
+            String url = CommonProperties.get("member_ops_url");
+            logger.info("======== insert url "+url+"  =========");
+            reqJsonString = HttpUtil.doPost(url + method, net.sf.json.JSONObject.fromObject(map).toString());
+            return reqJsonString;
+
+        } catch (Exception e) {
+            JSONObject json = new JSONObject();
+            json.put("code", "0");
+            json.put("desc","添加出错");
+            reqJsonString = json.toString();
+            return reqJsonString;
+        }
+
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public String update(HttpServletRequest request, Integer sid, String status, String checkReason, String money, String applyType){
+        logger.info("======== update  =========");
+        String method = "/balanceApply/update.do";
+        Map<Object,Object> map = new HashMap<>();
+        map.put("sid",sid);
+        map.put("status",status);
+        map.put("checkReason",checkReason);
+        map.put("checkName",CookieUtil.getUserName(request));
+        map.put("checkTime",new Date());
+        map.put("money",money);
+        map.put("applyType",applyType);
+        String reqJsonString;
+        try {
+            String url = CommonProperties.get("member_ops_url");
+            logger.info("======== update url "+url+"  =========");
+            reqJsonString = HttpUtil.doPost(url + method, net.sf.json.JSONObject.fromObject(map).toString());
+            return reqJsonString;
+
+        } catch (Exception e) {
+            JSONObject json = new JSONObject();
+            json.put("code", "0");
+            json.put("desc","审核出错");
+            reqJsonString = json.toString();
+            return reqJsonString;
+        }
     }
 }
