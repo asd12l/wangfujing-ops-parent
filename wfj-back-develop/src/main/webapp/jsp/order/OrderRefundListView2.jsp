@@ -58,7 +58,7 @@
 				}
 			});
 		}); 
- 		//退货
+ 		//退货类别
 		$("#refundClass_select").one("click",function(){
 			$.ajax({
 				type: "post",
@@ -4396,7 +4396,7 @@
 													<input type="text" id="memberNo_input"/>
 											    </li>
 										     <li class="col-md-4">
-										            <label class="titname">退货类型：</label>
+										            <label class="titname">退货类别：</label>
 													<select id="refundClass_select" style="padding:0 0;">
                                                         <option value="">所有</option>
                                                     </select>
