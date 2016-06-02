@@ -3837,6 +3837,7 @@ function clearAll(){
 						<td align="center">{$T.Result.productName}</td>
 						<td align="center">{$T.Result.supplierName}</td>
 						<td align="center">{$T.Result.brandName}</td>
+						<td align="center">{$T.Result.glCategoryName}</td>
 						<td align="center">
 							{#if $T.Result.isSale == 'Y'}<span class="label label-success graded"> 可售</span>
 							{#elseif $T.Result.isSale == 'N'}<span class="label label-darkorange graded"> 不可售</span>
