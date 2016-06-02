@@ -58,6 +58,7 @@ function timePickInit(){
 		singleDatePicker:true}); */
 	$('#applyTime').daterangepicker({
 		timePicker: true,
+		timePicker12Hour:false,
 		timePickerIncrement: 30,
 		format: 'YYYY/MM/DD HH:mm:ss',
         locale : {
@@ -74,6 +75,7 @@ function timePickInit(){
     }); 
 	$('#checkTime').daterangepicker({
 		timePicker: true,
+		timePicker12Hour:false,
 		timePickerIncrement: 30,
 		format: 'YYYY/MM/DD HH:mm:ss',
         locale : {
