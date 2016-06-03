@@ -89,7 +89,7 @@ public class BalanceApplyController {
             map.put("applyName",hidApplyName);
         }
         if(StringUtils.isNotBlank(hidCheckStatus)){
-            map.put("checkStatus",hidCheckStatus);
+            map.put("status",hidCheckStatus);
         }
         String reqJsonString;
         try {
