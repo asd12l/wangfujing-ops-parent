@@ -150,7 +150,7 @@ public class BalanceApplyController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public String update(HttpServletRequest request, Integer sid, String status, String checkReason, String money, String applyType){
+    public String update(HttpServletRequest request, Integer sid, String status, String checkReason, String money, String applyType, String memberNum){
         logger.info("======== update  =========");
         String method = "/balanceApply/update.do";
         Map<Object,Object> map = new HashMap<>();
@@ -161,6 +161,7 @@ public class BalanceApplyController {
         map.put("checkTime",new Date());
         map.put("money",money);
         map.put("applyType",applyType);
+        map.put("memberNum",memberNum);
         String reqJsonString;
         try {
             String url = CommonProperties.get("member_ops_url");

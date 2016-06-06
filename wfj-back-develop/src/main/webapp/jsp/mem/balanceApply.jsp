@@ -212,6 +212,7 @@ function check(status){
 	var sid = $("#c_sid").val();
 	var checkReason = $("#c_checkReason").val();
 	var money = $("#c_money").html().trim();
+	var memberNum = $("#c_memberNum").html().trim();
 	var applyType = $("#c_applyType").val();
 	$.ajax({
 		type:"post",
@@ -221,6 +222,7 @@ function check(status){
 		data:{
 			"sid":sid,
 			"checkReason":checkReason,
+			"memberNum":memberNum,
 			"money":money,
 			"applyType":applyType,
 			"status":status
