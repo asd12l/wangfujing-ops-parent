@@ -270,10 +270,10 @@
 							/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
 							"<th width='3%' style='text-align: center;'>返利编码</th>"+
 							"<th width='3%' style='text-align: center;'>返利名称</th>"+
+							"<th width='3%' style='text-align: center;'>返利值</th>"+
 							"<th width='3%' style='text-align: center;'>返利类型</th>"+
 							"<th width='3%' style='text-align: center;'>返利渠道</th>"+
-							"<th width='3%' style='text-align: center;'>反利时间</th>"+
-							"<th width='3%' style='text-align: center;'>反利值</th>"+
+							"<th width='3%' style='text-align: center;'>返利时间</th>"+
 							"<th width='3%' style='text-align: center;'>券批次</th>"+
 							"<th width='3%' style='text-align: center;'>删除标志</th></tr>";
 						for (var i = 0; i < result.length; i++) {
@@ -302,6 +302,12 @@
 							}else{
 								option+="<td align='center'>"+ele.name+"</td>";
 							}
+							//返利值
+							if(ele.amount=="[object Object]"||ele.amount==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.amount+"</td>";
+							}
 							//返利类型
 							if(ele.getType=="[object Object]"||ele.getType==undefined){
 								option+="<td align='center'></td>";
@@ -314,17 +320,11 @@
 							}else{
 								option+="<td align='center'>"+ele.getChannel+"</td>";
 							}
-							//反利时间
+							//返利时间
 							if(ele.getTime=="[object Object]"||ele.getTime==undefined){
 								option+="<td align='center'></td>";
 							}else{
 								option+="<td align='center'>"+ele.getTime+"</td>";
-							}
-							//返利值
-							if(ele.amount=="[object Object]"||ele.amount==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.amount+"</td>";
 							}
 							//返利批次
 							if(ele.couponBatch=="[object Object]"||ele.couponBatch==undefined){
