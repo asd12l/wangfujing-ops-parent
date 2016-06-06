@@ -2752,12 +2752,17 @@
                                                 <th width="2%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="2%" style="text-align: center;">COD支付金额</th>
                                                 <th width="2%" style="text-align: center;">取消原因</th>
-                                                <th width="2%" style="text-align: center;">客户备注</th>
+                                                <!-- <th width="2%" style="text-align: center;">客户备注</th> -->
                                                <!--  <th width="2%" style="text-align: center;">客服备注</th>
                                                 <td align="center" id="callCenterComments_{$T.Result.sid}">
 														{#if $T.Result.callCenterComments != '[object Object]'}{$T.Result.callCenterComments}
 						                   				{#/if}
-													</td> -->
+													</td> 
+													<td align="center" id="customerComments_{$T.Result.sid}">
+														{#if $T.Result.customerComments != '[object Object]'}{$T.Result.customerComments}
+						                   				{#/if}
+													</td>
+												-->
                                                 <th width="2%" style="text-align: center;">收件人电话</th>
                                                 <th width="2%" style="text-align: center;">收件人姓名</th>
                                                 <th width="2%" style="text-align: center;">收件人城市</th>
@@ -2902,10 +2907,7 @@
 														{#if $T.Result.cancelReason != '[object Object]'}{$T.Result.cancelReason}
 						                   				{#/if}
 													</td>
-													<td align="center" id="customerComments_{$T.Result.sid}">
-														{#if $T.Result.customerComments != '[object Object]'}{$T.Result.customerComments}
-						                   				{#/if}
-													</td>
+													
 													
 													<td align="center" id="receptPhone_{$T.Result.sid}">
 														{#if $T.Result.receptPhone != '[object Object]'}{$T.Result.receptPhone}
