@@ -294,9 +294,9 @@ public class MemberMoneyDrawbackController {
 			pageNo = 0;
 		}
 		Gson gson = new Gson();
-		List<Object> list = new ArrayList<Object>();
-		String jsonString = gson.toJson(list);
-		Map<Object, Object> map = new HashMap<Object, Object>();
+		List<Object> list = new ArrayList<>();
+		String jsonString;
+		Map<Object, Object> map = new HashMap<>();
 		map.put("pageNo", pageNo);
 		map.put("pageSize", 10);
 		map.put("sid", hidsid);

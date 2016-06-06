@@ -1581,7 +1581,7 @@ Author: WangSy
 								$("#divConsumptionTax").show();
 								$("#erpCode_font_").hide();
 							}
-							if((YTtype == 0 && $("#manageType").val() != 2)||YTtype == 1){
+							if((YTtype == 0 && $("#manageType").val() != 2)||YTtype == 1||YTtype == 2){
 								$("#KLJJDiv").show();
 								$("#KLJJDiv_1").show();
 							} else {
@@ -3094,8 +3094,24 @@ function requiredProForm() {//校验
 		}
 	}
 	if ($("#modelNum").val().trim() == "") {
-		if ($("#YTtype").val() == 0) {
+		if ($("#YTtype").val() == 0 || $("#YTtype").val() == 2) {
 			$("#warning2Body").text("请填写货号");
+			$("#warning2").attr("style", "z-index:9999");
+			$("#warning2").show();
+			return false;
+		}
+	}
+	if ($("#zzColorCode").val().trim() == "") {
+		if ($("#YTtype").val() == 2) {
+			$("#warning2Body").text("请填写特性颜色");
+			$("#warning2").attr("style", "z-index:9999");
+			$("#warning2").show();
+			return false;
+		}
+	}
+	if ($("#zzSizeCode").val().trim() == "") {
+		if ($("#YTtype").val() == 2) {
+			$("#warning2Body").text("请填写特性尺码");
 			$("#warning2").attr("style", "z-index:9999");
 			$("#warning2").show();
 			return false;
@@ -3120,7 +3136,7 @@ function requiredProForm() {//校验
 		return false;
 	}
 	if ($("#KLNum").val().trim() == "") {
-		if((YTtype == 0 && $("#manageType").val() != 2)||YTtype == 1){
+		if((YTtype == 0 && $("#manageType").val() != 2)||YTtype == 1||YTtype == 2){
 			$("#warning2Body").text("请填写扣率/进价");
 			$("#warning2").attr("style", "z-index:9999");
 			$("#warning2").show();
@@ -3155,7 +3171,42 @@ function requiredProForm() {//校验
 			return false;
 		}
 	} else if ($("#YTtype").val() == 2) {//电商
-		
+		if ($("#supplyProductCode").val().trim() == "") {
+			$("#warning2Body").text("请填写供应商商品编码");
+			$("#warning2").attr("style", "z-index:9999");
+			$("#warning2").show();
+			return false;
+		}
+		if ($("#baseUnitCode").val().trim() == "") {
+			$("#warning2Body").text("请填写基本计量单位");
+			$("#warning2").attr("style", "z-index:9999");
+			$("#warning2").show();
+			return false;
+		}
+		if ($("#originCountry").val().trim() == "") {
+			$("#warning2Body").text("请填写原产国");
+			$("#warning2").attr("style", "z-index:9999");
+			$("#warning2").show();
+			return false;
+		}
+		if ($("#countryOfOrigin").val().trim() == "") {
+			$("#warning2Body").text("请填写原产地");
+			$("#warning2").attr("style", "z-index:9999");
+			$("#warning2").show();
+			return false;
+		}
+		if ($("#isGift").val().trim() == "") {
+			$("#warning2Body").text("请填写赠品范围");
+			$("#warning2").attr("style", "z-index:9999");
+			$("#warning2").show();
+			return false;
+		}
+		if ($("#supplyOriginLand").val().trim() == "") {
+			$("#warning2Body").text("请填写货源地");
+			$("#warning2").attr("style", "z-index:9999");
+			$("#warning2").show();
+			return false;
+		}
 	} 
 	return true;
 }
@@ -3786,6 +3837,7 @@ function clearAll(){
 						<td align="center">{$T.Result.productName}</td>
 						<td align="center">{$T.Result.supplierName}</td>
 						<td align="center">{$T.Result.brandName}</td>
+						<td align="center">{$T.Result.glCategoryName}</td>
 						<td align="center">
 							{#if $T.Result.isSale == 'Y'}<span class="label label-success graded"> 可售</span>
 							{#elseif $T.Result.isSale == 'N'}<span class="label label-darkorange graded"> 不可售</span>

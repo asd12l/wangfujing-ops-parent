@@ -579,11 +579,12 @@ function divManagerShow(){
 		$("#linkSid_edit").val(value);
 		$("#editFLP_mainTitle").val($("#linkMainTitle_" + value).text().trim());
 		$("#editFLP_subTitle").val($("#linkSubTitle_" + value).text().trim());
-		var titleImg_ = $("#linkPic_" + value).text().trim();
+		var titleImg_ = $("#linkPic_" + value).text().trim().split("com")[1];
 		$("#input_img6").val(titleImg_);
 		if(titleImg_!=''){
 			$("#msg6").removeClass("hide");
 			$("#msg6").html("<img width='100' height='100' src='"+cmsImageServer+titleImg_+"' />");
+		
 		}else{
 			$("#msg6").addClass("hide");
 			$("#msg6").html("");

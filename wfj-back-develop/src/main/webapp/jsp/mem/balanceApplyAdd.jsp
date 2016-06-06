@@ -12,16 +12,26 @@
         __ctxPath = "${pageContext.request.contextPath}";
         $(function(){
             $("#save").click(function(){
-                var setupComplaintBal=$("#setupComplaintBal").val();
-                var setupCarriageBal=$("#setupCarriageBal").val();
+                var memberAccount=$("#memberAccount").val();
+                var applyType=$("#applyType").val();
+                var voucherType=$("#voucherType").val();
+                var voucherNum=$("#voucherNum").val();
+                var money=$("#money").val();
                 var filter  = /^[0-9].*$/;
-                if(filter.test(setupComplaintBal) && filter.test(setupCarriageBal)){
-                    saveFrom();
-                }else{
-                    alert("请输入正数！");
+                if($.isEmptyObject(memberAccount)){
+                    $("#warning2Body").text("客户登录账号不能为空!");
+                    $("#warning2").show();
+                    return false;
+                }else if($.isEmptyObject(voucherNum)){
+                    $("#warning2Body").text("凭证单号不能为空!");
+                    $("#warning2").show();
+                    return false;
+                }else if(!filter.test(money) || $.isEmptyObject(money)){
+                    $("#warning2Body").text("金额请输入正数!");
+                    $("#warning2").show();
                     return false;
                 }
-
+                saveFrom();
             });
             $("#close").click(function(){
                 $("#pageBody").load(__ctxPath+"/jsp/mem/balanceApply.jsp");
@@ -33,7 +43,7 @@
             $.ajax({
                 type:"post",
                 contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                url:__ctxPath + "/balanceMonthLimit/insert",
+                url:__ctxPath + "/balanceApply/insert",
                 dataType: "json",
                 data: $("#theForm").serialize(),
 
@@ -53,7 +63,7 @@
 
         function successBtn(){
             $("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
-            $("#pageBody").load(__ctxPath+"/jsp/mem/BalanceMonthLimit.jsp");
+            $("#pageBody").load(__ctxPath+"/jsp/mem/balanceApply.jsp");
         }
     </script>
 </head>
@@ -78,7 +88,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">申请类型</label>
                                     <div class="col-lg-4">
-                                        <select name="applyType" class="form-control">
+                                        <select name="applyType" class="form-control" id="applyType">
                                             <option value="0">运费补偿</option>
                                             <option value="1">投诉补偿</option>
                                         </select>
@@ -87,7 +97,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">凭证类型</label>
                                     <div class="col-lg-4">
-                                        <select name="applyType" class="form-control">
+                                        <select name="voucherType" class="form-control" id="voucherType">
                                             <option value="0">子订单号</option>
                                             <option value="1">退换货单号</option>
                                         </select>
