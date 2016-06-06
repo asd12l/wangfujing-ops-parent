@@ -20,7 +20,7 @@ function set() {
 	$("input").closest('.form-group').removeClass('has-error');
 	$('i').removeClass('fa-warning');
 	if (val_type == 1) {
-		$("#path").val("/");
+		$("#path").val("/ ");
 		$("div[ref='serveruser']").hide();
 		$("div[ref='serverpwd']").hide();
 		$("#username").rules("remove");
