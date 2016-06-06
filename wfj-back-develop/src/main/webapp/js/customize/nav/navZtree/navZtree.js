@@ -591,8 +591,9 @@ function updatePromotion() {
 	proIsShow_ = $("#proIsShow_" + value).text().trim();
 //	proFlag_ = $("#proFlag_" + value).text().trim();
 	proPict_ = $("#proPict_" + value).text().trim();
+	hidden_pictPath_ =$("#pictPath_" + value).text().trim();
 	$("#sid_promo").val(value);
-	$("#hidden_proEditPict").val(proPict_);
+	$("#hidden_proEditPict").val(hidden_pictPath_);
 	$("#img_proEditPict").attr('src',proPict_);// 图片预览
 	$("#name_promo").val(proName_);
 	$("#link_promo").val(proLink_);

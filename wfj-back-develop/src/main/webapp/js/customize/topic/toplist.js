@@ -641,7 +641,7 @@ function initTplList(path){
 		description_ = $("#description_" + value).val();
 		path_ = $("#path_" + value).val().trim();
 		//titleImg_=$("#titleImg_"+value).val().trim();
-		titleImg_=$("#titleImg_"+value).val().trim().split("com")[1];
+		titleImg_=$("#titleImg_"+value).val().trim();
 		
 		tplContent_ = $("#tplContent_" + value).val().trim();
 		recommend_ = $("#recommend_" + value).val();
