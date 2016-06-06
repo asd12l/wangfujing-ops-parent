@@ -935,7 +935,7 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span> &nbsp;&nbsp;商品金额：</span>
+														<span> &nbsp;&nbsp;实退金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>
@@ -972,7 +972,7 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣除金额：</span>
+														<span>&nbsp;&nbsp;扣款金额：</span>
 														<label id="amount5" class="control-label"></label>
 														</div>
 														&nbsp;
