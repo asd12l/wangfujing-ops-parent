@@ -38,14 +38,14 @@ function set() {
 	$("input").closest('.form-group').removeClass('has-error');
 	$('i').removeClass('fa-warning');
 	if (val_type == 1) {
-	/*	$("#path").val("/");*/
 		$("div[ref='serveruser']").hide();
 		$("div[ref='serverpwd']").hide();
 		$("#username").rules("remove");
 		$("#password").rules("remove");
 		$("label[ref='label_path']").text("ContextPath");
-
+		$("#path").val("/ ");
 	} else {
+		$("#path").val("/");
 		$(".path").show();
 		$("div[ref='serveruser']").show();
 		$("div[ref='serverpwd']").show();
