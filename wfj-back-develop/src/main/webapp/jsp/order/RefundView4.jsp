@@ -633,8 +633,8 @@ function shbtgForm(){
 																		{#if $T.Result.refundReasionDesc != '[object Object]'}{$T.Result.refundReasionDesc}
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="proPictureUrl_{$T.Result.sid}">
-																		{#if $T.Result.proPictureUrl != '[object Object]'}{$T.Result.proPictureUrl}
+																	<td align="center" id="refundPcitureUrl_{$T.Result.sid}">
+																		{#if $T.Result.refundPcitureUrl != '[object Object]'}{$T.Result.refundPcitureUrl}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="callCenterComments_{$T.Result.sid}">
