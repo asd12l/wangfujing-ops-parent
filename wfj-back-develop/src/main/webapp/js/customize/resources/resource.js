@@ -115,12 +115,10 @@
 				$(".loading-container").attr("class",
 						"loading-container");
 			},
-			ajaxStop : function() {
+			success : function(response) {
 				//隐藏加载提示
 				$(".loading-container").addClass(
 						"loading-inactive");
-			},
-			success : function(response) {
 				$('#tree').treeview({
 					levels:1,
 					expandIcon: 'glyphicon glyphicon-plus',
@@ -130,6 +128,7 @@
 					
 					data : response.list,
 					onNodeSelected : function(event, node) {
+
 						if(node.type==1){
 							initDirList(node.id);
 						}else if(node.type==0){
@@ -142,7 +141,7 @@
 						$("#desFile1").val(node.id);
 					}
 				});
-				
+
 			}
 		});
 	}
@@ -171,7 +170,7 @@
 				url : __ctxPath + "/resource/queryDirList?path="
 						+ path+"&_site_id_param="+siteId,
 				dataType : 'json',
-				ajaxStart : function() {
+/*				ajaxStart : function() {
 					$(".loading-container").attr("class",
 							"loading-container");
 				},
@@ -179,7 +178,7 @@
 					//隐藏加载提示
 					$(".loading-container").addClass(
 							"loading-inactive");
-				},
+				},*/
 				callback : function(data) {
 					$("#file_tab tbody").setTemplateElement(
 							"dir-list")
