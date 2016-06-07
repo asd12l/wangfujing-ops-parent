@@ -377,9 +377,21 @@
 													<td align="center" style="display:none;" id="brandFatherName_{$T.Result.sid}">{$T.Result.brandFatherName}</td>
 													<td align="center" style="display:none;" id="shopType_{$T.Result.sid}">{$T.Result.shopType}</td>
 													<td align="center" style="display:none;" id="shopSid_{$T.Result.sid}">{$T.Result.shopSid}</td>
-													<td align="center" id="spell_{$T.Result.sid}">{$T.Result.spell}</td>
-													<td align="center" id="brandNameSecond_{$T.Result.sid}">{$T.Result.brandNameSecond}</td>
-													<td align="center" id="brandNameEn_{$T.Result.sid}">{$T.Result.brandNameEn}</td>
+													<td align="center" id="spell_{$T.Result.sid}">
+													    {#if $T.Result.spell != '[object Object]'}
+                                                                {$T.Result.spell}
+                                                        {#/if}
+													</td>
+													<td align="center" id="brandNameSecond_{$T.Result.sid}">
+													    {#if $T.Result.brandNameSecond != '[object Object]'}
+                                                                {$T.Result.brandNameSecond}
+                                                        {#/if}
+													</td>
+													<td align="center" id="brandNameEn_{$T.Result.sid}">
+													    {#if $T.Result.brandNameEn != '[object Object]'}
+                                                                {$T.Result.brandNameEn}
+                                                        {#/if}
+													</td>
 													<td align="center" style="display:none;" id="status_{$T.Result.sid}">
 														{#if $T.Result.status == 0}
 															<span>有效</span>
