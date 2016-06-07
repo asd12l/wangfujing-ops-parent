@@ -58,6 +58,7 @@ function timePickInit(){
 		singleDatePicker:true}); */
 	$('#applyTime').daterangepicker({
 		timePicker: true,
+		timePicker12Hour:false,
 		timePickerIncrement: 30,
 		format: 'YYYY/MM/DD HH:mm:ss',
         locale : {
@@ -74,6 +75,7 @@ function timePickInit(){
     }); 
 	$('#checkTime').daterangepicker({
 		timePicker: true,
+		timePicker12Hour:false,
 		timePickerIncrement: 30,
 		format: 'YYYY/MM/DD HH:mm:ss',
         locale : {
@@ -210,6 +212,7 @@ function check(status){
 	var sid = $("#c_sid").val();
 	var checkReason = $("#c_checkReason").val();
 	var money = $("#c_money").html().trim();
+	var memberNum = $("#c_memberNum").html().trim();
 	var applyType = $("#c_applyType").val();
 	$.ajax({
 		type:"post",
@@ -219,6 +222,7 @@ function check(status){
 		data:{
 			"sid":sid,
 			"checkReason":checkReason,
+			"memberNum":memberNum,
 			"money":money,
 			"applyType":applyType,
 			"status":status
@@ -280,7 +284,7 @@ function excelOrder() {
 //设置表单数据
 function setFormData(){
 	var strTime = $("#applyTime").val();
-	if(strTime!=""){
+	if(strTime!="" && strTime != null){
 		strTime = strTime.split("-");
 		$("#hidStartApplyTime").val(strTime[0].replace("/","-").replace("/","-"));
 		$("#hidEndApplyTime").val(strTime[1].replace("/","-").replace("/","-"));
@@ -290,10 +294,10 @@ function setFormData(){
 	}
 	
 	var strTime2 = $("#checkTime").val();
-	if(strTime2!=""){
-		strTime = strTime.split("-");
-		$("#hidStartCheckTime").val(strTime[0].replace("/","-").replace("/","-"));
-		$("#hidEndCheckTime").val(strTime[1].replace("/","-").replace("/","-"));
+	if(strTime2!="" && strTime2 != null){
+		strTime2 = strTime2.split("-");
+		$("#hidStartCheckTime").val(strTime2[0].replace("/","-").replace("/","-"));
+		$("#hidEndCheckTime").val(strTime2[1].replace("/","-").replace("/","-"));
 	}else{
 		$("#hidStartCheckTime").val("");
 		$("#hidEndCheckTime").val("");

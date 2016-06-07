@@ -272,6 +272,22 @@ Author: WangSy
 			return;
 		}
 	});
+	//扣款金额校验
+	$(".amounttui").keyup(function(){
+		var aa=$(".amounttui");
+		var a1 = 0;
+		var a2 = 0;
+		for(var i = 0; i<aa.length; i++){
+			var a = aa[i];
+			a1= $(a).val();
+			a2 +=parseFloat(a1);
+		}
+		var amount4money = $("#amount4").text();
+		var id=$(this).attr("id");
+		if(a2>amount4money){
+			$("#"+id).val("");
+		}
+	});
 	// 初始化
 	$(function() {
 		//退运费
@@ -617,8 +633,8 @@ function shbtgForm(){
 																		{#if $T.Result.refundReasionDesc != '[object Object]'}{$T.Result.refundReasionDesc}
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="proPictureUrl_{$T.Result.sid}">
-																		{#if $T.Result.proPictureUrl != '[object Object]'}{$T.Result.proPictureUrl}
+																	<td align="center" id="refundPcitureUrl_{$T.Result.sid}">
+																		{#if $T.Result.refundPcitureUrl != '[object Object]'}{$T.Result.refundPcitureUrl}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="callCenterComments_{$T.Result.sid}">
@@ -671,12 +687,12 @@ function shbtgForm(){
 															</div>											
 														</div>
 													
-														<div class="col-md-6">
+														<!-- <div class="col-md-6">
 															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">退货仓库地址：</label>
 															<div class="col-lg-6 col-sm-6 col-xs-6">
 																<input type="text" id="address" name="address"/>
 															</div>											
-														</div>
+														</div> -->
 													</div>
 												</div>&nbsp;
 												<div class="col-md-12">
@@ -766,13 +782,13 @@ function shbtgForm(){
 														{#template MAIN}
 															{#foreach $T.billDetail.sellPayments as Result}
 															{#if $T.Result.flag == '3'}
-																<tr class="gradeX" id="gradeX{$T.Result.rowNo}" style="height:35px;">
+																<tr class="gradeX" id="gradeX_{$T.Result.rowNo}" style="height:35px;">
 																	<td align="center" id="payName_{$T.Result.rowNo}">
 																		{#if $T.Result.payName != '[object Object]'}{$T.Result.payName}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="money_{$T.Result.rowNo}">
-																	<input align="center" class="amounttui" value="{#if $T.Result.money != '[object Object]'}{$T.Result.money}
+																	<input id="moneys_{$T.Result.rowNo}" onkeyup="this.value=this.value.replace(/[^\-?\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\-?\d.]/g,'')" align="center" class="amounttui" value="{#if $T.Result.money != '[object Object]'}{$T.Result.money}
 										                   				{#/if}"/>
 																	</td>
 																	<td align="center" id="payType_{$T.Result.rowNo}">
@@ -991,7 +1007,7 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>商品金额：</span>
+														<span>实退金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
@@ -1031,7 +1047,7 @@ function shbtgForm(){
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣除金额：</span>
+														<span>&nbsp;&nbsp;扣款金额：</span>
 														<label id="amount5" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;

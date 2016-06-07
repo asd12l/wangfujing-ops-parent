@@ -63,6 +63,33 @@
 	var data_;
 //	$("#amount1").text(salePrice*refundNum);
 
+	var isCod;
+	//查询订单是否是isCod
+	$.ajax({
+			type : "post",
+			contentType : "application/x-www-form-urlencoded;charset=utf-8",
+			url : __ctxPath + "/testOnlineOmsOrder/foundByOrder",
+			async : false,
+			data : {
+				"orderNo" : orderNo
+			},
+			dataType : "json",
+			success : function(response) {
+				if(response.success=='true'){
+					isCod = response.data.list[0].isCod;
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"查询订单失败"+"</strong></div>");
+ 	     	  		$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+				return;
+			}
+		});
+	//退货退款账号信息展现
+	if(isCod == 1){
+		$("#isCodId").show();
+	}else{
+		$("#isCodId").hide();
+	}
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -542,7 +569,7 @@
 													    {#/template MAIN}	-->
 													</textarea>
 												</p>
-												<div class="col-md-12">
+											<!-- 	<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
 													<h5>
 														<strong>退货理由</strong>
@@ -562,7 +589,7 @@
 															</div>											
 														</div>
 													</div>
-												</div>
+												</div> -->
 												&nbsp;
 												
 												<div id="isCodId" class="col-md-12">
@@ -913,7 +940,7 @@
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>商品金额：</span>
+														<span>实退金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>
@@ -964,7 +991,7 @@
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣除金额：</span>
+														<span>&nbsp;&nbsp;扣款金额：</span>
 														<label id="amount5" class="control-label"></label>
 														</div>
 														&nbsp;

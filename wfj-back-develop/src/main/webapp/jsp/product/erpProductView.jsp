@@ -473,7 +473,7 @@ Author: YeDong/zhangdl
 														{#elseif $T.Result.codeType == 6}单品码
 														{#/if}
 													</td>
-													<td align="center" id="salesUnit_{$T.Result.sid}">{$T.Result.bigCodePrice}</td>
+													<td align="center" id="salesUnit_{$T.Result.sid}">{$T.Result.salesPrice}</td>
 													<td align="center" id="salesUnit_{$T.Result.sid}">{$T.Result.brandName}</td>
 													<td align="center" id="salesUnit_{$T.Result.sid}">{$T.Result.supplyName}</td>
 													<td align="center" id="salesUnit_{$T.Result.sid}">

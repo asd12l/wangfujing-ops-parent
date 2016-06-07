@@ -75,9 +75,9 @@ function divManagerShow(){
 			$(".topic_floor_style").show();
 			$("#floor_style_edit").val(floorStyle);
 			if(floorFlag==1){
-				$("#edit_tfloorFlag_0").attr('checked','checked');
+				$("#edit_tfloorFlag_0").click();
 			}else if(floorFlag==0){
-				$("#edit_tfloorFlag_1").attr("checked",'checked');
+				$("#edit_tfloorFlag_1").click();
 			}
 		}else if(floorType==0){
 			$("#editFloor").show();
@@ -100,16 +100,18 @@ function divManagerShow(){
 			$("#edit_div_style_list").val(floorStyle);
 			//多选框编辑
 			if(floorType==1){
-				$("#divType_edit_0").attr("checked",'checked');
+				$("#divType_edit_0").click();
 			}else if(floorType==2){
-				$("#divType_edit_1").attr("checked",'checked');
+				$("#divType_edit_1").click();
 			}else if(floorType==3){
-				$("#divType_edit_2").attr("checked",'checked');
-			}
+				$("#divType_edit_2").click();
+			}else if(floorType==4){
+				$("#divType_edit_4").click();
+		}
 			if(floorFlag==1){
-				$("#edit_divFlag_0").attr("checked",'checked');
+				$("#edit_divFlag_0").click();
 			}else if(floorFlag==0){
-				$("#edit_divFlag_1").attr("checked",'checked');
+				$("#edit_divFlag_1").click();
 			}
 		}
 		$('.spinner').spinner('value', floorSeq);
@@ -579,11 +581,13 @@ function divManagerShow(){
 		$("#linkSid_edit").val(value);
 		$("#editFLP_mainTitle").val($("#linkMainTitle_" + value).text().trim());
 		$("#editFLP_subTitle").val($("#linkSubTitle_" + value).text().trim());
-		var titleImg_ = $("#linkPic_" + value).text().trim();
+		
+		var titleImg_ = $("#linkPic_" + value).text().trim()/*.split("com")[1]*/;
 		$("#input_img6").val(titleImg_);
 		if(titleImg_!=''){
 			$("#msg6").removeClass("hide");
 			$("#msg6").html("<img width='100' height='100' src='"+cmsImageServer+titleImg_+"' />");
+			
 		}else{
 			$("#msg6").addClass("hide");
 			$("#msg6").html("");
@@ -611,7 +615,8 @@ function divManagerShow(){
 		        data: $("#editFloorLinkProductForm").serialize(),
 		        success:function(response) {
 		        	if(response.success == 'true'){
-		        		$("#editFloorProductLinkDIV").hide();
+		        		
+		        		$("#editFloorLinkProductDIV").hide();
 		        		$("#success1Body").text("修改成功!");
 						$("#success1").attr("style", "z-index:9999");
 						$("#success1").show();

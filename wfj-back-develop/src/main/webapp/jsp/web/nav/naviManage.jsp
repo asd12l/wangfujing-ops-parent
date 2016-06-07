@@ -113,6 +113,7 @@
                                         <td align="center" id="proName_{$T.Result.sid}">{$T.Result.promotionName}</td>
                                         <td style="white-space: normal;" align="center" id="proLink_{$T.Result.sid}">{$T.Result.promotionLink}</td>
                                         <td style="white-space: normal;" align="center" id="proPict_{$T.Result.sid}">{$T.resource_root_path}{$T.Result.pict}</td>
+                                        <td align="center" style="display:none;" id="pictPath_{$T.Result.sid}">{$T.Result.pict}</td>
                                         <td align="center" id="proSeq_{$T.Result.sid}">{$T.Result.seq}</td>
                                         <td align="center" style="display:none;" id="proIsShow_{$T.Result.sid}">
                                         {#if $T.Result.isShow == 1}1
