@@ -113,7 +113,7 @@ function formateDate2(date){
 function setFormData(){
 	var strTime = $("#time").val();
 	if(strTime!="" && strTime != null){
-		strTime = strTime.split("-");
+		strTime = strTime.split(" - ");
 		$("#hidStartTime").val(strTime[0].replace("/","-").replace("/","-"));
 		$("#hidEndTime").val(strTime[1].replace("/","-").replace("/","-"));
 	}else{
