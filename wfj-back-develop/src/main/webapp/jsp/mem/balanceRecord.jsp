@@ -278,6 +278,7 @@ function successBtn(){
                                 		</ul>
                                 	<!--隐藏参数-->
                            			<form id="olv_form" action="">
+										<input type="hidden" id="groupId" name="groupId" value="03"/>
 										<input type="hidden" id="hidAccount" name="hidAccount"/>
 										<input type="hidden" id="hidPhone" name="hidPhone"/>
 										<input type="hidden" id="hidEmail" name="hidEmail"/>
