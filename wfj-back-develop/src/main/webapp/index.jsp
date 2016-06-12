@@ -137,7 +137,6 @@
 	    function openUrl(data){
 	    	var __ctxPath = $("#__ctxPath").val();
 	    	var url = __ctxPath + data;
-			alert(url);
 			$("#pageBody").load(url);
 			_site_id_param = "";
 	    }
