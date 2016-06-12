@@ -27,10 +27,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.constants.SystemConfig;
@@ -147,11 +150,12 @@ public class SecutityController extends AbstractController {
 		}
 	}
 	
-	@RequestMapping(value = { "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
+	//@RequestMapping(value = { "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String login1(Model m, HttpServletRequest request, HttpServletResponse response)
 			throws SQLException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("username", username);
 		paramMap.put("password", password);
@@ -207,6 +211,64 @@ public class SecutityController extends AbstractController {
 //					request.getSession().setAttribute("password", password);
 					CookiesUtil.setCookies(response, "username", username, 60*120);
 //					CookiesUtil.setCookies(response, "password", password, 60*30);
+					CookiesUtil.setCookies(response, "LOne", URLEncoder.encode(JsonUtil.getJSONString(LOne), "UTF-8"), 60*120);
+					return "redirect:/index.jsp";
+				} else {
+					request.setAttribute("error", "该帐号没权限！");
+					return "forward:/login.jsp";
+				}
+			} else {
+				request.setAttribute("error", "该帐号没权限！");
+				return "forward:/login.jsp";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.setAttribute("error", "系统异常！");
+			return "forward:/login.jsp";
+		}
+	}
+	
+	@RequestMapping(value = { "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
+	public String login2(Model m, HttpServletRequest request, HttpServletResponse response)
+			throws SQLException {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+		String username = userDetails.getUsername();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		try {
+			paramMap.put("userId", username);
+			paramMap.put("systemCN", "SYSTEM_OPS");
+			String RolesJson = HttpUtil.HttpPost(SystemConfig.UAC_PATH, "/api/findRolesByUserAndSys.json", paramMap);
+			JSONObject json2 = JSONObject.fromObject(RolesJson);
+			if(json2.getString("success").equals("true")){
+				Object o = json2.get("result");
+				JSONArray Roles = JSONArray.fromObject(o);
+				if(Roles != null && Roles.size() != 0){
+					List<UacRoleVO> rolesList = JsonUtil.getListDTO(Roles.toString(), UacRoleVO.class);
+					List<LimitResource> LOne = new ArrayList<LimitResource>();// 1级分类
+					List<String> paramList = new ArrayList<String>();
+					for(UacRoleVO jo : rolesList){
+						paramList.add(jo.getCn());
+						LimitRole role = new LimitRole();
+						role.setRoleCode(jo.getCn());
+						List<LimitRole> list = roleService.getByParam(role);
+						if(list != null && list.size() != 0){
+
+						} else {
+							role.setRoleName(jo.getDisplayName());
+							role.setCreatedTime(new Date());
+							role.setDelFlag(0);
+							roleService.saveLimitRole(role);
+						}
+					}
+					paramMap.clear();
+					paramMap.put("roleList", paramList);
+					paramMap.put("parentSid", 0);
+					List<LimitResource> resources = resourcesService.getResourcesByParentSid(paramMap);
+					LOne.addAll(resources);
+					CookiesUtil.setCookies(response, "username", username, 60*120);
 					CookiesUtil.setCookies(response, "LOne", URLEncoder.encode(JsonUtil.getJSONString(LOne), "UTF-8"), 60*120);
 					return "redirect:/index.jsp";
 				} else {
@@ -332,7 +394,7 @@ public class SecutityController extends AbstractController {
 		}
 	}
 
-	@RequestMapping(value = { "/logoutAction" }, method = { RequestMethod.GET, RequestMethod.POST })
+	//@RequestMapping(value = { "/logoutAction" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(Model m, HttpServletRequest request, HttpServletResponse response) {
 //		HttpSession session = request.getSession();
 //		session.removeAttribute("username");
@@ -340,6 +402,21 @@ public class SecutityController extends AbstractController {
 //		session.invalidate();
 		CookiesUtil.delAllCookies(request, response);
 		return "redirect:/login.jsp";
+	}
+	
+	@RequestMapping(value = { "/logoutAction" }, method = { RequestMethod.GET, RequestMethod.POST })
+	public String logout_v2(Model m, @RequestParam String error,
+			HttpServletRequest request, HttpServletResponse response) {
+		if(error.equals("001")){
+			error = "用户名或密码不正确";
+		} else if(error.equals("002")){
+			error = "该用户没权限";
+		} else {
+			error = "";
+		}
+		request.setAttribute("error", error);
+		CookiesUtil.delAllCookies(request, response);
+		return "forward:/login.jsp";
 	}
 
 	public static List getDTOList(String jsonString, Class clazz, Map map) {
