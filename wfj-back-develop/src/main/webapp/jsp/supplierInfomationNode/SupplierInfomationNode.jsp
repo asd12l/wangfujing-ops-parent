@@ -284,9 +284,21 @@
 															<span>自库</span>
 														{#/if}
                                                     </td>
-													<td align="center" id="address_{$T.Result.sid}">{$T.Result.address}</td>
-													<td align="center" id="phone_{$T.Result.sid}">{$T.Result.phone}</td>
-													<td align="center" id="email_{$T.Result.sid}">{$T.Result.email}</td>
+													<td align="center" id="address_{$T.Result.sid}">
+													    {#if $T.Result.address != '[object Object]'}
+                                                            {$T.Result.address}
+                                                        {#/if}
+													</td>
+													<td align="center" id="phone_{$T.Result.sid}">
+													    {#if $T.Result.phone != '[object Object]'}
+                                                            {$T.Result.phone}
+                                                        {#/if}
+													</td>
+													<td align="center" id="email_{$T.Result.sid}">
+													    {#if $T.Result.email != '[object Object]'}
+                                                            {$T.Result.email}
+                                                        {#/if}
+													</td>
 													<td align="center">
 													    <span id="supplyType_{$T.Result.sid}" style="display:none;">
 													        {$T.Result.supplyType}
