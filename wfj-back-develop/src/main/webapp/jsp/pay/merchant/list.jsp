@@ -165,59 +165,59 @@ function closeMerchant(){
 										},
 										data : $("#editForm").serialize(),
 										success : function(response) {
-											if (response.success == "true") {
-												$("#modal-body-success")
-														.html(
-																"<div class='alert alert-success fade in'><strong>修改成功，返回列表页!</strong></div>");
-												$("#modal-success")
-														.attr(
-																{
-																	"style" : "display:block;z-index:9999",
-																	"aria-hidden" : "false",
-																	"class" : "modal modal-message modal-success"
-																});
-												$("#editLabelDiv").hide();
-											
-											} else if (response.success == "false") {
-												$("#model-body-warning")
-														.html(
-																"<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
-																		+ response.messages
-																		+ "</strong></div>");
-												$("#modal-warning")
-														.attr(
-																{
-																	"style" : "display:block;z-index:9999",
-																	"aria-hidden" : "false",
-																	"class" : "modal modal-message modal-warning"
-																});
-											}
-											return;
-										},
-										/* error : function() {
-											$("#model-body-warning")
-													.html(
-															"<div class='alert alert-error fade in'><i class='fa-fw fa fa-times'></i><strong>系统出错!</strong></div>");
-											$("#modal-warning")
-													.attr(
-															{
-																"style" : "display:block;z-index:9999",
-																"aria-hidden" : "false",
-																"class" : "modal modal-message modal-error"
-															});
-										} */
-										error : function(XMLHttpRequest, textStatus) {		      
-											var sstatus =  XMLHttpRequest.getResponseHeader("sessionStatus");
-											if(sstatus != "sessionOut"){
-												$("#model-body-warning").html("<div class='alert alert-error fade in'><i class='fa-fw fa fa-times'></i><strong>系统出错!</strong></div>");
-												$("#modal-warning").attr({"style" : "display:block;","aria-hidden" : "false","class" : "modal modal-message modal-error"});
-											}
-											if(sstatus=="sessionOut"){     
-								            	 $("#warning3").css('display','block');     
-								             }
-										}
-										
-									});
+								if (response.success == "true") {
+									$("#modal-body-success")
+											.html(
+											"<div class='alert alert-success fade in'><strong>修改成功，返回列表页!</strong></div>");
+									$("#modal-success")
+											.attr(
+											{
+												"style" : "display:block;z-index:9999",
+												"aria-hidden" : "false",
+												"class" : "modal modal-message modal-success"
+											});
+									$("#editLabelDiv").hide();
+
+								} else if (response.success == "false") {
+									$("#model-body-warning")
+											.html(
+											"<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
+											+ response.messages
+											+ "</strong></div>");
+									$("#modal-warning")
+											.attr(
+											{
+												"style" : "display:block;z-index:9999",
+												"aria-hidden" : "false",
+												"class" : "modal modal-message modal-warning"
+											});
+								}
+								return;
+							},
+							/* error : function() {
+							 $("#model-body-warning")
+							 .html(
+							 "<div class='alert alert-error fade in'><i class='fa-fw fa fa-times'></i><strong>系统出错!</strong></div>");
+							 $("#modal-warning")
+							 .attr(
+							 {
+							 "style" : "display:block;z-index:9999",
+							 "aria-hidden" : "false",
+							 "class" : "modal modal-message modal-error"
+							 });
+							 } */
+							error : function(XMLHttpRequest, textStatus) {
+								var sstatus =  XMLHttpRequest.getResponseHeader("sessionStatus");
+								if(sstatus != "sessionOut"){
+									$("#model-body-warning").html("<div class='alert alert-error fade in'><i class='fa-fw fa fa-times'></i><strong>系统出错!</strong></div>");
+									$("#modal-warning").attr({"style" : "display:block;","aria-hidden" : "false","class" : "modal modal-message modal-error"});
+								}
+								if(sstatus=="sessionOut"){
+									$("#warning3").css('display','block');
+								}
+							}
+
+						});
 							
 
 						}
