@@ -665,7 +665,7 @@
 	<!-- Main Container -->
 </div>
 <!--重置登录密码 -->
-<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+<div class="modal modal-darkorange"
 	 id="resetLoginPwdDiv">
 	<div class="modal-dialog"
 		 style="width: 800px; height: auto; margin: 4% auto;">
@@ -682,7 +682,7 @@
 							<input type="hidden" name="login_cid" id="login_cid">
 							<input type="hidden" name="loginCode" id="loginCode">
 							<input type="hidden" name="loginStatus" id="loginStatus">
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">手机号：</label>
 								<div class="col-md-6">
@@ -693,7 +693,7 @@
 								<br>&nbsp;
 							</div>
 
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">邮箱：</label>
 								<div class="col-md-6">
@@ -704,7 +704,7 @@
 								<br>&nbsp;
 							</div>
 
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">输入验证码：</label>
 								<div class="col-md-6">
@@ -732,7 +732,7 @@
 </div>
 
 <!--重置支付密码 -->
-<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+<div class="modal modal-darkorange"
 	 id="resetPayPwdDiv">
 	<div class="modal-dialog"
 		 style="width: 800px; height: auto; margin: 4% auto;">
@@ -748,7 +748,7 @@
 						<div class="col-xs-12 col-md-12">
 							<input type="hidden" name="pay_cid" id="pay_cid">
 							<input type="hidden" name="payCode" id="payCode">
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">手机号：</label>
 								<div class="col-md-6">
@@ -759,7 +759,7 @@
 								<br>&nbsp;
 							</div>
 
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">输入验证码：</label>
 								<div class="col-md-6">
@@ -776,7 +776,6 @@
 							<a onclick="sendPayPwdToPhone();" class="btn btn-info">发送新密码</a>&nbsp;&nbsp;
 							<a onclick="closePay();" class="btn btn-primary">取消</a>&nbsp;&nbsp;
 						</div>
-				</div>
 				</form>
 			</div>
 		</div>
