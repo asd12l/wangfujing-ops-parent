@@ -1797,7 +1797,10 @@ function getProPproductByProductCode(value){
 			maxSkuCode = "";
 		}
         var shoppeProName = $("#shoppeProName_input").val().trim();
-        var field4 = $("#materialNumber_input").val().trim();
+        var field4 = $("#materialNumber_input").val();
+        if(typeof(field4) == "undefined"){
+            field4 = "";
+        }
         var saleStatus = $("#saleStatus_select").val().trim();
         var shoppeSid = $("#shoppe_select").val().trim();
         var field5 = $("#shop_select option:selected").attr("code");
