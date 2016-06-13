@@ -3003,7 +3003,7 @@
                                                 <th width="2%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="2%" style="text-align: center;">COD支付金额</th>
                                                 <th width="2%" style="text-align: center;">取消原因</th>
-                                                <th width="2%" style="text-align: center;">客户备注</th>
+                                                <!-- <th width="2%" style="text-align: center;">客户备注</th> -->
                                                 <!-- <th width="2%" style="text-align: center;">客服备注</th> -->
                                                 <th width="2%" style="text-align: center;">收件人电话</th>
                                                 <th width="2%" style="text-align: center;">收件人姓名</th>
