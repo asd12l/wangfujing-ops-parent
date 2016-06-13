@@ -24,7 +24,7 @@ public class BalanceRecordController {
 
     @RequestMapping("/get")
     @ResponseBody
-    public String getBalanceRecord(HttpServletRequest request, String hidAccount, String hidPhone, String hidEmail, String hidStartTime, String hidEndTime) {
+    public String getBalanceRecord(HttpServletRequest request, String hidAccount, String hidPhone, String hidEmail, String hidStartTime, String hidEndTime, String groupId) {
         logger.info("======== get  =========");
         String method = "/balanceRecord/get.do";
         Integer currPage;
@@ -42,6 +42,7 @@ public class BalanceRecordController {
         map.put("endTime",hidEndTime);
         map.put("page_no", currPage);
         map.put("page_size", pageSize);
+        map.put("group_id",groupId);
         String reqJsonString;
         try {
             String url = CommonProperties.get("member_ops_url");

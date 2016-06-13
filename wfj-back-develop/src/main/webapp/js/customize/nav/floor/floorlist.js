@@ -1129,9 +1129,9 @@ var floorType="";
 		$("#linkSid").val(value);
 		$("#mainTitle").val($("#linkMainTitle_" + value).text().trim());
 		var linkSubTitle_ = $("#linkSubTitle_" + value).text().trim();
-		var linkSub_title =$("#linkSubTitle_" + value).text().trim().split("com")[1]+"com"+ $("#linkSubTitle_" + value).text().trim().split("com")[2];
-		$("#hidden_subTitleEdit").val(linkSub_title);
 		if(linkSubTitle_!=''){
+			var linkSub_title =$("#linkSubTitle_" + value).text().trim().split("com")[1]+"com"+ $("#linkSubTitle_" + value).text().trim().split("com")[2];
+			$("#hidden_subTitleEdit").val(linkSub_title);
 			$("#msg_subTitleEdit").removeClass("hide");
 			$("#msg_subTitleEdit").html("<img id='img_subTitleEdit' width='100' height='100' src='"+linkSubTitle_+"' />");
 		}else{
@@ -1139,9 +1139,9 @@ var floorType="";
 			//$("#msg_subTitleEdit").html("");
 		}
 		var titleImg_ = $("#linkPic_" + value).text().trim();
-        var title_Img =$("#linkPic_" + value).text().trim().split("com")[1]+"com"+ $("#linkPic_" + value).text().trim().split("com")[2];
-		$("#hidden_pictEdit").val(title_Img);
 		if(titleImg_!=''){
+			var title_Img =$("#linkPic_" + value).text().trim().split("com")[1]+"com"+ $("#linkPic_" + value).text().trim().split("com")[2];
+			$("#hidden_pictEdit").val(title_Img);
 			$("#msg_pictEdit").removeClass("hide");
 			$("#msg_pictEdit").html("<img id='img_pictEdit' width='100' height='100' src='"+titleImg_+"' />");
 		}else{

@@ -177,4 +177,26 @@ public class BalanceApplyController {
             return reqJsonString;
         }
     }
+
+    @RequestMapping("/getLimit")
+    @ResponseBody
+    public String getLimit(HttpServletRequest request, String type){
+        logger.info("======== getLimit  =========");
+        String method = "/balanceApply/getLimit.do";
+        Map<Object,Object> map = new HashMap<>();
+        map.put("type",type);
+        String reqJsonString;
+        try {
+            String url = CommonProperties.get("member_ops_url");
+            logger.info("======== getLimit url "+url+"  =========");
+            reqJsonString = HttpUtil.doPost(url + method, net.sf.json.JSONObject.fromObject(map).toString());
+            return reqJsonString;
+        } catch (Exception e) {
+            JSONObject json = new JSONObject();
+            json.put("code", "0");
+            json.put("desc","可用额度查询出错！");
+            reqJsonString = json.toString();
+            return reqJsonString;
+        }
+    }
 }
