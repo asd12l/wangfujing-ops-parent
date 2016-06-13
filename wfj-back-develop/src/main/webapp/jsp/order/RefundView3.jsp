@@ -242,8 +242,8 @@ Author: WangSy
 //				$("#allowNum").text(data2);
 //				$("#num").text(data2);
 				//应退金额计算
-				var a1 = salePrice*refundNum;
-				$("#amount1").text(salePrice*refundNum);
+//			var a1 = salePrice*refundNum;
+//				$("#amount1").text(salePrice*refundNum);
 //				$("#amount2").text(a1);
 				
 				//应退运费
@@ -267,7 +267,6 @@ Author: WangSy
       		$("#olv_tab1 tbody").setTemplateElement("olv-list1").processTemplate(data);
         } */
 	});
-	$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
 	
 	// 初始化
 	$(function() {
@@ -344,7 +343,7 @@ Author: WangSy
 //				$("#amount5").text(parseFloat(t2)); */
 			}
 		});
-		
+		$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
 		//取消
 		$("#closed").click(function() {
 			$("#pageBody").load(__ctxPath + "/jsp/order/OrderRefundListView2.jsp");

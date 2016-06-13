@@ -2389,11 +2389,11 @@
 													</td>
 													<td align="center" id="refundClass_{$T.Result.sid}">
 														{#if $T.Result.refundClass == 'RequestReturn'}
-															<span>客户发起退货</span>
+															<span>正常退</span>
 						                      			{#elseif $T.Result.refundClass == 'RejectReturn'}
-						                      				<span>拒收退</span>
+						                      				<span>拒收退货</span>
 						                      			{#elseif $T.Result.refundClass == 'RequestCancelReturn'}
-						                      				<span>客户发起取消</span>
+						                      				<span>发货前退货</span>
 						                      			{#elseif $T.Result.refundClass == 'OOSReturn'}
 						                      				<span>缺货退货</span>
 						                   				{#/if}
