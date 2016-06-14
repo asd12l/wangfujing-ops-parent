@@ -223,4 +223,57 @@ public class MemberBasicController {
         }
         return jsonString;
     }
+
+    /**
+     * 查询会员购买记录
+     * @param request
+     * @param response
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value ="/getMemPurchase", method = { RequestMethod.POST, RequestMethod.GET })
+    public String getMemPurchase(HttpServletRequest request,
+                               HttpServletResponse response) {
+        log.info("======== getMemPurchase in  =========");
+        response.setCharacterEncoding("utf-8");
+        String method = "/memBasic/getMemPurchase.do";
+        String jsonString="";
+        //获取每页显示多少条数据
+        Integer pageSize = 0;
+        //获取当前页
+        Integer currPage =Integer.parseInt(request.getParameter("page"));
+        pageSize = request.getParameter("pageSize") == null ? null
+                : Integer.parseInt(request.getParameter("pageSize"));
+        if (pageSize == null || pageSize == 0) {
+            pageSize = 10;
+        }
+        Map<String, Object> paraMap = new HashMap<String, Object>();
+        paraMap.put("currPage",currPage);
+        paraMap.put("pageSize",pageSize);
+        paraMap.put("cid",request.getParameter("cid"));
+        paraMap.put("orderNo",request.getParameter("orderNo"));
+        paraMap.put("outOrderNo",request.getParameter("outOrderNo"));
+        paraMap.put("orderStatus",request.getParameter("orderStatus"));
+        paraMap.put("orderFrom",request.getParameter("orderFrom"));
+        paraMap.put("m_timeStartDate",  request.getParameter("m_timeStartDate"));
+        paraMap.put("m_timeEndDate",  request.getParameter("m_timeEndDate"));
+        try {
+            String url = CommonProperties.get("member_ops_url");
+            log.info("======== getMemPurchase url " + url + "  =========");
+            System.err.println("============== member_ops_url:" + url);
+            System.err.println("=============method:"+method);
+            System.err.println("======== getMemPurchase url "+url+ method+"  =========");
+            String resJson = HttpUtil.HttpPost(url, method, paraMap);
+            JSONObject resJsonObj= JSONObject.fromObject(resJson);
+            String code=resJsonObj.getString("code");
+            if(code==null||!"0".equals(code)){
+                jsonString="{success :false}";
+            }else{
+                jsonString=resJsonObj.getJSONObject("object").toString();
+            }
+        } catch (Exception e) {
+            jsonString = "{success :false}";
+        }
+        return jsonString;
+    }
 }
