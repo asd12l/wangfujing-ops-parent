@@ -125,7 +125,9 @@
 		$("#supplier_select").select2().select2("val","");
 		$("#channelSid_select").val($('#channelSid_select option:eq(0)').val()).select2();
 		$("#shop_select").val($('#shop_select option:eq(0)').val()).select2();
+		$('#shoppe_select').val($('#shoppe_select option:eq(0)').val()).select2();
 		stockQuery();
+		init_1();
 	}
 	function initStock() {
 		var url = $("#ctxPath").val() + "/stock/selectStockSearch";
@@ -443,7 +445,8 @@
 	}
 </script>
 <script type="text/javascript">
-	$(function(){
+
+	function init_1(){
 		$('#supplier_select').prop("disabled", "disabled").select2();
 		$('#shoppe_select').prop("disabled", "disabled").select2();
 		$('#s2id_supplier_select').click(function(){
@@ -470,6 +473,10 @@
 			stockQuery();
 			$('#shoppe_select').removeAttr("disabled");
 		});
+	}
+	
+	$(function(){
+		init_1();
 	});
 	
 	//根据门店查询供应商
