@@ -685,7 +685,7 @@
 														{$T.Result.storeName.toString().replace(/\[object Object\]/ ,"--")}
 													{/#if}</td>
 													<td align="center">
-														<a onclick="price({$T.Result.productCode})" id="storeName_{$T.Result.sid}" style="cursor:pointer;color:blue">
+														<a onclick="price('{$T.Result.productCode}')" id="storeName_{$T.Result.sid}" style="cursor:pointer;color:blue">
 															价格详情点击
 														</a>
 													</td>
