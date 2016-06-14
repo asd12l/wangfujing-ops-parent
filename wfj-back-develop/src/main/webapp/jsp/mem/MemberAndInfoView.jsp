@@ -306,7 +306,7 @@
 										"loading-inactive")
 							}, 300);
 				},
-				data :{"pay_mobile":"13260068344"},
+				data :{"pay_mobile":mobile},
 				success : function(response) {
 					if (response.code == "1") {
 						$("#mobileCode_msg").html("验证码已发送");
@@ -328,10 +328,10 @@
 			$("#emailCode_msg").html("");
 			$("#login_msg").html("");
 			var email=$("#login_email").val().trim();
-//			if(email==""||email=="--"){
-//				$("#emailCode_msg").html("未绑定邮箱，无法发送验证码");
-//				return;
-//			}
+			if(email==""||email=="--"){
+				$("#emailCode_msg").html("未绑定邮箱，无法发送验证码");
+				return;
+			}
 			var url = __ctxPath+"/memBasic/sendCodeToEmail";
 			$.ajax({
 				type : "post",
@@ -352,7 +352,7 @@
 										"loading-inactive")
 							}, 300);
 				},
-				data :{"email":"1461186899@qq.com"},
+				data :{"email":email},
 				success : function(response) {
 					if (response.code == "1") {
 						$("#emailCode_msg").html("验证码已发送");
