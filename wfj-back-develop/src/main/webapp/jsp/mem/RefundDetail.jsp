@@ -25,15 +25,13 @@
     var olvPagination;
     $(function() {
       $("#reservation").daterangepicker();
-      $("#purchase_cid").val(cid);
+      $("#refund_cid").val(cid);
       initOlv();
     });
 
     function productQuery(){
+      $("#reOrderNo_from").val($("#reOrderNo_input").val().trim());
       $("#orderNo_from").val($("#orderNo_input").val().trim());
-      $("#outOrderNo_from").val($("#outOrderNo_input").val().trim());
-      $("#orderStatus_from").val($("#orderStatus_input").val().trim());
-      $("#orderFrom_from").val($("#orderFrom_input").val().trim());
       var strTime = $("#reservation").val();
       if(strTime!=""){
         strTime = strTime.split("- ");
@@ -55,16 +53,14 @@
     //重置
     function reset(){
       $("#cache").val(1);
+      $("#reOrderNo_input").val("");
       $("#orderNo_input").val("");
-      $("#outOrderNo_input").val("");
-      $("#orderStatus_input").val("");
-      $("#orderFrom_input").val("");
       $("#reservation").val("");
       productQuery();
     }
     //初始化包装单位列表
     function initOlv() {
-      var url = __ctxPath+"/memBasic/getMemPurchase?cid="+cid;
+      var url = __ctxPath+"/memBasic/getMemRefund?cid="+cid;
       olvPagination = $("#olvPagination").myPagination({
         panel: {
           tipInfo_on: true,
@@ -95,17 +91,6 @@
           },
           callback: function(data) {
             $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
-            //清空下拉选的值
-            $("#orderStatus_input").find("option:gt(0)").remove();
-            $("#orderFrom_input").find("option:gt(0)").remove();
-            var status=data.status;
-            var from=data.from;
-            for(var i=0;i<status.length;i++){
-              $("#orderStatus_input").append('<option value="'+status[i].codeValue+'">'+status[i].codeName+'</option>');
-            }
-            for(var i=0;i<from.length;i++){
-              $("#orderFrom_input").append('<option value="'+from[i].channelCode+'">'+from[i].channelName+'</option>');
-            }
           }
         }
       });
@@ -118,10 +103,10 @@
     }
     function successBtn(){
       $("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
-      $("#pageBody").load(__ctxPath+"/jsp/mem/PurchaseDetail.jsp");
+      $("#pageBody").load(__ctxPath+"/jsp/mem/RefundDetail.jsp");
     }
     function back(){
-      $("#pageBody").load(__ctxPath+"/jsp/mem/MemberPurchaseView.jsp");
+      $("#pageBody").load(__ctxPath+"/jsp/mem/MemberRefundView.jsp");
     }
   </script>
   <!-- 加载样式 -->
@@ -155,7 +140,7 @@
         <div class="col-xs-12 col-md-12">
           <div class="widget">
             <div class="widget-header ">
-              <h5 class="widget-caption">购买记录信息</h5>
+              <h5 class="widget-caption">退货记录信息</h5>
               <div class="widget-buttons">
                 <a href="#" data-toggle="maximize"></a> <a href="#"
                                                            data-toggle="collapse" onclick="tab('pro');"> <i
@@ -166,20 +151,12 @@
             <div class="widget-body" id="pro">
               <div class="table-toolbar">
                 <ul class="topList clearfix">
-                  <li class="col-md-4"><label class="titname">购买时间：</label>
+                  <li class="col-md-4"><label class="titname">退货时间：</label>
                     <input type="text" id="reservation" /></li>
-                  <li class="col-md-4"><label class="titname">订单号：</label>
+                  <li class="col-md-4"><label class="titname">退货单号：</label>
+                    <input type="text" id="reOrderNo_input" /></li>
+                  <li class="col-md-4"><label class="titname">订+单号：</label>
                     <input type="text" id="orderNo_input" /></li>
-                  <li class="col-md-4"><label class="titname">外部订单号：</label>
-                    <input type="text" id="outOrderNo_input" /></li>
-                  <li class="col-md-4"><label class="titname">订单状态：</label>
-                    <select id="orderStatus_input">
-                      <option value="" checked="checked">全部状态</option>
-                    </select></li>
-                  <li class="col-md-4"><label class="titname">订单来源：</label>
-                    <select id="orderFrom_input">
-                      <option value="" checked="checked">全部来源</option>
-                    </select></li>
                   <li class="col-md-6">
                     <a onclick="query();" class="btn btn-yellow">
                       <i class="fa fa-eye"></i> 查询
@@ -196,14 +173,13 @@
                        id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
                   <thead>
                   <tr role="row" style='height:35px;'>
-                    <th style="text-align: center;" width="10%">购买时间</th>
+                    <th style="text-align: center;" width="10%">退货单号</th>
                     <th style="text-align: center;" width="10%">订单号</th>
-                    <th style="text-align: center;" width="10%">外部订单号</th>
-                    <th style="text-align: center;" width="10%">订单总额</th>
-                    <th style="text-align: center;" width="10%">订单状态</th>
-                    <th style="text-align: center;" width="10%">订单来源</th>
-                    <th style="text-align: center;" width="10%">支付方式</th>
-                    <th style="text-align: center;" width="10%">支付状态</th>
+                    <th style="text-align: center;" width="10%">应退金额</th>
+                    <th style="text-align: center;" width="10%">实退金额</th>
+                    <th style="text-align: center;" width="10%">退货单状态</th>
+                    <th style="text-align: center;" width="10%">退货申请时间</th>
+                    <th style="text-align: center;" width="10%">退货原因</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -211,11 +187,9 @@
                 </table>
                 <div class="pull-left" style="padding: 10px 0;">
                   <form id="product_form" action="">
-                    <input type="hidden" id="purchase_cid" name="cid" />
+                    <input type="hidden" id="refund_cid" name="cid" />
+                    <input type="hidden" id="reOrderNo_from" name="reOrderNo" />
                     <input type="hidden" id="orderNo_from" name="orderNo" />
-                    <input type="hidden" id="outOrderNo_from" name="outOrderNo" />
-                    <input type="hidden" id="orderStatus_from" name="orderStatus" />
-                    <input type="hidden" id="orderFrom_from" name="orderFrom" />
                     <input type="hidden" id="m_timeStartDate_form" name="m_timeStartDate"/>
                     <input type="hidden" id="m_timeEndDate_form" name="m_timeEndDate"/>
                     <input type="hidden" id="cache" name="cache" value="1" />
@@ -230,8 +204,8 @@
 											{#foreach $T.list as Result}
 												<tr class="gradeX">
                                                   <td align="center">
-                                                    {#if $T.Result.newSaleTime == "" || $T.Result.newSaleTime == null}--
-                                                    {#else}{$T.Result.newSaleTime}
+                                                    {#if $T.Result.refundNo == "" || $T.Result.refundNo == null}--
+                                                    {#else}{$T.Result.refundNo}
                                                     {#/if}
                                                   </td>
                                                   <td align="center">
@@ -240,42 +214,29 @@
                                                     {#/if}
                                                   </td>
                                                   <td align="center">
-                                                    {#if $T.Result.outOrderNo == "" || $T.Result.outOrderNo == null}
-                                                    {#else}{$T.Result.outOrderNo}
+                                                    {#if $T.Result.refundAmount == "" || $T.Result.refundAmount == null}
+                                                    {#else}{$T.Result.refundAmount}
                                                     {#/if}
                                                   </td>
                                                   <td align="center">
-                                                    {#if $T.Result.salesAmount == "" || $T.Result.salesAmount == null}--
-                                                    {#else}{$T.Result.salesAmount}
+                                                    {#if $T.Result.needRefundAmount == "" || $T.Result.needRefundAmount == null}--
+                                                    {#else}{$T.Result.needRefundAmount}
                                                     {#/if}
                                                   </td>
                                                   <td align="center">
-                                                    {#if $T.Result.newOrderStatus == "" || $T.Result.newOrderStatus == null}--
-                                                    {#else}{$T.Result.newOrderStatus}
+                                                    {#if $T.Result.refundStatusDesc == "" || $T.Result.refundStatusDesc == null}--
+                                                    {#else}{$T.Result.refundStatusDesc}
                                                     {#/if}
                                                   </td>
 
                                                   <td align="center">
-                                                    {#if $T.Result.newOrderSource == "" || $T.Result.newOrderSource == null}--
-                                                    {#else}{$T.Result.newOrderSource}
+                                                    {#if $T.Result.refundTimeStr == "" || $T.Result.refundTimeStr == null}--
+                                                    {#else}{$T.Result.refundTimeStr}
                                                     {#/if}
                                                   </td>
                                                   <td align="center">
-                                                    {#if $T.Result.isCod == 0}在线支付
-                                                    {#/if}
-                                                    {#if $T.Result.isCod == 1}货到付款
-                                                    {#/if}
-                                                  </td>
-                                                  <td align="center">
-                                                    {#if $T.Result.payStatus == "" || $T.Result.payStatus == null}--
-                                                    {#/if}
-                                                    {#if $T.Result.payStatus == "5001"}未支付
-                                                    {#/if}
-                                                    {#if $T.Result.payStatus == "5002"}部分支付
-                                                    {#/if}
-                                                    {#if $T.Result.payStatus == "5003"}超时未支付
-                                                    {#/if}
-                                                    {#if $T.Result.payStatus == "5004"}已支付
+                                                    {#if $T.Result.refundReason == "" || $T.Result.refundReason == null}--
+                                                    {#else}{$T.Result.refundReason}
                                                     {#/if}
                                                   </td>
                                                 </tr>
