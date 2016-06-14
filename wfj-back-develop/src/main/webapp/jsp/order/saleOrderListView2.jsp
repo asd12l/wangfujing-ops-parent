@@ -643,7 +643,8 @@
 								"<th width='5%' style='text-align: center;'>发票金额</th>"+
 								"<th width='5%' style='text-align: center;'>发票抬头</th>"+
 								"<th width='5%' style='text-align: center;'>发票明细</th>"+
-								"<th width='5%' style='text-align: center;'>发票状态</th></tr>";
+								"<th width='5%' style='text-align: center;'>发票状态</th>"+
+								"<th width='5%' style='text-align: center;'>发票时间</th></tr>";
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//销售单单号
@@ -683,6 +684,12 @@
 								option3+="<td align='center'>"+'有效'+"</td></tr>";
 							}else if(ele.invoiceStatus=='1'){
 								option3+="<td align='center'>"+'无效'+"</td></tr>";
+							}
+							//发票时间
+							if(ele.createdTimeStr=="[object Object]"||ele.createdTimeStr==undefined){
+								option6+="<td align='center'></td>";
+							}else{
+								option6+="<td align='center'>"+ele.createdTimeStr+"</td>";
 							}
 							option3 += "</table></div></td></tr>";
 							$("#gradeY12" + obj).after(option3);
