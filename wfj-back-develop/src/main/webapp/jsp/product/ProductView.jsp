@@ -460,42 +460,34 @@ fingColorDict();
 	TIPSLeft = TIPSDiv.position().left;
 	TIPSTop = TIPSDiv.position().top;
 	var oldSpuCode = "",oldColorSid = "";
+	var timer;
 	function mouseover(event,spuCode,colorSid,isLoad) {
 		/* if(oldSpuCode != spuCode && oldColorSid != colorSid){
 			oldSpuCode = spuCode;
 			oldColorSid = colorSid; */
 			if(isLoad >= 3){
 				var e = event || window.event;
-				$.ajax({
-					type : "post",
-					contentType : "application/x-www-form-urlencoded;charset=utf-8",
-					url : __ctxPath
-							+ "/product/loadProSuolvImg.htm",
-					async : false,
-					dataType : "json",
-					data : {
-						"spuCode" : spuCode,
-						"colorSid" : colorSid
-					},
-					ajaxStart : function() {
-						$("#loading-container").attr("class",
-								"loading-container");
-					},
-					ajaxStop : function() {
-						setTimeout(function() {
-							$("#loading-container").addClass(
-									"loading-inactive")
-						}, 300);
-					},
-					success : function(response) {
-						if(response.success=="true"){
-							//console.log( e.pageX + "----" + e.pageY + "||" + TIPSLeft + "----" + TIPSTop );
-							TIPSDiv.css({"left":e.pageX + "px","top":(e.pageY - TIPSTop) + "px"});
-							TIPSDiv.find("img:eq(0)").prop("src", response.pictureUrl);
-							$("#TIPS").show();
-						}
-					}	
-				});
+				timer = setTimeout(function(){
+					$.ajax({
+						type : "post",
+						contentType : "application/x-www-form-urlencoded;charset=utf-8",
+						url : __ctxPath
+								+ "/product/loadProSuolvImg.htm",
+						async : false,
+						dataType : "json",
+						data : {
+							"spuCode" : spuCode,
+							"colorSid" : colorSid
+						},
+						success : function(response) {
+							if(response.success=="true"){
+								TIPSDiv.css({"left":e.pageX + "px","top":(e.pageY - TIPSTop) + "px"});
+								TIPSDiv.find("img:eq(0)").prop("src", response.pictureUrl);
+								$("#TIPS").show();
+							}
+						}	
+					});
+				},1000);
 			}
 		/* } */
 	}
@@ -506,6 +498,9 @@ fingColorDict();
 			colorSid = "";
 			$("#TIPS").hide();
 		} */
+		if (timer) {
+            clearTimeout(timer);
+        }
 		$("#TIPS").hide();
 	}
 </script>
