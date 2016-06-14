@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+
+
+
+import org.springframework.beans.BeansException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.constants.SystemConfig;
@@ -38,7 +42,7 @@ public class InitService  extends HttpServlet {
 	 * 部署为任务机
 	 * 初始化任务配置文件
 	 */
-	private void initCron(){
+	private void initCron() throws BeansException{
 		String deploy = SystemConfig.SYSTEM_PROPERTIES_DEPLOYTYPE_VALUE;
 		if(deploy.equals(String.valueOf(SystemConfig.SYSTEM_PROPERTIES_CRONTYPE_VALUE))){//加载任务机制
 			 new ClassPathXmlApplicationContext(SystemConfig.CRON_CONFIG_FILE_NAME);

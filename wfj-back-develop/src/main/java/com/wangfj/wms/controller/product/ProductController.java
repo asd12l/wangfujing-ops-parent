@@ -1560,7 +1560,16 @@ public class ProductController {
                 if (list != null && list.size() > 0) {
                     for (int i = 0; i < list.size(); i++) {
                         JSONObject object = list.getJSONObject(i);
-                        ExcelShoppeProductVo vo = (ExcelShoppeProductVo) JSONObject.toBean(object, ExcelShoppeProductVo.class);
+//                        ExcelShoppeProductVo vo = (ExcelShoppeProductVo) JSONObject.toBean(object, ExcelShoppeProductVo.class);
+                        ExcelShoppeProductVo vo = new ExcelShoppeProductVo();
+                        vo.setProductCode(object.get("productCode") + "");
+                        vo.setSkuCode(object.get("skuCode") + "");
+                        vo.setProductName(object.get("productName") + "");
+                        vo.setStoreName(object.get("storeName") + "");
+                        vo.setCounterName(object.get("counterName") + "");
+                        vo.setSupplierName(object.get("supplierName") + "");
+                        vo.setBrandName(object.get("brandName") + "");
+                        vo.setIsSale(object.get("isSale") + "");
                         shoppeProductVoList.add(vo);
                     }
                 }
@@ -2252,7 +2261,7 @@ public class ProductController {
             if (StringUtils.isNotEmpty(saveShoppeProductVO.getBaseUnitCode())) {
                 map.put("baseUnitCode", saveShoppeProductVO.getBaseUnitCode());
             }
-            
+
             if (StringUtils.isNotEmpty(saveShoppeProductVO.getZzColorCode())) {
                 map.put("zzColorCode", saveShoppeProductVO.getZzColorCode());
             }
@@ -2994,7 +3003,7 @@ public class ProductController {
         }
         return json;
     }
-    
+
     /**
      * 根据产品编码和色系加载缩略图
      *
@@ -3017,33 +3026,33 @@ public class ProductController {
         String result = "";
         JSONObject json = new JSONObject();
         try {
-        	result = HttpUtilPcm.doPost(
-			        SystemConfig.SSD_SYSTEM_URL + "/productPrcture/queryPrctureInfoByPara.htm",
-			        JsonUtil.getJSONString(proMap));
-			if (StringUtils.isNotEmpty(result)) {
+            result = HttpUtilPcm.doPost(
+                    SystemConfig.SSD_SYSTEM_URL + "/productPrcture/queryPrctureInfoByPara.htm",
+                    JsonUtil.getJSONString(proMap));
+            if (StringUtils.isNotEmpty(result)) {
                 JSONObject ret = JSONObject.fromObject(result);
                 if ("true".equals(ret.get("success"))) {
-                	JSONArray list = JSONArray.fromObject(ret.get("data"));
-                	if(list != null && list.size() != 0){
-                		JSONObject o = JSONObject.fromObject(list.get(0)); 
-                		json.put("success", "true");
+                    JSONArray list = JSONArray.fromObject(ret.get("data"));
+                    if (list != null && list.size() != 0) {
+                        JSONObject o = JSONObject.fromObject(list.get(0));
+                        json.put("success", "true");
                         json.put("spuCode", o.get("skuSid"));
                         json.put("pictureUrl", SystemConfig.IMAGE_SERVER + o.get("pictureUrl"));
                         json.put("colorCode", o.get("colorCode"));
-                	} else {
-                		json.put("success", "false");
-                	}
+                    } else {
+                        json.put("success", "false");
+                    }
                 } else {
                     json.put("success", "false");
                 }
             } else {
                 json.put("success", "false");
             }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			json.put("success", "false");
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            json.put("success", "false");
+            e.printStackTrace();
+        }
         return json.toString();
     }
 }
