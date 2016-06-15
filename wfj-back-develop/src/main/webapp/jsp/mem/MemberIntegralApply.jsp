@@ -170,6 +170,12 @@
             $("#addIntegralDiv").hide();
         }
         function showAddIntegral(){
+            //清空表单内容
+            $("#login_name_add").val("");
+            $("#apply_name_add").val("");
+            $("#from_order_add").val("");
+            $("#apply_reason_add").val("");
+            $("#apply_reason_add").val("");
             $("#addIntegralDiv").show();
         }
         function submitAddIntegral(){
@@ -225,7 +231,7 @@
                         data :{"loginName":loginName,"applyName":applyName,"applyType":applyType,"sourceType":sourceType,"orderNo":orderNo,
                         "applyNo":applyNo,"applyReason":applyReason},
                         success : function(response) {
-                            if (response.success == "true") {
+                            if (response.code == "0") {
                                 $("#modal-body-success")
                                         .html(
                                         "<div class='alert alert-success fade in'><strong>添加成功，返回列表页!</strong></div>");
@@ -238,11 +244,11 @@
                                         });
                                 $("#addIntegralDiv").hide();
 
-                            } else  {
+                            } else  if(response.code=="1"){
                                 $("#model-body-warning")
                                         .html(
                                         "<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
-                                        + "添加失败!"
+                                        + "用户名无效!"
                                         + "</strong></div>");
                                 $("#modal-warning")
                                         .attr(
@@ -251,6 +257,35 @@
                                             "aria-hidden" : "false",
                                             "class" : "modal modal-message modal-warning"
                                         });
+                                $("#addIntegralDiv").hide();
+                            } else if(response.code=="2"){
+                                $("#model-body-warning")
+                                        .html(
+                                        "<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
+                                        + "订单无效"
+                                        + "</strong></div>");
+                                $("#modal-warning")
+                                        .attr(
+                                        {
+                                            "style" : "display:block;z-index:9999",
+                                            "aria-hidden" : "false",
+                                            "class" : "modal modal-message modal-warning"
+                                        });
+                                $("#addIntegralDiv").hide();
+                            }else{
+                                $("#model-body-warning")
+                                        .html(
+                                        "<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
+                                        + "添加失败"
+                                        + "</strong></div>");
+                                $("#modal-warning")
+                                        .attr(
+                                        {
+                                            "style" : "display:block;z-index:9999",
+                                            "aria-hidden" : "false",
+                                            "class" : "modal modal-message modal-warning"
+                                        });
+                                $("#addIntegralDiv").hide();
                             }
                             return;
                         },
@@ -420,6 +455,12 @@
                 return;
             }
             var sid=checkboxArray[0];
+            var checkStatus=$("#check_status_"+sid).text().trim();
+            if(checkStatus=="审核通过"){
+                $("#warning2Body").text("审核通过不能取消!");
+                $("#warning2").show();
+                return;
+            }
             $("#check_sid").val(sid);
             $("#checkIntegralDiv").show();
         }
@@ -617,16 +658,24 @@
                         </div>
                         <div class="widget-body" id="pro">
                             <div class="table-toolbar">
-                                <div class="mtb10">
-                                    <span class="titname">客户账号：</span> <input type="text" id="login_input" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="titname">单据号：</span> <input type="text" id="sid_input" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="titname">子订单号/退货单号：</span> <input type="text" id="order_input" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="titname">申请时间：</span> <input type="text" id="reservationAp" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="titname">审核时间：</span> <input type="text" id="reservationCh" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="titname">申请人：</span> <input type="text" id="applyName_input" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a onclick="query();" class="btn btn-primary"> <i class="fa fa-plus"></i>查询</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a onclick="reset();" class="btn btn-info"> <i class="fa fa-wrench"></i> 重置</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
+                                <ul class="topList clearfix">
+                                    <li class="col-md-4"><label class="titname">客户账号：</label>
+                                        <input type="text" id="login_input" /></li>
+                                    <li class="col-md-4"><label class="titname">单据号：</label>
+                                        <input type="text" id="sid_input" /></li>
+                                    <li class="col-md-4"><label class="titname">子订单号/退货单号：</label>
+                                        <input type="text" id="order_input" /></li>
+                                    <li class="col-md-4"><label class="titname">申请时间：</label>
+                                        <input type="text" id="reservationAp" /></li>
+                                    <li class="col-md-4"><label class="titname">审核时间：</label>
+                                        <input type="text" id="reservationCh" /></li>
+                                    <li class="col-md-4"><label class="titname">申请人：</label>
+                                        <input type="text" id="applyName_input" /></li>
+                                    <li class="col-md-6">
+                                        <a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
+                                        <a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
+                                    </li>
+                                </ul>
                                 <div class="mtb10">
                                     <a onclick="showIntegralDetail();" class="btn btn-info"> <i class="fa fa-wrench"></i>查看积分申请</a>&nbsp;&nbsp;
                                     <a onclick="showAddIntegral();" class="btn btn-info"> <i class="fa fa-wrench"></i>新建积分申请</a>&nbsp;&nbsp;
@@ -758,7 +807,7 @@
                                                         {#/if}
                                                     </td>
                                                     <td align="center" style="display:none;" id="checkMemo_{$T.Result.sid}">
-                                                        {#if $T.Result.fcheck_memo== "" || $T.Result.check_memo == null}--
+                                                        {#if $T.Result.check_memo== "" || $T.Result.check_memo == null}--
                                                         {#else}{$T.Result.check_memo}
                                                         {#/if}
                                                     </td>
@@ -779,7 +828,7 @@
     <!-- Main Container -->
 </div>
 <!--查看积分申请 -->
-<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+<div class="modal modal-darkorange"
      id="editLabelDiv">
     <div class="modal-dialog"
          style="width: 800px; height: auto; margin: 4% auto;">
@@ -794,7 +843,7 @@
                     <form method="post" class="form-horizontal" id="editForm">
                         <div class="col-xs-12 col-md-12">
                             <input type="hidden" name="id" id="merchant_id">
-                            <div class="col-md-12" id="" style="padding: 10px 100px;">
+                            <div class="col-md-12" style="padding: 10px 100px;">
                                 <label class="col-md-5 control-label"
                                        style="line-height: 20px; text-align: right;">单据号：</label>
                                 <div class="col-md-6">
@@ -804,7 +853,7 @@
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12" id="" style="padding: 10px 100px;">
+                            <div class="col-md-12"  style="padding: 10px 100px;">
                                 <label class="col-md-5 control-label"
                                        style="line-height: 20px; text-align: right;">用户编号：</label>
                                 <div class="col-md-6">
@@ -814,7 +863,7 @@
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12" id="" style="padding: 10px 100px;">
+                            <div class="col-md-12"  style="padding: 10px 100px;">
                                 <label class="col-md-5 control-label"
                                        style="line-height: 20px; text-align: right;">申请人：</label>
                                 <div class="col-md-6">
@@ -853,7 +902,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                            <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label"
                                        style="line-height: 20px; text-align: right;">积分数量：</label>
                                 <div class="col-md-6">
@@ -863,7 +912,7 @@
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                            <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label"
                                        style="line-height: 20px; text-align: right;">申请理由：</label>
                                 <div class="col-md-6">
@@ -873,7 +922,7 @@
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                            <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label"
                                        style="line-height: 20px; text-align: right;">审核备注：</label>
                                 <div class="col-md-6">
@@ -890,8 +939,7 @@
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                             <input class="btn btn-danger" onclick="closeMerchant();" style="width: 25%;"
-                                   id="submitEdit" type="button" value="确认提交" />
-                        </div>
+                                   id="submitEdit" type="button" value="关闭" />
                         </div>
                     </form>
                 </div>
@@ -903,7 +951,7 @@
 </div>
 
 <!--新建积分申请 -->
-<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+<div class="modal modal-darkorange"
      id="addIntegralDiv">
     <div class="modal-dialog"
          style="width: 800px; height: auto; margin: 4% auto;">
@@ -914,7 +962,7 @@
                 <h4 class="modal-title">积分申请单</h4>
             </div>
             <div class="page-body">
-                <div class="row">
+                < class="row">
                     <form method="post" class="form-horizontal">
                         <div class="col-xs-12 col-md-12">
                             <div class="col-md-12" style="padding: 10px 100px;">
@@ -1009,7 +1057,6 @@
                             <input class="btn btn-danger" onclick="submitAddIntegral();" style="width: 25%;"
                                    id="submit" type="button" value="提交" />
                         </div>
-                </div>
                 </form>
             </div>
         </div>
@@ -1021,7 +1068,7 @@
 
 
 <!--编辑积分申请 -->
-<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+<div class="modal modal-darkorange"
      id="editIntegralDiv">
     <div class="modal-dialog"
          style="width: 800px; height: auto; margin: 4% auto;">
@@ -1127,7 +1174,6 @@
                             <input class="btn btn-danger" onclick="submitIntegralApply();" style="width: 25%;"
                                    type="button" value="确认提交" />
                         </div>
-                </div>
                 </form>
             </div>
         </div>
@@ -1137,7 +1183,7 @@
 <!-- /.modal-dialog -->
 </div>
 <!-- 审核积分申请-->
-<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+<div class="modal modal-darkorange"
      id="checkIntegralDiv">
     <div class="modal-dialog"
          style="width: 800px; height: auto; margin: 4% auto;">
@@ -1148,7 +1194,7 @@
                 <h4 class="modal-title">审核积分申请</h4>
             </div>
             <div class="page-body">
-                <div class="row">
+                < class="row">
                     <form method="post" class="form-horizontal">
                         <input type="hidden" id="check_sid"/>
                         <div class="col-xs-12 col-md-12">
@@ -1205,7 +1251,6 @@
                             <input class="btn btn-danger" onclick="checkIntegralApply();" style="width: 25%;"
                                    id="submitCheck" type="button" value="确定" />
                         </div>
-                </div>
                 </form>
             </div>
         </div>
