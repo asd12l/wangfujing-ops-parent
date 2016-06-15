@@ -267,7 +267,7 @@ Author: WangSy
 				a2++;
 			} */
 //			$("#amount4").text(parseFloat(t2));
-			$("#amount5").text(parseFloat(t2));
+			$("#amount5").text(parseFloat(t2).toFixed(2));
 			
 			return;
 		}

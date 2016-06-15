@@ -276,7 +276,7 @@
 					t2 +=parseFloat(t1);
 				}
 //				$("#amount4").text(parseFloat(t2));
-				$("#amount5").text(parseFloat(t2));
+				$("#amount5").text(parseFloat(t2).toFixed(2));
 			},
 			error : function() {
 				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"查询营销失败"+"</strong></div>");

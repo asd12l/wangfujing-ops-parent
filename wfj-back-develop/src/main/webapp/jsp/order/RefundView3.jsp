@@ -184,7 +184,7 @@ Author: WangSy
 		t2 +=parseFloat(t1);
 	}
 //	$("#amount4").text(parseFloat(t2));
-	$("#amount5").text(parseFloat(t2));
+	$("#amount5").text(parseFloat(t2).toFixed(2));
 	
 	//退货方式
 	/* $("#refundType").one("click",function(){

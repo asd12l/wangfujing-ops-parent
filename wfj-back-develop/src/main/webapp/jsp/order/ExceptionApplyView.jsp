@@ -125,7 +125,7 @@
     }
 	
  	//点击tr事件
-	function trClick(orderNo,dealFlag,obj){
+	function trClick(orderNo,exceptionType,dealFlag,obj){
 //		$(obj).addClass("trClick").siblings().removeClass("trClick");
 //		var option = "";
 //		var spn_click =  $("#spn_"+sid).html("<span class='btn btn-palegreen btn-xs'>已点击</span>");
@@ -145,7 +145,7 @@
 				url:__ctxPath + "/omsOrder/applySendErp",
 				async:false,
 				dataType: "json",
-				data:{"orderNo":orderNo},
+				data:{"orderNo":orderNo,"exceptionType":exceptionType},
 				success:function(response) {
 					if(response.success=='true'){
 						initOlv();
@@ -224,6 +224,13 @@
 										            <label class="titname">单据号：</label>
 													<input type="text" id="orderNo_input"/>
 										        </li>
+										        <li class="col-md-4">
+                                   					<label class="titname">异常类型：</label>
+                                   					<select id="exceptionType_input" style="padding:0 0;">
+			                                			<option value="REFUNDPUSHERP">REFUNDPUSHERP</option>
+			                                			<option value="EDIREFUNDPUSHERP">EDIREFUNDPUSHERP</option>
+			                                		</select>
+                                   				</li>
 										    <li class="col-md-4">
 										    	<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
 												<a class="btn btn-default shiny" onclick="reset();">重置</a>
@@ -289,7 +296,7 @@
 														{#if $T.Result.createdTimeStr != '[object Object]'}{$T.Result.createdTimeStr}
 							                   			{#/if}
 							                   		</td>
-							                   		<td align="center" onclick="trClick('{$T.Result.orderNo}','{$T.Result.dealFlag}',this)" id="dealFlag_{$T.Result.sid}">
+							                   		<td align="center" onclick="trClick('{$T.Result.orderNo}','{$T.Result.exceptionType}','{$T.Result.dealFlag}',this)" id="dealFlag_{$T.Result.sid}">
 														{#if $T.Result.dealFlag == '1'}
 															<span  class='btn btn-palegreen btn-xs'>已处理</span>
 						                      			{#else}
