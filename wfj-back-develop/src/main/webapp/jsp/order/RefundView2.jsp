@@ -275,7 +275,7 @@ Author: WangSy
 			}
 			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));
 //			$("#amount4").text(parseFloat(t2));
-			$("#amount5").text(parseFloat(t2));
+			$("#amount5").text(parseFloat(t2).toFixed(2));
 		}
 	});
 	//扣款金额校验

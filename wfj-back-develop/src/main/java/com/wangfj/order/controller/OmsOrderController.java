@@ -1067,8 +1067,11 @@ public class OmsOrderController {
 			String endDate = sdf.format(date2);
 	    	paramMap.put("endTime", endDate);
 	    }
-		
-		paramMap.put("exceptionType", "REFUNDPUSHERP");
+		if(null==request.getParameter("exceptionType")||"REFUNDPUSHERP".equals(request.getParameter("exceptionType"))){
+			paramMap.put("exceptionType", "REFUNDPUSHERP");
+		}else if("EDIREFUNDPUSHERP".equals(request.getParameter("exceptionType"))){
+			paramMap.put("exceptionType", "EDIREFUNDPUSHERP");
+		}
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
@@ -1370,10 +1373,16 @@ public class OmsOrderController {
 	public String applySendErp(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
 		String refundApplyNo = request.getParameter("orderNo");
+		String exceptionType = request.getParameter("exceptionType");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			logger.info("refundApplyNo:" + refundApplyNo);
-			json = HttpUtilPcm.doPost(CommonProperties.get("apply_sendErp_url"), refundApplyNo);
+			if(exceptionType.equals("EDIREFUNDPUSHERP")){
+				json = HttpUtilPcm.doPost(CommonProperties.get("apply_sendErp_url"), refundApplyNo);
+			}else if(exceptionType.equals("REFUNDPUSHERP")){
+				json = HttpUtilPcm.doPost(CommonProperties.get("apply_EdisendErp_url"), refundApplyNo);
+			}
+			
 			logger.info("json:" + json);
 			if (json != null && json.length() != 0) {
 				m.put("success", "true");
