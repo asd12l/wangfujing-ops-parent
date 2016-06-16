@@ -586,6 +586,7 @@ function shbtgForm(){
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}
+	//跳到商品详情页
 	function trClick(skuNo, obj){
 		var packimg_url = $("#packimgUrl").val();
 		window.open(packimg_url+"/item/"+skuNo+".jhtml");
