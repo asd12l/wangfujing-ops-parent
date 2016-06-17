@@ -231,7 +231,7 @@ Author: WangSy
 					discount += datas.billDetail.sellDetails[i].totalDiscount;
 				}
 				
-				$("#amount4").text(discount);
+				$("#amount4").text(parseFloat(discount).toFixed(2));
 				$("#amount2").text(datas.billDetail.factPay);
 				rowNo_ = datas.billDetail.sellPayments.length;
 				$("#olv_tab2 tbody").setTemplateElement("fanquan-list").processTemplate(datas);
