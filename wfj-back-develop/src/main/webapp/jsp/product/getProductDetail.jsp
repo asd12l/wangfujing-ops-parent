@@ -88,7 +88,10 @@ $(function() {
 	//修改按钮事件
 	$("input[id='save']").click(function(){
 		var a = $(this).attr("name");
+		skuSale_productChangePropId = $("#skuSale").val();
 		if($("#skuSale").val() != 1){
+			goEditPro(a);
+		} else if(a == "FinePack" && $("#skuSale").val() == 1) {
 			goEditPro(a);
 		} else {
 			$("#warning2Body").text("上架商品不能修改!");

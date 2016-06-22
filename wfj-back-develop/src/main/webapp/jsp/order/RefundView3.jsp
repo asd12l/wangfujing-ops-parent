@@ -184,7 +184,7 @@ Author: WangSy
 		t2 +=parseFloat(t1);
 	}
 //	$("#amount4").text(parseFloat(t2));
-	$("#amount5").text(parseFloat(t2));
+	$("#amount5").text(parseFloat(t2).toFixed(2));
 	
 	//退货方式
 	/* $("#refundType").one("click",function(){
@@ -282,6 +282,7 @@ Author: WangSy
 				if (response.success == "true") {
 					$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
 				}
+				$("#packimgUrl").val(response.packimgUrl);//域名赋值
 				var spc=$(".salePriceClass");
 				var rc=$(".refundNumClass");
 				var totalPrice = 0;
@@ -379,6 +380,11 @@ Author: WangSy
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}
+	//跳到商品详情页
+	function trClick(skuNo, obj){
+		var packimg_url = $("#packimgUrl").val();
+		window.open(packimg_url+"/item/"+skuNo+".jhtml");
+	}
 </script>
 
 </head>
@@ -410,6 +416,7 @@ Author: WangSy
 									<div class="tab-content">
 										<div id="base" class="tab-pane in active">
 											<form id="baseForm" method="post" class="form-horizontal">
+												<input type="hidden" id="packimgUrl" value="">
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
 													<h5>
@@ -455,8 +462,10 @@ Author: WangSy
 															{#foreach $T.list as Result}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
-																		{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
-										                   				{#/if}
+																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
+																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
+																			{#/if}
+																		</a>
 																	</td>
 																	<td align="center" id="shoppeProName_{$T.Result.sid}">
 																		{#if $T.Result.shoppeProName != '[object Object]'}{$T.Result.shoppeProName}

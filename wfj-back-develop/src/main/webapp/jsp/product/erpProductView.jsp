@@ -61,6 +61,7 @@ Author: YeDong/zhangdl
 		$("#shop_select").val($('#shop_select option:eq(0)').val()).select2();
 		$("#supplier_select").val("").select2();
 		productQuery();
+		init_1();
 	}
 
 	var dataList;
@@ -244,7 +245,8 @@ Author: YeDong/zhangdl
 	}
 </script>
 <script type="text/javascript">
-	$(function(){
+	
+	function init_1(){
 		$('#supplier_select').prop("disabled", "disabled").select2();
 		$('#shoppe_select').prop("disabled", "disabled").select2();
 		$('#s2id_supplier_select').click(function(){
@@ -271,6 +273,10 @@ Author: YeDong/zhangdl
 			productQuery();
 			$('#shoppe_select').removeAttr("disabled");
 		});
+	}
+	
+	$(function(){
+		init_1();
 	});
 	
 	//根据门店查询供应商

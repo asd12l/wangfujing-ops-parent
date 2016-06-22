@@ -629,6 +629,7 @@ public class OmsOrderController {
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			List<Object> list = (List<Object>) jsonObject.get("data");
 			if (list != null && list.size() != 0) {
+				m.put("packimgUrl", SystemConfig.PACKIMG_URL);//www.wangfujingtest.com 域名地址
 				m.put("list", list);
 				m.put("success", "true");
 			} else {
@@ -1067,8 +1068,11 @@ public class OmsOrderController {
 			String endDate = sdf.format(date2);
 	    	paramMap.put("endTime", endDate);
 	    }
-		
-		paramMap.put("exceptionType", "REFUNDPUSHERP");
+		if(null==request.getParameter("exceptionType")||"REFUNDPUSHERP".equals(request.getParameter("exceptionType"))){
+			paramMap.put("exceptionType", "REFUNDPUSHERP");
+		}else if("EDIREFUNDPUSHERP".equals(request.getParameter("exceptionType"))){
+			paramMap.put("exceptionType", "EDIREFUNDPUSHERP");
+		}
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
@@ -1370,10 +1374,16 @@ public class OmsOrderController {
 	public String applySendErp(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
 		String refundApplyNo = request.getParameter("orderNo");
+		String exceptionType = request.getParameter("exceptionType");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			logger.info("refundApplyNo:" + refundApplyNo);
-			json = HttpUtilPcm.doPost(CommonProperties.get("apply_sendErp_url"), refundApplyNo);
+			if(exceptionType.equals("EDIREFUNDPUSHERP")){
+				json = HttpUtilPcm.doPost(CommonProperties.get("apply_sendErp_url"), refundApplyNo);
+			}else if(exceptionType.equals("REFUNDPUSHERP")){
+				json = HttpUtilPcm.doPost(CommonProperties.get("apply_EdisendErp_url"), refundApplyNo);
+			}
+			
 			logger.info("json:" + json);
 			if (json != null && json.length() != 0) {
 				m.put("success", "true");
@@ -3762,7 +3772,7 @@ public class OmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("update_refundApply_chain"),jsonStr);
-//			json = HttpUtilPcm.doPost("http://10.6.2.46:8081/oms-core/refundApply/updateRefundApply.htm", jsonStr);
+//			json = HttpUtilPcm.doPost("http://172.16.255.206:8081/oms-core/refundApply/updateRefundApply.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{

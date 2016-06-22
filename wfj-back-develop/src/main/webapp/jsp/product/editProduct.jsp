@@ -447,28 +447,55 @@ Author: WangSy
 		return childNodes;
 	}
 
+	$("#li_base a").click(function() {
+		if(skuSale_productChangePropId != 1){
+		} else {
+			$("#warning2Body").text("上架商品不能修改!");
+			$("#warning2").show();
+			return false;
+		}
+	});
+	
 	$("#li_show a").click(function() {
-		loadColors(0);
+		if(skuSale_productChangePropId != 1){
+			loadColors(0);
+		} else {
+			$("#warning2Body").text("上架商品不能修改!");
+			$("#warning2").show();
+			return false;
+		}
 	});
 	
 	$("#shoppe_a").click(function() {
-		//加载专柜商品
-		$("#shoppe").load(__ctxPath + "/product/toShoppeProduct/" + productDetail.sid);
+		if(skuSale_productChangePropId != 1){
+			//加载专柜商品
+			$("#shoppe").load(__ctxPath + "/product/toShoppeProduct/" + productDetail.sid);
+		} else {
+			$("#warning2Body").text("上架商品不能修改!");
+			$("#warning2").show();
+			return false;
+		}
 	});
 	
 	$("#profile_a").click(function() {
-		findChannel();
-		rightTreeDemo();
+		if(skuSale_productChangePropId != 1){
+			findChannel();
+			rightTreeDemo(); 
+		} else {
+			$("#warning2Body").text("上架商品不能修改!");
+			$("#warning2").show();
+			return false;
+		}
 	});
 	
 	$("#li_FinePack a").click(function() {
 		var status = $("#li_FinePack a").attr("data-toggle");
-	  　　if(status == " "){
-		  　　$("#warning2Body").text("请先上传图片！");
-		　  　$("#warning2").show();
-	  　　} else {
-		   loadProPacking(0);
-	  　　}
+	    if(status == " "){
+		    $("#warning2Body").text("请先上传图片！");
+		    $("#warning2").show();
+	    } else {
+		    loadProPacking(0);
+	    }
 	});
 
 	function zTreeOnAsyncError(event, treeId, treeNode) {
@@ -2404,6 +2431,15 @@ function deleteSku() {
 	}
 	$(function(){
 		isShowFinePackimg();
+		if(skuSale_productChangePropId == 1){
+			$("#myTab a").each(function(){
+				$(this).attr("data-toggle", " ");
+				if($(this).attr("id") == "FinePack_a"){
+					$(this).attr("data-toggle", "tab");
+					$(this).click();
+				}
+			});
+		}
 	});
 </script>
 </head>

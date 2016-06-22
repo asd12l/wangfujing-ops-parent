@@ -115,6 +115,9 @@
 			var a = $(this).attr("name");
 			if($("#skuSale").val() != 1){
 				goEditPro(a);
+			} else if(a == "FinePack") {
+				skuSale_productChangePropId = 1;
+				goEditPro(a);
 			} else {
 				$("#warning2Body").text("上架商品不能修改!");
 				$("#warning2").show();

@@ -101,6 +101,7 @@
 			if (response.success == "true") {
 				$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
 			}
+			$("#packimgUrl").val(response.packimgUrl);//域名赋值
 			var spc=$(".salePriceClass");
 			var rc=$(".refundNumClass");
 			var totalPrice = 0;
@@ -244,7 +245,7 @@
 						discount += data_.billDetail.sellDetails[i].totalDiscount;
 					}
 					
-					$("#amount4").text(discount);
+					$("#amount4").text(parseFloat(discount).toFixed(2));
 					//应退金额计算
 					var a1 = salePrice*refundNum;
 //					$("#amount1").text(a1);
@@ -276,7 +277,7 @@
 					t2 +=parseFloat(t1);
 				}
 //				$("#amount4").text(parseFloat(t2));
-				$("#amount5").text(parseFloat(t2));
+				$("#amount5").text(parseFloat(t2).toFixed(2));
 			},
 			error : function() {
 				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"查询营销失败"+"</strong></div>");
@@ -473,6 +474,11 @@
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 		$("#pageBody").load(__ctxPath+"/jsp/order/saleOrderListView2.jsp");
 	}
+	//跳到商品详情页
+	function trClick(skuNo, obj){
+		var packimg_url = $("#packimgUrl").val();
+		window.open(packimg_url+"/item/"+skuNo+".jhtml");
+	}
 </script>
 
 </head>
@@ -504,6 +510,7 @@
 									<div class="tab-content">
 										<div id="base" class="tab-pane in active">
 											<form id="baseForm" method="post" class="form-horizontal">
+												<input type="hidden" id="packimgUrl" value="">
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
 													<h5>
@@ -541,8 +548,10 @@
 															{#foreach $T.list as Result}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
-																		{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
-										                   				{#/if}
+																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
+																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
+																			{#/if}
+																		</a>
 																	</td>
 																	<td align="center" id="shoppeProName_{$T.Result.sid}">
 																		{#if $T.Result.shoppeProName != '[object Object]'}{$T.Result.shoppeProName}

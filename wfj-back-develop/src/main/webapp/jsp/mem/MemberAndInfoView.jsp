@@ -306,7 +306,7 @@
 										"loading-inactive")
 							}, 300);
 				},
-				data :{"pay_mobile":"13260068344"},
+				data :{"pay_mobile":mobile},
 				success : function(response) {
 					if (response.code == "1") {
 						$("#mobileCode_msg").html("验证码已发送");
@@ -328,10 +328,10 @@
 			$("#emailCode_msg").html("");
 			$("#login_msg").html("");
 			var email=$("#login_email").val().trim();
-//			if(email==""||email=="--"){
-//				$("#emailCode_msg").html("未绑定邮箱，无法发送验证码");
-//				return;
-//			}
+			if(email==""||email=="--"){
+				$("#emailCode_msg").html("未绑定邮箱，无法发送验证码");
+				return;
+			}
 			var url = __ctxPath+"/memBasic/sendCodeToEmail";
 			$.ajax({
 				type : "post",
@@ -352,7 +352,7 @@
 										"loading-inactive")
 							}, 300);
 				},
-				data :{"email":"1461186899@qq.com"},
+				data :{"email":email},
 				success : function(response) {
 					if (response.code == "1") {
 						$("#emailCode_msg").html("验证码已发送");
@@ -665,7 +665,7 @@
 	<!-- Main Container -->
 </div>
 <!--重置登录密码 -->
-<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+<div class="modal modal-darkorange"
 	 id="resetLoginPwdDiv">
 	<div class="modal-dialog"
 		 style="width: 800px; height: auto; margin: 4% auto;">
@@ -682,7 +682,7 @@
 							<input type="hidden" name="login_cid" id="login_cid">
 							<input type="hidden" name="loginCode" id="loginCode">
 							<input type="hidden" name="loginStatus" id="loginStatus">
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">手机号：</label>
 								<div class="col-md-6">
@@ -693,7 +693,7 @@
 								<br>&nbsp;
 							</div>
 
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">邮箱：</label>
 								<div class="col-md-6">
@@ -704,7 +704,7 @@
 								<br>&nbsp;
 							</div>
 
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">输入验证码：</label>
 								<div class="col-md-6">
@@ -732,7 +732,7 @@
 </div>
 
 <!--重置支付密码 -->
-<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+<div class="modal modal-darkorange"
 	 id="resetPayPwdDiv">
 	<div class="modal-dialog"
 		 style="width: 800px; height: auto; margin: 4% auto;">
@@ -748,7 +748,7 @@
 						<div class="col-xs-12 col-md-12">
 							<input type="hidden" name="pay_cid" id="pay_cid">
 							<input type="hidden" name="payCode" id="payCode">
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">手机号：</label>
 								<div class="col-md-6">
@@ -759,7 +759,7 @@
 								<br>&nbsp;
 							</div>
 
-							<div class="col-md-12" id="" style="padding: 10px 100px;">
+							<div class="col-md-12"  style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
 									   style="line-height: 20px; text-align: right;">输入验证码：</label>
 								<div class="col-md-6">
@@ -776,7 +776,6 @@
 							<a onclick="sendPayPwdToPhone();" class="btn btn-info">发送新密码</a>&nbsp;&nbsp;
 							<a onclick="closePay();" class="btn btn-primary">取消</a>&nbsp;&nbsp;
 						</div>
-				</div>
 				</form>
 			</div>
 		</div>
