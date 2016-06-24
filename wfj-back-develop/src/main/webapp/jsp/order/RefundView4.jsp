@@ -340,8 +340,10 @@ function shtgForm(){
 	//退货扣款
 	var tab=$(".amounttui");
 	for(var i = 0; i<tab.length; i++){
-		var inputTab = tab[i];
-		data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab).val());
+		if(data_.billDetail.sellPayments[i].flag=='3'){
+			var inputTab = tab[i];
+			data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
+		}
 //		alert($(inputTab).val());
 //		alert(data_.billDetail.sellPayments[i].amount);
 	}	
@@ -439,7 +441,7 @@ function shbtgForm(){
 	var tab=$(".amounttui");
 	for(var i = 0; i<tab.length; i++){
 		var inputTab = tab[i];
-		data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab).val());
+		data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
 //		alert($(inputTab).val());
 //		alert(data_.billDetail.sellPayments[i].amount);
 	}	

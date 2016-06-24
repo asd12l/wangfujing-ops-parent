@@ -313,8 +313,10 @@
 			if(0<tab.length){
 				console.log(tab.length);
 				for(var i = 0; i<tab.length; i++){
-					var inputTab = tab[i];
-					data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab).val());
+					if(data_.billDetail.sellPayments[i].flag=='3'){
+						var inputTab = tab[i];
+						data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
+					}
 	//				alert($(inputTab).val());
 	//				alert(data_.billDetail.sellPayments[i].amount);
 				}	
@@ -390,7 +392,7 @@
 			if(0<tab.length){
 				for(var i = 0; i<tab.length; i++){
 					var inputTab = tab[i];
-					data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab).val());
+					data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
 	//				alert($(inputTab).val());
 	//				alert(data_.billDetail.sellPayments[i].amount);
 				}	
