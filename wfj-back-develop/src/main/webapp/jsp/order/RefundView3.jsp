@@ -344,7 +344,7 @@ Author: WangSy
 //				$("#amount5").text(parseFloat(t2)); */
 			}
 		});
-		if(isNaN($("#amount1").text()-$("#amount2").text()).toFixed(2)){
+		if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
 			$("#amount4").text("");
 		}else{
 			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
