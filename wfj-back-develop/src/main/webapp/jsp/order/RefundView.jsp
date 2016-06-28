@@ -244,8 +244,11 @@
 					for(var i=0; i<len; i++){
 						discount += data_.billDetail.sellDetails[i].totalDiscount;
 					}
-					
-					$("#amount4").text(parseFloat(discount).toFixed(2));
+					if(isNaN(discount)){
+						$("#amount4").text("");
+					}else{
+						$("#amount4").text(parseFloat(discount).toFixed(2));
+					}
 					//应退金额计算
 					var a1 = salePrice*refundNum;
 //					$("#amount1").text(a1);

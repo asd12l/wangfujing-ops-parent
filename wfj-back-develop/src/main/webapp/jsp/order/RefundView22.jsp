@@ -294,7 +294,12 @@ Author: WangSy
 			}
 //			$("#amount4").text(parseFloat(t2));
 //			$("#amount4").text($("#amount1").text()-$("#amount2").text());
-			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));
+			if(isNaN($("#amount1").text()-$("#amount2").text()).toFixed(2)){
+				$("#amount4").text("");
+			}else{
+				$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
+			}
+//			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
 			$("#amount5").text(parseFloat(t2).toFixed(2));
 			
 			/* var a2=0;
