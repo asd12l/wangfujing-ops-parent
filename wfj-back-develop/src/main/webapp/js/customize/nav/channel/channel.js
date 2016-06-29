@@ -109,6 +109,9 @@ function zTreeChannelOnClick(event, treeId, treeNode) {
  * @param treeNode
  */
 function ChannelOnRightClick(event, treeId, treeNode) {
+	channelId = treeNode.id;
+	siteId = treeNode.siteId;
+	hasContent = treeNode.hasContent;
 	// 优先创建右键菜单
 	if($("#rMenuChannel").html() == undefined){
 		$('body').after($("#channelTreeRightDiv").html());
