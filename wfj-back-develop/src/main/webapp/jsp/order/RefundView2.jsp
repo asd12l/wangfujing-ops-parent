@@ -92,6 +92,7 @@ Author: WangSy
 //	var data2 = orderData;
 	var data_;
 	var isCod;
+	var returnShippingFee; //订单支付运费金额(从订单上获取16-7-1改)
 	//退货方式
 	$("#refundType").val(refundPath_);
 	
@@ -108,6 +109,11 @@ Author: WangSy
 			success : function(response) {
 				if(response.success=='true'){
 					isCod = response.data.list[0].isCod;
+					returnShippingFee = response.data.list[0].needSendCost;
+					if(returnShippingFee==undefined){
+						returnShippingFee=0;
+					}
+					console.log("returnShippingFee:"+returnShippingFee);
 				}else{
 					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"查询订单失败"+"</strong></div>");
  	     	  		$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
@@ -300,7 +306,7 @@ Author: WangSy
 			$("#"+id).val("");
 		}
 	});
-	var returnShippingFee = returnShippingFee_; //订单支付运费金额
+	
 	// 初始化
 	$(function() {
 		$("#xzspan").hide();

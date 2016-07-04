@@ -24,7 +24,7 @@
 	href="${ctx}/js/pagination/msgbox/msgbox.css" />
 <link rel="stylesheet" type="text/css"
 	href="${ctx}/js/pagination/myPagination/page.css" />
-<title>退货申请单展示页面</title>
+<title>退货申请单展示页面（签收退货）</title>
 <style>
 	#amount1{
 		font-size: 15px;
@@ -62,7 +62,7 @@
 	/* var data2 = orderData; */
 	var data_;
 //	$("#amount1").text(salePrice*refundNum);
-
+	var returnShippingFee; //订单支付运费金额(从订单上获取16-7-1改)
 	var isCod;
 	//查询订单是否是isCod
 	$.ajax({
@@ -77,6 +77,11 @@
 			success : function(response) {
 				if(response.success=='true'){
 					isCod = response.data.list[0].isCod;
+					returnShippingFee = response.data.list[0].needSendCost;
+					if(returnShippingFee==undefined){
+						returnShippingFee=0;
+					}
+					console.log("returnShippingFee:"+returnShippingFee);
 				}else{
 					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"查询订单失败"+"</strong></div>");
  	     	  		$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
@@ -122,6 +127,7 @@
 	// 初始化
 	$("#pid").val(problemDesc);
 	$(function() {
+		$("#xzspan").hide();
 		//退货原因
 		
 		/* var pid = $("#pid");
@@ -308,6 +314,21 @@
 //			$("#amount4").text(parseFloat(t2));
 //			$("#amount5").text(parseFloat(t2));	
 		});	
+		//运费校验
+		function refundFeeTrim(){
+			var refundFeess = $("#refundFee").val();
+//			console.log("refundFeess:"+refundFeess);
+//			console.log("returnShippingFee:"+returnShippingFee);
+			if(parseFloat(refundFeess) > parseFloat(returnShippingFee)){
+				$("#xzspan").show();
+				$("#shtg").attr("disabled", "true");
+				$("#shbtg").attr("disabled", "true");
+			}else{
+				$("#xzspan").hide();
+				$("#shtg").removeAttr("disabled");
+				$("#shbtg").removeAttr("disabled");
+			}
+		}
 		//审核通过
 		function shtgForm(){
 			//从页面中拿值，传参数
@@ -985,7 +1006,8 @@
 													</div>
 														<div class="col-md-4">
 															<span>应退运费金额：</span>
-															<input id="refundFee" type="refundFee">
+															<input id="refundFee" type="refundFee" onkeyup="refundFeeTrim()">
+															<span id="xzspan" style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应退运费金额输入不能大于订单支付运费金额</span>
 														</div>
 														&nbsp;
 													</div>
