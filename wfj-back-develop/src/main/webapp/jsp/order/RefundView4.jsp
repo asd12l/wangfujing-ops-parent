@@ -43,7 +43,7 @@ Author: WangSy
 	href="${ctx}/js/pagination/msgbox/msgbox.css" />
 <link rel="stylesheet" type="text/css"
 	href="${ctx}/js/pagination/myPagination/page.css" />
-<title>缺货退货页面</title>
+<title>退货申请单展示页面（签收退货）</title>
 <!--图片上传
 <link href="${ctx}/js/stream/css/stream-v1.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${ctx}/js/stream/js/stream-v1.js"></script>-->
@@ -86,9 +86,34 @@ Author: WangSy
 	//退货商品和数量信息
 	var refundApplyNo = refundApplyNo_;
 	var orderNo = orderNo_;
-	
+	var returnShippingFee; //订单支付运费金额(从订单上获取16-7-1改)
 //	var datas = data_;
 //	var data2 = orderData;
+//查询订单是否是isCod(暂没用，只用了needsendcost)
+	$.ajax({
+			type : "post",
+			contentType : "application/x-www-form-urlencoded;charset=utf-8",
+			url : __ctxPath + "/testOnlineOmsOrder/foundByOrder",
+			async : false,
+			data : {
+				"orderNo" : orderNo
+			},
+			dataType : "json",
+			success : function(response) {
+				if(response.success=='true'){
+					isCod = response.data.list[0].isCod;
+					returnShippingFee = response.data.list[0].needSendCost;
+					if(returnShippingFee==undefined){
+						returnShippingFee=0;
+					}
+					console.log("returnShippingFee:"+returnShippingFee);
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"查询订单失败"+"</strong></div>");
+ 	     	  		$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+				return;
+			}
+		});
 	//查询订单明细（获得可退数量）
 	$.ajax({
 			type : "post",
@@ -163,6 +188,7 @@ Author: WangSy
 				if (response.success == "true") {
 					$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
 				}
+				$("#packimgUrl").val(response.packimgUrl);//域名赋值
 				var spc=$(".salePriceClass");
 				var rc=$(".refundNumClass");
 				var totalPrice = 0;
@@ -229,8 +255,11 @@ Author: WangSy
 				for(var i=0; i<len; i++){
 					discount += datas.billDetail.sellDetails[i].totalDiscount;
 				}
-				
-				$("#amount4").text(discount);
+				if(isNaN(discount)){
+					$("#amount4").text("");
+				}else{
+					$("#amount4").text(parseFloat(discount).toFixed(2));
+				}
 				$("#amount2").text(datas.billDetail.factPay);
 				rowNo_ = datas.billDetail.sellPayments.length;
 				$("#olv_tab2 tbody").setTemplateElement("fanquan-list").processTemplate(datas);
@@ -290,6 +319,7 @@ Author: WangSy
 	});
 	// 初始化
 	$(function() {
+		$("#xzspan").hide();
 		//退运费
 		$("#refundFee").hide();
 		$("#isRefundFee").change(function() {
@@ -315,6 +345,20 @@ Author: WangSy
 		$("#close").click(function() {
 			$("#pageBody").load(__ctxPath + "/jsp/order/NeedProductRefundView.jsp");
 		});
+		function refundFeeTrim(){
+			var refundFeess = $("#refundFee").val();
+//			console.log("refundFeess:"+refundFeess);
+//			console.log("returnShippingFee:"+returnShippingFee);
+			if(parseFloat(refundFeess) > parseFloat(returnShippingFee)){
+				$("#xzspan").show();
+				$("#shtg").attr("disabled", "true");
+				$("#shbtg").attr("disabled", "true");
+			}else{
+				$("#xzspan").hide();
+				$("#shtg").removeAttr("disabled");
+				$("#shbtg").removeAttr("disabled");
+			}
+		}
 		
 	});
 	//金额试算
@@ -336,8 +380,10 @@ function shtgForm(){
 	//退货扣款
 	var tab=$(".amounttui");
 	for(var i = 0; i<tab.length; i++){
-		var inputTab = tab[i];
-		data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab).val());
+		if(data_.billDetail.sellPayments[i].flag=='3'){
+			var inputTab = tab[i];
+			data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
+		}
 //		alert($(inputTab).val());
 //		alert(data_.billDetail.sellPayments[i].amount);
 	}	
@@ -435,7 +481,7 @@ function shbtgForm(){
 	var tab=$(".amounttui");
 	for(var i = 0; i<tab.length; i++){
 		var inputTab = tab[i];
-		data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab).val());
+		data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
 //		alert($(inputTab).val());
 //		alert(data_.billDetail.sellPayments[i].amount);
 	}	
@@ -521,6 +567,11 @@ function shbtgForm(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 		$("#pageBody").load(__ctxPath+"/jsp/order/NeedProductRefundView.jsp");
 	}
+	//跳到商品详情页
+	function trClick(skuNo, obj){
+		var packimg_url = $("#packimgUrl").val();
+		window.open(packimg_url+"/item/"+skuNo+".jhtml");
+	}
 </script>
 
 </head>
@@ -552,6 +603,7 @@ function shbtgForm(){
 									<div class="tab-content">
 										<div id="base" class="tab-pane in active">
 											<form id="baseForm" method="post" class="form-horizontal">
+												<input type="hidden" id="packimgUrl" value="">
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
 													<h5>
@@ -597,8 +649,10 @@ function shbtgForm(){
 															{#foreach $T.list as Result}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
-																		{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
-										                   				{#/if}
+																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
+																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
+																			{#/if}
+																		</a>
 																	</td>
 																	<td align="center" id="shoppeProName_{$T.Result.sid}">
 																		{#if $T.Result.shoppeProName != '[object Object]'}{$T.Result.shoppeProName}
@@ -669,6 +723,7 @@ function shbtgForm(){
 														</div>
 													</div>
 												</div> -->
+												
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
 													<h5>
@@ -1029,7 +1084,8 @@ function shbtgForm(){
 														</div>
 														<div class="col-md-4">
 															<span>应退运费金额：</span>
-															<input id="refundFee" type="refundFee">
+															<input id="refundFee" type="refundFee" onkeyup="refundFeeTrim()">
+															<span id="xzspan" style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应退运费金额输入不能大于订单支付运费金额</span>
 														</div>
 														&nbsp;
 													</div>

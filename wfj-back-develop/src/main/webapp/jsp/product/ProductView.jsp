@@ -385,11 +385,12 @@ fingColorDict();
 			return false;
 		}
 		productChangePropId = checkboxArray[0];
-		if ($("#skuSale_"+productChangePropId).text() == "1") {
+		skuSale_productChangePropId = $("#skuSale_"+productChangePropId).text().trim();
+		/* if ($("#skuSale_"+productChangePropId).text() == "1") {
 			$("#warning2Body").text("上架商品不能修改!");
 			$("#warning2").show();
 			return false;
-		}
+		} */
 		// alert(productChangePropId);
 		for(var i = 0; i<dataList.length; i++){//alert(dataList[i].sid);
 			if(productChangePropId == dataList[i].sid){

@@ -64,15 +64,19 @@
 		$("#brandSpecialty").val(brandSpecialty_);
 		$("#brandSuitability").val(brandSuitability_);
 		$("#shopType").val(shopType_);
-		$("#input_brand1").val(brandpic1_);
-		if(brandpic1_!=""){
+        if(brandpic1_ != "" && brandpic1_ != '[object Object]') {
+            $("#input_brand1").val(brandpic1_);
+        }
+        if(brandpic1_ != "" && brandpic1_ != '[object Object]'){
 			 $("#msg1").html("<img src='"+brandUrl+brandpic1_+"' height='60px' width='60px' />");
 			 $("#showImgNameA1").text(brandpic1_);
 		} else {
 			$("#showImgNameA1").text("未选择图片");
 		}
-		$("#input_brand2").val(brandpic2_);
-		if(brandpic2_!=""){
+        if(brandpic2_ != "" && brandpic2_ != '[object Object]') {
+            $("#input_brand2").val(brandpic2_);
+        }
+        if(brandpic2_ != "" && brandpic2_ != '[object Object]') {
 			 $("#msg2").html("<img src='"+brandUrl+brandpic2_+"' height='60px' width='60px' />");
 			 $("#showImgNameA2").text(brandpic2_);
 		} else {

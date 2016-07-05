@@ -1813,7 +1813,7 @@
 		var saleNo = saleNo11;
 		var orderNo = orderNo11;
 		var orderItemNo = saleItemNo11;//销售单明细号就是订单明细号
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		
 		saleSum3 = $("#sp3").text().trim();
 		var packStatus = $("#packStatus").val();

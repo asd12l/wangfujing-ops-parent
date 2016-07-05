@@ -183,7 +183,7 @@
 					on : true,
 					url : url,
 					dataType : 'json',
-					param : $("#shopSid_select option:selected").val().trim(),
+					param : "shopSid=" + $("#shopSid_select option:selected").val(),
 					ajaxStart: function() {
 				       	 $("#loading-container").attr("class","loading-container");
 				        },
