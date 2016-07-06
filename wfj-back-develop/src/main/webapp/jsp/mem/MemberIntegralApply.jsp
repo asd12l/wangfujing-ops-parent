@@ -706,12 +706,13 @@
                                     <form id="product_form" action="">
                                         <input type="hidden" id="login_from" name="login" />
                                         <input type="hidden" id="sid_from" name="sid" />
-                                        <input type="hidden" id="order_from" name="order" />
-                                        <input type="hidden" id="applyName_from" name="applyName" />
                                         <input type="hidden" id="m_timeApStartDate_form" name="m_timeApStartDate"/>
                                         <input type="hidden" id="m_timeApEndDate_form" name="m_timeApEndDate"/>
                                         <input type="hidden" id="m_timeChStartDate_form" name="m_timeChStartDate"/>
                                         <input type="hidden" id="m_timeChEndDate_form" name="m_timeChEndDate"/>
+                                        <input type="hidden" id="order_from" name="order" />
+                                        <input type="hidden" id="applyName_from" name="applyName" />
+
                                         <input type="hidden" id="cache" name="cache" value="1" />
                                     </form>
                                 </div>
@@ -962,7 +963,7 @@
                 <h4 class="modal-title">积分申请单</h4>
             </div>
             <div class="page-body">
-                < class="row">
+                <div class="row">
                     <form method="post" class="form-horizontal">
                         <div class="col-xs-12 col-md-12">
                             <div class="col-md-12" style="padding: 10px 100px;">
@@ -1194,7 +1195,7 @@
                 <h4 class="modal-title">审核积分申请</h4>
             </div>
             <div class="page-body">
-                < class="row">
+                <div class="row">
                     <form method="post" class="form-horizontal">
                         <input type="hidden" id="check_sid"/>
                         <div class="col-xs-12 col-md-12">

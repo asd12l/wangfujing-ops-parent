@@ -1,5 +1,6 @@
 package com.wfj.member.controller;
 
+import com.google.gson.Gson;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
 import net.sf.json.JSONObject;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +26,141 @@ import java.util.Map;
 public class MemberBasicController {
     private static org.slf4j.Logger log =  LoggerFactory.getLogger(MemberBasicController.class);
 
+    /**
+     * 解除黑名单
+     * @param request
+     * @param response
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value ="/relieveBlackList", method = { RequestMethod.POST, RequestMethod.GET })
+    public String relieveBlackList(HttpServletRequest request,
+                                HttpServletResponse response) {
+        log.info("======== relieveBlackList in  =========");
+        String method = "/memBasic/relieveBlackList.do";
+        String jsonString="";
+        Map<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("sid", request.getParameter("sid"));
+        paraMap.put("relServiceId", request.getParameter("relServiceId"));
+        paraMap.put("relieveReason", request.getParameter("relieveReason"));
+        try {
+            String url = CommonProperties.get("member_ops_url");
+            log.info("======== relieveBlackList url "+url+"  =========");
+            System.err.println("============== member_ops_url:" + url);
+            System.err.println("=============method:"+method);
+            System.err.println("======== relieveBlackList url "+url+ method+"  =========");
+            jsonString = HttpUtil.HttpPost(url, method, paraMap);
+        } catch (Exception e) {
+            jsonString = "{success :false}";
+        }
+        return jsonString;
+    }
+    /**
+     * 编辑黑名单
+     * @param request
+     * @param response
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value ="/editBlackList", method = { RequestMethod.POST, RequestMethod.GET })
+    public String editBlackList(HttpServletRequest request,
+                               HttpServletResponse response) {
+        log.info("======== editBlackList in  =========");
+        String method = "/memBasic/editBlackList.do";
+        String jsonString="";
+        Map<String, String> paraMap = new HashMap<String, String>();
+        paraMap.put("sid", request.getParameter("sid"));
+        paraMap.put("pullType", request.getParameter("pullType"));
+        paraMap.put("pullReason", request.getParameter("pullReason"));
+        try {
+            String url = CommonProperties.get("member_ops_url");
+            log.info("======== editBlackList url "+url+"  =========");
+            System.err.println("============== member_ops_url:" + url);
+            System.err.println("=============method:"+method);
+            System.err.println("======== editBlackList url "+url+ method+"  =========");
+            jsonString = HttpUtil.HttpPost(url, method, paraMap);
+        } catch (Exception e) {
+            jsonString = "{success :false}";
+        }
+        return jsonString;
+    }
+    /**
+     * 查询黑名单
+     * @param request
+     * @param response
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value ="/getBlackList", method = { RequestMethod.POST, RequestMethod.GET })
+    public String getBlackList(HttpServletRequest request,
+                                      HttpServletResponse response) {
+        log.info("======== getBlackList in  =========");
+        String method = "/memBasic/getBlackList.do";
+        Gson gson = new Gson();
+        List<Object> list = new ArrayList<Object>();
+        String jsonString = gson.toJson(list);
+        //获取每页显示多少条数据
+        Integer pageSize = 0;
+        //获取当前页
+        Integer currPage =Integer.parseInt(request.getParameter("page"));;
+        pageSize = request.getParameter("pageSize") == null ? null
+                : Integer.parseInt(request.getParameter("pageSize"));
+        if (pageSize == null || pageSize == 0) {
+            pageSize = 10;
+        }
+        int start = (currPage - 1) * pageSize;
+        Map<Object, Object> paraMap = new HashMap<Object, Object>();
+        paraMap.put("start", String.valueOf(start));
+        paraMap.put("limit", String.valueOf(pageSize));
+        paraMap.put("pullId", request.getParameter("pullId"));
+        paraMap.put("backId", request.getParameter("backId"));
+        paraMap.put("m_timePullStartDate",  request.getParameter("m_timePullStartDate"));
+        paraMap.put("m_timePullEndDate",  request.getParameter("m_timePullEndDate"));
+        paraMap.put("m_timeBackStartDate",  request.getParameter("m_timeBackStartDate"));
+        paraMap.put("m_timeBackEndDate",  request.getParameter("m_timeBackEndDate"));
+        try {
+            String url = CommonProperties.get("member_ops_url");
+            log.info("======== getBlackList url "+url+"  =========");
+            System.err.println("============== member_ops_url:" + url);
+            System.err.println("=============method:"+method);
+            System.err.println("======== getBlackList url "+url+ method+"  =========");
+            jsonString = HttpUtil.HttpPost(url, method, paraMap);
+        } catch (Exception e) {
+            jsonString = "{success :false}";
+        }
+        return jsonString;
+    }
+    /**
+     * 将会员拉黑
+     * @param request
+     * @param response
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value ="/pullBlackList", method = { RequestMethod.POST, RequestMethod.GET })
+    public String pullBlackList(HttpServletRequest request,
+                                     HttpServletResponse response) {
+        log.info("======== pullBlackList in  =========");
+        response.setCharacterEncoding("utf-8");
+        String method = "/memBasic/pullBlackList.do";
+        String jsonString="";
+        Map<String, Object> paraMap = new HashMap<String, Object>();
+        paraMap.put("cid", request.getParameter("cid"));
+        paraMap.put("serviceId",request.getParameter("serviceId"));
+        paraMap.put("pullType",request.getParameter("pullType"));
+        paraMap.put("pullReason",request.getParameter("pullReason"));
+        try {
+            String url = CommonProperties.get("member_ops_url");
+            log.info("======== pullBlackList url " + url + "  =========");
+            System.err.println("============== member_ops_url:" + url);
+            System.err.println("=============method:"+method);
+            System.err.println("======== pullBlackList url "+url+ method+"  =========");
+            jsonString = HttpUtil.HttpPost(url, method, paraMap);
+        } catch (Exception e) {
+            jsonString = "{success :false}";
+        }
+        return jsonString;
+    }
     /**
      * 展示会员基本信息
      * @param request
