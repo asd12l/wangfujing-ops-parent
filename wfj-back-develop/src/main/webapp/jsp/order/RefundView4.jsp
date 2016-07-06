@@ -43,7 +43,7 @@ Author: WangSy
 	href="${ctx}/js/pagination/msgbox/msgbox.css" />
 <link rel="stylesheet" type="text/css"
 	href="${ctx}/js/pagination/myPagination/page.css" />
-<title>退货申请单展示页面（签收退货）</title>
+<title>退货申请单展示页面（发货前退货）</title>
 <!--图片上传
 <link href="${ctx}/js/stream/css/stream-v1.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${ctx}/js/stream/js/stream-v1.js"></script>-->

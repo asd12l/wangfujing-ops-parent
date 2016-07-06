@@ -2474,7 +2474,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="createMode_{$T.Result.sid}">
-														{#if $T.Result.createMode != '[object Object]'}{$T.Result.createMode}
+														{#if $T.Result.createMode == '5101'}
+															<span>用户</span>
+						                      			{#elseif $T.Result.createMode == '5102'}
+						                      				<span>客服</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="exchangeNo_{$T.Result.sid}">
