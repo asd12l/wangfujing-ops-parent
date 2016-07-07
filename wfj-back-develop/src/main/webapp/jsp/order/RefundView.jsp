@@ -105,6 +105,7 @@
 		success : function(response) {
 			if (response.success == "true") {
 				$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
+				$("#olv_tab121 tbody").setTemplateElement("gift-list").processTemplate(response);
 			}
 			$("#packimgUrl").val(response.packimgUrl);//域名赋值
 			var spc=$(".salePriceClass");
@@ -572,6 +573,7 @@
 														<!--
 														{#template MAIN}
 															{#foreach $T.list as Result}
+															{#if $T.Result.isGift == '0'}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
 																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
@@ -600,6 +602,7 @@
 										                   				{#/if}
 																	</td>
 													       		</tr>
+															{#/if}
 															{#/for}
 													    {#/template MAIN}	-->
 													</textarea>
@@ -708,7 +711,7 @@
 				                                            </tr>
 				                                        </thead>
 				                                        <tbody>
-				                                        	<tr>
+				                                        	<!-- <tr>
 				                                        		<td align="center" id="orderNoZengping"></td>
 				                                        		<td align="center" id="supplyProductNo1"></td>
 				                                        		<td align="center" id="shoppeProName1"></td>
@@ -717,10 +720,62 @@
 				                                        		<td align="center" id="activityName"></td>
 				                                        		<td align="center" id="num1"></td>
 				                                        		<td align="center" id="refundNum1"></td>
-				                                        	</tr>
+				                                        	</tr> -->
 				                                        </tbody>
 				                                    </table>&nbsp;
 												</div>&nbsp;
+												<p style="display:none">
+													<textarea id="gift-list" rows="0" cols="0">
+														<!--
+														{#template MAIN}
+															{#foreach $T.list as Result}
+															{#if $T.Result.isGift == '1'}
+																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
+																	<td align="center" id="orderNo_{$T.Result.sid}">
+																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
+																		<a onclick="trClick2('{$T.Result.skuNo}',this);" style="cursor:pointer;">
+																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
+																			{#/if}
+																		</a>
+																	</td>
+																	<td align="center" id="shoppeProName_{$T.Result.sid}">
+																		{#if $T.Result.shoppeProName != '[object Object]'}{$T.Result.shoppeProName}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="salePrice_{$T.Result.sid}">
+																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
+																		{#elseif $T.Result.salePrice == ''}0
+										                   				{#/if}
+																	</td>
+																	
+																	<td align="center" id="hdbm_{$T.Result.sid}">
+																		{#if $T.Result.hdbm != '[object Object]'}{$T.Result.hdbm}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="hdmc_{$T.Result.sid}">
+																		{#if $T.Result.hdmc != '[object Object]'}{$T.Result.hdmc}
+										                   				{#/if}
+																	</td>
+																	
+																	<td align="center" id="refundNumAll_{$T.Result.sid}">
+																		{#if $T.Result.refundNumAll != '[object Object]'}{$T.Result.refundNumAll}
+																		{#else}0
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="refundNum_{$T.Result.sid}">
+																		{#if $T.Result.refundNum != '[object Object]'}{$T.Result.refundNum}
+										                   				{#else}0
+										                   				{#/if}
+																	</td>
+													       		</tr>
+															{#/if}
+															{#/for}
+													    {#/template MAIN}	-->
+													</textarea>
+												</p>
 												
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
