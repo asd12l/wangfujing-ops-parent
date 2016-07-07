@@ -237,6 +237,7 @@ Author: WangSy
 					if (response.success == "true") {
 						$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
 					}
+					$("#packimgUrl").val(response.packimgUrl);//域名赋值
 					var spc=$(".salePriceClass");
 					var rc=$(".refundNumClass");
 					var totalPrice = 0;
@@ -293,8 +294,13 @@ Author: WangSy
 			}
 //			$("#amount4").text(parseFloat(t2));
 //			$("#amount4").text($("#amount1").text()-$("#amount2").text());
-			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));
-			$("#amount5").text(parseFloat(t2));
+			if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
+				$("#amount4").text("");
+			}else{
+				$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
+			}
+//			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
+			$("#amount5").text(parseFloat(t2).toFixed(2));
 			
 			/* var a2=0;
 			var rowNo=rowNo_;
@@ -607,6 +613,11 @@ function shbtgForm(){
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}
+	//跳到商品详情页
+	function trClick(skuNo, obj){
+		var packimg_url = $("#packimgUrl").val();
+		window.open(packimg_url+"/item/"+skuNo+".jhtml");
+	}
 </script>
 
 </head>
@@ -638,6 +649,7 @@ function shbtgForm(){
 									<div class="tab-content">
 										<div id="base" class="tab-pane in active">
 											<form id="baseForm" method="post" class="form-horizontal">
+												<input type="hidden" id="packimgUrl" value="">
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
 													<h5>
@@ -683,8 +695,10 @@ function shbtgForm(){
 															{#foreach $T.list as Result}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
-																		{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
-										                   				{#/if}
+																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
+																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
+																			{#/if}
+																		</a>
 																	</td>
 																	<td align="center" id="shoppeProName_{$T.Result.sid}">
 																		{#if $T.Result.shoppeProName != '[object Object]'}{$T.Result.shoppeProName}
@@ -1133,7 +1147,7 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>商品金额：</span>
+														<span>实退金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
@@ -1178,7 +1192,7 @@ function shbtgForm(){
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣除金额：</span>
+														<span>&nbsp;&nbsp;扣款金额：</span>
 														<label id="amount5" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;

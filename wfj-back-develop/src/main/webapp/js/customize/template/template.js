@@ -118,7 +118,14 @@
 			data:{
 				"_site_id_param":siteSid
 			},
+			ajaxStart : function() {
+				$(".loading-container").attr("class",
+						"loading-container");
+			},
 			success : function(response) {
+				//隐藏加载提示
+				$(".loading-container").addClass(
+						"loading-inactive");
 				$('#tree').treeview({
 					levels:1,
 					expandIcon: 'glyphicon glyphicon-plus',
@@ -164,7 +171,7 @@
 				url : __ctxPath + "/template/queryDirList?path="
 						+ path+"&_site_id_param=" + siteId,
 				dataType : 'json',
-				ajaxStart : function() {
+/*				ajaxStart : function() {
 					$(".loading-container").attr("class",
 							"loading-container");
 				},
@@ -172,7 +179,7 @@
 					//隐藏加载提示
 					$(".loading-container").addClass(
 							"loading-inactive");
-				},
+				},*/
 				callback : function(data) {
 					//使用模板
 					$("#file_tab tbody").setTemplateElement(

@@ -58,7 +58,7 @@
 				}
 			});
 		}); 
- 		//退货
+ 		//退货类别
 		$("#refundClass_select").one("click",function(){
 			$.ajax({
 				type: "post",
@@ -304,20 +304,20 @@
 				},
 				data : {"orderItemNo" : obj},
 				success : function(response) {
+				var option = "<tr id='afterTr"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 150%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+					option += "<th width='4%' style='text-align: center;'>商品行项目编号</th>"+
+					"<th width='3%' style='text-align: center;'>促销编码</th>"+
+					/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
+					"<th width='3%' style='text-align: center;'>促销名称</th>"+
+					"<th width='3%' style='text-align: center;'>促销描述</th>"+
+					"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
+					"<th width='3%' style='text-align: center;'>促销规则</th>"+
+					"<th width='3%' style='text-align: center;'>促销规则值</th>"+
+					"<th width='3%' style='text-align: center;'>分摊比例</th>"+
+					"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";	
 					if(response.success=='true'){
 						var result = response.list;
-						var option = "<tr id='afterTr"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 150%;'>"
-								+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-							option += "<th width='4%' style='text-align: center;'>商品行项目编号</th>"+
-							"<th width='3%' style='text-align: center;'>促销编码</th>"+
-							/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
-							"<th width='3%' style='text-align: center;'>促销名称</th>"+
-							"<th width='3%' style='text-align: center;'>促销描述</th>"+
-							"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
-							"<th width='3%' style='text-align: center;'>促销规则</th>"+
-							"<th width='3%' style='text-align: center;'>促销规则值</th>"+
-							"<th width='3%' style='text-align: center;'>分摊比例</th>"+
-							"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//商品行项目编号
@@ -381,9 +381,9 @@
 								option+="<td align='center'>"+ele.freightAmount+"</td></tr>";
 							}
 						}
-						option += "</table></div></td></tr>";
-						$("#gradeYOrder" + obj).after(option);
 					}
+					option += "</table></div></td></tr>";
+					$("#gradeYOrder" + obj).after(option);
 				}
 			});
 		} else {
@@ -415,20 +415,20 @@
 				},
 				data : {"applyItemNo" : obj},
 				success : function(response) {
+				var option = "<tr id='afterTrApply"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 250%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+					option += "<th width='4%' style='text-align: center;'>商品行项目编号</th>"+
+					"<th width='3%' style='text-align: center;'>促销编码</th>"+
+					/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
+					"<th width='3%' style='text-align: center;'>促销名称</th>"+
+					"<th width='3%' style='text-align: center;'>促销描述</th>"+
+					"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
+					"<th width='3%' style='text-align: center;'>促销规则</th>"+
+					"<th width='3%' style='text-align: center;'>促销规则值</th>"+
+					"<th width='3%' style='text-align: center;'>分摊比例</th>"+
+					"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
-						var option = "<tr id='afterTrApply"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 250%;'>"
-								+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-							option += "<th width='4%' style='text-align: center;'>商品行项目编号</th>"+
-							"<th width='3%' style='text-align: center;'>促销编码</th>"+
-							/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
-							"<th width='3%' style='text-align: center;'>促销名称</th>"+
-							"<th width='3%' style='text-align: center;'>促销描述</th>"+
-							"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
-							"<th width='3%' style='text-align: center;'>促销规则</th>"+
-							"<th width='3%' style='text-align: center;'>促销规则值</th>"+
-							"<th width='3%' style='text-align: center;'>分摊比例</th>"+
-							"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//商品行项目编号
@@ -492,9 +492,9 @@
 								option+="<td align='center'>"+ele.freightAmount+"</td></tr>";
 							}
 						}
-						option += "</table></div></td></tr>";
-						$("#gradeYApply" + obj).after(option);
 					}
+					option += "</table></div></td></tr>";
+					$("#gradeYApply" + obj).after(option);
 				}
 			});
 		} else {
@@ -526,20 +526,20 @@
 				},
 				data : {"refundItemNo" : obj},
 				success : function(response) {
+				var option = "<tr id='afterTr"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 150%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+					option += "<th width='4%' style='text-align: center;'>商品行项目编号</th>"+
+					"<th width='3%' style='text-align: center;'>促销编码</th>"+
+					/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
+					"<th width='3%' style='text-align: center;'>促销名称</th>"+
+					"<th width='3%' style='text-align: center;'>促销描述</th>"+
+					"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
+					"<th width='3%' style='text-align: center;'>促销规则</th>"+
+					"<th width='3%' style='text-align: center;'>促销规则值</th>"+
+					"<th width='3%' style='text-align: center;'>分摊比例</th>"+
+					"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
-						var option = "<tr id='afterTr"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 150%;'>"
-								+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-							option += "<th width='4%' style='text-align: center;'>商品行项目编号</th>"+
-							"<th width='3%' style='text-align: center;'>促销编码</th>"+
-							/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
-							"<th width='3%' style='text-align: center;'>促销名称</th>"+
-							"<th width='3%' style='text-align: center;'>促销描述</th>"+
-							"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
-							"<th width='3%' style='text-align: center;'>促销规则</th>"+
-							"<th width='3%' style='text-align: center;'>促销规则值</th>"+
-							"<th width='3%' style='text-align: center;'>分摊比例</th>"+
-							"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//商品行项目编号
@@ -603,9 +603,9 @@
 								option+="<td align='center'>"+ele.freightAmount+"</td></tr>";
 							}
 						}
-						option += "</table></div></td></tr>";
-						$("#gradeY" + obj).after(option);
 					}
+					option += "</table></div></td></tr>";
+					$("#gradeY" + obj).after(option);
 				}
 			});
 		} else {
@@ -637,26 +637,26 @@
 				},
 				data : {"salesPaymentNo" : obj},
 				success : function(response) {
+				var option11 = "<tr id='afterTr11"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+						option11 += "<th width='5%' style='text-align: center;'>交易支付流水</th>"+
+						"<th width='3%' style='text-align: center;'>支付方式</th>"+
+						"<th width='3%' style='text-align: center;'>支付金额</th>"+
+						"<th width='3%' style='text-align: center;'>实际抵扣金额</th>"+
+						"<th width='3%' style='text-align: center;'>汇率（折现率)</th>"+
+						"<th width='3%' style='text-align: center;'>支付账号</th>"+
+						"<th width='3%' style='text-align: center;'>会员id</th>"+
+						"<th width='3%' style='text-align: center;'>支付流水号</th>"+
+						"<th width='3%' style='text-align: center;'>优惠券类型</th>"+
+						"<th width='3%' style='text-align: center;'>优惠券批次</th>"+
+						"<th width='3%' style='text-align: center;'>券模板名称</th>"+
+						"<th width='3%' style='text-align: center;'>活动号</th>"+
+						"<th width='3%' style='text-align: center;'>收券规则</th>"+
+						"<th width='5%' style='text-align: center;'>收券规则描述</th>"+
+						"<th width='3%' style='text-align: center;'>结余</th>"+
+						"<th width='3%' style='text-align: center;'>备注</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
-						var option11 = "<tr id='afterTr11"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
-								+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-								option11 += "<th width='5%' style='text-align: center;'>交易支付流水</th>"+
-								"<th width='3%' style='text-align: center;'>支付方式</th>"+
-								"<th width='3%' style='text-align: center;'>支付金额</th>"+
-								"<th width='3%' style='text-align: center;'>实际抵扣金额</th>"+
-								"<th width='3%' style='text-align: center;'>汇率（折现率)</th>"+
-								"<th width='3%' style='text-align: center;'>支付账号</th>"+
-								"<th width='3%' style='text-align: center;'>会员id</th>"+
-								"<th width='3%' style='text-align: center;'>支付流水号</th>"+
-								"<th width='3%' style='text-align: center;'>优惠券类型</th>"+
-								"<th width='3%' style='text-align: center;'>优惠券批次</th>"+
-								"<th width='3%' style='text-align: center;'>券模板名称</th>"+
-								"<th width='3%' style='text-align: center;'>活动号</th>"+
-								"<th width='3%' style='text-align: center;'>收券规则</th>"+
-								"<th width='5%' style='text-align: center;'>收券规则描述</th>"+
-								"<th width='3%' style='text-align: center;'>结余</th>"+
-								"<th width='3%' style='text-align: center;'>备注</th></tr>";
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//款机流水号
@@ -756,9 +756,9 @@
 								option11+="<td align='center'>"+ele.remark+"</td></tr>";
 							}
 						}
-						option11 += "</table></div></td></tr>";
-						$("#gradeY11" + obj).after(option11);
 					}
+					option11 += "</table></div></td></tr>";
+					$("#gradeY11" + obj).after(option11);	
 				}
 			});
 		} else {
@@ -788,27 +788,27 @@
 				},
 				data : {"salesPaymentNo" : obj},
 				success : function(response) {
+				var option = "<tr id='afterTr1"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 250%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+					option += "<th width='5%' style='text-align: center;'>款机流水号</th>"+
+					"<th width='3%' style='text-align: center;'>一级支付介质</th>"+
+					"<th width='3%' style='text-align: center;'>二级支付介质</th>"+
+					"<th width='3%' style='text-align: center;'>支付金额</th>"+
+					"<th width='3%' style='text-align: center;'>实际抵扣金额</th>"+
+					"<th width='3%' style='text-align: center;'>汇率</th>"+
+					"<th width='3%' style='text-align: center;'>支付账号</th>"+
+					"<th width='3%' style='text-align: center;'>会员id</th>"+
+					"<th width='3%' style='text-align: center;'>支付流水号</th>"+
+					"<th width='3%' style='text-align: center;'>优惠券类型</th>"+
+					"<th width='3%' style='text-align: center;'>优惠券批次</th>"+
+					"<th width='3%' style='text-align: center;'>券模板名称</th>"+
+					"<th width='3%' style='text-align: center;'>活动号</th>"+
+					"<th width='3%' style='text-align: center;'>收券规则</th>"+
+					"<th width='5%' style='text-align: center;'>收券规则描述</th>"+
+					"<th width='3%' style='text-align: center;'>结余</th>"+
+					"<th width='3%' style='text-align: center;'>备注</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
-						var option = "<tr id='afterTr1"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 250%;'>"
-								+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-							option += "<th width='5%' style='text-align: center;'>款机流水号</th>"+
-							"<th width='3%' style='text-align: center;'>一级支付介质</th>"+
-							"<th width='3%' style='text-align: center;'>二级支付介质</th>"+
-							"<th width='3%' style='text-align: center;'>支付金额</th>"+
-							"<th width='3%' style='text-align: center;'>实际抵扣金额</th>"+
-							"<th width='3%' style='text-align: center;'>汇率</th>"+
-							"<th width='3%' style='text-align: center;'>支付账号</th>"+
-							"<th width='3%' style='text-align: center;'>会员id</th>"+
-							"<th width='3%' style='text-align: center;'>支付流水号</th>"+
-							"<th width='3%' style='text-align: center;'>优惠券类型</th>"+
-							"<th width='3%' style='text-align: center;'>优惠券批次</th>"+
-							"<th width='3%' style='text-align: center;'>券模板名称</th>"+
-							"<th width='3%' style='text-align: center;'>活动号</th>"+
-							"<th width='3%' style='text-align: center;'>收券规则</th>"+
-							"<th width='5%' style='text-align: center;'>收券规则描述</th>"+
-							"<th width='3%' style='text-align: center;'>结余</th>"+
-							"<th width='3%' style='text-align: center;'>备注</th></tr>";
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//款机流水号
@@ -914,9 +914,9 @@
 								option+="<td align='center'>"+ele.remark+"</td></tr>";
 							}
 						}
-						option += "</table></div></td></tr>";
-						$("#gradeY1" + obj).after(option);
 					}
+					option += "</table></div></td></tr>";
+					$("#gradeY1" + obj).after(option);
 				}
 			});
 		} else {
@@ -1947,7 +1947,8 @@
 		"<th width='5%' style='text-align: center;'>发票金额</th>"+
 		"<th width='5%' style='text-align: center;'>发票抬头</th>"+
 		"<th width='5%' style='text-align: center;'>发票明细</th>"+
-		"<th width='5%' style='text-align: center;'>发票状态</th></tr>";
+		"<th width='5%' style='text-align: center;'>发票状态</th>"+
+		"<th width='5%' style='text-align: center;'>发票时间</th></tr>";
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -1998,6 +1999,12 @@
 						}else if(ele.invoiceStatus=='1'){
 							option6+="<td align='center'>"+'无效'+"</td>";
 						}
+						//发票时间
+						if(ele.createdTimeStr=="[object Object]"||ele.createdTimeStr==undefined){
+							option6+="<td align='center'></td>";
+						}else{
+							option6+="<td align='center'>"+ele.createdTimeStr+"</td>";
+						}
 					}
 				}
 			}
@@ -2037,15 +2044,15 @@
 				},
 				data : {"packageNo" : obj},
 				success : function(response) {
+				var option = "<tr id='afterTr31"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+					option += "<th width='3%' style='text-align: center;'>包裹单号</th>"+
+					"<th width='2%' style='text-align: center;'>物流单号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
+					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
-						var option = "<tr id='afterTr31"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
-								+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-							option += "<th width='3%' style='text-align: center;'>包裹单号</th>"+
-							"<th width='2%' style='text-align: center;'>物流单号</th>"+
-							"<th width='3%' style='text-align: center;'>销售单号</th>"+
-							"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
-							"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//包裹单号
@@ -2079,9 +2086,9 @@
 								option+="<td align='center'>"+ele.saleNum+"</td></tr>";
 							}
 						}
-						option += "</table></div></td></tr>";
-						$("#gradeY31" + obj).after(option);
 					}
+					option += "</table></div></td></tr>";
+					$("#gradeY31" + obj).after(option);
 				}
 			});
 		} else {
@@ -3564,20 +3571,20 @@
 				},
 				data : {"salesItemNo" : obj},
 				success : function(response) {
+				var option = "<tr id='afterTr"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 150%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+					option += "<th width='4%' style='text-align: center;'>销售单明细编号</th>"+
+					"<th width='3%' style='text-align: center;'>促销编码</th>"+
+					/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
+					"<th width='3%' style='text-align: center;'>促销名称</th>"+
+					"<th width='3%' style='text-align: center;'>促销描述</th>"+
+					"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
+					"<th width='3%' style='text-align: center;'>促销规则</th>"+
+					"<th width='3%' style='text-align: center;'>促销规则值</th>"+
+					"<th width='3%' style='text-align: center;'>分摊比例</th>"+
+					"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
-						var option = "<tr id='afterTr"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 150%;'>"
-								+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-							option += "<th width='4%' style='text-align: center;'>销售单明细编号</th>"+
-							"<th width='3%' style='text-align: center;'>促销编码</th>"+
-							/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
-							"<th width='3%' style='text-align: center;'>促销名称</th>"+
-							"<th width='3%' style='text-align: center;'>促销描述</th>"+
-							"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
-							"<th width='3%' style='text-align: center;'>促销规则</th>"+
-							"<th width='3%' style='text-align: center;'>促销规则值</th>"+
-							"<th width='3%' style='text-align: center;'>分摊比例</th>"+
-							"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//销售单明细编号
@@ -3641,9 +3648,9 @@
 								option+="<td align='center'>"+ele.freightAmount+"</td></tr>";
 							}
 						}
-						option += "</table></div></td></tr>";
-						$("#gradeY" + obj).after(option);
 					}
+					option += "</table></div></td></tr>";
+					$("#gradeY" + obj).after(option);
 				}
 			});
 		} else {
@@ -3675,41 +3682,41 @@
 				},
 				data : {"saleNo" : obj},
 				success : function(response) {
+				var option = "<tr id='afterTr12"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+						
+						option += "<th width='3%' style='text-align: center;'>行号</th>"+
+						"<th width='5%' style='text-align: center;'>销售单号</th>"+
+						"<th width='3%' style='text-align: center;'>商品行项目编号</th>"+
+						"<th width='3%' style='text-align: center;'>订单号</th>"+
+						"<th width='3%' style='text-align: center;'>SKU编号</th>"+
+						"<th width='3%' style='text-align: center;'>SPU编号</th>"+
+						"<th width='3%' style='text-align: center;'>专柜商品编号</th>"+
+						"<th width='3%' style='text-align: center;'>专柜商品名称</th>"+
+						"<th width='3%' style='text-align: center;'>ERP商品编号</th>"+
+						"<th width='5%' style='text-align: center;'>供应商内部商品编号</th>"+
+						"<th width='3%' style='text-align: center;'>商品单位</th>"+
+						"<th width='3%' style='text-align: center;'>品牌名称</th>"+
+						"<th width='3%' style='text-align: center;'>颜色名称</th>"+
+						"<th width='3%' style='text-align: center;'>规格名称</th>"+
+						"<th width='3%' style='text-align: center;'>标准价</th>"+
+						"<th width='3%' style='text-align: center;'>销售价</th>"+
+						"<th width='3%' style='text-align: center;'>销售数量</th>"+
+						"<th width='3%' style='text-align: center;'>可退数量</th>"+
+						"<th width='3%' style='text-align: center;'>管理分类编码</th>"+
+						"<th width='3%' style='text-align: center;'>统计分类</th>"+
+						"<th width='3%' style='text-align: center;'>销售金额</th>"+
+						"<th width='3%' style='text-align: center;'>是否为赠品</th>"+
+						"<th width='3%' style='text-align: center;'>运费分摊</th>"+
+						"<th width='3%' style='text-align: center;'>缺货数量</th>"+
+						"<th width='3%' style='text-align: center;'>提货数量</th>"+
+						"<th width='3%' style='text-align: center;'>大中小类</th>"+
+						"<th width='3%' style='text-align: center;'>商品类别</th>"+
+						"<th width='3%' style='text-align: center;'>销项税</th>"+
+						"<th width='3%' style='text-align: center;'>条形码</th></tr>";
+						
 					if(response.success=='true'){
 						var result = response.list;
-						var option = "<tr id='afterTr12"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
-								+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-								
-								option += "<th width='3%' style='text-align: center;'>行号</th>"+
-								"<th width='5%' style='text-align: center;'>销售单号</th>"+
-								"<th width='3%' style='text-align: center;'>商品行项目编号</th>"+
-								"<th width='3%' style='text-align: center;'>订单号</th>"+
-								"<th width='3%' style='text-align: center;'>SKU编号</th>"+
-								"<th width='3%' style='text-align: center;'>SPU编号</th>"+
-								"<th width='3%' style='text-align: center;'>专柜商品编号</th>"+
-								"<th width='3%' style='text-align: center;'>专柜商品名称</th>"+
-								"<th width='3%' style='text-align: center;'>ERP商品编号</th>"+
-								"<th width='5%' style='text-align: center;'>供应商内部商品编号</th>"+
-								"<th width='3%' style='text-align: center;'>商品单位</th>"+
-								"<th width='3%' style='text-align: center;'>品牌名称</th>"+
-								"<th width='3%' style='text-align: center;'>颜色名称</th>"+
-								"<th width='3%' style='text-align: center;'>规格名称</th>"+
-								"<th width='3%' style='text-align: center;'>标准价</th>"+
-								"<th width='3%' style='text-align: center;'>销售价</th>"+
-								"<th width='3%' style='text-align: center;'>销售数量</th>"+
-								"<th width='3%' style='text-align: center;'>可退数量</th>"+
-								"<th width='3%' style='text-align: center;'>管理分类编码</th>"+
-								"<th width='3%' style='text-align: center;'>统计分类</th>"+
-								"<th width='3%' style='text-align: center;'>销售金额</th>"+
-								"<th width='3%' style='text-align: center;'>是否为赠品</th>"+
-								"<th width='3%' style='text-align: center;'>运费分摊</th>"+
-								"<th width='3%' style='text-align: center;'>缺货数量</th>"+
-								"<th width='3%' style='text-align: center;'>提货数量</th>"+
-								"<th width='3%' style='text-align: center;'>大中小类</th>"+
-								"<th width='3%' style='text-align: center;'>商品类别</th>"+
-								"<th width='3%' style='text-align: center;'>销项税</th>"+
-								"<th width='3%' style='text-align: center;'>条形码</th></tr>";
-								
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
 							//行号
@@ -3948,9 +3955,9 @@
 								option3+="<td align='center'>"+'无效'+"</td></tr>";
 							}*/
 							}
-						option += "</table></div></td></tr>";
-						$("#gradeY12" + obj).after(option); 
 					}
+					option += "</table></div></td></tr>";
+					$("#gradeY12" + obj).after(option); 
 				}
 			});
 		} else {
@@ -4396,7 +4403,7 @@
 													<input type="text" id="memberNo_input"/>
 											    </li>
 										     <li class="col-md-4">
-										            <label class="titname">退货类型：</label>
+										            <label class="titname">退货类别：</label>
 													<select id="refundClass_select" style="padding:0 0;">
                                                         <option value="">所有</option>
                                                     </select>

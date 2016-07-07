@@ -495,6 +495,8 @@ function initTplList(path){
 		var time2 = new Date().Format("yyyy-MM-dd hh:mm:ss");
 		$("#msg1").addClass("hide");
 		$("#startTime").val(time2);
+		$(".error").html("");
+		$("#image_name1").removeClass("error");
 		$("#addTopicDIV").show();
 		$("#add_site_sid").val(siteSid);
 		initTplList($("#add_tpl_path").val());
@@ -639,7 +641,7 @@ function initTplList(path){
 		description_ = $("#description_" + value).val();
 		path_ = $("#path_" + value).val().trim();
 		//titleImg_=$("#titleImg_"+value).val().trim();
-		titleImg_=$("#titleImg_"+value).val().trim().split("com")[1];
+		titleImg_=$("#titleImg_"+value).val().trim();
 		
 		tplContent_ = $("#tplContent_" + value).val().trim();
 		recommend_ = $("#recommend_" + value).val();

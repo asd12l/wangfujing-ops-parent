@@ -65,6 +65,88 @@ public class SaveShoppeProductDsVO {
 						 */
 	private String xxhcFlag;/* 是否先销后采 0是，1否,默认(1) */
 	private String baseUnitCode;/* 基本计量单位 */
+	
+	private String zzColorCode;//电商商品颜色码
+	private String zzSizeCode;//电商商品尺寸码
+	private String supplyOriginLand;//货源地
+	private String shelfLife;//总货架寿命
+	private String remainShelLife;//剩余货架寿命
+	private String launchDate;//上市日期
+	private String season;//季节
+	private String applicablePeople;//适应人群
+	private String shoppeProType;//电商商品类型
+
+	public String getShoppeProType() {
+		return shoppeProType;
+	}
+
+	public void setShoppeProType(String shoppeProType) {
+		this.shoppeProType = shoppeProType;
+	}
+
+	public String getZzColorCode() {
+		return zzColorCode;
+	}
+
+	public void setZzColorCode(String zzColorCode) {
+		this.zzColorCode = zzColorCode;
+	}
+
+	public String getZzSizeCode() {
+		return zzSizeCode;
+	}
+
+	public void setZzSizeCode(String zzSizeCode) {
+		this.zzSizeCode = zzSizeCode;
+	}
+
+	public String getSupplyOriginLand() {
+		return supplyOriginLand;
+	}
+
+	public void setSupplyOriginLand(String supplyOriginLand) {
+		this.supplyOriginLand = supplyOriginLand;
+	}
+
+	public String getShelfLife() {
+		return shelfLife;
+	}
+
+	public void setShelfLife(String shelfLife) {
+		this.shelfLife = shelfLife;
+	}
+
+	public String getRemainShelLife() {
+		return remainShelLife;
+	}
+
+	public void setRemainShelLife(String remainShelLife) {
+		this.remainShelLife = remainShelLife;
+	}
+
+	public String getLaunchDate() {
+		return launchDate;
+	}
+
+	public void setLaunchDate(String launchDate) {
+		this.launchDate = launchDate;
+	}
+
+	public String getSeason() {
+		return season;
+	}
+
+	public void setSeason(String season) {
+		this.season = season;
+	}
+
+	public String getApplicablePeople() {
+		return applicablePeople;
+	}
+
+	public void setApplicablePeople(String applicablePeople) {
+		this.applicablePeople = applicablePeople;
+	}
 
 	public String getSalePrice() {
 		return salePrice;
@@ -428,26 +510,40 @@ public class SaveShoppeProductDsVO {
 
 	@Override
 	public String toString() {
-		return "SaveShoppeProductParaDs [skuSid=" + skuSid + ", skuName=" + skuName
-				+ ", supplierCode=" + supplierCode + ", counterCode=" + counterCode + ", shopCode="
-				+ shopCode + ", erpProductCode=" + erpProductCode + ", brandSid=" + shopBrandSid
-				+ ", productName=" + productName + ", productAbbr=" + productAbbr + ", unitCode="
-				+ unitCode + ", inputTax=" + inputTax + ", outputTax=" + outputTax
-				+ ", consumptionTax=" + consumptionTax + ", rate=" + rate + ", rate_price="
-				+ rate_price + ", purchasePrice_taxRebate=" + purchasePrice_taxRebate
-				+ ", discountLimit=" + discountLimit + ", placeOfOrigin=" + placeOfOrigin
-				+ ", countryOfOrigin=" + countryOfOrigin + ", processingType=" + processingType
-				+ ", marketPrice=" + marketPrice + ", salePrice=" + salePrice + ", remarks="
-				+ remarks + ", offerNumber=" + offerNumber + ", entryNumber=" + entryNumber
-				+ ", procurementPersonnelNumber=" + procurementPersonnelNumber
-				+ ", manageCateGory=" + manageCateGory + ", isAdjustPrice=" + isAdjustPrice
-				+ ", isPromotion=" + isPromotion + ", inventory=" + inventory + ", modelNum="
-				+ modelNum + ", type=" + type + ", barcodes=" + barcodes + ", supplyProductCode="
-				+ supplyProductCode + ", tmsParam=" + tmsParam + ", isCod=" + isCod
-				+ ", isPacking=" + isPacking + ", isCard=" + isCard + ", originCountry="
-				+ originCountry + ", stockMode=" + stockMode + ", isOriginPackage="
-				+ isOriginPackage + ", isGift=" + isGift + ", xxhcFlag=" + xxhcFlag
-				+ ", baseUnitCode=" + baseUnitCode + "]";
+		return "SaveShoppeProductDsVO [skuSid=" + skuSid + ", skuName="
+				+ skuName + ", shopCode=" + shopCode + ", counterCode="
+				+ counterCode + ", supplierCode=" + supplierCode
+				+ ", manageCateGory=" + manageCateGory
+				+ ", finalClassiFicationCode=" + finalClassiFicationCode
+				+ ", unitCode=" + unitCode + ", productName=" + productName
+				+ ", productAbbr=" + productAbbr + ", erpProductCode="
+				+ erpProductCode + ", marketPrice=" + marketPrice
+				+ ", salePrice=" + salePrice + ", inventory=" + inventory
+				+ ", rate=" + rate + ", offerNumber=" + offerNumber
+				+ ", inputTax=" + inputTax + ", outputTax=" + outputTax
+				+ ", consumptionTax=" + consumptionTax + ", discountLimit="
+				+ discountLimit + ", isAdjustPrice=" + isAdjustPrice
+				+ ", isPromotion=" + isPromotion + ", type=" + type
+				+ ", processingType=" + processingType + ", shopBrandSid="
+				+ shopBrandSid + ", barcodes=" + barcodes + ", entryNumber="
+				+ entryNumber + ", procurementPersonnelNumber="
+				+ procurementPersonnelNumber + ", rate_price=" + rate_price
+				+ ", purchasePrice_taxRebate=" + purchasePrice_taxRebate
+				+ ", placeOfOrigin=" + placeOfOrigin + ", countryOfOrigin="
+				+ countryOfOrigin + ", remarks=" + remarks + ", modelNum="
+				+ modelNum + ", supplyProductCode=" + supplyProductCode
+				+ ", tmsParam=" + tmsParam + ", isCod=" + isCod
+				+ ", isPacking=" + isPacking + ", isCard=" + isCard
+				+ ", originCountry=" + originCountry + ", stockMode="
+				+ stockMode + ", isOriginPackage=" + isOriginPackage
+				+ ", isGift=" + isGift + ", xxhcFlag=" + xxhcFlag
+				+ ", baseUnitCode=" + baseUnitCode + ", zzColorCode="
+				+ zzColorCode + ", zzSizeCode=" + zzSizeCode
+				+ ", supplyOriginLand=" + supplyOriginLand + ", shelfLife="
+				+ shelfLife + ", remainShelLife=" + remainShelLife
+				+ ", launchDate=" + launchDate + ", season=" + season
+				+ ", applicablePeople=" + applicablePeople + ", shoppeProType="
+				+ shoppeProType + "]";
 	}
-
+	
 }

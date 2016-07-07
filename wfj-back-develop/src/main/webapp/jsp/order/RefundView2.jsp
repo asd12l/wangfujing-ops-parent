@@ -92,6 +92,7 @@ Author: WangSy
 //	var data2 = orderData;
 	var data_;
 	var isCod;
+	var returnShippingFee; //订单支付运费金额(从订单上获取16-7-1改)
 	//退货方式
 	$("#refundType").val(refundPath_);
 	
@@ -108,6 +109,11 @@ Author: WangSy
 			success : function(response) {
 				if(response.success=='true'){
 					isCod = response.data.list[0].isCod;
+					returnShippingFee = response.data.list[0].needSendCost;
+					if(returnShippingFee==undefined){
+						returnShippingFee=0;
+					}
+					console.log("returnShippingFee:"+returnShippingFee);
 				}else{
 					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"查询订单失败"+"</strong></div>");
  	     	  		$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
@@ -205,6 +211,7 @@ Author: WangSy
 			} 
 		}
 	});
+	
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -216,6 +223,7 @@ Author: WangSy
 			if (response.success == "true") {
 				$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
 			}
+			$("#packimgUrl").val(response.packimgUrl);//域名赋值
 			var spc=$(".salePriceClass");
 			var rc=$(".refundNumClass");
 			var totalPrice = 0;
@@ -272,12 +280,33 @@ Author: WangSy
 				t1= $(t).val();
 				t2 +=parseFloat(t1);
 			}
-			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));
+			if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
+				$("#amount4").text("");
+			}else{
+				$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
+			}
+//			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
 //			$("#amount4").text(parseFloat(t2));
-			$("#amount5").text(parseFloat(t2));
+			$("#amount5").text(parseFloat(t2).toFixed(2));
 		}
 	});
-	var returnShippingFee = returnShippingFee_; //订单支付运费金额
+	//扣款金额校验
+	$(".amounttui").keyup(function(){
+		var aa=$(".amounttui");
+		var a1 = 0;
+		var a2 = 0;
+		for(var i = 0; i<aa.length; i++){
+			var a = aa[i];
+			a1= $(a).val();
+			a2 +=parseFloat(a1);
+		}
+		var amount4money = $("#amount4").text();
+		var id=$(this).attr("id");
+		if(a2>amount4money){
+			$("#"+id).val("");
+		}
+	});
+	
 	// 初始化
 	$(function() {
 		$("#xzspan").hide();
@@ -467,8 +496,10 @@ function shbtgForm(){
 	var tab=$(".amounttui");
 	if(0<tab.length){
 		for(var i = 0; i<tab.length; i++){
-			var inputTab = tab[i];
-			data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab).val());
+			if(data_.billDetail.sellPayments[i].flag=='3'){
+				var inputTab = tab[i];
+				data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
+			}		
 	//		alert($(inputTab).val());
 	//		alert(data_.billDetail.sellPayments[i].amount);
 		}
@@ -568,6 +599,11 @@ function shbtgForm(){
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}
+	//跳到商品详情页
+	function trClick(skuNo, obj){
+		var packimg_url = $("#packimgUrl").val();
+		window.open(packimg_url+"/item/"+skuNo+".jhtml");
+	}
 	
 </script>
 
@@ -600,6 +636,7 @@ function shbtgForm(){
 									<div class="tab-content">
 										<div id="base" class="tab-pane in active">
 											<form id="baseForm" method="post" class="form-horizontal">
+												<input type="hidden" id="packimgUrl" value="">
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
 													<h5>
@@ -634,8 +671,10 @@ function shbtgForm(){
 															{#foreach $T.list as Result}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
-																		{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
-										                   				{#/if}
+																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
+																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
+																			{#/if}
+																		</a>
 																	</td>
 																	<td align="center" id="shoppeProName_{$T.Result.sid}">
 																		{#if $T.Result.shoppeProName != '[object Object]'}{$T.Result.shoppeProName}
@@ -853,13 +892,13 @@ function shbtgForm(){
 														{#template MAIN}
 															{#foreach $T.billDetail.sellPayments as Result}
 															{#if $T.Result.flag == '3'}
-																<tr class="gradeX" id="gradeX{$T.Result.rowNo}" style="height:35px;">
+																<tr class="gradeX" id="gradeX_{$T.Result.rowNo}" style="height:35px;">
 																	<td align="center" id="payName_{$T.Result.rowNo}">
 																		{#if $T.Result.payName != '[object Object]'}{$T.Result.payName}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="money_{$T.Result.rowNo}">
-																	<input align="center" class="amounttui" value="{#if $T.Result.money != '[object Object]'}{$T.Result.money}
+																	<input id="moneys_{$T.Result.rowNo}" onkeyup="this.value=this.value.replace(/[^\-?\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\-?\d.]/g,'')" align="center" class="amounttui" value="{#if $T.Result.money != '[object Object]'}{$T.Result.money}
 										                   				{#/if}"/>
 																	</td>
 																	<td align="center" id="payType_{$T.Result.rowNo}">
@@ -1079,7 +1118,7 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>商品金额：</span>
+														<span>实退金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
@@ -1129,7 +1168,7 @@ function shbtgForm(){
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣除金额：</span>
+														<span>&nbsp;&nbsp;扣款金额：</span>
 														<label id="amount5" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;

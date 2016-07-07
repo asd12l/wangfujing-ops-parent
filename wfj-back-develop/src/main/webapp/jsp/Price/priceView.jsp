@@ -204,10 +204,12 @@
 		
 		$("#productSku_input").val("");
 
-		$("#supplier_select").val("").trigger("change");
+		$("#supplier_select").val($('#supplier_select option:eq(0)').val()).select2();
+		$('#shoppe_select').val($('#shoppe_select option:eq(0)').val()).select2();
 
 		$("#channelSid_select").val("0").trigger("change");
 		priceQuery();
+		init_1();
 	}
 	function initPrice() {
 		var url = $("#ctxPath").val() + "/productPrice/selectPricePara";
@@ -369,7 +371,8 @@
 	}
 </script>
 <script type="text/javascript">
-	$(function(){
+
+	function init_1(){
 		$('#supplier_select').prop("disabled", "disabled").select2();
 		$('#shoppe_select').prop("disabled", "disabled").select2();
 		$('#s2id_supplier_select').click(function(){
@@ -396,6 +399,10 @@
 			priceQuery();
 			$('#shoppe_select').removeAttr("disabled");
 		});
+	}
+	
+	$(function(){
+		init_1();
 	});
 	
 	//根据门店查询供应商
@@ -685,7 +692,7 @@
 														{$T.Result.storeName.toString().replace(/\[object Object\]/ ,"--")}
 													{/#if}</td>
 													<td align="center">
-														<a onclick="price({$T.Result.productCode})" id="storeName_{$T.Result.sid}" style="cursor:pointer;color:blue">
+														<a onclick="price('{$T.Result.productCode}')" id="storeName_{$T.Result.sid}" style="cursor:pointer;color:blue">
 															价格详情点击
 														</a>
 													</td>

@@ -34,7 +34,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,8 +56,7 @@ public class CodHandoverController {
 	private static Logger log =  LoggerFactory.getLogger(CodHandoverController.class);
 	
 	@Autowired
-	@Qualifier("excelService")
-	private IExcelService excelService;
+	private IExcelService escelService;
 	
 	@ResponseBody
 	@RequestMapping("/selectListByParam")
@@ -124,7 +122,7 @@ public class CodHandoverController {
 						listCods.add(t);
 					}
 				}
-			String result = excelService.exprtExcel(request,response,listCods,title);
+			String result = escelService.exprtExcel(request,response,listCods,title);
 			log.info(result);
 			jsons = ResultUtil.createSuccessResult(result);
 		}catch (Exception e) {
@@ -162,7 +160,7 @@ public class CodHandoverController {
 					list.add(sale);
 				}
 			}
-			String result = excelService.exprtExcel(response,list,title);
+			String result = escelService.exprtExcel(response,list,title);
 			jsons = ResultUtil.createSuccessResult(result);
 		}catch (Exception e) {
 			jsons = ResultUtil.createFailureResult(e);
@@ -204,7 +202,7 @@ public class CodHandoverController {
 					list.add(refund);
 				}
 			}
-			String result = excelService.exprtRefundExcel(response,list,title);
+			String result = escelService.exprtRefundExcel(response,list,title);
 			log.info(result);
 			jsons = ResultUtil.createSuccessResult(result);
 		}catch (Exception e) {
@@ -247,7 +245,7 @@ public class CodHandoverController {
 					list.add(refund);
 				}
 			}
-			String result = excelService.exprtRefundApplyExcel(response,list,title);
+			String result = escelService.exprtRefundApplyExcel(response,list,title);
 			log.info(result);
 			jsons = ResultUtil.createSuccessResult(result);
 		}catch (Exception e) {

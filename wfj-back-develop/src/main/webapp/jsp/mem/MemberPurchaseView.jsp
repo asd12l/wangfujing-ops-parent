@@ -22,7 +22,7 @@
 		image="http://images.shopin.net/images";
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
-	
+	var cid;
 	var olvPagination;
 	$(function() {
 		$("#reservation").daterangepicker();
@@ -30,18 +30,9 @@
 	});
 	
 	function productQuery(){
-		$("#username_from").val($("#username_input").val());
-		$("#mobile_from").val($("#mobile_input").val());
-		$("#identity_card_no_from").val($("#identity_card_no_input").val());
-		var strTime = $("#reservation").val();
-		if(strTime!=""){
-			strTime = strTime.split("- ");
-			$("#m_timeStartDate_form").val(strTime[0].replace("/","-").replace("/","-"));
-			$("#m_timeEndDate_form").val(strTime[1].replace("/","-").replace("/","-"));
-		}else{
-			$("#m_timeStartDate_form").val("");
-			$("#m_timeEndDate_form").val("");
-		}
+		$("#username_from").val($("#username_input").val().trim());
+		$("#mobile_from").val($("#mobile_input").val().trim());
+		$("#email_from").val($("#email_input").val().trim());
         var params = $("#product_form").serialize();
         params = decodeURI(params);
         olvPagination.onLoad(params);
@@ -54,15 +45,14 @@
 	//重置
 	function reset(){
 		$("#cache").val(1);
-		$("#username").val("");
+		$("#username_input").val("");
 		$("#mobile_input").val("");
-		$("#identity_card_no_input").val("");
-		$("#reservation").val("");
+		$("#email_input").val("");
 		productQuery();
 	}
 	//初始化包装单位列表
  	function initOlv() {
-		var url = __ctxPath+"/member/getByMemberPurchase";
+		var url = __ctxPath+"/memBasic/getMemBasicInfo";
 		olvPagination = $("#olvPagination").myPagination({
            panel: {
              tipInfo_on: true,
@@ -107,6 +97,25 @@
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 		$("#pageBody").load(__ctxPath+"/jsp/mem/MemberPurchaseView.jsp");
 	}
+
+	function showMemPurchaseView(){
+		var checkboxArray=[];
+		$("input[type='checkbox']:checked").each(function(i,team){
+			var cid=$(this).val().trim();
+			checkboxArray.push(cid);
+		});
+		if (checkboxArray.length > 1) {
+			$("#warning2Body").text("只能选择一个用户!");
+			$("#warning2").show();
+			return;
+		} else if (checkboxArray.length == 0) {
+			$("#warning2Body").text("请选择要查看的用户!");
+			$("#warning2").show();
+			return;
+		}
+		cid=checkboxArray[0].trim();
+		$("#pageBody").load(__ctxPath+"/jsp/mem/PurchaseDetail.jsp");
+	}
 </script>
 <!-- 加载样式 -->
 <script type="text/javascript">
@@ -138,8 +147,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
-                                <div class="widget-header ">
-                                    <h5 class="widget-caption">购买记录信息</h5>
+                                <div class="widget-header ">会员信息</h5>
                                    <div class="widget-buttons">
 										<a href="#" data-toggle="maximize"></a> <a href="#"
 											data-toggle="collapse" onclick="tab('pro');"> <i
@@ -149,31 +157,33 @@
                                 </div>
                                 <div class="widget-body" id="pro">
                                     <div class="table-toolbar">
-                                    		<div class="mtb10">
-                                    		<span class="titname">购买时间：</span> <input type="text" id="reservation" />
-											<span class="titname">账号：</span> <input type="text" id="username_input" />&nbsp;&nbsp;&nbsp;&nbsp;
-											<span class="titname">手机号码：</span> <input type="text" id="mobile_input" />&nbsp;&nbsp;&nbsp;&nbsp;
-											<span class="titname">身份证号：</span> <input type="text" id="identity_card_no_input" />&nbsp;&nbsp;&nbsp;&nbsp;
-											&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-default shiny"
-												onclick="query();">查询</a>&nbsp;&nbsp;&nbsp;&nbsp; <a
-												class="btn btn-default shiny" onclick="reset();">重置</a>
-									</div>                             
+										<ul class="topList clearfix">
+											<li class="col-md-4"><label class="titname">账号：</label>
+												<input type="text" id="username_input" /></li>
+											<li class="col-md-4"><label class="titname">手机号：</label>
+												<input type="text" id="mobile_input" /></li>
+											<li class="col-md-4"><label class="titname">邮箱：</label>
+												<input type="text" id="email_input" /></li>
+											<li class="col-md-6">
+												<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
+												<a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
+												<a onclick="showMemPurchaseView();"class="btn btn-primary"> <i class="fa fa-random"></i> 查询用户购买记录</a>
+											</li>
+										</ul>
+
                                    <table class="table table-bordered table-striped table-condensed table-hover flip-content"
 									id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
-                                        <thead>
+										<thead>
                                             <tr role="row" style='height:35px;'>
-                                            <th style="text-align: center;" width="2%">选择</th>
-											<th style="text-align: center;" width="10%">账户</th>
-											<th style="text-align: center;" width="10%">昵称</th>
-											<th style="text-align: center;" width="10%">真实姓名</th>
-											<th style="text-align: center;" width="10%">手机</th>
-											<th style="text-align: center;" width="10%">购买时间</th>
-											<th style="text-align: center;" width="10">会员来源</th>
-											<th style="text-align: center;" width="10%">会员等级</th>
-											<th style="text-align: center;" width="10%">购买订单号</th>
-											<th style="text-align: center;" width="10%">教育程度</th>
-											<th style="text-align: center;" width="10%">订单状态</th>
-											<th style="text-align: center;" width="10%">查看详情</th>
+												<th style="text-align: center;" width="2%">选择</th>
+												<th style="text-align: center;" width="12%">账户</th>
+												<th style="text-align: center;" width="12%">昵称</th>
+												<th style="text-align: center;" width="12%">真实姓名</th>
+												<th style="text-align: center;" width="12%">手机</th>
+												<th style="text-align: center;" width="12%">邮箱</th>
+												<th style="text-align: center;" width="12">所属门店</th>
+												<th style="text-align: center;" width="12%">会员等级</th>
+												<th style="text-align: center;" width="12%">地址</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -181,11 +191,9 @@
                                     </table>                          
                                   <div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
-											<input type="hidden" id="username_from" name="username" />
+											<input type="hidden" id="username_from" name="cid" />
 											<input type="hidden" id="mobile_from" name="mobile" /> 
-											<input type="hidden" id="identity_card_no_from" name="identity_card_no" />
-											<input type="hidden" id="m_timeStartDate_form" name="m_timeStartDate"/>
-											<input type="hidden" id="m_timeEndDate_form" name="m_timeEndDate"/> 
+											<input type="hidden" id="email_from" name="email" />
 											<input type="hidden" id="cache" name="cache" value="1" />
 									</form>
 								</div>
@@ -194,96 +202,61 @@
 								<!-- Templates -->
 								<p style="display:none">
 									<textarea id="olv-list" rows="0" cols="0">
-										<!--
 										{#template MAIN}
 											{#foreach $T.list as Result}
 												<tr class="gradeX">
 													<td align="left">
 														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
-																<input type="checkbox" id="tdCheckbox_{$T.Result.sid}" value="{$T.Result.sid}" >
+																<input type="checkbox" id="tdCheckbox_{$T.Result.cid}" value="{$T.Result.cid}" >
 																<span class="text"></span>
 															</label>
 														</div>
 													</td>
-													<td align="center" id="username_{$T.Result.sid}">
-														{#if $T.Result.username == "" || $T.Result.username == null}{$T.Result.features}
-													    {#else}{$T.Result.username}
-													    {#/if}
+													<td align="center" id="cid_{$T.Result.cid}">
+														{#if $T.Result.cid == "" || $T.Result.cid == null}--
+														{#else}{$T.Result.cid}
+														{#/if}
 													</td>
-													<td align="center" id="nick_name_{$T.Result.sid}">
-														{#if $T.Result.nick_name == "" || $T.Result.nick_name == null}{$T.Result.features}
-													    {#else}{$T.Result.nick_name}
-													    {#/if}
-														{#if $T.Result.nick_name == "" || $T.Result.nick_name == null}无
-						                   				{#/if}	
+													<td align="center" id="nickname_{$T.Result.cid}">
+														{#if $T.Result.cmnickname == "" || $T.Result.cmnickname == null}--
+														{#else}{$T.Result.cmnickname}
+														{#/if}
 													</td>
-													<td align="center" id="real_name_{$T.Result.sid}">
-														{#if $T.Result.real_name == "" || $T.Result.real_name == null}{$T.Result.features}
-													    {#else}{$T.Result.real_name}
-													    {#/if}
-														{#if $T.Result.real_name == "" || $T.Result.real_name == null}无
-						                   				{#/if}	
+													<td align="center" id="realname_{$T.Result.cid}">
+														{#if $T.Result.cmname == "" || $T.Result.cmname == null}--
+														{#else}{$T.Result.cmname}
+														{#/if}
 													</td>
-													<td align="center" id="mobile_{$T.Result.sid}">
-														{#if $T.Result.mobile == "" || $T.Result.mobile == null}{$T.Result.features}
-													    {#else}{$T.Result.mobile}
-													    {#/if}
-													    {#if $T.Result.mobile == "" || $T.Result.mobile == null}无
-						                   				{#/if}														
+													<td align="center" id="mobile_{$T.Result.cid}">
+														{#if $T.Result.cmmobile1 == "" || $T.Result.cmmobile1 == null}--
+														{#else}{$T.Result.cmmobile1}
+														{#/if}
 													</td>
-													<td align="center" id="income_{$T.Result.sid}">
-														{#if $T.Result.income == "" || $T.Result.income == null}{$T.Result.features}
-													    {#else}{$T.Result.income}
-													    {#/if}
-													    {#if $T.Result.income == "" || $T.Result.income == null}无
-						                   				{#/if}
+													<td align="center" id="email_{$T.Result.cid}">
+														{#if $T.Result.cmemail == "" || $T.Result.cmemail == null}--
+														{#else}{$T.Result.cmemail}
+														{#/if}
 													</td>
-													<td align="center" id="identity_card_no_{$T.Result.sid}">
-														{#if $T.Result.identity_card_no == "" || $T.Result.identity_card_no == null}{$T.Result.features}
-													    {#else}{$T.Result.identity_card_no}
-													    {#/if}
-													    {#if $T.Result.identity_card_no == "" || $T.Result.identity_card_no == null}无
-						                   				{#/if}
+
+													<td align="center" id="belongStore_{$T.Result.cid}">
+														{#if $T.Result.cmmkt == "" || $T.Result.cmmkt == null}--
+														{#else}{$T.Result.cmmkt}
+														{#/if}
 													</td>
-													<td align="center" id="teach_level_{$T.Result.sid}">
-														{#if $T.Result.teach_level == "" || $T.Result.teach_level == null}{$T.Result.features}
-													    {#else}{$T.Result.teach_level}
-													    {#/if}
-													    {#if $T.Result.teach_level == "" || $T.Result.teach_level == null}无
-						                   				{#/if}
+													<td align="center" id="levelName_{$T.Result.cid}">
+														{#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
+														{#else}{$T.Result.levelName}
+														{#/if}
 													</td>
-													<td align="center" id="profession_{$T.Result.sid}">
-														{#if $T.Result.profession == "" || $T.Result.profession == null}{$T.Result.features}
-													    {#else}{$T.Result.profession}
-													    {#/if}
-													    {#if $T.Result.profession == "" || $T.Result.profession == null}无
-						                   				{#/if}
-													</td>
-													<td align="center" id="profession_{$T.Result.sid}">
-														{#if $T.Result.profession == "" || $T.Result.profession == null}{$T.Result.features}
-													    {#else}{$T.Result.profession}
-													    {#/if}
-													    {#if $T.Result.profession == "" || $T.Result.profession == null}无
-						                   				{#/if}
-													</td>
-													<td align="center" id="profession_{$T.Result.sid}">
-														{#if $T.Result.profession == "" || $T.Result.profession == null}{$T.Result.features}
-													    {#else}{$T.Result.profession}
-													    {#/if}
-													    {#if $T.Result.profession == "" || $T.Result.profession == null}无
-						                   				{#/if}
-													</td>
-													<td align="center" id="profession_{$T.Result.sid}">
-														{#if $T.Result.profession == "" || $T.Result.profession == null}{$T.Result.features}
-													    {#else}{$T.Result.profession}
-													    {#/if}
-													    {#if $T.Result.profession == "" || $T.Result.profession == null}无
-						                   				{#/if}
+													<td align="center" id="address_{$T.Result.cid}">
+														{#if $T.Result.address == "" || $T.Result.address == null}--
+														{#else}{$T.Result.address}
+														{#/if}
 													</td>
 									       		</tr>
 											{#/for}
-									    {#/template MAIN}	-->
+									    {#/template MAIN}
 									</textarea>
 								</p>
                             </div>
