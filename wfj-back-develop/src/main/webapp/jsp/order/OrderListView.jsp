@@ -2688,11 +2688,11 @@
                                    				</li>
                                    				<li class="col-md-4">
                                    					<label class="titname">订单金额起：</label>
-                                   					<input type="text" id="paymentAmountStart_input"/>
+                                   					<input type="text" onkeyup="this.value=this.value.replace(/[^\-?\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\-?\d.]/g,'')" id="paymentAmountStart_input"/>
                                    				</li>
                                    				<li class="col-md-4">
                                    					<label class="titname">订单金额止：</label>
-                                   					<input type="text" id="paymentAmountEnd_input"/>
+                                   					<input type="text" onkeyup="this.value=this.value.replace(/[^\-?\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\-?\d.]/g,'')" id="paymentAmountEnd_input"/>
                                    				</li>
                                     				<li class="col-md-4">
                                     					<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
