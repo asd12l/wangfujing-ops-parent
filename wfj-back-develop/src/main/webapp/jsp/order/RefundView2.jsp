@@ -648,6 +648,7 @@ function shbtgForm(){
 													 <table class="table-striped table-hover table-bordered" id="olv_tab12" style="width: 90%;background-color: #fff;margin-bottom: 0;">
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
+				                                                <th width="2%" style="text-align: center;">订单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
 				                                                <th width="2%" style="text-align: center;">商品价格</th>
@@ -672,6 +673,10 @@ function shbtgForm(){
 															{#foreach $T.list as Result}
 															{#if $T.Result.isGift == '0'}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
+																	<td align="center" id="orderNo_{$T.Result.sid}">
+																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
 																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
 																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
