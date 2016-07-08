@@ -753,7 +753,7 @@
 												<td align="center" id="channelName_{$T.Result.sid}">{$T.Result.channelName}</td>
 												<td align="center" id="storeName_{$T.Result.sid}">{$T.Result.storeName}</td>
 												<td align="center">
-													<a onclick="getStockDiv({$T.Result.productCode},'{$T.Result.channelSid}','{$T.Result.channelName}')" style="cursor:pointer;color:blue">
+													<a onclick="getStockDiv('{$T.Result.productCode}','{$T.Result.channelSid}','{$T.Result.channelName}')" style="cursor:pointer;color:blue">
 														库存变动详情
 													</a>
 												</td>
