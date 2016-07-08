@@ -1393,7 +1393,7 @@ Author: WangSy
 													</h5>
 													</div>
 													&nbsp;
-													 <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 90%;background-color: #fff;margin-bottom: 0;">
+													 <table class="table-striped table-hover table-bordered" id="olv_tab121" style="width: 90%;background-color: #fff;margin-bottom: 0;">
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
