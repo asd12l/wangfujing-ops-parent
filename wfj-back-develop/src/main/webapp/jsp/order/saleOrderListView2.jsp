@@ -162,6 +162,13 @@
 	function No(){
 		$("#btDiv2").hide();
 	}
+	function selectCheckbox(one){
+		$("input[type='checkbox']:checked").each(function(){
+			if(this != one){
+				$(this).attr("checked",false);
+			}
+		});
+	}
 	//初始化包装单位列表
 	//查询销售单(已签收)
  	function initOlv() {
@@ -1028,14 +1035,15 @@
 								option+="<td align='center'>"+ele.createdTimeStr+"</td>";
 							}
 							//操作
-							/*  if(i==0){
-								 option+="<td align='center' rowspan="+result.length+">"+
-								'<input class="btn btn-success" style="width: 60%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleNo+"',"+"'"+ele.orderNo+"'"+',this)" type="button" value="提交退货" />'+
-								"</td>"; 
-							 } */
-							 option+="<td align='center'>"+
-								'<input class="btn btn-success" style="width: 50%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)" type="button" value="退货" />'+
-								"</td></tr>";
+							if(ele.isGift=="1"){
+								 option+="<td align='center'>"+
+								 '<label style="padding-left:9px;"><input id="checkboxId" type="checkbox" onclick="selectCheckbox(this);"><span class="text"></span></lable>'+
+								"</td></tr>"; 
+							 }else{
+								 option+="<td align='center'>"+
+									'<input class="btn btn-success" style="width: 50%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)" type="button" value="退货" />'+
+									"</td></tr>";
+							 } 
 							/* option+="</tr>"; */
 						}
 					}
