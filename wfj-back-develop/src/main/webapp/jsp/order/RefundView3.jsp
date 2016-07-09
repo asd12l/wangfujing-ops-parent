@@ -210,13 +210,19 @@ Author: WangSy
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/oms/selectRefundItemList",
+		url:__ctxPath + "/omsOrder/selectRefundItemListByNo",
 		async:false,
 		dataType: "json",
 		data:{"refundNo":refundNo},
 		success : function(response) {
 			if (response.success == "true") {
-				supplyProductNo = response.list[0].supplyProductNo;
+				if (response.success == "true") {
+					$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
+					$("#olv_tab121 tbody").setTemplateElement("gift-list").processTemplate(response);
+				}
+				$("#packimgUrl").val(response.packimgUrl);//域名赋值
+				//16-7-8注释
+				/* supplyProductNo = response.list[0].supplyProductNo;
 				if(response.list[0].shoppeProName != '[object Object]'){
 					shoppeProName = response.list[0].shoppeProName;
 				}else{
@@ -237,7 +243,7 @@ Author: WangSy
 				$("#salePrice").text(salePrice);
 				$("#payPrice").text(salePrice*refundNum);
 				$("#refundNum").text(refundNum);
-				$("#refundPcitureUrl").text(refundPcitureUrl);
+				$("#refundPcitureUrl").text(refundPcitureUrl); */
 				
 //				$("#allowNum").text(data2);
 //				$("#num").text(data2);
@@ -279,10 +285,7 @@ Author: WangSy
 			dataType: "json",
 			data:{"refundApplyNo":refundApplyNo},
 			success : function(response) {
-				if (response.success == "true") {
-					$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
-				}
-				$("#packimgUrl").val(response.packimgUrl);//域名赋值
+				
 				var spc=$(".salePriceClass");
 				var rc=$(".refundNumClass");
 				var totalPrice = 0;
@@ -432,6 +435,7 @@ Author: WangSy
 													 <table class="table-striped table-hover table-bordered" id="olv_tab12" style="width: 90%;background-color: #fff;margin-bottom: 0;">
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
+				                                                <th width="2%" style="text-align: center;">订单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
 				                                                <th width="1%" style="text-align: center;">商品价格</th>
@@ -465,7 +469,12 @@ Author: WangSy
 														<!--
 														{#template MAIN}
 															{#foreach $T.list as Result}
+															{#if $T.Result.isGift == '0'}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
+																	<td align="center" id="orderNo_{$T.Result.sid}">
+																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
 																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
 																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
@@ -516,6 +525,7 @@ Author: WangSy
 										                   				{#/if}
 																	</td>
 													       		</tr>
+															{#/if}
 															{#/for}
 													    {#/template MAIN}	-->
 													</textarea>
@@ -637,7 +647,7 @@ Author: WangSy
 													</h5>
 													</div>
 													&nbsp;
-													 <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 90%;background-color: #fff;margin-bottom: 0;">
+													 <table class="table-striped table-hover table-bordered" id="olv_tab121" style="width: 90%;background-color: #fff;margin-bottom: 0;">
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
@@ -651,7 +661,7 @@ Author: WangSy
 				                                            </tr>
 				                                        </thead>
 				                                       <tbody>
-				                                        	<tr>
+				                                        	<!-- <tr>
 				                                        		<td align="center" id="orderNo"></td>
 				                                        		<td align="center" id="supplyProductNo1"></td>
 				                                        		<td align="center" id="shoppeProName1"></td>
@@ -660,10 +670,62 @@ Author: WangSy
 				                                        		<td align="center" id="activityName"></td>
 				                                        		<td align="center" id="num1"></td>
 				                                        		<td align="center" id="refundNum1"></td>
-				                                        	</tr>
+				                                        	</tr> -->
 				                                        </tbody>
 				                                    </table>&nbsp;
 												</div>&nbsp;
+												<p style="display:none">
+													<textarea id="gift-list" rows="0" cols="0">
+														<!--
+														{#template MAIN}
+															{#foreach $T.list as Result}
+															{#if $T.Result.isGift == '1'}
+																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
+																	<td align="center" id="orderNo_{$T.Result.sid}">
+																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
+																		<a onclick="trClick2('{$T.Result.skuNo}',this);" style="cursor:pointer;">
+																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
+																			{#/if}
+																		</a>
+																	</td>
+																	<td align="center" id="shoppeProName_{$T.Result.sid}">
+																		{#if $T.Result.shoppeProName != '[object Object]'}{$T.Result.shoppeProName}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="salePrice_{$T.Result.sid}">
+																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
+																		{#elseif $T.Result.salePrice == ''}0
+										                   				{#/if}
+																	</td>
+																	
+																	<td align="center" id="hdbm_{$T.Result.sid}">
+																		{#if $T.Result.hdbm != '[object Object]'}{$T.Result.hdbm}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="hdmc_{$T.Result.sid}">
+																		{#if $T.Result.hdmc != '[object Object]'}{$T.Result.hdmc}
+										                   				{#/if}
+																	</td>
+																	
+																	<td align="center" id="refundNumAll_{$T.Result.sid}">
+																		{#if $T.Result.refundNumAll != '[object Object]'}{$T.Result.refundNumAll}
+																		{#else}0
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="refundNum_{$T.Result.sid}">
+																		{#if $T.Result.refundNum != '[object Object]'}{$T.Result.refundNum}
+										                   				{#else}0
+										                   				{#/if}
+																	</td>
+													       		</tr>
+															{#/if}
+															{#/for}
+													    {#/template MAIN}	-->
+													</textarea>
+												</p>
 												
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">

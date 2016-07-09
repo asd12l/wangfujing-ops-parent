@@ -642,6 +642,45 @@ public class OmsOrderController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
+	/**
+	 * 
+	 * 查询退货明细信息
+	 * @Methods Name selectRefundItemListByNo
+	 * @Create In 2016-7-9 By chenhu
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping("/selectRefundItemListByNo")
+	public String selectRefundItemListByNo(HttpServletRequest request, HttpServletResponse response) {
+		String json = "";
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("saleNo", request.getParameter("refundNo"));
+		paramMap .put("fromSystem", "OMSADMIN");
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("select_refundItem_list_byNo"), jsonStr);
+//			json = HttpUtilPcm.doPost("http://192.168.6.125:8087/oms-core-sdc/ofSelect/selectRefundItem2.htm", jsonStr);
+			logger.info("json:" + json);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+			List<Object> list = (List<Object>) jsonObject.get("data");
+			if (list != null && list.size() != 0) {
+				m.put("packimgUrl", SystemConfig.PACKIMG_URL);//www.wangfujingtest.com 域名地址
+				m.put("list", list);
+				m.put("success", "true");
+			} else {
+				m.put("success", "false");
+			}
+		} catch (Exception e) {
+			m.put("success", "false");
+			e.printStackTrace();
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
 	
 	/**
 	 * 查询包裹信息
