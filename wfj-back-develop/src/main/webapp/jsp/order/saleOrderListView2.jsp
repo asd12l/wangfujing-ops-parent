@@ -1037,7 +1037,7 @@
 							//操作
 							if(ele.isGift=="1"){
 								 option+="<td align='center'>"+
-								 '<label style="padding-left:9px;"><input id="checkboxId" type="checkbox" onclick="selectCheckbox(this);"><span class="text"></span></lable>'+
+								 '<label style="padding-left:9px;"><input id="checkboxId" type="checkbox" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
 								"</td></tr>"; 
 							 }else{
 								 option+="<td align='center'>"+
@@ -1795,13 +1795,25 @@
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}
+	var shoppeProName2;
+	var supplyProductNo2;
+	var saleSum5;
 	var saleNo11;
 	var orerNo11;
 	var saleItemNo11;
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
+		var is = $("input[type='checkbox']").is(':checked');
+		if(is != false){
+			$("#sp12").text(shoppeProName2);
+			$("#sp22").text(supplyProductNo2);
+			$("#sp32").text(saleSum5);
+		}else{
+			$("#sp12").text("");
+			$("#sp22").text("");
+			$("#sp32").text("");
+		}
 		$("#btDiv2").show();
 		$("#divTitle2").html("创建退货申请单");
-		
 		shoppeProName1= $("#shoppeProName_"+saleItemNo).text().trim();
 		supplyProductNo1= $("#supplyProductNo_"+saleItemNo).text().trim();
 		saleSum1= $("#refundNum_"+saleItemNo).text().trim();//可退数量
@@ -1813,6 +1825,28 @@
 		orderNo11 = orderNo;
 		saleItemNo11 = saleItemNo;
 	}
+	var saleNo12;
+	var orderNo12;
+	var saleItemNo12;
+	function refundButten1(saleNo,orderNo,saleItemNo,obj){
+		var is = $("input[type='checkbox']").is(':checked');
+		if(is != false){
+			shoppeProName2= $("#shoppeProName_"+saleItemNo).text().trim();
+			supplyProductNo2= $("#supplyProductNo_"+saleItemNo).text().trim();
+			saleSum5= $("#refundNum_"+saleItemNo).text().trim();//可退数量
+			saleNo12 = saleNo;
+			orderNo12 = orderNo;
+			saleItemNo12 = saleItemNo;
+		}else{
+			shoppeProName2;
+			supplyProductNo2;
+			saleSum5;
+			saleNo12;
+			orderNo12;
+			saleItemNo12 = null;
+		}
+		
+	}
 	//创建退货申请(商品退)
 	function Ok(){
 		var refundPcitureUrl = $("#input_brand2").val();
@@ -1822,12 +1856,18 @@
 		var orderNo = orderNo11;
 		var orderItemNo = saleItemNo11;//销售单明细号就是订单明细号
 		var userName = getCookieValue("username");
-		
+		var gfitOrderItmNo = saleItemNo12;
+		var gfitOrderNo = orderNo12;
+		var gfitSaleNo = saleNo12;
 		saleSum3 = $("#sp3").text().trim();
+		var giftSaleSum = $("#sp32").text().trim();
 		var packStatus = $("#packStatus").val();
 		var productsStatus = $("#productsStatus").val();
 		problemDesc =$("#sp4").val();
 		callCenterComments =$("#sp5").val();
+		var ine = parseInt(saleSum3);
+		var ine2 = parseInt(giftSaleSum);
+		var reNum = ine + ine2;
 		//去除换行符 
 //		callCenterComments = callCenterComments.replace(/[\r\n]/g, ""); 
 		$.ajax({
@@ -1838,10 +1878,15 @@
 			data : {
 				"packStatus" : packStatus,
 				"productsStatus" : productsStatus,
-				"refundNum15" : saleSum3,
+				"refundNum15" : reNum,
+				"refundNum16" : saleSum3,
 				"orderNo" : orderNo,
 				"orderItemNo" : orderItemNo,
+				"gfitOrderItmNo" : gfitOrderItmNo,
+				"gfitOrderNo" : gfitOrderNo,
 				"problemDesc": problemDesc,
+				"gfitSaleNo" : gfitSaleNo,
+				"giftSaleSum" : giftSaleSum,
 				"callCenterComments": callCenterComments,
 				"saleNo" : saleNo,
 				"latestUpdateMan":userName,
@@ -2285,7 +2330,7 @@
         </div><!-- /.modal-dialog -->
     </div> 
     <div class="modal modal-darkorange" id="btDiv2">
-        <div class="modal-dialog" style="width: 500px;height:180%;margin: 3% auto;">
+        <div class="modal-dialog" style="width: 500px;height:180%;margin: -1% auto;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closeBtDiv2();">×</button>
@@ -2294,25 +2339,47 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <div class="tab-content">
 					        <div class="tab-pane active" id="tab1">
-					            <div style="width:100%;height:480px; overflow:hidden;">
+					            <div style="width:100%;height:580px; overflow:hidden;">
 					                    <!-- <table class="table-striped table-hover table-bordered" id="OLV1_tab" style="width: 750%;background-color: #fff;margin-bottom: 0;">
 					                    </table> -->
-					                    <div>
-					                    	<label id="lable1">退货商品名称：</label>
-					                    	<span id="sp1"></span>
-					                    </div>
+					                    <fieldset>
+					                    	<legend>赠品</legend>
+					                    	<div>
+						                    	<label id="lable1">退货赠品名称：</label>
+						                    	<span id="sp12"></span>
+						                    </div>
+						                   
+						                    <div>
+						                    	<label id="lable2">退货赠品编码：</label>
+						                    	<span id="sp22"></span>
+						                    </div>
+						                  
+						                    <div>
+						                    	<label id="lable3">可退赠品数量：</label>
+						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-collapse glyphicon glyphicon-minus' style='cursor:pointer;' onclick="trClickBdd()"></span>
+						                    	&nbsp;<span style="font-size:16px;" id ="sp32"></span>&nbsp
+						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;' onclick="trClickAdd()"></span>
+						                    </div>
+					                    </fieldset>
+					                    <fieldset>
+					                    	<legend>普通商品</legend>
+					                    	<div>
+						                    	<label id="lable1">退货商品名称：</label>
+						                    	<span id="sp1"></span>
+					                    	</div>
 					                   
-					                    <div>
-					                    	<label id="lable2">退货商品编码：</label>
-					                    	<span id="sp2"></span>
-					                    </div>
-					                  
-					                    <div>
-					                    	<label id="lable3">可退数量：</label>
-					                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-collapse glyphicon glyphicon-minus' style='cursor:pointer;' onclick="trClickBdd()"></span>
-					                    	&nbsp;<span style="font-size:16px;" id ="sp3"></span>&nbsp
-					                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;' onclick="trClickAdd()"></span>
-					                    </div>
+						                    <div>
+						                    	<label id="lable2">退货商品编码：</label>
+						                    	<span id="sp2"></span>
+						                    </div>
+						                  
+						                    <div>
+						                    	<label id="lable3">可退商品数量：</label>
+						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-collapse glyphicon glyphicon-minus' style='cursor:pointer;' onclick="trClickBdd()"></span>
+						                    	&nbsp;<span style="font-size:16px;" id ="sp3"></span>&nbsp
+						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;' onclick="trClickAdd()"></span>
+						                    </div>
+					                    </fieldset>
 					                    <div>
 					                    	<label id="packStatusInput">包装情况：</label>
 					                    	<input id="packStatus"></input>
@@ -2355,9 +2422,8 @@
 					                    </div>
 					                    <div>
 					                    	<label id="lable5" class="col-lg-2 col-sm-3 col-xs-3 control-label">备注：</label>
-					                    	<textarea id="sp5" style="width: 500px;height: 8px;max-width: 300px;max-height: 100px;min-width: 200px;min-height: 100px;resize: none" id="comments" name="comments" placeholder="非必填"></textarea>
+					                    	<textarea id="sp5" style="width: 500px;height: 8px;max-width: 300px;max-height: 80px;min-width: 200px;min-height: 100px;resize: none" id="comments" name="comments" placeholder="非必填"></textarea>
 					                    </div>
-					                     &nbsp; &nbsp; &nbsp;
 					                     <div align="center">
 					                    	<a class="btn btn-default shiny" onclick="Ok();">提交</a>&nbsp;&nbsp; &nbsp; &nbsp;
 											<a class="btn btn-default shiny" onclick="No();">取消</a>
