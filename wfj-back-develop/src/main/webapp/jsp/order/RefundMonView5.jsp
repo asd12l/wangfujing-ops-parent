@@ -163,7 +163,7 @@ Author: WangSy
 		$.ajax({
 			type : "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
-			url:__ctxPath + "/oms/selectRefundItemList",
+			url:__ctxPath + "/omsOrder/selectRefundItemListByNo",
 			async:false,
 			dataType: "json",
 			data:{"refundNo":refundNo},
