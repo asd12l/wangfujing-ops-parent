@@ -87,8 +87,33 @@ Author: WangSy
 	var refundApplyNo = refundApplyNo_;
 	var orderNo = orderNo_;
 	var returnShippingFee; //订单支付运费金额(从订单上获取16-7-1改)
+	
+	
 //	var datas = data_;
 //	var data2 = orderData;
+
+	//查询退货申请单
+	$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectRefundApplyList",
+			async:false,
+			dataType: "json",
+			data:{"refundApplyNo":refundApplyNo,"page":1},
+			success : function(response) {
+				if (response.success == "true") {
+					var quanAmount_ =  response.list[0].quanAmount;
+					var returnShippingFee_ =  response.list[0].returnShippingFee;
+					var needRefundAmount_ =  response.list[0].needRefundAmount;
+
+					$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
+					$("#amount2").text(parseFloat(needRefundAmount_).toFixed(2));
+					$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
+					
+				}
+				
+			}
+		});
 //查询订单是否是isCod(暂没用，只用了needsendcost)
 	$.ajax({
 			type : "post",
@@ -203,7 +228,7 @@ Author: WangSy
 					t2 = parseFloat($(r1).text());
 					totalPrice += t1*t2;
 				}
-				$("#amount1").text(parseFloat(totalPrice));
+				/* $("#amount1").text(parseFloat(totalPrice)); 16-7-9一*/
 				/* supplyProductNo = response.list[0].supplyProductNo;
 				shoppeProName = response.list[0].shoppeProName;
 				salePrice = response.list[0].salePrice;
@@ -256,12 +281,12 @@ Author: WangSy
 				for(var i=0; i<len; i++){
 					discount += datas.billDetail.sellDetails[i].totalDiscount;
 				}
-				if(isNaN(discount)){
+				/* if(isNaN(discount)){
 					$("#amount4").text("");
 				}else{
 					$("#amount4").text(parseFloat(discount).toFixed(2));
 				}
-				$("#amount2").text(datas.billDetail.factPay);
+				$("#amount2").text(datas.billDetail.factPay); 16-7-9二*/
 				rowNo_ = datas.billDetail.sellPayments.length;
 				$("#olv_tab2 tbody").setTemplateElement("fanquan-list").processTemplate(datas);
 				$("#olv_tab4 tbody").setTemplateElement("refund-list").processTemplate(datas);
@@ -1126,13 +1151,13 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>实退金额：</span>
+														<span>实退款金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-4">
-														<span>&nbsp;&nbsp;其中,应退金额：</span>
+														<span>&nbsp;&nbsp;其中,应退商品金额：</span>
 														<label id="amount2" class="control-label"></label>
 														</div>
 														<div class="col-md-4">
@@ -1155,20 +1180,20 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退回A券金额合计：</span>
+														<span>&nbsp;&nbsp;退回顾客A券金额合计：</span>
 														<label id="amount3" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;优惠金额合计：</span>
-														<label id="amount4" class="control-label"></label>
+														<span>&nbsp;&nbsp;扣款金额合计：</span>
+														<label id="amount5" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣款金额：</span>
-														<label id="amount5" class="control-label"></label>
+														<span>&nbsp;&nbsp;退款金额合计：</span>
+														<label id="amount4" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 												</div>&nbsp;

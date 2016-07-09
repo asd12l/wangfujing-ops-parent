@@ -129,11 +129,26 @@ Author: WangSy
 	var refundNo = refundNo_;
 	var returnShippingFee = returnShippingFee_;
 	var returnType = returnType_; //退货方式
-	
+	var refundApplyNo = refundApplyNo_;
+	var needRefundAmount =needRefundAmount_;
+	var quanAmount = quanAmount_;
 	var refundStatus = refundStatus_;
 //	var address = address_;   //仓库地址
 	$("#refundType").val(returnType);
 	var refundPath = $("#refundType");
+	console.log(needRefundAmount);
+	console.log(quanAmount);
+	console.log(returnShippingFee);
+	if(""==refundApplyNo){
+		//EDI自动退的没有退货申请单号
+		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount2").text(parseFloat($("#amount1").text()-returnShippingFee).toFixed(2));
+		$("#amount4").text(parseFloat(needRefundAmount).toFixed(2));
+	}else{
+		$("#amount1").text(parseFloat(needRefundAmount-quanAmount).toFixed(2));
+		$("#amount2").text(parseFloat(needRefundAmount-returnShippingFee).toFixed(2));
+		$("#amount4").text(parseFloat(needRefundAmount-quanAmount).toFixed(2));
+	}
 	$.ajax({
 		type: "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -162,7 +177,7 @@ Author: WangSy
 //	$("#address").text(address);
 	//var data2 = orderData;
 	var datas = data_;
-	$("#amount2").text(parseFloat(data_.refundAmount).toFixed(2));
+	/* $("#amount2").text(parseFloat(data_.refundAmount).toFixed(2)); 16-7-9 一*/
 	/* var len = data_.billDetail.sellDetails.length;
 	var discount = 0;
 	for(var i=0; i<len; i++){
@@ -276,7 +291,7 @@ Author: WangSy
 	
 	// 初始化
 	$(function() {
-		var refundApplyNo = refundApplyNo_;
+	//	var refundApplyNo = refundApplyNo_;
 		$.ajax({
 			type : "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -299,7 +314,7 @@ Author: WangSy
 					t2 = parseFloat($(r1).text());
 					totalPrice += t1*t2;
 				}
-				$("#amount1").text(parseFloat(totalPrice).toFixed(2));
+				/* $("#amount1").text(parseFloat(totalPrice).toFixed(2)); 16-7-9 三*/
 				
 					/* for(var i=0; i<response.list.length; i++){
 					} */
@@ -347,11 +362,11 @@ Author: WangSy
 //				$("#amount5").text(parseFloat(t2)); */
 			}
 		});
-		if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
+		/* if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
 			$("#amount4").text("");
 		}else{
 			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
-		}
+		}16-7-9 四 */
 //		$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
 		//取消
 		$("#closed").click(function() {
@@ -1010,13 +1025,13 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span> &nbsp;&nbsp;实退金额：</span>
+														<span> &nbsp;&nbsp;应退款金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-4">
-														<span>&nbsp;&nbsp;其中,应退金额：</span>
+														<span>&nbsp;&nbsp;其中,应退商品金额：</span>
 														<label id="amount2" class="control-label"></label>
 														</div>
 														<div class="col-md-4">
@@ -1033,22 +1048,22 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退回A券金额合计：</span>
+														<span>&nbsp;&nbsp;退回顾客A券金额合计：</span>
 														<label id="amount3" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;优惠金额合计：</span>
-														<label id="amount4" class="control-label"></label>
+														<span>&nbsp;&nbsp;扣款金额合计：</span>
+														<label id="amount5" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣款金额：</span>
-														<label id="amount5" class="control-label"></label>
+														<span>&nbsp;&nbsp;退款金额合计：</span>
+														<label id="amount4" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>

@@ -140,8 +140,10 @@
 			}
 		});
 	}
-	function checkButten(refundApplyNo,orderNo,refundNum,problemDesc,callCenterComments,refundPath,returnShippingFee,obj){
+	function checkButten(quanAmount,needRefundAmount,refundApplyNo,orderNo,refundNum,problemDesc,callCenterComments,refundPath,returnShippingFee,obj){
 		returnShippingFee_ = returnShippingFee;//订单支付运费金额
+		quanAmount_ = quanAmount;
+		needRefundAmount_ = needRefundAmount;
 		refundPath_ = refundPath; //退货方式
 		refundNum_ = refundNum;
 		refundApplyNo_ = refundApplyNo;
@@ -209,9 +211,11 @@
 		}); */
 		
 	}
-	function checkButten2(refundApplyNo,orderNo,refundNum,problemDesc,callCenterComments,returnShippingFee,refundPath,obj){
+	function checkButten2(quanAmount,needRefundAmount,refundApplyNo,orderNo,refundNum,problemDesc,callCenterComments,returnShippingFee,refundPath,obj){
 		refundPath_ = refundPath; //退货方式
 		returnShippingFee_=returnShippingFee; //运费
+		quanAmount_ = quanAmount;
+		needRefundAmount_ = needRefundAmount;
 		refundNum_ = refundNum;
 		refundApplyNo_ = refundApplyNo;
 		orderNo_ = orderNo;
@@ -2619,10 +2623,10 @@
 													</td>
 													<td align="center" id="opt">
 														{#if $T.Result.refundStatus == '待审核'}
-															<input class="btn btn-success" style="width: 35%;height: 30px;" id="checkButten" onclick="checkButten('{$T.Result.refundApplyNo}','{$T.Result.orderNo}','{$T.Result.refundNum}','{$T.Result.problemDesc}','{$T.Result.callCenterComments}','{$T.Result.refundPath}','{$T.Result.returnShippingFee}',this)" type="button" value="审核" />
+															<input class="btn btn-success" style="width: 35%;height: 30px;" id="checkButten" onclick="checkButten('{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.orderNo}','{$T.Result.refundNum}','{$T.Result.problemDesc}','{$T.Result.callCenterComments}','{$T.Result.refundPath}','{$T.Result.returnShippingFee}',this)" type="button" value="审核" />
 															&nbsp;<input class="btn btn-primary" style="width: 35%;height: 30px;" id="cancelButten" onclick="cancelButten('{$T.Result.refundApplyNo}',this)" type="button" value="作废" />
 						                   				{#else}
-						                   					<input class="btn btn-success" style="width: 65%;height: 30px;" id="checkButten2" onclick="checkButten2('{$T.Result.refundApplyNo}','{$T.Result.orderNo}','{$T.Result.refundNum}','{$T.Result.problemDesc}','{$T.Result.callCenterComments}','{$T.Result.returnShippingFee}','{$T.Result.refundPath}',this)" type="button" value="查看" />
+						                   					<input class="btn btn-success" style="width: 65%;height: 30px;" id="checkButten2" onclick="checkButten2('{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.orderNo}','{$T.Result.refundNum}','{$T.Result.problemDesc}','{$T.Result.callCenterComments}','{$T.Result.returnShippingFee}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 						                   				{#/if}
 													</td>
 									       		</tr>
