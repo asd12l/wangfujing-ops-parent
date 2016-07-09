@@ -63,6 +63,30 @@
 	var data_;
 //	$("#amount1").text(salePrice*refundNum);
 	var returnShippingFee; //订单支付运费金额(从订单上获取16-7-1改)
+	//查询退货申请单
+	$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectRefundApplyList",
+			async:false,
+			dataType: "json",
+			data:{"refundApplyNo":refundApplyNo,"page":1},
+			success : function(response) {
+				if (response.success == "true") {
+					var quanAmount_ =  response.list[0].quanAmount;
+					var returnShippingFee_ =  response.list[0].returnShippingFee;
+					var needRefundAmount_ =  response.list[0].needRefundAmount;
+
+					$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
+					$("#amount2").text(parseFloat(needRefundAmount_).toFixed(2));
+					$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
+					
+				}
+				
+			}
+		});
+	
+	
 	var isCod;
 	//查询订单是否是isCod
 	$.ajax({
@@ -121,7 +145,7 @@
 				t2 = parseFloat($(r1).text());
 				totalPrice += t1*t2;
 			}
-			$("#amount1").text(parseFloat(totalPrice));
+			/* $("#amount1").text(parseFloat(totalPrice)); 16-7-9一*/
 			
 		}
 	});
@@ -238,7 +262,7 @@
 				if(response.success=='true'){
 					data_ = response.data;
 					
-					$("#amount2").text(data_.billDetail.factPay);
+					/* $("#amount2").text(data_.billDetail.factPay);16-7-9二 */
 					$("#supplyProductNo").text(supplyProductNo);
 					$("#shoppeProName").text(shoppeProName);
 					$("#salePrice").text(salePrice);
@@ -251,11 +275,11 @@
 					for(var i=0; i<len; i++){
 						discount += data_.billDetail.sellDetails[i].totalDiscount;
 					}
-					if(isNaN(discount)){
+					/* if(isNaN(discount)){
 						$("#amount4").text("");
 					}else{
 						$("#amount4").text(parseFloat(discount).toFixed(2));
-					}
+					} 16-7-9三*/
 					//应退金额计算
 					var a1 = salePrice*refundNum;
 //					$("#amount1").text(a1);
@@ -1039,13 +1063,13 @@
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>实退金额：</span>
+														<span>应退款金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-4">
-														<span>&nbsp;&nbsp;其中,应退金额：</span>
+														<span>&nbsp;&nbsp;其中,应退商品金额：</span>
 														<label id="amount2" class="control-label"></label>
 														</div>
 														<!-- <div class="col-md-4">
@@ -1077,22 +1101,22 @@
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退回A券金额合计：</span>
+														<span>&nbsp;&nbsp;退回顾客A券金额合计：</span>
 														<label id="amount3" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;优惠金额合计：</span>
-														<label id="amount4" class="control-label"></label>
+														<span>&nbsp;&nbsp;扣款金额合计：</span>
+														<label id="amount5" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣款金额：</span>
-														<label id="amount5" class="control-label"></label>
+														<span>&nbsp;&nbsp;退金额合计：</span>
+														<label id="amount4" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>

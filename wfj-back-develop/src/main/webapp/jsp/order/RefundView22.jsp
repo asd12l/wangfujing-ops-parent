@@ -103,6 +103,18 @@ Author: WangSy
 	var refundReasionDesc = problemDesc_;
 	var callCenterComments = callCenterComments_;
 	var refundNum = refundNum_;
+	var needRefundAmount =needRefundAmount_;
+	var quanAmount = quanAmount_;
+	if(""==refundApplyNo){
+		//EDI自动退的没有退货申请单号
+		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount2").text(parseFloat($("#amount1").text()-returnShippingFee).toFixed(2));
+		$("#amount4").text(parseFloat(needRefundAmount).toFixed(2));
+	}else{
+		$("#amount1").text(parseFloat(needRefundAmount-quanAmount).toFixed(2));
+		$("#amount2").text(parseFloat(needRefundAmount-returnShippingFee).toFixed(2));
+		$("#amount4").text(parseFloat(needRefundAmount-quanAmount).toFixed(2));
+	}
 //	var data2 = orderData;
 	var data_;
 	/* //退货方式
@@ -149,7 +161,7 @@ Author: WangSy
 				data_ = response.data;
 				
 //				$("#amount2").text(data_.refundAmount);
-				$("#amount2").text(parseFloat(data_.refundAmount).toFixed(2));
+				/* $("#amount2").text(parseFloat(data_.refundAmount).toFixed(2)); 16-7-9 二*/
 				var len = data_.deduction.length;
 				var discount = 0;
 				for(var i=0; i<len; i++){
@@ -252,7 +264,7 @@ Author: WangSy
 						t2 = parseFloat($(r1).text());
 						totalPrice += t1*t2;
 					}
-					$("#amount1").text(parseFloat(totalPrice).toFixed(2));
+					/* $("#amount1").text(parseFloat(totalPrice).toFixed(2)); 16-7-9 一*/
 //					$("#amount1").text(parseFloat(totalPrice));
 				}
 				/* supplyProductNo = response.list[0].supplyProductNo;
@@ -295,13 +307,13 @@ Author: WangSy
 			}
 //			$("#amount4").text(parseFloat(t2));
 //			$("#amount4").text($("#amount1").text()-$("#amount2").text());
-			if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
+			/* if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
 				$("#amount4").text("");
 			}else{
 				$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
-			}
+			} 16-7-9 三*/
 //			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
-			$("#amount5").text(parseFloat(t2).toFixed(2));
+			/* $("#amount5").text(parseFloat(t2).toFixed(2)); 16-7-9 四*/
 			
 			/* var a2=0;
 			var rowNo=rowNo_;
@@ -1207,13 +1219,13 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>实退金额：</span>
+														<span>应退款金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-4">
-														<span>&nbsp;&nbsp;其中,应退金额：</span>
+														<span>&nbsp;&nbsp;其中,应退商品金额：</span>
 														<label id="amount2" class="control-label"></label>
 														</div>
 														<div class="col-md-4">
@@ -1240,20 +1252,20 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退回A券金额合计：</span>
+														<span>&nbsp;&nbsp;退回顾客A券金额合计：</span>
 														<label id="amount3" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;优惠金额合计：</span>
-														<label id="amount4" class="control-label"></label>
+														<span>&nbsp;&nbsp;扣款金额合计：</span>
+														<label id="amount5" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣款金额：</span>
-														<label id="amount5" class="control-label"></label>
+														<span>&nbsp;&nbsp;退款金额合计：</span>
+														<label id="amount4" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 												</div>&nbsp;

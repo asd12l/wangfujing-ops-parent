@@ -93,6 +93,18 @@ Author: WangSy
 	var data_;
 	var isCod;
 	var returnShippingFee; //订单支付运费金额(从订单上获取16-7-1改)
+	var needRefundAmount =needRefundAmount_;
+	var quanAmount = quanAmount_;
+	if(""==refundApplyNo){
+		//EDI自动退的没有退货申请单号
+		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount2").text(parseFloat($("#amount1").text()-returnShippingFee).toFixed(2));
+		$("#amount4").text(parseFloat(needRefundAmount).toFixed(2));
+	}else{
+		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount2").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
+	}
 	//退货方式
 	$("#refundType").val(refundPath_);
 	
@@ -1179,13 +1191,13 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>实退金额：</span>
+														<span>应退款金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-4">
-														<span>&nbsp;&nbsp;其中,应退金额：</span>
+														<span>&nbsp;&nbsp;其中,应退商品金额：</span>
 														<label id="amount2" class="control-label"></label>
 														</div>
 														<!-- <div class="col-md-4">
@@ -1217,20 +1229,20 @@ function shbtgForm(){
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退回A券金额合计：</span>
+														<span>&nbsp;&nbsp;退回顾客A券金额合计：</span>
 														<label id="amount3" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;优惠金额合计：</span>
-														<label id="amount4" class="control-label"></label>
+														<span>&nbsp;&nbsp;扣款金额合计：</span>
+														<label id="amount5" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣款金额：</span>
-														<label id="amount5" class="control-label"></label>
+														<span>&nbsp;&nbsp;退款金额合计：</span>
+														<label id="amount4" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 												</div>&nbsp;

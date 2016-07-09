@@ -165,10 +165,12 @@
 			}
 		});
 	}
-	function fundButten(refundApplyNo,courierNumber,expressCompanyName,refundStatus,orderNo,refundNo,returnShippingFee,address,returnType,obj){
+	function fundButten(quanAmount,needRefundAmount,refundApplyNo,courierNumber,expressCompanyName,refundStatus,orderNo,refundNo,returnShippingFee,address,returnType,obj){
 		refundApplyNo_=refundApplyNo;
 		refundNo_=refundNo;
 		returnShippingFee_=returnShippingFee;
+		needRefundAmount_=needRefundAmount;
+		quanAmount_ = quanAmount;
 		returnType_=returnType;
 		refundStatus_ = refundStatus;
 		//物流信息
@@ -4545,10 +4547,10 @@
 													</td>
 													<td align="center" id="opt">
 														{#if $T.Result.refundStatus == '19'}
-															<input class="btn btn-success" style="width: 35%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
+															<input class="btn btn-success" style="width: 35%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 															&nbsp;<input class="btn btn-primary" style="width: 35%;height: 30px;" id="cancelButten" onclick="cancelButten('{$T.Result.refundNo}',this)" type="button" value="作废" />
 														{#else}
-															<input class="btn btn-success" style="width: 65%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
+															<input class="btn btn-success" style="width: 65%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 						                   				{#/if}
 													</td>
 									       		</tr>
