@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1251,8 +1252,12 @@ public class TestOnlineOmsOrderController {
 		JSONObject product ;
 		String refundPcitureUrls[] = request.getParameterValues("refundPcitureUrl");
 		String orderItemNoqs[] = request.getParameterValues("orderItemNo");
-		String refundNum15s[] = request.getParameterValues("refundNum15");
+		String refundNum15s[] = request.getParameterValues("refundNum16");
 		String problemDescs[] = request.getParameterValues("problemDesc");
+		String gfitOrderItmNo = request.getParameter("gfitOrderItmNo");
+		String giftOrderNo[] = request.getParameterValues("gfitOrderNo");
+		String gfitSaleNo[] = request.getParameterValues("gfitSaleNo");
+		String giftSaleSum[] = request.getParameterValues("giftSaleSum");
 //		
 		String p=null;
 		int j = 0;
@@ -1266,6 +1271,17 @@ public class TestOnlineOmsOrderController {
 			products.add(product);
 			j++;
 		}
+		if(null != gfitOrderItmNo && !"".equals(gfitOrderItmNo)){
+			product = new JSONObject();
+			product.put("orderItemNo", gfitOrderItmNo);
+			product.put("refundNum", giftSaleSum[0]);
+			product.put("refundPcitureUrl", refundPcitureUrls[0]);
+			product.put("refundReasionNo", problemDescs[0]);//退货原因
+			p = product.toJSONString();
+			products.add(product);
+			
+		}
+		
 		paramMap.put("products", products);
 		//扣款介质
 		JSONArray deduction = new JSONArray();

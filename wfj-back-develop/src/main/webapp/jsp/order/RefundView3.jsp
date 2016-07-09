@@ -129,11 +129,26 @@ Author: WangSy
 	var refundNo = refundNo_;
 	var returnShippingFee = returnShippingFee_;
 	var returnType = returnType_; //退货方式
-	
+	var refundApplyNo = refundApplyNo_;
+	var needRefundAmount =needRefundAmount_;
+	var quanAmount = quanAmount_;
 	var refundStatus = refundStatus_;
 //	var address = address_;   //仓库地址
 	$("#refundType").val(returnType);
 	var refundPath = $("#refundType");
+	console.log(needRefundAmount);
+	console.log(quanAmount);
+	console.log(returnShippingFee);
+	if(""==refundApplyNo){
+		//EDI自动退的没有退货申请单号
+		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount2").text(parseFloat($("#amount1").text()-returnShippingFee).toFixed(2));
+		$("#amount4").text(parseFloat(needRefundAmount).toFixed(2));
+	}else{
+		$("#amount1").text(parseFloat(needRefundAmount-quanAmount).toFixed(2));
+		$("#amount2").text(parseFloat(needRefundAmount-returnShippingFee).toFixed(2));
+		$("#amount4").text(parseFloat(needRefundAmount-quanAmount).toFixed(2));
+	}
 	$.ajax({
 		type: "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -162,7 +177,7 @@ Author: WangSy
 //	$("#address").text(address);
 	//var data2 = orderData;
 	var datas = data_;
-	$("#amount2").text(parseFloat(data_.refundAmount).toFixed(2));
+	/* $("#amount2").text(parseFloat(data_.refundAmount).toFixed(2)); 16-7-9 一*/
 	/* var len = data_.billDetail.sellDetails.length;
 	var discount = 0;
 	for(var i=0; i<len; i++){
@@ -210,13 +225,19 @@ Author: WangSy
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/oms/selectRefundItemList",
+		url:__ctxPath + "/omsOrder/selectRefundItemListByNo",
 		async:false,
 		dataType: "json",
 		data:{"refundNo":refundNo},
 		success : function(response) {
 			if (response.success == "true") {
-				supplyProductNo = response.list[0].supplyProductNo;
+				if (response.success == "true") {
+					$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
+					$("#olv_tab121 tbody").setTemplateElement("gift-list").processTemplate(response);
+				}
+				$("#packimgUrl").val(response.packimgUrl);//域名赋值
+				//16-7-8注释
+				/* supplyProductNo = response.list[0].supplyProductNo;
 				if(response.list[0].shoppeProName != '[object Object]'){
 					shoppeProName = response.list[0].shoppeProName;
 				}else{
@@ -237,7 +258,7 @@ Author: WangSy
 				$("#salePrice").text(salePrice);
 				$("#payPrice").text(salePrice*refundNum);
 				$("#refundNum").text(refundNum);
-				$("#refundPcitureUrl").text(refundPcitureUrl);
+				$("#refundPcitureUrl").text(refundPcitureUrl); */
 				
 //				$("#allowNum").text(data2);
 //				$("#num").text(data2);
@@ -270,7 +291,7 @@ Author: WangSy
 	
 	// 初始化
 	$(function() {
-		var refundApplyNo = refundApplyNo_;
+	//	var refundApplyNo = refundApplyNo_;
 		$.ajax({
 			type : "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -279,10 +300,7 @@ Author: WangSy
 			dataType: "json",
 			data:{"refundApplyNo":refundApplyNo},
 			success : function(response) {
-				if (response.success == "true") {
-					$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
-				}
-				$("#packimgUrl").val(response.packimgUrl);//域名赋值
+				
 				var spc=$(".salePriceClass");
 				var rc=$(".refundNumClass");
 				var totalPrice = 0;
@@ -296,7 +314,7 @@ Author: WangSy
 					t2 = parseFloat($(r1).text());
 					totalPrice += t1*t2;
 				}
-				$("#amount1").text(parseFloat(totalPrice).toFixed(2));
+				/* $("#amount1").text(parseFloat(totalPrice).toFixed(2)); 16-7-9 三*/
 				
 					/* for(var i=0; i<response.list.length; i++){
 					} */
@@ -344,11 +362,11 @@ Author: WangSy
 //				$("#amount5").text(parseFloat(t2)); */
 			}
 		});
-		if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
+		/* if(isNaN(($("#amount1").text()-$("#amount2").text()).toFixed(2))){
 			$("#amount4").text("");
 		}else{
 			$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
-		}
+		}16-7-9 四 */
 //		$("#amount4").text(parseFloat($("#amount1").text()-$("#amount2").text()).toFixed(2));//优惠金额目前是amount1-amount2
 		//取消
 		$("#closed").click(function() {
@@ -432,6 +450,7 @@ Author: WangSy
 													 <table class="table-striped table-hover table-bordered" id="olv_tab12" style="width: 90%;background-color: #fff;margin-bottom: 0;">
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
+				                                                <th width="2%" style="text-align: center;">订单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
 				                                                <th width="1%" style="text-align: center;">商品价格</th>
@@ -465,7 +484,12 @@ Author: WangSy
 														<!--
 														{#template MAIN}
 															{#foreach $T.list as Result}
+															{#if $T.Result.isGift == '0'}
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
+																	<td align="center" id="orderNo_{$T.Result.sid}">
+																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
 																		<a onclick="trClick('{$T.Result.skuNo}',this);" style="cursor:pointer;">
 																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
@@ -516,6 +540,7 @@ Author: WangSy
 										                   				{#/if}
 																	</td>
 													       		</tr>
+															{#/if}
 															{#/for}
 													    {#/template MAIN}	-->
 													</textarea>
@@ -637,7 +662,7 @@ Author: WangSy
 													</h5>
 													</div>
 													&nbsp;
-													 <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 90%;background-color: #fff;margin-bottom: 0;">
+													 <table class="table-striped table-hover table-bordered" id="olv_tab121" style="width: 90%;background-color: #fff;margin-bottom: 0;">
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
@@ -651,7 +676,7 @@ Author: WangSy
 				                                            </tr>
 				                                        </thead>
 				                                       <tbody>
-				                                        	<tr>
+				                                        	<!-- <tr>
 				                                        		<td align="center" id="orderNo"></td>
 				                                        		<td align="center" id="supplyProductNo1"></td>
 				                                        		<td align="center" id="shoppeProName1"></td>
@@ -660,10 +685,62 @@ Author: WangSy
 				                                        		<td align="center" id="activityName"></td>
 				                                        		<td align="center" id="num1"></td>
 				                                        		<td align="center" id="refundNum1"></td>
-				                                        	</tr>
+				                                        	</tr> -->
 				                                        </tbody>
 				                                    </table>&nbsp;
 												</div>&nbsp;
+												<p style="display:none">
+													<textarea id="gift-list" rows="0" cols="0">
+														<!--
+														{#template MAIN}
+															{#foreach $T.list as Result}
+															{#if $T.Result.isGift == '1'}
+																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
+																	<td align="center" id="orderNo_{$T.Result.sid}">
+																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
+																		<a onclick="trClick2('{$T.Result.skuNo}',this);" style="cursor:pointer;">
+																			{#if $T.Result.supplyProductNo != '[object Object]'}{$T.Result.supplyProductNo}
+																			{#/if}
+																		</a>
+																	</td>
+																	<td align="center" id="shoppeProName_{$T.Result.sid}">
+																		{#if $T.Result.shoppeProName != '[object Object]'}{$T.Result.shoppeProName}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="salePrice_{$T.Result.sid}">
+																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
+																		{#elseif $T.Result.salePrice == ''}0
+										                   				{#/if}
+																	</td>
+																	
+																	<td align="center" id="hdbm_{$T.Result.sid}">
+																		{#if $T.Result.hdbm != '[object Object]'}{$T.Result.hdbm}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="hdmc_{$T.Result.sid}">
+																		{#if $T.Result.hdmc != '[object Object]'}{$T.Result.hdmc}
+										                   				{#/if}
+																	</td>
+																	
+																	<td align="center" id="refundNumAll_{$T.Result.sid}">
+																		{#if $T.Result.refundNumAll != '[object Object]'}{$T.Result.refundNumAll}
+																		{#else}0
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="refundNum_{$T.Result.sid}">
+																		{#if $T.Result.refundNum != '[object Object]'}{$T.Result.refundNum}
+										                   				{#else}0
+										                   				{#/if}
+																	</td>
+													       		</tr>
+															{#/if}
+															{#/for}
+													    {#/template MAIN}	-->
+													</textarea>
+												</p>
 												
 												<div class="col-md-12">
 													<div class="widget-body" style="padding: 2px;">
@@ -948,13 +1025,13 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span> &nbsp;&nbsp;实退金额：</span>
+														<span> &nbsp;&nbsp;应退款金额：</span>
 														<label id="amount1" class="control-label"></label>
 														</div>&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-4">
-														<span>&nbsp;&nbsp;其中,应退金额：</span>
+														<span>&nbsp;&nbsp;其中,应退商品金额：</span>
 														<label id="amount2" class="control-label"></label>
 														</div>
 														<div class="col-md-4">
@@ -971,22 +1048,22 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退回A券金额合计：</span>
+														<span>&nbsp;&nbsp;退回顾客A券金额合计：</span>
 														<label id="amount3" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;优惠金额合计：</span>
-														<label id="amount4" class="control-label"></label>
+														<span>&nbsp;&nbsp;扣款金额合计：</span>
+														<label id="amount5" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;扣款金额：</span>
-														<label id="amount5" class="control-label"></label>
+														<span>&nbsp;&nbsp;退款金额合计：</span>
+														<label id="amount4" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>

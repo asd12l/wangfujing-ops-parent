@@ -1687,7 +1687,7 @@
 							option2+="<td align='center'>"+ele.signTimeStr+"</td>";
 						}
 						//签收人
-						if(ele.signName=="[object Object]"||ele.signName==undefined){
+						if(ele.signName=="[object Object]"||ele.signName==undefined||'\"null\"'==ele.signName){//有个名为null的人故意捣乱
 							option2+="<td align='center'></td>";
 						}else{
 							option2+="<td align='center'>"+ele.signName+"</td>";
