@@ -1038,7 +1038,7 @@
 							//操作
 							if(ele.isGift=="1"){
 								 option+="<td align='center'>"+
-								 '<label style="padding-left:9px;"><input id="checkboxId" type="checkbox" checked ="checked" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
+								 '<label style="padding-left:9px;"><input id="checkboxId" type="checkbox" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
 								"</td></tr>"; 
 							 }else{
 								 option+="<td align='center'>"+
@@ -1798,7 +1798,7 @@
 	}
 	var shoppeProName2;
 	var supplyProductNo2;
-	var saleSum5;
+	var saleSum5 = "0";
 	var saleNo11;
 	var orerNo11;
 	var saleItemNo11;
@@ -1809,7 +1809,6 @@
 			$("#sp12").text(shoppeProName2);
 			$("#sp22").text(supplyProductNo2);
 			$("#sp32").text(saleSum5);
-			
 			$("#divGift").show();
 		}else{
 			$("#sp12").text("");
@@ -1835,6 +1834,7 @@
 	var saleItemNo12;
 	function refundButten1(saleNo,orderNo,saleItemNo,obj){
 		var is = $("input[type='checkbox']").is(':checked');
+		alert(is);
 		if(is != false){
 			shoppeProName2= $("#shoppeProName_"+saleItemNo).text().trim();
 			supplyProductNo2= $("#supplyProductNo_"+saleItemNo).text().trim();
@@ -1846,7 +1846,7 @@
 		}else{
 			shoppeProName2;
 			supplyProductNo2;
-			saleSum5;
+			saleSum5 = "0";
 			saleNo12;
 			orderNo12;
 			saleItemNo12 = null;
