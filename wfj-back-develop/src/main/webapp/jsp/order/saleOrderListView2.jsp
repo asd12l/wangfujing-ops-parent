@@ -1834,7 +1834,6 @@
 	var saleItemNo12;
 	function refundButten1(saleNo,orderNo,saleItemNo,obj){
 		var is = $("input[type='checkbox']").is(':checked');
-		alert(is);
 		if(is != false){
 			shoppeProName2= $("#shoppeProName_"+saleItemNo).text().trim();
 			supplyProductNo2= $("#supplyProductNo_"+saleItemNo).text().trim();
