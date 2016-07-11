@@ -796,7 +796,7 @@
 										</li>
 										<li><span style="text-align: center;">库位类型：</span> <select
 											id="changeTypeSid_select" onchange="stockHisQuery();"
-											style="text-align: center; padding: 0 0; width: 200px">
+											style="text-align: center; padding: 0 0; width: 200px" disabled="disabled">
 												<option value="1001" selected="selected">可售库</option>
 												<option value="1002">残次品库</option>
 												<option value="1003">退货库</option>
