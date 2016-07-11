@@ -20,6 +20,7 @@
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
 	var saleSum2;
+	var saleSum23;//赠品退货数量
 	var salesPrice1;
 	var shoppeProName1;
 	var supplyProductNo1;
@@ -1797,20 +1798,23 @@
 	}
 	var shoppeProName2;
 	var supplyProductNo2;
-	var saleSum5;
+	var saleSum5 = "0";
 	var saleNo11;
 	var orerNo11;
 	var saleItemNo11;
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
+		/* refundButten1(saleNo,orderNo,saleItemNo,obj); */
 		var is = $("input[type='checkbox']").is(':checked');
 		if(is != false){
 			$("#sp12").text(shoppeProName2);
 			$("#sp22").text(supplyProductNo2);
 			$("#sp32").text(saleSum5);
+			$("#divGift").show();
 		}else{
 			$("#sp12").text("");
 			$("#sp22").text("");
 			$("#sp32").text("");
+			$("#divGift").hide();
 		}
 		$("#btDiv2").show();
 		$("#divTitle2").html("创建退货申请单");
@@ -1837,10 +1841,11 @@
 			saleNo12 = saleNo;
 			orderNo12 = orderNo;
 			saleItemNo12 = saleItemNo;
+			
 		}else{
 			shoppeProName2;
 			supplyProductNo2;
-			saleSum5;
+			saleSum5 = "0";
 			saleNo12;
 			orderNo12;
 			saleItemNo12 = null;
@@ -1849,6 +1854,7 @@
 	}
 	//创建退货申请(商品退)
 	function Ok(){
+		var is = $("input[type='checkbox']").is(':checked');
 		var refundPcitureUrl = $("#input_brand2").val();
 		console.log(refundPcitureUrl);
 		$("#btDiv2").hide();
@@ -1865,9 +1871,16 @@
 		var productsStatus = $("#productsStatus").val();
 		problemDesc =$("#sp4").val();
 		callCenterComments =$("#sp5").val();
+
 		var ine = parseInt(saleSum3);
 		var ine2 = parseInt(giftSaleSum);
-		var reNum = ine + ine2;
+		var reNum =0;
+		if(is==false){
+			gfitOrderItmNo="";
+			 reNum = ine;
+		}else{
+			 reNum = ine + ine2;
+		}
 		//去除换行符 
 //		callCenterComments = callCenterComments.replace(/[\r\n]/g, ""); 
 		$.ajax({
@@ -1941,6 +1954,7 @@
 			}
 		}); */
 	}
+	//普通退货数量加减
 	/* 加减号 */
 	function trClickAdd(){
 		saleSum2 = $("#sp3").text();
@@ -1956,6 +1970,24 @@
 			$("#sp3").text(saleSum2);
 		}else{
 			$("#sp3").text("0");
+		}
+	}
+	//赠品退货数量加减
+	/* 加减号 */
+	function trClickAddGift(){
+		saleSum23 = $("#sp32").text();
+		if(saleSum1 > saleSum23){
+			saleSum23++;
+	//		saleSum2=parseInt(saleSum2)+1;
+		}
+		$("#sp32").text(saleSum23);
+	}
+	function trClickBddGift(){
+		var saleSum23 = $("#sp32").text()-1;
+		if(saleSum23 > 0){
+			$("#sp32").text(saleSum23);
+		}else{
+			$("#sp32").text("0");
 		}
 	}
 	//折叠页面
@@ -2342,6 +2374,7 @@
 					            <div style="width:100%;height:580px; overflow:hidden;">
 					                    <!-- <table class="table-striped table-hover table-bordered" id="OLV1_tab" style="width: 750%;background-color: #fff;margin-bottom: 0;">
 					                    </table> -->
+					                    <div id=divGift> 
 					                    <fieldset>
 					                    	<legend>赠品</legend>
 					                    	<div>
@@ -2356,11 +2389,12 @@
 						                  
 						                    <div>
 						                    	<label id="lable3">可退赠品数量：</label>
-						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-collapse glyphicon glyphicon-minus' style='cursor:pointer;' onclick="trClickBdd()"></span>
+						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-collapse glyphicon glyphicon-minus' style='cursor:pointer;' onclick="trClickBddGift()"></span>
 						                    	&nbsp;<span style="font-size:16px;" id ="sp32"></span>&nbsp
-						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;' onclick="trClickAdd()"></span>
+						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;' onclick="trClickAddGift()"></span>
 						                    </div>
 					                    </fieldset>
+					                    </div>
 					                    <fieldset>
 					                    	<legend>普通商品</legend>
 					                    	<div>
