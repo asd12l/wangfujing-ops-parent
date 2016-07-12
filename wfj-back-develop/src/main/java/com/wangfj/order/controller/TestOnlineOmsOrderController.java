@@ -1247,41 +1247,34 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("refundPath", request.getParameter("refundPath"));
 		paramMap.put("channel", request.getParameter("channel"));
 		
-		//退货申请单明细明细
+		
 		JSONArray products = new JSONArray();
 		JSONObject product ;
+		//组装赠品数据
+		String gift = request.getParameter("gift"); //赠品数据
+		String giftArr [] = gift.split("\\|");
+		for(String giftStr : giftArr){
+			product = new JSONObject();
+			String giftItemArr[] = giftStr.split(",");
+			product.put("refundNum", giftItemArr[0]);
+			product.put("orderItemNo", giftItemArr[1]);
+			products.add(product);
+			
+		}
+		//退货申请单明细明细
 		String refundPcitureUrls[] = request.getParameterValues("refundPcitureUrl");
 		String orderItemNoqs[] = request.getParameterValues("orderItemNo");
 		String refundNum15s[] = request.getParameterValues("refundNum16");
 		String problemDescs[] = request.getParameterValues("problemDesc");
-		String gfitOrderItmNo = request.getParameter("gfitOrderItmNo");
-		String giftOrderNo[] = request.getParameterValues("gfitOrderNo");
-		String gfitSaleNo[] = request.getParameterValues("gfitSaleNo");
-		String giftSaleSum[] = request.getParameterValues("giftSaleSum");
-//		
-		String p=null;
-		int j = 0;
+		//组装非赠品数据
 		for(String orderItemNo:orderItemNoqs){
 			product = new JSONObject();
 			product.put("orderItemNo", orderItemNo);
-			product.put("refundNum", refundNum15s[j]);
-			product.put("refundPcitureUrl", refundPcitureUrls[j]);
-			product.put("refundReasionNo", problemDescs[j]);//退货原因
-			p = product.toJSONString();
-			products.add(product);
-			j++;
-		}
-		if(null != gfitOrderItmNo && !"".equals(gfitOrderItmNo)){
-			product = new JSONObject();
-			product.put("orderItemNo", gfitOrderItmNo);
-			product.put("refundNum", giftSaleSum[0]);
+			product.put("refundNum", refundNum15s[0]);
 			product.put("refundPcitureUrl", refundPcitureUrls[0]);
 			product.put("refundReasionNo", problemDescs[0]);//退货原因
-			p = product.toJSONString();
 			products.add(product);
-			
 		}
-		
 		paramMap.put("products", products);
 		//扣款介质
 		JSONArray deduction = new JSONArray();
