@@ -2440,6 +2440,7 @@
 					                    	<input id="productsStatus"></input>
 					                    </div>
 					                    
+					                    
 					                     
 					                     <!-- 图片上传 -->
 					                     <div class="form-group" style="height:90px">
