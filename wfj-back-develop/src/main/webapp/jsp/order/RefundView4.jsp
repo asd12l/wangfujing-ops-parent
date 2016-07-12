@@ -109,7 +109,10 @@ Author: WangSy
 					$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
 					$("#amount2").text(parseFloat(needRefundAmount_).toFixed(2));
 					$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
-					
+					refundType = response.list[0].refundPath;
+					address = response.list[0].warehouseAddress;
+					$("#refundType").val(refundType);
+					$("#address").val(address);
 				}
 				
 			}
@@ -184,23 +187,7 @@ Author: WangSy
 			}
 		});
 	});
-	//查询退货申请单
-	$.ajax({
-		type : "post",
-		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/omsOrder/selectRefundApplyList",
-		async:false,
-		dataType: "json",
-		data:{"refundApplyNo":refundApplyNo,"page":1},
-		success : function(response) {
-			if (response.success == "true") {
-				refundType = response.list[0].refundPath;
-				address = response.list[0].warehouseAddress;
-				$("#refundType").val(refundType);
-				$("#address").val(address);
-			} 
-		}
-	});
+	
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
