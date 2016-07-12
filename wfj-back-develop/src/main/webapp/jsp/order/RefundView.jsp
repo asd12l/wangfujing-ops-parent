@@ -149,6 +149,7 @@
 			
 		}
 	});
+	var ss=0;
 	// 初始化
 	$("#pid").val(problemDesc);
 	$(function() {
@@ -234,6 +235,7 @@
 				$("#isRefundFee").val("是");
 				$("#type").val(1);
 				$("#refundFee").hide();
+				$("#refundFee").val("");
 			}
 		});
 		
@@ -352,6 +354,16 @@
 				$("#xzspan").hide();
 				$("#shtg").removeAttr("disabled");
 				$("#shbtg").removeAttr("disabled");
+
+				var nu = 0;
+				if(isNaN($("#refundFee").val())||""==$("#refundFee").val()){
+					nu = parseFloat($("#amount1").text()-ss);
+					ss=0;
+				}else{
+					nu = parseFloat($("#amount1").text())+parseFloat($("#refundFee").val()-ss);
+					ss=parseFloat($("#refundFee").val());
+				}
+				$("#amount1").text(nu.toFixed(2));
 			}
 		}
 		//审核通过
@@ -577,6 +589,7 @@
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
+				                                                <th width="2%" style="text-align: center;">销售单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
 				                                                <th width="1%" style="text-align: center;">商品价格</th>
@@ -606,6 +619,10 @@
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="orderNo_{$T.Result.sid}">
 																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="saleNo_{$T.Result.sid}">
+																		{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
@@ -734,6 +751,7 @@
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
+				                                                <th width="2%" style="text-align: center;">销售单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编码</th>
 				                                                <th width="1%" style="text-align: center;">商品名称</th>
 				                                                <th width="2%" style="text-align: center;">价格</th>
@@ -766,6 +784,10 @@
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="orderNo_{$T.Result.sid}">
 																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="saleNo_{$T.Result.sid}">
+																		{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
