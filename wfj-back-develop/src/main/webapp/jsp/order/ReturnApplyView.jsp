@@ -2407,6 +2407,7 @@
 													</td>
 													<td align="center" id="memberNo_{$T.Result.sid}">
 														{#if $T.Result.memberNo != '[object Object]'}{$T.Result.memberNo}
+															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
