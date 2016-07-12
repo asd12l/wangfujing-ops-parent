@@ -99,10 +99,12 @@ Author: WangSy
 		//EDI自动退的没有退货申请单号
 		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
 		$("#amount2").text(parseFloat($("#amount1").text()-returnShippingFee).toFixed(2));
+		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 		$("#amount4").text(parseFloat(needRefundAmount).toFixed(2));
 	}else{
 		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 		$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
 	}
 	//退货方式

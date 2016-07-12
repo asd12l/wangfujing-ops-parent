@@ -105,7 +105,7 @@ Author: WangSy
 					var quanAmount_ =  response.list[0].quanAmount;
 					var returnShippingFee_ =  response.list[0].returnShippingFee;
 					var needRefundAmount_ =  response.list[0].needRefundAmount;
-
+					$("#amount3").text(parseFloat(quanAmount_).toFixed(2));
 					$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
 					$("#amount2").text(parseFloat(needRefundAmount_).toFixed(2));
 					$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
