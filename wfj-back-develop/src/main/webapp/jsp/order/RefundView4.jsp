@@ -395,6 +395,7 @@ Author: WangSy
 					ss=parseFloat($("#refundFee").val());
 				}
 				$("#amount1").text(nu.toFixed(2));
+				$("#amount4").text(nu.toFixed(2));
 			}
 		}
 		

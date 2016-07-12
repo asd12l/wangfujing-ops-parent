@@ -364,6 +364,7 @@
 					ss=parseFloat($("#refundFee").val());
 				}
 				$("#amount1").text(nu.toFixed(2));
+				$("#amount4").text(nu.toFixed(2));
 			}
 		}
 		//审核通过
