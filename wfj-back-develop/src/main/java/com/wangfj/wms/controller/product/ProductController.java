@@ -1033,6 +1033,11 @@ public class ProductController {
             proMap.put("pageSize", size);// 每页显示数量
             proMap.put("currentPage", currPage);// 当前第几页
 
+            //最小sid
+            if (null != erpProduct.getProductCode() && !"".equals(erpProduct.getProductCode())) {
+                proMap.put("sid", erpProduct.getSid());
+            }
+            
             // ERP商品编码
             if (null != erpProduct.getProductCode() && !"".equals(erpProduct.getProductCode())) {
                 proMap.put("productCode", erpProduct.getProductCode());

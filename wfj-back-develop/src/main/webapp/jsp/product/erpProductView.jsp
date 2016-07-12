@@ -202,6 +202,9 @@ Author: YeDong/zhangdl
 							dataList = data.list;
 							$("#product_tab tbody").setTemplateElement(
 									"product-list").processTemplate(data);
+							if(dataList != null && dataList != 'undefined' && dataList.length != 0){
+								$("#minSid_from").val(dataList[dataList.length-1].sid);
+							}
 						}
 					}
 				});
@@ -448,6 +451,7 @@ Author: YeDong/zhangdl
 										<input type="hidden" id="shoppe_from" name="shoppeCode" />
 										<input type="hidden" id="shop_from" name="storeCode" />
 										<input type="hidden" id="supplier_from" name="supplyCode" />
+										<input type="hidden" id="minSid_from" name="sid" />
 									</form>
 								</div>
 								<div id="productPagination"></div>
