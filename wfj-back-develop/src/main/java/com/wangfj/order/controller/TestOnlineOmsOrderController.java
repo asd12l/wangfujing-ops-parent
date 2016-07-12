@@ -1252,14 +1252,19 @@ public class TestOnlineOmsOrderController {
 		JSONObject product ;
 		//组装赠品数据
 		String gift = request.getParameter("gift"); //赠品数据
-		String giftArr [] = gift.split("\\|");
-		for(String giftStr : giftArr){
-			product = new JSONObject();
-			String giftItemArr[] = giftStr.split(",");
-			product.put("refundNum", giftItemArr[0]);
-			product.put("orderItemNo", giftItemArr[1]);
-			products.add(product);
+		System.out.println(gift);
+		if("".equals(gift)||null==gift){
 			
+		}else{
+			String giftArr [] = gift.split("\\|");
+			for(String giftStr : giftArr){
+				product = new JSONObject();
+				String giftItemArr[] = giftStr.split(",");
+				product.put("refundNum", giftItemArr[0]);
+				product.put("orderItemNo", giftItemArr[1]);
+				products.add(product);
+				
+			}
 		}
 		//退货申请单明细明细
 		String refundPcitureUrls[] = request.getParameterValues("refundPcitureUrl");
