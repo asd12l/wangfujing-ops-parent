@@ -12,6 +12,7 @@ Author: WangSy
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--Jquery Select2-->
 <script
+
 	src="${ctx}/assets/js/select2/select2.js"></script>
 <!--Bootstrap Date Picker-->
 <script
