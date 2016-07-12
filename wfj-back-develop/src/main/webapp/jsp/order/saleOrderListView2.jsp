@@ -1811,6 +1811,7 @@
 	var saleItemNo11;
 	var param = "";
 	var option = "";
+	var rowNos="";
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
 		$("#giftOption").html("");
 		var tbody = document.getElementById("OLV1_tab");
@@ -1827,6 +1828,7 @@
 					if(saleSum <= 0){
 						break;
 					}
+					rowNos += rowNo+",";
 					option= '<div>'+
                     	    '<label id="lable1">退货赠品名称：</label>'+
                     		'<span id="sp12"+'+rowNo+'>'+shoppeProName+'</span>'+
@@ -1836,6 +1838,7 @@
                     		'<label id="lable2">退货赠品编码：</label>'+
                     		'<span id="sp22'+rowNo+'">'+supplyProductNo+'</span>'+
                     		'</div>'+
+                    		'<input type="hidden" value='+orderItemNo+' id="orderItem'+rowNo+'">'+
                   
                     		'<div>'+
                     		'<label id="lable3">可退赠品数量：</label>'+
@@ -1887,28 +1890,39 @@
 		}
 		
 	}
+	
 	//创建退货申请(商品退)
 	function Ok(){
+		var params = "";
+		var giftSaleSums = 0;
+		var arr = new Array();
+		arr = rowNos.split(",");
+		for(var i = 0; i < arr.length-1; i ++){
+			var is = $('input[name='+arr[i]+']').is(':checked');
+			if(is != false){
+				var giftSaleSum = $("#sp32"+arr[i]).text().trim();
+				var giftOrderItemNo = $("#orderItem"+arr[i]).val().trim();
+				params += giftSaleSum + "," + giftOrderItemNo + "|";
+				giftSaleSums += parseInt(giftSaleSum);
+			}else{
+				params = "";
+			}
+		}
+		
 		var is = $("input[type='checkbox']").is(':checked');
 		var refundPcitureUrl = $("#input_brand2").val();
-		console.log(refundPcitureUrl);
 		$("#btDiv2").hide();
 		var saleNo = saleNo11;
 		var orderNo = orderNo11;
 		var orderItemNo = saleItemNo11;//销售单明细号就是订单明细号
 		var userName = getCookieValue("username");
-		var gfitOrderItmNo = saleItemNo12;
-		var gfitOrderNo = orderNo12;
-		var gfitSaleNo = saleNo12;
 		saleSum3 = $("#sp3").text().trim();
-		var giftSaleSum = $("#sp32").text().trim();
 		var packStatus = $("#packStatus").val();
 		var productsStatus = $("#productsStatus").val();
 		problemDesc =$("#sp4").val();
 		callCenterComments =$("#sp5").val();
-
 		var ine = parseInt(saleSum3);
-		var ine2 = parseInt(giftSaleSum);
+		var ine2 = parseInt(giftSaleSums);
 		var reNum =0;
 		if(is==false){
 			gfitOrderItmNo="";
@@ -1930,11 +1944,8 @@
 				"refundNum16" : saleSum3,
 				"orderNo" : orderNo,
 				"orderItemNo" : orderItemNo,
-				"gfitOrderItmNo" : gfitOrderItmNo,
-				"gfitOrderNo" : gfitOrderNo,
+				"gift" : params,
 				"problemDesc": problemDesc,
-				"gfitSaleNo" : gfitSaleNo,
-				"giftSaleSum" : giftSaleSum,
 				"callCenterComments": callCenterComments,
 				"saleNo" : saleNo,
 				"latestUpdateMan":userName,
@@ -2019,9 +2030,9 @@
 	}
 	function trClickBddGift(orderItemNo){
 		var saleSum231 = $("#sp32"+ orderItemNo).text()
-		if(saleSum23 > 1){
+		if(saleSum231 > 1){
 			saleSum231 = $("#sp32"+ orderItemNo).text()-1;
-			$("#sp32"+orderItemNo).text(saleSum23);
+			$("#sp32"+orderItemNo).text(saleSum231);
 		}else{
 			$("#sp32"+orderItemNo).text(saleSum231);
 		}
@@ -2440,7 +2451,6 @@
 					                    	<input id="productsStatus"></input>
 					                    </div>
 					                    
-					                    
 					                     
 					                     <!-- 图片上传 -->
 					                     <div class="form-group" style="height:90px">
@@ -2451,13 +2461,13 @@
 												<input type="hidden" id="input_brand2" name="brandpic2">											
 												<div id="msg2" class="hide"></div>
 											</div class="col-lg-4 col-sm-6 col-xs-6">
-										</div>
-										<div id="divGift"> 
-					                    <fieldset id="giftOption">
-					                    	<legend>赠品</legend>
-					                    </fieldset>
-					                    </div>									
-					                    
+										</div>										
+					                    <div id=divGift> 
+						                    <fieldset >
+						                    	<legend>赠品</legend>
+						                    	<div id="giftOption"></div>
+						                    </fieldset>
+					                    </div>
 					                    <div>
 					                    	<label id="lable4">退货原因：</label>
 					                    	<select id="sp4">
