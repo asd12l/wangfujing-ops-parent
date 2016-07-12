@@ -722,6 +722,7 @@
 			$("#hsaleNo").val(saleNo);
 			var option = "<tr role='row' style='height:35px;'>"+
 			"<th width='2%' style='text-align: center;'>商品名称</th>"+
+			"<th width='2%' style='display : none;'>订单明细号</th>"+
 			"<th width='2%' style='text-align: center;'>规格</th>"+
 			"<th width='2%' style='text-align: center;'>sku编号</th>"+
 			"<th width='2%' style='text-align: center;'>缺货数量</th>"+
@@ -785,6 +786,12 @@
 								option+="<td id='shoppeProName_"+ele.salesItemNo+"' align='center'></td>";
 							}else{
 								option+="<td id='shoppeProName_"+ele.salesItemNo+"' align='center'>"+ele.shoppeProName+"</td>";
+							}
+							//订单明细号
+							if(ele.salesItemNo=="[object Object]"||ele.salesItemNo==undefined){
+								option+="<td style='display : none;' id='salesItemNo_"+ele.salesItemNo+"' align='center'></td>";
+							}else{
+								option+="<td style='display : none;' id='salesItemNo_"+ele.salesItemNo+"' align='center'>"+ele.salesItemNo+"</td>";
 							}
 							//规格
 							if(ele.sizeName=="[object Object]"||ele.sizeName==undefined){
@@ -1038,7 +1045,7 @@
 							//操作
 							if(ele.isGift=="1"){
 								 option+="<td align='center'>"+
-								 '<label style="padding-left:9px;"><input id="checkboxId" type="checkbox" checked ="checked" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
+								 '<label style="padding-left:9px;"><input id="checkboxId" name ='+ele.rowNo+' type="checkbox" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
 								"</td></tr>"; 
 							 }else{
 								 option+="<td align='center'>"+
@@ -1798,18 +1805,31 @@
 	}
 	var shoppeProName2;
 	var supplyProductNo2;
-	var saleSum5;
+	var saleSum5 = "0";
 	var saleNo11;
 	var orerNo11;
 	var saleItemNo11;
+	var param = "";
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
-		/* refundButten1(saleNo,orderNo,saleItemNo,obj); */
+		var tbody = document.getElementById("OLV1_tab");
+		for(var i = 1;i<tbody.rows.length;i++){
+			var is = $("input[name= "+i+"]").is(':checked');
+			if(is != false){
+				for(var j = 1; j < tbody.rows[i].cells.length;j++){
+					var orderItemNo = tbody.rows[i].cells[1].innerHTML;
+					param += orderItemNo+",";
+					break;
+				}
+			}else{
+				dataArr = null;
+			}
+			continue;
+		}
 		var is = $("input[type='checkbox']").is(':checked');
 		if(is != false){
 			$("#sp12").text(shoppeProName2);
 			$("#sp22").text(supplyProductNo2);
 			$("#sp32").text(saleSum5);
-			
 			$("#divGift").show();
 		}else{
 			$("#sp12").text("");
@@ -1846,7 +1866,7 @@
 		}else{
 			shoppeProName2;
 			supplyProductNo2;
-			saleSum5;
+			saleSum5 = "0";
 			saleNo12;
 			orderNo12;
 			saleItemNo12 = null;
@@ -2362,17 +2382,17 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div> 
-    <div class="modal modal-darkorange" id="btDiv2">
+    <div class="modal modal-darkorange" id="btDiv2" >
         <div class="modal-dialog" style="width: 500px;height:180%;margin: -1% auto;">
-            <div class="modal-content">
+            <div class="modal-content" >
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closeBtDiv2();">×</button>
                     <h4 class="modal-title" id="divTitle2"></h4>
                 </div>
-                    <div class="tabbable"> <!-- Only required for left/right tabs -->
-					      <div class="tab-content">
+                    <div class="tabbable" > <!-- Only required for left/right tabs -->
+					      <div class="tab-content" >
 					        <div class="tab-pane active" id="tab1">
-					            <div style="width:100%;height:580px; overflow:hidden;">
+					            <div style="width:100%;height:580px; overflow:hidden; ">
 					                    <!-- <table class="table-striped table-hover table-bordered" id="OLV1_tab" style="width: 750%;background-color: #fff;margin-bottom: 0;">
 					                    </table> -->
 					                    <div id=divGift> 

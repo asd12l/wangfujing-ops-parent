@@ -109,10 +109,12 @@ Author: WangSy
 		//EDI自动退的没有退货申请单号
 		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
 		$("#amount2").text(parseFloat($("#amount1").text()-returnShippingFee).toFixed(2));
+		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 		$("#amount4").text(parseFloat(needRefundAmount).toFixed(2));
 	}else{
 		$("#amount1").text(parseFloat(needRefundAmount-quanAmount).toFixed(2));
 		$("#amount2").text(parseFloat(needRefundAmount-returnShippingFee).toFixed(2));
+		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 		$("#amount4").text(parseFloat(needRefundAmount-quanAmount).toFixed(2));
 	}
 //	var data2 = orderData;
@@ -674,6 +676,7 @@ function shbtgForm(){
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
+				                                                <th width="2%" style="text-align: center;">销售单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
 				                                                <th width="1%" style="text-align: center;">商品价格</th>
@@ -711,6 +714,10 @@ function shbtgForm(){
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="orderNo_{$T.Result.sid}">
 																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="saleNo_{$T.Result.sid}">
+																		{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
@@ -866,6 +873,7 @@ function shbtgForm(){
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
+				                                                <th width="2%" style="text-align: center;">销售单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编码</th>
 				                                                <th width="1%" style="text-align: center;">商品名称</th>
 				                                                <th width="2%" style="text-align: center;">价格</th>
@@ -898,6 +906,10 @@ function shbtgForm(){
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="orderNo_{$T.Result.sid}">
 																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="saleNo_{$T.Result.sid}">
+																		{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="supplyProductNo_{$T.Result.sid}">
