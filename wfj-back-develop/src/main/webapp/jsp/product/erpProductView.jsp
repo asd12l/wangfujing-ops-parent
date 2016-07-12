@@ -202,6 +202,9 @@ Author: YeDong/zhangdl
 							dataList = data.list;
 							$("#product_tab tbody").setTemplateElement(
 									"product-list").processTemplate(data);
+							if(dataList != null && dataList != 'undefined' && dataList.length != 0){
+								document.cookie="minSid="+dataList[dataList.length-1].sid;
+							}
 						}
 					}
 				});
