@@ -455,6 +455,7 @@ Author: WangSy
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
+				                                                <th width="2%" style="text-align: center;">销售单号</th>
 				                                                <th width="2%" style="text-align: center;">退货单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
@@ -493,6 +494,10 @@ Author: WangSy
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="orderNo_{$T.Result.sid}">
 																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="saleNo_{$T.Result.sid}">
+																		{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="refundNo_{$T.Result.sid}">
@@ -675,6 +680,7 @@ Author: WangSy
 				                                        <thead>
 				                                            <tr role="row" style='height:25px;'>
 				                                                <th width="2%" style="text-align: center;">订单号</th>
+				                                                <th width="2%" style="text-align: center;">销售单号</th>
 				                                                <th width="2%" style="text-align: center;">退货单号</th>
 				                                                <th width="2%" style="text-align: center;">商品编码</th>
 				                                                <th width="1%" style="text-align: center;">商品名称</th>
@@ -708,6 +714,10 @@ Author: WangSy
 																<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 																	<td align="center" id="orderNo_{$T.Result.sid}">
 																		{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="saleNo_{$T.Result.sid}">
+																		{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="refundNo_{$T.Result.sid}">
