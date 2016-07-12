@@ -1810,32 +1810,46 @@
 	var orerNo11;
 	var saleItemNo11;
 	var param = "";
+	var option = "";
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
+		$("#giftOption").html("");
 		var tbody = document.getElementById("OLV1_tab");
 		for(var i = 1;i<tbody.rows.length;i++){
 			var is = $("input[name= "+i+"]").is(':checked');
 			if(is != false){
 				for(var j = 1; j < tbody.rows[i].cells.length;j++){
 					var orderItemNo = tbody.rows[i].cells[1].innerHTML;
-					param += orderItemNo+",";
+					var rowNo = tbody.rows[i].cells[11].innerHTML;
+					var refundNum = tbody.rows[i].cells[22].innerHTML;
+					var shoppeProName= $("#shoppeProName_"+orderItemNo).text().trim();
+					var supplyProductNo= $("#supplyProductNo_"+orderItemNo).text().trim();
+					var saleSum= $("#refundNum_"+orderItemNo).text().trim();//可退数量
+					if(saleSum <= 0){
+						break;
+					}
+					option= '<div>'+
+                    	    '<label id="lable1">退货赠品名称：</label>'+
+                    		'<span id="sp12"+'+rowNo+'>'+shoppeProName+'</span>'+
+                   	 		'</div>'+
+                   
+                    		'<div>'+
+                    		'<label id="lable2">退货赠品编码：</label>'+
+                    		'<span id="sp22'+rowNo+'">'+supplyProductNo+'</span>'+
+                    		'</div>'+
+                  
+                    		'<div>'+
+                    		'<label id="lable3">可退赠品数量：</label>'+
+                    		'<span id="orderNo_{$T.Result.orderNo}" class="expand-collapse click-collapse glyphicon glyphicon-minus" style="cursor:pointer;" onclick="trClickBddGift('+rowNo+')"></span>'+
+                    		'&nbsp;<span style="font-size:16px;" id ="sp32'+rowNo+'">'+saleSum+'</span>&nbsp'+
+                    		'<span id="orderNo_{$T.Result.orderNo}" class="expand-collapse click-expand glyphicon glyphicon-plus" style="cursor:pointer;" onclick="trClickAddGift('+rowNo+','+refundNum+')"></span>'+
+                    		'</div>'
+                    $("#giftOption").append(option);
 					break;
 				}
 			}else{
 				dataArr = null;
 			}
 			continue;
-		}
-		var is = $("input[type='checkbox']").is(':checked');
-		if(is != false){
-			$("#sp12").text(shoppeProName2);
-			$("#sp22").text(supplyProductNo2);
-			$("#sp32").text(saleSum5);
-			$("#divGift").show();
-		}else{
-			$("#sp12").text("");
-			$("#sp22").text("");
-			$("#sp32").text("");
-			$("#divGift").hide();
 		}
 		$("#btDiv2").show();
 		$("#divTitle2").html("创建退货申请单");
@@ -1986,29 +2000,30 @@
 		$("#sp3").text(saleSum2);
 	}
 	function trClickBdd(){
-		var saleSum2 = $("#sp3").text()-1;
-		if(saleSum2 > 0){
+		var saleSum2 = $("#sp3").text();
+		if(saleSum2 > 1){
+			saleSum2 = $("#sp3").text()-1;
 			$("#sp3").text(saleSum2);
 		}else{
-			$("#sp3").text("0");
+			$("#sp3").text(saleSum2);
 		}
 	}
 	//赠品退货数量加减
 	/* 加减号 */
-	function trClickAddGift(){
-		saleSum23 = $("#sp32").text();
-		if(saleSum1 > saleSum23){
+	function trClickAddGift(orderItemNo,refundNum){
+		saleSum23 = $("#sp32"+orderItemNo).text();
+		if(refundNum > saleSum23){
 			saleSum23++;
-	//		saleSum2=parseInt(saleSum2)+1;
 		}
-		$("#sp32").text(saleSum23);
+		$("#sp32"+orderItemNo).text(saleSum23);
 	}
-	function trClickBddGift(){
-		var saleSum23 = $("#sp32").text()-1;
-		if(saleSum23 > 0){
-			$("#sp32").text(saleSum23);
+	function trClickBddGift(orderItemNo){
+		var saleSum231 = $("#sp32"+ orderItemNo).text()
+		if(saleSum23 > 1){
+			saleSum231 = $("#sp32"+ orderItemNo).text()-1;
+			$("#sp32"+orderItemNo).text(saleSum23);
 		}else{
-			$("#sp32").text("0");
+			$("#sp32"+orderItemNo).text(saleSum231);
 		}
 	}
 	//折叠页面
@@ -2383,7 +2398,7 @@
         </div><!-- /.modal-dialog -->
     </div> 
     <div class="modal modal-darkorange" id="btDiv2" >
-        <div class="modal-dialog" style="width: 500px;height:180%;margin: -1% auto;">
+        <div class="modal-dialog" style="width: 500px;height:180%;margin: 5% auto;">
             <div class="modal-content" >
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closeBtDiv2();">×</button>
@@ -2392,30 +2407,10 @@
                     <div class="tabbable" > <!-- Only required for left/right tabs -->
 					      <div class="tab-content" >
 					        <div class="tab-pane active" id="tab1">
-					            <div style="width:100%;height:580px; overflow:hidden; ">
+					            <div style="width:100%;height:420px; overflow:scroll; ">
 					                    <!-- <table class="table-striped table-hover table-bordered" id="OLV1_tab" style="width: 750%;background-color: #fff;margin-bottom: 0;">
 					                    </table> -->
-					                    <div id=divGift> 
-					                    <fieldset>
-					                    	<legend>赠品</legend>
-					                    	<div>
-						                    	<label id="lable1">退货赠品名称：</label>
-						                    	<span id="sp12"></span>
-						                    </div>
-						                   
-						                    <div>
-						                    	<label id="lable2">退货赠品编码：</label>
-						                    	<span id="sp22"></span>
-						                    </div>
-						                  
-						                    <div>
-						                    	<label id="lable3">可退赠品数量：</label>
-						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-collapse glyphicon glyphicon-minus' style='cursor:pointer;' onclick="trClickBddGift()"></span>
-						                    	&nbsp;<span style="font-size:16px;" id ="sp32"></span>&nbsp
-						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;' onclick="trClickAddGift()"></span>
-						                    </div>
-					                    </fieldset>
-					                    </div>
+					                    
 					                    <fieldset>
 					                    	<legend>普通商品</legend>
 					                    	<div>
@@ -2455,7 +2450,12 @@
 												<input type="hidden" id="input_brand2" name="brandpic2">											
 												<div id="msg2" class="hide"></div>
 											</div class="col-lg-4 col-sm-6 col-xs-6">
-										</div>										
+										</div>
+										<div id="divGift"> 
+					                    <fieldset id="giftOption">
+					                    	<legend>赠品</legend>
+					                    </fieldset>
+					                    </div>									
 					                    
 					                    <div>
 					                    	<label id="lable4">退货原因：</label>
