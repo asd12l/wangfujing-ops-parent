@@ -149,7 +149,11 @@ Author: WangSy
 		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-		$("#amount4").text(parseFloat(parseFloat(needRefundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
+		if(isNaN(parseFloat(returnShippingFee_))){
+			$("#amount4").text(parseFloat(parseFloat(needRefundAmount)-quanAmount).toFixed(2));
+		}else{
+			$("#amount4").text(parseFloat(parseFloat(needRefundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
+		}
 	}
 	$.ajax({
 		type: "post",

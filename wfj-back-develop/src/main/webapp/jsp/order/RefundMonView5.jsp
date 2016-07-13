@@ -203,7 +203,7 @@ Author: WangSy
 					var paymentAmountSum = response.list[0].paymentAmountSum;
 					if(""==refundApplyNo){
 						//EDI自动退的没有退货申请单号
-						if(isNaN((paymentAmountSum))){
+						if(isNaN(parseFloat(paymentAmountSum))){
 							$("#amount1").text(parseFloat(0).toFixed(2));
 						}else{
 							$("#amount1").text(parseFloat(paymentAmountSum).toFixed(2));
@@ -215,7 +215,7 @@ Author: WangSy
 						$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
 						$("#amount2").text(parseFloat(0).toFixed(2));
 						$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-						if(isNaN((paymentAmountSum))){
+						if(isNaN(parseFloat(returnShippingFee_))){
 							$("#amount4").text(parseFloat(parseFloat(needRefundAmount_)-quanAmount).toFixed(2));
 						}else{
 							$("#amount4").text(parseFloat(parseFloat(needRefundAmount_)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
