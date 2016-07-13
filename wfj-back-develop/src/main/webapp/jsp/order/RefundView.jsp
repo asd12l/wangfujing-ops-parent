@@ -418,6 +418,8 @@
 			var bankName = $("#bankName").val();
 			var bankNumber = $("#bankNumber").val();
 			var bankUser = $("#bankUser").val();
+			
+			var quan = $("#amount3").text();
 			$.ajax({
 				type : "post",
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -433,7 +435,7 @@
 		       	        $("#loading-container").addClass("loading-inactive");
 		       	 },300);
 		        },
-				data:{bankName:"bankName",bankNumber:"bankNumber",bankUser:"bankUser","jj":da,"refundFee":refundFee,"latestUpdateMan":userName,"refundStatus":"4","refundReason":refundReason,"refundType":rety/* ,"address":addr */},
+				data:{"quan":quan,"bankName":bankName,"bankNumber":bankNumber,"bankUser":bankUser,"jj":da,"refundFee":refundFee,"latestUpdateMan":userName,"refundStatus":"4","refundReason":refundReason,"refundType":rety/* ,"address":addr */},
 				success : function(response) {
 					if (response.success == "true") {
 						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
