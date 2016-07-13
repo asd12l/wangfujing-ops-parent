@@ -218,6 +218,7 @@ public class OmsController {
 //		int start = (currPage-1)*size;
 		Map<String, String> paramMap = this.createParam(request);
 		Map<Object, Object> m = new HashMap<Object, Object>();
+		paramMap.put("outOrderNo", request.getParameter("outOrderNo"));
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("saleStatus", "08");
