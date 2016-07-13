@@ -3308,23 +3308,39 @@
 													</td>
 													
 													<td align="center" id="authorityCard_{$T.Result.sid}">
-														{#if $T.Result.authorityCard != '[object Object]'}{$T.Result.authorityCard}
+														{#if $T.Result.authorityCard != '' && $T.Result.authorityCard != null}
+															{$T.Result.authorityCard}
+														{#else}
+															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="qrcode_{$T.Result.sid}">
-														{#if $T.Result.qrcode != '[object Object]'}{$T.Result.qrcode}
+														{#if $T.Result.qrcode != '' && $T.Result.qrcode != null}
+															{$T.Result.qrcode}
+														{#else}
+															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="salesPaymentNo_{$T.Result.sid}">
-														{#if $T.Result.salesPaymentNo != '[object Object]'}{$T.Result.salesPaymentNo}
+														{#if $T.Result.salesPaymentNo != '' && $T.Result.salesPaymentNo != null}
+															{$T.Result.salesPaymentNo}
+														{#else}
+															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="employeeNo_{$T.Result.sid}">
-														{#if $T.Result.employeeNo != '[object Object]'}{$T.Result.employeeNo}
+														{#if $T.Result.employeeNo != '' && $T.Result.employeeNo != null}
+															{$T.Result.employeeNo}
+														{#else}
+															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="casherNo_{$T.Result.sid}">
-														{#if $T.Result.casherNo != '[object Object]'}{$T.Result.casherNo}
+														{#if $T.Result.casherNo != '' && $T.Result.casherNo != null}
+															{$T.Result.casherNo}
+														{#else}
+															<span>——</span>
+						                   				
 						                   				{#/if}
 													</td>
 													<td align="center" id="saleTimeStr_{$T.Result.sid}">
