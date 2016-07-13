@@ -141,7 +141,12 @@ Author: WangSy
 	var paymentAmountSum = paymentAmountSum_;
 	if(""==refundApplyNo){
 		//EDI自动退的没有退货申请单号
-		$("#amount1").text(parseFloat(paymentAmountSum).toFixed(2));
+		
+		if(isNaN(parseFloat(paymentAmountSum))){
+			$("#amount1").text(parseFloat(0).toFixed(2));
+		}else{
+			$("#amount1").text(parseFloat(paymentAmountSum).toFixed(2));
+		}
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 		$("#amount4").text(parseFloat(needRefundAmount).toFixed(2));
