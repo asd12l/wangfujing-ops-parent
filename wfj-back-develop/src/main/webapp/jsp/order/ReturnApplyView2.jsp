@@ -2576,11 +2576,16 @@
 														</a>
 													</td>
 													<td align="center" id="memberNo_{$T.Result.sid}">
-														{#if $T.Result.memberNo != '[object Object]'}{$T.Result.memberNo}
+														{#if $T.Result.memberNo != '' && $T.Result.memberNo != null}
+															{$T.Result.memberNo}
+														{#else}
+						                   					<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
-														{#if $T.Result.accountNo != '[object Object]'}{$T.Result.accountNo}
+														{#if $T.Result.accountNo != '' &&  $T.Result.accountNo != null}
+															{$T.Result.accountNo}
+														{#else}
 						                   					<span>——</span>
 						                   				{#/if}
 													</td>
