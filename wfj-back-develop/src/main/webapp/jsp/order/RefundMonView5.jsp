@@ -200,21 +200,26 @@ Author: WangSy
 					console.log(returnShippingFee_);
 					var needRefundAmount_ =  response.list[0].needRefundAmount;
 					var quanAmount =  response.list[0].quanAmount;
-					if(""==refundApplyNo_){
+					var paymentAmountSum = response.list[0].paymentAmountSum;
+					if(""==refundApplyNo){
 						//EDI自动退的没有退货申请单号
-						$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
-						$("#amount2").text(parseFloat($("#amount1").text()-parseFloat(returnShippingFee_)).toFixed(2));
-						$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-						$("#amount4").text(parseFloat(needRefundAmount_).toFixed(2));
+						if(isNaN(parseFloat(paymentAmountSum))){
+							$("#amount1").text(parseFloat(0).toFixed(2));
+						}else{
+							$("#amount1").text(parseFloat(paymentAmountSum).toFixed(2));
+						}
+							$("#amount2").text(parseFloat(0).toFixed(2));
+							$("#amount3").text(parseFloat(quanAmount).toFixed(2));
+							$("#amount4").text(parseFloat(needRefundAmount_).toFixed(2));
 					}else{
 						$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
-						if(isNaN(parseFloat($("#amount1").text()-parseFloat(returnShippingFee_)).toFixed(2))){
-							$("#amount2").text("");
-						}else{
-							$("#amount2").text(parseFloat($("#amount1").text()-parseFloat(returnShippingFee_)).toFixed(2));
-						}
+						$("#amount2").text(parseFloat(0).toFixed(2));
 						$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-						$("#amount4").text(parseFloat(needRefundAmount_).toFixed(2));
+						if(isNaN(parseFloat(returnShippingFee_))){
+							$("#amount4").text(parseFloat(parseFloat(needRefundAmount_)-quanAmount).toFixed(2));
+						}else{
+							$("#amount4").text(parseFloat(parseFloat(needRefundAmount_)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
+						}
 					}
 				}
 				
@@ -1742,8 +1747,8 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-4">
-														<span>&nbsp;&nbsp;其中,应退商品金额：</span>
-														<label id="amount2" class="control-label"></label>
+														<span>&nbsp;&nbsp;其中,优惠券：</span>
+														<label id="amount3" class="control-label"></label>
 														</div>
 														<!-- <div class="col-md-4">
 															<div >
@@ -1759,8 +1764,8 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退回顾客A券金额合计：</span>
-														<label id="amount3" class="control-label"></label>
+														<span>&nbsp;&nbsp;退回顾客优惠券金额：</span>
+														<label id="amount2" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>
@@ -1773,7 +1778,7 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退款金额合计：</span>
+														<span>&nbsp;&nbsp;实际退款金额合计：</span>
 														<label id="amount4" class="control-label"></label>
 														</div>
 														&nbsp;

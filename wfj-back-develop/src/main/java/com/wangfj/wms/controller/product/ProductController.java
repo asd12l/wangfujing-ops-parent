@@ -12,6 +12,7 @@ import com.wangfj.wms.controller.product.support.ExcelShoppeProductVo;
 import com.wangfj.wms.domain.entity.*;
 import com.wangfj.wms.domain.view.*;
 import com.wangfj.wms.service.IRoleLimitService;
+import com.wangfj.wms.util.CookiesUtil;
 import com.wangfj.wms.util.HttpUtilPcm;
 import com.wangfj.wms.util.JsonUtil;
 import com.wangfj.wms.util.ResultUtil;
@@ -1033,6 +1034,12 @@ public class ProductController {
             proMap.put("pageSize", size);// 每页显示数量
             proMap.put("currentPage", currPage);// 当前第几页
 
+            String minSid = CookiesUtil.getCookies(request, "minSid");
+            //最小sid
+            if (null != minSid && !"".equals(minSid)) {
+                proMap.put("sid", minSid);
+            }
+            
             // ERP商品编码
             if (null != erpProduct.getProductCode() && !"".equals(erpProduct.getProductCode())) {
                 proMap.put("productCode", erpProduct.getProductCode());

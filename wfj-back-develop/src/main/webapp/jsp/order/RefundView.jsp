@@ -78,9 +78,9 @@
 					var needRefundAmount_ =  response.list[0].needRefundAmount;
 					$("#amount3").text(parseFloat(quanAmount_).toFixed(2));
 					$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
-					$("#amount2").text(parseFloat(needRefundAmount_).toFixed(2));
-					$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
-					
+					$("#amount2").text(parseFloat(0).toFixed(2));
+					//$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
+					$("#amount4").text(parseFloat(needRefundAmount_-quanAmount_).toFixed(2));
 				}
 				
 			}
@@ -236,6 +236,10 @@
 				$("#type").val(1);
 				$("#refundFee").hide();
 				$("#refundFee").val("");
+				
+				$("#xzspan").hide();
+				$("#shtg").removeAttr("disabled");
+				$("#shbtg").removeAttr("disabled");
 			}
 		});
 		
@@ -355,16 +359,15 @@
 				$("#shtg").removeAttr("disabled");
 				$("#shbtg").removeAttr("disabled");
 
-				var nu = 0;
+				var nu4 = 0;
 				if(isNaN($("#refundFee").val())||""==$("#refundFee").val()){
-					nu = parseFloat($("#amount1").text()-ss);
+					nu4 = parseFloat($("#amount4").text()-ss);
 					ss=0;
 				}else{
-					nu = parseFloat($("#amount1").text())+parseFloat($("#refundFee").val()-ss);
+					nu4 = parseFloat($("#amount4").text())+parseFloat($("#refundFee").val()-ss);
 					ss=parseFloat($("#refundFee").val());
 				}
-				$("#amount1").text(nu.toFixed(2));
-				$("#amount4").text(nu.toFixed(2));
+				$("#amount4").text(nu4.toFixed(2));
 			}
 		}
 		//审核通过
@@ -1092,8 +1095,8 @@
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-4">
-														<span>&nbsp;&nbsp;其中,应退商品金额：</span>
-														<label id="amount2" class="control-label"></label>
+														<span>&nbsp;&nbsp;其中,优惠券：</span>
+														<label id="amount3" class="control-label"></label>
 														</div>
 														<!-- <div class="col-md-4">
 														<div >
@@ -1124,8 +1127,8 @@
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退回顾客A券金额合计：</span>
-														<label id="amount3" class="control-label"></label>
+														<span>&nbsp;&nbsp;退回顾客优惠券金额：</span>
+														<label id="amount2" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>
@@ -1138,7 +1141,7 @@
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;退金额合计：</span>
+														<span>&nbsp;&nbsp;实际退款金额合计：</span>
 														<label id="amount4" class="control-label"></label>
 														</div>
 														&nbsp;

@@ -722,6 +722,7 @@
 			$("#hsaleNo").val(saleNo);
 			var option = "<tr role='row' style='height:35px;'>"+
 			"<th width='2%' style='text-align: center;'>商品名称</th>"+
+			"<th width='2%' style='display : none;'>订单明细号</th>"+
 			"<th width='2%' style='text-align: center;'>规格</th>"+
 			"<th width='2%' style='text-align: center;'>sku编号</th>"+
 			"<th width='2%' style='text-align: center;'>缺货数量</th>"+
@@ -785,6 +786,12 @@
 								option+="<td id='shoppeProName_"+ele.salesItemNo+"' align='center'></td>";
 							}else{
 								option+="<td id='shoppeProName_"+ele.salesItemNo+"' align='center'>"+ele.shoppeProName+"</td>";
+							}
+							//订单明细号
+							if(ele.salesItemNo=="[object Object]"||ele.salesItemNo==undefined){
+								option+="<td style='display : none;' id='salesItemNo_"+ele.salesItemNo+"' align='center'></td>";
+							}else{
+								option+="<td style='display : none;' id='salesItemNo_"+ele.salesItemNo+"' align='center'>"+ele.salesItemNo+"</td>";
 							}
 							//规格
 							if(ele.sizeName=="[object Object]"||ele.sizeName==undefined){
@@ -1038,7 +1045,7 @@
 							//操作
 							if(ele.isGift=="1"){
 								 option+="<td align='center'>"+
-								 '<label style="padding-left:9px;"><input id="checkboxId" type="checkbox" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
+								 '<label style="padding-left:9px;"><input id="checkboxId" name ='+ele.rowNo+' type="checkbox" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
 								"</td></tr>"; 
 							 }else{
 								 option+="<td align='center'>"+
@@ -1802,19 +1809,50 @@
 	var saleNo11;
 	var orerNo11;
 	var saleItemNo11;
+	var param = "";
+	var option = "";
+	var rowNos="";
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
-		/* refundButten1(saleNo,orderNo,saleItemNo,obj); */
-		var is = $("input[type='checkbox']").is(':checked');
-		if(is != false){
-			$("#sp12").text(shoppeProName2);
-			$("#sp22").text(supplyProductNo2);
-			$("#sp32").text(saleSum5);
-			$("#divGift").show();
-		}else{
-			$("#sp12").text("");
-			$("#sp22").text("");
-			$("#sp32").text("");
-			$("#divGift").hide();
+		$("#giftOption").html("");
+		var tbody = document.getElementById("OLV1_tab");
+		for(var i = 1;i<tbody.rows.length;i++){
+			var is = $("input[name= "+i+"]").is(':checked');
+			if(is != false){
+				for(var j = 1; j < tbody.rows[i].cells.length;j++){
+					var orderItemNo = tbody.rows[i].cells[1].innerHTML;
+					var rowNo = tbody.rows[i].cells[11].innerHTML;
+					var refundNum = tbody.rows[i].cells[22].innerHTML;
+					var shoppeProName= $("#shoppeProName_"+orderItemNo).text().trim();
+					var supplyProductNo= $("#supplyProductNo_"+orderItemNo).text().trim();
+					var saleSum= $("#refundNum_"+orderItemNo).text().trim();//可退数量
+					if(saleSum <= 0){
+						break;
+					}
+					rowNos += rowNo+",";
+					option= '<div>'+
+                    	    '<label id="lable1">退货赠品名称：</label>'+
+                    		'<span id="sp12"+'+rowNo+'>'+shoppeProName+'</span>'+
+                   	 		'</div>'+
+                   
+                    		'<div>'+
+                    		'<label id="lable2">退货赠品编码：</label>'+
+                    		'<span id="sp22'+rowNo+'">'+supplyProductNo+'</span>'+
+                    		'</div>'+
+                    		'<input type="hidden" value='+orderItemNo+' id="orderItem'+rowNo+'">'+
+                  
+                    		'<div>'+
+                    		'<label id="lable3">可退赠品数量：</label>'+
+                    		'<span id="orderNo_{$T.Result.orderNo}" class="expand-collapse click-collapse glyphicon glyphicon-minus" style="cursor:pointer;" onclick="trClickBddGift('+rowNo+')"></span>'+
+                    		'&nbsp;<span style="font-size:16px;" id ="sp32'+rowNo+'">'+saleSum+'</span>&nbsp'+
+                    		'<span id="orderNo_{$T.Result.orderNo}" class="expand-collapse click-expand glyphicon glyphicon-plus" style="cursor:pointer;" onclick="trClickAddGift('+rowNo+','+refundNum+')"></span>'+
+                    		'</div>'
+                    $("#giftOption").append(option);
+					break;
+				}
+			}else{
+				dataArr = null;
+			}
+			continue;
 		}
 		$("#btDiv2").show();
 		$("#divTitle2").html("创建退货申请单");
@@ -1852,28 +1890,39 @@
 		}
 		
 	}
+	
 	//创建退货申请(商品退)
 	function Ok(){
+		var params = "";
+		var giftSaleSums = 0;
+		var arr = new Array();
+		arr = rowNos.split(",");
+		for(var i = 0; i < arr.length-1; i ++){
+			var is = $('input[name='+arr[i]+']').is(':checked');
+			if(is != false){
+				var giftSaleSum = $("#sp32"+arr[i]).text().trim();
+				var giftOrderItemNo = $("#orderItem"+arr[i]).val().trim();
+				params += giftSaleSum + "," + giftOrderItemNo + "|";
+				giftSaleSums += parseInt(giftSaleSum);
+			}else{
+				params = "";
+			}
+		}
+		
 		var is = $("input[type='checkbox']").is(':checked');
 		var refundPcitureUrl = $("#input_brand2").val();
-		console.log(refundPcitureUrl);
 		$("#btDiv2").hide();
 		var saleNo = saleNo11;
 		var orderNo = orderNo11;
 		var orderItemNo = saleItemNo11;//销售单明细号就是订单明细号
 		var userName = getCookieValue("username");
-		var gfitOrderItmNo = saleItemNo12;
-		var gfitOrderNo = orderNo12;
-		var gfitSaleNo = saleNo12;
 		saleSum3 = $("#sp3").text().trim();
-		var giftSaleSum = $("#sp32").text().trim();
 		var packStatus = $("#packStatus").val();
 		var productsStatus = $("#productsStatus").val();
 		problemDesc =$("#sp4").val();
 		callCenterComments =$("#sp5").val();
-
 		var ine = parseInt(saleSum3);
-		var ine2 = parseInt(giftSaleSum);
+		var ine2 = parseInt(giftSaleSums);
 		var reNum =0;
 		if(is==false){
 			gfitOrderItmNo="";
@@ -1895,11 +1944,8 @@
 				"refundNum16" : saleSum3,
 				"orderNo" : orderNo,
 				"orderItemNo" : orderItemNo,
-				"gfitOrderItmNo" : gfitOrderItmNo,
-				"gfitOrderNo" : gfitOrderNo,
+				"gift" : params,
 				"problemDesc": problemDesc,
-				"gfitSaleNo" : gfitSaleNo,
-				"giftSaleSum" : giftSaleSum,
 				"callCenterComments": callCenterComments,
 				"saleNo" : saleNo,
 				"latestUpdateMan":userName,
@@ -1965,29 +2011,30 @@
 		$("#sp3").text(saleSum2);
 	}
 	function trClickBdd(){
-		var saleSum2 = $("#sp3").text()-1;
-		if(saleSum2 > 0){
+		var saleSum2 = $("#sp3").text();
+		if(saleSum2 > 1){
+			saleSum2 = $("#sp3").text()-1;
 			$("#sp3").text(saleSum2);
 		}else{
-			$("#sp3").text("0");
+			$("#sp3").text(saleSum2);
 		}
 	}
 	//赠品退货数量加减
 	/* 加减号 */
-	function trClickAddGift(){
-		saleSum23 = $("#sp32").text();
-		if(saleSum1 > saleSum23){
+	function trClickAddGift(orderItemNo,refundNum){
+		saleSum23 = $("#sp32"+orderItemNo).text();
+		if(refundNum > saleSum23){
 			saleSum23++;
-	//		saleSum2=parseInt(saleSum2)+1;
 		}
-		$("#sp32").text(saleSum23);
+		$("#sp32"+orderItemNo).text(saleSum23);
 	}
-	function trClickBddGift(){
-		var saleSum23 = $("#sp32").text()-1;
-		if(saleSum23 > 0){
-			$("#sp32").text(saleSum23);
+	function trClickBddGift(orderItemNo){
+		var saleSum231 = $("#sp32"+ orderItemNo).text()
+		if(saleSum231 > 1){
+			saleSum231 = $("#sp32"+ orderItemNo).text()-1;
+			$("#sp32"+orderItemNo).text(saleSum231);
 		}else{
-			$("#sp32").text("0");
+			$("#sp32"+orderItemNo).text(saleSum231);
 		}
 	}
 	//折叠页面
@@ -2361,40 +2408,20 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div> 
-    <div class="modal modal-darkorange" id="btDiv2">
-        <div class="modal-dialog" style="width: 500px;height:180%;margin: -1% auto;">
-            <div class="modal-content">
+    <div class="modal modal-darkorange" id="btDiv2" >
+        <div class="modal-dialog" style="width: 500px;height:180%;margin: 5% auto;">
+            <div class="modal-content" >
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closeBtDiv2();">×</button>
                     <h4 class="modal-title" id="divTitle2"></h4>
                 </div>
-                    <div class="tabbable"> <!-- Only required for left/right tabs -->
-					      <div class="tab-content">
+                    <div class="tabbable" > <!-- Only required for left/right tabs -->
+					      <div class="tab-content" >
 					        <div class="tab-pane active" id="tab1">
-					            <div style="width:100%;height:580px; overflow:hidden;">
+					            <div style="width:100%;height:420px; overflow:scroll; ">
 					                    <!-- <table class="table-striped table-hover table-bordered" id="OLV1_tab" style="width: 750%;background-color: #fff;margin-bottom: 0;">
 					                    </table> -->
-					                    <div id=divGift> 
-					                    <fieldset>
-					                    	<legend>赠品</legend>
-					                    	<div>
-						                    	<label id="lable1">退货赠品名称：</label>
-						                    	<span id="sp12"></span>
-						                    </div>
-						                   
-						                    <div>
-						                    	<label id="lable2">退货赠品编码：</label>
-						                    	<span id="sp22"></span>
-						                    </div>
-						                  
-						                    <div>
-						                    	<label id="lable3">可退赠品数量：</label>
-						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-collapse glyphicon glyphicon-minus' style='cursor:pointer;' onclick="trClickBddGift()"></span>
-						                    	&nbsp;<span style="font-size:16px;" id ="sp32"></span>&nbsp
-						                    	<span id="orderNo_{$T.Result.orderNo}" class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;' onclick="trClickAddGift()"></span>
-						                    </div>
-					                    </fieldset>
-					                    </div>
+					                    
 					                    <fieldset>
 					                    	<legend>普通商品</legend>
 					                    	<div>
@@ -2435,7 +2462,12 @@
 												<div id="msg2" class="hide"></div>
 											</div class="col-lg-4 col-sm-6 col-xs-6">
 										</div>										
-					                    
+					                    <div id=divGift> 
+						                    <fieldset >
+						                    	<legend>赠品</legend>
+						                    	<div id="giftOption"></div>
+						                    </fieldset>
+					                    </div>
 					                    <div>
 					                    	<label id="lable4">退货原因：</label>
 					                    	<select id="sp4">
