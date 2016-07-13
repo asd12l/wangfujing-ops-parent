@@ -105,7 +105,7 @@ Author: WangSy
 		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(needRefundAmount).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-		$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
+		$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2));
 	}
 	//退货方式
 	$("#refundType").val(refundPath_);
@@ -252,7 +252,7 @@ Author: WangSy
 				t2 = parseFloat($(r1).text());
 				totalPrice += t1*t2;
 			}
-			$("#amount1").text(parseFloat(totalPrice).toFixed(2));
+//			$("#amount1").text(parseFloat(totalPrice).toFixed(2));
 			
 				/* for(var i=0; i<response.list.length; i++){
 				} */
@@ -375,15 +375,18 @@ Author: WangSy
 			$("#shbtg").removeAttr("disabled");
 
 			var nu = 0;
+			var nu4 = 0;
 			if(isNaN($("#refundFee").val())||""==$("#refundFee").val()){
 				nu = parseFloat($("#amount1").text()-ss);
+				nu4 = parseFloat($("#amount4").text()-ss);
 				ss=0;
 			}else{
 				nu = parseFloat($("#amount1").text())+parseFloat($("#refundFee").val()-ss);
+				nu4 = parseFloat($("#amount4").text())+parseFloat($("#refundFee").val()-ss);
 				ss=parseFloat($("#refundFee").val());
 			}
 			$("#amount1").text(nu.toFixed(2));
-			$("#amount4").text(nu.toFixed(2));
+			$("#amount4").text(nu4.toFixed(2));
 		}
 	}
 	//金额试算

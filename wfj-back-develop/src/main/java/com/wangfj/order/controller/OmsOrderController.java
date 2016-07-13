@@ -1630,7 +1630,7 @@ public class OmsOrderController {
 	@RequestMapping(value = "/getRefundMonToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getRefundMonToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
-		String title = "refundMonList_dgw";
+		String title = "退款单";
 		List<ExcelRefundMonVo> epv = new ArrayList<ExcelRefundMonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -2287,7 +2287,7 @@ public class OmsOrderController {
 	@RequestMapping(value = "/getOrderToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getOrderToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
-		String title = "orderList_dgw";
+		String title = "订单";
 		List<ExcelOrderVo> epv = new ArrayList<ExcelOrderVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -2623,7 +2623,7 @@ public class OmsOrderController {
 	@RequestMapping(value = "/getRefundToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getRefundToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
-		String title = "refundList_dgw";
+		String title = "退货单";
 		List<ExcelRefundVo> epv = new ArrayList<ExcelRefundVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -3100,7 +3100,7 @@ public class OmsOrderController {
 			RequestMethod.POST })
 	public String getPosPlatformToExcel(HttpServletRequest request, HttpServletResponse response) {
 		String jsons = "";
-		String title = "PosPlatformList_dgw";
+		String title = "支付平台报表明細";
 		List<ExcelPosPlatformVo> epv = new ArrayList<ExcelPosPlatformVo>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
@@ -3389,7 +3389,7 @@ public class OmsOrderController {
 			RequestMethod.POST })
 	public String getPosPlatformAllToExcel(HttpServletRequest request, HttpServletResponse response) {
 		String jsons = "";
-		String title = "PosPlatformAllList_dgw";
+		String title = "支付平台报表汇总";
 		List<ExcelAllPosPlatformVo> epv = new ArrayList<ExcelAllPosPlatformVo>();
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -3630,7 +3630,7 @@ public class OmsOrderController {
 			RequestMethod.POST })
 	public String getPosOrderPlatformToExcel(HttpServletRequest request, HttpServletResponse response) {
 		String jsons = "";
-		String title = "PosOrderPlatformList_dgw";
+		String title = "订单取消扣款报表";
 		List<ExcelOrderPosPlatformVo> epv = new ArrayList<ExcelOrderPosPlatformVo>();
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -3836,7 +3836,7 @@ public class OmsOrderController {
 	@RequestMapping(value = "/getSaleToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getSaleToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
-		String title = "saleList_dgw";
+		String title = "销售单";
 		List<ExcelSaleVo> epv = new ArrayList<ExcelSaleVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
