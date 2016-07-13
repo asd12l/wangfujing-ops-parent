@@ -1562,8 +1562,8 @@ public class TestOnlineOmsOrderController {
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
-//			json = HttpUtilPcm.doPost(CommonProperties.get("sale_return_affirmreturn"), jsonStr);
-			json = HttpUtilPcm.doPost("http://192.168.6.253:8091/oms-admin/promReesult/salereturnAffirmreturn.htm", jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("sale_return_affirmreturn"), jsonStr);
+//			json = HttpUtilPcm.doPost("http://192.168.6.253:8091/oms-admin/promReesult/salereturnAffirmreturn.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{
