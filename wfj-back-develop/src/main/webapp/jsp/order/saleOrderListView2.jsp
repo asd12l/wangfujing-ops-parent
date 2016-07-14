@@ -1046,11 +1046,12 @@
 							if(ele.isGift=="1"){
 								if(ele.refundNum <= 0){
 									option+="<td align='center'>"+
-									 '<label style="padding-left:9px;"><input id="checkboxId" disabled = "disabled" name ='+ele.rowNo+' type="checkbox"><span class="text"></span></lable>'+
+									 
+									 '<input name ='+ele.rowNo+' type="checkbox" disabled = "disabled" style="opacity:1;position:relative;left:0px;">'+
 									"</td></tr>"; 
 								}else{
 									 option+="<td align='center'>"+
-									 '<label style="padding-left:9px;"><input id="checkboxId" name ='+ele.rowNo+' type="checkbox" ><span class="text"></span></lable>'+
+									 '<input name ='+ele.rowNo+' type="checkbox" style="opacity:1;position:relative;left:0px;" >'+
 										"</td></tr>"; 
 								}
 							 }else{
@@ -1880,15 +1881,7 @@
 	var saleNo12;
 	var orderNo12;
 	var saleItemNo12;
-	function refundButten1(saleNo,orderNo,saleItemNo,obj){
-			var saleSum5= $("#refundNum_"+saleItemNo).text().trim();//可退数量
-			alert("数量=" + saleSum5);
-			if(saleSum5 == 0 ){
-				alert("补选中");
-				$("#checkboxId").attr("disabled","disabled");
-			}
-		
-	}
+	
 	
 	//创建退货申请(商品退)
 	function Ok(){
