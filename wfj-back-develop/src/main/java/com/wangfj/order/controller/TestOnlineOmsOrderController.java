@@ -1551,7 +1551,7 @@ public class TestOnlineOmsOrderController {
 		}
 //		paramMap.put("bankName", request.getParameter("bankName"));
 //		paramMap.put("bankNumber", request.getParameter("bankNumber"));
-//		paramMap.put("bankUser", request.getParameter("bankUser"));
+		paramMap.put("quan", request.getParameter("quan"));
 		paramMap.put("returnShippingFee", request.getParameter("refundFee"));
 		paramMap.put("refundPath", request.getParameter("refundType"));
 //		paramMap.put("warehouseAddress", request.getParameter("address"));
@@ -1563,7 +1563,7 @@ public class TestOnlineOmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("sale_return_affirmreturn"), jsonStr);
-//			json = HttpUtilPcm.doPost("http://172.16.255.206:8091/oms-admin/promReesult/salereturnAffirmreturn.htm", jsonStr);
+//			json = HttpUtilPcm.doPost("http://192.168.6.253:8091/oms-admin/promReesult/salereturnAffirmreturn.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{

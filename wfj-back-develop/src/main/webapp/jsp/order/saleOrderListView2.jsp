@@ -1044,9 +1044,16 @@
 							}
 							//操作
 							if(ele.isGift=="1"){
-								 option+="<td align='center'>"+
-								 '<label style="padding-left:9px;"><input id="checkboxId" name ='+ele.rowNo+' type="checkbox" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
-								"</td></tr>"; 
+								if(ele.refundNum <= 0){
+									option+="<td align='center'>"+
+									 
+									 '<input name ='+ele.rowNo+' type="checkbox" disabled = "disabled" style="opacity:1;position:relative;left:0px;">'+
+									"</td></tr>"; 
+								}else{
+									 option+="<td align='center'>"+
+									 '<input name ='+ele.rowNo+' type="checkbox" style="opacity:1;position:relative;left:0px;" >'+
+										"</td></tr>"; 
+								}
 							 }else{
 								 option+="<td align='center'>"+
 									'<input class="btn btn-success" style="width: 50%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)" type="button" value="退货" />'+
@@ -1805,14 +1812,13 @@
 	}
 	var shoppeProName2;
 	var supplyProductNo2;
-	var saleSum5 = "0";
 	var saleNo11;
 	var orerNo11;
 	var saleItemNo11;
 	var param = "";
-	var option = "";
 	var rowNos="";
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
+		var option = "";
 		$("#giftOption").html("");
 		var tbody = document.getElementById("OLV1_tab");
 		for(var i = 1;i<tbody.rows.length;i++){
@@ -1854,6 +1860,11 @@
 			}
 			continue;
 		}
+		if(null != option && "" != option){
+			$("#divGift").show();
+		}else{
+			$("#divGift").hide();
+		}
 		$("#btDiv2").show();
 		$("#divTitle2").html("创建退货申请单");
 		shoppeProName1= $("#shoppeProName_"+saleItemNo).text().trim();
@@ -1870,26 +1881,7 @@
 	var saleNo12;
 	var orderNo12;
 	var saleItemNo12;
-	function refundButten1(saleNo,orderNo,saleItemNo,obj){
-		var is = $("input[type='checkbox']").is(':checked');
-		if(is != false){
-			shoppeProName2= $("#shoppeProName_"+saleItemNo).text().trim();
-			supplyProductNo2= $("#supplyProductNo_"+saleItemNo).text().trim();
-			saleSum5= $("#refundNum_"+saleItemNo).text().trim();//可退数量
-			saleNo12 = saleNo;
-			orderNo12 = orderNo;
-			saleItemNo12 = saleItemNo;
-			
-		}else{
-			shoppeProName2;
-			supplyProductNo2;
-			saleSum5 = "0";
-			saleNo12;
-			orderNo12;
-			saleItemNo12 = null;
-		}
-		
-	}
+	
 	
 	//创建退货申请(商品退)
 	function Ok(){
