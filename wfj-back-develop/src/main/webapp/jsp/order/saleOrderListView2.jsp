@@ -1044,9 +1044,15 @@
 							}
 							//操作
 							if(ele.isGift=="1"){
-								 option+="<td align='center'>"+
-								 '<label style="padding-left:9px;"><input id="checkboxId" name ='+ele.rowNo+' type="checkbox" onclick="refundButten1('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)"><span class="text"></span></lable>'+
-								"</td></tr>"; 
+								if(ele.refundNum <= 0){
+									option+="<td align='center'>"+
+									 '<label style="padding-left:9px;"><input id="checkboxId" disabled = "disabled" name ='+ele.rowNo+' type="checkbox"><span class="text"></span></lable>'+
+									"</td></tr>"; 
+								}else{
+									 option+="<td align='center'>"+
+									 '<label style="padding-left:9px;"><input id="checkboxId" name ='+ele.rowNo+' type="checkbox" ><span class="text"></span></lable>'+
+										"</td></tr>"; 
+								}
 							 }else{
 								 option+="<td align='center'>"+
 									'<input class="btn btn-success" style="width: 50%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleNo+"','"+ele.orderNo+"','"+ele.salesItemNo+"'"+',this)" type="button" value="退货" />'+
@@ -1805,7 +1811,6 @@
 	}
 	var shoppeProName2;
 	var supplyProductNo2;
-	var saleSum5 = "0";
 	var saleNo11;
 	var orerNo11;
 	var saleItemNo11;
@@ -1871,23 +1876,12 @@
 	var orderNo12;
 	var saleItemNo12;
 	function refundButten1(saleNo,orderNo,saleItemNo,obj){
-		var is = $("input[type='checkbox']").is(':checked');
-		if(is != false){
-			shoppeProName2= $("#shoppeProName_"+saleItemNo).text().trim();
-			supplyProductNo2= $("#supplyProductNo_"+saleItemNo).text().trim();
-			saleSum5= $("#refundNum_"+saleItemNo).text().trim();//可退数量
-			saleNo12 = saleNo;
-			orderNo12 = orderNo;
-			saleItemNo12 = saleItemNo;
-			
-		}else{
-			shoppeProName2;
-			supplyProductNo2;
-			saleSum5 = "0";
-			saleNo12;
-			orderNo12;
-			saleItemNo12 = null;
-		}
+			var saleSum5= $("#refundNum_"+saleItemNo).text().trim();//可退数量
+			alert("数量=" + saleSum5);
+			if(saleSum5 == 0 ){
+				alert("补选中");
+				$("#checkboxId").attr("disabled","disabled");
+			}
 		
 	}
 	
