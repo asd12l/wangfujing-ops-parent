@@ -1815,9 +1815,9 @@
 	var orerNo11;
 	var saleItemNo11;
 	var param = "";
-	var option = "";
 	var rowNos="";
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
+		var option = "";
 		$("#giftOption").html("");
 		var tbody = document.getElementById("OLV1_tab");
 		for(var i = 1;i<tbody.rows.length;i++){
@@ -1858,6 +1858,11 @@
 				dataArr = null;
 			}
 			continue;
+		}
+		if(null != option && "" != option){
+			$("#divGift").show();
+		}else{
+			$("#divGift").hide();
 		}
 		$("#btDiv2").show();
 		$("#divTitle2").html("创建退货申请单");
