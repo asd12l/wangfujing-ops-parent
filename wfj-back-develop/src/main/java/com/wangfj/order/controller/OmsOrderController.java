@@ -299,6 +299,251 @@ public class OmsOrderController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
+	/**
+	 * 查询订单信息（带分页）(手机号查询)
+	 * @Methods Name selectOrderListByPhone
+	 * @Create In 2016-7-17 By chenhu
+	 * @param request
+	 * @param response
+	 * @return String
+	 * @throws ParseException 
+	 */
+	@ResponseBody
+	@RequestMapping("/selectOrderListByPhone")
+	public String selectOrderListByPhone(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+		String json = "";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
+		if(size==null || size==0){
+			size = 10;
+		}
+//		int start = (currPage-1)*size;
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("supplyProductNo", request.getParameter("supplyProductNo"));
+		paramMap.put("orderSource", request.getParameter("saleSource"));
+		paramMap.put("isCod", request.getParameter("isCod"));
+		paramMap.put("orderNo", request.getParameter("orderNo"));
+		paramMap.put("outOrderNo", request.getParameter("outOrderNo"));
+		paramMap.put("orderStatus", request.getParameter("orderStatus"));
+		paramMap.put("payStatus", request.getParameter("payStatus"));
+		paramMap.put("memberNo", request.getParameter("memberNo"));
+		paramMap.put("receptPhone", request.getParameter("receptPhone"));
+		paramMap.put("memberType", request.getParameter("memberType"));
+		paramMap.put("paymentAmountStart", request.getParameter("paymentAmountStart"));
+		paramMap.put("paymentAmountEnd", request.getParameter("paymentAmountEnd"));
+		
+		SimpleDateFormat formatter; 
+		formatter = new SimpleDateFormat ("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		if(StringUtils.isNotEmpty(request.getParameter("startSaleTime"))){
+			Date date = sdf.parse(request.getParameter("startSaleTime"));
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.HOUR_OF_DAY, 0);
+			Date date2 = calendar.getTime();
+			String startDate = sdf.format(date2);
+			paramMap.put("saleTimeStartStr", startDate);
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
+			Date date = sdf.parse(request.getParameter("endSaleTime"));
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.HOUR_OF_DAY, 0);
+			Date date2 = calendar.getTime();
+			String endDate = sdf.format(date2);
+			paramMap.put("saleTimeEndStr", endDate);
+		}
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		paramMap.put("start", String.valueOf(currPage));
+		paramMap.put("limit", String.valueOf(size));
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone"), jsonStr);
+			logger.info("json:" + json);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+			String data = jsonObject.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
+			
+			String jsonStr2 = "";
+			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
+			paramMap2.put("fromSystem", "OMSADMIN");
+			paramMap2.put("typeValue", "order_status");
+			jsonStr2 = JSON.toJSONString(paramMap2);
+			String json2 = HttpUtilPcm.doPost(CommonProperties.get("select_codelist_selectBox"), jsonStr2);
+			logger.info("json2:" + json2);
+			JSONObject jsonObjectJ2 = JSONObject.fromObject(json2);
+			String codeData = jsonObjectJ2.getString("data");
+			JSONArray json2Object = JSONArray.fromObject(codeData);
+//			List<Object> list2 = JSONArray.toList(json2Object, Object.class);
+			
+			List<Object> list3 = new ArrayList<Object>();
+//			for (int i = 0; i < json2Object.size(); i++) {
+////				JSONObject jsonObject3 = JSONObject.fromObject(object2);
+//				JSONObject jsonObject3 = (JSONObject) json2Object.get(i);
+//				String codeValue = jsonObject3.getString("codeValue");
+//				String codeName = jsonObject3.getString("codeName");
+//				for (Object object : list) {
+//					JSONObject jsonObject4 = JSONObject.fromObject(object);
+//					String orderStatus = jsonObject4.getString("orderStatus");
+//					if(orderStatus.equals(codeValue)){
+//						orderStatus = codeName;
+//						jsonObject4.put("orderStatusDesc",orderStatus);
+////						object = JSONObject.toBean(jsonObject4, Object.class);
+//						list3.add(jsonObject4);
+//					}
+//				}
+//			}
+			for(int i=0; i<list.size(); i++){
+				Object object = list.get(i);
+				JSONObject jsonObject4 = JSONObject.fromObject(object);
+				String orderStatus=null;
+				try {
+					orderStatus = jsonObject4.getString("orderStatus");
+					if(null!=json2Object){
+						for(int j=0; j < json2Object.size(); j++){
+							JSONObject jsonObject3 = (JSONObject) json2Object.get(j);
+							String codeValue = jsonObject3.getString("codeValue");
+							String codeName = jsonObject3.getString("codeName");
+							if(orderStatus.equals(codeValue)){
+								orderStatus = codeName;
+								jsonObject4.put("orderStatusDesc",orderStatus);
+								list3.add(jsonObject4);
+								break;
+							}else if(j==json2Object.size()-1){
+								JSONObject jsonObject5 = JSONObject.fromObject(object);
+								list3.add(jsonObject5);
+							}
+						}
+					}else{
+						list3.add(jsonObject4);
+					}
+				} catch (Exception e) {
+					list3.add(jsonObject4);
+					
+				}
+			}
+			list=list3;
+			
+			String jsonStr21 = "";
+			Map<Object, Object> paramMap21 = new HashMap<Object, Object>();
+			paramMap21.put("fromSystem", "OMSADMIN");
+			paramMap21.put("typeValue", "order_type");
+			jsonStr21 = JSON.toJSONString(paramMap21);
+			String json21 = HttpUtilPcm.doPost(CommonProperties.get("select_codelist_selectBox"), jsonStr21);
+			logger.info("json21:" + json21);
+			JSONObject jsonObjectJ21 = JSONObject.fromObject(json21);
+			String codeData1 = jsonObjectJ21.getString("data");
+			JSONArray json2Object1 = JSONArray.fromObject(codeData1);
+//			List<Object> list2 = JSONArray.toList(json2Object, Object.class);
+			
+			List<Object> list4 = new ArrayList<Object>();
+//			for (int i = 0; i < json2Object1.size(); i++) {
+////				JSONObject jsonObject3 = JSONObject.fromObject(object2);
+//				JSONObject jsonObject3 = (JSONObject) json2Object1.get(i);
+//				String codeValue = jsonObject3.getString("codeValue");
+//				String codeName = jsonObject3.getString("codeName");
+//				for (Object object : list) {
+//					JSONObject jsonObject4 = JSONObject.fromObject(object);
+//					String orderType = jsonObject4.getString("orderType");
+//					if(orderType.equals(codeValue)){
+//						orderType = codeName;
+//						jsonObject4.put("orderType",orderType);
+////						object = JSONObject.toBean(jsonObject4, Object.class);
+//						list4.add(jsonObject4);
+//					}
+//				}
+//			}
+			for (int i = 0; i < list.size(); i++) {
+				Object object = list.get(i);
+				JSONObject jsonObject4 = JSONObject.fromObject(object);
+				String orderType =null;
+				try {
+					orderType = jsonObject4.getString("orderType");
+					if(null!=json2Object1){
+						for(int j=0; j < json2Object1.size(); j++){
+							JSONObject jsonObject3 = (JSONObject) json2Object1.get(j);
+							String codeValue = jsonObject3.getString("codeValue");
+							String codeName = jsonObject3.getString("codeName");
+							if(orderType.equals(codeValue)){
+								orderType = codeName;
+								jsonObject4.put("orderType",orderType);
+								list4.add(jsonObject4);
+								break;
+							}else if(j==json2Object1.size()-1){
+								JSONObject jsonObject5 = JSONObject.fromObject(object);
+								list4.add(jsonObject5);
+							}
+						}
+					}else{
+						list4.add(jsonObject4);
+					}
+				} catch (Exception e) {
+					list4.add(jsonObject4);
+				}
+			}
+			list=list4;
+			
+			//渠道字段转换(PCM接口)
+			String jsonStr22 = "";
+			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
+			jsonStr22 = JSON.toJSONString(paramMap22);
+			String json22 = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL + "/pcmAdminChannel/findListChannel.htm", jsonStr22);
+			logger.info("json22:" + json22);
+			JSONObject jsonObjectJ22 = JSONObject.fromObject(json22);
+			String codeData2 = jsonObjectJ22.getString("data");
+			JSONArray json2Object2 = JSONArray.fromObject(codeData2);
+			
+			List<Object> list41 = new ArrayList<Object>();
+			for (int i = 0; i < list.size(); i++) {
+				Object object = list.get(i);
+				JSONObject jsonObject41 = JSONObject.fromObject(object);
+				String channelName =null;
+				try {
+					channelName = jsonObject41.getString("orderSource");
+					if(null!=json2Object2){
+						for(int j=0; j < json2Object2.size(); j++){
+							JSONObject jsonObject31 = (JSONObject) json2Object2.get(j);
+							String codeValue = jsonObject31.getString("channelCode");
+							String codeName = jsonObject31.getString("channelName");
+							if(channelName.equals(codeValue)){
+								channelName = codeName;
+								jsonObject41.put("orderSource",codeName);
+								list41.add(jsonObject41);
+								break;
+							}else if(j==json2Object2.size()-1){
+								JSONObject jsonObject51 = JSONObject.fromObject(object);
+								list41.add(jsonObject51);
+							}
+						}
+					}else{
+						list41.add(jsonObject41);
+					}
+				} catch (Exception e) {
+					list41.add(jsonObject41);
+				}
+			}
+			list=list41;
+			
+			Integer count = jsonObject2.getInt("count");
+			int pageCount = count % size == 0 ? count / size : (count / size + 1);
+			if (list != null && list.size() != 0) {
+				m.put("list", list);
+				m.put("pageCount", pageCount);
+				m.put("success", "true");
+			} else {
+				m.put("pageCount", 0);
+				m.put("success", "false");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			m.put("pageCount", 0);
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
 	
 	/**
 	 * 查询订单明细
@@ -1630,7 +1875,7 @@ public class OmsOrderController {
 	@RequestMapping(value = "/getRefundMonToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getRefundMonToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
-		String title = "退款单";
+		String title = "refundMon";
 		List<ExcelRefundMonVo> epv = new ArrayList<ExcelRefundMonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -2287,7 +2532,7 @@ public class OmsOrderController {
 	@RequestMapping(value = "/getOrderToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getOrderToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
-		String title = "订单";
+		String title = "order";
 		List<ExcelOrderVo> epv = new ArrayList<ExcelOrderVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -2528,6 +2773,261 @@ public class OmsOrderController {
 		}
 	}
 	/**
+	 * 订单导出Excel（手机号查询）
+	 * @Methods Name getOrderToExcelByPhone
+	 * @Create In 2016-7-15 By chenHu
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getOrderToExcelByPhone",method={RequestMethod.GET,RequestMethod.POST})
+	public String getOrderToExcelByPhone(HttpServletRequest request, HttpServletResponse response){
+		String jsons = "";	
+		String title = "order";
+		List<ExcelOrderVo> epv = new ArrayList<ExcelOrderVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		if(StringUtils.isNotEmpty(request.getParameter("outOrderNo"))){
+			map.put("outOrderNo", request.getParameter("outOrderNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("supplyProductNo"))){
+			map.put("supplyProductNo", request.getParameter("supplyProductNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("orderStatus"))){
+			map.put("orderStatus", request.getParameter("orderStatus"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("payStatus"))){
+			map.put("payStatus", request.getParameter("payStatus"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
+			map.put("orderNo", request.getParameter("orderNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("isCod"))){
+			map.put("isCod", request.getParameter("isCod"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("memberNo"))){
+			map.put("memberNo", request.getParameter("memberNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("receptPhone"))){
+			map.put("receptPhone", request.getParameter("receptPhone"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("startSaleTime"))){
+			map.put("saleTimeStartStr", request.getParameter("startSaleTime"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
+			map.put("saleTimeEndStr", request.getParameter("endSaleTime"));
+		}
+		String jsonStr = JSON.toJSONString(map);
+		try {
+			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_order_list_phone"), jsonStr);
+//			String json = HttpUtilPcm.doPost("http://172.16.255.207:8087/oms-core-sdc/order/queryOrderExcel.htm", jsonStr);
+			
+			JSONObject js = JSONObject.fromObject(json);
+//			Object objs = js.get("data");
+			List<Object> list = (List<Object>) js.get("data");
+			//渠道字段转换(PCM接口)
+			String jsonStr22 = "";
+			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
+			jsonStr22 = JSON.toJSONString(paramMap22);
+			String json22 = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL + "/pcmAdminChannel/findListChannel.htm", jsonStr22);
+			logger.info("json22:" + json22);
+			JSONObject jsonObjectJ22 = JSONObject.fromObject(json22);
+			String codeData2 = jsonObjectJ22.getString("data");
+			JSONArray json2Object2 = JSONArray.fromObject(codeData2);
+			
+			List<Object> list41 = new ArrayList<Object>();
+			for (int i = 0; i < list.size(); i++) {
+				Object object = list.get(i);
+				JSONObject jsonObject41 = JSONObject.fromObject(object);
+				String channelName =null;
+				try {
+					channelName = jsonObject41.getString("orderSource");
+					if(null!=json2Object2){
+						for(int j=0; j < json2Object2.size(); j++){
+							JSONObject jsonObject31 = (JSONObject) json2Object2.get(j);
+							String codeValue = jsonObject31.getString("channelCode");
+							String codeName = jsonObject31.getString("channelName");
+							if(channelName.equals(codeValue)){
+								channelName = codeName;
+								jsonObject41.put("orderSource",codeName);
+								list41.add(jsonObject41);
+								break;
+							}else if(j==json2Object2.size()-1){
+								JSONObject jsonObject51 = JSONObject.fromObject(object);
+								list41.add(jsonObject51);
+							}
+						}
+					}else{
+						list41.add(jsonObject41);
+					}
+				} catch (Exception e) {
+					list41.add(jsonObject41);
+				}
+			}
+			list=list41;
+			
+			// 得到JSONArray
+//			JSONArray arr = JSONArray.fromObject(objs);
+			if(list.size()>0){
+				for(int i=0;i<list.size();i++){
+//					JSONObject jOpt = arr.getJSONObject(i);
+					JSONObject jOpt = (JSONObject) list.get(i);
+					ExcelOrderVo vo = (ExcelOrderVo) JSONObject.toBean(jOpt,ExcelOrderVo.class);
+					epv.add(vo);
+				}
+			}
+			
+			Object result = allOrderToExcelByPhone(response, epv, title);
+			jsons = ResultUtil.createSuccessResult(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsons = "";
+		}
+		
+		return jsons;
+	}
+	public String allOrderToExcelByPhone(HttpServletResponse response,List<ExcelOrderVo> list, String title) {
+		List<String> header = new ArrayList<String>();
+		
+		header.add("订单号");
+		header.add("外部订单号");
+		header.add("订单状态");
+		header.add("CID");
+		header.add("会员卡号");
+		header.add("订单来源");
+		header.add("订单类型");
+		header.add("商品销售总额");
+		header.add("销售时间");
+		header.add("延迟时间");
+		header.add("支付类型");
+		header.add("支付状态");
+		header.add("支付时间");
+		header.add("是否需要开发票");
+		header.add("应收运费");
+		header.add("订单应付金额");
+		header.add("现金类支付金额");
+		header.add("使用余额总额");
+		header.add("订单优惠金额");
+		header.add("取消原因");
+		header.add("客户备注");
+		header.add("客服备注");
+		header.add("收件人电话");
+		header.add("收件人姓名");
+		header.add("收件人城市");
+		header.add("收件城市邮编");
+		header.add("收件地区省份");
+		header.add("收货地址");
+		header.add("是否货到付款");
+		header.add("最后修改人");
+		
+		List<List<String>> data = new ArrayList<List<String>>();
+		for(ExcelOrderVo vo:list){
+			List<String> inlist = new ArrayList<String>();
+			inlist.add(vo.getOrderNo()==null?"":vo.getOrderNo());	
+			inlist.add(vo.getOutOrderNo()==null?"":vo.getOutOrderNo());	
+			inlist.add(vo.getOrderStatusDesc()==null?"":vo.getOrderStatusDesc());	
+			inlist.add(vo.getAccountNo()==null?"":vo.getAccountNo());	
+			inlist.add(vo.getMemberNo()==null?"":vo.getMemberNo());	
+			inlist.add(vo.getOrderSource()==null?"":vo.getOrderSource());
+//			String orderSource = null;
+//			if(vo.getOrderSource().equals("C1")){
+//				orderSource = "线上 C1";
+//			}else if(vo.getOrderSource().equals("X1")){
+//				orderSource = "线下 X1";
+//			}else if(vo.getOrderSource().equals("C7")){
+//				orderSource = "天猫";
+//			}else if(vo.getOrderSource().equals("CB")){
+//				orderSource = "全球购";
+//			}
+//			inlist.add(vo.getOrderSource()==null?"":orderSource);
+//			inlist.add(vo.getOrderType()==null?"":vo.getOrderType());
+			String orderType = null;
+			if(vo.getOrderType().equals("PT")){
+				orderType = "普通订单";
+			}else if(vo.getOrderType().equals("TG")){
+				orderType = "团购订单";
+			}else if(vo.getOrderType().equals("DK")){
+				orderType = "代客下单";
+			}else if(vo.getOrderType().equals("KT")){
+				orderType = "快腿订单";
+			}else if(vo.getOrderType().equals("YG")){
+				orderType = "员工订单";
+			}
+			inlist.add(vo.getOrderType()==null?"":orderType);
+			inlist.add(vo.getSalesAmount()==null?"":vo.getSalesAmount().toString());
+			inlist.add(vo.getSaleTimeStr()==null?"":vo.getSaleTimeStr());
+			inlist.add(vo.getDelayTimeStr()==null?"":vo.getDelayTimeStr());
+//			inlist.add(vo.getPaymentClass()==null?"":vo.getPaymentClass());
+			String paymentClass = null;
+			if("ONLINE".equals(vo.getPaymentClass())){
+				paymentClass = "在线支付";
+			}else {
+				paymentClass = "货到付款";
+			}
+			inlist.add(vo.getPaymentClass()==null?"":paymentClass);
+//			inlist.add(vo.getPayStatus()==null?"":vo.getPayStatus());
+			String payStatus = null;
+			if(vo.getPayStatus().equals("5001")){
+				payStatus = "未支付";
+			}else if(vo.getPayStatus().equals("5002")){
+				payStatus = "部分支付";
+			}else if(vo.getPayStatus().equals("5003")){
+				payStatus = "超时未支付";
+			}else if(vo.getPayStatus().equals("5004")){
+				payStatus = "已支付";
+			}
+			inlist.add(vo.getPayStatus()==null?"":payStatus);
+			inlist.add(vo.getPayTimeStr()==null?"":vo.getPayTimeStr());
+//			inlist.add(vo.getNeedInvoice()==null?"":vo.getNeedInvoice());
+			String needInvoice = null;
+			if(vo.getNeedInvoice().equals("0")){
+				needInvoice = "否";
+			}else if(vo.getNeedInvoice().equals("1")){
+				needInvoice = "是";
+			}
+			inlist.add(vo.getNeedInvoice()==null?"":needInvoice);
+			inlist.add(vo.getNeedSendCost()==null?"":vo.getNeedSendCost().toString());
+			inlist.add(vo.getPaymentAmount()==null?"":vo.getPaymentAmount().toString());
+			inlist.add(vo.getCashIncome()==null?"":vo.getCashIncome().toString());
+			inlist.add(vo.getAccountBalanceAmount()==null?"":vo.getAccountBalanceAmount().toString());
+			inlist.add(vo.getPromotionAmount()==null?"":vo.getPromotionAmount().toString());
+			inlist.add(vo.getCancelReason()==null?"":vo.getCancelReason());
+			inlist.add(vo.getCustomerComments()==null?"":vo.getCustomerComments());
+			inlist.add(vo.getCallCenterComments()==null?"":vo.getCallCenterComments());
+			inlist.add(vo.getReceptPhone()==null?"":vo.getReceptPhone());
+			inlist.add(vo.getReceptName()==null?"":vo.getReceptName());
+			inlist.add(vo.getReceptCityName()==null?"":vo.getReceptCityName());
+			inlist.add(vo.getReceptCityCode()==null?"":vo.getReceptCityCode());
+			inlist.add(vo.getReceptProvName()==null?"":vo.getReceptProvName());
+			inlist.add(vo.getReceptAddress()==null?"":vo.getReceptAddress());
+//			inlist.add(vo.getIsCod()==null?"":vo.getIsCod().toString());
+			String isCod = null;
+			if(vo.getIsCod()==0){
+				isCod = "否";
+			}else if(vo.getIsCod()==1){
+				isCod = "是";
+			}
+			inlist.add(vo.getIsCod()==null?"":isCod);
+			inlist.add(vo.getLatestUpdateMan()==null?"":vo.getLatestUpdateMan());
+			data.add(inlist);
+		}
+		ExcelFile ef = new ExcelFile(title, header, data);
+		try {
+			OutputStream file = response.getOutputStream();
+			response.reset();
+			response.setContentType("APPLICATION/OCTET-STREAM"); 
+			response.setHeader("Content-disposition",
+					"attachment; filename=/"+title+".xls");
+			
+			ef.save(file);
+			return "成功";
+		} catch (Exception e) {
+			return e.toString();
+		}
+	}
+	/**
 	 * 查询线上支付分页
 	 * @Methods Name selectPaymentPage
 	 * @Create In 2016-3-16 By chenHu
@@ -2623,7 +3123,7 @@ public class OmsOrderController {
 	@RequestMapping(value = "/getRefundToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getRefundToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
-		String title = "退货单";
+		String title = "refund";
 		List<ExcelRefundVo> epv = new ArrayList<ExcelRefundVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -3100,7 +3600,7 @@ public class OmsOrderController {
 			RequestMethod.POST })
 	public String getPosPlatformToExcel(HttpServletRequest request, HttpServletResponse response) {
 		String jsons = "";
-		String title = "支付平台报表明細";
+		String title = "posPlatform";
 		List<ExcelPosPlatformVo> epv = new ArrayList<ExcelPosPlatformVo>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
@@ -3389,7 +3889,7 @@ public class OmsOrderController {
 			RequestMethod.POST })
 	public String getPosPlatformAllToExcel(HttpServletRequest request, HttpServletResponse response) {
 		String jsons = "";
-		String title = "支付平台报表汇总";
+		String title = "posPlatformAl";
 		List<ExcelAllPosPlatformVo> epv = new ArrayList<ExcelAllPosPlatformVo>();
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -3630,7 +4130,7 @@ public class OmsOrderController {
 			RequestMethod.POST })
 	public String getPosOrderPlatformToExcel(HttpServletRequest request, HttpServletResponse response) {
 		String jsons = "";
-		String title = "订单取消扣款报表";
+		String title = "posOrderPlatform";
 		List<ExcelOrderPosPlatformVo> epv = new ArrayList<ExcelOrderPosPlatformVo>();
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -3836,7 +4336,7 @@ public class OmsOrderController {
 	@RequestMapping(value = "/getSaleToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getSaleToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
-		String title = "销售单";
+		String title = "sale";
 		List<ExcelSaleVo> epv = new ArrayList<ExcelSaleVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -3990,6 +4490,228 @@ public class OmsOrderController {
 				payStatus = "已支付";
 			}
 			inlist.add(vo.getPayStatus()==null?"":payStatus);
+			inlist.add(vo.getAccountNo()==null?"":vo.getAccountNo());	
+			inlist.add(vo.getMemberNo()==null?"":vo.getMemberNo());	
+//			inlist.add(vo.getSaleType()==null?"":vo.getSaleType().toString());	
+			String saleType = null;
+			if(vo.getSaleType()==1){
+				saleType = "正常销售单";
+			}else if(vo.getSaleType()==2){
+				saleType = "大码销售单";
+			}
+			inlist.add(vo.getSaleType()==null?"":saleType);
+			inlist.add(vo.getSaleSource()==null?"":vo.getSaleSource());	
+			inlist.add(vo.getStoreName()==null?"":vo.getStoreName());	
+			inlist.add(vo.getSupplyNo()==null?"":vo.getSupplyNo());	
+			inlist.add(vo.getSuppllyName()==null?"":vo.getSuppllyName());	
+			inlist.add(vo.getShoppeName()==null?"":vo.getShoppeName());	
+//			inlist.add(vo.getSaleClass()==null?"":vo.getSaleClass().toString());
+			String saleClass = null;
+			if(vo.getSaleClass()==1){
+				saleClass = "销售单";
+			}else if(vo.getSaleClass()==2){
+				saleClass = "换货换出单";
+			}
+			inlist.add(vo.getSaleClass()==null?"":saleClass);
+			inlist.add(vo.getSaleAmount()==null?"":vo.getSaleAmount().toString());
+			inlist.add(vo.getPaymentAmount()==null?"":vo.getPaymentAmount().toString());
+			inlist.add(vo.getDiscountAmount()==null?"":vo.getDiscountAmount().toString());
+			inlist.add(vo.getAuthorityCard()==null?"":vo.getAuthorityCard());
+			inlist.add(vo.getQrcode()==null?"":vo.getQrcode());
+			inlist.add(vo.getSalesPaymentNo()==null?"":vo.getSalesPaymentNo());
+			inlist.add(vo.getEmployeeNo()==null?"":vo.getEmployeeNo());
+			inlist.add(vo.getCasherNo()==null?"":vo.getCasherNo());
+			inlist.add(vo.getSaleTimeStr()==null?"":vo.getSaleTimeStr());
+			inlist.add(vo.getLatestUpdateMan()==null?"":vo.getLatestUpdateMan());
+			inlist.add(vo.getLatestUpdateTimeStr()==null?"":vo.getLatestUpdateTimeStr());
+			
+			data.add(inlist);
+		}
+		ExcelFile ef = new ExcelFile(title, header, data);
+		try {
+			OutputStream file = response.getOutputStream();
+			response.reset();
+			response.setContentType("APPLICATION/OCTET-STREAM"); 
+			response.setHeader("Content-disposition",
+					"attachment; filename=/"+title+".xls");
+			
+			ef.save(file);
+			return "成功";
+		} catch (Exception e) {
+			return e.toString();
+		}
+	}
+	/**
+	 * 导出销售单Excel加手机号查询
+	 * @Methods Name getSaleToExcelByPhone
+	 * @Create In 2016-7-17 By chenHu
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getSaleToExcelByPhone",method={RequestMethod.GET,RequestMethod.POST})
+	public String getSaleToExcelByPhone(HttpServletRequest request, HttpServletResponse response){
+		String jsons = "";	
+		String title = "sale";
+		List<ExcelSaleVo> epv = new ArrayList<ExcelSaleVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		if(StringUtils.isNotEmpty(request.getParameter("receptPhone"))){
+			map.put("receptPhone", request.getParameter("receptPhone"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("saleSource"))){
+			map.put("saleSource", request.getParameter("saleSource"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("saleNo"))){
+			map.put("saleNo", request.getParameter("saleNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("saleStatus"))){
+			map.put("saleStatus", request.getParameter("saleStatus"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("payStatus"))){
+			map.put("payStatus", request.getParameter("payStatus"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
+			map.put("orderNo", request.getParameter("orderNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("shopNo"))){
+			map.put("shopNo", request.getParameter("shopNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("memberNo"))){
+			map.put("memberNo", request.getParameter("memberNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("salesPaymentNo"))){
+			map.put("salesPaymentNo", request.getParameter("salesPaymentNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("casherNo"))){
+			map.put("casherNo", request.getParameter("casherNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("startSaleTime"))){
+			map.put("saleTimeStart", request.getParameter("startSaleTime"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
+			map.put("saleTimeEnd", request.getParameter("endSaleTime"));
+		}
+//		map.put("fromSystem", "OMSADMIN");
+		String jsonStr = JSON.toJSONString(map);
+		try {
+			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcel.htm", jsonStr);
+			
+			JSONObject js = JSONObject.fromObject(json);
+//			Object objs = js.get("data");
+			
+			List<Object> list = (List<Object>) js.get("data");
+			
+			//渠道字段转换(PCM接口)
+			String jsonStr22 = "";
+			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
+			jsonStr22 = JSON.toJSONString(paramMap22);
+			String json22 = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL + "/pcmAdminChannel/findListChannel.htm", jsonStr22);
+			logger.info("json22:" + json22);
+			JSONObject jsonObjectJ22 = JSONObject.fromObject(json22);
+			String codeData2 = jsonObjectJ22.getString("data");
+			JSONArray json2Object2 = JSONArray.fromObject(codeData2);
+			
+			List<Object> list41 = new ArrayList<Object>();
+			for (int i = 0; i < list.size(); i++) {
+				Object object = list.get(i);
+				JSONObject jsonObject41 = JSONObject.fromObject(object);
+				String channelName =null;
+				try {
+					channelName = jsonObject41.getString("saleSource");
+					if(null!=json2Object2){
+						for(int j=0; j < json2Object2.size(); j++){
+							JSONObject jsonObject31 = (JSONObject) json2Object2.get(j);
+							String codeValue = jsonObject31.getString("channelCode");
+							String codeName = jsonObject31.getString("channelName");
+							if(channelName.equals(codeValue)){
+								channelName = codeName;
+								jsonObject41.put("saleSource",codeName);
+								list41.add(jsonObject41);
+								break;
+							}else if(j==json2Object2.size()-1){
+								JSONObject jsonObject51 = JSONObject.fromObject(object);
+								list41.add(jsonObject51);
+							}
+						}
+					}else{
+						list41.add(jsonObject41);
+					}
+				} catch (Exception e) {
+					list41.add(jsonObject41);
+				}
+			}
+			list=list41;
+			
+			// 得到JSONArray
+//			JSONArray arr = JSONArray.fromObject(objs);
+			if(list.size()>0){
+				for(int i=0;i<list.size();i++){
+					JSONObject jOpt = (JSONObject) list.get(i);
+					ExcelSaleVo vo = (ExcelSaleVo) JSONObject.toBean(jOpt,ExcelSaleVo.class);
+					epv.add(vo);
+				}
+			}
+			
+			Object result = allSaleToExcelByPhone(response, epv, title);
+			jsons = ResultUtil.createSuccessResult(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsons = "";
+		}
+		
+		return jsons;
+	}
+	public String allSaleToExcelByPhone(HttpServletResponse response,List<ExcelSaleVo> list, String title) {
+		List<String> header = new ArrayList<String>();
+		header.add("销售单号");
+		header.add("订单号");
+		header.add("销售单状态");
+		header.add("支付状态");
+		header.add("手机号");
+		header.add("CID");
+		header.add("会员卡号");
+		header.add("销售类别");
+		header.add("销售单来源");
+		header.add("门店名称");
+		header.add("供应商编码");
+		header.add("供应商名称");
+		header.add("专柜名称");
+		header.add("销售类型");
+		header.add("总金额");
+		header.add("应付金额");
+		header.add("优惠金额");
+		header.add("授权卡号");
+		header.add("二维码");
+		header.add("收银流水号");
+		header.add("导购号");
+		header.add("机器号");
+		header.add("销售时间");
+		header.add("最后修改人");
+		header.add("最后修改时间");
+		
+		List<List<String>> data = new ArrayList<List<String>>();
+		for(ExcelSaleVo vo:list){
+			List<String> inlist = new ArrayList<String>();
+			inlist.add(vo.getSaleNo()==null?"":vo.getSaleNo());	
+			inlist.add(vo.getOrderNo()==null?"":vo.getOrderNo());	
+			inlist.add(vo.getSaleStatusDesc()==null?"":vo.getSaleStatusDesc());	
+//			inlist.add(vo.getPayStatus()==null?"":vo.getPayStatus());
+			String payStatus = null;
+			if("5001".equals(vo.getPayStatus())){
+				payStatus = "未支付";
+			}else if("5002".equals(vo.getPayStatus())){
+				payStatus = "部分支付";
+			}else if("5003".equals(vo.getPayStatus())){
+				payStatus = "超时未支付";
+			}else if("5004".equals(vo.getPayStatus())){
+				payStatus = "已支付";
+			}
+			inlist.add(vo.getPayStatus()==null?"":payStatus);
+			inlist.add(vo.getReceptPhone()==null?"":vo.getReceptPhone());	
 			inlist.add(vo.getAccountNo()==null?"":vo.getAccountNo());	
 			inlist.add(vo.getMemberNo()==null?"":vo.getMemberNo());	
 //			inlist.add(vo.getSaleType()==null?"":vo.getSaleType().toString());	

@@ -713,6 +713,7 @@
 	}
 	//点击tr事件
 	function trClick(saleNo,orderNo,obj){
+		var productNum = 0;
 		if ($("#orderNo_"+saleNo).attr("class") == "expand-collapse click-expand glyphicon glyphicon-plus") {
 			$("#orderNo_"+saleNo).attr("class","expand-collapse click-collapse glyphicon glyphicon-minus");
 			 var newTr =  $(obj).clone(true);
@@ -779,6 +780,7 @@
 					if(response.success=='true'){
 						var result = response.list;
 						for(var i=0;i<result.length;i++){
+							productNum ++;
 							var ele = result[i];
 							$("#saleItemNo").val(ele.saleItemNo);
 							//商品名称
@@ -1047,11 +1049,11 @@
 								if(ele.refundNum <= 0){
 									option+="<td align='center'>"+
 									 
-									 '<input name ='+ele.rowNo+' type="checkbox" disabled = "disabled" style="opacity:1;position:relative;left:0px;">'+
+									 '<input id="checkId'+ele.rowNo+'" name = "pro'+productNum+'" type="checkbox" disabled = "disabled" style="opacity:1;position:relative;left:0px;">'+
 									"</td></tr>"; 
 								}else{
 									 option+="<td align='center'>"+
-									 '<input name ='+ele.rowNo+' type="checkbox" style="opacity:1;position:relative;left:0px;" >'+
+									 '<input id="checkId'+ele.rowNo+'" name ="pro'+productNum+'" type="checkbox" style="opacity:1;position:relative;left:0px;" >'+
 										"</td></tr>"; 
 								}
 							 }else{
@@ -1822,19 +1824,19 @@
 		$("#giftOption").html("");
 		var tbody = document.getElementById("OLV1_tab");
 		for(var i = 1;i<tbody.rows.length;i++){
-			var is = $("input[name= "+i+"]").is(':checked');
+			var is = $("input[name= "+'pro'+i+"]").is(':checked');
 			if(is != false){
 				for(var j = 1; j < tbody.rows[i].cells.length;j++){
 					var orderItemNo = tbody.rows[i].cells[1].innerHTML;
-					var rowNo = tbody.rows[i].cells[11].innerHTML;
 					var refundNum = tbody.rows[i].cells[22].innerHTML;
+					var rowNo = tbody.rows[i].cells[11].innerHTML;
 					var shoppeProName= $("#shoppeProName_"+orderItemNo).text().trim();
 					var supplyProductNo= $("#supplyProductNo_"+orderItemNo).text().trim();
 					var saleSum= $("#refundNum_"+orderItemNo).text().trim();//可退数量
 					if(saleSum <= 0){
 						break;
 					}
-					rowNos += rowNo+",";
+					rowNos += rowNo + ",";
 					option= '<div>'+
                     	    '<label id="lable1">退货赠品名称：</label>'+
                     		'<span id="sp12"+'+rowNo+'>'+shoppeProName+'</span>'+
@@ -1882,15 +1884,15 @@
 	var orderNo12;
 	var saleItemNo12;
 	
-	
+	var params = "";
 	//创建退货申请(商品退)
 	function Ok(){
-		var params = "";
+		params = "";
 		var giftSaleSums = 0;
 		var arr = new Array();
 		arr = rowNos.split(",");
 		for(var i = 0; i < arr.length-1; i ++){
-			var is = $('input[name='+arr[i]+']').is(':checked');
+			var is = $("#checkId"+arr[i]).is(':checked');
 			if(is != false){
 				var giftSaleSum = $("#sp32"+arr[i]).text().trim();
 				var giftOrderItemNo = $("#orderItem"+arr[i]).val().trim();
