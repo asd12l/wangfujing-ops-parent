@@ -161,6 +161,7 @@
 	    initOlv();
 	});
 	function olvQuery(){
+		$("#receptPhone_form").val($("#receptPhone_input").val());
 		$("#saleSource_form").val($("#saleSource_input").val());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
 		$("#saleNo_form").val($("#saleNo_input").val().trim());
@@ -185,6 +186,7 @@
    	}
 	function reset(){
 		$("#saleSource_input").val("");
+		$("#receptPhone_input").val("");
 		$("#orderNo_input").val("");
 		$("#saleNo_input").val("");
 		$("#salesPaymentNo_input").val("");
@@ -198,7 +200,7 @@
 	}
 	//初始化包装单位列表
  	function initOlv() {
-		var url = __ctxPath+"/oms/selectSaleList";
+		var url = __ctxPath+"/oms/selectSaleListByPhone";
 		olvPagination = $("#olvPagination").myPagination({
            panel: {
              tipInfo_on: true,
@@ -2994,6 +2996,7 @@
 	//导出excel
 	function exportExecel() {
 		var orderNo = $("#orderNo_input").val();
+		var receptPhone = $("#receptPhone_input").val();
 		var saleNo = $("#saleNo_input").val();
 		var saleSource = $("#saleSource_input").val();
 		var payStatus = $("#payStatus_select").val();
@@ -3020,8 +3023,8 @@
 				/* && (orderNo != "" || saleNo != "" || saleStatus != "" || startSaleTime != "" || endSaleTime != ""
 						|| payStatus != "" || saleSource != "" || memberNo != "" || shopNo != "" 
 						|| salesPaymentNo != "" || casherNo != "") */) {
-			window.open(__ctxPath + "/omsOrder/getSaleToExcel?orderNo="
-					+ orderNo + "&&saleNo=" + saleNo + "&&startSaleTime=" + startSaleTime + "&&endSaleTime=" + endSaleTime
+			window.open(__ctxPath + "/omsOrder/getSaleToExcelByPhone?orderNo="
+					+ orderNo + "&&saleNo=" + saleNo + "&&startSaleTime=" + startSaleTime + "&&endSaleTime=" + endSaleTime + "&&receptPhone=" + receptPhone
 					+ "&&salesPaymentNo=" + salesPaymentNo + "&&casherNo=" + casherNo + "&&saleStatus=" + saleStatus + "&&payStatus="
 					+ payStatus + "&&saleSource=" + saleSource + "&&memberNo=" + memberNo + "&&shopNo=" + shopNo + "&&title="
 					+ title);
@@ -3095,6 +3098,10 @@
                                     				<label class="titname">销售单号：</label>
                                     				<input type="text" id="saleNo_input"/>
                                     			</li>
+                                   				<li class="col-md-4">
+                                    				<label class="titname">手机号：</label>
+                                    				<input type="text" id="receptPhone_input"/>
+                                    			</li>
                                     			<li class="col-md-4">
                                    					<label class="titname">小票号：</label>
                                     				<input type="text" id="salesPaymentNo_input"/>
@@ -3167,6 +3174,7 @@
                                     			</li>
                                     		</ul>
                                			<form id="olv_form" action="">
+                               				<input type="hidden" id="receptPhone_form" name="receptPhone"/>
                                				<input type="hidden" id="saleSource_form" name="saleSource"/>
 											<input type="hidden" id="pageSelect" name="pageSize" value="10"/>
 											<input type="hidden" id="orderNo_form" name="orderNo"/>
@@ -3184,12 +3192,13 @@
                                     <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 400%;background-color: #fff;margin-bottom: 0;">
                                         <thead>
                                             <tr role="row" style='height:35px;'>
-                                                <th width="5%" style="text-align: center;">销售单号</th>
-                                                <th width="5%" style="text-align: center;">订单号</th>
+                                                <th width="4%" style="text-align: center;">销售单号</th>
+                                                <th width="4%" style="text-align: center;">订单号</th>
                                                 <th width="4%" style="text-align: center;">销售单状态</th>
                                                 <th width="4%" style="text-align: center;">支付状态</th>
-                                                <th width="5%" style="text-align: center;">CID</th>
-                                                <th width="5%" style="text-align: center;">会员卡号</th>
+                                                <th width="4%" style="text-align: center;">手机号</th>
+                                                <th width="4%" style="text-align: center;">CID</th>
+                                                <th width="4%" style="text-align: center;">会员卡号</th>
                                                 <th width="4%" style="text-align: center;">销售类别</th>
                                                 <th width="4%" style="text-align: center;">销售单来源</th>
                                                 <th width="4%" style="text-align: center;">门店名称</th>
@@ -3207,7 +3216,7 @@
                                                 <th width="4%" style="text-align: center;">导购号</th>
                                                 <th width="4%" style="text-align: center;">机器号</th>
                                                 <th width="4%" style="text-align: center;">销售时间</th>
-                                                <th width="3%" style="text-align: center;">最后修改人</th>
+                                                <th width="4%" style="text-align: center;">最后修改人</th>
                                                 <th width="4%" style="text-align: center;">最后修改时间</th>
                                             </tr>
                                         </thead>
@@ -3253,8 +3262,17 @@
 						                      				<span>已支付</span>
 						                   				{#/if}
 													</td>
+													<td align="center" id="receptPhone_{$T.Result.sid}">
+														{#if $T.Result.receptPhone != '' && $T.Result.receptPhone != null}
+															{$T.Result.receptPhone}
+														{#else}
+															<span>——</span>
+						                   				{#/if}
+													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
-														{#if $T.Result.accountNo != '[object Object]'}{$T.Result.accountNo}
+														{#if $T.Result.accountNo != '' && $T.Result.accountNo != null}
+															{$T.Result.accountNo}
+														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
@@ -3384,12 +3402,13 @@
 			               <table class="table-striped table-hover table-bordered" style="width: 550%;background-color: #fff;margin-bottom: 0;">
                                         <thead>
                                             <tr role="row" style='height:35px;'>
-                                                <th width="5%" style="text-align: center;">销售单号</th>
-                                                <th width="5%" style="text-align: center;">订单号</th>
+                                                <th width="4%" style="text-align: center;">销售单号</th>
+                                                <th width="4%" style="text-align: center;">订单号</th>
                                                 <th width="4%" style="text-align: center;">销售单状态</th>
                                                 <th width="4%" style="text-align: center;">支付状态</th>
-                                                <th width="5%" style="text-align: center;">CID</th>
-                                                <th width="5%" style="text-align: center;">会员卡号</th>
+                                                <th width="4%" style="text-align: center;">手机号</th>
+                                                <th width="4%" style="text-align: center;">CID</th>
+                                                <th width="4%" style="text-align: center;">会员卡号</th>
                                                 <th width="4%" style="text-align: center;">销售类别</th>
                                                 <th width="4%" style="text-align: center;">销售单来源</th>
                                                 <th width="4%" style="text-align: center;">门店名称</th>
@@ -3407,7 +3426,7 @@
                                                 <th width="4%" style="text-align: center;">导购号</th>
                                                 <th width="4%" style="text-align: center;">机器号</th>
                                                 <th width="4%" style="text-align: center;">销售时间</th>
-                                                <th width="3%" style="text-align: center;">最后修改人</th>
+                                                <th width="4%" style="text-align: center;">最后修改人</th>
                                                 <th width="4%" style="text-align: center;">最后修改时间</th>
                                             </tr>
                                         </thead>
@@ -3472,12 +3491,12 @@
 			               <table class="table-striped table-hover table-bordered" style="width: 500%;background-color: #fff;margin-bottom: 0;">
                                         <thead>
                                             <tr role="row" style='height:35px;'>
-                                                <th width="5%" style="text-align: center;">销售单号</th>
-                                                <th width="5%" style="text-align: center;">订单号</th>
+                                                <th width="4%" style="text-align: center;">销售单号</th>
+                                                <th width="4%" style="text-align: center;">订单号</th>
                                                 <th width="4%" style="text-align: center;">销售单状态</th>
                                                 <th width="4%" style="text-align: center;">支付状态</th>
-                                                <th width="5%" style="text-align: center;">CID</th>
-                                                <th width="5%" style="text-align: center;">会员卡号</th>
+                                                <th width="4%" style="text-align: center;">CID</th>
+                                                <th width="4%" style="text-align: center;">会员卡号</th>
                                                 <th width="4%" style="text-align: center;">销售类别</th>
                                                 <th width="4%" style="text-align: center;">销售单来源</th>
                                                 <th width="4%" style="text-align: center;">门店名称</th>
@@ -3495,7 +3514,7 @@
                                                 <th width="4%" style="text-align: center;">导购号</th>
                                                 <th width="4%" style="text-align: center;">机器号</th>
                                                 <th width="4%" style="text-align: center;">销售时间</th>
-                                                <th width="3%" style="text-align: center;">最后修改人</th>
+                                                <th width="4%" style="text-align: center;">最后修改人</th>
                                                 <th width="4%" style="text-align: center;">最后修改时间</th>
                                             </tr>
                                         </thead>

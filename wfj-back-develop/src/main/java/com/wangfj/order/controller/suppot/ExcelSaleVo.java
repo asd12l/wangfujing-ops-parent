@@ -8,7 +8,16 @@ public class ExcelSaleVo {
 	private Long sid;
 
 	private String saleNo;
+	private String receptPhone;
 	
+	public String getReceptPhone() {
+		return receptPhone;
+	}
+
+	public void setReceptPhone(String receptPhone) {
+		this.receptPhone = receptPhone;
+	}
+
 	private Integer isSynchronous;
 
 	private String orderNo;
