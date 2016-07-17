@@ -144,6 +144,7 @@
 	});
 	function olvQuery(){
 		$("#saleSource_form").val($("#saleSource_input").val());
+		$("#supplyProductNo_form").val($("#supplyProductNo_input").val());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
 		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
 		$("#orderStatus_form").val($("#orderStatus_select").val());
@@ -169,6 +170,7 @@
         olvPagination.onLoad(params);
    	}
 	function reset(){
+		$("#supplyProductNo_input").val("");
 		$("#saleSource_input").val("");
 		$("#orderNo_input").val("");
 		$("#outOrderNo_input").val("");
@@ -186,7 +188,7 @@
 	
 	//初始化包装单位列表
  	function initOlv() {
-		var url = __ctxPath+"/omsOrder/selectOrderList";
+		var url = __ctxPath+"/omsOrder/selectOrderListByPhone";
 		olvPagination = $("#olvPagination").myPagination({
            panel: {
              tipInfo_on: true,
@@ -2520,6 +2522,7 @@
 	}
 	//导出excel
 	function exportExecel() {
+		var supplyProductNo = $("#supplyProductNo_input").val();
 		var orderNo = $("#orderNo_input").val();
 		var outOrderNo = $("#outOrderNo_input").val();
 		var orderStatus = $("#orderStatus_select").val();
@@ -2544,9 +2547,9 @@
 		if (count > 0
 				/* && (orderNo != "" || outOrderNo != "" || orderStatus != "" || startSaleTime != "" || endSaleTime != ""
 						|| payStatus != "" || isCod != "" || memberNo != "" || receptPhone != "") */) {
-			window.open(__ctxPath + "/omsOrder/getOrderToExcel?orderNo="
+			window.open(__ctxPath + "/omsOrder/getOrderToExcelByPhone?orderNo="
 					+ orderNo + "&&outOrderNo=" + outOrderNo + "&&startSaleTime=" + startSaleTime + "&&endSaleTime=" + endSaleTime
-					+ "&&orderStatus=" + orderStatus + "&&payStatus="
+					+ "&&orderStatus=" + orderStatus + "&&supplyProductNo=" + supplyProductNo + "&&payStatus="
 					+ payStatus + "&&isCod=" + isCod + "&&memberNo=" + memberNo + "&&receptPhone=" + receptPhone + "&&title="
 					+ title);
 		} else {
@@ -2621,6 +2624,10 @@
                                    				<li class="col-md-4">
                                    					<label class="titname">会员卡号：</label>
                                    					<input type="text" id="memberNo_input"/>
+                                   				</li>
+                                   				<li class="col-md-4">
+                                   					<label class="titname">专柜商品编码：</label>
+                                   					<input type="text" id="supplyProductNo_input"/>
                                    				</li>
                                     			<li class="col-md-4">
                                     					<label class="titname">订单状态：</label>
@@ -2710,6 +2717,7 @@
                                     		</ul>
                                     	
                                			<form id="olv_form" action="">
+                               				<input type="hidden" id="supplyProductNo_form" name="supplyProductNo"/>
                                				<input type="hidden" id="saleSource_form" name="saleSource"/>
 											<input type="hidden" id="pageSelect" name="pageSize" value="10"/>
 											<input type="hidden" id="orderNo_form" name="orderNo"/>
