@@ -138,7 +138,7 @@
 	}
 	function Ok1(){
 		$("#btDivCancel").hide();
-		var latestUpdateMan = "${username}";
+		var latestUpdateMan = getCookieValue("username");
 		var cancelReason =$("#cancelReason").val();
 		//取消退货单
 		$.ajax({

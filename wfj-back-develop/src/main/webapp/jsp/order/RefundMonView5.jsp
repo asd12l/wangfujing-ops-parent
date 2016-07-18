@@ -255,7 +255,7 @@ Author: WangSy
 
 		//修改退款单状态
 		var refundMonNo = refundMonNo_;
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		$("#qrtk").click(function() {
 			$.ajax({
 				type : "post",
