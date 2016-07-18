@@ -245,7 +245,7 @@
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}
-	function fundButten(applyNo,refundMonNo,orderNo,refundNo,needRefundMon,obj){
+	function fundButten(reMonStatus,applyNo,refundMonNo,orderNo,refundNo,needRefundMon,obj){
 		needRefundMon_ = needRefundMon;
 		refundMonNo_ = refundMonNo;
 		//查询退货单及连带信息
@@ -272,6 +272,7 @@
 //				rowNo_ = data_.billDetail.sellPayments.length;
 				applyNo_ = applyNo;//把退货申请单号带过去
 				refundNo_ = refundNo;//把退货单号带过去
+				reMonStatus_ = reMonStatus;//把退款状态带过去
 				return;
 			}
 		});
@@ -3041,7 +3042,7 @@
 											<input type="hidden" id="confirmRefundMonTimeEndStr_form" name="confirmRefundMonTimeEndStr"/>
                                       	</form>
                                 	<div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
-                                    <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
+                                    <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 280%;background-color: #fff;margin-bottom: 0;">
                                         <thead>
                                             <tr role="row" style='height:35px;'>
                                                 <th width="5%" style="text-align: center;">退款单号</th>
@@ -3050,8 +3051,8 @@
                                                 <th width="5%" style="text-align: center;">退货单号</th>
                                                 <th width="5%" style="text-align: center;">销售渠道</th>
                                                 <th width="5%" style="text-align: center;">渠道订单号</th>
-                                                <th width="3%" style="text-align: center;">客户登录帐号</th>
-                                                <th width="3%" style="text-align: center;">客户编号</th>
+                                                <th width="4%" style="text-align: center;">客户登录帐号</th>
+                                                <th width="4%" style="text-align: center;">客户编号</th>
                                                 <th width="4%" style="text-align: center;">退款状态</th>
                                                 <th width="4%" style="text-align: center;">创建类型</th>
                                                 <th width="4%" style="text-align: center;">退款金额</th>
@@ -3162,7 +3163,7 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="opt">
-														<input class="btn btn-success" style="width: 40%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.applyNo}','{$T.Result.refundMonNo}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.needRefundMon}',this)" type="button" value="查看" />
+														<input class="btn btn-success" style="width: 40%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.reMonStatus}','{$T.Result.applyNo}','{$T.Result.refundMonNo}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.needRefundMon}',this)" type="button" value="查看" />
 													</td>
 									       		</tr>
 											{#/for}

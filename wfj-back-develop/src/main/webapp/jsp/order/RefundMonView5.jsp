@@ -122,7 +122,12 @@ Author: WangSy
 	}else{
 		$("#refundProductStatus").text("未入库");
 	}
-	
+	var reMonStatus =reMonStatus_;
+	if(reMonStatus=='1'){
+		$("#qrtk").attr("disabled", "true");
+	}else{
+		$("#qrtk").removeAttr("disabled");
+	}
 	// 初始化
 	$(function() {
 		var refundApplyNo = applyNo_;
@@ -1323,21 +1328,21 @@ Author: WangSy
 													&nbsp;
 													<div class="form-group">
 														<div class="col-md-4">
-															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">快递公司：</label>
-															<div class="col-lg-8 col-sm-8 col-xs-8">
+															<label class="col-lg-5 col-sm-3 col-xs-3 control-label">快递公司：</label>
+															<div class="col-lg-7 col-sm-8 col-xs-8">
 																<label id="t1"></label>
 															</div>											
 														</div>
 														<div class="col-md-4">
-															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">快递单号：</label>
-															<div class="col-lg-8 col-sm-8 col-xs-8">
+															<label class="col-lg-5 col-sm-3 col-xs-3 control-label">快递单号：</label>
+															<div class="col-lg-7 col-sm-8 col-xs-8">
 																<label id="t2"></label>
 															</div>										
 														</div>
 														
 														<div class="col-md-4">
-															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">退货地址：</label>
-															<div class="col-lg-8 col-sm-8 col-xs-8">
+															<label class="col-lg-5 col-sm-3 col-xs-3 control-label">退货地址：</label>
+															<div class="col-lg-7 col-sm-8 col-xs-8">
 																<label id="t3"></label>
 															</select>
 															</div>											
