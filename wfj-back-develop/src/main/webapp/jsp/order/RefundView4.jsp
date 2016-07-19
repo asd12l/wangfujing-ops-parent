@@ -360,6 +360,11 @@ Author: WangSy
 		$("#shbtg").click(function() {
 			shbtgForm();
 		});
+		//取消
+		$("#close").click(function() {
+			$("#pageBody").load(__ctxPath + "/jsp/order/NeedProductRefundView.jsp");
+		});
+	});
 		function refundFeeTrim(){
 			console.log("sdf");
 			var refundFeess = $("#refundFee").val();
@@ -383,10 +388,7 @@ Author: WangSy
 				$("#amount4").text(nu4.toFixed(2));
 			}
 		}
-		//取消
-		$("#close").click(function() {
-			$("#pageBody").load(__ctxPath + "/jsp/order/NeedProductRefundView.jsp");
-		});
+		
 	//金额试算
 		$("#jess").click(function() {
 			var ta=$(".amounttui");
@@ -564,7 +566,6 @@ Author: WangSy
 			}
 		});
 	}
-});
 	
 	var productPagination;
 	function productQuery() {

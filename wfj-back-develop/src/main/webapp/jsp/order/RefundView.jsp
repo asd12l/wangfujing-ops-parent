@@ -268,12 +268,10 @@
 				if(response.success=='true'){
 					data_ = response.data;
 					
-					/* $("#amount2").text(data_.billDetail.factPay);16-7-9二 */
 					$("#supplyProductNo").text(supplyProductNo);
 					$("#shoppeProName").text(shoppeProName);
 					$("#salePrice").text(salePrice);
 					$("#refundNum").text(refundNum);
-					/* $("#num").text(data2); */
 					$("#payPrice").text(salePrice*refundNum);
 					
 					var len = data_.billDetail.sellDetails.length;
@@ -281,11 +279,6 @@
 					for(var i=0; i<len; i++){
 						discount += data_.billDetail.sellDetails[i].totalDiscount;
 					}
-					/* if(isNaN(discount)){
-						$("#amount4").text("");
-					}else{
-						$("#amount4").text(parseFloat(discount).toFixed(2));
-					} 16-7-9三*/
 					//应退金额计算
 					var a1 = salePrice*refundNum;
 //					$("#amount1").text(a1);
@@ -332,19 +325,11 @@
 		$("#shbtg").click(function() {
 			shbtgForm();
 		});
-		//金额试算
-		$("#jess").click(function() {
-			var ta=$(".amounttui");
-			var t1 = 0;
-			var t2 = 0;
-			for(var i = 0; i<ta.length; i++){
-				var t = ta[i];
-				t1= $(t).val();
-				t2 +=parseFloat(t1);
-			}
-//			$("#amount4").text(parseFloat(t2));
-//			$("#amount5").text(parseFloat(t2));	
-		});	
+		//关闭页面
+		$("#close").click(function() {
+			$("#pageBody").load(__ctxPath + "/jsp/order/saleOrderListView2.jsp");
+		});
+	});
 		//运费校验
 		function refundFeeTrim(){
 			var refundFeess = $("#refundFee").val();
@@ -370,6 +355,20 @@
 				$("#amount4").text(nu4.toFixed(2));
 			}
 		}
+		
+		//金额试算
+		$("#jess").click(function() {
+			var ta=$(".amounttui");
+			var t1 = 0;
+			var t2 = 0;
+			for(var i = 0; i<ta.length; i++){
+				var t = ta[i];
+				t1= $(t).val();
+				t2 +=parseFloat(t1);
+			}
+//			$("#amount4").text(parseFloat(t2));
+//			$("#amount5").text(parseFloat(t2));	
+		});	
 		//审核通过
 		function shtgForm(){
 			//从页面中拿值，传参数
@@ -520,13 +519,6 @@
 				}
 			});
 		}
-		//关闭页面
-		$("#close").click(function() {
-			$("#pageBody").load(__ctxPath + "/jsp/order/saleOrderListView2.jsp");
-		});
-	});
-</script>
-<script type="text/javascript">
 	
 	//折叠页面
 	function tab(data){
