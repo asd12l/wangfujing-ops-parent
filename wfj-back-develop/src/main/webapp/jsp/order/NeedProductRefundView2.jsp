@@ -1027,7 +1027,7 @@
 							//操作
 							 if(i==0){
 								 option+="<td align='center' rowspan="+result.length+">"+
-								'<input class="btn btn-success" style="width: 60%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleStatus+"',"+"'"ele.saleNo+"',"+ele.orderNo+"'"+',this)" type="button" value="提交退货" />'+
+								'<input class="btn btn-success" style="width: 60%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleStatus+"','"+ele.saleNo+"','"+ele.orderNo+"'"+',this)" type="button" value="提交退货" />'+
 								"</td>"; 
 							 }
 							option+="</tr>";
