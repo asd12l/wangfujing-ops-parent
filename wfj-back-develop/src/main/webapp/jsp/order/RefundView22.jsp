@@ -236,6 +236,8 @@ Author: WangSy
 					return;
 				}
 			});
+	var supplyNo = "";
+	var marketNo = "";
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -244,6 +246,14 @@ Author: WangSy
 		dataType: "json",
 		data:{"refundApplyNo":refundApplyNo},
 		success : function(response) {
+			supplyNo = "";
+			marketNo = "";
+			var data = response.list;
+			for(var i in data){
+				supplyNo = data[i].supplyNo;
+				marketNo = data[i].shopNo;
+				break;
+			}
 			if (response.success == "true") {
 				if (response.success == "true") {
 					if (response.success == "true") {
@@ -322,6 +332,28 @@ Author: WangSy
 				a2=$("#amount_"+i).text();
 				a2++;
 			} */
+		}
+	});
+	
+	$.ajax({
+		type : "post",
+		contentType: "application/x-www-form-urlencoded;charset=utf-8",
+		url:__ctxPath + "/omsOrder/selectRefundAddress",
+		dataType: "json",
+		data:{"shopSid":marketNo,"supplyCode":supplyNo},
+		success : function(response){
+			if(response.success == "true"){
+				var data = response.data;
+				for(var i in data){
+					alert(data[i].joinSite);
+					if(data[i].joinSite != "" && data[i].joinSite != 'undefind'){
+						$("#warehouseAddress").val(data[i].joinSite);
+						break;
+					}
+				}
+			}else{
+				$("#warehouseAddress").val("");
+			}
 		}
 	});
 	
