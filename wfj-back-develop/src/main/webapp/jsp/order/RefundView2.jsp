@@ -93,11 +93,11 @@ Author: WangSy
 	var data_;
 	var isCod;
 	var returnShippingFee; //订单支付运费金额(从订单上获取16-7-1改)
-	var needRefundAmount =needRefundAmount_;
+	var refundAmount =refundAmount_;
 	var quanAmount = quanAmount_;
 		//EDI自动退的没有退货申请单号
 	
-	$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+	$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 	$("#amount2").text(parseFloat(0).toFixed(2));
 	$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 	$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2));

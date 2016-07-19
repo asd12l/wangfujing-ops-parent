@@ -1310,7 +1310,7 @@ public class TestOnlineOmsOrderController {
 		return gson.toJson(m);
 	}
 	/**
-	 * 缺货退货创建退货申请单
+	 * 缺货退货创建退货申请单(发货前，拒收)
 	 * @Methods Name createKeRefund3
 	 * @Create In 2016-1-19 By chenhu
 	 * @param request
@@ -1350,6 +1350,8 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("latestUpdateMan", request.getParameter("latestUpdateMan"));
 		paramMap.put("refundPath", request.getParameter("refundPath"));
 		paramMap.put("channel", request.getParameter("channel"));
+		
+		paramMap.put("saleStatus", request.getParameter("saleStatus"));
 		
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		paramMap.put("fromSystem", "PCM");

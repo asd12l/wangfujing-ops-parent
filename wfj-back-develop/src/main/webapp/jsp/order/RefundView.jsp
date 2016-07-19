@@ -75,12 +75,12 @@
 				if (response.success == "true") {
 					var quanAmount_ =  response.list[0].quanAmount;
 					var returnShippingFee_ =  response.list[0].returnShippingFee;
-					var needRefundAmount_ =  response.list[0].needRefundAmount;
+					var refundAmount_ =  response.list[0].refundAmount;
 					$("#amount3").text(parseFloat(quanAmount_).toFixed(2));
-					$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
+					$("#amount1").text(parseFloat(refundAmount_).toFixed(2));
 					$("#amount2").text(parseFloat(0).toFixed(2));
 					//$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
-					$("#amount4").text(parseFloat(needRefundAmount_-quanAmount_).toFixed(2));
+					$("#amount4").text(parseFloat(refundAmount_-quanAmount_).toFixed(2));
 				}
 				
 			}

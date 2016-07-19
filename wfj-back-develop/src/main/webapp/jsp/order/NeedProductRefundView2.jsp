@@ -1027,7 +1027,7 @@
 							//操作
 							 if(i==0){
 								 option+="<td align='center' rowspan="+result.length+">"+
-								'<input class="btn btn-success" style="width: 60%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleNo+"',"+"'"+ele.orderNo+"'"+',this)" type="button" value="提交退货" />'+
+								'<input class="btn btn-success" style="width: 60%;height: 30px;" id="refundButten" onclick="refundButten('+"'"+ele.saleStatus+"',"+"'"ele.saleNo+"',"+ele.orderNo+"'"+',this)" type="button" value="提交退货" />'+
 								"</td>"; 
 							 }
 							option+="</tr>";
@@ -1775,17 +1775,20 @@
 	}
 	var saleNo11;
 	var orerNo11;
-	function refundButten(saleNo,orderNo,obj){
+	var saleStatus11
+	function refundButten(saleStatus,saleNo,orderNo,obj){
 		$("#btDiv2").show();
 		$("#divTitle2").html("创建退货申请单");
 		saleNo11 = saleNo;
 		orerNo11 = orderNo;
+		saleStatus11 = saleStatus;
 	}
 	//创建退货申请(整个销售单退货申请)
 	function Ok1(){
 		$("#btDiv2").hide();
 		var saleNo = saleNo11;
 		var orerNo = orerNo11;
+		var saleStatus = saleStatus11;
 		var refundReason = $("#sp4").val(); //退货原因
 //		console.log(stockoutAmount);
 		/* if(stockoutAmount !="[object Object]" ){
@@ -1802,7 +1805,8 @@
 			data : {
 				"saleNo" : saleNo,
 				"problemDesc" : refundReason,
-				"latestUpdateMan":userName
+				"latestUpdateMan":userName,
+				"saleStatus":saleStatus
 			},
 			dataType : "json",
 			

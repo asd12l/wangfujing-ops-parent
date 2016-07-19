@@ -103,17 +103,17 @@ Author: WangSy
 	var refundReasionDesc = problemDesc_;
 	var callCenterComments = callCenterComments_;
 	var refundNum = refundNum_;
-	var needRefundAmount =needRefundAmount_;
+	var refundAmount =refundAmount_;
 	var quanAmount = quanAmount_;
 		//EDI自动退的没有退货申请单号
-		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 //		$("#amount4").text(parseFloat(needRefundAmount-quanAmount+returnShippingFee).toFixed(2));
 		if(isNaN(parseFloat(returnShippingFee))){
-			$("#amount4").text(parseFloat(parseFloat(needRefundAmount)-quanAmount).toFixed(2));
+			$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 		}else{
-			$("#amount4").text(parseFloat(parseFloat(needRefundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
+			$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
 		}
 //	var data2 = orderData;
 	var data_;
@@ -345,7 +345,7 @@ Author: WangSy
 			if(response.success == "true"){
 				var data = response.data;
 				for(var i in data){
-					alert(data[i].joinSite);
+		//			alert(data[i].joinSite);
 					if(data[i].joinSite != "" && data[i].joinSite != 'undefind'){
 						$("#warehouseAddress").val(data[i].joinSite);
 						break;
