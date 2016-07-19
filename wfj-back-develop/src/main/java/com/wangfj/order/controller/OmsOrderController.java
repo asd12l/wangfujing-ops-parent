@@ -4877,4 +4877,33 @@ public class OmsOrderController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
+	
+	/**
+	 * @desc 退货申请单查看  查询退回地址
+	 * @create In 2016-07-18 By zhangxuzhou
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/selectRefundAddress")
+	public String selectRefundAddress(HttpServletRequest request,HttpServletResponse response){
+		String result = "";
+		Map<Object,Object> map = new HashMap<Object,Object>();
+		map.put("shopSid", request.getParameter("shopSid"));
+		map.put("supplyCode", request.getParameter("supplyCode"));
+		try {
+			String jsonObj = JSON.toJSONString(map);
+			long tiem = System.currentTimeMillis();
+			logger.info("请求退回地址接口入参:{}",jsonObj);
+			logger.info("请求退回地址接口开始时间：{}",tiem);
+			result = HttpUtilPcm.doPost(CommonProperties.get("selectRefundAddress"), jsonObj);
+			logger.info("请求退回地址接口结束时间：{},共耗时:{}",System.currentTimeMillis(),(System.currentTimeMillis()-tiem));
+			logger.info("请求退回地址接口出参:{}",result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("请求退回地址接口异常：{}",e);
+		}
+		return result;
+	}
 }
