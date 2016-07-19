@@ -4547,7 +4547,7 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="opt">
-														{#if $T.Result.refundStatus == '19'}
+														{#if $T.Result.refundStatus == '19' && $T.Result.refundClass != 'RequestCancelReturn'}
 															<input class="btn btn-success" style="width: 35%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 															&nbsp;<input class="btn btn-primary" style="width: 35%;height: 30px;" id="cancelButten" onclick="cancelButten('{$T.Result.refundNo}',this)" type="button" value="作废" />
 														{#else}
