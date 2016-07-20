@@ -1296,8 +1296,8 @@ public class TestOnlineOmsOrderController {
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
-//			json = HttpUtilPcm.doPost(CommonProperties.get("save_rerundApply_CS"), jsonStr);
-			json = HttpUtilPcm.doPost("http://10.6.2.46:8081/oms-core/refundApply/createRefundApplyCS.htm", jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("save_rerundApply_CS"), jsonStr);
+//			json = HttpUtilPcm.doPost("http://10.6.2.46:8081/oms-core/refundApply/createRefundApplyCS.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{
@@ -1358,8 +1358,8 @@ public class TestOnlineOmsOrderController {
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
-//			json = HttpUtilPcm.doPost(CommonProperties.get("save_rerundApply_OOS"), jsonStr);
-			json = HttpUtilPcm.doPost("http://localhost:8081/oms-core/refundApply/saveRefundApplyOOS.htm", jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("save_rerundApply_OOS"), jsonStr);
+//			json = HttpUtilPcm.doPost("http://localhost:8081/oms-core/refundApply/saveRefundApplyOOS.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{
