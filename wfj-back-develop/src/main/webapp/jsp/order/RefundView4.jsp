@@ -104,11 +104,11 @@ Author: WangSy
 				if (response.success == "true") {
 					var quanAmount_ =  response.list[0].quanAmount;
 					var returnShippingFee_ =  response.list[0].returnShippingFee;
-					var needRefundAmount_ =  response.list[0].needRefundAmount;
+					var refundAmount_ =  response.list[0].refundAmount;
 					$("#amount3").text(parseFloat(quanAmount_).toFixed(2));
-					$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
+					$("#amount1").text(parseFloat(refundAmount_).toFixed(2));
 					$("#amount2").text(parseFloat(0).toFixed(2));
-					$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2));
+					$("#amount4").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 					refundType = response.list[0].refundPath;
 					address = response.list[0].warehouseAddress;
 					$("#refundType").val(refundType);
@@ -364,10 +364,10 @@ Author: WangSy
 		$("#close").click(function() {
 			$("#pageBody").load(__ctxPath + "/jsp/order/NeedProductRefundView.jsp");
 		});
+	});
 		function refundFeeTrim(){
+			console.log("sdf");
 			var refundFeess = $("#refundFee").val();
-//			console.log("refundFeess:"+refundFeess);
-//			console.log("returnShippingFee:"+returnShippingFee);
 			if(parseFloat(refundFeess) > parseFloat(returnShippingFee)){
 				$("#xzspan").show();
 				$("#shtg").attr("disabled", "true");
@@ -377,200 +377,195 @@ Author: WangSy
 				$("#shtg").removeAttr("disabled");
 				$("#shbtg").removeAttr("disabled");
 
-				var nu = 0;
 				var nu4 = 0;
 				if(isNaN($("#refundFee").val())||""==$("#refundFee").val()){
-					nu = parseFloat($("#amount1").text()-ss);
 					nu4 = parseFloat($("#amount4").text()-ss);
 					ss=0;
 				}else{
-					nu = parseFloat($("#amount1").text())+parseFloat($("#refundFee").val()-ss);
 					nu4 = parseFloat($("#amount4").text())+parseFloat($("#refundFee").val()-ss);
 					ss=parseFloat($("#refundFee").val());
 				}
-				$("#amount1").text(nu.toFixed(2));
 				$("#amount4").text(nu4.toFixed(2));
 			}
 		}
 		
-	});
 	//金额试算
-	$("#jess").click(function() {
-		var ta=$(".amounttui");
-		var t1 = 0;
-		var t2 = 0;
-		for(var i = 0; i<ta.length; i++){
-			var t = ta[i];
-			t1= $(t).val();
-			t2 +=parseFloat(t1);
-		}
-//		$("#amount4").text(parseFloat(t2));
-//		$("#amount5").text(parseFloat(t2));	
-	});	
+		$("#jess").click(function() {
+			var ta=$(".amounttui");
+			var t1 = 0;
+			var t2 = 0;
+			for(var i = 0; i<ta.length; i++){
+				var t = ta[i];
+				t1= $(t).val();
+				t2 +=parseFloat(t1);
+			}
+	//		$("#amount4").text(parseFloat(t2));
+	//		$("#amount5").text(parseFloat(t2));	
+		});	
 	//审核通过
-function shtgForm(){
-	//从页面中拿值，传参数
-	//退货扣款
-	var tab=$(".amounttui");
-	for(var i = 0; i<tab.length; i++){
-		if(data_.billDetail.sellPayments[i].flag=='3'){
-			var inputTab = tab[i];
-			data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
-		}
-//		alert($(inputTab).val());
-//		alert(data_.billDetail.sellPayments[i].amount);
-	}	
-	//积分信息
-	var tab=$(".amountjifen");
-	for(var i = 0; i<tab.length; i++){
-		if(data_.billDetail.sellPayments[i].couponGroup=='01'){
-			var inputTab2 = tab[i];
-			data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab2).val());
-		}
-	}	
-	var tab=$(".amountjifen2");
-	for(var i = 0; i<tab.length; i++){
-		if(data_.billDetail.sellPayments[i].couponGroup=='01'){
-			var inputTab3 = tab[i];
-			data_.billDetail.sellPayments[i].money=parseFloat($(inputTab3).val());
-		}
-	}	
-	
-	var da = JSON.stringify(data_); 
-	var userName = "${username}";
-	var rety = $("#refundType").val();
-	var addr = $("#address").val();
-	
-//	var refundTarget = $("#refundTarget").val();
-	var isRefundFee = $("#isRefundFee").val();
-	var refundFee = $("#refundFee").val();
-	$.ajax({
-		type : "post",
-		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/testOnlineOmsOrder/refundCheck2",
-		async:false,
-		dataType: "json",
-		ajaxStart: function() {
-	       	 $("#loading-container").attr("class","loading-container");
+		function shtgForm(){
+			//从页面中拿值，传参数
+			//退货扣款
+			var tab=$(".amounttui");
+			for(var i = 0; i<tab.length; i++){
+				if(data_.billDetail.sellPayments[i].flag=='3'){
+					var inputTab = tab[i];
+					data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
+				}
+		//		alert($(inputTab).val());
+		//		alert(data_.billDetail.sellPayments[i].amount);
+			}	
+		//积分信息
+		var tab=$(".amountjifen");
+		for(var i = 0; i<tab.length; i++){
+			if(data_.billDetail.sellPayments[i].couponGroup=='01'){
+				var inputTab2 = tab[i];
+				data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab2).val());
+			}
+		}	
+		var tab=$(".amountjifen2");
+		for(var i = 0; i<tab.length; i++){
+			if(data_.billDetail.sellPayments[i].couponGroup=='01'){
+				var inputTab3 = tab[i];
+				data_.billDetail.sellPayments[i].money=parseFloat($(inputTab3).val());
+			}
+		}	
+		
+		var da = JSON.stringify(data_); 
+		var userName = "${username}";
+		var rety = $("#refundType").val();
+		var addr = $("#address").val();
+		
+	//	var refundTarget = $("#refundTarget").val();
+		var isRefundFee = $("#isRefundFee").val();
+		var refundFee = $("#refundFee").val();
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/refundCheck2",
+			async:false,
+			dataType: "json",
+			ajaxStart: function() {
+		       	 $("#loading-container").attr("class","loading-container");
+		        },
+	        ajaxStop: function() {
+	          //隐藏加载提示
+	          setTimeout(function() {
+	       	        $("#loading-container").addClass("loading-inactive");
+	       	 },300);
 	        },
-        ajaxStop: function() {
-          //隐藏加载提示
-          setTimeout(function() {
-       	        $("#loading-container").addClass("loading-inactive");
-       	 },300);
-        },
-		data:{"jj":da,"refundFee":refundFee,"latestUpdateMan":userName,"refundStatus":"4","refundType":rety,"address":addr},
-		success : function(response) {
-			if (response.success == "true") {
-				$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
-	     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
-			}else{
+			data:{"jj":da,"refundFee":refundFee,"latestUpdateMan":userName,"refundStatus":"4","refundType":rety,"address":addr},
+			success : function(response) {
+				if (response.success == "true") {
+					$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
+		     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
+	//				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			},
+			error : function() {
 				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
-//				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
+	//			$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
 	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 			}
-		},
-		error : function() {
-			$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
-//			$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
-     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
-		}
-	});
-	//修改退货申请单（退货路径，退货方式）
-	/* 
-	var rety = $("#refundType").val();
-	var addr = $("#address").val();
-	$.ajax({
-		type : "post",
-		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/testOnlineOmsOrder/修改路径",
-		async:false,
-		dataType: "json",
-		ajaxStart: function() {
-	       	 $("#loading-container").attr("class","loading-container");
+		});
+		//修改退货申请单（退货路径，退货方式）
+		/* 
+		var rety = $("#refundType").val();
+		var addr = $("#address").val();
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/修改路径",
+			async:false,
+			dataType: "json",
+			ajaxStart: function() {
+		       	 $("#loading-container").attr("class","loading-container");
+		        },
+	        ajaxStop: function() {
+	          //隐藏加载提示
+	          setTimeout(function() {
+	       	        $("#loading-container").addClass("loading-inactive");
+	       	 },300);
 	        },
-        ajaxStop: function() {
-          //隐藏加载提示
-          setTimeout(function() {
-       	        $("#loading-container").addClass("loading-inactive");
-       	 },300);
-        },
-		data:{"refundApplyNo":refundApplyNo,"refundType":rety,"address":addr},
-		success : function(response) {
-			if (response.success == "true") {
-			}else{
+			data:{"refundApplyNo":refundApplyNo,"refundType":rety,"address":addr},
+			success : function(response) {
+				if (response.success == "true") {
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"系统错误"+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			},
+			error : function() {
 				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"系统错误"+"</strong></div>");
 	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 			}
-		},
-		error : function() {
-			$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"系统错误"+"</strong></div>");
-     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
-		}
-	}); */
-}	
-	//审核不通过
-function shbtgForm(){
-	//从页面中拿值，传参数
-	 
-	var tab=$(".amounttui");
-	for(var i = 0; i<tab.length; i++){
-		var inputTab = tab[i];
-		data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
-//		alert($(inputTab).val());
-//		alert(data_.billDetail.sellPayments[i].amount);
+		}); */
 	}	
-	//积分信息
-	var tab=$(".amountjifen");
-	for(var i = 0; i<tab.length; i++){
-		if(data_.billDetail.sellPayments[i].couponGroup=='01'){
-			var inputTab2 = tab[i];
-			data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab2).val());
-		}
-	}	
-	var tab=$(".amountjifen2");
-	for(var i = 0; i<tab.length; i++){
-		if(data_.billDetail.sellPayments[i].couponGroup=='01'){
-			var inputTab3 = tab[i];
-			data_.billDetail.sellPayments[i].money=parseFloat($(inputTab3).val());
-		}
-	}		
-	
-	var da = JSON.stringify(data_); 
-	var userName = "${username}";
-	$.ajax({
-		type : "post",
-		contentType: "application/x-www-form-urlencoded;charset=utf-8",
-		url:__ctxPath + "/testOnlineOmsOrder/refundCheck2",
-		async:false,
-		dataType: "json",
-		ajaxStart: function() {
-	       	 $("#loading-container").attr("class","loading-container");
+		//审核不通过
+	function shbtgForm(){
+		//从页面中拿值，传参数
+		 
+		var tab=$(".amounttui");
+		for(var i = 0; i<tab.length; i++){
+			var inputTab = tab[i];
+			data_.billDetail.sellPayments[i].money=parseFloat($(inputTab).val());
+	//		alert($(inputTab).val());
+	//		alert(data_.billDetail.sellPayments[i].amount);
+		}	
+		//积分信息
+		var tab=$(".amountjifen");
+		for(var i = 0; i<tab.length; i++){
+			if(data_.billDetail.sellPayments[i].couponGroup=='01'){
+				var inputTab2 = tab[i];
+				data_.billDetail.sellPayments[i].amount=parseFloat($(inputTab2).val());
+			}
+		}	
+		var tab=$(".amountjifen2");
+		for(var i = 0; i<tab.length; i++){
+			if(data_.billDetail.sellPayments[i].couponGroup=='01'){
+				var inputTab3 = tab[i];
+				data_.billDetail.sellPayments[i].money=parseFloat($(inputTab3).val());
+			}
+		}		
+		
+		var da = JSON.stringify(data_); 
+		var userName = "${username}";
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/refundCheck2",
+			async:false,
+			dataType: "json",
+			ajaxStart: function() {
+		       	 $("#loading-container").attr("class","loading-container");
+		        },
+	        ajaxStop: function() {
+	          //隐藏加载提示
+	          setTimeout(function() {
+	       	        $("#loading-container").addClass("loading-inactive");
+	       	 },300);
 	        },
-        ajaxStop: function() {
-          //隐藏加载提示
-          setTimeout(function() {
-       	        $("#loading-container").addClass("loading-inactive");
-       	 },300);
-        },
-		data:{"jj":da,"latestUpdateMan":userName,"refundStatus":"2"},
-		success : function(response) {
-			if (response.success == "true") {
-				$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
-	     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
-			}else{
+			data:{"jj":da,"latestUpdateMan":userName,"refundStatus":"2"},
+			success : function(response) {
+				if (response.success == "true") {
+					$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
+		     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
+			//		$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			},
+			error : function() {
 				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
-		//		$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
+			//	$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
 	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 			}
-		},
-		error : function() {
-			$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
-		//	$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
-     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
-		}
-	});
-}	
+		});
+	}
 	
 	var productPagination;
 	function productQuery() {

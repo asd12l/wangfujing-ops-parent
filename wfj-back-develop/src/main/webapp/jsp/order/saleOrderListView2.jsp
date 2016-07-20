@@ -1820,6 +1820,7 @@
 	var param = "";
 	var rowNos="";
 	function refundButten(saleNo,orderNo,saleItemNo,obj){
+		rowNos="";
 		var option = "";
 		$("#giftOption").html("");
 		var tbody = document.getElementById("OLV1_tab");

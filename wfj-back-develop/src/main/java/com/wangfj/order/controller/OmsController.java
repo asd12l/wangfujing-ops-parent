@@ -373,7 +373,161 @@ public class OmsController {
 		paramMap.put("outOrderNo", request.getParameter("outOrderNo"));
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
-		paramMap.put("saleStatus", "08");
+		paramMap.put("saleStatus", "08");//已签收
+		paramMap.put("fromSystem", "PCM");
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list"), jsonStr);
+			logger.info("json:" + json);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+			String data = jsonObject.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
+			
+			String jsonStr2 = "";
+			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
+			paramMap2.put("fromSystem", "OMSADMIN");
+			paramMap2.put("typeValue", "sale_status");
+			jsonStr2 = JSON.toJSONString(paramMap2);
+			String json2 = HttpUtilPcm.doPost(CommonProperties.get("select_codelist_selectBox"), jsonStr2);
+			logger.info("json2:" + json2);
+			JSONObject jsonObjectJ2 = JSONObject.fromObject(json2);
+			String codeData = jsonObjectJ2.getString("data");
+			JSONArray json2Object = JSONArray.fromObject(codeData);
+//			List<Object> list2 = JSONArray.toList(json2Object, Object.class);
+			
+			List<Object> list3 = new ArrayList<Object>();
+//			for (int i = 0; i < json2Object.size(); i++) {
+////				JSONObject jsonObject3 = JSONObject.fromObject(object2);
+//				JSONObject jsonObject3 = (JSONObject) json2Object.get(i);
+//				String codeValue = jsonObject3.getString("codeValue");
+//				String codeName = jsonObject3.getString("codeName");
+//				for (Object object : list) {
+//					JSONObject jsonObject4 = JSONObject.fromObject(object);
+//					String saleStatus = jsonObject4.getString("saleStatus");
+//					if(saleStatus.equals(codeValue)){
+//						saleStatus = codeName;
+//						jsonObject4.put("saleStatusDesc",saleStatus);
+////						object = JSONObject.toBean(jsonObject4, Object.class);
+//						list3.add(jsonObject4);
+//					}
+//				}
+//			}
+			for(int i=0; i<list.size(); i++){
+				Object object = list.get(i);
+				JSONObject jsonObject4 = JSONObject.fromObject(object);
+				String saleStatus=null;
+				try {
+					saleStatus = jsonObject4.getString("saleStatus");
+					if(null!=json2Object){
+						for(int j=0; j < json2Object.size(); j++){
+							JSONObject jsonObject3 = (JSONObject) json2Object.get(j);
+							String codeValue = jsonObject3.getString("codeValue");
+							String codeName = jsonObject3.getString("codeName");
+							if(saleStatus.equals(codeValue)){
+								saleStatus = codeName;
+								jsonObject4.put("saleStatusDesc",saleStatus);
+								list3.add(jsonObject4);
+								break;
+							}else if(j==json2Object.size()-1){
+								JSONObject jsonObject5 = JSONObject.fromObject(object);
+								list3.add(jsonObject5);
+							}
+						}
+					}else{
+						list3.add(jsonObject4);
+					}
+				} catch (Exception e) {
+					list3.add(jsonObject4);
+					
+				}
+			}
+			list=list3;
+			
+			//渠道字段转换(PCM接口)
+			String jsonStr22 = "";
+			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
+			jsonStr22 = JSON.toJSONString(paramMap22);
+			String json22 = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL + "/pcmAdminChannel/findListChannel.htm", jsonStr22);
+			logger.info("json22:" + json22);
+			JSONObject jsonObjectJ22 = JSONObject.fromObject(json22);
+			String codeData2 = jsonObjectJ22.getString("data");
+			JSONArray json2Object2 = JSONArray.fromObject(codeData2);
+			
+			List<Object> list41 = new ArrayList<Object>();
+			for (int i = 0; i < list.size(); i++) {
+				Object object = list.get(i);
+				JSONObject jsonObject41 = JSONObject.fromObject(object);
+				String channelName =null;
+				try {
+					channelName = jsonObject41.getString("saleSource");
+					if(null!=json2Object2){
+						for(int j=0; j < json2Object2.size(); j++){
+							JSONObject jsonObject31 = (JSONObject) json2Object2.get(j);
+							String codeValue = jsonObject31.getString("channelCode");
+							String codeName = jsonObject31.getString("channelName");
+							if(channelName.equals(codeValue)){
+								channelName = codeName;
+								jsonObject41.put("saleSource",codeName);
+								list41.add(jsonObject41);
+								break;
+							}else if(j==json2Object2.size()-1){
+								JSONObject jsonObject51 = JSONObject.fromObject(object);
+								list41.add(jsonObject51);
+							}
+						}
+					}else{
+						list41.add(jsonObject41);
+					}
+				} catch (Exception e) {
+					list41.add(jsonObject41);
+				}
+			}
+			list=list41;
+			
+			Integer count = jsonObject2.getInt("count");
+			int pageCount = count % size == 0 ? count / size : (count / size + 1);
+			if (list != null && list.size() != 0) {
+				m.put("list", list);
+				m.put("pageCount", pageCount);
+				m.put("success", "true");
+			} else {
+				m.put("pageCount", 0);
+				m.put("success", "false");
+			}
+		} catch (Exception e) {
+			m.put("pageCount", 0);
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
+	/**
+	 * 拒收退货（已拒收销售单状态）
+	 * @Methods Name selectSaleList4
+	 * @Create In 2016-4-5 By chenHu
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ParseException String
+	 */
+	@ResponseBody
+	@RequestMapping("/selectSaleList4")
+	public String selectSaleList4(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+		String json = "";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
+		if(size==null || size==0){
+			size = 10;
+		}
+//		int start = (currPage-1)*size;
+		Map<String, String> paramMap = this.createParam(request);
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		paramMap.put("outOrderNo", request.getParameter("outOrderNo"));
+		paramMap.put("start", String.valueOf(currPage));
+		paramMap.put("limit", String.valueOf(size));
+		paramMap.put("saleStatus", "09");//已拒收
 		paramMap.put("fromSystem", "PCM");
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);

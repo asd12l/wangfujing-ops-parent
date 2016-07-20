@@ -138,7 +138,7 @@
 	}
 	function Ok1(){
 		$("#btDivCancel").hide();
-		var latestUpdateMan = "${username}";
+		var latestUpdateMan = getCookieValue("username");
 		var cancelReason =$("#cancelReason").val();
 		//取消退货单
 		$.ajax({
@@ -165,11 +165,11 @@
 			}
 		});
 	}
-	function fundButten(paymentAmountSum,quanAmount,needRefundAmount,refundApplyNo,courierNumber,expressCompanyName,refundStatus,orderNo,refundNo,returnShippingFee,address,returnType,obj){
+	function fundButten(paymentAmountSum,quanAmount,refundAmount,refundApplyNo,courierNumber,expressCompanyName,refundStatus,orderNo,refundNo,returnShippingFee,address,returnType,obj){
 		refundApplyNo_=refundApplyNo;
 		refundNo_=refundNo;
 		returnShippingFee_=returnShippingFee;
-		needRefundAmount_=needRefundAmount;
+		refundAmount_=refundAmount;
 		paymentAmountSum_=paymentAmountSum;
 		quanAmount_ = quanAmount;
 		returnType_=returnType;
@@ -4547,11 +4547,11 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="opt">
-														{#if $T.Result.refundStatus == '19'}
-															<input class="btn btn-success" style="width: 35%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
+														{#if $T.Result.refundStatus == '19' && $T.Result.refundClass != 'RequestCancelReturn'}
+															<input class="btn btn-success" style="width: 35%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.refundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 															&nbsp;<input class="btn btn-primary" style="width: 35%;height: 30px;" id="cancelButten" onclick="cancelButten('{$T.Result.refundNo}',this)" type="button" value="作废" />
 														{#else}
-															<input class="btn btn-success" style="width: 65%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
+															<input class="btn btn-success" style="width: 65%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.refundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 						                   				{#/if}
 													</td>
 									       		</tr>
