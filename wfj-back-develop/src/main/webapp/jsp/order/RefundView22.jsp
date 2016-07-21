@@ -200,12 +200,12 @@ Author: WangSy
 				refundType = response.list[0].refundPath;
 				expressCompanyName = response.list[0].expressCompanyName;//快递公司
 				courierNumber = response.list[0].courierNumber;//快递单号
-				address = response.list[0].warehouseAddress;//退货地址
+//				address = response.list[0].warehouseAddress;//退货地址
 				
 				/* $("#refundType").text(refundType) */;
 				$("#expressCompanyName").val(expressCompanyName);
 				$("#courierNumber").val(courierNumber);
-				$("#warehouseAddress").val(address);
+//				$("#warehouseAddress").val(address);
 			} 
 		}
 	});
@@ -334,7 +334,7 @@ Author: WangSy
 			} */
 		}
 	});
-	
+	//仓库地址
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",

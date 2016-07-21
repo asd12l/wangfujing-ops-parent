@@ -1228,8 +1228,8 @@ Author: WangSy
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
-																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
+																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
 																		{#else}0
 										                   				{#/if}
 																	</td>

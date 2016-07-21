@@ -4296,6 +4296,9 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("refundApplyNo"))){
 			paramMap.put("refundApplyNo", request.getParameter("refundApplyNo"));
 		}
+		if(StringUtils.isNotEmpty(request.getParameter("isFlag"))){
+			paramMap.put("isFlag", request.getParameter("isFlag"));
+		}
 		if(StringUtils.isNotEmpty(request.getParameter("expressCompanyName"))){
 			paramMap.put("expressCompanyName", request.getParameter("expressCompanyName"));//快递公司
 		}
