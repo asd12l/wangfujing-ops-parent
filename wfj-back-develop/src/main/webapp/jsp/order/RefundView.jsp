@@ -327,7 +327,7 @@
 		});
 		//关闭页面
 		$("#close").click(function() {
-			$("#pageBody").load(__ctxPath + "/jsp/order/saleOrderListView2.jsp");
+			$("#pageBody").load(__ctxPath + "/jsp/order/ReturnApplyView2.jsp");
 		});
 	});
 		//运费校验
@@ -537,7 +537,7 @@
 	}
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
-		$("#pageBody").load(__ctxPath+"/jsp/order/saleOrderListView2.jsp");
+		$("#pageBody").load(__ctxPath+"/jsp/order/ReturnApplyView2.jsp");
 	}
 	//跳到商品详情页
 	function trClick(skuNo, obj){

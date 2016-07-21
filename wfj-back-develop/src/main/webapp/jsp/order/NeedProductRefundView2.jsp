@@ -1811,9 +1811,9 @@
 			success : function(response) {
 				if(response.success=='true'){
 					refundApplyNo_ = response.data.refundApplyNo;  /* 拿到refundApplyNo */
-					supplyProductNo_ =response.data.products[0].supplyProductNo;
+					/* supplyProductNo_ =response.data.products[0].supplyProductNo;
 					shoppeProName_ =response.data.products[0].shoppeProName;
-					salePrice_ =response.data.products[0].salePrice;
+					salePrice_ =response.data.products[0].salePrice; */
 					orderNo_ = response.data.orderNo;
 					
 					var url = __ctxPath + "/jsp/order/RefundView4.jsp";
