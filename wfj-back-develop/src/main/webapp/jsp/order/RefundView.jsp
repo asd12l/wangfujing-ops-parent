@@ -160,6 +160,29 @@
 		}
 	});
 	var ss=0;
+	//仓库地址
+	$.ajax({
+		type : "post",
+		contentType: "application/x-www-form-urlencoded;charset=utf-8",
+		url:__ctxPath + "/omsOrder/selectRefundAddress",
+		dataType: "json",
+		data:{"shopSid":marketNo,"supplyCode":supplyNo},
+		success : function(response){
+			if(response.success == "true"){
+				var data = response.data;
+				for(var i in data){
+		//			alert(data[i].joinSite);
+					if(data[i].joinSite != "" && data[i].joinSite != 'undefind'){
+						$("#warehouseAddress").val(data[i].joinSite);
+						console.log(data[i].joinSite);
+						break;
+					}
+				}
+			}else{
+				$("#warehouseAddress").val("");
+			}
+		}
+	});
 	// 初始化
 	$("#pid").val(problemDesc);
 	$(function() {
