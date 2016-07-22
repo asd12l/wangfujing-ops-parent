@@ -4307,6 +4307,8 @@ public class OmsOrderController {
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("warehouseAddress"))){
 			paramMap.put("warehouseAddress", request.getParameter("warehouseAddress"));//退货地址
+		}else{
+			paramMap.put("warehouseAddress", "");//退货地址(没传值给空串)
 		}
 		paramMap.put("fromSystem", "OMSADMIN");
 		Map<Object, Object> m = new HashMap<Object, Object>();
