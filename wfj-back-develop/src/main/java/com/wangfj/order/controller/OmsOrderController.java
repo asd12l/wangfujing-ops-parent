@@ -4314,7 +4314,7 @@ public class OmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("update_refundApply_chain"),jsonStr);
-//			json = HttpUtilPcm.doPost("http://172.16.255.206:8081/oms-core/refundApply/updateRefundApply.htm", jsonStr);
+//			json = HttpUtilPcm.doPost("http://192.168.7.52:8081/oms-core/refundApply/updateRefundApply.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{

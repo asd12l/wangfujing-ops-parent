@@ -370,10 +370,7 @@ Author: WangSy
 				$("#shbtg").removeAttr("disabled");
 			}
 		});
-		//提交（修改物流信息）
-		$("#tijiao").click(function() {
-			tijiaoForm();
-		});
+		
 		//审核通过
 		$("#shtg").click(function() {
 			shtgForm();
@@ -434,7 +431,6 @@ Author: WangSy
 	});	
 	
 	function tijiaoForm(){
-		alert("refundApplyNo:"+refundApplyNo);
 		//修改退货申请单 加上物流信息
 		var warehouseAddress = $("#warehouseAddress").val();
 		$.ajax({
@@ -452,11 +448,11 @@ Author: WangSy
 	       	        $("#loading-container").addClass("loading-inactive");
 	       	 },300);
 	        },
-			data:{"refundApplyNo":refundApplyNo,"warehouseAddress":warehouseAddress,"isFlag":"ture"},
+			data:{"refundApplyNo":refundApplyNo,"warehouseAddress":warehouseAddress/* ,"isFlag":"ture" */},
 			success : function(response) {
 				if (response.success == "true") {
-					$("#model-body-warning").html("<div class='alert alert-warning fade in'><strong>修改成功！</strong></div>");
-		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+					/* $("#model-body-warning").html("<div class='alert alert-warning fade in'><strong>修改成功！</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"}); */
 				}else{
 					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
 		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
@@ -521,7 +517,6 @@ function shtgForm(){
 	var bankUser = $("#bankUser").val();
 	
 	var quan = $("#amount3").text();
-	console.log(quan);
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -540,6 +535,7 @@ function shtgForm(){
 		data:{"quan":quan,"bankName":bankName,"bankNumber":bankNumber,"bankUser":bankUser,"jj":da,"refundFee":refundFee,"latestUpdateMan":userName,"refundStatus":"4","refundType":rety/* ,"address":addr */},
 		success : function(response) {
 			if (response.success == "true") {
+				tijiaoForm();
 				$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
 	     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
 			}else{
@@ -908,7 +904,7 @@ function shbtgForm(){
 															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">退货地址：</label>
 															<div class="col-lg-6 col-sm-6 col-xs-6">
 																<input type="text" id="warehouseAddress" name="warehouseAddress"/>
-																	<input id="tijiao" type="button" value="提交" />
+																	
 															</div>											
 														</div>
 													</div>
