@@ -236,8 +236,8 @@ Author: WangSy
 					return;
 				}
 			});
-	var supplyNo = "";
-	var marketNo = "";
+	/* var supplyNo = "";
+	var marketNo = ""; */
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -246,14 +246,14 @@ Author: WangSy
 		dataType: "json",
 		data:{"refundApplyNo":refundApplyNo},
 		success : function(response) {
-			supplyNo = "";
+			/* supplyNo = "";
 			marketNo = "";
 			var data = response.list;
 			for(var i in data){
 				supplyNo = data[i].supplyNo;
 				marketNo = data[i].shopNo;
 				break;
-			}
+			} */
 			if (response.success == "true") {
 				if (response.success == "true") {
 					if (response.success == "true") {
@@ -334,7 +334,7 @@ Author: WangSy
 			} */
 		}
 	});
-	
+	/* //仓库地址
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -355,7 +355,7 @@ Author: WangSy
 				$("#warehouseAddress").val("");
 			}
 		}
-	});
+	}); */
 	
 	// 初始化
 	$(function() {

@@ -119,6 +119,8 @@
 	}else{
 		$("#isCodId").hide();
 	}
+	var supplyNo = "";
+	var marketNo = "";
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -127,6 +129,14 @@
 		dataType: "json",
 		data:{"refundApplyNo":refundApplyNo},
 		success : function(response) {
+			supplyNo = "";
+			marketNo = "";
+			var data = response.list;
+			for(var i in data){
+				supplyNo = data[i].supplyNo;
+				marketNo = data[i].shopNo;
+				break;
+			}
 			if (response.success == "true") {
 				$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
 				$("#olv_tab121 tbody").setTemplateElement("gift-list").processTemplate(response);
@@ -150,6 +160,29 @@
 		}
 	});
 	var ss=0;
+	//仓库地址
+	$.ajax({
+		type : "post",
+		contentType: "application/x-www-form-urlencoded;charset=utf-8",
+		url:__ctxPath + "/omsOrder/selectRefundAddress",
+		dataType: "json",
+		data:{"shopSid":marketNo,"supplyCode":supplyNo},
+		success : function(response){
+			if(response.success == "true"){
+				var data = response.data;
+				for(var i in data){
+		//			alert(data[i].joinSite);
+					if(data[i].joinSite != "" && data[i].joinSite != 'undefind'){
+						$("#warehouseAddress").val(data[i].joinSite);
+						console.log(data[i].joinSite);
+						break;
+					}
+				}
+			}else{
+				$("#warehouseAddress").val("");
+			}
+		}
+	});
 	// 初始化
 	$("#pid").val(problemDesc);
 	$(function() {
@@ -436,6 +469,7 @@
 		        },
 				data:{"quan":quan,"bankName":bankName,"bankNumber":bankNumber,"bankUser":bankUser,"jj":da,"refundFee":refundFee,"latestUpdateMan":userName,"refundStatus":"4","refundReason":refundReason,"refundType":rety/* ,"address":addr */},
 				success : function(response) {
+					tijiaoForm();
 					if (response.success == "true") {
 						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
 			     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -519,7 +553,40 @@
 				}
 			});
 		}
-	
+		function tijiaoForm(){
+			//修改退货申请单 加上物流信息
+			var warehouseAddress = $("#warehouseAddress").val();
+			$.ajax({
+				type : "post",
+				contentType: "application/x-www-form-urlencoded;charset=utf-8",
+				url:__ctxPath + "/omsOrder/updateRefundApply",  //修改退货申请单（更新物流信息）
+				async:false,
+				dataType: "json",
+				ajaxStart: function() {
+			       	 $("#loading-container").attr("class","loading-container");
+			        },
+		        ajaxStop: function() {
+		          //隐藏加载提示
+		          setTimeout(function() {
+		       	        $("#loading-container").addClass("loading-inactive");
+		       	 },300);
+		        },
+				data:{"refundApplyNo":refundApplyNo,"warehouseAddress":warehouseAddress/* ,"isFlag":"ture" */},
+				success : function(response) {
+					if (response.success == "true") {
+						/* $("#model-body-warning").html("<div class='alert alert-warning fade in'><strong>修改成功！</strong></div>");
+			     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"}); */
+					}else{
+						$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
+			     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+					}
+				},
+				error : function() {
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			});
+		}
 	//折叠页面
 	function tab(data){
 		if($("#"+data+"-i").attr("class")=="fa fa-minus"){
@@ -728,12 +795,13 @@
 															</div>											
 														</div>
 													
-														<!-- <div class="col-md-6">
-															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">退货仓库地址：</label>
+														<div class="col-md-6">
+															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">退货地址：</label>
 															<div class="col-lg-6 col-sm-6 col-xs-6">
-																<input type="text" id="address" name="address"/>
+																<input type="text" id="warehouseAddress" name="warehouseAddress"/>
+																	
 															</div>											
-														</div> -->
+														</div>
 													</div>
 												</div>
 												&nbsp;
