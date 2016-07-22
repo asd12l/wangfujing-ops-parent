@@ -200,12 +200,12 @@ Author: WangSy
 				refundType = response.list[0].refundPath;
 				expressCompanyName = response.list[0].expressCompanyName;//快递公司
 				courierNumber = response.list[0].courierNumber;//快递单号
-//				address = response.list[0].warehouseAddress;//退货地址
+				address = response.list[0].warehouseAddress;//退货地址
 				
 				/* $("#refundType").text(refundType) */;
 				$("#expressCompanyName").val(expressCompanyName);
 				$("#courierNumber").val(courierNumber);
-//				$("#warehouseAddress").val(address);
+				$("#warehouseAddress").val(address);
 			} 
 		}
 	});
@@ -236,8 +236,8 @@ Author: WangSy
 					return;
 				}
 			});
-	var supplyNo = "";
-	var marketNo = "";
+	/* var supplyNo = "";
+	var marketNo = ""; */
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -246,14 +246,14 @@ Author: WangSy
 		dataType: "json",
 		data:{"refundApplyNo":refundApplyNo},
 		success : function(response) {
-			supplyNo = "";
+			/* supplyNo = "";
 			marketNo = "";
 			var data = response.list;
 			for(var i in data){
 				supplyNo = data[i].supplyNo;
 				marketNo = data[i].shopNo;
 				break;
-			}
+			} */
 			if (response.success == "true") {
 				if (response.success == "true") {
 					if (response.success == "true") {
@@ -334,7 +334,7 @@ Author: WangSy
 			} */
 		}
 	});
-	//仓库地址
+	/* //仓库地址
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -355,7 +355,7 @@ Author: WangSy
 				$("#warehouseAddress").val("");
 			}
 		}
-	});
+	}); */
 	
 	// 初始化
 	$(function() {
