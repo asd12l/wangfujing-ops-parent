@@ -226,7 +226,7 @@ public class BusinessPlatformController {
 		paramMap.put("bp_id", request.getParameter("bpId"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		m.put("msg", "添加支付渠道成功!");
-		if(checkPayChannel(paramMap.get("bp_id"),paramMap.get("pay_service"),paramMap.get("dic_code"),null)){
+		if(checkPayChannel(paramMap.get("bp_id"),paramMap.get("pay_service"),paramMap.get("dic_code"),paramMap.get("client_type"),null)){
 			try {
 				String jsonStr = JSON.toJSONString(paramMap);
 				logger.info("jsonStr:" + jsonStr);
@@ -247,7 +247,7 @@ public class BusinessPlatformController {
 			}
 		}else{
 			m.put("success", "false");
-			m.put("msg", "支付渠道银行重复！");
+			m.put("msg", "终端和银行不可以同时重复，请更改终端或者银行后重试！");
 		}
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -276,7 +276,7 @@ public class BusinessPlatformController {
 		paramMap.put("id",request.getParameter("id"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		m.put("msg", "更新支付渠道成功!");
-		if(checkPayChannel(paramMap.get("bp_id"),paramMap.get("pay_service"),paramMap.get("dic_code"),paramMap.get("id"))){
+		if(checkPayChannel(paramMap.get("bp_id"),paramMap.get("pay_service"),paramMap.get("dic_code"),paramMap.get("client_type"),paramMap.get("id"))){
 			try {
 				String jsonStr = JSON.toJSONString(paramMap);
 				logger.info("jsonStr:" + jsonStr);
@@ -297,7 +297,7 @@ public class BusinessPlatformController {
 			}
 		}else{
 			m.put("success", "false");
-			m.put("msg", "支付渠道银行重复！");
+			m.put("msg", "终端和银行不可以同时重复，请更改终端或者银行后重试！");
 		}
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -481,12 +481,13 @@ public class BusinessPlatformController {
 	 */
 	@RequestMapping("/wfjpay/business/checkPayChannel")
 	@ResponseBody
-	public boolean checkPayChannel(String bpId, String payService,String dicCode,String  id) {
+	public boolean checkPayChannel(String bpId, String payService,String dicCode,String clientType,String  id) {
 		String json = "";
 		Map<String,String> paramMap = new HashMap<String,String>();
 		paramMap.put("bpId", bpId);
 		paramMap.put("payService", payService);
 		paramMap.put("dicCode", dicCode);
+		paramMap.put("clientType", clientType);
 		paramMap.put("id", id);
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {

@@ -203,27 +203,27 @@ Author: WangSy
 					var refundApplyNo_ =  response.list[0].refundApplyNo;
 					var returnShippingFee_ =  response.list[0].returnShippingFee;
 					console.log(returnShippingFee_);
-					var _ =  response.list[0].;
+//					var refundAmount_ =  response.list[0].refundAmount;
 					var quanAmount =  response.list[0].quanAmount;
 					var paymentAmountSum = response.list[0].paymentAmountSum;
 					if(""==refundApplyNo){
 						//EDI自动退的没有退货申请单号
-						if(isNaN(parseFloat(paymentAmountSum))){
+						if(isNaN(parseFloat(refundAmount))){
 							$("#amount1").text(parseFloat(0).toFixed(2));
 						}else{
-							$("#amount1").text(parseFloat(paymentAmountSum).toFixed(2));
+							$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 						}
 							$("#amount2").text(parseFloat(0).toFixed(2));
 							$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-							$("#amount4").text(parseFloat(_).toFixed(2));
+							$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 					}else{
-						$("#amount1").text(parseFloat(_).toFixed(2));
+						$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 						$("#amount2").text(parseFloat(0).toFixed(2));
 						$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 						if(isNaN(parseFloat(returnShippingFee_))){
-							$("#amount4").text(parseFloat(parseFloat(_)-quanAmount).toFixed(2));
+							$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 						}else{
-							$("#amount4").text(parseFloat(parseFloat(_)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
+							$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
 						}
 					}
 				}
@@ -1228,8 +1228,8 @@ Author: WangSy
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
-																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
+																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
 																		{#else}0
 										                   				{#/if}
 																	</td>

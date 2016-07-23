@@ -4296,6 +4296,9 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("refundApplyNo"))){
 			paramMap.put("refundApplyNo", request.getParameter("refundApplyNo"));
 		}
+		if(StringUtils.isNotEmpty(request.getParameter("isFlag"))){
+			paramMap.put("isFlag", request.getParameter("isFlag"));
+		}
 		if(StringUtils.isNotEmpty(request.getParameter("expressCompanyName"))){
 			paramMap.put("expressCompanyName", request.getParameter("expressCompanyName"));//快递公司
 		}
@@ -4304,6 +4307,8 @@ public class OmsOrderController {
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("warehouseAddress"))){
 			paramMap.put("warehouseAddress", request.getParameter("warehouseAddress"));//退货地址
+		}else{
+			paramMap.put("warehouseAddress", "");//退货地址(没传值给空串)
 		}
 		paramMap.put("fromSystem", "OMSADMIN");
 		Map<Object, Object> m = new HashMap<Object, Object>();
@@ -4311,7 +4316,7 @@ public class OmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("update_refundApply_chain"),jsonStr);
-//			json = HttpUtilPcm.doPost("http://172.16.255.206:8081/oms-core/refundApply/updateRefundApply.htm", jsonStr);
+//			json = HttpUtilPcm.doPost("http://192.168.7.52:8081/oms-core/refundApply/updateRefundApply.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{
@@ -4905,5 +4910,94 @@ public class OmsOrderController {
 			logger.info("请求退回地址接口异常：{}",e);
 		}
 		return result;
+	}
+	
+	/**
+	 * 查询销售单支付介质信息（线上）
+	 * @Methods Name selectSalePayments
+	 * @Create In 2015-12-8 By chenhu
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping("/selectSalePayments")
+	public String selectSalePayments(HttpServletRequest request, HttpServletResponse response) {
+		String json = "";
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotBlank(request.getParameter("saleNo"))){
+			paramMap.put("saleNo", request.getParameter("saleNo"));
+		}
+		paramMap.put("fromSystem", "PCM");
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("select_salepayments_list"), jsonStr);
+//			json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSelect/selectSalePayments.htm", jsonStr);
+			logger.info("json:" + json);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+			List<Object> list = (List<Object>) jsonObject.get("data");
+			
+			String jsonStr2 = "";
+			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
+			paramMap2.put("fromSystem", "OMSADMIN");
+			String json2 = HttpUtilPcm.doPost(CommonProperties.get("select_paymentType_list"), jsonStr2);
+			logger.info("json2:" + json2);
+			JSONArray json2Object = JSONArray.fromObject(json2);
+//			List<Object> list2 = JSONArray.toList(json2Object, Object.class);
+			
+			List<Object> list3 = new ArrayList<Object>();
+			List<Object> list4 = new ArrayList<Object>();
+			for (int i = 0; i < json2Object.size(); i++) {
+//				JSONObject jsonObject3 = JSONObject.fromObject(object2);
+				JSONObject jsonObject3 = (JSONObject) json2Object.get(i);
+				String code = jsonObject3.getString("code");
+				String name = jsonObject3.getString("name");
+				for (Object object : list) {
+					JSONObject jsonObject4 = JSONObject.fromObject(object);
+					String paymentClass = jsonObject4.getString("paymentType");
+					paymentClass= paymentClass.substring(0,2);
+					if(paymentClass.equals(code)){
+						paymentClass = name;
+						jsonObject4.put("paymentClass",paymentClass);
+//						object = JSONObject.toBean(jsonObject4, Object.class);
+						list3.add(jsonObject4);
+					}else if(StringUtils.isEmpty(paymentClass)){
+						list3.add(jsonObject4);
+					}
+				}
+			}
+			list=list3;
+			for (int i = 0; i < json2Object.size(); i++) {
+//				JSONObject jsonObject3 = JSONObject.fromObject(object2);
+				JSONObject jsonObject3 = (JSONObject) json2Object.get(i);
+				String code = jsonObject3.getString("code");
+				String name = jsonObject3.getString("name");
+				for (Object object : list) {
+					JSONObject jsonObject4 = JSONObject.fromObject(object);
+					String paymentType = jsonObject4.getString("paymentType");
+					if(paymentType.equals(code)){
+						paymentType = name;
+						jsonObject4.put("paymentType",paymentType);
+						list4.add(jsonObject4);
+					}else if(StringUtils.isEmpty(paymentType)){
+						list4.add(jsonObject4);
+					}
+				}
+			}
+			list=list4;
+			
+			if (list != null && list.size() != 0) {
+				m.put("list", list);
+				m.put("success", "true");
+			} else {
+				m.put("success", "false");
+			}
+		} catch (Exception e) {
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
 	}
 }

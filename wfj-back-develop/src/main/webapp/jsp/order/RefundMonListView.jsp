@@ -1245,7 +1245,7 @@
 	function trClick2(orderNo,obj){
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
-		 newTr.find("td:eq(15)").hide();
+		 newTr.find("td:eq(18)").hide();
 		 $("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -2326,7 +2326,7 @@
 	function trClick(refundNo,obj){
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
-		newTr.find("td:eq(15)").hide();
+		newTr.find("td:eq(18)").hide();
 		$("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
