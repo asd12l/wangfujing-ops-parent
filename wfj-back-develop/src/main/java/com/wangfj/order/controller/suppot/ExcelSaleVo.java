@@ -4,6 +4,25 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ExcelSaleVo {
+	private BigDecimal couponAmount;//使用优惠券金额
+	
+	private BigDecimal accountBalanceAmount;//使用余额金额
+	
+	public BigDecimal getCouponAmount() {
+		return couponAmount;
+	}
+
+	public void setCouponAmount(BigDecimal couponAmount) {
+		this.couponAmount = couponAmount;
+	}
+
+	public BigDecimal getAccountBalanceAmount() {
+		return accountBalanceAmount;
+	}
+
+	public void setAccountBalanceAmount(BigDecimal accountBalanceAmount) {
+		this.accountBalanceAmount = accountBalanceAmount;
+	}
 
 	private Long sid;
 
