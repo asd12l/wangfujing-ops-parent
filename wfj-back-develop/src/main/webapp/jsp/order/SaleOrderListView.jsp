@@ -1872,6 +1872,8 @@
 		"<th width='4%' style='text-align: center;'>总金额</th>"+
 		"<th width='4%' style='text-align: center;'>应付金额</th>"+
 		"<th width='4%' style='text-align: center;'>优惠金额</th>"+
+		"<th width='4%' style='text-align: center;'>使用优惠券金额</th>"+
+		"<th width='4%' style='text-align: center;'>使用余额金额</th>"+
 		"<th width='4%' style='text-align: center;'>收银损益</th>"+
 		"<th width='4%' style='text-align: center;'>授权卡号</th>"+
 		"<th width='4%' style='text-align: center;'>二维码</th>"+
@@ -2005,6 +2007,18 @@
 							option5+="<td align='center'></td>";
 						}else{
 							option5+="<td align='center'>"+ele.discountAmount+"</td>";
+						}
+						//使用优惠券金额
+						if(ele.couponAmount=="[object Object]"||ele.couponAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponAmount+"</td>";
+						}
+						//使用余额金额
+						if(ele.accountBalanceAmount=="[object Object]"||ele.accountBalanceAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.accountBalanceAmount+"</td>";
 						}
 						//收银损益
 						if(ele.cashIncome=="[object Object]"||ele.cashIncome==undefined){
@@ -3354,6 +3368,8 @@
                                                 <th width="4%" style="text-align: center;">总金额</th>
                                                 <th width="4%" style="text-align: center;">应付金额</th>
                                                 <th width="4%" style="text-align: center;">优惠金额</th>
+                                                <th width="4%" style="text-align: center;">使用优惠券金额</th>
+                                                <th width="4%" style="text-align: center;">使用余额金额</th>
                                                <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
                                                 <th width="4%" style="text-align: center;">授权卡号</th>
                                                 <th width="4%" style="text-align: center;">二维码</th>
@@ -3469,6 +3485,14 @@
 														{#if $T.Result.discountAmount != '[object Object]'}{$T.Result.discountAmount}
 						                   				{#/if}
 													</td>
+													<td align="center" id="couponAmount_{$T.Result.sid}">
+														{#if $T.Result.couponAmount != '[object Object]'}{$T.Result.couponAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
+														{#if $T.Result.accountBalanceAmount != '[object Object]'}{$T.Result.accountBalanceAmount}
+						                   				{#/if}
+													</td>
 													
 													<td align="center" id="authorityCard_{$T.Result.sid}">
 														{#if $T.Result.authorityCard != '' && $T.Result.authorityCard != null}
@@ -3564,6 +3588,8 @@
                                                 <th width="4%" style="text-align: center;">总金额</th>
                                                 <th width="4%" style="text-align: center;">应付金额</th>
                                                 <th width="4%" style="text-align: center;">优惠金额</th>
+                                                <th width="4%" style="text-align: center;">使用优惠券金额</th>
+                                                <th width="4%" style="text-align: center;">使用余额金额</th>
                                                 <!-- <th width="4%" style="text-align: center;">收银损益</th> -->
                                                 <th width="4%" style="text-align: center;">授权卡号</th>
                                                 <th width="4%" style="text-align: center;">二维码</th>
@@ -3659,6 +3685,8 @@
                                                 <th width="4%" style="text-align: center;">总金额</th>
                                                 <th width="4%" style="text-align: center;">应付金额</th>
                                                 <th width="4%" style="text-align: center;">优惠金额</th>
+                                                <th width="4%" style="text-align: center;">使用优惠券金额</th>
+                                                <th width="4%" style="text-align: center;">使用余额金额</th>
                                                <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
                                                 <th width="4%" style="text-align: center;">授权卡号</th>
                                                 <th width="4%" style="text-align: center;">二维码</th>
