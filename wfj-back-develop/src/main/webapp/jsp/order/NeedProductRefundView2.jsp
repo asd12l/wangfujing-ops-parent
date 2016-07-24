@@ -1047,7 +1047,7 @@
 	}
 	
 	//点击tr事件
-	function trClick2(saleNo,obj){
+	function trClick2(orderNo,saleNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		var newTr =  $(obj).parent().parent().clone(true);
@@ -1087,7 +1087,7 @@
 		"<th width='3%' style='text-align: center;'>是否为赠品</th>"+
 		"<th width='3%' style='text-align: center;'>运费分摊</th>"+
 		"<th width='3%' style='text-align: center;'>缺货数量</th>"+
-		"<th width='3%' style='text-align: center;'>提货数量</th>"+
+		/* "<th width='3%' style='text-align: center;'>提货数量</th>"+ */
 		"<th width='3%' style='text-align: center;'>大中小类</th>"+
 		"<th width='3%' style='text-align: center;'>商品类别</th>"+
 		/* "<th width='3%' style='text-align: center;'>收银损益</th>"+ */
@@ -1283,12 +1283,12 @@
 						}else{
 							option+="<td align='center'>"+ele.stockoutAmount+"</td>";
 						}
-						//提货数量
+						/* //提货数量
 						if(ele.pickSum=="[object Object]"||ele.pickSum==undefined){
 							option+="<td align='center'></td>";
 						}else{
 							option+="<td align='center'>"+ele.pickSum+"</td>";
-						}
+						} */
 						//大中小类
 						if(ele.productClass=="[object Object]"||ele.productClass==undefined){
 							option+="<td align='center'></td>";
@@ -1746,8 +1746,152 @@
 				}
 			}
 		});
+		var option5 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>销售单号</th>"+
+		"<th width='5%' style='text-align: center;'>款机流水号</th>"+
+		"<th width='5%' style='text-align: center;'>一级支付介质</th>"+
+		"<th width='5%' style='text-align: center;'>二级支付介质</th>"+
+		"<th width='5%' style='text-align: center;'>支付金额</th>"+
+		"<th width='5%' style='text-align: center;'>实际支付金额</th>"+
+		"<th width='5%' style='text-align: center;'>汇率</th>"+
+		"<th width='5%' style='text-align: center;'>账号</th>"+
+		"<th width='5%' style='text-align: center;'>用户ID</th>"+
+		"<th width='5%' style='text-align: center;'>支付流水号</th>"+
+		"<th width='5%' style='text-align: center;'>券类别</th>"+
+		"<th width='5%' style='text-align: center;'>券批次</th>"+
+		"<th width='5%' style='text-align: center;'>扣款名称</th>"+
+		"<th width='5%' style='text-align: center;'>活动号</th>"+
+		"<th width='5%' style='text-align: center;'>优惠券规则</th>"+
+		"<th width='5%' style='text-align: center;'>优惠券规则名称</th>"+
+		"<th width='5%' style='text-align: center;'>备注</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectSalePayments",
+			async:false,
+			dataType: "json",
+			data:{"saleNo":saleNo},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//销售单号
+						if(ele.saleNo=="[object Object]"||ele.saleNo==undefined){
+							option5+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option5+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.saleNo+"</td>";
+						}
+						//款机流水号
+						if(ele.salesPaymentNo=="[object Object]"||ele.salesPaymentNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.salesPaymentNo+"</td>";
+						}
+						//一级支付介质
+						if(ele.paymentClass=="[object Object]"||ele.paymentClass==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.paymentClass+"</td>";
+						}
+						//二级支付介质
+						if(ele.paymentType=="[object Object]"||ele.paymentType==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.paymentType+"</td>";
+						}
+						//支付金额
+						if(ele.amount=="[object Object]"||ele.amount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.amount+"</td>";
+						}
+						//实际支付金额
+						if(ele.acturalAmount=="[object Object]"||ele.acturalAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.acturalAmount+"</td>";
+						}
+						//汇率
+						if(ele.rate=="[object Object]"||ele.rate==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.rate+"</td>";
+						}
+						//账号
+						if(ele.account=="[object Object]"||ele.account==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.account+"</td>";
+						}
+						//用户ID
+						if(ele.userId=="[object Object]"||ele.userId==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.userId+"</td>";
+						}
+						//支付流水号
+						if(ele.payFlowNo=="[object Object]"||ele.payFlowNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.payFlowNo+"</td>";
+						}
+						//券类别
+						if(ele.couponType=="[object Object]"||ele.couponType==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponType+"</td>";
+						}
+						//券批次
+						if(ele.couponBatch=="[object Object]"||ele.couponBatch==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponBatch+"</td>";
+						}
+						//扣款名称
+						if(ele.couponName=="[object Object]"||ele.couponName==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponName+"</td>";
+						}
+						//活动号
+						if(ele.activityNo=="[object Object]"||ele.activityNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.activityNo+"</td>";
+						}
+						//优惠券规则
+						if(ele.couponRule=="[object Object]"||ele.couponRule==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponRule+"</td>";
+						}
+						//优惠券规则名称
+						if(ele.couponRuleName=="[object Object]"||ele.couponRuleName==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponRuleName+"</td>";
+						}
+						//备注
+						if(ele.remark=="[object Object]"||ele.remark==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.remark+"</td>";
+						}
+					}
+				}
+			}
+		});
 		$("#OLV10_tab").html(option);
-		$("#OLV2_tab").html(option2);
+		if(""==orderNo){
+			$("#OLV2_tab").html(option2);
+			$("#idtab1").show();
+			$("#idtab2").hide();
+		}else{
+			$("#OLV5_tab").html(option5);
+			$("#idtab1").hide();
+			$("#idtab2").show();
+		}
 		$("#OLV3_tab").html(option3);
 		$("#OLV4_tab").html(option4);
 		$("#divTitle11").html("销售单详情");
@@ -2024,7 +2168,7 @@
 														<span id="orderNo_{$T.Result.saleNo}" class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;' onclick="trClick('{$T.Result.saleNo}','{$T.Result.orderNo}',this);"></span>
 													</td>
 													<td align="center" id="saleNo_{$T.Result.sid}">
-														<a onclick="trClick2('{$T.Result.saleNo}',this);" style="cursor:pointer;">
+														<a onclick="trClick2('{$T.Result.orderNo}','{$T.Result.saleNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 						                   					{#/if}
 														</a>
@@ -2143,7 +2287,8 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
 					        <li class="active"><a href="#tab10" data-toggle="tab">销售单商品明细</a></li>
-					        <li><a href="#tab2" data-toggle="tab">支付信息</a></li>
+					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付信息</a></li>
+							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
 					      </ul>
@@ -2169,6 +2314,12 @@
 					         <div class="tab-pane" id="tab4">
 					         	<div style="width:100%;height:200px;overflow:scroll; ">
 					                    <table class="table-striped table-hover table-bordered" id="OLV4_tab" style="width: 150%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
+					         <div class="tab-pane" id="tab5">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV5_tab" style="width: 400%;background-color: #fff;margin-bottom: 0;">
 					                    </table>
 					                </div>
 					         </div>

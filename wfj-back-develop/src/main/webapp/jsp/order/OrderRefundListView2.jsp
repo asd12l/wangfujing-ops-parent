@@ -2881,7 +2881,7 @@
 		"<th width='3%' style='text-align: center;'>是否为赠品</th>"+
 		"<th width='3%' style='text-align: center;'>运费分摊</th>"+
 		"<th width='3%' style='text-align: center;'>缺货数量</th>"+
-		"<th width='3%' style='text-align: center;'>提货数量</th>"+
+		/* "<th width='3%' style='text-align: center;'>提货数量</th>"+ */
 		"<th width='3%' style='text-align: center;'>大中小类</th>"+
 		"<th width='3%' style='text-align: center;'>商品类别</th>"+
 		/* "<th width='3%' style='text-align: center;'>收银损益</th>"+ */
@@ -3076,12 +3076,12 @@
 						}else{
 							option+="<td align='center'>"+ele.stockoutAmount+"</td>";
 						}
-						//提货数量
+						/* //提货数量
 						if(ele.pickSum=="[object Object]"||ele.pickSum==undefined){
 							option+="<td align='center'></td>";
 						}else{
 							option+="<td align='center'>"+ele.pickSum+"</td>";
-						}
+						} */
 						//大中小类
 						if(ele.productClass=="[object Object]"||ele.productClass==undefined){
 							option+="<td align='center'></td>";
