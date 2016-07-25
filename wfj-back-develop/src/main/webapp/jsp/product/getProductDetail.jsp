@@ -156,8 +156,12 @@ $(function() {
     		success : function(response) {
     			if(response.data == null || response.data == "")
     				return;
-    			
-    			$("#SMTable_id").attr("src", "" + response.data[0].sizePictureUrl);
+    			var url = response.data[0].sizePictureUrl;
+    			if(url != null && url != ""){
+    				$("#SMTable_id").html("<img alt='' src='"+url+"' style='width:570px;height:270px;'>");
+    			} else {
+    				$("#SMTable_id").html("<h1 style='margin:120px 230px">无数据</h1>');
+    			}
     		}
     	});
     	$("#SMTableDiv").show();
@@ -915,8 +919,7 @@ function isShowFinePackimg(){
 						type="button" onclick="closeSMTable();">×</button>
 					<h4 class="modal-title">色码对照表</h4>
 				</div>
-				<div class="modal-body" style="width:500px;height:300px;">
-					<img alt="" src="" id="SMTable_id" style="width:570px;height:270px;">
+				<div class="modal-body" style="width:600px;height:300px;" id="SMTable_id">
 				</div>
 				<div class="modal-footer">
 					<button data-dismiss="modal" class="btn btn-default"
