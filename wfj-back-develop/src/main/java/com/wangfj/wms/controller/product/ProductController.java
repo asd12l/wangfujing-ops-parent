@@ -332,8 +332,15 @@ public class ProductController {
         JSONObject jsons = new JSONObject();
         String json_2 = "";
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("skuSid", id);
+        map.put("skuCode", id);
         try {
+        	String sku = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
+                    + "/product/getBaseSkuByPara.htm", JsonUtil.getJSONString(map));
+        	
+        	id = JSONObject.fromObject(JSONObject.fromObject(sku).get("data")).getString("sid");
+        	map.clear();
+            map.put("skuSid", id);
+        	
             jsonShoppro = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
                     + "/product/selectProPageBySku.htm", JsonUtil.getJSONString(map));
             jsons = JSONObject.fromObject(jsonShoppro);

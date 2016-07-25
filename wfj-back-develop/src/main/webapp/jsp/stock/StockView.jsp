@@ -713,7 +713,7 @@
 														</label>
 													</div>
 												</td>
-												<td align="center" id="skuCode_{$T.Result.sid}"><a onclick="getViewDetail('{$T.Result.sid}');" style="cursor:pointer;">{$T.Result.skuCode}</a></td>
+												<td align="center" id="skuCode_{$T.Result.sid}"><a onclick="getViewDetail('{$T.Result.skuCode}');" style="cursor:pointer;">{$T.Result.skuCode}</a></td>
 												<td align="center" id="productCode_{$T.Result.sid}"><a onclick="getView('{$T.Result.productCode}');" style="cursor:pointer;">{$T.Result.productCode}</a></td>
 												<td align="center">{$T.Result.counterName}</td>
 												<td align="center" id="unitName_{$T.Result.sid}">{$T.Result.unitName}</td>
