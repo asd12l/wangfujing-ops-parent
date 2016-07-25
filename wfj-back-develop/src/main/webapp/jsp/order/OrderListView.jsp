@@ -875,7 +875,7 @@
 							"<th width='3%' style='text-align: center;'>是否为赠品</th>"+
 							"<th width='3%' style='text-align: center;'>运费分摊</th>"+
 							"<th width='3%' style='text-align: center;'>缺货数量</th>"+
-							"<th width='3%' style='text-align: center;'>提货数量</th>"+
+							/* "<th width='3%' style='text-align: center;'>提货数量</th>"+ */
 							"<th width='3%' style='text-align: center;'>大中小类</th>"+
 							"<th width='3%' style='text-align: center;'>商品类别</th>"+
 							"<th width='3%' style='text-align: center;'>销项税</th>"+
@@ -1031,12 +1031,12 @@
 							}else{
 								option+="<td align='center'>"+ele.stockoutAmount+"</td>";
 							}
-							//提货数量
+							/* //提货数量
 							if(ele.pickSum=="[object Object]"||ele.pickSum==undefined){
 								option+="<td align='center'></td>";
 							}else{
 								option+="<td align='center'>"+ele.pickSum+"</td>";
-							}
+							} */
 							//大中小类
 							if(ele.productClass=="[object Object]"||ele.productClass==undefined){
 								option+="<td align='center'></td>";
@@ -1268,7 +1268,7 @@
 		"<th width='2%' style='text-align: center;'>允许退货数量</th>"+
 		"<th width='2%' style='text-align: center;'>缺货数量</th>"+
 		
-		"<th width='2%' style='text-align: center;'>提货数量</th>"+
+		/* "<th width='2%' style='text-align: center;'>提货数量</th>"+ */
 		/* "<th width='2%' style='text-align: center;'>商品折后总额</th>"+ */
 		/* "<th width='2%' style='text-align: center;'>物流属性</th>"+
 		"<th width='2%' style='text-align: center;'>商品描述</th>"+ */
@@ -1468,12 +1468,12 @@
 							option+="<td align='center'>"+ele.stockoutAmount+"</td>";
 						}
 						
-						//提货数量
+					/* 	//提货数量
 						if(ele.pickSum=="[object Object]"||ele.pickSum==undefined){
 							option+="<td align='center'></td>";
 						}else{
 							option+="<td align='center'>"+ele.pickSum+"</td>";
-						}
+						} */
 						/* //商品折后总额
 						if(ele.paymentAmount=="[object Object]"||ele.paymentAmount==undefined){
 							option+="<td align='center'></td>";
