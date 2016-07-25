@@ -224,7 +224,7 @@ Author: WangSy
 							$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 							//$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 						}else{
-							$("#amount1").text((parseFloat(refundAmount)-parseFloat(returnShippingFee)).toFixed(2));
+							$("#amount1").text((parseFloat(refundAmount)-parseFloat(returnShippingFee_)).toFixed(2));
 							//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
 						}
 						$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
