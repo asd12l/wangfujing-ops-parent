@@ -160,7 +160,7 @@ $(function() {
     			if(url != null && url != ""){
     				$("#SMTable_id").html("<img alt='' src='"+url+"' style='width:570px;height:270px;'>");
     			} else {
-    				$("#SMTable_id").html("<h1 style='margin:120px 230px">无数据</h1>');
+    				$("#SMTable_id").html("<h1 style='margin:120px 230px'>无数据</h1>");
     			}
     		}
     	});
