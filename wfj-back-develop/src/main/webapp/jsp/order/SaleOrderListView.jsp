@@ -3598,7 +3598,7 @@
                                                 <th width="3%" style="text-align: center;">销售类型</th>
                                                 <th width="3%" style="text-align: center;">总金额</th>
                                                 <th width="3%" style="text-align: center;">应付金额</th>
-                                                <th width="3%" style="text-align: center;">现金类支付金额</th>
+                                                <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
                                                 <th width="3%" style="text-align: center;">运费</th>
                                                 <th width="3%" style="text-align: center;">优惠金额</th>
                                                 <th width="3%" style="text-align: center;">使用优惠券金额</th>

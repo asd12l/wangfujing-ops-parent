@@ -106,15 +106,18 @@ Author: WangSy
 	var refundAmount =refundAmount_;
 	var quanAmount = quanAmount_;
 		//EDI自动退的没有退货申请单号
-		$("#amount1").text(parseFloat(refundAmount).toFixed(2));
+//		$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 //		$("#amount4").text(parseFloat(needRefundAmount-quanAmount+returnShippingFee).toFixed(2));
 		if(isNaN(parseFloat(returnShippingFee))){
-			$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+			$("#amount1").text(parseFloat(refundAmount).toFixed(2));
+			//$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 		}else{
-			$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
+			$("#amount1").text((parseFloat(refundAmount)-parseFloat(returnShippingFee)).toFixed(2));
+			//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
 		}
+		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 //	var data2 = orderData;
 	var data_;
 	/* //退货方式
