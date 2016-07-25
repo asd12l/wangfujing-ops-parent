@@ -151,14 +151,17 @@ Author: WangSy
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 	}else{
-		$("#amount1").text(parseFloat(refundAmount).toFixed(2));
+//		$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-		if(isNaN(parseFloat(returnShippingFee_))){
-			$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+		if(isNaN(parseFloat(returnShippingFee))){
+			$("#amount1").text(parseFloat(refundAmount).toFixed(2));
+			//$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 		}else{
-			$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
+			$("#amount1").text((parseFloat(refundAmount)-parseFloat(returnShippingFee)).toFixed(2));
+			//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
 		}
+		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 	}
 	$.ajax({
 		type: "post",
