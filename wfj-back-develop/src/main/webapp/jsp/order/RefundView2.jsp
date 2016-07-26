@@ -100,7 +100,7 @@ Author: WangSy
 	$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 	$("#amount2").text(parseFloat(0).toFixed(2));
 	$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-	$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2));
+	$("#amount4").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 	//退货方式
 	$("#refundType").val(refundPath_);
 	
