@@ -3723,7 +3723,7 @@
                                                 <th width="2%" style="text-align: center;">支付时间 </th>
                                                 <th width="2%" style="text-align: center;">是否需要开发票 </th>
                                                 <th width="2%" style="text-align: center;">应收运费 </th>
-                                                <th width="2%" style="text-align: center;">订单应付金额 </th>
+                                                <th width="2%" style="text-align: center;">订单应付金额 (含运费)</th>
                                                 <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
                                                 <th width="3%" style="text-align: center;">积分</th>
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
