@@ -3739,11 +3739,9 @@
 											{#foreach $T.list as Result}
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													
-													<td align="center">
-														<a onclick="trClick('{$T.Result.orderNo}','{$T.Result.isCod}','{$T.Result.orderType}',this);" style="cursor:pointer;">
-															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
-						                   					{#/if}
-														</a>
+													<td align="center" id="orderNo_{$T.Result.sid}">
+														{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+					                   					{#/if}
 													</td>
 													<td align="center" id="outOrderNo_{$T.Result.sid}">
 														{#if $T.Result.outOrderNo != '[object Object]'}{$T.Result.outOrderNo}
