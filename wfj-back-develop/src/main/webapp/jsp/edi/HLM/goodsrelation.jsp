@@ -56,6 +56,7 @@ a:hover{color: black;text-decoration: none;}
 	position: fixed;
 	text-align: center;
 	visibility: hidden;
+
 }
 
 </style>
