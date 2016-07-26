@@ -2761,7 +2761,7 @@
                                                 <th width="2%" style="text-align: center;">发货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货金额 </th> -->
                                                 <th width="2%" style="text-align: center;">订单应付金额 </th>
-                                                <th width="2%" style="text-align: center;">现金类支付金额 </th>
+                                                <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
                                                 <!-- <th width="2%" style="text-align: center;">收银损益 </th> -->
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
                                                 <th width="2%" style="text-align: center;">促销优惠金额</th>
@@ -3011,7 +3011,7 @@
                                                 <th width="2%" style="text-align: center;">发货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货金额 </th> -->
                                                 <th width="2%" style="text-align: center;">订单应付金额 </th>
-                                                <th width="2%" style="text-align: center;">现金类支付金额 </th>
+                                                <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
                                                <!--  <th width="2%" style="text-align: center;">收银损益 </th> -->
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
                                                 <th width="2%" style="text-align: center;">促销优惠金额</th>

@@ -7,7 +7,22 @@ import java.util.List;
 public class ExcelRefundVo {
 	private Long sid;
 
-    private String accountNo;//账号
+	private BigDecimal totalDiscount;
+	private BigDecimal quanAmount;
+	
+    public BigDecimal getTotalDiscount() {
+		return totalDiscount;
+	}
+	public void setTotalDiscount(BigDecimal totalDiscount) {
+		this.totalDiscount = totalDiscount;
+	}
+	public BigDecimal getQuanAmount() {
+		return quanAmount;
+	}
+	public void setQuanAmount(BigDecimal quanAmount) {
+		this.quanAmount = quanAmount;
+	}
+	private String accountNo;//账号
 
     private String memberNo;//会员编号
 
