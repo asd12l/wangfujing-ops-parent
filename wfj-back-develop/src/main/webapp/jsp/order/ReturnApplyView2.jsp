@@ -112,7 +112,7 @@
 	}
 	function Ok1(){
 		refundApplyNo = refundApplyNo1;
-		var latestUpdateMan = "${username}";
+		var latestUpdateMan = getCookieValue("username");
 		var cancelReason =$("#cancelReason").val();
 		//取消退货申请单
 		$.ajax({

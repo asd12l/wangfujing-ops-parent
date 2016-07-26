@@ -2459,9 +2459,11 @@
 					      </ul> -->
 					      <div class="tab-content">
 					        <div class="tab-pane active" id="tab1">
-					        	<input type="hidden" name="userName" value="${username}"/>
+					        	<input type="hidden" name="userName" value=""/>
 					        	<input type="hidden" name="orderItemNo" id="orderItemNo">
-					        	
+					        	<script type="text/javascript">
+									$("input[name='userName']").val(getCookieValue("username"));
+								</script>
 					            <div style="width:100%;height:200px; overflow:scroll;">
 				                    <table class="table-striped table-hover table-bordered" id="OLV1_tab" style="width: 700%;background-color: #fff;margin-bottom: 0;">
 				                    </table>
