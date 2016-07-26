@@ -681,7 +681,7 @@
 		$("#btDiv211").hide();
 	}
 	//订单明细弹出框
- 	function trClick2(orderNo,isCod,obj){
+ 	function trClick2(orderNo,refundApplyNo,isCod,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		if(isCod=='1'){
@@ -691,6 +691,8 @@
 		}
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"").replaceWith(orderNo);
 		 newTr.find("#opt").hide();
 		 $("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -2091,11 +2093,13 @@
 		
  	}
  	//点击tr事件（退货申请单详情）
-	function trClick3(refundApplyNo,obj){
+	function trClick3(orderNo,refundApplyNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		  var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"").replaceWith(orderNo);
 		 newTr.find("#opt").hide();
 		$("#mainTr3").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -2563,14 +2567,14 @@
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													<td align="center" id="orderNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick2('{$T.Result.orderNo}','{$T.Result.isCod}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.orderNo}" onclick="trClick2('{$T.Result.orderNo}','{$T.Result.refundApplyNo}','{$T.Result.isCod}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>
 													</td>
 													<td align="center" id="refundApplyNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick3('{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.refundApplyNo}" onclick="trClick3('{$T.Result.orderNo}','{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.refundApplyNo != '[object Object]'}{$T.Result.refundApplyNo}
 							                   				{#/if}
 														</a>

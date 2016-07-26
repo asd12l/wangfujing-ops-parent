@@ -1025,9 +1025,11 @@
 		
  	}
  	//点击tr事件 订单详情
-	function trClick2(orderNo,obj){
+	function trClick2(saleNo,orderNo,obj){
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+saleNo+"").replaceWith(saleNo);
+		 newTr.children().find("#"+orderNo+"").replaceWith(orderNo);
 		 $("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -2300,6 +2302,8 @@
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+saleNo+"").replaceWith(saleNo);
+		 newTr.children().find("#"+orderNo+"").replaceWith(orderNo);
 		 $("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -3398,14 +3402,14 @@
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													
 													<td align="center">
-														<a onclick="trClick('{$T.Result.orderNo}','{$T.Result.saleNo}',this);" style="cursor:pointer;">
+														<a id="{$T.Result.saleNo}" onclick="trClick('{$T.Result.orderNo}','{$T.Result.saleNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 						                   					{#/if}
 														</a>
 													</td>
 													<td align="center" id="orderNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick2('{$T.Result.orderNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.orderNo}" onclick="trClick2('{$T.Result.saleNo}','{$T.Result.orderNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>
