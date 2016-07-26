@@ -1051,6 +1051,7 @@
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("a").replaceWith(saleNo);
 		 newTr.find("td:eq(0)").hide();
 		 $("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
