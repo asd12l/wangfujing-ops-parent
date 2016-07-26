@@ -3014,6 +3014,7 @@
 		"<th width='5%' style='text-align: center;'>二级支付介质</th>"+
 		"<th width='5%' style='text-align: center;'>支付金额</th>"+
 		"<th width='5%' style='text-align: center;'>实际支付金额</th>"+
+		"<th width='5%' style='text-align: center;'>运费</th>"+
 		"<th width='5%' style='text-align: center;'>汇率</th>"+
 		"<th width='5%' style='text-align: center;'>账号</th>"+
 		"<th width='5%' style='text-align: center;'>用户ID</th>"+
@@ -3072,6 +3073,12 @@
 							option5+="<td align='center'></td>";
 						}else{
 							option5+="<td align='center'>"+ele.acturalAmount+"</td>";
+						}
+						//运费
+						if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.shippingFee+"</td>";
 						}
 						//汇率
 						if(ele.rate=="[object Object]"||ele.rate==undefined){
@@ -3382,6 +3389,7 @@
                                                 <th width="3%" style="text-align: center;">总金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">应付金额</th>
                                                 <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
+                                                <th width="3%" style="text-align: center;">积分</th>
                                                 <th width="3%" style="text-align: center;">运费</th>
                                                 <th width="3%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="3%" style="text-align: center;">使用优惠券金额</th>
@@ -3500,6 +3508,10 @@
 														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
 						                   				{#/if}
 													</td>
+													<td align="center" id="integral_{$T.Result.sid}">
+														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+						                   				{#/if}
+													</td>
 													<td align="center" id="shippingFee_{$T.Result.sid}">
 														{#if $T.Result.shippingFee != '[object Object]'}{$T.Result.shippingFee}
 						                   				{#/if}
@@ -3612,6 +3624,7 @@
                                                 <th width="3%" style="text-align: center;">总金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">应付金额</th>
                                                 <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
+                                                <th width="3%" style="text-align: center;">积分</th>
                                                 <th width="3%" style="text-align: center;">运费</th>
                                                 <th width="3%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="3%" style="text-align: center;">使用优惠券金额</th>

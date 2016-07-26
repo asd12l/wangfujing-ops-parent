@@ -4730,9 +4730,10 @@ public class OmsOrderController {
 		header.add("销售类型");
 		header.add("总金额");
 		header.add("应付金额");
-		header.add("现金类支付金额");
+		header.add("现金类支付金额（含运费不含积分）");
+		header.add("积分");
 		header.add("运费");
-		header.add("优惠金额");
+		header.add("促销优惠金额");
 		header.add("使用优惠券金额");
 		header.add("使用余额金额");
 		header.add("授权卡号");
@@ -4789,6 +4790,7 @@ public class OmsOrderController {
 			inlist.add(vo.getSaleAmount()==null?"":vo.getSaleAmount().toString());
 			inlist.add(vo.getPaymentAmount()==null?"":vo.getPaymentAmount().toString());
 			inlist.add(vo.getCashAmount()==null?"":vo.getCashAmount().toString());
+			inlist.add(vo.getIntegral()==null?"":vo.getIntegral().toString());
 			inlist.add(vo.getShippingFee()==null?"":vo.getShippingFee().toString());
 			
 			inlist.add(vo.getDiscountAmount()==null?"":vo.getDiscountAmount().toString());

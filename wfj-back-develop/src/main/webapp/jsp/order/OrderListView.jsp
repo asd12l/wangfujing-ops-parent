@@ -2097,6 +2097,7 @@
          "<th width='3%' style='text-align: center;'>总金额(含运费)</th>"+
          "<th width='3%' style='text-align: center;'>应付金额</th>"+
          "<th width='3%' style='text-align: center;'>现金类支付金额(含运费不含积分)</th>"+
+         "<th width='3%' style='text-align: center;'>积分</th>"+
          "<th width='3%' style='text-align: center;'>运费</th>"+
          "<th width='3%' style='text-align: center;'>促销优惠金额</th>"+
          "<th width='3%' style='text-align: center;'>使用优惠券金额</th>"+
@@ -2380,6 +2381,12 @@
 							option5+="<td align='center'></td>";
 						}else{
 							option5+="<td align='center'>"+ele.cashAmount+"</td>";
+						}
+						//积分
+						if(ele.integral=="[object Object]"||ele.integral==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.integral+"</td>";
 						}
 						//运费
 						if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
