@@ -2979,6 +2979,7 @@
                                                 <th width="2%" style="text-align: center;">发货金额 </th> -->
                                                 <th width="2%" style="text-align: center;">订单应付金额 </th>
                                                 <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
+                                                <th width="3%" style="text-align: center;">积分</th>
                                                 <!-- <th width="2%" style="text-align: center;">收银损益 </th> -->
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
                                                 <th width="2%" style="text-align: center;">促销优惠金额</th>
@@ -3119,6 +3120,10 @@
 														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
 						                   				{#/if}
 													</td>
+													<td align="center" id="integral_{$T.Result.sid}">
+														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+						                   				{#/if}
+													</td>
 													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
 														{#if $T.Result.accountBalanceAmount != '[object Object]'}{$T.Result.accountBalanceAmount}
 						                   				{#/if}
@@ -3229,6 +3234,7 @@
                                                 <th width="2%" style="text-align: center;">发货金额 </th> -->
                                                 <th width="2%" style="text-align: center;">订单应付金额 </th>
                                                 <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
+                                                <th width="3%" style="text-align: center;">积分</th>
                                                <!--  <th width="2%" style="text-align: center;">收银损益 </th> -->
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
                                                 <th width="2%" style="text-align: center;">促销优惠金额</th>
