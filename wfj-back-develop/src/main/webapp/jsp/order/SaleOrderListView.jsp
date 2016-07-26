@@ -3369,11 +3369,11 @@
                                                 <th width="4%" style="text-align: center;">供应商名称</th>
                                                 <th width="4%" style="text-align: center;">专柜名称</th>
                                                 <th width="3%" style="text-align: center;">销售类型</th>
-                                                <th width="3%" style="text-align: center;">总金额</th>
+                                                <th width="3%" style="text-align: center;">总金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">应付金额</th>
                                                 <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
                                                 <th width="3%" style="text-align: center;">运费</th>
-                                                <th width="3%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="3%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="3%" style="text-align: center;">使用余额金额</th>
                                                <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
@@ -3480,7 +3480,7 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="saleAmount_{$T.Result.sid}">
-														{#if $T.Result.saleAmount != '[object Object]'}{$T.Result.saleAmount}
+														{#if $T.Result.saleAmount != '[object Object]'}{$T.Result.saleAmount + $T.Result.shippingFee}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
@@ -3600,11 +3600,11 @@
                                                 <th width="4%" style="text-align: center;">供应商名称</th>
                                                 <th width="4%" style="text-align: center;">专柜名称</th>
                                                 <th width="3%" style="text-align: center;">销售类型</th>
-                                                <th width="3%" style="text-align: center;">总金额</th>
+                                                <th width="3%" style="text-align: center;">总金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">应付金额</th>
                                                 <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
                                                 <th width="3%" style="text-align: center;">运费</th>
-                                                <th width="3%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="3%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="3%" style="text-align: center;">使用余额金额</th>
                                                 <!-- <th width="4%" style="text-align: center;">收银损益</th> -->
@@ -3700,11 +3700,11 @@
                                                 <th width="4%" style="text-align: center;">供应商名称</th>
                                                 <th width="4%" style="text-align: center;">专柜名称</th>
                                                 <th width="3%" style="text-align: center;">销售类型</th>
-                                                <th width="3%" style="text-align: center;">总金额</th>
+                                                <th width="3%" style="text-align: center;">总金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">应付金额</th>
                                                 <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
                                                 <th width="3%" style="text-align: center;">运费</th>
-                                                <th width="3%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="3%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="3%" style="text-align: center;">使用余额金额</th>
                                                <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
