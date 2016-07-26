@@ -5,6 +5,7 @@
 <head>
 <!--Jquery Select2-->
 
+
 <script
 	src="${pageContext.request.contextPath}/assets/js/select2/select2.js"></script>
 <script
