@@ -1242,9 +1242,11 @@
 		}
  	}
  	//点击tr事件 订单详情
-	function trClick2(orderNo,obj){
+	function trClick2(orderNo,refundNo,obj){
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.find("td:eq(18)").hide();
 		 $("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -2323,9 +2325,11 @@
 		$("#btDiv21").hide();
 	}
 	//点击tr事件
-	function trClick(refundNo,obj){
+	function trClick(orderNo,refundNo,obj){
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		newTr.find("td:eq(18)").hide();
 		$("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -3085,7 +3089,7 @@
 													</td>
 													<td align="center" id="orderNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick2('{$T.Result.orderNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.orderNo}_" onclick="trClick2('{$T.Result.orderNo}','{$T.Result.refundNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>
@@ -3096,7 +3100,7 @@
 													</td>
 													<td align="center" id="refundNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick('{$T.Result.refundNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.refundNo}_" onclick="trClick('{$T.Result.orderNo}','{$T.Result.refundNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.refundNo != '[object Object]'}{$T.Result.refundNo}
 						                   					{#/if}
 														</a>

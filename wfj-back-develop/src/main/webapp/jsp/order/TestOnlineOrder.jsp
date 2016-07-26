@@ -4703,7 +4703,10 @@
 				</div>
 				<div class="page-body" id="pageBodyRight">
 					<form id="theForm51" method="post" class="form-horizontal">
-					<input type="hidden" name="latestUpdateMan" value="${username }"/>
+					<input type="hidden" name="latestUpdateMan" value=""/>
+					<script type="text/javascript">
+						$("input[name='userName']").val(getCookieValue("username"));
+					</script>
 						<div class="tabbable">
 							<div class="tab-content">
 								<div id="home" class="tab-pane in active" style="height: 400px; overflow: scroll;">

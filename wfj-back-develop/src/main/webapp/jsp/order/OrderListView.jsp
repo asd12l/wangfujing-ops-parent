@@ -1234,6 +1234,7 @@
 		}
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("a").replaceWith(orderNo);
 		 $("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -2431,7 +2432,7 @@
 		$("#btDiv2").hide();
 	}
 	function shtgForm(){
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		var orderStatus = "9202";
 		var orderNo = $("#shorderNo").text();
 		$.ajax({
@@ -2456,7 +2457,7 @@
 		});
 	}
 	function shbtgForm(){
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		var orderStatus = "9203";
 		var orderNo = $("#shorderNo").text();
 		$.ajax({
