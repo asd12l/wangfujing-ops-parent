@@ -1026,11 +1026,22 @@
  	}
  	//点击tr事件 订单详情
 	function trClick2(saleNo,orderNo,obj){
-		 var newTr =  $(obj).parent().parent().clone(true);
+		$.ajax({
+			type : "POST",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url : __ctxPath+"/omsOrder/selectOrderListByPhone",
+			data : {"orderNo" : orderNo, "page" : "1","pageSize" : "10"},
+			dataType : "json",
+			success : function(data){
+				alert("df");
+				$("#olv_tab1 tbody").setTemplateElement("olv-list1").processTemplate(data);
+			}
+		});
+		/*  var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
-		 $("#mainTr2").html(newTr);
+		 $("#mainTr2").html(newTr); */
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
 		var option = "<tr role='row' style='height:35px;'>"+
@@ -3408,7 +3419,6 @@
 														</a>
 													</td>
 													<td align="center" id="orderNo_{$T.Result.sid}">
-														
 						                   				<a id="{$T.Result.orderNo}_" onclick="trClick2('{$T.Result.saleNo}','{$T.Result.orderNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
@@ -3623,6 +3633,7 @@
                                     </table>
                 		</div>
                 	</div>
+                	
                 </div>
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
@@ -3683,46 +3694,201 @@
                 <div class="page-body" id="pageBodyRight">
                     <div class="row">
                         <div  class="col-xs-12 col-md-12" style="overflow-Y: hidden;">
-			               <table class="table-striped table-hover table-bordered" style="width: 500%;background-color: #fff;margin-bottom: 0;">
+			               <table id="olv_tab1" class="table-striped table-hover table-bordered" style="width: 500%;background-color: #fff;margin-bottom: 0;">
                                         <thead>
                                             <tr role="row" style='height:35px;'>
-                                                <th width="4%" style="text-align: center;">销售单号</th>
-                                                <th width="4%" style="text-align: center;">订单号</th>
-                                                <th width="3%" style="text-align: center;">销售单状态</th>
-                                                <th width="3%" style="text-align: center;">支付状态</th>
-                                                <th width="4%" style="text-align: center;">手机号</th>
-                                                <th width="4%" style="text-align: center;">CID</th>
-                                                <th width="4%" style="text-align: center;">会员卡号</th>
-                                                <th width="3%" style="text-align: center;">销售类别</th>
-                                                <th width="3%" style="text-align: center;">销售单来源</th>
-                                                <th width="4%" style="text-align: center;">门店名称</th>
-                                                 <th width="4%" style="text-align: center;">供应商编码</th>
-                                                <th width="4%" style="text-align: center;">供应商名称</th>
-                                                <th width="4%" style="text-align: center;">专柜名称</th>
-                                                <th width="3%" style="text-align: center;">销售类型</th>
-                                                <th width="3%" style="text-align: center;">总金额(含运费)</th>
-                                                <th width="3%" style="text-align: center;">应付金额</th>
-                                                <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
-                                                <th width="3%" style="text-align: center;">运费</th>
-                                                <th width="3%" style="text-align: center;">促销优惠金额</th>
-                                                <th width="3%" style="text-align: center;">使用优惠券金额</th>
-                                                <th width="3%" style="text-align: center;">使用余额金额</th>
-                                               <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
-                                                <th width="3%" style="text-align: center;">授权卡号</th>
-                                                <th width="4%" style="text-align: center;">二维码</th>
-                                                <th width="4%" style="text-align: center;">收银流水号</th>
-                                                <th width="4%" style="text-align: center;">导购号</th>
-                                                <th width="4%" style="text-align: center;">机器号</th>
-                                                <th width="4%" style="text-align: center;">销售时间</th>
-                                                <th width="3%" style="text-align: center;">最后修改人</th>
-                                                <th width="5%" style="text-align: center;">最后修改时间</th>
+                                                <th width="3%" style="text-align: center;">订单号</th>
+                                                <th width="3%" style="text-align: center;">外部订单号</th>
+                                                <th width="2%" style="text-align: center;">订单状态</th>
+                                                <th width="3%" style="text-align: center;">CID</th>
+                                                <th width="3%" style="text-align: center;">会员卡号</th>
+                                                <th width="2%" style="text-align: center;">订单来源</th>
+                                                <th width="2%" style="text-align: center;">订单类型</th>
+                                                <th width="2%" style="text-align: center;">商品销售总额 </th>
+                                                <th width="2%" style="text-align: center;">销售时间</th>
+                                                <th width="2%" style="text-align: center;">支付类型</th>
+                                                <th width="2%" style="text-align: center;">支付状态 </th>
+                                                <th width="2%" style="text-align: center;">支付时间 </th>
+                                                <th width="2%" style="text-align: center;">是否需要开发票 </th>
+                                                <th width="2%" style="text-align: center;">应收运费 </th>
+                                                <th width="2%" style="text-align: center;">订单应付金额 </th>
+                                                <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
+                                                <th width="2%" style="text-align: center;">使用余额总额</th>
+                                                <th width="2%" style="text-align: center;">促销优惠金额</th>
+                                                <th width="2%" style="text-align: center;">使用优惠券金额</th>
+                                                <th width="2%" style="text-align: center;">COD支付金额</th>
+                                                <th width="2%" style="text-align: center;">取消原因</th>
+                                                <th width="2%" style="text-align: center;">收件人电话</th>
+                                                <th width="2%" style="text-align: center;">收件人姓名</th>
+                                                <th width="2%" style="text-align: center;">收件人城市</th>
+                                                <th width="2%" style="text-align: center;">收件城市邮编</th>
+                                                <th width="2%" style="text-align: center;">收件地区省份</th>
+                                                <th width="3%" style="text-align: center;">收货地址</th>
+                                                <th width="2%" style="text-align: center;">是否货到付款</th>
+                                                <th width="2%" style="text-align: center;">最后修改人</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="mainTr2">
+                                        <tbody>
                                         </tbody>
                                     </table>
                 		</div>
                 	</div>
+                	<p style="display:none">
+									<textarea id="olv-list1" rows="0" cols="0">
+										<!--
+										{#template MAIN}
+											{#foreach $T.list as Result}
+												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
+													
+													<td align="center">
+														<a onclick="trClick('{$T.Result.orderNo}','{$T.Result.isCod}','{$T.Result.orderType}',this);" style="cursor:pointer;">
+															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+						                   					{#/if}
+														</a>
+													</td>
+													<td align="center" id="outOrderNo_{$T.Result.sid}">
+														{#if $T.Result.outOrderNo != '[object Object]'}{$T.Result.outOrderNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="orderStatusDesc_{$T.Result.sid}">
+														{#if $T.Result.orderStatusDesc != '[object Object]'}{$T.Result.orderStatusDesc}
+						                   				{#/if}
+													</td>
+													<td align="center" id="accountNo_{$T.Result.sid}">
+														{#if $T.Result.accountNo == '' || $T.Result.accountNo ==null}<span>——</span>
+														{#else}
+															{$T.Result.accountNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="memberNo_{$T.Result.sid}">
+														{#if $T.Result.memberNo != '' && $T.Result.memberNo != null}
+															{$T.Result.memberNo}
+														{#else}
+															<span>——</span>
+						                   				{#/if}
+													</td>
+													
+													
+													<td align="center" id="orderSource_{$T.Result.sid}">
+														{#if $T.Result.orderSource != '[object Object]'}{$T.Result.orderSource}
+						                   				{#/if}
+													</td>
+													<td align="center" id="orderType_{$T.Result.sid}">
+														{#if $T.Result.orderType != '[object Object]'}{$T.Result.orderType}
+						                   				{#/if}
+													</td>
+													
+													<td align="center" id="salesAmount_{$T.Result.sid}">
+														{#if $T.Result.salesAmount != '[object Object]'}{$T.Result.salesAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="saleTimeStr_{$T.Result.sid}">
+														{#if $T.Result.saleTimeStr != '[object Object]'}{$T.Result.saleTimeStr}
+						                   				{#/if}
+													</td>
+													<td align="center" id="isCod_{$T.Result.sid}">
+						                   				{#if $T.Result.isCod == 0}
+															<span>在线支付</span>
+						                      			{#elseif $T.Result.isCod == 1}
+						                      				<span>货到付款</span>
+						                   				{#/if}
+													</td>
+													<td align="center" id="payStatus_{$T.Result.sid}">
+														{#if $T.Result.payStatus == '5001'}
+															<span>未支付</span>
+						                      			{#elseif $T.Result.payStatus == '5002'}
+						                      				<span>部分支付</span>
+						                      			{#elseif $T.Result.payStatus == '5004'}
+						                      				<span>已支付</span>
+						                   				{#/if}
+													</td>
+													<td align="center" id="payTimeStr_{$T.Result.sid}">
+														{#if $T.Result.payTimeStr != '[object Object]'}{$T.Result.payTimeStr}
+						                   				{#/if}
+													</td>
+													<td align="center" id="needInvoice_{$T.Result.sid}">
+														{#if $T.Result.needInvoice == '0'}否
+						                      			{#elseif $T.Result.needInvoice == '1'}
+						                      				<span>是</span>
+						                   				{#/if}
+													</td>
+													<td align="center" id="needSendCost_{$T.Result.sid}">
+														{#if $T.Result.needSendCost != '[object Object]'}{$T.Result.needSendCost}
+						                   				{#/if}
+													</td>
+													
+													<td align="center" id="paymentAmount_{$T.Result.sid}">
+														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount}
+						                   				{#/if}
+													</td>
+													
+													<td align="center" id="cashAmount_{$T.Result.sid}">
+														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
+														{#if $T.Result.accountBalanceAmount != '[object Object]'}{$T.Result.accountBalanceAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="promotionAmount_{$T.Result.sid}">
+														{#if $T.Result.promotionAmount != '[object Object]'}{$T.Result.promotionAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="couponAmount_{$T.Result.sid}">
+														{#if $T.Result.couponAmount != '[object Object]'}{$T.Result.couponAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="cashAmount_{$T.Result.sid}">
+														{#if $T.Result.isCod == 1}{$T.Result.cashAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="cancelReason_{$T.Result.sid}">
+														{#if $T.Result.cancelReason != '[object Object]'}{$T.Result.cancelReason}
+						                   				{#/if}
+													</td>
+													
+													
+													<td align="center" id="receptPhone_{$T.Result.sid}">
+														{#if $T.Result.receptPhone != '[object Object]'}{$T.Result.receptPhone}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptName_{$T.Result.sid}">
+														{#if $T.Result.receptName != '[object Object]'}{$T.Result.receptName}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptCityName_{$T.Result.sid}">
+														{#if $T.Result.receptCityName != '[object Object]'}{$T.Result.receptCityName}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptCityCode_{$T.Result.sid}">
+														{#if $T.Result.receptCityCode != '[object Object]'}{$T.Result.receptCityCode}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptProvName_{$T.Result.sid}">
+														{#if $T.Result.receptProvName != '[object Object]'}{$T.Result.receptProvName}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptAddress_{$T.Result.sid}">
+														{#if $T.Result.receptAddress != '[object Object]'}{$T.Result.receptAddress}
+						                   				{#/if}
+													</td>
+													
+													<td align="center" id="isCod_{$T.Result.sid}">
+														{#if $T.Result.isCod == '0'}否
+						                      			{#elseif $T.Result.isCod == '1'}
+						                      				<span>是</span>
+						                   				{#/if}
+													</td>
+													<td align="center" id="latestUpdateMan_{$T.Result.sid}">
+														{#if $T.Result.latestUpdateMan != '[object Object]'}{$T.Result.latestUpdateMan}
+						                   				{#/if}
+													</td>
+									       		</tr>
+											{#/for}
+									    {#/template MAIN}	-->
+									</textarea>
+								</p>
+                	
                 </div>
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
