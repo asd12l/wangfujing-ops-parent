@@ -2863,7 +2863,7 @@ public class OmsOrderController {
 		String jsonStr = JSON.toJSONString(map);
 		try {
 			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_order_list_phone"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://172.16.255.207:8087/oms-core-sdc/order/queryOrderExcel.htm", jsonStr);
+//			String json = HttpUtilPcm.doPost("http://172.16.255.157:8087/oms-core-sdc/order/queryOrderExcel3.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
