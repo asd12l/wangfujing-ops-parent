@@ -465,7 +465,7 @@ Author: WangSy
 		}	
 		
 		var da = JSON.stringify(data_); 
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		var rety = $("#refundType").val();
 		var addr = $("#address").val();
 		
@@ -566,7 +566,7 @@ Author: WangSy
 		}		
 		
 		var da = JSON.stringify(data_); 
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		$.ajax({
 			type : "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",

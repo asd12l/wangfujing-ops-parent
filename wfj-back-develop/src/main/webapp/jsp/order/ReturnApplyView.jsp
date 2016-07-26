@@ -784,9 +784,11 @@
 		
  	}
 	//点击tr事件 订单详情
-	function trClick2(orderNo,obj){
+	function trClick2(orderNo,refundApplyNo,obj){
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"").replaceWith(orderNo);
 		 $("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -1882,11 +1884,13 @@
 	}
 	
 	//点击tr事件
-	function trClick(refundApplyNo,obj){
+	function trClick(orderNo,refundApplyNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"").replaceWith(orderNo);
 		$("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
@@ -2371,14 +2375,14 @@
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													
 													<td align="center">
-														<a onclick="trClick('{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
+														<a id="{$T.Result.refundApplyNo}" onclick="trClick('{$T.Result.orderNo}','{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.refundApplyNo != '[object Object]'}{$T.Result.refundApplyNo}
 							                   				{#/if}
 														</a>
 													</td>
 													<td align="center" id="orderNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick2('{$T.Result.orderNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.orderNo}" onclick="trClick2('{$T.Result.orderNo}','{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>
