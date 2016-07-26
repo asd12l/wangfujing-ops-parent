@@ -46,6 +46,7 @@
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
+		$("#receiverMobile_form").val($("#receiverMobile_input").val());
 		$("#title_form").val($("#goodName_input").val());
 		$("#exceptionType_form").val($("#exceptionType_input").val());
         var params = $("#stock_form").serialize(); 
@@ -57,12 +58,14 @@
 		$("#tid_form").val("");
 		$("#ordersId_form").val("");
 		$("#receiverName_form").val("");
+		$("#receiverMobile_form").val("");
 		$("#title_form").val("");
 		$("#exceptionType_form").val("");
 		
 		$("#tid_input").val("");
 		$("#ordersId_input").val("");
 		$("#receiverName_input").val("");
+		$("#receiverMobile_input").val("");
 		$("#goodName_input").val("");
 		$("#exceptionType_input").val("");
 		stockQuery();
@@ -160,6 +163,8 @@
 											<input type="text" id="ordersId_input" /></li>
 										<li class="col-md-4"><label class="titname">收货人姓名：</label>
 											<input type="text" id="receiverName_input" /></li>
+										<li class="col-md-4"><label class="titname">联系方式：</label>
+											<input type="text" id="receiverMobile_input" /></li>
 										<!-- <li class="col-md-4"><label class="titname">商品名称：</label>
 											<input type="text" id="goodName_input" /></li> -->
 										<li class="col-md-4"><label class="titname">异常类型：</label> <select
@@ -218,7 +223,8 @@
 										</div>&nbsp; 
 											<input type="hidden" id="tid_form" name="tid" /> 
 											<input type="hidden" id="ordersId_form" name="ordersId" /> 
-											<input type="hidden" id="receiverName_form" name="receiverName" /> 
+											<input type="hidden" id="receiverName_form" name="receiverName" />
+											<input type="hidden" id="receiverMobile_form" name="receiverMobile" />
 											<input type="hidden" id="title_form" name="goodName" /> 
 											<input type="hidden" id="exceptionType_form" name="exceptionType" />
 											<input type="hidden" id="action_form" name="action" value="query"/> 

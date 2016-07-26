@@ -74,6 +74,7 @@ public class EdiJmOrderController {
 		
 		paramMap.put("ordersId", request.getParameter("ordersId"));
 		paramMap.put("receiverName", request.getParameter("receiverName"));
+		paramMap.put("receiverMobile", request.getParameter("receiverMobile"));
 		paramMap.put("title", request.getParameter("title"));
 		paramMap.put("tradesource", tradesource);
 		
