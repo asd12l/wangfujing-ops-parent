@@ -1033,7 +1033,6 @@
 			data : {"orderNo" : orderNo, "page" : "1","pageSize" : "10"},
 			dataType : "json",
 			success : function(data){
-				alert("df");
 				$("#olv_tab1 tbody").setTemplateElement("olv-list1").processTemplate(data);
 			}
 		});
