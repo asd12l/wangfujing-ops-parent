@@ -122,7 +122,12 @@ Author: WangSy
 	}else{
 		$("#refundProductStatus").text("未入库");
 	}
-	
+	var reMonStatus =reMonStatus_;
+	if(reMonStatus=='1'){
+		$("#qrtk").attr("disabled", "true");
+	}else{
+		$("#qrtk").removeAttr("disabled");
+	}
 	// 初始化
 	$(function() {
 		var refundApplyNo = applyNo_;
@@ -198,28 +203,31 @@ Author: WangSy
 					var refundApplyNo_ =  response.list[0].refundApplyNo;
 					var returnShippingFee_ =  response.list[0].returnShippingFee;
 					console.log(returnShippingFee_);
-					var needRefundAmount_ =  response.list[0].needRefundAmount;
+//					var refundAmount_ =  response.list[0].refundAmount;
 					var quanAmount =  response.list[0].quanAmount;
 					var paymentAmountSum = response.list[0].paymentAmountSum;
 					if(""==refundApplyNo){
 						//EDI自动退的没有退货申请单号
-						if(isNaN(parseFloat(paymentAmountSum))){
+						if(isNaN(parseFloat(refundAmount))){
 							$("#amount1").text(parseFloat(0).toFixed(2));
 						}else{
-							$("#amount1").text(parseFloat(paymentAmountSum).toFixed(2));
+							$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 						}
 							$("#amount2").text(parseFloat(0).toFixed(2));
 							$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-							$("#amount4").text(parseFloat(needRefundAmount_).toFixed(2));
+							$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 					}else{
-						$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
+						
 						$("#amount2").text(parseFloat(0).toFixed(2));
 						$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 						if(isNaN(parseFloat(returnShippingFee_))){
-							$("#amount4").text(parseFloat(parseFloat(needRefundAmount_)-quanAmount).toFixed(2));
+							$("#amount1").text(parseFloat(refundAmount).toFixed(2));
+							//$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 						}else{
-							$("#amount4").text(parseFloat(parseFloat(needRefundAmount_)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
+							$("#amount1").text((parseFloat(refundAmount)-parseFloat(returnShippingFee_)).toFixed(2));
+							//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
 						}
+						$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 					}
 				}
 				
@@ -255,7 +263,7 @@ Author: WangSy
 
 		//修改退款单状态
 		var refundMonNo = refundMonNo_;
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		$("#qrtk").click(function() {
 			$.ajax({
 				type : "post",
@@ -1223,8 +1231,8 @@ Author: WangSy
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
-																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
+																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
 																		{#else}0
 										                   				{#/if}
 																	</td>
@@ -1323,21 +1331,21 @@ Author: WangSy
 													&nbsp;
 													<div class="form-group">
 														<div class="col-md-4">
-															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">快递公司：</label>
-															<div class="col-lg-8 col-sm-8 col-xs-8">
+															<label class="col-lg-5 col-sm-3 col-xs-3 control-label">快递公司：</label>
+															<div class="col-lg-7 col-sm-8 col-xs-8">
 																<label id="t1"></label>
 															</div>											
 														</div>
 														<div class="col-md-4">
-															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">快递单号：</label>
-															<div class="col-lg-8 col-sm-8 col-xs-8">
+															<label class="col-lg-5 col-sm-3 col-xs-3 control-label">快递单号：</label>
+															<div class="col-lg-7 col-sm-8 col-xs-8">
 																<label id="t2"></label>
 															</div>										
 														</div>
 														
 														<div class="col-md-4">
-															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">退货地址：</label>
-															<div class="col-lg-8 col-sm-8 col-xs-8">
+															<label class="col-lg-5 col-sm-3 col-xs-3 control-label">退货地址：</label>
+															<div class="col-lg-7 col-sm-8 col-xs-8">
 																<label id="t3"></label>
 															</select>
 															</div>											

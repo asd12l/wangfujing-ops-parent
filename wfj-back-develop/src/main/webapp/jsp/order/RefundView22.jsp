@@ -103,18 +103,21 @@ Author: WangSy
 	var refundReasionDesc = problemDesc_;
 	var callCenterComments = callCenterComments_;
 	var refundNum = refundNum_;
-	var needRefundAmount =needRefundAmount_;
+	var refundAmount =refundAmount_;
 	var quanAmount = quanAmount_;
 		//EDI自动退的没有退货申请单号
-		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+//		$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 //		$("#amount4").text(parseFloat(needRefundAmount-quanAmount+returnShippingFee).toFixed(2));
 		if(isNaN(parseFloat(returnShippingFee))){
-			$("#amount4").text(parseFloat(parseFloat(needRefundAmount)-quanAmount).toFixed(2));
+			$("#amount1").text(parseFloat(refundAmount).toFixed(2));
+			//$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 		}else{
-			$("#amount4").text(parseFloat(parseFloat(needRefundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
+			$("#amount1").text((parseFloat(refundAmount)-parseFloat(returnShippingFee)).toFixed(2));
+			//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
 		}
+		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 //	var data2 = orderData;
 	var data_;
 	/* //退货方式
@@ -236,6 +239,8 @@ Author: WangSy
 					return;
 				}
 			});
+	/* var supplyNo = "";
+	var marketNo = ""; */
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -244,6 +249,14 @@ Author: WangSy
 		dataType: "json",
 		data:{"refundApplyNo":refundApplyNo},
 		success : function(response) {
+			/* supplyNo = "";
+			marketNo = "";
+			var data = response.list;
+			for(var i in data){
+				supplyNo = data[i].supplyNo;
+				marketNo = data[i].shopNo;
+				break;
+			} */
 			if (response.success == "true") {
 				if (response.success == "true") {
 					if (response.success == "true") {
@@ -324,6 +337,28 @@ Author: WangSy
 			} */
 		}
 	});
+	/* //仓库地址
+	$.ajax({
+		type : "post",
+		contentType: "application/x-www-form-urlencoded;charset=utf-8",
+		url:__ctxPath + "/omsOrder/selectRefundAddress",
+		dataType: "json",
+		data:{"shopSid":marketNo,"supplyCode":supplyNo},
+		success : function(response){
+			if(response.success == "true"){
+				var data = response.data;
+				for(var i in data){
+		//			alert(data[i].joinSite);
+					if(data[i].joinSite != "" && data[i].joinSite != 'undefind'){
+						$("#warehouseAddress").val(data[i].joinSite);
+						break;
+					}
+				}
+			}else{
+				$("#warehouseAddress").val("");
+			}
+		}
+	}); */
 	
 	// 初始化
 	$(function() {
@@ -447,7 +482,7 @@ function shtgForm(){
 		}	
 	} */
 	var da = JSON.stringify(data_); 
-	var userName = "${username}";
+	var userName = getCookieValue("username");
 	var rety = $("#refundType").val();
 	var addr = $("#warehouseAddress").val();
 	
@@ -552,7 +587,7 @@ function shbtgForm(){
 		}		
 	} */
 	var da = JSON.stringify(data_); 
-	var userName = "${username}";
+	var userName = getCookieValue("username");
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",

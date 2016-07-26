@@ -132,7 +132,7 @@ Author: WangSy
 	var returnShippingFee = returnShippingFee_;
 	var returnType = returnType_; //退货方式
 	var refundApplyNo = refundApplyNo_;
-	var needRefundAmount =needRefundAmount_;
+	var refundAmount =refundAmount_;
 	var quanAmount = quanAmount_;
 	var refundStatus = refundStatus_;
 //	var address = address_;   //仓库地址
@@ -142,23 +142,26 @@ Author: WangSy
 	if(""==refundApplyNo){
 		//EDI自动退的没有退货申请单号
 		
-		if(isNaN(parseFloat(paymentAmountSum))){
+		if(isNaN(parseFloat(refundAmount))){
 			$("#amount1").text(parseFloat(0).toFixed(2));
 		}else{
-			$("#amount1").text(parseFloat(paymentAmountSum).toFixed(2));
+			$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 		}
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-		$("#amount4").text(parseFloat(needRefundAmount).toFixed(2));
+		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 	}else{
-		$("#amount1").text(parseFloat(needRefundAmount).toFixed(2));
+//		$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-		if(isNaN(parseFloat(returnShippingFee_))){
-			$("#amount4").text(parseFloat(parseFloat(needRefundAmount)-quanAmount).toFixed(2));
+		if(isNaN(parseFloat(returnShippingFee))){
+			$("#amount1").text(parseFloat(refundAmount).toFixed(2));
+			//$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 		}else{
-			$("#amount4").text(parseFloat(parseFloat(needRefundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
+			$("#amount1").text((parseFloat(refundAmount)-parseFloat(returnShippingFee)).toFixed(2));
+			//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
 		}
+		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 	}
 	$.ajax({
 		type: "post",

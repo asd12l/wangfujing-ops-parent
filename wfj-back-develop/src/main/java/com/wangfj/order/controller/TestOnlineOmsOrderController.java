@@ -1297,7 +1297,7 @@ public class TestOnlineOmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("save_rerundApply_CS"), jsonStr);
-//			json = HttpUtilPcm.doPost("http://10.6.2.46:8081/oms-core/refundApply/createRefundApplyCS.htm", jsonStr);
+//			json = HttpUtilPcm.doPost("http://localhost:8081/oms-core/refundApply/createRefundApplyCS.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{
@@ -1310,7 +1310,7 @@ public class TestOnlineOmsOrderController {
 		return gson.toJson(m);
 	}
 	/**
-	 * 缺货退货创建退货申请单
+	 * 缺货退货创建退货申请单(发货前，拒收)
 	 * @Methods Name createKeRefund3
 	 * @Create In 2016-1-19 By chenhu
 	 * @param request
@@ -1351,13 +1351,15 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("refundPath", request.getParameter("refundPath"));
 		paramMap.put("channel", request.getParameter("channel"));
 		
+		paramMap.put("saleStatus", request.getParameter("saleStatus"));
+		
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		paramMap.put("fromSystem", "PCM");
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("save_rerundApply_OOS"), jsonStr);
-//			json = HttpUtilPcm.doPost("http://172.16.255.226:8081/oms-core/refundApply/saveRefundApplyOOS.htm", jsonStr);
+//			json = HttpUtilPcm.doPost("http://localhost:8081/oms-core/refundApply/saveRefundApplyOOS.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{

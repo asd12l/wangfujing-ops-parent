@@ -1872,6 +1872,8 @@
 		"<th width='4%' style='text-align: center;'>总金额</th>"+
 		"<th width='4%' style='text-align: center;'>应付金额</th>"+
 		"<th width='4%' style='text-align: center;'>优惠金额</th>"+
+		"<th width='4%' style='text-align: center;'>使用优惠券金额</th>"+
+		"<th width='4%' style='text-align: center;'>使用余额金额</th>"+
 		"<th width='4%' style='text-align: center;'>收银损益</th>"+
 		"<th width='4%' style='text-align: center;'>授权卡号</th>"+
 		"<th width='4%' style='text-align: center;'>二维码</th>"+
@@ -2005,6 +2007,18 @@
 							option5+="<td align='center'></td>";
 						}else{
 							option5+="<td align='center'>"+ele.discountAmount+"</td>";
+						}
+						//使用优惠券金额
+						if(ele.couponAmount=="[object Object]"||ele.couponAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponAmount+"</td>";
+						}
+						//使用余额金额
+						if(ele.accountBalanceAmount=="[object Object]"||ele.accountBalanceAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.accountBalanceAmount+"</td>";
 						}
 						//收银损益
 						if(ele.cashIncome=="[object Object]"||ele.cashIncome==undefined){
@@ -2281,7 +2295,7 @@
 		}
  	}
 	//点击tr事件
-	function trClick(saleNo,obj){
+	function trClick(orderNo,saleNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
@@ -2320,7 +2334,7 @@
 		"<th width='3%' style='text-align: center;'>是否为赠品</th>"+
 		"<th width='3%' style='text-align: center;'>运费分摊</th>"+
 		"<th width='3%' style='text-align: center;'>缺货数量</th>"+
-		"<th width='3%' style='text-align: center;'>提货数量</th>"+
+		/* "<th width='3%' style='text-align: center;'>提货数量</th>"+ */
 		"<th width='3%' style='text-align: center;'>大中小类</th>"+
 		"<th width='3%' style='text-align: center;'>商品类别</th>"+
 		/* "<th width='3%' style='text-align: center;'>收银损益</th>"+ */
@@ -2514,12 +2528,12 @@
 						}else{
 							option+="<td align='center'>"+ele.stockoutAmount+"</td>";
 						}
-						//提货数量
+						/* //提货数量
 						if(ele.pickSum=="[object Object]"||ele.pickSum==undefined){
 							option+="<td align='center'></td>";
 						}else{
 							option+="<td align='center'>"+ele.pickSum+"</td>";
-						}
+						} */
 						//大中小类
 						if(ele.productClass=="[object Object]"||ele.productClass==undefined){
 							option+="<td align='center'></td>";
@@ -2979,10 +2993,155 @@
 				}
 			}
 		});
+		var option5 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>销售单号</th>"+
+		"<th width='5%' style='text-align: center;'>款机流水号</th>"+
+		"<th width='5%' style='text-align: center;'>一级支付介质</th>"+
+		"<th width='5%' style='text-align: center;'>二级支付介质</th>"+
+		"<th width='5%' style='text-align: center;'>支付金额</th>"+
+		"<th width='5%' style='text-align: center;'>实际支付金额</th>"+
+		"<th width='5%' style='text-align: center;'>汇率</th>"+
+		"<th width='5%' style='text-align: center;'>账号</th>"+
+		"<th width='5%' style='text-align: center;'>用户ID</th>"+
+		"<th width='5%' style='text-align: center;'>支付流水号</th>"+
+		"<th width='5%' style='text-align: center;'>券类别</th>"+
+		"<th width='5%' style='text-align: center;'>券批次</th>"+
+		"<th width='5%' style='text-align: center;'>扣款名称</th>"+
+		"<th width='5%' style='text-align: center;'>活动号</th>"+
+		"<th width='5%' style='text-align: center;'>优惠券规则</th>"+
+		"<th width='5%' style='text-align: center;'>优惠券规则名称</th>"+
+		"<th width='5%' style='text-align: center;'>备注</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectSalePayments",
+			async:false,
+			dataType: "json",
+			data:{"saleNo":saleNo},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//销售单号
+						if(ele.saleNo=="[object Object]"||ele.saleNo==undefined){
+							option5+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option5+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.saleNo+"</td>";
+						}
+						//款机流水号
+						if(ele.salesPaymentNo=="[object Object]"||ele.salesPaymentNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.salesPaymentNo+"</td>";
+						}
+						//一级支付介质
+						if(ele.paymentClass=="[object Object]"||ele.paymentClass==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.paymentClass+"</td>";
+						}
+						//二级支付介质
+						if(ele.paymentType=="[object Object]"||ele.paymentType==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.paymentType+"</td>";
+						}
+						//支付金额
+						if(ele.amount=="[object Object]"||ele.amount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.amount+"</td>";
+						}
+						//实际支付金额
+						if(ele.acturalAmount=="[object Object]"||ele.acturalAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.acturalAmount+"</td>";
+						}
+						//汇率
+						if(ele.rate=="[object Object]"||ele.rate==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.rate+"</td>";
+						}
+						//账号
+						if(ele.account=="[object Object]"||ele.account==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.account+"</td>";
+						}
+						//用户ID
+						if(ele.userId=="[object Object]"||ele.userId==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.userId+"</td>";
+						}
+						//支付流水号
+						if(ele.payFlowNo=="[object Object]"||ele.payFlowNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.payFlowNo+"</td>";
+						}
+						//券类别
+						if(ele.couponType=="[object Object]"||ele.couponType==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponType+"</td>";
+						}
+						//券批次
+						if(ele.couponBatch=="[object Object]"||ele.couponBatch==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponBatch+"</td>";
+						}
+						//扣款名称
+						if(ele.couponName=="[object Object]"||ele.couponName==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponName+"</td>";
+						}
+						//活动号
+						if(ele.activityNo=="[object Object]"||ele.activityNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.activityNo+"</td>";
+						}
+						//优惠券规则
+						if(ele.couponRule=="[object Object]"||ele.couponRule==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponRule+"</td>";
+						}
+						//优惠券规则名称
+						if(ele.couponRuleName=="[object Object]"||ele.couponRuleName==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponRuleName+"</td>";
+						}
+						//备注
+						if(ele.remark=="[object Object]"||ele.remark==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.remark+"</td>";
+						}
+					}
+				}
+			}
+		});
 		$("#OLV1_tab").html(option);
-		$("#OLV2_tab").html(option2);
+		if(""==orderNo){
+			$("#OLV2_tab").html(option2);
+			$("#idtab1").show();
+			$("#idtab2").hide();
+		}else{
+			$("#OLV5_tab").html(option5);
+			$("#idtab1").hide();
+			$("#idtab2").show();
+		}
 		$("#OLV3_tab").html(option3);
 		$("#OLV4_tab").html(option4);
+		
 		$("#divTitle").html("销售单详情");
 		$("#btDiv").show();
 	}
@@ -3188,36 +3347,40 @@
 											<input type="hidden" id="startSaleTime_form" name="startSaleTime"/>
 											<input type="hidden" id="endSaleTime_form" name="endSaleTime"/>
                                       	</form>
-                                	<div style="width:100%; height:0%; min-height:300px; overflow-Y: hidden;">
+                                	<div style="width:100%; height:0%; min-height:350px; overflow-Y: hidden;">
                                     <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 400%;background-color: #fff;margin-bottom: 0;">
                                         <thead>
                                             <tr role="row" style='height:35px;'>
                                                 <th width="4%" style="text-align: center;">销售单号</th>
                                                 <th width="4%" style="text-align: center;">订单号</th>
-                                                <th width="4%" style="text-align: center;">销售单状态</th>
-                                                <th width="4%" style="text-align: center;">支付状态</th>
+                                                <th width="3%" style="text-align: center;">销售单状态</th>
+                                                <th width="3%" style="text-align: center;">支付状态</th>
                                                 <th width="4%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">CID</th>
                                                 <th width="4%" style="text-align: center;">会员卡号</th>
-                                                <th width="4%" style="text-align: center;">销售类别</th>
-                                                <th width="4%" style="text-align: center;">销售单来源</th>
+                                                <th width="3%" style="text-align: center;">销售类别</th>
+                                                <th width="3%" style="text-align: center;">销售单来源</th>
                                                 <th width="4%" style="text-align: center;">门店名称</th>
                                                 <th width="4%" style="text-align: center;">供应商编码</th>
                                                 <th width="4%" style="text-align: center;">供应商名称</th>
                                                 <th width="4%" style="text-align: center;">专柜名称</th>
-                                                <th width="4%" style="text-align: center;">销售类型</th>
-                                                <th width="4%" style="text-align: center;">总金额</th>
-                                                <th width="4%" style="text-align: center;">应付金额</th>
-                                                <th width="4%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">销售类型</th>
+                                                <th width="3%" style="text-align: center;">总金额</th>
+                                                <th width="3%" style="text-align: center;">应付金额</th>
+                                                <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
+                                                <th width="3%" style="text-align: center;">运费</th>
+                                                <th width="3%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">使用优惠券金额</th>
+                                                <th width="3%" style="text-align: center;">使用余额金额</th>
                                                <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
-                                                <th width="4%" style="text-align: center;">授权卡号</th>
+                                                <th width="3%" style="text-align: center;">授权卡号</th>
                                                 <th width="4%" style="text-align: center;">二维码</th>
                                                 <th width="4%" style="text-align: center;">收银流水号</th>
                                                 <th width="4%" style="text-align: center;">导购号</th>
                                                 <th width="4%" style="text-align: center;">机器号</th>
                                                 <th width="4%" style="text-align: center;">销售时间</th>
-                                                <th width="4%" style="text-align: center;">最后修改人</th>
-                                                <th width="4%" style="text-align: center;">最后修改时间</th>
+                                                <th width="3%" style="text-align: center;">最后修改人</th>
+                                                <th width="5%" style="text-align: center;">最后修改时间</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -3235,7 +3398,7 @@
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													
 													<td align="center">
-														<a onclick="trClick('{$T.Result.saleNo}',this);" style="cursor:pointer;">
+														<a onclick="trClick('{$T.Result.orderNo}','{$T.Result.saleNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 						                   					{#/if}
 														</a>
@@ -3320,8 +3483,25 @@
 														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount}
 						                   				{#/if}
 													</td>
+													<td align="center" id="cashAmount_{$T.Result.sid}">
+														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="shippingFee_{$T.Result.sid}">
+														{#if $T.Result.shippingFee != '[object Object]'}{$T.Result.shippingFee}
+						                   				{#/if}
+													</td>
+													
 													<td align="center" id="discountAmount_{$T.Result.sid}">
 														{#if $T.Result.discountAmount != '[object Object]'}{$T.Result.discountAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="couponAmount_{$T.Result.sid}">
+														{#if $T.Result.couponAmount != '[object Object]'}{$T.Result.couponAmount}
+						                   				{#/if}
+													</td>
+													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
+														{#if $T.Result.accountBalanceAmount != '[object Object]'}{$T.Result.accountBalanceAmount}
 						                   				{#/if}
 													</td>
 													
@@ -3404,30 +3584,34 @@
                                             <tr role="row" style='height:35px;'>
                                                 <th width="4%" style="text-align: center;">销售单号</th>
                                                 <th width="4%" style="text-align: center;">订单号</th>
-                                                <th width="4%" style="text-align: center;">销售单状态</th>
-                                                <th width="4%" style="text-align: center;">支付状态</th>
+                                                <th width="3%" style="text-align: center;">销售单状态</th>
+                                                <th width="3%" style="text-align: center;">支付状态</th>
                                                 <th width="4%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">CID</th>
                                                 <th width="4%" style="text-align: center;">会员卡号</th>
-                                                <th width="4%" style="text-align: center;">销售类别</th>
-                                                <th width="4%" style="text-align: center;">销售单来源</th>
+                                                <th width="3%" style="text-align: center;">销售类别</th>
+                                                <th width="3%" style="text-align: center;">销售单来源</th>
                                                 <th width="4%" style="text-align: center;">门店名称</th>
                                                  <th width="4%" style="text-align: center;">供应商编码</th>
                                                 <th width="4%" style="text-align: center;">供应商名称</th>
                                                 <th width="4%" style="text-align: center;">专柜名称</th>
-                                                <th width="4%" style="text-align: center;">销售类型</th>
-                                                <th width="4%" style="text-align: center;">总金额</th>
-                                                <th width="4%" style="text-align: center;">应付金额</th>
-                                                <th width="4%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">销售类型</th>
+                                                <th width="3%" style="text-align: center;">总金额</th>
+                                                <th width="3%" style="text-align: center;">应付金额</th>
+                                                <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
+                                                <th width="3%" style="text-align: center;">运费</th>
+                                                <th width="3%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">使用优惠券金额</th>
+                                                <th width="3%" style="text-align: center;">使用余额金额</th>
                                                 <!-- <th width="4%" style="text-align: center;">收银损益</th> -->
-                                                <th width="4%" style="text-align: center;">授权卡号</th>
+                                                <th width="3%" style="text-align: center;">授权卡号</th>
                                                 <th width="4%" style="text-align: center;">二维码</th>
                                                 <th width="4%" style="text-align: center;">收银流水号</th>
                                                 <th width="4%" style="text-align: center;">导购号</th>
                                                 <th width="4%" style="text-align: center;">机器号</th>
                                                 <th width="4%" style="text-align: center;">销售时间</th>
-                                                <th width="4%" style="text-align: center;">最后修改人</th>
-                                                <th width="4%" style="text-align: center;">最后修改时间</th>
+                                                <th width="3%" style="text-align: center;">最后修改人</th>
+                                                <th width="5%" style="text-align: center;">最后修改时间</th>
                                             </tr>
                                         </thead>
                                         <tbody id="mainTr">
@@ -3439,7 +3623,8 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
 					        <li class="active"><a href="#tab1" data-toggle="tab">销售单商品明细</a></li>
-					        <li><a href="#tab2" data-toggle="tab">支付信息</a></li>
+					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付信息</a></li>
+							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
 					      </ul>
@@ -3468,6 +3653,12 @@
 					                    </table>
 					                </div>
 					         </div>
+					         <div class="tab-pane" id="tab5">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV5_tab" style="width: 400%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
 					      </div>
 					    </div>
                 <div class="modal-footer">
@@ -3493,29 +3684,34 @@
                                             <tr role="row" style='height:35px;'>
                                                 <th width="4%" style="text-align: center;">销售单号</th>
                                                 <th width="4%" style="text-align: center;">订单号</th>
-                                                <th width="4%" style="text-align: center;">销售单状态</th>
-                                                <th width="4%" style="text-align: center;">支付状态</th>
+                                                <th width="3%" style="text-align: center;">销售单状态</th>
+                                                <th width="3%" style="text-align: center;">支付状态</th>
+                                                <th width="4%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">CID</th>
                                                 <th width="4%" style="text-align: center;">会员卡号</th>
-                                                <th width="4%" style="text-align: center;">销售类别</th>
-                                                <th width="4%" style="text-align: center;">销售单来源</th>
+                                                <th width="3%" style="text-align: center;">销售类别</th>
+                                                <th width="3%" style="text-align: center;">销售单来源</th>
                                                 <th width="4%" style="text-align: center;">门店名称</th>
                                                  <th width="4%" style="text-align: center;">供应商编码</th>
                                                 <th width="4%" style="text-align: center;">供应商名称</th>
                                                 <th width="4%" style="text-align: center;">专柜名称</th>
-                                                <th width="4%" style="text-align: center;">销售类型</th>
-                                                <th width="4%" style="text-align: center;">总金额</th>
-                                                <th width="4%" style="text-align: center;">应付金额</th>
-                                                <th width="4%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">销售类型</th>
+                                                <th width="3%" style="text-align: center;">总金额</th>
+                                                <th width="3%" style="text-align: center;">应付金额</th>
+                                                <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
+                                                <th width="3%" style="text-align: center;">运费</th>
+                                                <th width="3%" style="text-align: center;">优惠金额</th>
+                                                <th width="3%" style="text-align: center;">使用优惠券金额</th>
+                                                <th width="3%" style="text-align: center;">使用余额金额</th>
                                                <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
-                                                <th width="4%" style="text-align: center;">授权卡号</th>
+                                                <th width="3%" style="text-align: center;">授权卡号</th>
                                                 <th width="4%" style="text-align: center;">二维码</th>
                                                 <th width="4%" style="text-align: center;">收银流水号</th>
                                                 <th width="4%" style="text-align: center;">导购号</th>
                                                 <th width="4%" style="text-align: center;">机器号</th>
                                                 <th width="4%" style="text-align: center;">销售时间</th>
-                                                <th width="4%" style="text-align: center;">最后修改人</th>
-                                                <th width="4%" style="text-align: center;">最后修改时间</th>
+                                                <th width="3%" style="text-align: center;">最后修改人</th>
+                                                <th width="5%" style="text-align: center;">最后修改时间</th>
                                             </tr>
                                         </thead>
                                         <tbody id="mainTr2">

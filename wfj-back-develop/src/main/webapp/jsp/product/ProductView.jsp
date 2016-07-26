@@ -699,9 +699,9 @@ fingColorDict();
 														</div>
 													</td>
 													<td align="center">
-														<a onclick="getView({$T.Result.sid});" style="cursor:pointer;">{$T.Result.skuCode}</a></td>
+														<a onclick="getView('{$T.Result.skuCode}');" style="cursor:pointer;">{$T.Result.skuCode}</a></td>
 													<td align="center" style="text-overflow:ellipsis;word-break:keep-all;overflow:hidden;">
-														<a onclick="getView({$T.Result.sid});" style="cursor:pointer;">{$T.Result.skuName}</a></td>
+														<a onclick="getView({$T.Result.skuCode});" style="cursor:pointer;">{$T.Result.skuName}</a></td>
 													<td align="center" style="display:none;">{$T.Result.spuName}</td>
 													<td align="center" style="text-overflow:ellipsis;word-break:keep-all;overflow:hidden;">
 													    {$T.Result.brandGroupName}

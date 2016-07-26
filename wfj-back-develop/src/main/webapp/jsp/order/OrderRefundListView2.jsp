@@ -138,7 +138,7 @@
 	}
 	function Ok1(){
 		$("#btDivCancel").hide();
-		var latestUpdateMan = "${username}";
+		var latestUpdateMan = getCookieValue("username");
 		var cancelReason =$("#cancelReason").val();
 		//取消退货单
 		$.ajax({
@@ -165,11 +165,11 @@
 			}
 		});
 	}
-	function fundButten(paymentAmountSum,quanAmount,needRefundAmount,refundApplyNo,courierNumber,expressCompanyName,refundStatus,orderNo,refundNo,returnShippingFee,address,returnType,obj){
+	function fundButten(paymentAmountSum,quanAmount,refundAmount,refundApplyNo,courierNumber,expressCompanyName,refundStatus,orderNo,refundNo,returnShippingFee,address,returnType,obj){
 		refundApplyNo_=refundApplyNo;
 		refundNo_=refundNo;
 		returnShippingFee_=returnShippingFee;
-		needRefundAmount_=needRefundAmount;
+		refundAmount_=refundAmount;
 		paymentAmountSum_=paymentAmountSum;
 		quanAmount_ = quanAmount;
 		returnType_=returnType;
@@ -2881,7 +2881,7 @@
 		"<th width='3%' style='text-align: center;'>是否为赠品</th>"+
 		"<th width='3%' style='text-align: center;'>运费分摊</th>"+
 		"<th width='3%' style='text-align: center;'>缺货数量</th>"+
-		"<th width='3%' style='text-align: center;'>提货数量</th>"+
+		/* "<th width='3%' style='text-align: center;'>提货数量</th>"+ */
 		"<th width='3%' style='text-align: center;'>大中小类</th>"+
 		"<th width='3%' style='text-align: center;'>商品类别</th>"+
 		/* "<th width='3%' style='text-align: center;'>收银损益</th>"+ */
@@ -3076,12 +3076,12 @@
 						}else{
 							option+="<td align='center'>"+ele.stockoutAmount+"</td>";
 						}
-						//提货数量
+						/* //提货数量
 						if(ele.pickSum=="[object Object]"||ele.pickSum==undefined){
 							option+="<td align='center'></td>";
 						}else{
 							option+="<td align='center'>"+ele.pickSum+"</td>";
-						}
+						} */
 						//大中小类
 						if(ele.productClass=="[object Object]"||ele.productClass==undefined){
 							option+="<td align='center'></td>";
@@ -4547,11 +4547,11 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="opt">
-														{#if $T.Result.refundStatus == '19'}
-															<input class="btn btn-success" style="width: 35%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
+														{#if $T.Result.refundStatus == '19' && $T.Result.refundClass != 'RequestCancelReturn'}
+															<input class="btn btn-success" style="width: 35%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.refundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 															&nbsp;<input class="btn btn-primary" style="width: 35%;height: 30px;" id="cancelButten" onclick="cancelButten('{$T.Result.refundNo}',this)" type="button" value="作废" />
 														{#else}
-															<input class="btn btn-success" style="width: 65%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.needRefundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
+															<input class="btn btn-success" style="width: 65%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.refundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 						                   				{#/if}
 													</td>
 									       		</tr>

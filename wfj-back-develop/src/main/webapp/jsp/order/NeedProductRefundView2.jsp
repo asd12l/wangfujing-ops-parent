@@ -12,6 +12,7 @@
 <!--Bootstrap Date Range Picker-->
 <script src="${ctx}/assets/js/datetime/moment.js"></script>
 <script src="${ctx}/assets/js/datetime/daterangepicker.js"></script>
+<title>拒收（销售单）</title>
 <style type="text/css">
 /* .trClick>td,.trClick>th{
  color:red;
@@ -166,9 +167,9 @@
 		$("#btDiv2").hide();
 	}
 	//初始化包装单位列表
-	//查询销售单
+	//查询销售单(拒收状态)
  	function initOlv() {
-		var url = __ctxPath+"/testOnlineOmsOrder/selectSaleList2";
+		var url = __ctxPath+"/oms/selectSaleList4";
 		olvPagination = $("#olvPagination").myPagination({
            panel: {
              tipInfo_on: true,
@@ -1922,13 +1923,13 @@
 		$("#btDiv2").show();
 		$("#divTitle2").html("创建退货申请单");
 		saleNo11 = saleNo;
-		orerNo11 = orderNo;
+		orderNo11 = orderNo;
 	}
 	//创建退货申请(整个销售单退货申请)
 	function Ok1(){
 		$("#btDiv2").hide();
 		var saleNo = saleNo11;
-		var orerNo = orerNo11;
+		var orderNo = orderNo11;
 		var refundReason = $("#sp4").val(); //退货原因
 //		console.log(stockoutAmount);
 		/* if(stockoutAmount !="[object Object]" ){
@@ -1944,18 +1945,19 @@
 			async : false,
 			data : {
 				"saleNo" : saleNo,
+				"orderNo" : orderNo,
 				"problemDesc" : refundReason,
 				"latestUpdateMan":userName,
-				"saleStatus":"08"
+				"saleStatus":"09"
 			},
 			dataType : "json",
 			
 			success : function(response) {
 				if(response.success=='true'){
 					refundApplyNo_ = response.data.refundApplyNo;  /* 拿到refundApplyNo */
-					supplyProductNo_ =response.data.products[0].supplyProductNo;
+					/* supplyProductNo_ =response.data.products[0].supplyProductNo;
 					shoppeProName_ =response.data.products[0].shoppeProName;
-					salePrice_ =response.data.products[0].salePrice;
+					salePrice_ =response.data.products[0].salePrice; */
 					orderNo_ = response.data.orderNo;
 					
 					var url = __ctxPath + "/jsp/order/RefundView4.jsp";
@@ -2032,7 +2034,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <h5 class="widget-caption">发货前退货管理</h5>
+                                    <h5 class="widget-caption">拒收退货管理</h5>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize"></a>
                                         <a href="#" data-toggle="collapse" onclick="tab('pro');">

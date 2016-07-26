@@ -75,12 +75,12 @@
 				if (response.success == "true") {
 					var quanAmount_ =  response.list[0].quanAmount;
 					var returnShippingFee_ =  response.list[0].returnShippingFee;
-					var needRefundAmount_ =  response.list[0].needRefundAmount;
+					var refundAmount_ =  response.list[0].refundAmount;
 					$("#amount3").text(parseFloat(quanAmount_).toFixed(2));
-					$("#amount1").text(parseFloat(needRefundAmount_).toFixed(2));
+					$("#amount1").text(parseFloat(refundAmount_).toFixed(2));
 					$("#amount2").text(parseFloat(0).toFixed(2));
 					//$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2));
-					$("#amount4").text(parseFloat(needRefundAmount_-quanAmount_).toFixed(2));
+					$("#amount4").text(parseFloat(refundAmount_-quanAmount_).toFixed(2));
 				}
 				
 			}
@@ -119,6 +119,8 @@
 	}else{
 		$("#isCodId").hide();
 	}
+	var supplyNo = "";
+	var marketNo = "";
 	$.ajax({
 		type : "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -127,6 +129,14 @@
 		dataType: "json",
 		data:{"refundApplyNo":refundApplyNo},
 		success : function(response) {
+			supplyNo = "";
+			marketNo = "";
+			var data = response.list;
+			for(var i in data){
+				supplyNo = data[i].supplyNo;
+				marketNo = data[i].shopNo;
+				break;
+			}
 			if (response.success == "true") {
 				$("#olv_tab12 tbody").setTemplateElement("product-list").processTemplate(response);
 				$("#olv_tab121 tbody").setTemplateElement("gift-list").processTemplate(response);
@@ -150,6 +160,29 @@
 		}
 	});
 	var ss=0;
+	//仓库地址
+	$.ajax({
+		type : "post",
+		contentType: "application/x-www-form-urlencoded;charset=utf-8",
+		url:__ctxPath + "/omsOrder/selectRefundAddress",
+		dataType: "json",
+		data:{"shopSid":marketNo,"supplyCode":supplyNo},
+		success : function(response){
+			if(response.success == "true"){
+				var data = response.data;
+				for(var i in data){
+		//			alert(data[i].joinSite);
+					if(data[i].joinSite != "" && data[i].joinSite != 'undefind'){
+						$("#warehouseAddress").val(data[i].joinSite);
+						console.log(data[i].joinSite);
+						break;
+					}
+				}
+			}else{
+				$("#warehouseAddress").val("");
+			}
+		}
+	});
 	// 初始化
 	$("#pid").val(problemDesc);
 	$(function() {
@@ -268,12 +301,10 @@
 				if(response.success=='true'){
 					data_ = response.data;
 					
-					/* $("#amount2").text(data_.billDetail.factPay);16-7-9二 */
 					$("#supplyProductNo").text(supplyProductNo);
 					$("#shoppeProName").text(shoppeProName);
 					$("#salePrice").text(salePrice);
 					$("#refundNum").text(refundNum);
-					/* $("#num").text(data2); */
 					$("#payPrice").text(salePrice*refundNum);
 					
 					var len = data_.billDetail.sellDetails.length;
@@ -281,11 +312,6 @@
 					for(var i=0; i<len; i++){
 						discount += data_.billDetail.sellDetails[i].totalDiscount;
 					}
-					/* if(isNaN(discount)){
-						$("#amount4").text("");
-					}else{
-						$("#amount4").text(parseFloat(discount).toFixed(2));
-					} 16-7-9三*/
 					//应退金额计算
 					var a1 = salePrice*refundNum;
 //					$("#amount1").text(a1);
@@ -332,19 +358,11 @@
 		$("#shbtg").click(function() {
 			shbtgForm();
 		});
-		//金额试算
-		$("#jess").click(function() {
-			var ta=$(".amounttui");
-			var t1 = 0;
-			var t2 = 0;
-			for(var i = 0; i<ta.length; i++){
-				var t = ta[i];
-				t1= $(t).val();
-				t2 +=parseFloat(t1);
-			}
-//			$("#amount4").text(parseFloat(t2));
-//			$("#amount5").text(parseFloat(t2));	
-		});	
+		//关闭页面
+		$("#close").click(function() {
+			$("#pageBody").load(__ctxPath + "/jsp/order/ReturnApplyView2.jsp");
+		});
+	});
 		//运费校验
 		function refundFeeTrim(){
 			var refundFeess = $("#refundFee").val();
@@ -370,6 +388,20 @@
 				$("#amount4").text(nu4.toFixed(2));
 			}
 		}
+		
+		//金额试算
+		$("#jess").click(function() {
+			var ta=$(".amounttui");
+			var t1 = 0;
+			var t2 = 0;
+			for(var i = 0; i<ta.length; i++){
+				var t = ta[i];
+				t1= $(t).val();
+				t2 +=parseFloat(t1);
+			}
+//			$("#amount4").text(parseFloat(t2));
+//			$("#amount5").text(parseFloat(t2));	
+		});	
 		//审核通过
 		function shtgForm(){
 			//从页面中拿值，传参数
@@ -406,7 +438,7 @@
 				}	
 			}
 			var da = JSON.stringify(data_); 
-			var userName = "${username}";
+			var userName = getCookieValue("username");
 			var rety = $("#refundType").val();
 //			var addr = $("#address").val();
 			/* var refundReason = $("#refundReason").val(); */
@@ -437,6 +469,7 @@
 		        },
 				data:{"quan":quan,"bankName":bankName,"bankNumber":bankNumber,"bankUser":bankUser,"jj":da,"refundFee":refundFee,"latestUpdateMan":userName,"refundStatus":"4","refundReason":refundReason,"refundType":rety/* ,"address":addr */},
 				success : function(response) {
+					tijiaoForm();
 					if (response.success == "true") {
 						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
 			     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -486,7 +519,7 @@
 				}	
 			}
 			var da = JSON.stringify(data_); 
-			var userName = "${username}";
+			var userName = getCookieValue("username");
 			$.ajax({
 				type : "post",
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -520,14 +553,40 @@
 				}
 			});
 		}
-		//关闭页面
-		$("#close").click(function() {
-			$("#pageBody").load(__ctxPath + "/jsp/order/saleOrderListView2.jsp");
-		});
-	});
-</script>
-<script type="text/javascript">
-	
+		function tijiaoForm(){
+			//修改退货申请单 加上物流信息
+			var warehouseAddress = $("#warehouseAddress").val();
+			$.ajax({
+				type : "post",
+				contentType: "application/x-www-form-urlencoded;charset=utf-8",
+				url:__ctxPath + "/omsOrder/updateRefundApply",  //修改退货申请单（更新物流信息）
+				async:false,
+				dataType: "json",
+				ajaxStart: function() {
+			       	 $("#loading-container").attr("class","loading-container");
+			        },
+		        ajaxStop: function() {
+		          //隐藏加载提示
+		          setTimeout(function() {
+		       	        $("#loading-container").addClass("loading-inactive");
+		       	 },300);
+		        },
+				data:{"refundApplyNo":refundApplyNo,"warehouseAddress":warehouseAddress/* ,"isFlag":"ture" */},
+				success : function(response) {
+					if (response.success == "true") {
+						/* $("#model-body-warning").html("<div class='alert alert-warning fade in'><strong>修改成功！</strong></div>");
+			     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"}); */
+					}else{
+						$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
+			     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+					}
+				},
+				error : function() {
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			});
+		}
 	//折叠页面
 	function tab(data){
 		if($("#"+data+"-i").attr("class")=="fa fa-minus"){
@@ -545,7 +604,7 @@
 	}
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
-		$("#pageBody").load(__ctxPath+"/jsp/order/saleOrderListView2.jsp");
+		$("#pageBody").load(__ctxPath+"/jsp/order/ReturnApplyView2.jsp");
 	}
 	//跳到商品详情页
 	function trClick(skuNo, obj){
@@ -736,12 +795,13 @@
 															</div>											
 														</div>
 													
-														<!-- <div class="col-md-6">
-															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">退货仓库地址：</label>
+														<div class="col-md-6">
+															<label class="col-lg-4 col-sm-3 col-xs-3 control-label">退货地址：</label>
 															<div class="col-lg-6 col-sm-6 col-xs-6">
-																<input type="text" id="address" name="address"/>
+																<input type="text" id="warehouseAddress" name="warehouseAddress"/>
+																	
 															</div>											
-														</div> -->
+														</div>
 													</div>
 												</div>
 												&nbsp;

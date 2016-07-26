@@ -644,7 +644,7 @@
 													</td>
 													<td align="center" id="skuCode_{$T.Result.sid}" >
 														{#if $T.Result.skuCode != null}
-															<a onclick="getViewDetail('{$T.Result.sid}');" style="cursor:pointer;">{$T.Result.skuCode}</a>
+															<a onclick="getViewDetail('{$T.Result.skuCode}');" style="cursor:pointer;">{$T.Result.skuCode}</a>
 														{/#if }
 													</td>
 													<td align="center" id="productName_{$T.Result.sid}" >

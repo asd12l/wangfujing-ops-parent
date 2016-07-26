@@ -875,7 +875,7 @@
 							"<th width='3%' style='text-align: center;'>是否为赠品</th>"+
 							"<th width='3%' style='text-align: center;'>运费分摊</th>"+
 							"<th width='3%' style='text-align: center;'>缺货数量</th>"+
-							"<th width='3%' style='text-align: center;'>提货数量</th>"+
+							/* "<th width='3%' style='text-align: center;'>提货数量</th>"+ */
 							"<th width='3%' style='text-align: center;'>大中小类</th>"+
 							"<th width='3%' style='text-align: center;'>商品类别</th>"+
 							"<th width='3%' style='text-align: center;'>销项税</th>"+
@@ -1031,12 +1031,12 @@
 							}else{
 								option+="<td align='center'>"+ele.stockoutAmount+"</td>";
 							}
-							//提货数量
+							/* //提货数量
 							if(ele.pickSum=="[object Object]"||ele.pickSum==undefined){
 								option+="<td align='center'></td>";
 							}else{
 								option+="<td align='center'>"+ele.pickSum+"</td>";
-							}
+							} */
 							//大中小类
 							if(ele.productClass=="[object Object]"||ele.productClass==undefined){
 								option+="<td align='center'></td>";
@@ -1268,7 +1268,7 @@
 		"<th width='2%' style='text-align: center;'>允许退货数量</th>"+
 		"<th width='2%' style='text-align: center;'>缺货数量</th>"+
 		
-		"<th width='2%' style='text-align: center;'>提货数量</th>"+
+		/* "<th width='2%' style='text-align: center;'>提货数量</th>"+ */
 		/* "<th width='2%' style='text-align: center;'>商品折后总额</th>"+ */
 		/* "<th width='2%' style='text-align: center;'>物流属性</th>"+
 		"<th width='2%' style='text-align: center;'>商品描述</th>"+ */
@@ -1468,12 +1468,12 @@
 							option+="<td align='center'>"+ele.stockoutAmount+"</td>";
 						}
 						
-						//提货数量
+					/* 	//提货数量
 						if(ele.pickSum=="[object Object]"||ele.pickSum==undefined){
 							option+="<td align='center'></td>";
 						}else{
 							option+="<td align='center'>"+ele.pickSum+"</td>";
-						}
+						} */
 						/* //商品折后总额
 						if(ele.paymentAmount=="[object Object]"||ele.paymentAmount==undefined){
 							option+="<td align='center'></td>";
@@ -2004,8 +2004,8 @@
 							option4+="<td align='center'>已审核</td>";
 						}else if(ele.priviousStatus=="9203"){
 							option4+="<td align='center'>审核不通过</td>";
-						}else if(ele.priviousStatus=="9301"){
-							option4+="<td align='center'>订单作废</td>";
+						/* }else if(ele.priviousStatus=="9301"){
+							option4+="<td align='center'>订单作废</td>"; */
 						}else if(ele.priviousStatus=="9302"){
 							option4+="<td align='center'>拒收</td>";
 						}else if(ele.priviousStatus=="9303"){
@@ -2149,8 +2149,8 @@
 							option5+="<td align='center'><span>未支付</span></td>";
 						}else if(ele.payStatus=="5002"){
 							option5+="<td align='center'><span>部分支付</span></td>";
-						}else if(ele.payStatus=="5003"){
-							option5+="<td align='center'><span>超时未支付</span></td>";
+						/* }else if(ele.payStatus=="5003"){
+							option5+="<td align='center'><span>超时未支付</span></td>"; */
 						}else if(ele.payStatus=="5004"){
 							option5+="<td align='center'><span>已支付</span></td>";
 						}else{
@@ -2431,7 +2431,7 @@
 		$("#btDiv2").hide();
 	}
 	function shtgForm(){
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		var orderStatus = "9202";
 		var orderNo = $("#shorderNo").text();
 		$.ajax({
@@ -2456,7 +2456,7 @@
 		});
 	}
 	function shbtgForm(){
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		var orderStatus = "9203";
 		var orderNo = $("#shorderNo").text();
 		$.ajax({
@@ -2750,7 +2750,7 @@
                                                <!--  <th width="2%" style="text-align: center;">销售数量 </th> -->
                                                 <th width="2%" style="text-align: center;">商品销售总额 </th>
                                                 <th width="2%" style="text-align: center;">销售时间</th>
-                                                <th width="2%" style="text-align: center;">延迟时间</th>
+                                                <!-- <th width="2%" style="text-align: center;">延迟时间</th> -->
                                                 <th width="2%" style="text-align: center;">支付类型</th>
                                                 <th width="2%" style="text-align: center;">支付状态 </th>
                                                 <th width="2%" style="text-align: center;">支付时间 </th>
@@ -2763,7 +2763,7 @@
                                                 <th width="2%" style="text-align: center;">现金类支付金额 </th>
                                                 <!-- <th width="2%" style="text-align: center;">收银损益 </th> -->
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
-                                                <th width="2%" style="text-align: center;">订单优惠总额</th>
+                                                <th width="2%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="2%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="2%" style="text-align: center;">COD支付金额</th>
                                                 <th width="2%" style="text-align: center;">取消原因</th>
@@ -2861,10 +2861,6 @@
 														{#if $T.Result.saleTimeStr != '[object Object]'}{$T.Result.saleTimeStr}
 						                   				{#/if}
 													</td>
-													<td align="center" id="delayTimeStr_{$T.Result.sid}">
-														{#if $T.Result.delayTimeStr != '[object Object]'}{$T.Result.delayTimeStr}
-						                   				{#/if}
-													</td>
 													<td align="center" id="isCod_{$T.Result.sid}">
 						                   				{#if $T.Result.isCod == 0}
 															<span>在线支付</span>
@@ -2877,8 +2873,6 @@
 															<span>未支付</span>
 						                      			{#elseif $T.Result.payStatus == '5002'}
 						                      				<span>部分支付</span>
-						                      			{#elseif $T.Result.payStatus == '5003'}
-						                      				<span>超时未支付</span>
 						                      			{#elseif $T.Result.payStatus == '5004'}
 						                      				<span>已支付</span>
 						                   				{#/if}
@@ -3006,7 +3000,7 @@
                                                 <!-- <th width="2%" style="text-align: center;">销售数量 </th> -->
                                                 <th width="2%" style="text-align: center;">商品销售总额 </th>
                                                 <th width="2%" style="text-align: center;">销售时间</th>
-                                                <th width="2%" style="text-align: center;">延迟时间</th>
+                                                <!-- <th width="2%" style="text-align: center;">延迟时间</th> -->
                                                 <th width="2%" style="text-align: center;">支付类型</th>
                                                 <th width="2%" style="text-align: center;">支付状态 </th>
                                                 <th width="2%" style="text-align: center;">支付时间 </th>
@@ -3019,7 +3013,7 @@
                                                 <th width="2%" style="text-align: center;">现金类支付金额 </th>
                                                <!--  <th width="2%" style="text-align: center;">收银损益 </th> -->
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
-                                                <th width="2%" style="text-align: center;">订单优惠总额</th>
+                                                <th width="2%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="2%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="2%" style="text-align: center;">COD支付金额</th>
                                                 <th width="2%" style="text-align: center;">取消原因</th>
