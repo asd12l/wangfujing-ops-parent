@@ -100,7 +100,7 @@ Author: WangSy
 	$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 	$("#amount2").text(parseFloat(0).toFixed(2));
 	$("#amount3").text(parseFloat(quanAmount).toFixed(2));
-	$("#amount4").text(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2));
+	$("#amount4").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 	//退货方式
 	$("#refundType").val(refundPath_);
 	
@@ -746,13 +746,13 @@ function shbtgForm(){
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
 				                                                <th width="2%" style="text-align: center;">商品价格</th>
-				                                                <th width="2%" style="text-align: center;">销售金额</th>
 				                                                <th width="2%" style="text-align: center;">数量</th>
 				                                                <th width="2%" style="text-align: center;">可退数量</th>
 				                                                <th width="2%" style="text-align: center;">退货数量</th>
 				                                                <th width="2%" style="text-align: center;">退货原因</th>
 				                                                <th width="4%" style="text-align: center;">退货图片</th>
 				                                                <th width="2%" style="text-align: center;">备注</th>
+				                                                <th width="2%" style="text-align: center;">商品应退金额</th>
 				                                            </tr>
 				                                        </thead>
 				                                        <tbody>
@@ -790,11 +790,7 @@ function shbtgForm(){
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
-																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
-																		{#else}0
-										                   				{#/if}
-																	</td>
+																	
 																	<td align="center" id="refundNumAll_{$T.Result.sid}">
 																		{#if $T.Result.refundNumAll != '[object Object]'}{$T.Result.refundNumAll}
 																		{#else}0
@@ -822,6 +818,11 @@ function shbtgForm(){
 																	</td>
 																	<td align="center" id="callCenterComments_{$T.Result.sid}">
 																		{#if $T.Result.callCenterComments != '[object Object]'}{$T.Result.callCenterComments}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
+																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
+																		{#else}0
 										                   				{#/if}
 																	</td>
 													       		</tr>

@@ -56,6 +56,7 @@ a:hover{color: black;text-decoration: none;}
 	position: fixed;
 	text-align: center;
 	visibility: hidden;
+
 }
 
 </style>
@@ -157,7 +158,7 @@ a:hover{color: black;text-decoration: none;}
 	
 	//初始化包装单位列表
  	function initOlv() {
-		var url = __ctxPath+"/ediGoods/selectGoodsList?channel_code=OB";
+		var url = __ctxPath+"/ediGoods/selectGoodsList?channel_code=CC";
 		olvPagination = $("#olvPagination").myPagination({
            panel: {
              tipInfo_on: true,
@@ -236,7 +237,7 @@ a:hover{color: black;text-decoration: none;}
         if(numiid){
         	 $.ajax({
         		on: true,
-     			url : __ctxPath + "/ediGoods/goodsManual?numiid="+numiid+"&channelCode=OB",
+     			url : __ctxPath + "/ediGoods/goodsManual?numiid="+numiid+"&channelCode=CC",
      			dataType : "json",
      			success : function(data) {
      				reset();
@@ -257,7 +258,7 @@ a:hover{color: black;text-decoration: none;}
  		var fileA = fileName.split(".");
  	 	//获取截取的最后一个字符串，即为后缀名
  		var suffix = fileA[fileA.length-1];
- 	 	var url = __ctxPath + "/ediGoods/goodsBatch?channelCode=C7";
+ 	 	var url = __ctxPath + "/ediGoods/goodsBatch?channelCode=CC";
  		if(suffix == 'xlsx' || suffix == 'XLSX' || suffix == 'xls' || suffix == 'XLS'){
  			var form = $('#impDataForm');
  			//form.attr('action', url);
@@ -287,7 +288,7 @@ a:hover{color: black;text-decoration: none;}
 	function automatic(){
        	 $.ajax({
        		on: true,
-  			url : __ctxPath + "/ediGoods/goodsAutomatic?channelCode=C7",
+  			url : __ctxPath + "/ediGoods/goodsAutomatic?channelCode=CC",
   			dataType : "json"
     	});
         reset();
@@ -297,7 +298,7 @@ a:hover{color: black;text-decoration: none;}
 	function removeRelation(outerid,numiid){
        	 $.ajax({
        		on: true,
-    			url : __ctxPath + "/ediGoods/goodsRemove?outerid="+outerid+"&numiid="+numiid+"&channelCode=C7",
+    			url : __ctxPath + "/ediGoods/goodsRemove?outerid="+outerid+"&numiid="+numiid+"&channelCode=CC",
     			dataType : "json",
     			success : function(data) {
 		            reset();

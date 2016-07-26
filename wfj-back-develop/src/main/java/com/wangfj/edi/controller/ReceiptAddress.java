@@ -34,6 +34,9 @@ public class ReceiptAddress {
 		}else if("C8".equals(channel)){
 			//聚美
 			url = (String) PropertiesUtil.getContextProperty("edi_jm_address_Tree")+parentId;
+		}else if("CC".equals(channel)){
+			//聚美
+			url = (String) PropertiesUtil.getContextProperty("edi_hlm_address_Tree")+parentId;
 		}else{
 			url = (String) PropertiesUtil.getContextProperty("edi_address_Tree")+parentId;
 		}
@@ -61,6 +64,9 @@ public class ReceiptAddress {
 		}else if("C8".equals(channel)){
 			//聚美
 			url = (String) PropertiesUtil.getContextProperty("edi_jm_address_Info")+id;
+		}else if("CC".equals(channel)){
+			//聚美
+			url = (String) PropertiesUtil.getContextProperty("edi_hlm_address_Info")+id;
 		}else{
 			url = (String) PropertiesUtil.getContextProperty("edi_address_Info")+id;
 		}
@@ -99,6 +105,9 @@ public class ReceiptAddress {
 		}else if("C8".equals(channel)){
 			//聚美
 			url = (String) PropertiesUtil.getContextProperty("edi_jm_address_Wfj");
+		}else if("CC".equals(channel)){
+			//聚美
+			url = (String) PropertiesUtil.getContextProperty("edi_hlm_address_Wfj");
 		}else{
 			url = (String) PropertiesUtil.getContextProperty("edi_address_Wfj");
 		}
@@ -131,6 +140,9 @@ public class ReceiptAddress {
 		}else if("C8".equals(channel)){
 			//聚美
 			url = (String) PropertiesUtil.getContextProperty("edi_jm_address_Update");
+		}else if("CC".equals(channel)){
+			//聚美
+			url = (String) PropertiesUtil.getContextProperty("edi_hlm_address_Update");
 		}else{
 			url = (String) PropertiesUtil.getContextProperty("edi_address_Update");
 		}

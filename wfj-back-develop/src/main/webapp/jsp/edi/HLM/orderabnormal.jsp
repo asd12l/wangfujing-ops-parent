@@ -78,7 +78,7 @@
 	}
 	
 	function initStock() {
-		var url = $("#ctxPath").val() + "/ediHlmOrder/selectHlmOrderCatchList?status=EC";
+		var url = $("#ctxPath").val() + "/ediHlmOrder/selectHlmOrderCatchList?status=EC";//
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
