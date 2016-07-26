@@ -70,11 +70,12 @@ private static final Logger logger = LoggerFactory.getLogger(OmsOrderController.
 		int start = (currentPage-1)*pageSize;
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
 		paramMap.put("tid", request.getParameter("tid"));
+		paramMap.put("ispreSale", request.getParameter("ispreSale"));
 		paramMap.put("ordersId", request.getParameter("ordersId"));
 		paramMap.put("receiverName", request.getParameter("receiverName"));
 		paramMap.put("title", request.getParameter("title"));
 		paramMap.put("tradesource", tradesource);
-		
+		paramMap.put("receiverMobile", request.getParameter("receiverMobile"));
 		paramMap.put("symbol", request.getParameter("symbol"));
 		paramMap.put("totalAmount", request.getParameter("totalAmount"));
 		
@@ -159,7 +160,7 @@ private static final Logger logger = LoggerFactory.getLogger(OmsOrderController.
 		}else{
 			paramMap.put("userName", "");
 		}
-		
+
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		Map<Object, Object> orderVo = new HashMap<Object, Object>();
 		String tid=request.getParameter("tid");
@@ -289,12 +290,9 @@ private static final Logger logger = LoggerFactory.getLogger(OmsOrderController.
 			orderVo.put("orderVo", jsonStr);
 			logger.info("jsonStr:" + jsonStr);
 			String url=	(String) PropertiesUtil.getContextProperty("edi_order_export");
-			
 			json =HttpUtilPcm.doPost(url, jsonStr);
-			
 			String tradeSource = request.getParameter("tradesource");
 			excelOrderDetailReport(json,tradeSource,request,response);
-			
 			logger.info("json:" + json);
 		} catch (Exception e) {
 			m.put("pageCount", 0);

@@ -74,6 +74,9 @@ public class EdiYzOrderController {
 		if(request.getParameter("receiverName") != null && request.getParameter("receiverName") != ""){
 			paramMap.put("receiverName", request.getParameter("receiverName"));
 		}
+		if(request.getParameter("receiverMobile") != null && request.getParameter("receiverMobile") != ""){
+			paramMap.put("receiverMobile", request.getParameter("receiverMobile"));
+		}
 		if(request.getParameter("goodName") != null && request.getParameter("goodName") != ""){
 			paramMap.put("goodName", request.getParameter("goodName"));
 		}
@@ -115,6 +118,14 @@ public class EdiYzOrderController {
 				}
 			}
 			
+			if(StringUtils.isNotEmpty(json1)){
+				JSONObject json1Reulst = JSONObject.fromObject(json1);
+				if((Boolean) json1Reulst.get("success")){
+					tid=(String) json1Reulst.get("msg");
+					paramMap.put("tid", tid);
+				}
+			}
+			
 			String url =(String) PropertiesUtil.getContextProperty("edi_yz_order");
 			
 			paramMap.put("currentPage", currentPage);
@@ -149,7 +160,7 @@ public class EdiYzOrderController {
 	public void exportExcleYz(HttpServletRequest request, HttpServletResponse response) {
 		
 		String json = "";
-		String title = "yz_export";
+		String title = "有赞数据交互订单明细报表";
 		String jsons = "";
 		List<ExprotVo> epv = new ArrayList<ExprotVo>();
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
@@ -247,9 +258,12 @@ public class EdiYzOrderController {
 		try {
 			OutputStream file = response.getOutputStream();
 			response.reset();
-			response.setContentType("APPLICATION/OCTET-STREAM"); 
-			response.setHeader("Content-disposition",
-					"attachment; filename=/"+title+".xls");
+			 response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+			    response.addHeader("Content-Disposition", "attachment;filename="
+			        + new String((title+".xls").getBytes("gbk"), "iso-8859-1"));
+			//response.setContentType("APPLICATION/OCTET-STREAM"); 
+			//response.setHeader("Content-disposition",
+			//		"attachment; filename=/"+title+".xls");
 			
 			ef.save(file);
 			return "成功";
