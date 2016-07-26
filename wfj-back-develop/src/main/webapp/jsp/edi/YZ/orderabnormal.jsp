@@ -43,6 +43,7 @@
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
+		$("#receiverMobile_form").val($("#receiverMobile_input").val());
 		$("#title_form").val($("#goodName_input").val());
 		$("#exceptionType_form").val($("#exceptionType_input").val());
         var params = $("#stock_form").serialize(); 
@@ -54,6 +55,7 @@
 		$("#tid_input").val("");
 		$("#ordersId_input").val("");
 		$("#receiverName_input").val("");
+		$("#receiverMobile_input").val("");
 		$("#goodName_input").val("");
 		$("#exceptionType_input").val("");
 		
@@ -61,6 +63,7 @@
 		$("#tid_form").val("");
 		$("#ordersId_form").val("");
 		$("#receiverName_form").val("");
+		$("#receiverMobile_form").val("");
 		$("#goodName_form").val("");
 		$("#exceptionType_form").val("");
 		stockQuery();
@@ -164,6 +167,8 @@
 											<input type="text" id="ordersId_input" /></li>
 										<li class="col-md-4"><label class="titname">收货人姓名：</label>
 											<input type="text" id="receiverName_input" /></li>
+										<li class="col-md-4"><label class="titname">联系方式：</label>
+											<input type="text" id="receiverMobile_input" /></li>
 										<!-- <li class="col-md-4"><label class="titname">商品名称：</label>
 											<input type="text" id="goodName_input" /></li> -->
 										<li class="col-md-4"><label class="titname">异常类型：</label> <select
@@ -225,7 +230,8 @@
 										</div>&nbsp; 
 											<input type="hidden" id="tid_form" name="tid" /> 
 											<input type="hidden" id="ordersId_form" name="ordersId" /> 
-											<input type="hidden" id="receiverName_form" name="receiverName" /> 
+											<input type="hidden" id="receiverName_form" name="receiverName" /> 、
+											<input type="hidden" id="receiverMobile_form" name="receiverMobile" />
 											<input type="hidden" id="title_form" name="goodName" /> 
 											<input type="hidden" id="exceptionType_form" name="exceptionType" /> 
 											<input type="hidden" id="action_form" name="action" value="query"/> 
@@ -251,7 +257,11 @@
 														{#if $T.Result.errorMsg == null || $T.Result.errorMsg == ""} --- {#else} {$T.Result.errorMsg} {#/if}
 													</td>
 													<td align="center" id="">
-														<a class="btn btn-default btn-sm" onclick="modify('{$T.Result.tid}');">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+														{#if $T.Result.errorMsg != null && $T.Result.errorMsg != "" && $T.Result.errorMsg == "自营订单，没有外部订单号"} 
+															<a class="btn btn-default btn-sm" >修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+														{#else} 
+														 	<a class="btn btn-default btn-sm" onclick="modify('{$T.Result.tid}');">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+														{#/if}
 													</td>
 									       		</tr>
 											{#/for}

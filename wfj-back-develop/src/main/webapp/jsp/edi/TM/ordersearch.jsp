@@ -61,6 +61,7 @@
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
+		$("#receiverMobile_form").val($("#receiverMobile_input").val());
 		$("#title_form").val($("#goodName_input").val());
 		$("#status_form").val($("#status_select").val());
 		$("#payMent_form").val($("#payMent_select").val());
@@ -91,7 +92,7 @@
 		$("#startDate").val("");
 		$("#endDate").val("");
 		$("#amount_input").val("");
-
+		$("#receiverMobile_input").val("");
 		$("#tid_form").val("");
 		$("#ordersId_form").val("");
 		$("#receiverName_form").val("");
@@ -101,6 +102,7 @@
 		$("#amonut_form").val("");
 		$("#startDate_form").val("");
 		$("#endDate_form").val("");
+		$("#receiverMobile_form").val("");
 		stockQuery();
 	}
 	function stockQuery() {
@@ -275,6 +277,8 @@
 												<input type="text" id="ordersId_input" /></li>
 											<li class="col-md-4"><label class="titname">收货人姓名：</label>
 												<input type="text" id="receiverName_input" /></li>
+											<li class="col-md-4"><label class="titname">联系方式：</label>
+												<input type="text" id="receiverMobile_input" /></li>
 											<li class="col-md-4"><label class="titname">订单时间：</label>
 												<input type="text" id="startDate" /></li>
 											<li class="col-md-4"><label class="titname">状态：</label>
@@ -348,6 +352,7 @@
 											&nbsp; <input type="hidden" id="tid_form" name="tid" /> <input
 												type="hidden" id="ordersId_form" name="ordersId" /> <input
 												type="hidden" id="receiverName_form" name="receiverName" />
+												<input type="hidden" id="receiverMobile_form" name="receiverMobile" value="query"/>
 											<input type="hidden" id="title_form" name="goodName" /> <input
 												type="hidden" id="status_form" name="status" /> <input
 												type="hidden" id="payMent_form" name="symbol" /> <input
