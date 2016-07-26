@@ -2095,7 +2095,7 @@
          "<th width='4%' style='text-align: center;'>专柜名称</th>"+
          "<th width='3%' style='text-align: center;'>销售类型</th>"+
          "<th width='3%' style='text-align: center;'>总金额(含运费)</th>"+
-         "<th width='3%' style='text-align: center;'>应付金额</th>"+
+         "<th width='3%' style='text-align: center;'>应付金额(含运费)</th>"+
          "<th width='3%' style='text-align: center;'>现金类支付金额(含运费不含积分)</th>"+
          "<th width='3%' style='text-align: center;'>积分</th>"+
          "<th width='3%' style='text-align: center;'>运费</th>"+
@@ -2370,11 +2370,11 @@
 						}else{
 							option5+="<td align='center'>"+parseFloat(parseFloat(ele.saleAmount)+parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
 						}
-						//应付金额
+						//应付金额(含运费)
 						if(ele.paymentAmount=="[object Object]"||ele.paymentAmount==undefined){
 							option5+="<td align='center'></td>";
 						}else{
-							option5+="<td align='center'>"+ele.paymentAmount+"</td>";
+							option5+="<td align='center'>"+parseFloat(parseFloat(ele.paymentAmount)+parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
 						}
 						//现金类支付金额(含运费不含积分)
 						if(ele.cashAmount=="[object Object]"||ele.cashAmount==undefined){
@@ -2977,7 +2977,7 @@
                                                 <!-- <th width="2%" style="text-align: center;">退货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货金额 </th> -->
-                                                <th width="2%" style="text-align: center;">订单应付金额 </th>
+                                                <th width="2%" style="text-align: center;">订单应付金额(含运费)</th>
                                                 <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
                                                 <th width="3%" style="text-align: center;">积分</th>
                                                 <!-- <th width="2%" style="text-align: center;">收银损益 </th> -->
@@ -3232,7 +3232,7 @@
                                                 <!-- <th width="2%" style="text-align: center;">退货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货金额 </th> -->
-                                                <th width="2%" style="text-align: center;">订单应付金额 </th>
+                                                <th width="2%" style="text-align: center;">订单应付金额 (含运费)</th>
                                                 <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
                                                 <th width="3%" style="text-align: center;">积分</th>
                                                <!--  <th width="2%" style="text-align: center;">收银损益 </th> -->
