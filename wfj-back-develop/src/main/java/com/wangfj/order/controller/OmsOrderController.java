@@ -1203,6 +1203,48 @@ public class OmsOrderController {
 			logger.info("json:" + json);
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			List<Object> list = (List<Object>) jsonObject.get("data");
+			
+			//渠道字段转换(PCM接口)
+			String jsonStr22 = "";
+			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
+			jsonStr22 = JSON.toJSONString(paramMap22);
+			String json22 = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL + "/pcmAdminChannel/findListChannel.htm", jsonStr22);
+			logger.info("json22:" + json22);
+			JSONObject jsonObjectJ22 = JSONObject.fromObject(json22);
+			String codeData2 = jsonObjectJ22.getString("data");
+			JSONArray json2Object2 = JSONArray.fromObject(codeData2);
+			
+			List<Object> list41 = new ArrayList<Object>();
+			for (int i = 0; i < list.size(); i++) {
+				Object object = list.get(i);
+				JSONObject jsonObject41 = JSONObject.fromObject(object);
+				String channelName =null;
+				try {
+					channelName = jsonObject41.getString("saleSource");
+					if(null!=json2Object2){
+						for(int j=0; j < json2Object2.size(); j++){
+							JSONObject jsonObject31 = (JSONObject) json2Object2.get(j);
+							String codeValue = jsonObject31.getString("channelCode");
+							String codeName = jsonObject31.getString("channelName");
+							if(channelName.equals(codeValue)){
+								channelName = codeName;
+								jsonObject41.put("saleSource",codeName);
+								list41.add(jsonObject41);
+								break;
+							}else if(j==json2Object2.size()-1){
+								JSONObject jsonObject51 = JSONObject.fromObject(object);
+								list41.add(jsonObject51);
+							}
+						}
+					}else{
+						list41.add(jsonObject41);
+					}
+				} catch (Exception e) {
+					list41.add(jsonObject41);
+				}
+			}
+			list=list41;
+			
 			if (list != null && list.size() != 0) {
 				m.put("list", list);
 				m.put("success", "true");
@@ -4688,9 +4730,10 @@ public class OmsOrderController {
 		header.add("销售类型");
 		header.add("总金额");
 		header.add("应付金额");
-		header.add("现金类支付金额");
+		header.add("现金类支付金额（含运费不含积分）");
+		header.add("积分");
 		header.add("运费");
-		header.add("优惠金额");
+		header.add("促销优惠金额");
 		header.add("使用优惠券金额");
 		header.add("使用余额金额");
 		header.add("授权卡号");
@@ -4747,6 +4790,7 @@ public class OmsOrderController {
 			inlist.add(vo.getSaleAmount()==null?"":vo.getSaleAmount().toString());
 			inlist.add(vo.getPaymentAmount()==null?"":vo.getPaymentAmount().toString());
 			inlist.add(vo.getCashAmount()==null?"":vo.getCashAmount().toString());
+			inlist.add(vo.getIntegral()==null?"":vo.getIntegral().toString());
 			inlist.add(vo.getShippingFee()==null?"":vo.getShippingFee().toString());
 			
 			inlist.add(vo.getDiscountAmount()==null?"":vo.getDiscountAmount().toString());

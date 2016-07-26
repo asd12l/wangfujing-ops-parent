@@ -128,7 +128,7 @@
 		if (count > 0){
 			var form = $('#stock_form');
 			form.attr("method","post");
- 			form.attr('action', $("#ctxPath").val() + "/ediHlmOrder/exportExcleHlm?tradesource=OB");
+ 			form.attr('action', $("#ctxPath").val() + "/ediHlmOrder/exportExcleHlm?tradesource=CC");
  			form.submit();
 		}else {
 			
