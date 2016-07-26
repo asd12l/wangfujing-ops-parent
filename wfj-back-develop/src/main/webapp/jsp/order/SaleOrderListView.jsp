@@ -3497,11 +3497,15 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="saleAmount_{$T.Result.sid}">
-														{#if $T.Result.saleAmount != '[object Object]'}{$T.Result.saleAmount + $T.Result.shippingFee}
+														{#if $T.Result.saleAmount != '[object Object]' && $T.Result.shippingFee != '[object Object]'}{$T.Result.saleAmount + $T.Result.shippingFee}
+						                   				{#else}
+						                   					{$T.Result.saleAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
-														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount + $T.Result.shippingFee}
+														{#if $T.Result.paymentAmount != '[object Object]' && $T.Result.shippingFee != '[object Object]'}{$T.Result.paymentAmount + $T.Result.shippingFee}
+						                   				{#else}
+						                   					{$T.Result.paymentAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="cashAmount_{$T.Result.sid}">
