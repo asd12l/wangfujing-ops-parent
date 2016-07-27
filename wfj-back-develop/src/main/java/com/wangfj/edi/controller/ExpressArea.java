@@ -32,7 +32,7 @@ public class ExpressArea {
 			url = (String) PropertiesUtil.getContextProperty("edi_yz_express_Tree")+parentId;
 		}else if("C8".equals(channel)){
 			url = (String) PropertiesUtil.getContextProperty("edi_jm_express_Tree")+parentId;
-		}else if("OB".equals(channel)){
+		}else if("CC".equals(channel)){
 			url = (String) PropertiesUtil.getContextProperty("edi_hlm_express_Tree")+parentId;
 		}else{
 			url = (String) PropertiesUtil.getContextProperty("edi_express_Tree")+parentId;
@@ -59,7 +59,7 @@ public class ExpressArea {
 			url = (String) PropertiesUtil.getContextProperty("edi_yz_express_Info")+id;
 		}else if("C8".equals(channel)){
 			url = (String) PropertiesUtil.getContextProperty("edi_jm_express_Info")+id;
-		}else if("OB".equals(channel)){
+		}else if("CC".equals(channel)){
 			url = (String) PropertiesUtil.getContextProperty("edi_hlm_express_Info")+id;
 		}else{
 			url = (String) PropertiesUtil.getContextProperty("edi_express_Info")+id;
@@ -91,7 +91,7 @@ public class ExpressArea {
 			url = (String) PropertiesUtil.getContextProperty("edi_yz_express_Update");
 		}else if("C8".equals(channel)){
 			url = (String) PropertiesUtil.getContextProperty("edi_jm_express_Update");
-		}else if("OB".equals(channel)){
+		}else if("CC".equals(channel)){
 			url = (String) PropertiesUtil.getContextProperty("edi_hlm_express_Update");
 		}else{
 			url = (String) PropertiesUtil.getContextProperty("edi_express_Update");

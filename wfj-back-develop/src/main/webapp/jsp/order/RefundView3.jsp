@@ -470,13 +470,13 @@ Author: WangSy
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
 				                                                <th width="1%" style="text-align: center;">商品价格</th>
-				                                                <th width="1%" style="text-align: center;">销售金额</th>
 				                                                <th width="1%" style="text-align: center;">数量</th>
 				                                                <th width="1%" style="text-align: center;">可退数量</th>
 				                                                <th width="1%" style="text-align: center;">退货数量</th>
 				                                                <th width="2%" style="text-align: center;">退货原因</th>
 				                                                <th width="2%" style="text-align: center;">退货图片</th>
 				                                                <th width="2%" style="text-align: center;">备注</th>
+				                                                <th width="1%" style="text-align: center;">商品应退金额</th>
 				                                            </tr>
 				                                        </thead>
 				                                         <tbody>
@@ -529,11 +529,7 @@ Author: WangSy
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
-																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
-																		{#else}0
-										                   				{#/if}
-																	</td>
+																	
 																	<td align="center" id="refundNumAll_{$T.Result.sid}">
 																		{#if $T.Result.refundNumAll != '[object Object]'}{$T.Result.refundNumAll}
 																		{#else}0
@@ -561,6 +557,11 @@ Author: WangSy
 																	</td>
 																	<td align="center" id="callCenterComments_{$T.Result.sid}">
 																		{#if $T.Result.callCenterComments != '[object Object]'}{$T.Result.callCenterComments}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
+																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
+																		{#else}0
 										                   				{#/if}
 																	</td>
 													       		</tr>

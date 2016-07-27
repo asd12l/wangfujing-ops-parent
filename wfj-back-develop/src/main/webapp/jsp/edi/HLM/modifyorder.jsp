@@ -114,7 +114,7 @@
 	        type:"post",
 	        dataType: "json",
 	        contentType: "application/x-www-form-urlencoded;charset=utf-8",
-	        url:__ctxPath + "/ediOkbuyOrder/updatechild",
+	        url:__ctxPath + "/ediHlmOrder/updatechild",
 	        async : false,
 			ajaxStart : function() {
 				$("#loading-container").prop("class",
