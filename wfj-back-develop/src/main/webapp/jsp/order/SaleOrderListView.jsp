@@ -3497,19 +3497,22 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="saleAmount_{$T.Result.sid}">
-														{#if $T.Result.saleAmount != '[object Object]' && $T.Result.shippingFee != '[object Object]'}{$T.Result.saleAmount + $T.Result.shippingFee}
+														{#if $T.Result.saleAmount != '[object Object]'}
+															{$T.Result.saleAmount + ($T.Result.shippingFee == undefined ? 0 : $T.Result.shippingFee)}
 						                   				{#else}
 						                   					{$T.Result.saleAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
-														{#if $T.Result.paymentAmount != '[object Object]' && $T.Result.shippingFee != '[object Object]'}{$T.Result.paymentAmount + $T.Result.shippingFee}
+														{#if $T.Result.paymentAmount != '[object Object]' }
+															{$T.Result.paymentAmount + ($T.Result.shippingFee == undefined ? 0 : $T.Result.shippingFee)}
 						                   				{#else}
 						                   					{$T.Result.paymentAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="cashAmount_{$T.Result.sid}">
-														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
+														{#if $T.Result.cashAmount != '[object Object]'}
+															{$T.Result.cashAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
@@ -3833,12 +3836,12 @@
 													</td>
 													
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
-														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount}
+														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount +  $T.Result.needSendCost ($T.Result.needSendCost == undefined ? 0 : $T.Result.needSendCost)}
 						                   				{#/if}
 													</td>
 													
 													<td align="center" id="cashAmount_{$T.Result.sid}">
-														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
+														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount + ($T.Result.needSendCost == undefined ? 0 : $T.Result.needSendCost)}
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
