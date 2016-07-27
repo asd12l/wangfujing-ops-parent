@@ -1261,8 +1261,8 @@ Author: WangSy
 																		{#if $T.Result.callCenterComments != '[object Object]'}{$T.Result.callCenterComments}
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
-																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
+																	<td align="center" id="refundAmount_{$T.Result.sid}">
+																		{#if $T.Result.refundAmount != '[object Object]'}{$T.Result.refundAmount}
 																		{#else}0
 										                   				{#/if}
 																	</td>

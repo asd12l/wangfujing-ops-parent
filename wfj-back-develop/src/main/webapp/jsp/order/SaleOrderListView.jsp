@@ -171,6 +171,7 @@
 		$("#shopNo_form").val($("#shopNo_input").val());
 		$("#payStatus_form").val($("#payStatus_select").val());
 		$("#memberNo_form").val($("#memberNo_input").val().trim());
+		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
 		var strTime = $("#reservation").val();
 		if(strTime!=""){
 			strTime = strTime.split("-");
@@ -196,6 +197,7 @@
 		$("#payStatus_select").val("");
 		$("#memberNo_input").val("");
 		$("#reservation").val("");
+		$("#outOrderNo_input").val("");
 		olvQuery();
 	}
 	//初始化包装单位列表
@@ -3175,17 +3177,18 @@
 	
 	//导出excel
 	function exportExecel() {
-		var orderNo = $("#orderNo_input").val();
-		var receptPhone = $("#receptPhone_input").val();
-		var saleNo = $("#saleNo_input").val();
-		var saleSource = $("#saleSource_input").val();
-		var payStatus = $("#payStatus_select").val();
-		var memberNo = $("#memberNo_input").val();
-		var shopNo = $("#shopNo_input").val();
-		var salesPaymentNo = $("#salesPaymentNo_input").val();
-		var casherNo = $("#casherNo_input").val();
-		var saleStatus = $("#saleStatus_select").val();
-		var strTime = $("#reservation").val();
+		var orderNo = $("#orderNo_input").val().trim();
+		var receptPhone = $("#receptPhone_input").val().trim();
+		var saleNo = $("#saleNo_input").val().trim();
+		var outOrderNo = $("#outOrderNo_input").val().trim();
+		var saleSource = $("#saleSource_input").val().trim();
+		var payStatus = $("#payStatus_select").val().trim();
+		var memberNo = $("#memberNo_input").val().trim();
+		var shopNo = $("#shopNo_input").val().trim();
+		var salesPaymentNo = $("#salesPaymentNo_input").val().trim();
+		var casherNo = $("#casherNo_input").val().trim();
+		var saleStatus = $("#saleStatus_select").val().trim();
+		var strTime = $("#reservation").val().trim();
 		var endSaleTime;
 		var startSaleTime;
 		if(strTime!=""){
@@ -3207,7 +3210,7 @@
 					+ orderNo + "&&saleNo=" + saleNo + "&&startSaleTime=" + startSaleTime + "&&endSaleTime=" + endSaleTime + "&&receptPhone=" + receptPhone
 					+ "&&salesPaymentNo=" + salesPaymentNo + "&&casherNo=" + casherNo + "&&saleStatus=" + saleStatus + "&&payStatus="
 					+ payStatus + "&&saleSource=" + saleSource + "&&memberNo=" + memberNo + "&&shopNo=" + shopNo + "&&title="
-					+ title);
+					+ title + "&&outOrderNo=" + outOrderNo);
 		} else {
 			$("#model-body-warning")
 					.html(
@@ -3277,6 +3280,10 @@
                                    				<li class="col-md-4">
                                     				<label class="titname">销售单号：</label>
                                     				<input type="text" id="saleNo_input"/>
+                                    			</li>
+                                    			<li class="col-md-4">
+                                    				<label class="titname">外部订单号：</label>
+                                    				<input type="text" id="outOrderNo_input"/>
                                     			</li>
                                    				<li class="col-md-4">
                                     				<label class="titname">手机号：</label>
@@ -3359,6 +3366,7 @@
 											<input type="hidden" id="pageSelect" name="pageSize" value="10"/>
 											<input type="hidden" id="orderNo_form" name="orderNo"/>
 											<input type="hidden" id="saleNo_form" name="saleNo"/>
+											<input type="hidden" id="outOrderNo_form" name="outOrderNo"/>
 											<input type="hidden" id="salesPaymentNo_form" name="salesPaymentNo"/>
 											<input type="hidden" id="casherNo_form" name="casherNo"/>
 											<input type="hidden" id="saleStatus_form" name="saleStatus"/>
@@ -3497,19 +3505,22 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="saleAmount_{$T.Result.sid}">
-														{#if $T.Result.saleAmount != '[object Object]' && $T.Result.shippingFee != '[object Object]'}{$T.Result.saleAmount + $T.Result.shippingFee}
+														{#if $T.Result.saleAmount != '[object Object]'}
+															{$T.Result.saleAmount + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee).toFixed(2))}
 						                   				{#else}
 						                   					{$T.Result.saleAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
-														{#if $T.Result.paymentAmount != '[object Object]' && $T.Result.shippingFee != '[object Object]'}{$T.Result.paymentAmount + $T.Result.shippingFee}
+														{#if $T.Result.paymentAmount != '[object Object]' }
+															{$T.Result.paymentAmount + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee).toFixed(2))}
 						                   				{#else}
 						                   					{$T.Result.paymentAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="cashAmount_{$T.Result.sid}">
-														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
+														{#if $T.Result.cashAmount != '[object Object]'}
+															{$T.Result.cashAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
@@ -3833,12 +3844,12 @@
 													</td>
 													
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
-														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount}
+														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount +  $T.Result.needSendCost ($T.Result.needSendCost == undefined ? 0 : $T.Result.needSendCost)}
 						                   				{#/if}
 													</td>
 													
 													<td align="center" id="cashAmount_{$T.Result.sid}">
-														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
+														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount + ($T.Result.needSendCost == undefined ? 0 : $T.Result.needSendCost)}
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">

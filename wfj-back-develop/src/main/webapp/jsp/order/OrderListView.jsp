@@ -2368,13 +2368,21 @@
 						if(ele.saleAmount=="[object Object]"||ele.saleAmount==undefined){
 							option5+="<td align='center'></td>";
 						}else{
-							option5+="<td align='center'>"+parseFloat(parseFloat(ele.saleAmount)+parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
+							if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
+								option5+="<td align='center'>"+ele.saleAmount+"</td>";
+							}else{
+								option5+="<td align='center'>"+parseFloat(parseFloat(ele.saleAmount)+parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
+							}
 						}
 						//应付金额(含运费)
 						if(ele.paymentAmount=="[object Object]"||ele.paymentAmount==undefined){
 							option5+="<td align='center'></td>";
 						}else{
-							option5+="<td align='center'>"+parseFloat(parseFloat(ele.paymentAmount)+parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
+							if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
+								option5+="<td align='center'>"+ele.paymentAmount+"</td>";
+							}else{
+								option5+="<td align='center'>"+parseFloat(parseFloat(ele.paymentAmount)+parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
+							}
 						}
 						//现金类支付金额(含运费不含积分)
 						if(ele.cashAmount=="[object Object]"||ele.cashAmount==undefined){

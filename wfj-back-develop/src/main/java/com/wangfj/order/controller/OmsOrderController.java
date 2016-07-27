@@ -4624,6 +4624,9 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
 			map.put("orderNo", request.getParameter("orderNo"));
 		}
+		if(StringUtils.isNotEmpty(request.getParameter("outOrderNo"))){
+			map.put("outOrderNo", request.getParameter("outOrderNo"));
+		}
 		if(StringUtils.isNotEmpty(request.getParameter("shopNo"))){
 			map.put("shopNo", request.getParameter("shopNo"));
 		}
