@@ -263,7 +263,7 @@
 								<div class="table-toolbar">
 								<div class="table-toolbar">
 									<ul class="topList clearfix">
-										<li class="col-md-4"><label class="titname">订单编号：</label>
+										<li class="col-md-4"><label class="titname">聚美订单编号：</label>
 											<input type="text" id="tid_input" /></li>
 										<li class="col-md-4"><label class="titname">EC订单编号：</label>
 											<input type="text" id="ordersId_input" /></li>
@@ -307,7 +307,7 @@
 								<table class="table table-bordered table-striped table-condensed table-hover flip-content" id="stock_tab">
                                        <thead class="flip-content bordered-darkorange">
 										<tr role="row">
-													<th style="text-align: center;">订单编号</th>
+													<th style="text-align: center;">聚美订单编号</th>
 													<!-- tid -->
 													<th style="text-align: center;">王府井订单编号</th>
 													<!--ordersid -->

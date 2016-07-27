@@ -36,17 +36,14 @@
 	
 	function  obtain(){
 		$("#tid_form").val($("#tid_input").val());
-		$("#skuid_form").val($("#skuid_input").val());
 		var params = $("#stock_form").serialize();
 		params = decodeURI(params);
 		stockPagination.onLoad(params);
 	}
 	function reset() {
 		$("#tid_input").val("");
-		$("#skuid_input").val("");
 
 		$("#tid_form").val("");
-		$("#skuid_form").val("");
 		stockQuery();
 	}
 	function stockQuery() {
@@ -145,12 +142,8 @@
 								<div class="table-toolbar">
 									<ul class="listInfo clearfix">
 										<li>
-											<span>订单号：</span>
+											<span>全球购订单编号：</span>
 											<input type="text" id="tid_input" style="width: 200px"/>
-										</li>
-										<li>
-											<span>商家编码：</span>
-											<input type="text" id="skuid_input" style="width: 200px"/>
 										</li>
 										
 										<li style="height:35px;margin-top:0;">
@@ -162,7 +155,7 @@
 								<table class="table table-bordered table-striped table-condensed table-hover flip-content" id="stock_tab">
                                        <thead class="flip-content bordered-darkorange">
 										<tr role="row">
-													<th style="text-align: center;">订单编号</th>
+													<th style="text-align: center;">全球购订单编号</th>
 													<!-- tid -->
 													<th style="text-align: center;">王府井订单编号</th>
 													<!--ordersid -->
@@ -194,7 +187,6 @@
 												</select>
 											</div>&nbsp; 
 										 <input type="hidden" id="tid_form" name="tid" />
-										 <input type="hidden" id="skuid_form" name="sku_id" />  
 									</form>
 								</div>
 								<div id="stockPagination"></div>
