@@ -221,7 +221,7 @@
 							message : '专柜名称不能为空'
 						},
 						regexp : {
-							regexp : /^[A-Za-z0-9\u4E00-\u9FA5\u3000-\u303F\uFF00-\uFFEF\(\)\.\,\-\_\'\;\:]{1,50}$/,
+							regexp : /^[A-Za-z0-9\u4E00-\u9FA5]{1,20}$/,
 							message : '专柜名称必须是由1到50位的数字、字母、中文或者特殊字符组成'
 						}
 					}
@@ -513,7 +513,7 @@
 										<div class="col-lg-8 col-sm-8 col-xs-8 col-lg-offset-2">
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label">专柜名称：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6">
-												<input maxlength="50" type="text" class="form-control"
+												<input maxlength="20" type="text" class="form-control"
 													id="shoppeName" name="shoppeName" placeholder="必填"
 													onpaste="return false;" />
 											</div>
