@@ -50,7 +50,7 @@ public class ProductPriceController {
      * @Methods Name selectPricePara
      * @Create In 2015-9-15 By chengsj
      */
-    @RequestMapping(value = "/selectPricePara", method = RequestMethod.POST)
+    @RequestMapping(value = "/selectPricePara", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String selectPricePara(HttpServletRequest request, HttpServletResponse response) {
         String json = "";
@@ -109,6 +109,14 @@ public class ProductPriceController {
                 if (jsonPage != null) {
                     map.put("list", jsonPage.get("list"));
                     map.put("pageCount", jsonPage.get("pages") == null ? 0 : jsonPage.get("pages"));
+                    Integer total = jsonPage.getInt("count");
+                    map.put("total", total);
+                    //搜索 ES 1W以上数据分页查不出来
+                    Integer esTotal = 10000;
+                    if (total > esTotal) {
+                        Integer pageCount = esTotal % size == 0 ? esTotal / size : esTotal / size + 1;
+                        map.put("pageCount", pageCount);
+                    }
                 } else {
                     map.put("list", null);
                     map.put("pageCount", 0);
