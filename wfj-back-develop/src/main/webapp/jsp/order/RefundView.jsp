@@ -658,9 +658,9 @@
 				                                                <th width="2%" style="text-align: center;">商品编号</th>
 				                                                <th width="2%" style="text-align: center;">商品名称</th>
 				                                                <th width="1%" style="text-align: center;">商品价格</th>
-				                                                <th width="1%" style="text-align: center;">销售金额</th>
 				                                                <th width="1%" style="text-align: center;">数量</th>
 				                                                <th width="1%" style="text-align: center;">退货数量</th>
+				                                                <th width="1%" style="text-align: center;">商品应退金额</th>
 				                                            </tr>
 				                                        </thead>
 				                                        <tbody>
@@ -704,16 +704,16 @@
 																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
 										                   				{#/if}
 																	</td>
-																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
-																		{#if $T.Result.refundSalePrice!= '[object Object]'}{$T.Result.refundSalePrice}
-										                   				{#/if}
-																	</td>
 																	<td align="center" id="refundNumAll_{$T.Result.sid}">
 																		{#if $T.Result.refundNumAll != '[object Object]'}{$T.Result.refundNumAll}
 										                   				{#/if}
 																	</td>
 																	<td align="center" class="refundNumClass" id="refundNum_{$T.Result.sid}">
 																		{#if $T.Result.refundNum != '[object Object]'}{$T.Result.refundNum}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
+																		{#if $T.Result.refundSalePrice!= '[object Object]'}{$T.Result.refundSalePrice}
 										                   				{#/if}
 																	</td>
 													       		</tr>

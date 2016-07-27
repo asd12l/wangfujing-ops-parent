@@ -823,13 +823,13 @@
 								<div class="pull-left" style="margin-top: 5px;">
 									<form id="stockHis_form" action="">
 										<div class="col-lg-12">
-											<select onchange="stockHisQuery();" name="pageSize"
+											<!-- <select onchange="stockHisQuery();" name="pageSize"
 												style="padding: 0 12px;">
 												<option>5</option>
 												<option selected="selected">10</option>
 												<option>15</option>
 												<option>20</option>
-											</select>
+											</select> -->
 										</div>
 										&nbsp; <input type="hidden" name="shoppeProSid"
 											id="shoppeProSid_form" value="" /> <input type="hidden"
