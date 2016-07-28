@@ -3514,14 +3514,14 @@
 													</td>
 													<td align="center" id="saleAmount_{$T.Result.sid}">
 														{#if $T.Result.saleAmount != '[object Object]'}
-															{$T.Result.saleAmount + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee).toFixed(2))}
+															{parseFloat(parseFloat($T.Result.saleAmount) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
 						                   				{#else}
 						                   					{$T.Result.saleAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
 														{#if $T.Result.paymentAmount != '[object Object]' }
-															{$T.Result.paymentAmount + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee).toFixed(2))}
+															{parseFloat(parseFloat($T.Result.paymentAmount) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
 						                   				{#else}
 						                   					{$T.Result.paymentAmount}
 						                   				{#/if}
