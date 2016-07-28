@@ -249,6 +249,9 @@
 							//使用模板
 							$("#price_tab tbody").setTemplateElement(
 									"price-list").processTemplate(data);
+							if(data != null && data.total != null){
+								$("#total").text(data.total);
+							}
 						}
 					}
 				});
@@ -623,6 +626,11 @@
 												</div>
 												&nbsp;
 											</form>
+										</div>
+									</div>
+									<div style="float: right;float: right !important;padding: 10px;color: rgb(72, 185, 239);">
+										<div class="col-lg-12">
+											<p>共&nbsp;<span id="total">0</span>&nbsp;条</p>
 										</div>
 									</div>
 									<div id="pricePagination"></div>
