@@ -720,6 +720,7 @@ function shbtgForm(){
 				                                                <th width="2%" style="text-align: center;">退货图片</th>
 				                                                <th width="2%" style="text-align: center;">备注</th>
 				                                                <th width="1%" style="text-align: center;">商品应退金额</th>
+				                                                <th width="2%" style="text-align: center;">商品应退款金额(不含优惠券)</th>
 				                                            </tr>
 				                                        </thead>
 				                                        <tbody>
@@ -800,6 +801,11 @@ function shbtgForm(){
 																	</td>
 																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
 																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
+																		{#else}0
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
 																		{#else}0
 										                   				{#/if}
 																	</td>

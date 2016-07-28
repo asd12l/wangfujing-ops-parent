@@ -187,6 +187,7 @@
 	$("#pid").val(problemDesc);
 	$(function() {
 		$("#xzspan").hide();
+		$("#xzspan2").hide();
 		//退货原因
 		
 		/* var pid = $("#pid");
@@ -273,6 +274,7 @@
 				$("#refundFee").val("");
 				
 				$("#xzspan").hide();
+				$("#xzspan2").hide();
 				$("#shtg").removeAttr("disabled");
 				$("#shbtg").removeAttr("disabled");
 				refundFeeTrim();
@@ -372,11 +374,18 @@
 //			console.log("refundFeess:"+refundFeess);
 //			console.log("returnShippingFee:"+returnShippingFee);
 			if(parseFloat(refundFeess) > parseFloat(returnShippingFee)){
+				$("#xzspan2").hide();
 				$("#xzspan").show();
+				$("#shtg").attr("disabled", "true");
+				$("#shbtg").attr("disabled", "true");
+			}else if($("#isRefundFee").val()!="是"&&(refundFeess=="" || refundFeess=="0")){
+				$("#xzspan").hide();
+				$("#xzspan2").show();
 				$("#shtg").attr("disabled", "true");
 				$("#shbtg").attr("disabled", "true");
 			}else{
 				$("#xzspan").hide();
+				$("#xzspan2").hide();
 				$("#shtg").removeAttr("disabled");
 				$("#shbtg").removeAttr("disabled");
 
@@ -664,6 +673,7 @@
 				                                                <th width="1%" style="text-align: center;">数量</th>
 				                                                <th width="1%" style="text-align: center;">退货数量</th>
 				                                                <th width="1%" style="text-align: center;">商品应退金额</th>
+				                                                <th width="2%" style="text-align: center;">商品应退款金额(不含优惠券)</th>
 				                                            </tr>
 				                                        </thead>
 				                                        <tbody>
@@ -717,6 +727,11 @@
 																	</td>
 																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
 																		{#if $T.Result.refundSalePrice!= '[object Object]'}{$T.Result.refundSalePrice}
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
+																		{#else}0
 										                   				{#/if}
 																	</td>
 													       		</tr>
@@ -1187,6 +1202,7 @@
 															<span>应退运费金额：</span>
 															<input id="refundFee" type="refundFee" onkeyup="refundFeeTrim()">
 															<span id="xzspan" style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应退运费金额输入不能大于订单支付运费金额</span>
+															<span id="xzspan2" style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应退运费金额输入不能为0</span>
 														</div>
 														&nbsp;
 													</div>
