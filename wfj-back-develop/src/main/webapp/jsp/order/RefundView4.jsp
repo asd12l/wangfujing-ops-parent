@@ -69,6 +69,10 @@ Author: WangSy
 		font-size: 15px;
 		height: 38px;
 	}
+	#amount6{
+		font-size: 15px;
+		height: 38px;
+	}
 </style>
 <script type="text/javascript">
 	$("#li_show a").click(function() {
@@ -109,6 +113,7 @@ Author: WangSy
 					$("#amount1").text(parseFloat(refundAmount_).toFixed(2));
 					$("#amount2").text(parseFloat(0).toFixed(2));
 					$("#amount4").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
+					$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 					refundType = response.list[0].refundPath;
 					address = response.list[0].warehouseAddress;
 					$("#refundType").val(refundType);
@@ -1285,6 +1290,13 @@ Author: WangSy
 															<input id="refundFee" type="refundFee" onkeyup="refundFeeTrim()">
 															<span id="xzspan" style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应退运费金额输入不能大于订单支付运费金额</span>
 															<span id="xzspan2" style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应退运费金额输入不能为0</span>
+														</div>
+														&nbsp;
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-6">
+														<span>&nbsp;&nbsp;现金类支付金额：</span>
+														<label id="amount6" class="control-label"></label>
 														</div>
 														&nbsp;
 													</div>

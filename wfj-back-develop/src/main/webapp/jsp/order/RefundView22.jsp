@@ -69,6 +69,10 @@ Author: WangSy
 		font-size: 15px;
 		height: 38px;
 	} 
+	#amount6{
+		font-size: 15px;
+		height: 38px;
+	} 
 	#refundFee{
 		font-size: 15px;
 		height: 38px;
@@ -118,6 +122,7 @@ Author: WangSy
 			//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
 		}
 		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+		$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 //	var data2 = orderData;
 	var data_;
 	/* //退货方式
@@ -1301,6 +1306,13 @@ function shbtgForm(){
 														<span>应退运费金额：</span>
 														<label id="refundFee" class="control-label"></label>
 													</div>
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-6">
+														<span>&nbsp;&nbsp;现金类支付金额：</span>
+														<label id="amount6" class="control-label"></label>
+														</div>
+														&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
