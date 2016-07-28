@@ -183,6 +183,13 @@
 			}
 		}
 	});
+	
+	function No(){
+		$("#btDivCancel").hide();
+	}
+	function closeBtDiv21(){
+		$("#btDivCancel").hide();
+	}
 	// 初始化
 	$("#pid").val(problemDesc);
 	$(function() {
@@ -361,7 +368,8 @@
 		});
 		//审核不通过
 		$("#shbtg").click(function() {
-			shbtgForm();
+			$("#btDivCancel").show();
+			$("#divTitleCancel").html("审核不通过退货申请单");
 		});
 		//关闭页面
 		$("#close").click(function() {
@@ -499,9 +507,9 @@
 			});
 		}
 		//审核不通过
-		function shbtgForm(){
+		function Ok(){
 			//从页面中拿值，传参数
-			 
+			 var cancelReason =$("#cancelReason").val();
 			var tab=$(".amounttui");
 			if(0<tab.length){
 				for(var i = 0; i<tab.length; i++){
@@ -547,12 +555,14 @@
 		       	        $("#loading-container").addClass("loading-inactive");
 		       	 },300);
 		        },
-				data:{"jj":da,"latestUpdateMan":userName,"refundStatus":"2"},
+				data:{"jj":da,"latestUpdateMan":userName,"refundStatus":"2","cancelReason":cancelReason},
 				success : function(response) {
 					if (response.success == "true") {
+						$("#btDivCancel").hide();
 						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核成功，返回列表页!</strong></div>");
 			     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
 					}else{
+						$("#btDivCancel").hide();
 						$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
 				//		$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"审核失败"+"</strong></div>");
 			     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
@@ -1253,5 +1263,32 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal modal-darkorange" id="btDivCancel">
+        <div class="modal-dialog" style="width: 500px;height:500%;margin: 16% auto;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closeBtDiv21();">×</button>
+                    <h4 class="modal-title" id="divTitleCancel"></h4>
+                </div>
+                <div align="center">
+                  	&nbsp;&nbsp; &nbsp; &nbsp;
+                  	<div>
+                  		<h3>确认审核不通过</h3>
+	                </div>
+                  	<div>
+	                   	<label id="lable5" class="col-lg-3 col-sm-3 col-xs-3 control-label">原因：</label>
+	                   	<textarea style="width: 500px;height: 10px;max-width: 300px;max-height: 100px;min-width: 200px;min-height: 100px;resize: none" id="cancelReason" name="cancelReason" placeholder="非必填"></textarea>
+	                </div>
+            	</div>
+                <div align="center">
+                  	<a class="btn btn-default shiny" onclick="Ok();">确定</a>&nbsp;&nbsp; &nbsp; &nbsp;
+					<a class="btn btn-default shiny" onclick="No();">取消</a>
+            	</div>
+            	 <div align="center">
+                  	&nbsp;&nbsp; &nbsp; &nbsp;
+            	</div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 </body>
 </html>
