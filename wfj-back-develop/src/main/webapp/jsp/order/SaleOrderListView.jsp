@@ -2968,6 +2968,14 @@
 							option4+="<td align='center'>已打包</td>";
 						}else if(ele.priviousStatus=="07"){
 							option4+="<td align='center'>已出库</td>";
+						}else if(ele.priviousStatus=="08"){
+							option4+="<td align='center'>已签收</td>";
+						}else if(ele.priviousStatus=="09"){
+							option4+="<td align='center'>已拒收</td>";
+						}else if(ele.priviousStatus=="10"){
+							option4+="<td align='center'>已支付</td>";
+						}else if(ele.priviousStatus=="11"){
+							option4+="<td align='center'>备货中</td>";
 						}else if(ele.priviousStatus=="99"){
 							option4+="<td align='center'>已取消</td>";
 						}else if(ele.priviousStatus=="2015"){
@@ -3506,14 +3514,14 @@
 													</td>
 													<td align="center" id="saleAmount_{$T.Result.sid}">
 														{#if $T.Result.saleAmount != '[object Object]'}
-															{$T.Result.saleAmount + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee).toFixed(2))}
+															{parseFloat(parseFloat($T.Result.saleAmount) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
 						                   				{#else}
 						                   					{$T.Result.saleAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
 														{#if $T.Result.paymentAmount != '[object Object]' }
-															{$T.Result.paymentAmount + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee).toFixed(2))}
+															{parseFloat(parseFloat($T.Result.paymentAmount) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
 						                   				{#else}
 						                   					{$T.Result.paymentAmount}
 						                   				{#/if}
