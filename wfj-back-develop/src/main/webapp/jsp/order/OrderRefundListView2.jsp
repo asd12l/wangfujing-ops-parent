@@ -1716,8 +1716,8 @@
 							option4+="<td align='center'>订单作废</td>";
 						}else if(ele.priviousStatus=="9302"){
 							option4+="<td align='center'>拒收</td>";
-						}else if(ele.priviousStatus=="9303"){
-							option4+="<td align='center'>订单取消中</td>";
+						}else if(ele.priviousStatus=="9307"){
+							option4+="<td align='center'>已退货</td>";
 						}else if(ele.priviousStatus=="9304"){
 							option4+="<td align='center'>取消成功</td>";
 						}else if(ele.priviousStatus=="9305"){
@@ -4571,7 +4571,7 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="opt">
-														{#if $T.Result.refundStatus == '19' && $T.Result.refundClass != 'RequestCancelReturn'}
+														{#if $T.Result.refundStatus == '19' && $T.Result.refundClass != 'RequestCancelReturn' && $T.Result.refundClass != 'OOSReturn'}
 															<input class="btn btn-success" style="width: 35%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.paymentAmountSum}','{$T.Result.quanAmount}','{$T.Result.refundAmount}','{$T.Result.refundApplyNo}','{$T.Result.courierNumber}','{$T.Result.expressCompanyName}','{$T.Result.refundStatus}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.returnShippingFee}','{$T.Result.warehouseAddress}','{$T.Result.refundPath}',this)" type="button" value="查看" />
 															&nbsp;<input class="btn btn-primary" style="width: 35%;height: 30px;" id="cancelButten" onclick="cancelButten('{$T.Result.refundNo}',this)" type="button" value="作废" />
 														{#else}

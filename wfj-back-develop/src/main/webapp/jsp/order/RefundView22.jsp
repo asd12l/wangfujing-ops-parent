@@ -69,6 +69,10 @@ Author: WangSy
 		font-size: 15px;
 		height: 38px;
 	} 
+	#amount6{
+		font-size: 15px;
+		height: 38px;
+	} 
 	#refundFee{
 		font-size: 15px;
 		height: 38px;
@@ -118,6 +122,7 @@ Author: WangSy
 			//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
 		}
 		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+		$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 //	var data2 = orderData;
 	var data_;
 	/* //退货方式
@@ -720,6 +725,7 @@ function shbtgForm(){
 				                                                <th width="2%" style="text-align: center;">退货图片</th>
 				                                                <th width="2%" style="text-align: center;">备注</th>
 				                                                <th width="1%" style="text-align: center;">商品应退金额</th>
+				                                                <th width="2%" style="text-align: center;">商品应退款金额(不含优惠券)</th>
 				                                            </tr>
 				                                        </thead>
 				                                        <tbody>
@@ -800,6 +806,11 @@ function shbtgForm(){
 																	</td>
 																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
 																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
+																		{#else}0
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
 																		{#else}0
 										                   				{#/if}
 																	</td>
@@ -1295,6 +1306,13 @@ function shbtgForm(){
 														<span>应退运费金额：</span>
 														<label id="refundFee" class="control-label"></label>
 													</div>
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-6">
+														<span>&nbsp;&nbsp;现金类支付金额：</span>
+														<label id="amount6" class="control-label"></label>
+														</div>
+														&nbsp;
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">

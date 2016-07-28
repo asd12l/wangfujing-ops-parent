@@ -1822,8 +1822,8 @@
 							option4+="<td align='center'>订单作废</td>";
 						}else if(ele.priviousStatus=="9302"){
 							option4+="<td align='center'>拒收</td>";
-						}else if(ele.priviousStatus=="9303"){
-							option4+="<td align='center'>订单取消中</td>";
+						}else if(ele.priviousStatus=="9307"){
+							option4+="<td align='center'>已退货</td>";
 						}else if(ele.priviousStatus=="9304"){
 							option4+="<td align='center'>取消成功</td>";
 						}else if(ele.priviousStatus=="9305"){
@@ -3024,7 +3024,6 @@
 		"<th width='5%' style='text-align: center;'>二级支付介质</th>"+
 		"<th width='5%' style='text-align: center;'>支付金额</th>"+
 		"<th width='5%' style='text-align: center;'>实际支付金额</th>"+
-		"<th width='5%' style='text-align: center;'>运费</th>"+
 		"<th width='5%' style='text-align: center;'>汇率</th>"+
 		"<th width='5%' style='text-align: center;'>账号</th>"+
 		"<th width='5%' style='text-align: center;'>用户ID</th>"+
@@ -3073,22 +3072,16 @@
 							option5+="<td align='center'>"+ele.paymentType+"</td>";
 						}
 						//支付金额
-						if(ele.amount=="[object Object]"||ele.amount==undefined){
-							option5+="<td align='center'></td>";
+						if((ele.amount != "[object Object]" && ele.amount != undefined) && (ele.shippingFee !="[object Object]" && ele.shippingFee != undefined)){
+							option5+="<td align='center'>"+parseFloat(parseFloat(ele.amount) + parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
 						}else{
 							option5+="<td align='center'>"+ele.amount+"</td>";
 						}
 						//实际支付金额
-						if(ele.acturalAmount=="[object Object]"||ele.acturalAmount==undefined){
-							option5+="<td align='center'></td>";
+						if((ele.acturalAmount != "[object Object]" && ele.acturalAmount != undefined) && (ele.shippingFee !="[object Object]" && ele.shippingFee != undefined)){
+							option5+="<td align='center'>"+parseFloat(parseFloat(ele.acturalAmount) + parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
 						}else{
 							option5+="<td align='center'>"+ele.acturalAmount+"</td>";
-						}
-						//运费
-						if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
-							option5+="<td align='center'></td>";
-						}else{
-							option5+="<td align='center'>"+ele.shippingFee+"</td>";
 						}
 						//汇率
 						if(ele.rate=="[object Object]"||ele.rate==undefined){
@@ -3516,14 +3509,14 @@
 														{#if $T.Result.saleAmount != '[object Object]'}
 															{parseFloat(parseFloat($T.Result.saleAmount) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
 						                   				{#else}
-						                   					{$T.Result.saleAmount}
+						                   					{parseFloat($T.Result.saleAmount).toFixed(2)}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
 														{#if $T.Result.paymentAmount != '[object Object]' }
 															{parseFloat(parseFloat($T.Result.paymentAmount) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
 						                   				{#else}
-						                   					{$T.Result.paymentAmount}
+						                   					{parseFloat($T.Result.paymentAmount).toFixed(2)}
 						                   				{#/if}
 													</td>
 													<td align="center" id="cashAmount_{$T.Result.sid}">
@@ -3852,12 +3845,12 @@
 													</td>
 													
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
-														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount +  $T.Result.needSendCost ($T.Result.needSendCost == undefined ? 0 : $T.Result.needSendCost)}
+														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount}
 						                   				{#/if}
 													</td>
 													
 													<td align="center" id="cashAmount_{$T.Result.sid}">
-														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount + ($T.Result.needSendCost == undefined ? 0 : $T.Result.needSendCost)}
+														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">

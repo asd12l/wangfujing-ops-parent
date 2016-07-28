@@ -64,6 +64,10 @@ Author: WangSy
 		font-size: 15px;
 		height: 38px;
 	}
+	#amount6{
+		font-size: 15px;
+		height: 38px;
+	}
 	#t1{
 		font-size: 14px;
 		height: 4px;
@@ -216,6 +220,7 @@ Author: WangSy
 							$("#amount2").text(parseFloat(0).toFixed(2));
 							$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 							$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+							$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 					}else{
 						
 						$("#amount2").text(parseFloat(0).toFixed(2));
@@ -228,6 +233,7 @@ Author: WangSy
 							//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
 						}
 						$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+						$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 					}
 				}
 				
@@ -1185,6 +1191,7 @@ Author: WangSy
 				                                                <th width="2%" style="text-align: center;">退货图片</th>
 				                                                <th width="2%" style="text-align: center;">备注</th>
 				                                                <th width="1%" style="text-align: center;">商品应退金额</th>
+				                                                <th width="2%" style="text-align: center;">商品应退款金额(不含优惠券)</th>
 				                                            </tr>
 				                                        </thead>
 				                                         <tbody>
@@ -1263,6 +1270,11 @@ Author: WangSy
 																	</td>
 																	<td align="center" id="refundAmount_{$T.Result.sid}">
 																		{#if $T.Result.refundAmount != '[object Object]'}{$T.Result.refundAmount}
+																		{#else}0
+										                   				{#/if}
+																	</td>
+																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
 																		{#else}0
 										                   				{#/if}
 																	</td>
@@ -1769,6 +1781,13 @@ Author: WangSy
 															<span>应退运费金额：</span>
 															<label id="returnShippingFee"></label>
 														</div> -->
+														&nbsp;
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-6">
+														<span>&nbsp;&nbsp;现金类支付金额：</span>
+														<label id="amount6" class="control-label"></label>
+														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-12">
