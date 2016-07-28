@@ -186,7 +186,9 @@
 	// 初始化
 	$("#pid").val(problemDesc);
 	$(function() {
-		$("#xzspan").hide();
+		$("#
+
+				").hide();
 		//退货原因
 		
 		/* var pid = $("#pid");
@@ -264,6 +266,8 @@
 				$("#isRefundFee").val("否");
 				$("#type").val(0);
 				$("#refundFee").show();
+				$("#refundFee").val(returnShippingFee);
+				refundFeeTrim();
 			} else {
 				$("#isRefundFee").val("是");
 				$("#type").val(1);
@@ -273,6 +277,7 @@
 				$("#xzspan").hide();
 				$("#shtg").removeAttr("disabled");
 				$("#shbtg").removeAttr("disabled");
+				refundFeeTrim();
 			}
 		});
 		
