@@ -186,9 +186,7 @@
 	// 初始化
 	$("#pid").val(problemDesc);
 	$(function() {
-		$("#
-
-				").hide();
+		$("#xzspan").hide();
 		//退货原因
 		
 		/* var pid = $("#pid");
