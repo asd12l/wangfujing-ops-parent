@@ -167,6 +167,9 @@
 							//使用模板
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
+							if(data != null && data.total != null){
+								$("#total").text(data.total);
+							}
 						}
 					}
 				});
@@ -696,6 +699,11 @@
 											<input type="hidden" id="shop_from" name="storeCode" />
 											<input type="hidden" id="shoppe_from" name="shoppeCode" />
 										</form>
+									</div>
+									<div style="float: right;float: right !important;padding: 10px;color: rgb(72, 185, 239);">
+										<div class="col-lg-12">
+											<p>共&nbsp;<span id="total">0</span>&nbsp;条</p>
+										</div>
 									</div>
 									<div id="stockPagination"></div>
 								</div>
