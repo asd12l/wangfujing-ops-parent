@@ -121,7 +121,7 @@ Author: WangSy
 	$("#olv_tab2 tbody").setTemplateElement("fanquan-list").processTemplate(datas);
 	$("#olv_tab6 tbody").setTemplateElement("Aquan-list").processTemplate(datas);
 	
-	if(datas.refundStatus=="03" || datas.refundStatus=="04" || datas.refundStatus=="12" || datas.refundStatus=="15"){
+	if(datas.refundStatus=="03" || datas.refundStatus=="04" || datas.refundStatus=="12" || datas.refundStatus=="15" || datas.refundStatus=="14" || datas.refundStatus=="13"){
 		$("#refundProductStatus").text("已入库");
 	}else{
 		$("#refundProductStatus").text("未入库");

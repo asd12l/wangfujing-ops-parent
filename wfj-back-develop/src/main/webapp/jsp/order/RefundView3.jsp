@@ -288,7 +288,7 @@ Author: WangSy
 //				$("#amount2").text(a1);
 				
 				//应退运费
-				if(datas.refundStatus=="03" || datas.refundStatus=="04" || datas.refundStatus=="12" || datas.refundStatus=="15"){
+				if(datas.refundStatus=="03" || datas.refundStatus=="04" || datas.refundStatus=="12" || datas.refundStatus=="15" || datas.refundStatus=="14" || datas.refundStatus=="13"){
 					$("#refundProductStatus").text("已入库");
 				}else{
 					$("#refundProductStatus").text("未入库");
