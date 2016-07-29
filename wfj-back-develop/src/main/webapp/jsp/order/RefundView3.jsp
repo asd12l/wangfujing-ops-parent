@@ -1077,6 +1077,13 @@ Author: WangSy
 														</div>&nbsp;
 													</div>
 													<div class="col-md-12">
+														<div class="col-md-6">
+														<span>&nbsp;&nbsp;现金类支付金额：</span>
+														<label id="amount6" class="control-label"></label>
+														</div>
+														&nbsp;
+													</div>
+													<div class="col-md-12">
 														<div class="col-md-4">
 														<span>&nbsp;&nbsp;其中,优惠券：</span>
 														<label id="amount3" class="control-label"></label>
@@ -1093,13 +1100,7 @@ Author: WangSy
 														</div>
 														&nbsp;
 													</div>
-													<div class="col-md-12">
-														<div class="col-md-6">
-														<span>&nbsp;&nbsp;现金类支付金额：</span>
-														<label id="amount6" class="control-label"></label>
-														</div>
-														&nbsp;
-													</div>
+													
 													<div class="col-md-12">
 														<div class="col-md-6">
 														<span>&nbsp;&nbsp;退回顾客优惠券金额：</span>
