@@ -2105,9 +2105,9 @@ public class OmsOrderController {
 			inlist.add(vo.getMemberNo()==null?"":vo.getMemberNo());
 			String refundMonStatusDesc = null;
 			if(vo.getReMonStatus()==0){
-				refundMonStatusDesc = "待付款";
+				refundMonStatusDesc = "未退款";
 			}else if(vo.getReMonStatus()==1){
-				refundMonStatusDesc = "已付款";
+				refundMonStatusDesc = "退款成功";
 			}
 			inlist.add(vo.getReMonStatus()==null?"":refundMonStatusDesc);
 			String refundClass = null;
