@@ -137,9 +137,15 @@
 		refundNo1 = refundNo;
 	}
 	function Ok1(){
-		$("#btDivCancel").hide();
+		
 		var latestUpdateMan = getCookieValue("username");
 		var cancelReason =$("#cancelReason").val();
+		if(cancelReason==""){
+			$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>请填写原因！</strong></div>");
+  	  		$("#modal-warning").attr({"style":"display:block; z-index:2000","aria-hidden":"false","class":"modal modal-message modal-warning"});
+			return;
+		}
+		$("#btDivCancel").hide();
 		//取消退货单
 		$.ajax({
 			type : "post",
@@ -4921,11 +4927,11 @@
 	                </div>
                   	<div>
 	                   	<label id="lable5" class="col-lg-3 col-sm-3 col-xs-3 control-label">作废原因：</label>
-	                   	<textarea style="width: 500px;height: 10px;max-width: 300px;max-height: 100px;min-width: 200px;min-height: 100px;resize: none" id="cancelReason" name="cancelReason" placeholder="非必填"></textarea>
+	                   	<textarea style="width: 500px;height: 10px;max-width: 300px;max-height: 100px;min-width: 200px;min-height: 100px;resize: none" id="cancelReason" name="cancelReason" placeholder="必填"></textarea>
 	                </div>
             	</div>
                 <div align="center">
-                  	<a class="btn btn-default shiny" onclick="Ok1();">确定</a>&nbsp;&nbsp; &nbsp; &nbsp;
+                  	<a class="btn btn-default shiny" onclick="Ok1();" id="okId">确定</a>&nbsp;&nbsp; &nbsp; &nbsp;
 					<a class="btn btn-default shiny" onclick="No();">取消</a>
             	</div>
             	 <div align="center">
