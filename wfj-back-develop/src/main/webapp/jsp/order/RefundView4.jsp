@@ -1319,9 +1319,9 @@ Author: WangSy
 												</div>&nbsp;
 												<div class="form-group">
 													<div class="col-lg-offset-4 col-lg-6">
-														<!-- <input class="btn btn-success" style="width: 20%;" id="jess" type="button" value="金额试算" />
-														<input class="btn btn-success" style="width: 20%;" id="shbtg" type="button" value="审核不通过" />  -->
+														<!-- <input class="btn btn-success" style="width: 20%;" id="jess" type="button" value="金额试算" />  -->
 														<input class="btn btn-success" style="width: 20%;" id="shtg" type="button" value="审核通过" />
+														<input class="btn btn-success" style="width: 20%;" id="shbtg" type="button" value="审核不通过" />
 														<input class="btn btn-danger" style="width: 20%;" id="close" type="button" value="取消" />
 													</div>
 												</div>
