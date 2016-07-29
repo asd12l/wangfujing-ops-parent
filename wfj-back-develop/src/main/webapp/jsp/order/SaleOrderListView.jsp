@@ -3839,8 +3839,8 @@
 						                      				<span>是</span>
 						                   				{#/if}
 													</td>
-													<td align="center" id="needSendCost_{$T.Result.sid}">
-														{#if $T.Result.needSendCost != '[object Object]'}{$T.Result.needSendCost}
+													<td align="center" id="sendCost_{$T.Result.sid}">
+														{#if $T.Result.sendCost != '[object Object]'}{$T.Result.sendCost}
 						                   				{#/if}
 													</td>
 													
