@@ -2693,8 +2693,8 @@ public class OmsOrderController {
 		header.add("支付时间");
 		header.add("是否需要开发票");
 		header.add("应收运费");
-		header.add("订单应付金额");
-		header.add("现金类支付金额");
+		header.add("订单应付金额(含运费)");
+		header.add("现金类支付金额(含运费不含积分)");
 		header.add("使用余额总额");
 		header.add("订单优惠金额");
 		header.add("取消原因");
@@ -2948,8 +2948,8 @@ public class OmsOrderController {
 		header.add("支付时间");
 		header.add("是否需要开发票");
 		header.add("应收运费");
-		header.add("订单应付金额");
-		header.add("现金类支付金额（含运费不含积分）");
+		header.add("订单应付金额(含运费)");
+		header.add("现金类支付金额(含运费不含积分)");
 		header.add("积分");
 		header.add("使用余额总额");
 		header.add("订单优惠金额");
@@ -4734,7 +4734,7 @@ public class OmsOrderController {
 		header.add("专柜名称");
 		header.add("销售类型");
 		header.add("总金额");
-		header.add("应付金额");
+		header.add("应付金额（含运费）");
 		header.add("现金类支付金额（含运费不含积分）");
 		header.add("积分");
 		header.add("运费");
@@ -4793,8 +4793,8 @@ public class OmsOrderController {
 			}
 			inlist.add(vo.getSaleClass()==null?"":saleClass);
 			inlist.add(vo.getSaleAmount()==null?"":vo.getSaleAmount().toString());
-			inlist.add(vo.getPaymentAmount()==null?"":vo.getPaymentAmount().toString());
-			inlist.add(vo.getCashAmount()==null?"":vo.getCashAmount().toString());
+			inlist.add(vo.getPaymentAmount()==null?"":(vo.getPaymentAmount().add(vo.getShippingFee())).toString());
+			inlist.add(vo.getCashAmount()==null?"":(vo.getCashAmount().add(vo.getShippingFee())).toString());
 			inlist.add(vo.getIntegral()==null?"":vo.getIntegral().toString());
 			inlist.add(vo.getShippingFee()==null?"":vo.getShippingFee().toString());
 			

@@ -64,6 +64,10 @@ Author: WangSy
 		font-size: 15px;
 		height: 38px;
 	}
+	#amount6{
+		font-size: 15px;
+		height: 38px;
+	}
 	#t1{
 		font-size: 14px;
 		height: 4px;
@@ -216,6 +220,7 @@ Author: WangSy
 							$("#amount2").text(parseFloat(0).toFixed(2));
 							$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 							$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+							$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 					}else{
 						
 						$("#amount2").text(parseFloat(0).toFixed(2));
@@ -228,6 +233,7 @@ Author: WangSy
 							//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
 						}
 						$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+						$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 					}
 				}
 				
@@ -1775,6 +1781,13 @@ Author: WangSy
 															<span>应退运费金额：</span>
 															<label id="returnShippingFee"></label>
 														</div> -->
+														&nbsp;
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-6">
+														<span>&nbsp;&nbsp;现金类支付金额：</span>
+														<label id="amount6" class="control-label"></label>
+														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-12">
