@@ -1277,16 +1277,11 @@ function shbtgForm(){
 													<div class="col-md-12">
 														<div class="col-md-6">
 														<span>应退款金额：</span>
-														<label id="amount1" class="control-label"></label>
-														</div>&nbsp;
-													</div>&nbsp;
-													<div class="col-md-12">
-														<div class="col-md-6">
+														<label id="amount1" class="control-label"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<span>&nbsp;&nbsp;现金类支付金额：</span>
 														<label id="amount6" class="control-label"></label>
-														</div>
-														&nbsp;
-													</div>
+														</div>&nbsp;
+													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-4">
 														<span>&nbsp;&nbsp;其中,优惠券：</span>
