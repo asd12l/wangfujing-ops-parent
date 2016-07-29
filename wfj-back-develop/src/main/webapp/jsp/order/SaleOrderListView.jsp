@@ -3024,6 +3024,7 @@
 		"<th width='5%' style='text-align: center;'>二级支付介质</th>"+
 		"<th width='5%' style='text-align: center;'>支付金额</th>"+
 		"<th width='5%' style='text-align: center;'>实际支付金额</th>"+
+		"<th width='5%' style='text-align: center;'>运费</th>"+
 		"<th width='5%' style='text-align: center;'>汇率</th>"+
 		"<th width='5%' style='text-align: center;'>账号</th>"+
 		"<th width='5%' style='text-align: center;'>用户ID</th>"+
@@ -3082,6 +3083,12 @@
 							option5+="<td align='center'>"+parseFloat(parseFloat(ele.acturalAmount) + parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
 						}else{
 							option5+="<td align='center'>"+ele.acturalAmount+"</td>";
+						}
+						//汇率
+						if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.shippingFee+"</td>";
 						}
 						//汇率
 						if(ele.rate=="[object Object]"||ele.rate==undefined){
