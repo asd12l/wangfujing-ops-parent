@@ -121,7 +121,7 @@
 		saleSum3 = $("#sp3").text().trim();
 		problemDesc =$("#sp4").val();
 		callCenterComments =$("#sp5").val();
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		$.ajax({
 				type : "post",
 				contentType : "application/x-www-form-urlencoded;charset=utf-8",

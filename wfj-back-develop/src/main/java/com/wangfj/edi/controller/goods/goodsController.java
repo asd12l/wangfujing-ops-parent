@@ -93,7 +93,10 @@ public class goodsController {
 			String url = "";
 			if("M4".equals(channel_code)){
 				url = (String) PropertiesUtil.getContextProperty("edi_goods_yzsearch");
-			}else{
+			}else if("CC".equals(channel_code)){
+				url = (String) PropertiesUtil.getContextProperty("edi_goods_hlmsearch");
+			}
+			else{
 				url = (String) PropertiesUtil.getContextProperty("edi_goods_search");
 			}
 			json = HttpUtilPcm.doPost(url, jsonStr);
@@ -146,6 +149,8 @@ public class goodsController {
 			String url;
 			if("M4".equals(channelCode)){
 				url = (String) PropertiesUtil.getContextProperty("edi_goods_yzmanual");
+			}else if("CC".equals(channelCode)){
+				url = (String) PropertiesUtil.getContextProperty("edi_goods_hlmmanual");
 			}else{
 				url = (String) PropertiesUtil.getContextProperty("edi_goods_manual");
 			}
@@ -220,6 +225,8 @@ public class goodsController {
 		String url;
 		if("M4".equals(channelCode)){
 			url = (String) PropertiesUtil.getContextProperty("edi_goods_yzbatch");
+		}else if("CC".equals(channelCode)){
+			url = (String) PropertiesUtil.getContextProperty("edi_goods_hlmbatch");
 		}else{
 			url = (String) PropertiesUtil.getContextProperty("edi_goods_batch");
 		}
@@ -290,6 +297,8 @@ public class goodsController {
 			String url = "";
 			if("M4".equals(channelCode)){
 				url = (String) PropertiesUtil.getContextProperty("edi_goods_yzrelieve");
+			}else if("CC".equals(channelCode)){
+				url = (String) PropertiesUtil.getContextProperty("edi_goods_hlmrelieve");
 			}else{
 				url = (String) PropertiesUtil.getContextProperty("edi_goods_relieve");
 			}

@@ -4,6 +4,16 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ExcelSaleVo {
+	private String integral; //积分
+	
+	public String getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+
 	private BigDecimal couponAmount;//使用优惠券金额
 	
 	private BigDecimal accountBalanceAmount;//使用余额金额

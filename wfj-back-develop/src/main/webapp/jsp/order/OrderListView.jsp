@@ -1234,6 +1234,7 @@
 		}
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("a").replaceWith(orderNo);
 		 $("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -2008,8 +2009,8 @@
 							option4+="<td align='center'>订单作废</td>"; */
 						}else if(ele.priviousStatus=="9302"){
 							option4+="<td align='center'>拒收</td>";
-						}else if(ele.priviousStatus=="9303"){
-							option4+="<td align='center'>订单取消中</td>";
+						}else if(ele.priviousStatus=="9307"){
+							option4+="<td align='center'>已退货</td>";
 						}else if(ele.priviousStatus=="9304"){
 							option4+="<td align='center'>取消成功</td>";
 						}else if(ele.priviousStatus=="9305"){
@@ -2056,7 +2057,7 @@
 		//销售单信息
 		var option5 = "<tr role='row' style='height:35px;'>"+
 		"<th width='1%' style='text-align: center;'></th>"+
-		"<th width='6%' style='text-align: center;'>销售单号</th>"+
+		/* "<th width='6%' style='text-align: center;'>销售单号</th>"+
 		"<th width='6%' style='text-align: center;'>订单号</th>"+
 		"<th width='6%' style='text-align: center;'>CID</th>"+
 		"<th width='5%' style='text-align: center;'>会员卡号</th>"+
@@ -2077,7 +2078,38 @@
 		"<th width='4%' style='text-align: center;'>二维码</th>"+
 		"<th width='4%' style='text-align: center;'>导购号</th>"+
 		"<th width='4%' style='text-align: center;'>机器号</th>"+
-		"<th width='6%' style='text-align: center;'>销售时间</th></tr>";
+		"<th width='6%' style='text-align: center;'>销售时间</th></tr>"; */
+		
+		 "<th width='4%' style='text-align: center;'>销售单号</th>"+
+         "<th width='4%' style='text-align: center;'>订单号</th>"+
+         "<th width='3%' style='text-align: center;'>销售单状态</th>"+
+         "<th width='3%' style='text-align: center;'>支付状态</th>"+
+         "<th width='4%' style='text-align: center;'>手机号</th>"+
+         "<th width='4%' style='text-align: center;'>CID</th>"+
+         "<th width='4%' style='text-align: center;'>会员卡号</th>"+
+         "<th width='3%' style='text-align: center;'>销售类别</th>"+
+         "<th width='3%' style='text-align: center;'>销售单来源</th>"+
+         "<th width='4%' style='text-align: center;'>门店名称</th>"+
+         "<th width='4%' style='text-align: center;'>供应商编码</th>"+
+         "<th width='4%' style='text-align: center;'>供应商名称</th>"+
+         "<th width='4%' style='text-align: center;'>专柜名称</th>"+
+         "<th width='3%' style='text-align: center;'>销售类型</th>"+
+         "<th width='3%' style='text-align: center;'>总金额(含运费)</th>"+
+         "<th width='3%' style='text-align: center;'>应付金额(含运费)</th>"+
+         "<th width='3%' style='text-align: center;'>现金类支付金额(含运费不含积分)</th>"+
+         "<th width='3%' style='text-align: center;'>积分</th>"+
+         "<th width='3%' style='text-align: center;'>运费</th>"+
+         "<th width='3%' style='text-align: center;'>促销优惠金额</th>"+
+         "<th width='3%' style='text-align: center;'>使用优惠券金额</th>"+
+         "<th width='3%' style='text-align: center;'>使用余额金额</th>"+
+         "<th width='3%' style='text-align: center;'>授权卡号</th>"+
+         "<th width='4%' style='text-align: center;'>二维码</th>"+
+         "<th width='4%' style='text-align: center;'>收银流水号</th>"+
+         "<th width='4%' style='text-align: center;'>导购号</th>"+
+         "<th width='4%' style='text-align: center;'>机器号</th>"+
+         "<th width='4%' style='text-align: center;'>销售时间</th>"+
+         "<th width='3%' style='text-align: center;'>最后修改人</th>"+
+         "<th width='5%' style='text-align: center;'>最后修改时间</th></tr>";
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -2094,7 +2126,7 @@
 						"<td align='center' style='vertical-align:middle;'>"+
 						"<span id='spanTd12_"+ele.saleNo+"' onclick='spanTd12(\""+ele.saleNo+"\")' "+
 						"class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;'></span></td>";
-						//销售单号
+						/* //销售单号
 						if(ele.saleNo=="[object Object]"||ele.saleNo==undefined){
 							option5+="<td align='center'></td>";
 						}else{
@@ -2149,8 +2181,6 @@
 							option5+="<td align='center'><span>未支付</span></td>";
 						}else if(ele.payStatus=="5002"){
 							option5+="<td align='center'><span>部分支付</span></td>";
-						/* }else if(ele.payStatus=="5003"){
-							option5+="<td align='center'><span>超时未支付</span></td>"; */
 						}else if(ele.payStatus=="5004"){
 							option5+="<td align='center'><span>已支付</span></td>";
 						}else{
@@ -2241,7 +2271,203 @@
 							option5+="<td align='center'></td></tr>";
 						}else{
 							option5+="<td align='center'>"+ele.saleTimeStr+"</td></tr>";
+						} */
+						//销售单号
+						if(ele.saleNo=="[object Object]"||ele.saleNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.saleNo+"</td>";
 						}
+						//订单号
+						if(ele.orderNo=="[object Object]"||ele.orderNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.orderNo+"</td>";
+						}
+						//销售状态
+						if(ele.saleStatusDesc=="[object Object]"||ele.saleStatusDesc==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.saleStatusDesc+"</td>";
+						}
+						//支付状态
+						if(ele.payStatus=="5001"){
+							option5+="<td align='center'><span>未支付</span></td>";
+						}else if(ele.payStatus=="5002"){
+							option5+="<td align='center'><span>部分支付</span></td>";
+						}else if(ele.payStatus=="5004"){
+							option5+="<td align='center'><span>已支付</span></td>";
+						}else{
+							option5+="<td align='center'></td>";
+						}
+						//手机号
+						if(ele.receptPhone=="[object Object]"||ele.receptPhone==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.receptPhone+"</td>";
+						}
+						//CID
+						if(ele.accountNo=="[object Object]"||ele.accountNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.accountNo+"</td>";
+						}
+						//会员卡号
+						if(ele.memberNo=="[object Object]"||ele.memberNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.memberNo+"</td>";
+						}
+						//销售类别
+						if(ele.saleType=="1"){
+							option5+="<td align='center'>正常销售单</td>";
+						}else if(ele.saleType=="2"){
+							option5+="<td align='center'><span class='btn btn-xs'>大码销售单</span></td>";
+						}else{
+							option5+="<td align='center'></td>";
+						}
+						//销售单来源
+						if(ele.saleSource=="[object Object]"||ele.saleSource==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.saleSource+"</td>";
+						}
+						//门店名称
+						if(ele.storeName=="[object Object]"||ele.storeName==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.storeName+"</td>";
+						}
+						//供应商编码
+						if(ele.supplyNo=="[object Object]"||ele.supplyNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.supplyNo+"</td>";
+						}
+						//供应商名称
+						if(ele.suppllyName=="[object Object]"||ele.suppllyName==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.suppllyName+"</td>";
+						}
+						//专柜名称
+						if(ele.shoppeName=="[object Object]"||ele.shoppeName==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.shoppeName+"</td>";
+						}
+						//销售类型
+						if(ele.saleClass=="1"){
+							option5+="<td align='center'>销售单</td>";
+						}else if(ele.saleClass=="2"){
+							option5+="<td align='center'><span class='btn btn-xs'>换货换出单</span></td>";
+						}else{
+							option5+="<td align='center'></td>";
+						}
+						//总金额(含运费)
+						if(ele.saleAmount=="[object Object]"||ele.saleAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
+								option5+="<td align='center'>"+ele.saleAmount+"</td>";
+							}else{
+								option5+="<td align='center'>"+parseFloat(parseFloat(ele.saleAmount)+parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
+							}
+						}
+						//应付金额(含运费)
+						if(ele.paymentAmount=="[object Object]"||ele.paymentAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
+								option5+="<td align='center'>"+ele.paymentAmount+"</td>";
+							}else{
+								option5+="<td align='center'>"+parseFloat(parseFloat(ele.paymentAmount)+parseFloat(ele.shippingFee)).toFixed(2)+"</td>";
+							}
+						}
+						//现金类支付金额(含运费不含积分)
+						if(ele.cashAmount=="[object Object]"||ele.cashAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.cashAmount+"</td>";
+						}
+						//积分
+						if(ele.integral=="[object Object]"||ele.integral==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.integral+"</td>";
+						}
+						//运费
+						if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.shippingFee+"</td>";
+						}
+						//促销优惠金额
+						if(ele.discountAmount=="[object Object]"||ele.discountAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.discountAmount+"</td>";
+						}
+						//使用优惠券金额
+						if(ele.couponAmount=="[object Object]"||ele.couponAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.couponAmount+"</td>";
+						}
+						//使用余额金额
+						if(ele.accountBalanceAmount=="[object Object]"||ele.accountBalanceAmount==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.accountBalanceAmount+"</td>";
+						}
+						//授权卡号
+						if(ele.authorityCard=="[object Object]"||ele.cashIncome==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.authorityCard+"</td>";
+						}
+						//二维码
+						if(ele.qrcode=="[object Object]"||ele.qrcode==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.qrcode+"</td>";
+						}
+						//收银流水号
+						if(ele.salesPaymentNo=="[object Object]"||ele.salesPaymentNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.salesPaymentNo+"</td>";
+						}
+						//导购号
+						if(ele.employeeNo=="[object Object]"||ele.employeeNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.employeeNo+"</td>";
+						}
+						//机器号
+						if(ele.casherNo=="[object Object]"||ele.casherNo==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.casherNo+"</td>";
+						}
+						//销售时间
+						if(ele.saleTimeStr=="[object Object]"||ele.saleTimeStr==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.saleTimeStr+"</td>";
+						}
+						//最后修改人
+						if(ele.latestUpdateMan=="[object Object]"||ele.latestUpdateMan==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.latestUpdateMan+"</td>";
+						}
+						//最后修改时间
+						if(ele.latestUpdateTimeStr== "[object Object]"||ele.latestUpdateTimeStr==undefined){
+							option5+="<td align='center'></td></tr>";
+						}else{
+							option5+="<td align='center'>"+ele.latestUpdateTimeStr+"</td></tr>";
+						} 
 					}
 				}
 			}
@@ -2431,7 +2657,7 @@
 		$("#btDiv2").hide();
 	}
 	function shtgForm(){
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		var orderStatus = "9202";
 		var orderNo = $("#shorderNo").text();
 		$.ajax({
@@ -2456,7 +2682,7 @@
 		});
 	}
 	function shbtgForm(){
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		var orderStatus = "9203";
 		var orderNo = $("#shorderNo").text();
 		$.ajax({
@@ -2759,8 +2985,9 @@
                                                 <!-- <th width="2%" style="text-align: center;">退货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货金额 </th> -->
-                                                <th width="2%" style="text-align: center;">订单应付金额 </th>
-                                                <th width="2%" style="text-align: center;">现金类支付金额 </th>
+                                                <th width="2%" style="text-align: center;">订单应付金额(含运费)</th>
+                                                <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
+                                                <th width="3%" style="text-align: center;">积分</th>
                                                 <!-- <th width="2%" style="text-align: center;">收银损益 </th> -->
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
                                                 <th width="2%" style="text-align: center;">促销优惠金额</th>
@@ -2901,6 +3128,10 @@
 														{#if $T.Result.cashAmount != '[object Object]'}{$T.Result.cashAmount}
 						                   				{#/if}
 													</td>
+													<td align="center" id="integral_{$T.Result.sid}">
+														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+						                   				{#/if}
+													</td>
 													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
 														{#if $T.Result.accountBalanceAmount != '[object Object]'}{$T.Result.accountBalanceAmount}
 						                   				{#/if}
@@ -3009,8 +3240,9 @@
                                                 <!-- <th width="2%" style="text-align: center;">退货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货数量 </th>
                                                 <th width="2%" style="text-align: center;">发货金额 </th> -->
-                                                <th width="2%" style="text-align: center;">订单应付金额 </th>
-                                                <th width="2%" style="text-align: center;">现金类支付金额 </th>
+                                                <th width="2%" style="text-align: center;">订单应付金额 (含运费)</th>
+                                                <th width="2%" style="text-align: center;">现金类支付金额（含运费不含积分） </th>
+                                                <th width="3%" style="text-align: center;">积分</th>
                                                <!--  <th width="2%" style="text-align: center;">收银损益 </th> -->
                                                 <th width="2%" style="text-align: center;">使用余额总额</th>
                                                 <th width="2%" style="text-align: center;">促销优惠金额</th>

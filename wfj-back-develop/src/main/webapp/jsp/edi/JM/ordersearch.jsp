@@ -58,6 +58,7 @@
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
+		$("#receiverMobile_form").val($("#receiverMobile_input").val());
 		$("#title_form").val($("#goodName_input").val());
 		$("#status_form").val($("#status_select").val());
 		$("#payMent_form").val($("#payMent_select").val());
@@ -80,6 +81,7 @@
 		$("#tid_input").val("");
 		$("#ordersId_input").val("");
 		$("#receiverName_input").val("");
+		$("#receiverMobile_input").val("");
 		$("#goodName_input").val("");
 		$("#status_select").val("");
 		$("#payMent_select").val("");
@@ -90,6 +92,7 @@
 		$("#tid_form").val("");
 		$("#ordersId_form").val("");
 		$("#receiverName_form").val("");
+		$("#receiverMobile_form").val("");
 		$("#title_form").val("");
 		$("#status_form").val("");
 		$("#payMent_form").val("");
@@ -260,12 +263,14 @@
 								<div class="table-toolbar">
 								<div class="table-toolbar">
 									<ul class="topList clearfix">
-										<li class="col-md-4"><label class="titname">订单编号：</label>
+										<li class="col-md-4"><label class="titname">聚美订单编号：</label>
 											<input type="text" id="tid_input" /></li>
 										<li class="col-md-4"><label class="titname">EC订单编号：</label>
 											<input type="text" id="ordersId_input" /></li>
 										<li class="col-md-4"><label class="titname">收货人姓名：</label>
 											<input type="text" id="receiverName_input" /></li>
+										<li class="col-md-4"><label class="titname">联系方式：</label>
+											<input type="text" id="receiverMobile_input" /></li>
 										<li class="col-md-4"><label class="titname">订单时间：</label>
 											<input type="text" id="startDate" />
 										</li>
@@ -302,7 +307,7 @@
 								<table class="table table-bordered table-striped table-condensed table-hover flip-content" id="stock_tab">
                                        <thead class="flip-content bordered-darkorange">
 										<tr role="row">
-													<th style="text-align: center;">订单编号</th>
+													<th style="text-align: center;">聚美订单编号</th>
 													<!-- tid -->
 													<th style="text-align: center;">王府井订单编号</th>
 													<!--ordersid -->
@@ -338,6 +343,7 @@
 											<input type="hidden" id="tid_form" name="tid" /> 
 											<input type="hidden" id="ordersId_form" name="ordersId" /> 
 											<input type="hidden" id="receiverName_form" name="receiverName" /> 
+											<input type="hidden" id="receiverMobile_form" name="receiverMobile" /> 
 											<input type="hidden" id="title_form" name="goodName" /> 
 											<input type="hidden" id="status_form" name="status" /> 
 											<input type="hidden" id="payMent_form" name="symbol" />

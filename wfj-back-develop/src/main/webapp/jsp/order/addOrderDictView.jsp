@@ -155,9 +155,11 @@
 							<div class="widget-body">
 								<form id="theForm" method="post" class="form-horizontal"
 									enctype="multipart/form-data">
-									<input type="hidden" name="userName" value="${username }" />
+									<input type="hidden" name="userName" value="" />
 									<input type="hidden" name="typeName" id="typeName_select2" />
-									
+									<script type="text/javascript">
+										$("input[name='userName']").val(getCookieValue("username"));
+									</script>
 									<div class="form-group">
 										<div class="col-lg-8 col-sm-8 col-xs-8 col-lg-offset-2">
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="margin-left:13%">字典类型：</label>

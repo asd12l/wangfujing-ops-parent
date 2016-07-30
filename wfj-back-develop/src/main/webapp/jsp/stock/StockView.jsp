@@ -167,6 +167,9 @@
 							//使用模板
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
+							if(data != null && data.total != null){
+								$("#total").text(data.total);
+							}
 						}
 					}
 				});
@@ -697,6 +700,11 @@
 											<input type="hidden" id="shoppe_from" name="shoppeCode" />
 										</form>
 									</div>
+									<div style="float: right;float: right !important;padding: 10px;color: rgb(72, 185, 239);">
+										<div class="col-lg-12">
+											<p>共&nbsp;<span id="total">0</span>&nbsp;条</p>
+										</div>
+									</div>
 									<div id="stockPagination"></div>
 								</div>
 								<!-- Templates -->
@@ -823,13 +831,13 @@
 								<div class="pull-left" style="margin-top: 5px;">
 									<form id="stockHis_form" action="">
 										<div class="col-lg-12">
-											<select onchange="stockHisQuery();" name="pageSize"
+											<!-- <select onchange="stockHisQuery();" name="pageSize"
 												style="padding: 0 12px;">
 												<option>5</option>
 												<option selected="selected">10</option>
 												<option>15</option>
 												<option>20</option>
-											</select>
+											</select> -->
 										</div>
 										&nbsp; <input type="hidden" name="shoppeProSid"
 											id="shoppeProSid_form" value="" /> <input type="hidden"

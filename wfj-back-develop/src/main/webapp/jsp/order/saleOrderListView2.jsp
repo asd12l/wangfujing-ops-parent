@@ -1083,6 +1083,7 @@
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("a").replaceWith(saleNo);
 		 newTr.find("td:eq(0)").hide();
 		 $("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -1792,6 +1793,7 @@
 		"<th width='5%' style='text-align: center;'>二级支付介质</th>"+
 		"<th width='5%' style='text-align: center;'>支付金额</th>"+
 		"<th width='5%' style='text-align: center;'>实际支付金额</th>"+
+		"<th width='5%' style='text-align: center;'>运费</th>"+
 		"<th width='5%' style='text-align: center;'>汇率</th>"+
 		"<th width='5%' style='text-align: center;'>账号</th>"+
 		"<th width='5%' style='text-align: center;'>用户ID</th>"+
@@ -1850,6 +1852,12 @@
 							option5+="<td align='center'></td>";
 						}else{
 							option5+="<td align='center'>"+ele.acturalAmount+"</td>";
+						}
+						//运费
+						if(ele.shippingFee=="[object Object]"||ele.shippingFee==undefined){
+							option5+="<td align='center'></td>";
+						}else{
+							option5+="<td align='center'>"+ele.shippingFee+"</td>";
 						}
 						//汇率
 						if(ele.rate=="[object Object]"||ele.rate==undefined){
@@ -2459,9 +2467,11 @@
 					      </ul> -->
 					      <div class="tab-content">
 					        <div class="tab-pane active" id="tab1">
-					        	<input type="hidden" name="userName" value="${username}"/>
+					        	<input type="hidden" name="userName" value=""/>
 					        	<input type="hidden" name="orderItemNo" id="orderItemNo">
-					        	
+					        	<script type="text/javascript">
+									$("input[name='userName']").val(getCookieValue("username"));
+								</script>
 					            <div style="width:100%;height:200px; overflow:scroll;">
 				                    <table class="table-striped table-hover table-bordered" id="OLV1_tab" style="width: 700%;background-color: #fff;margin-bottom: 0;">
 				                    </table>

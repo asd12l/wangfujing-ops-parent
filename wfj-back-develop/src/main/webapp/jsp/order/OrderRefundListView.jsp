@@ -1144,11 +1144,14 @@
  	}
  	
  	//点击tr事件 退货申请单明细
-	function trClick3(refundApplyNo,obj){
+	function trClick3(refundNo,orderNo,refundApplyNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"_").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"").replaceWith(refundNo);
 		$("#mainTr3").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
@@ -1635,9 +1638,12 @@
 		}
  	}
  	//点击tr事件 订单详情
-	function trClick2(orderNo,obj){
+	function trClick2(refundNo,orderNo,refundApplyNo,obj){
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"_").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"").replaceWith(refundNo);
 		 $("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -2418,8 +2424,8 @@
 							option4+="<td align='center'>订单作废</td>";
 						}else if(ele.priviousStatus=="9302"){
 							option4+="<td align='center'>拒收</td>";
-						}else if(ele.priviousStatus=="9303"){
-							option4+="<td align='center'>订单取消中</td>";
+						}else if(ele.priviousStatus=="9307"){
+							option4+="<td align='center'>已退货</td>";
 						}else if(ele.priviousStatus=="9304"){
 							option4+="<td align='center'>取消成功</td>";
 						}else if(ele.priviousStatus=="9305"){
@@ -2739,11 +2745,14 @@
 	}
 	
 	//点击tr事件
-	function trClick(refundNo,refundType,obj){
+	function trClick(refundNo,orderNo,refundApplyNo,refundType,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"_").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"").replaceWith(refundNo);
 		$("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
@@ -3752,21 +3761,21 @@
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													
 													<td align="center">
-														<a onclick="trClick('{$T.Result.refundNo}','{$T.Result.refundType}',this);" style="cursor:pointer;">
+														<a id="{$T.Result.refundNo}" onclick="trClick('{$T.Result.refundNo}','{$T.Result.orderNo}','{$T.Result.refundApplyNo}','{$T.Result.refundType}',this);" style="cursor:pointer;">
 															{#if $T.Result.refundNo != '[object Object]'}{$T.Result.refundNo}
 						                   					{#/if}
 														</a>
 													</td>
 													<td align="center" id="orderNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick2('{$T.Result.orderNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.orderNo}_" onclick="trClick2('{$T.Result.refundNo}','{$T.Result.orderNo}','{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>
 													</td>
 													<td align="center" id="refundApplyNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick3('{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.refundApplyNo}_" onclick="trClick3('{$T.Result.refundNo}','{$T.Result.orderNo}','{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.refundApplyNo != '[object Object]'}{$T.Result.refundApplyNo}
 							                   				{#/if}
 														</a>

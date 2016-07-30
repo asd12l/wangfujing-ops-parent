@@ -937,12 +937,16 @@
 		$("#btDiv211").hide();
 	}
  	//订单详情
- 	function trClick3(orderNo,obj){
+ 	function trClick3(orderNo,saleNo,refundApplyNo,refundNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"_").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
+		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
 		 newTr.find("td:eq(10)").hide();
 		 $("#mainTr3").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -1712,8 +1716,8 @@
 							option4+="<td align='center'>订单作废</td>";
 						}else if(ele.priviousStatus=="9302"){
 							option4+="<td align='center'>拒收</td>";
-						}else if(ele.priviousStatus=="9303"){
-							option4+="<td align='center'>订单取消中</td>";
+						}else if(ele.priviousStatus=="9307"){
+							option4+="<td align='center'>已退货</td>";
 						}else if(ele.priviousStatus=="9304"){
 							option4+="<td align='center'>取消成功</td>";
 						}else if(ele.priviousStatus=="9305"){
@@ -2101,11 +2105,15 @@
 		
 	}
  	//点击tr事件（退货单明细）
-	function trClick2(refundNo,refundType,obj){
+	function trClick2(orderNo,saleNo,refundApplyNo,refundNo,refundType,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"_").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
+		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
 		 newTr.find("td:eq(10)").hide();
 		$("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -2841,11 +2849,15 @@
 		$("#btDiv21").hide();
 	}
 	//点击tr事件(销售单)
-	function trClick4(saleNo,obj){
+	function trClick4(orderNo,saleNo,refundApplyNo,refundNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"_").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
+		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
 		 newTr.find("td:eq(10)").hide();
 		 $("#mainTr4").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -3500,6 +3512,14 @@
 							option4+="<td align='center'>已打包</td>";
 						}else if(ele.priviousStatus=="07"){
 							option4+="<td align='center'>已出库</td>";
+						}else if(ele.priviousStatus=="08"){
+							option4+="<td align='center'>已签收</td>";
+						}else if(ele.priviousStatus=="09"){
+							option4+="<td align='center'>已拒收</td>";
+						}else if(ele.priviousStatus=="10"){
+							option4+="<td align='center'>已支付</td>";
+						}else if(ele.priviousStatus=="11"){
+							option4+="<td align='center'>备货中</td>";
 						}else if(ele.priviousStatus=="99"){
 							option4+="<td align='center'>已取消</td>";
 						}else if(ele.priviousStatus=="2015"){
@@ -3970,11 +3990,15 @@
 		
  	}
  	//点击tr事件 退货申请单明细
-	function trClick(refundApplyNo,obj){
+	function trClick(orderNo,saleNo,refundApplyNo,refundNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
+		 newTr.children().find("#"+refundApplyNo+"_").replaceWith(refundApplyNo);
+		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
+		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
+		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
 		 newTr.find("td:eq(10)").hide();
 		$("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
@@ -4486,28 +4510,28 @@
 											{#foreach $T.list as Result}
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													<td align="center" id="orderNo_{$T.Result.sid}">
-						                   				<a onclick="trClick3('{$T.Result.orderNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.orderNo}_" onclick="trClick3('{$T.Result.orderNo}','{$T.Result.originalSalesNo}','{$T.Result.refundApplyNo}','{$T.Result.refundNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>
 													</td>
 													<td align="center" id="refundNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick2('{$T.Result.refundNo}','{$T.Result.refundType}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.refundNo}_" onclick="trClick2('{$T.Result.orderNo}','{$T.Result.originalSalesNo}','{$T.Result.refundApplyNo}','{$T.Result.refundNo}','{$T.Result.refundType}',this);" style="cursor:pointer;">
 															{#if $T.Result.refundNo != '[object Object]'}{$T.Result.refundNo}
 						                   					{#/if}
 														</a>
 													</td>
 													<td align="center" id="refundApplyNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick('{$T.Result.refundApplyNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.refundApplyNo}_" onclick="trClick('{$T.Result.orderNo}','{$T.Result.originalSalesNo}','{$T.Result.refundApplyNo}','{$T.Result.refundNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.refundApplyNo != '[object Object]'}{$T.Result.refundApplyNo}
 							                   				{#/if}
 														</a>
 													</td>
 													<td align="center" id="originalSalesNo_{$T.Result.sid}">
 														
-						                   				<a onclick="trClick4('{$T.Result.originalSalesNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.originalSalesNo}_" onclick="trClick4('{$T.Result.orderNo}','{$T.Result.originalSalesNo}','{$T.Result.refundApplyNo}','{$T.Result.refundNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.originalSalesNo != '[object Object]'}{$T.Result.originalSalesNo}
 							                   				{#/if}
 														</a>

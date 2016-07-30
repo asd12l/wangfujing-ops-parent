@@ -228,6 +228,9 @@ Author: WangSy
 							//使用模板
 							$("#product_tab tbody").setTemplateElement(
 									"product-list").processTemplate(data);
+							if(data != null && data.total != null){
+								$("#total").text(data.total);
+							}
 						}
 					}
 				});
@@ -2355,7 +2358,13 @@ function getProPproductByProductCode(value){
 											<input type="hidden" id="proType_from" name="proType"/> -->
 									</form>
 								</div>
+								<div style="float: right;float: right !important;padding: 10px;color: rgb(72, 185, 239);">
+									<div class="col-lg-12">
+										<p>共&nbsp;<span id="total">0</span>&nbsp;条</p>
+									</div>
+								</div>
 								<div id="productPagination"></div>
+								
 							</div>
 							<!-- Templates -->
 							<p style="display: none">

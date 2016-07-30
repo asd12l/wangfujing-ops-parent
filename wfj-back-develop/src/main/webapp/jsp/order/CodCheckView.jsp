@@ -45,7 +45,7 @@ $(function() {
 	}
 	function Ok1(){
 		$("#btDiv2").hide();
-		var userName = "${username}";
+		var userName = getCookieValue("username");
 		var amount = $("#codAmount_input").val();
 		$.ajax({
 			type : "post",
@@ -136,7 +136,10 @@ $(function() {
                                     	
                                			<form id="olv_form" action="">
 											<input type="hidden" id="codAmount_form" name="codAmount"/>
-											<input type="hidden" name="userName" value="${username}"/>
+											<input type="hidden" name="userName" value=""/>
+											<script type="text/javascript">
+												$("input[name='userName']").val(getCookieValue("username"));
+											</script>
                                       	</form>
                                 	<div style="width:100%; height:0%; min-height:300px; overflow-Y: hidden;">
                                     </div>

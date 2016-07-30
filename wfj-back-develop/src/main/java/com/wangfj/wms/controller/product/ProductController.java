@@ -334,13 +334,13 @@ public class ProductController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("skuCode", id);
         try {
-        	String sku = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
+            String sku = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
                     + "/product/getBaseSkuByPara.htm", JsonUtil.getJSONString(map));
-        	
-        	id = JSONObject.fromObject(JSONObject.fromObject(sku).get("data")).getString("sid");
-        	map.clear();
+
+            id = JSONObject.fromObject(JSONObject.fromObject(sku).get("data")).getString("sid");
+            map.clear();
             map.put("skuSid", id);
-        	
+
             jsonShoppro = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
                     + "/product/selectProPageBySku.htm", JsonUtil.getJSONString(map));
             jsons = JSONObject.fromObject(jsonShoppro);
@@ -1386,6 +1386,12 @@ public class ProductController {
                         Integer total = jsonPage.getInt("total");
                         Integer pageSize = jsonPage.getInt("pageSize");
                         Integer pageCount = total % pageSize == 0 ? total / pageSize : total / pageSize + 1;
+                        //搜索 ES 1W以上数据分页查不出来
+                        Integer esTotal = 10000;
+                        if (total > esTotal) {
+                            pageCount = esTotal % pageSize == 0 ? esTotal / pageSize : esTotal / pageSize + 1;
+                        }
+                        proMap.put("total", total);
                         proMap.put("pageCount", pageCount);
                     } else {
                         proMap.put("list", null);

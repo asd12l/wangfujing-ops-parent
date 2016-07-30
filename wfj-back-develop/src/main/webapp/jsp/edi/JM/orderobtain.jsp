@@ -36,17 +36,14 @@
 	
 	function  obtain(){
 		$("#tid_form").val($("#tid_input").val());
-		$("#skuid_form").val($("#skuid_input").val());
 		var params = $("#stock_form").serialize();
 		params = decodeURI(params);
 		stockPagination.onLoad(params);
 	}
 	function reset() {
 		$("#tid_input").val("");
-		$("#skuid_input").val("");
 
 		$("#tid_form").val("");
-		$("#skuid_form").val("");
 		stockQuery();
 	}
 	function stockQuery() {
@@ -148,10 +145,6 @@
 											<span>订单号：</span>
 											<input type="text" id="tid_input" style="width: 200px"/>
 										</li>
-										<li>
-											<span>商家编码：</span>
-											<input type="text" id="skuid_input" style="width: 200px"/>
-										</li>
 										
 										<li style="height:35px;margin-top:0;">
 											<a class="btn btn-default shiny" onclick="obtain();">获取</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -194,7 +187,6 @@
 												</select>
 											</div>&nbsp; 
 										 <input type="hidden" id="tid_form" name="tid" />
-										 <input type="hidden" id="skuid_form" name="sku_id" />
 										 <input type="hidden" id="action_form" name="action" value="obtain"/>  
 									</form>
 								</div>
