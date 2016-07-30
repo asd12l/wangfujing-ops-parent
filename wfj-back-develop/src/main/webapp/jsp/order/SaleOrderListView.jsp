@@ -3559,27 +3559,35 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
-														{#if $T.Result.integral != '[object Object]'}
+														{#if $T.Result.integral != null}
 															{$T.Result.integral}
 						                   				{#else}
 						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="shippingFee_{$T.Result.sid}">
-														{#if $T.Result.shippingFee != '[object Object]'}{$T.Result.shippingFee}
+														{#if $T.Result.shippingFee != null}{$T.Result.shippingFee}
+														{#else}
+						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													
 													<td align="center" id="discountAmount_{$T.Result.sid}">
-														{#if $T.Result.discountAmount != '[object Object]'}{$T.Result.discountAmount}
+														{#if $T.Result.discountAmount != null}{$T.Result.discountAmount}
+														{#else}
+						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="couponAmount_{$T.Result.sid}">
-														{#if $T.Result.couponAmount != '[object Object]'}{$T.Result.couponAmount}
+														{#if $T.Result.couponAmount != null}{$T.Result.couponAmount}
+														{#else}
+						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
-														{#if $T.Result.accountBalanceAmount != '[object Object]'}{$T.Result.accountBalanceAmount}
+														{#if $T.Result.accountBalanceAmount != null}{$T.Result.accountBalanceAmount}
+														{#else}
+						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													

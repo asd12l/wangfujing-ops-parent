@@ -3227,10 +3227,10 @@ public class OmsOrderController {
 			map.put("refundClass", request.getParameter("refundClass"));
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("endRefundTime"))){
-			map.put("endRefundTimeStr", request.getParameter("endRefundTime").trim());
+			map.put("endRefundTime", request.getParameter("endRefundTime").trim());
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("startRefundTime"))){
-			map.put("startRefundTimeStr", request.getParameter("startRefundTime").trim());
+			map.put("startRefundTime", request.getParameter("startRefundTime").trim());
 		}
 		map.put("start", String.valueOf(currPage));
 		map.put("limit", String.valueOf(size));
