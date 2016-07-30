@@ -145,16 +145,16 @@ private static final Logger logger = LoggerFactory.getLogger(EdiYzOrderControlle
 	public void exportExcleHlm(HttpServletRequest request, HttpServletResponse response) {
 		
 		String json = "";
-		String title = "hlm_export";
+		String title = "好乐买数据交互订单明细报表";
 		String jsons = "";
 		List<ExprotVo> epv = new ArrayList<ExprotVo>();
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		
 		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
 			paramMap.put("userName", CookiesUtil.getUserName(request));
 		}else{
 			paramMap.put("userName", "");
 		}
-
 		if(request.getParameter("tid") != null && request.getParameter("tid") != ""){
 			paramMap.put("tid", request.getParameter("tid"));
 		}
@@ -243,9 +243,9 @@ private static final Logger logger = LoggerFactory.getLogger(EdiYzOrderControlle
 		try {
 			OutputStream file = response.getOutputStream();
 			response.reset();
-			response.setContentType("APPLICATION/OCTET-STREAM"); 
-			response.setHeader("Content-disposition",
-					"attachment; filename=/"+title+".xls");
+			 response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+			    response.addHeader("Content-Disposition", "attachment;filename="
+			        + new String((title+".xls").getBytes("gbk"), "iso-8859-1"));
 			
 			ef.save(file);
 			return "成功";

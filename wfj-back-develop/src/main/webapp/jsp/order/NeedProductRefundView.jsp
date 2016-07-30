@@ -89,7 +89,7 @@
 			$.ajax({
 				type: "post",
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
-				url: __ctxPath+"/testOnlineOmsOrder/selectCodelist?typeValue=refundReason",
+				url: __ctxPath+"/testOnlineOmsOrder/selectCodelist?typeValue=refundReason2",
 				dataType: "json",
 				success: function(response) {
 					var result = response;
@@ -2358,7 +2358,7 @@
                 <div align="center">
                 &nbsp;&nbsp; &nbsp; &nbsp;
                 	 <div>
-	                   	<label id="lable4">退货原因：</label>
+	                   	<label id="lable4">取消原因：</label>
 	                   	<select id="sp4">
 	                   		<option value="">请选择退货申请原因</option>
 	                   	</select>&nbsp;

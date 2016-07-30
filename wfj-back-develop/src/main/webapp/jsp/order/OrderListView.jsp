@@ -2392,7 +2392,7 @@
 						}
 						//积分
 						if(ele.integral=="[object Object]"||ele.integral==undefined){
-							option5+="<td align='center'></td>";
+							option5+="<td align='center'>0</td>";
 						}else{
 							option5+="<td align='center'>"+ele.integral+"</td>";
 						}
@@ -2410,7 +2410,7 @@
 						}
 						//使用优惠券金额
 						if(ele.couponAmount=="[object Object]"||ele.couponAmount==undefined){
-							option5+="<td align='center'></td>";
+							option5+="<td align='center'>0</td>";
 						}else{
 							option5+="<td align='center'>"+ele.couponAmount+"</td>";
 						}
@@ -2777,7 +2777,7 @@
 					+ orderNo + "&&outOrderNo=" + outOrderNo + "&&startSaleTime=" + startSaleTime + "&&endSaleTime=" + endSaleTime
 					+ "&&orderStatus=" + orderStatus + "&&supplyProductNo=" + supplyProductNo + "&&payStatus="
 					+ payStatus + "&&isCod=" + isCod + "&&memberNo=" + memberNo + "&&receptPhone=" + receptPhone + "&&title="
-					+ title);
+					+ title +"&&pageSize=" + 1000 +"&&page=" + 1);
 		} else {
 			$("#model-body-warning")
 					.html(
@@ -3114,8 +3114,8 @@
 						                      				<span>是</span>
 						                   				{#/if}
 													</td>
-													<td align="center" id="needSendCost_{$T.Result.sid}">
-														{#if $T.Result.needSendCost != '[object Object]'}{$T.Result.needSendCost}
+													<td align="center" id="sendCost_{$T.Result.sid}">
+														{#if $T.Result.sendCost != '[object Object]'}{$T.Result.sendCost}
 						                   				{#/if}
 													</td>
 													
@@ -3129,7 +3129,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
-														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+														{#if $T.Result.integral != ''}
+															{$T.Result.integral}
+														{#else}
+															<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
@@ -3141,7 +3144,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="couponAmount_{$T.Result.sid}">
-														{#if $T.Result.couponAmount != '[object Object]'}{$T.Result.couponAmount}
+														{#if $T.Result.couponAmount != '[object Object]'}
+															{$T.Result.couponAmount}
+														{#else}
+						                      				<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="cashAmount_{$T.Result.sid}">

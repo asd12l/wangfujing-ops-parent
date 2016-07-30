@@ -2,9 +2,17 @@ package com.wangfj.order.controller.suppot;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class ExcelRefundMonVo {
-
+	private List<RefundMonItemDto> refundMonItemList;
+	
+public List<RefundMonItemDto> getRefundMonItemList() {
+		return refundMonItemList;
+	}
+	public void setRefundMonItemList(List<RefundMonItemDto> refundMonItemList) {
+		this.refundMonItemList = refundMonItemList;
+	}
 private String refundMonNo;
 	
 	private String orderNo;

@@ -1389,7 +1389,8 @@ public class ProductController {
                         //搜索 ES 1W以上数据分页查不出来
                         Integer esTotal = 10000;
                         if (total > esTotal) {
-                            pageCount = esTotal % pageSize == 0 ? esTotal / pageSize : esTotal / pageSize + 1;
+//                            pageCount = esTotal % pageSize == 0 ? esTotal / pageSize : esTotal / pageSize + 1;
+                            pageCount = esTotal / pageSize;
                         }
                         proMap.put("total", total);
                         proMap.put("pageCount", pageCount);

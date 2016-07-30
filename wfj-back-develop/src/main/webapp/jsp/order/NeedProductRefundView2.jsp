@@ -2360,7 +2360,7 @@
                 <div align="center">
                 &nbsp;&nbsp; &nbsp; &nbsp;
                 	 <div>
-	                   	<label id="lable4">退货原因：</label>
+	                   	<label id="lable4">拒收原因：</label>
 	                   	<select id="sp4">
 	                   		<option value="">请选择退货申请原因</option>
 	                   	</select>&nbsp;

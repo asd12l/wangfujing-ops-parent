@@ -2599,12 +2599,22 @@
 					                    </fieldset>
 					                    <div>
 					                    	<label id="packStatusInput">包装情况：</label>
-					                    	<input id="packStatus"></input>
+					                    	<!-- <input id="packStatus"></input> -->
+					                    	<select id="packStatus">
+					                    		<option value="包装良好">包装良好</option>
+												<option value="包装损坏">包装损坏</option>
+												<option value="包装无">包装无</option>
+											</select>
 					                    </div>
 					                   
 					                     <div>
 					                    	<label id="productsStatusInput">商品情况：</label>
-					                    	<input id="productsStatus"></input>
+					                    	<!-- <input id="productsStatus"></input> -->
+					                    	<select id="productsStatus">
+					                    		<option value="良好">良好</option>
+												<option value="有划痕">有划痕</option>
+												<option value="外观破损">外观破损</option>
+											</select>
 					                    </div>
 					                    
 					                     

@@ -2179,6 +2179,8 @@
 							option3+="<td align='center'>取消成功</td>";
 						}else if(ele.priviousStatus=="6"){
 							option3+="<td align='center'>已完结</td>";
+						}else if(ele.priviousStatus=="7"){
+							option3+="<td align='center'>确认收货</td>";
 						}else{
 							option3+="<td align='center'></td>";
 						}
