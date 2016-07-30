@@ -2777,7 +2777,7 @@
 					+ orderNo + "&&outOrderNo=" + outOrderNo + "&&startSaleTime=" + startSaleTime + "&&endSaleTime=" + endSaleTime
 					+ "&&orderStatus=" + orderStatus + "&&supplyProductNo=" + supplyProductNo + "&&payStatus="
 					+ payStatus + "&&isCod=" + isCod + "&&memberNo=" + memberNo + "&&receptPhone=" + receptPhone + "&&title="
-					+ title);
+					+ title +"&&pageSize=" + 1000 +"&&page=" + 1);
 		} else {
 			$("#model-body-warning")
 					.html(
