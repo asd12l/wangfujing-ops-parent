@@ -2382,6 +2382,8 @@
 							option3+="<td align='center'>取消成功</td>";
 						}else if(ele.priviousStatus=="6"){
 							option3+="<td align='center'>已完结</td>";
+						}else if(ele.priviousStatus=="7"){
+							option3+="<td align='center'>确认收货</td>";
 						}else{
 							option3+="<td align='center'></td>";
 						}
@@ -2543,6 +2545,7 @@
                                                 <th width="4%" style="text-align: center;">CID</th>
                                                 <th width="3%" style="text-align: center;">申请单状态</th>
                                                 <th width="3%" style="text-align: center;">申请单类别</th>
+                                                <th width="3%" style="text-align: center;">审核不通过原因</th>
                                                  <th width="3%" style="text-align: center;">开户行</th>
                                                 <th width="3%" style="text-align: center;">开户账号</th>
                                                 <th width="3%" style="text-align: center;">持卡人</th>
@@ -2602,6 +2605,10 @@
 						                      			{#elseif $T.Result.refundClass == 'RejectReturn'}拒收退货
 						                      			{#elseif $T.Result.refundClass == 'RequestCancelReturn'}发货前退货
 						                      			{#elseif $T.Result.refundClass == 'OOSReturn'}缺货退货
+						                   				{#/if}
+													</td>
+													<td align="center" id="c2_{$T.Result.sid}">
+														{#if $T.Result.c2 != '[object Object]'}{$T.Result.c2}
 						                   				{#/if}
 													</td>
 													<td align="center" id="bankName_{$T.Result.sid}">
@@ -2675,6 +2682,7 @@
                                                 <th width="4%" style="text-align: center;">CID</th>
                                                 <th width="3%" style="text-align: center;">申请单状态</th>
                                                 <th width="3%" style="text-align: center;">申请单类别</th>
+                                                <th width="3%" style="text-align: center;">审核不通过原因</th>
                                                 <th width="3%" style="text-align: center;">开户行</th>
                                                 <th width="3%" style="text-align: center;">开户账号</th>
                                                 <th width="3%" style="text-align: center;">持卡人</th>
@@ -2738,6 +2746,7 @@
                                                 <th width="4%" style="text-align: center;">CID</th>
                                                 <th width="3%" style="text-align: center;">申请单状态</th>
                                                 <th width="3%" style="text-align: center;">申请单类别</th>
+                                                <th width="3%" style="text-align: center;">审核不通过原因</th>
                                                 <th width="3%" style="text-align: center;">开户行</th>
                                                 <th width="3%" style="text-align: center;">开户账号</th>
                                                 <th width="3%" style="text-align: center;">持卡人</th>

@@ -6,7 +6,22 @@ import java.util.List;
 
 public class ExcelRefundVo {
 	private Long sid;
+	private String refundReasionNo;
+	
+public String getRefundReasionNo() {
+		return refundReasionNo;
+	}
+	public void setRefundReasionNo(String refundReasionNo) {
+		this.refundReasionNo = refundReasionNo;
+	}
+private String shoppeProName;
 
+	public String getShoppeProName() {
+	return shoppeProName;
+}
+public void setShoppeProName(String shoppeProName) {
+	this.shoppeProName = shoppeProName;
+}
 	private BigDecimal totalDiscount;
 	private BigDecimal quanAmount;
 	

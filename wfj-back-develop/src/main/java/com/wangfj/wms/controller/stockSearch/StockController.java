@@ -111,7 +111,8 @@ public class StockController {
                     //搜索 ES 1W以上数据分页查不出来
                     Integer esTotal = 10000;
                     if (total > esTotal) {
-                        Integer pageCount = esTotal % size == 0 ? esTotal / size : esTotal / size + 1;
+//                        Integer pageCount = esTotal % size == 0 ? esTotal / size : esTotal / size + 1;
+                        Integer pageCount = esTotal / size;
                         map.put("pageCount", pageCount);
                     }
                 } else {

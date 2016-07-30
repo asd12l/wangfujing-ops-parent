@@ -4,6 +4,53 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ExcelSaleVo {
+	
+	private String receptName;
+	private String receptCityName;
+	private String receptCityCode;
+	private String receptProvName;
+	private String receptAddress;
+	
+	public String getReceptName() {
+		return receptName;
+	}
+
+	public void setReceptName(String receptName) {
+		this.receptName = receptName;
+	}
+
+	public String getReceptCityName() {
+		return receptCityName;
+	}
+
+	public void setReceptCityName(String receptCityName) {
+		this.receptCityName = receptCityName;
+	}
+
+	public String getReceptCityCode() {
+		return receptCityCode;
+	}
+
+	public void setReceptCityCode(String receptCityCode) {
+		this.receptCityCode = receptCityCode;
+	}
+
+	public String getReceptProvName() {
+		return receptProvName;
+	}
+
+	public void setReceptProvName(String receptProvName) {
+		this.receptProvName = receptProvName;
+	}
+
+	public String getReceptAddress() {
+		return receptAddress;
+	}
+
+	public void setReceptAddress(String receptAddress) {
+		this.receptAddress = receptAddress;
+	}
+
 	private String integral; //积分
 	
 	public String getIntegral() {

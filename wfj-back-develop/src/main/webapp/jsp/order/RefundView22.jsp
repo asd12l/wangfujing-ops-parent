@@ -69,6 +69,10 @@ Author: WangSy
 		font-size: 15px;
 		height: 38px;
 	} 
+	#amount6{
+		font-size: 15px;
+		height: 38px;
+	} 
 	#refundFee{
 		font-size: 15px;
 		height: 38px;
@@ -118,6 +122,7 @@ Author: WangSy
 			//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee)-quanAmount).toFixed(2));
 		}
 		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+		$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 //	var data2 = orderData;
 	var data_;
 	/* //退货方式
@@ -765,7 +770,8 @@ function shbtgForm(){
 										                   				{#/if}
 																	</td>
 																	<td align="center" class="salePriceClass" id="salePrice_{$T.Result.sid}">
-																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
+																		{#if $T.Result.salePrice != '[object Object]'}
+																			{parseFloat($T.Result.salePrice).toFixed(2)}
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
@@ -800,12 +806,14 @@ function shbtgForm(){
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
-																		{#if $T.Result.refundSalePrice != '[object Object]'}{$T.Result.refundSalePrice}
+																		{#if $T.Result.refundSalePrice != '[object Object]'}
+																			{parseFloat($T.Result.refundSalePrice).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
-																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}
+																			{parseFloat($T.Result.actualRefundAmount).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>
@@ -1272,7 +1280,9 @@ function shbtgForm(){
 													<div class="col-md-12">
 														<div class="col-md-6">
 														<span>应退款金额：</span>
-														<label id="amount1" class="control-label"></label>
+														<label id="amount1" class="control-label"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<span>&nbsp;&nbsp;现金类支付金额（不含运费）：</span>
+														<label id="amount6" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
 													<div class="col-md-12">
@@ -1302,6 +1312,7 @@ function shbtgForm(){
 														<label id="refundFee" class="control-label"></label>
 													</div>
 													</div>
+													
 													<div class="col-md-12">
 														<div class="col-md-6">
 														<span>&nbsp;&nbsp;退回顾客优惠券金额：</span>
@@ -1316,7 +1327,7 @@ function shbtgForm(){
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;实际退款金额合计：</span>
+														<span>&nbsp;&nbsp;实际退款金额合计（含运费）：</span>
 														<label id="amount4" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;

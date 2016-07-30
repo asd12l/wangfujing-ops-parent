@@ -64,6 +64,10 @@ Author: WangSy
 		font-size: 15px;
 		height: 38px;
 	}
+	#amount6{
+		font-size: 15px;
+		height: 38px;
+	}
 	#t1{
 		font-size: 14px;
 		height: 4px;
@@ -117,7 +121,7 @@ Author: WangSy
 	$("#olv_tab2 tbody").setTemplateElement("fanquan-list").processTemplate(datas);
 	$("#olv_tab6 tbody").setTemplateElement("Aquan-list").processTemplate(datas);
 	
-	if(datas.refundStatus=="03" || datas.refundStatus=="04" || datas.refundStatus=="12" || datas.refundStatus=="15"){
+	if(datas.refundStatus=="03" || datas.refundStatus=="04" || datas.refundStatus=="12" || datas.refundStatus=="15" || datas.refundStatus=="14" || datas.refundStatus=="13"){
 		$("#refundProductStatus").text("已入库");
 	}else{
 		$("#refundProductStatus").text("未入库");
@@ -216,6 +220,7 @@ Author: WangSy
 							$("#amount2").text(parseFloat(0).toFixed(2));
 							$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 							$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+							$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 					}else{
 						
 						$("#amount2").text(parseFloat(0).toFixed(2));
@@ -228,6 +233,7 @@ Author: WangSy
 							//$("#amount4").text(parseFloat(parseFloat(refundAmount)+parseFloat(returnShippingFee_)-quanAmount).toFixed(2));
 						}
 						$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
+						$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 					}
 				}
 				
@@ -1228,7 +1234,8 @@ Author: WangSy
 										                   				{#/if}
 																	</td>
 																	<td align="center" class="salePriceClass" id="salePrice_{$T.Result.sid}">
-																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
+																		{#if $T.Result.salePrice != '[object Object]'}
+																			{parseFloat($T.Result.salePrice).toFixed(2)}
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
@@ -1263,12 +1270,14 @@ Author: WangSy
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="refundAmount_{$T.Result.sid}">
-																		{#if $T.Result.refundAmount != '[object Object]'}{$T.Result.refundAmount}
+																		{#if $T.Result.refundAmount != '[object Object]'}
+																			{parseFloat($T.Result.refundAmount).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
-																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}
+																			{parseFloat($T.Result.actualRefundAmount).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>
@@ -1757,7 +1766,9 @@ Author: WangSy
 													<div class="col-md-12">
 														<div class="col-md-6">
 														<span>应退款金额：</span>
-														<label id="amount1" class="control-label"></label>
+														<label id="amount1" class="control-label"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<span>&nbsp;&nbsp;现金类支付金额（不含运费）：</span>
+														<label id="amount6" class="control-label"></label>
 														</div>&nbsp;
 													</div>
 													<div class="col-md-12">
@@ -1777,6 +1788,7 @@ Author: WangSy
 														</div> -->
 														&nbsp;
 													</div>
+													
 													<div class="col-md-12">
 														<div class="col-md-6">
 														<span>&nbsp;&nbsp;退回顾客优惠券金额：</span>
@@ -1793,7 +1805,7 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;实际退款金额合计：</span>
+														<span>&nbsp;&nbsp;实际退款金额合计（含运费）：</span>
 														<label id="amount4" class="control-label"></label>
 														</div>
 														&nbsp;

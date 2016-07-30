@@ -224,7 +224,7 @@
 					+ accountNo + "&&outOrderNo=" + outOrderNo + "&&refundMonNo=" + refundMonNo + "&&allRefTimeEnd=" + allRefTimeEnd + "&&allRefTimeStart=" + allRefTimeStart + "&&saleNo=" + saleNo
 					+ "&&refundClass=" + refundClass + "&&confirmRefundMonTimeEndStr=" + confirmRefundMonTimeEndStr + "&&confirmRefundMonTimeStartStr=" + confirmRefundMonTimeStartStr + "&&refundNo=" + refundNo + "&&orderNo="
 					+ orderNo + "&&memberNo=" + memberNo + "&&orderSource=" + orderSource + "&&reMonStatus=" + reMonStatus + "&&title="
-					+ title);
+					+ title +"&&pageSize=" + 1000 +"&&page=" + 1);
 		} else {
 			$("#model-body-warning")
 					.html(

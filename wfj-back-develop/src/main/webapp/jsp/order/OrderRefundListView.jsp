@@ -1440,6 +1440,8 @@
 							option3+="<td align='center'>取消成功</td>";
 						}else if(ele.priviousStatus=="6"){
 							option3+="<td align='center'>已完结</td>";
+						}else if(ele.priviousStatus=="7"){
+							option3+="<td align='center'>确认收货</td>";
 						}else{
 							option3+="<td align='center'></td>";
 						}
@@ -3530,7 +3532,7 @@
 					+ refundApplyNo + "&&orderNo=" + orderNo + "&&refundNo=" + refundNo + "&&originalSalesNo=" + originalSalesNo + "&&memberNo=" + memberNo
 					+ "&&salesPaymentNo=" + salesPaymentNo + "&&endRefundTime=" + endRefundTime + "&&startRefundTime=" + startRefundTime + "&&refundStatus="
 					+ refundStatus + "&&shopNo=" + shopNo + "&&rebateStatus=" + rebateStatus + "&&refundType=" + refundType + "&&refundClass=" + refundClass + "&&title="
-					+ title);
+					+ title +"&&pageSize=" + 1000 +"&&page=" + 1);
 		} else {
 			$("#model-body-warning")
 					.html(

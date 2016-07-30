@@ -1556,7 +1556,9 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("quan", request.getParameter("quan"));
 		paramMap.put("returnShippingFee", request.getParameter("refundFee"));
 		paramMap.put("refundPath", request.getParameter("refundType"));
-//		paramMap.put("warehouseAddress", request.getParameter("address"));
+		if(null!=request.getParameter("cancelReason")){
+			paramMap.put("cancelReason", request.getParameter("cancelReason"));
+		}
 		paramMap.put("fromSystem", "PCM");
 		paramMap.put("latestUpdateMan", request.getParameter("latestUpdateMan"));
 		paramMap.put("refundStatus", request.getParameter("refundStatus"));
@@ -1565,7 +1567,7 @@ public class TestOnlineOmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("sale_return_affirmreturn"), jsonStr);
-//			json = HttpUtilPcm.doPost("http://192.168.6.253:8091/oms-admin/promReesult/salereturnAffirmreturn.htm", jsonStr);
+//			json = HttpUtilPcm.doPost("http://192.168.6.251:8091/oms-admin/promReesult/salereturnAffirmreturn.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{

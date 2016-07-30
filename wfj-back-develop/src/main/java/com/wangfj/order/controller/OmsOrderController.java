@@ -1780,6 +1780,8 @@ public class OmsOrderController {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		paramMap.put("currentPage", String.valueOf(currPage));
 		paramMap.put("pageSize", String.valueOf(size));
+		paramMap.put("start", String.valueOf(currPage));
+		paramMap.put("limit", String.valueOf(size));
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
@@ -1918,6 +1920,8 @@ public class OmsOrderController {
 	public String getRefundMonToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
 		String title = "refundMon";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		List<ExcelRefundMonVo> epv = new ArrayList<ExcelRefundMonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -1960,15 +1964,22 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("confirmRefundMonTimeStartStr"))){
 			map.put("confirmRefundMonTimeStartStr", request.getParameter("confirmRefundMonTimeStartStr"));
 		}
+		
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
+//		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refundMon_list"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://localhost:8081/oms-core/refundMon/queryRefundMonoExcel.htm", jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refundMon_list"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refundMon_list"), jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/refundMon/selectRefundAndMon.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
-			
-			List<Object> list = (List<Object>) js.get("data");
+//			List<Object> list = (List<Object>) js.get("data");
+			String data = js.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
 			String jsonStr2 = "";
 			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
 			paramMap2.put("fromSystem", "OMSADMIN");
@@ -2105,9 +2116,9 @@ public class OmsOrderController {
 			inlist.add(vo.getMemberNo()==null?"":vo.getMemberNo());
 			String refundMonStatusDesc = null;
 			if(vo.getReMonStatus()==0){
-				refundMonStatusDesc = "待付款";
+				refundMonStatusDesc = "未退款";
 			}else if(vo.getReMonStatus()==1){
-				refundMonStatusDesc = "已付款";
+				refundMonStatusDesc = "退款成功";
 			}
 			inlist.add(vo.getReMonStatus()==null?"":refundMonStatusDesc);
 			String refundClass = null;
@@ -2693,8 +2704,8 @@ public class OmsOrderController {
 		header.add("支付时间");
 		header.add("是否需要开发票");
 		header.add("应收运费");
-		header.add("订单应付金额");
-		header.add("现金类支付金额");
+		header.add("订单应付金额(含运费)");
+		header.add("现金类支付金额(含运费不含积分)");
 		header.add("使用余额总额");
 		header.add("订单优惠金额");
 		header.add("取消原因");
@@ -2827,6 +2838,8 @@ public class OmsOrderController {
 	public String getOrderToExcelByPhone(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
 		String title = "order";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		List<ExcelOrderVo> epv = new ArrayList<ExcelOrderVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -2860,14 +2873,21 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
 			map.put("saleTimeEndStr", request.getParameter("endSaleTime"));
 		}
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
+//		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_order_list_phone"), jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_order_list_phone"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://172.16.255.157:8087/oms-core-sdc/order/queryOrderExcel3.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
-			List<Object> list = (List<Object>) js.get("data");
+//			List<Object> list = (List<Object>) js.get("data");
+			String data = js.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
 			//渠道字段转换(PCM接口)
 			String jsonStr22 = "";
 			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
@@ -2948,8 +2968,8 @@ public class OmsOrderController {
 		header.add("支付时间");
 		header.add("是否需要开发票");
 		header.add("应收运费");
-		header.add("订单应付金额");
-		header.add("现金类支付金额（含运费不含积分）");
+		header.add("订单应付金额(含运费)");
+		header.add("现金类支付金额(含运费不含积分)");
 		header.add("积分");
 		header.add("使用余额总额");
 		header.add("订单优惠金额");
@@ -3168,6 +3188,8 @@ public class OmsOrderController {
 	public String getRefundToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
 		String title = "refund";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		List<ExcelRefundVo> epv = new ArrayList<ExcelRefundVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -3205,21 +3227,26 @@ public class OmsOrderController {
 			map.put("refundClass", request.getParameter("refundClass"));
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("endRefundTime"))){
-			map.put("endRefundTimeStr", request.getParameter("endRefundTime").trim());
+			map.put("endRefundTime", request.getParameter("endRefundTime").trim());
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("startRefundTime"))){
-			map.put("startRefundTimeStr", request.getParameter("startRefundTime").trim());
+			map.put("startRefundTime", request.getParameter("startRefundTime").trim());
 		}
-		map.put("fromSystem", "PCM");
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
+		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refund_list"), jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refund_list"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/refund/queryRefundExcel.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
-			
-			List<Object> list = (List<Object>) js.get("data");
+//			List<Object> list = (List<Object>) js.get("data");
+			String data = js.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
 			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
 			paramMap2.put("fromSystem", "OMSADMIN");
 			paramMap2.put("typeValue", "refund_status");
@@ -3295,6 +3322,10 @@ public class OmsOrderController {
 		header.add("退货类型");
 		header.add("退货类别");
 		header.add("退款路径");
+		/*上线前添加7-30*/
+		header.add("退货原因");
+		header.add("商品名称");
+		
 		header.add("第三方退货单号");
 		header.add("应退金额");
 		header.add("实退金额");
@@ -3359,6 +3390,10 @@ public class OmsOrderController {
 			}
 			inlist.add(vo.getRefundClass()==null?"":refundClass);
 			inlist.add(vo.getRefundTarget()==null?"":vo.getRefundTarget());	
+			//退货原因
+			inlist.add(vo.getRefundReasionNo()==null?"":vo.getRefundReasionNo());	
+			inlist.add(vo.getShoppeProName()==null?"":vo.getShoppeProName());	
+			
 			inlist.add(vo.getExternalRefundNo()==null?"":vo.getExternalRefundNo());	
 			inlist.add(vo.getRefundAmount()==null?"":vo.getRefundAmount().toString());	
 			inlist.add(vo.getNeedRefundAmount()==null?"":vo.getNeedRefundAmount().toString());
@@ -3448,7 +3483,7 @@ public class OmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("cancel_refund_status"), jsonStr);
-//			json = HttpUtilPcm.doPost("http://10.6.2.46:8081/oms-core/refundApply/deleteRefundStatus.htm", jsonStr);
+//			json = HttpUtilPcm.doPost("http://192.168.7.34:8081/oms-core/refundApply/deleteRefundStatus.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{
@@ -4603,6 +4638,8 @@ public class OmsOrderController {
 	public String getSaleToExcelByPhone(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
 		String title = "sale";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		List<ExcelSaleVo> epv = new ArrayList<ExcelSaleVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -4645,17 +4682,23 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
 			map.put("saleTimeEnd", request.getParameter("endSaleTime"));
 		}
-//		map.put("fromSystem", "OMSADMIN");
+		
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
+		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcel.htm", jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list_phone"), jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcelByPhone.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
+			/*List<Object> list = (List<Object>) js.get("data");*/
 			
-			List<Object> list = (List<Object>) js.get("data");
-			
+			String data = js.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
 			//渠道字段转换(PCM接口)
 			String jsonStr22 = "";
 			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
@@ -4728,13 +4771,20 @@ public class OmsOrderController {
 		header.add("会员卡号");
 		header.add("销售类别");
 		header.add("销售单来源");
+		
+		header.add("收件人姓名");
+		header.add("收件人城市");
+		header.add("收件城市邮编");
+		header.add("收件地区省份");
+		header.add("收货地址");
+		
 		header.add("门店名称");
 		header.add("供应商编码");
 		header.add("供应商名称");
 		header.add("专柜名称");
 		header.add("销售类型");
 		header.add("总金额");
-		header.add("应付金额");
+		header.add("应付金额（含运费）");
 		header.add("现金类支付金额（含运费不含积分）");
 		header.add("积分");
 		header.add("运费");
@@ -4780,6 +4830,13 @@ public class OmsOrderController {
 			}
 			inlist.add(vo.getSaleType()==null?"":saleType);
 			inlist.add(vo.getSaleSource()==null?"":vo.getSaleSource());	
+			
+			inlist.add(vo.getReceptName()==null?"":vo.getReceptName());	
+			inlist.add(vo.getReceptCityName()==null?"":vo.getReceptCityName());	
+			inlist.add(vo.getReceptCityCode()==null?"":vo.getReceptCityCode());	
+			inlist.add(vo.getReceptProvName()==null?"":vo.getReceptProvName());	
+			inlist.add(vo.getReceptAddress()==null?"":vo.getReceptAddress());	
+			
 			inlist.add(vo.getStoreName()==null?"":vo.getStoreName());	
 			inlist.add(vo.getSupplyNo()==null?"":vo.getSupplyNo());	
 			inlist.add(vo.getSuppllyName()==null?"":vo.getSuppllyName());	
@@ -4793,8 +4850,8 @@ public class OmsOrderController {
 			}
 			inlist.add(vo.getSaleClass()==null?"":saleClass);
 			inlist.add(vo.getSaleAmount()==null?"":vo.getSaleAmount().toString());
-			inlist.add(vo.getPaymentAmount()==null?"":vo.getPaymentAmount().toString());
-			inlist.add(vo.getCashAmount()==null?"":vo.getCashAmount().toString());
+			inlist.add(vo.getPaymentAmount()==null?"":(vo.getPaymentAmount().add(vo.getShippingFee())).toString());
+			inlist.add(vo.getCashAmount()==null?"":(vo.getCashAmount().add(vo.getShippingFee())).toString());
 			inlist.add(vo.getIntegral()==null?"":vo.getIntegral().toString());
 			inlist.add(vo.getShippingFee()==null?"":vo.getShippingFee().toString());
 			
