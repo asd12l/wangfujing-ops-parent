@@ -145,16 +145,16 @@ private static final Logger logger = LoggerFactory.getLogger(EdiYzOrderControlle
 	public void exportExcleHlm(HttpServletRequest request, HttpServletResponse response) {
 		
 		String json = "";
-		String title = "hlm_export";
+		String title = "好乐买数据交互订单明细报表";
 		String jsons = "";
 		List<ExprotVo> epv = new ArrayList<ExprotVo>();
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		
 		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
 			paramMap.put("userName", CookiesUtil.getUserName(request));
 		}else{
 			paramMap.put("userName", "");
 		}
-
 		if(request.getParameter("tid") != null && request.getParameter("tid") != ""){
 			paramMap.put("tid", request.getParameter("tid"));
 		}
