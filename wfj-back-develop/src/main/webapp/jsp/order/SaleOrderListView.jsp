@@ -3393,8 +3393,8 @@
                                                 <th width="3%" style="text-align: center;">销售单状态</th>
                                                 <th width="3%" style="text-align: center;">支付状态</th>
                                                 <th width="3%" style="text-align: center;">手机号</th>
-                                                <th width="3%" style="text-align: center;">CID</th>
-                                                <th width="3%" style="text-align: center;">会员卡号</th>
+                                                <th width="2%" style="text-align: center;">CID</th>
+                                                <th width="2%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">销售类别</th>
                                                 <th width="3%" style="text-align: center;">销售单来源</th>
                                                 <th width="3%" style="text-align: center;">收件人姓名</th>
@@ -3410,20 +3410,20 @@
                                                 <th width="3%" style="text-align: center;">总金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">应付金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
-                                                <th width="3%" style="text-align: center;">积分</th>
-                                                <th width="3%" style="text-align: center;">运费</th>
+                                                <th width="2%" style="text-align: center;">积分</th>
+                                                <th width="2%" style="text-align: center;">运费</th>
                                                 <th width="3%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="3%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="3%" style="text-align: center;">使用余额金额</th>
                                                <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
-                                                <th width="3%" style="text-align: center;">授权卡号</th>
-                                                <th width="3%" style="text-align: center;">二维码</th>
+                                                <th width="2%" style="text-align: center;">授权卡号</th>
+                                                <th width="2%" style="text-align: center;">二维码</th>
                                                 <th width="3%" style="text-align: center;">收银流水号</th>
                                                 <th width="3%" style="text-align: center;">导购号</th>
                                                 <th width="3%" style="text-align: center;">机器号</th>
                                                 <th width="3%" style="text-align: center;">销售时间</th>
                                                 <th width="3%" style="text-align: center;">最后修改人</th>
-                                                <th width="5%" style="text-align: center;">最后修改时间</th>
+                                                <th width="4%" style="text-align: center;">最后修改时间</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -3665,8 +3665,8 @@
                                                 <th width="3%" style="text-align: center;">销售单状态</th>
                                                 <th width="3%" style="text-align: center;">支付状态</th>
                                                 <th width="3%" style="text-align: center;">手机号</th>
-                                                <th width="3%" style="text-align: center;">CID</th>
-                                                <th width="3%" style="text-align: center;">会员卡号</th>
+                                                <th width="2%" style="text-align: center;">CID</th>
+                                                <th width="2%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">销售类别</th>
                                                 <th width="3%" style="text-align: center;">销售单来源</th>
                                                 <th width="3%" style="text-align: center;">收件人姓名</th>
@@ -3682,20 +3682,20 @@
                                                 <th width="3%" style="text-align: center;">总金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">应付金额(含运费)</th>
                                                 <th width="3%" style="text-align: center;">现金类支付金额(含运费不含积分)</th>
-                                                <th width="3%" style="text-align: center;">积分</th>
-                                                <th width="3%" style="text-align: center;">运费</th>
+                                                <th width="2%" style="text-align: center;">积分</th>
+                                                <th width="2%" style="text-align: center;">运费</th>
                                                 <th width="3%" style="text-align: center;">促销优惠金额</th>
                                                 <th width="3%" style="text-align: center;">使用优惠券金额</th>
                                                 <th width="3%" style="text-align: center;">使用余额金额</th>
                                                <!--  <th width="4%" style="text-align: center;">收银损益</th> -->
-                                                <th width="3%" style="text-align: center;">授权卡号</th>
-                                                <th width="3%" style="text-align: center;">二维码</th>
+                                                <th width="2%" style="text-align: center;">授权卡号</th>
+                                                <th width="2%" style="text-align: center;">二维码</th>
                                                 <th width="3%" style="text-align: center;">收银流水号</th>
                                                 <th width="3%" style="text-align: center;">导购号</th>
                                                 <th width="3%" style="text-align: center;">机器号</th>
                                                 <th width="3%" style="text-align: center;">销售时间</th>
                                                 <th width="3%" style="text-align: center;">最后修改人</th>
-                                                <th width="5%" style="text-align: center;">最后修改时间</th>
+                                                <th width="4%" style="text-align: center;">最后修改时间</th>
                                             </tr>
                                         </thead>
                                         <tbody id="mainTr">
