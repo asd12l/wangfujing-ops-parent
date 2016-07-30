@@ -1780,6 +1780,8 @@ public class OmsOrderController {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		paramMap.put("currentPage", String.valueOf(currPage));
 		paramMap.put("pageSize", String.valueOf(size));
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
