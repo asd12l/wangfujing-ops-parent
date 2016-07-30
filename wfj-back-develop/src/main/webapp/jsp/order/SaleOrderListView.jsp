@@ -2024,7 +2024,7 @@
 						}
 						//使用优惠券金额
 						if(ele.couponAmount=="[object Object]"||ele.couponAmount==undefined){
-							option5+="<td align='center'></td>";
+							option5+="<td align='center'>0</td>";
 						}else{
 							option5+="<td align='center'>"+ele.couponAmount+"</td>";
 						}
@@ -3873,7 +3873,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="couponAmount_{$T.Result.sid}">
-														{#if $T.Result.couponAmount != '[object Object]'}{$T.Result.couponAmount}
+														{#if $T.Result.couponAmount != '[object Object]'}
+															{$T.Result.couponAmount}
+														{#else}
+															<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="cashAmount_{$T.Result.sid}">
