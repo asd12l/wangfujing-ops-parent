@@ -2392,7 +2392,7 @@
 						}
 						//积分
 						if(ele.integral=="[object Object]"||ele.integral==undefined){
-							option5+="<td align='center'></td>";
+							option5+="<td align='center'>0</td>";
 						}else{
 							option5+="<td align='center'>"+ele.integral+"</td>";
 						}
@@ -3129,7 +3129,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
-														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+														{#if $T.Result.integral != ''}
+															{$T.Result.integral}
+														{#else}
+															<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">

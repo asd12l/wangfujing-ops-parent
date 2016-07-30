@@ -3559,7 +3559,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
-														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+														{#if $T.Result.integral != '[object Object]'}
+															{$T.Result.integral}
+						                   				{#else}
+						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="shippingFee_{$T.Result.sid}">
@@ -3893,7 +3896,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
-														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+														{#if $T.Result.integral != ''}
+															{$T.Result.integral}
+														{#else}
+															<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
