@@ -1278,7 +1278,7 @@ function shbtgForm(){
 														<div class="col-md-6">
 														<span>应退款金额：</span>
 														<label id="amount1" class="control-label"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														<span>&nbsp;&nbsp;现金类支付金额：</span>
+														<span>&nbsp;&nbsp;现金类支付金额（不含运费）：</span>
 														<label id="amount6" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
@@ -1324,7 +1324,7 @@ function shbtgForm(){
 													</div>&nbsp;
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;实际退款金额合计：</span>
+														<span>&nbsp;&nbsp;实际退款金额合计（含运费）：</span>
 														<label id="amount4" class="control-label"></label>
 														</div>&nbsp;
 													</div>&nbsp;
