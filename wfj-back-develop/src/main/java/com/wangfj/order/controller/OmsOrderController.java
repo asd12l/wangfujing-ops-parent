@@ -3389,8 +3389,8 @@ public class OmsOrderController {
 			inlist.add(vo.getRefundClass()==null?"":refundClass);
 			inlist.add(vo.getRefundTarget()==null?"":vo.getRefundTarget());	
 			//退货原因
-			inlist.add(vo.getShoppeName()==null?"":vo.getShoppeName());	
 			inlist.add(vo.getRefundReasionNo()==null?"":vo.getRefundReasionNo());	
+			inlist.add(vo.getShoppeName()==null?"":vo.getShoppeName());	
 			
 			inlist.add(vo.getExternalRefundNo()==null?"":vo.getExternalRefundNo());	
 			inlist.add(vo.getRefundAmount()==null?"":vo.getRefundAmount().toString());	
