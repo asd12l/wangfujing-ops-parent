@@ -3295,6 +3295,10 @@ public class OmsOrderController {
 		header.add("退货类型");
 		header.add("退货类别");
 		header.add("退款路径");
+		/*上线前添加7-30*/
+		header.add("退货原因");
+		header.add("商品名称");
+		
 		header.add("第三方退货单号");
 		header.add("应退金额");
 		header.add("实退金额");
@@ -3359,6 +3363,10 @@ public class OmsOrderController {
 			}
 			inlist.add(vo.getRefundClass()==null?"":refundClass);
 			inlist.add(vo.getRefundTarget()==null?"":vo.getRefundTarget());	
+			//退货原因
+			inlist.add(vo.getShoppeName()==null?"":vo.getShoppeName());	
+			inlist.add(vo.getRefundReasionNo()==null?"":vo.getRefundReasionNo());	
+			
 			inlist.add(vo.getExternalRefundNo()==null?"":vo.getExternalRefundNo());	
 			inlist.add(vo.getRefundAmount()==null?"":vo.getRefundAmount().toString());	
 			inlist.add(vo.getNeedRefundAmount()==null?"":vo.getNeedRefundAmount().toString());
@@ -4649,7 +4657,7 @@ public class OmsOrderController {
 		String jsonStr = JSON.toJSONString(map);
 		try {
 			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcel.htm", jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcelByPhone.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
@@ -4728,6 +4736,13 @@ public class OmsOrderController {
 		header.add("会员卡号");
 		header.add("销售类别");
 		header.add("销售单来源");
+		
+		header.add("收件人姓名");
+		header.add("收件人城市");
+		header.add("收件城市邮编");
+		header.add("收件地区省份");
+		header.add("收货地址");
+		
 		header.add("门店名称");
 		header.add("供应商编码");
 		header.add("供应商名称");
@@ -4780,6 +4795,13 @@ public class OmsOrderController {
 			}
 			inlist.add(vo.getSaleType()==null?"":saleType);
 			inlist.add(vo.getSaleSource()==null?"":vo.getSaleSource());	
+			
+			inlist.add(vo.getReceptName()==null?"":vo.getReceptName());	
+			inlist.add(vo.getReceptCityName()==null?"":vo.getReceptCityName());	
+			inlist.add(vo.getReceptCityCode()==null?"":vo.getReceptCityCode());	
+			inlist.add(vo.getReceptProvName()==null?"":vo.getReceptProvName());	
+			inlist.add(vo.getReceptAddress()==null?"":vo.getReceptAddress());	
+			
 			inlist.add(vo.getStoreName()==null?"":vo.getStoreName());	
 			inlist.add(vo.getSupplyNo()==null?"":vo.getSupplyNo());	
 			inlist.add(vo.getSuppllyName()==null?"":vo.getSuppllyName());	

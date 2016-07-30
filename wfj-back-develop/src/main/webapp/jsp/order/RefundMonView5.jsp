@@ -1234,7 +1234,8 @@ Author: WangSy
 										                   				{#/if}
 																	</td>
 																	<td align="center" class="salePriceClass" id="salePrice_{$T.Result.sid}">
-																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
+																		{#if $T.Result.salePrice != '[object Object]'}
+																			{parseFloat($T.Result.salePrice).toFixed(2)}
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
@@ -1269,12 +1270,14 @@ Author: WangSy
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="refundAmount_{$T.Result.sid}">
-																		{#if $T.Result.refundAmount != '[object Object]'}{$T.Result.refundAmount}
+																		{#if $T.Result.refundAmount != '[object Object]'}
+																			{parseFloat($T.Result.refundAmount).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
-																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}
+																			{parseFloat($T.Result.actualRefundAmount).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>
@@ -1764,7 +1767,7 @@ Author: WangSy
 														<div class="col-md-6">
 														<span>应退款金额：</span>
 														<label id="amount1" class="control-label"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														<span>&nbsp;&nbsp;现金类支付金额：</span>
+														<span>&nbsp;&nbsp;现金类支付金额（不含运费）：</span>
 														<label id="amount6" class="control-label"></label>
 														</div>&nbsp;
 													</div>
@@ -1802,7 +1805,7 @@ Author: WangSy
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
-														<span>&nbsp;&nbsp;实际退款金额合计：</span>
+														<span>&nbsp;&nbsp;实际退款金额合计（含运费）：</span>
 														<label id="amount4" class="control-label"></label>
 														</div>
 														&nbsp;

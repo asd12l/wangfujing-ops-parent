@@ -2024,7 +2024,7 @@
 						}
 						//使用优惠券金额
 						if(ele.couponAmount=="[object Object]"||ele.couponAmount==undefined){
-							option5+="<td align='center'></td>";
+							option5+="<td align='center'>0</td>";
 						}else{
 							option5+="<td align='center'>"+ele.couponAmount+"</td>";
 						}
@@ -3385,7 +3385,7 @@
 											<input type="hidden" id="endSaleTime_form" name="endSaleTime"/>
                                       	</form>
                                 	<div style="width:100%; height:0%; min-height:350px; overflow-Y: hidden;">
-                                    <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 400%;background-color: #fff;margin-bottom: 0;">
+                                    <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 500%;background-color: #fff;margin-bottom: 0;">
                                         <thead>
                                             <tr role="row" style='height:35px;'>
                                                 <th width="4%" style="text-align: center;">销售单号</th>
@@ -3397,6 +3397,11 @@
                                                 <th width="4%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">销售类别</th>
                                                 <th width="3%" style="text-align: center;">销售单来源</th>
+                                                <th width="3%" style="text-align: center;">收件人姓名</th>
+                                                <th width="3%" style="text-align: center;">收件人城市</th>
+                                                <th width="3%" style="text-align: center;">收件城市邮编</th>
+                                                <th width="3%" style="text-align: center;">收件地区省份</th>
+                                                <th width="5%" style="text-align: center;">收货地址</th>
                                                 <th width="4%" style="text-align: center;">门店名称</th>
                                                 <th width="4%" style="text-align: center;">供应商编码</th>
                                                 <th width="4%" style="text-align: center;">供应商名称</th>
@@ -3490,6 +3495,28 @@
 														{#if $T.Result.saleSource != '[object Object]'}{$T.Result.saleSource}
 						                   				{#/if}
 													</td>
+													
+													<td align="center" id="receptName_{$T.Result.sid}">
+														{#if $T.Result.receptName != '[object Object]'}{$T.Result.receptName}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptCityName_{$T.Result.sid}">
+														{#if $T.Result.receptCityName != '[object Object]'}{$T.Result.receptCityName}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptCityCode_{$T.Result.sid}">
+														{#if $T.Result.receptCityCode != '[object Object]'}{$T.Result.receptCityCode}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptProvName_{$T.Result.sid}">
+														{#if $T.Result.receptProvName != '[object Object]'}{$T.Result.receptProvName}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptAddress_{$T.Result.sid}">
+														{#if $T.Result.receptAddress != '[object Object]'}{$T.Result.receptAddress}
+						                   				{#/if}
+													</td>
+													
 													<td align="center" id="storeName_{$T.Result.sid}">
 														{#if $T.Result.storeName != '[object Object]'}{$T.Result.storeName}
 						                   				{#/if}
@@ -3532,7 +3559,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
-														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+														{#if $T.Result.integral != '[object Object]'}
+															{$T.Result.integral}
+						                   				{#else}
+						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="shippingFee_{$T.Result.sid}">
@@ -3639,6 +3669,11 @@
                                                 <th width="4%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">销售类别</th>
                                                 <th width="3%" style="text-align: center;">销售单来源</th>
+                                                 <th width="3%" style="text-align: center;">收件人姓名</th>
+                                                <th width="3%" style="text-align: center;">收件人城市</th>
+                                                <th width="3%" style="text-align: center;">收件城市邮编</th>
+                                                <th width="3%" style="text-align: center;">收件地区省份</th>
+                                                <th width="5%" style="text-align: center;">收货地址</th>
                                                 <th width="4%" style="text-align: center;">门店名称</th>
                                                  <th width="4%" style="text-align: center;">供应商编码</th>
                                                 <th width="4%" style="text-align: center;">供应商名称</th>
@@ -3861,7 +3896,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
-														{#if $T.Result.integral != '[object Object]'}{$T.Result.integral}
+														{#if $T.Result.integral != ''}
+															{$T.Result.integral}
+														{#else}
+															<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
@@ -3873,7 +3911,10 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="couponAmount_{$T.Result.sid}">
-														{#if $T.Result.couponAmount != '[object Object]'}{$T.Result.couponAmount}
+														{#if $T.Result.couponAmount != '[object Object]'}
+															{$T.Result.couponAmount}
+														{#else}
+															<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="cashAmount_{$T.Result.sid}">
