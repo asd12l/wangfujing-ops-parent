@@ -143,7 +143,6 @@ private static final Logger logger = LoggerFactory.getLogger(EdiYzOrderControlle
 	@ResponseBody
 	@RequestMapping(value = "/exportExcleHlm")
 	public void exportExcleHlm(HttpServletRequest request, HttpServletResponse response) {
-		
 		String json = "";
 		String title = "好乐买数据交互订单明细报表";
 		String jsons = "";
