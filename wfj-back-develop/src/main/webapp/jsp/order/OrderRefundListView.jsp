@@ -3532,7 +3532,7 @@
 					+ refundApplyNo + "&&orderNo=" + orderNo + "&&refundNo=" + refundNo + "&&originalSalesNo=" + originalSalesNo + "&&memberNo=" + memberNo
 					+ "&&salesPaymentNo=" + salesPaymentNo + "&&endRefundTime=" + endRefundTime + "&&startRefundTime=" + startRefundTime + "&&refundStatus="
 					+ refundStatus + "&&shopNo=" + shopNo + "&&rebateStatus=" + rebateStatus + "&&refundType=" + refundType + "&&refundClass=" + refundClass + "&&title="
-					+ title);
+					+ title +"&&pageSize=" + 1000 +"&&page=" + 1);
 		} else {
 			$("#model-body-warning")
 					.html(

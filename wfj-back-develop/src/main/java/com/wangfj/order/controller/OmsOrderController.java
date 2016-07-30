@@ -1918,6 +1918,8 @@ public class OmsOrderController {
 	public String getRefundMonToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
 		String title = "refundMon";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		List<ExcelRefundMonVo> epv = new ArrayList<ExcelRefundMonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -1960,15 +1962,22 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("confirmRefundMonTimeStartStr"))){
 			map.put("confirmRefundMonTimeStartStr", request.getParameter("confirmRefundMonTimeStartStr"));
 		}
+		
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
+//		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refundMon_list"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://localhost:8081/oms-core/refundMon/queryRefundMonoExcel.htm", jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refundMon_list"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refundMon_list"), jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/refundMon/selectRefundAndMon.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
-			
-			List<Object> list = (List<Object>) js.get("data");
+//			List<Object> list = (List<Object>) js.get("data");
+			String data = js.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
 			String jsonStr2 = "";
 			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
 			paramMap2.put("fromSystem", "OMSADMIN");
@@ -2827,6 +2836,8 @@ public class OmsOrderController {
 	public String getOrderToExcelByPhone(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
 		String title = "order";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		List<ExcelOrderVo> epv = new ArrayList<ExcelOrderVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -2860,14 +2871,21 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
 			map.put("saleTimeEndStr", request.getParameter("endSaleTime"));
 		}
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
+//		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_order_list_phone"), jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_order_list_phone"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://172.16.255.157:8087/oms-core-sdc/order/queryOrderExcel3.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
-			List<Object> list = (List<Object>) js.get("data");
+//			List<Object> list = (List<Object>) js.get("data");
+			String data = js.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
 			//渠道字段转换(PCM接口)
 			String jsonStr22 = "";
 			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
@@ -3168,6 +3186,8 @@ public class OmsOrderController {
 	public String getRefundToExcel(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
 		String title = "refund";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		List<ExcelRefundVo> epv = new ArrayList<ExcelRefundVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -3210,16 +3230,21 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("startRefundTime"))){
 			map.put("startRefundTimeStr", request.getParameter("startRefundTime").trim());
 		}
-		map.put("fromSystem", "PCM");
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
+		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refund_list"), jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refund_list"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/refund/queryRefundExcel.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
-			
-			List<Object> list = (List<Object>) js.get("data");
+//			List<Object> list = (List<Object>) js.get("data");
+			String data = js.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
 			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
 			paramMap2.put("fromSystem", "OMSADMIN");
 			paramMap2.put("typeValue", "refund_status");
@@ -4611,6 +4636,8 @@ public class OmsOrderController {
 	public String getSaleToExcelByPhone(HttpServletRequest request, HttpServletResponse response){
 		String jsons = "";	
 		String title = "sale";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
 		List<ExcelSaleVo> epv = new ArrayList<ExcelSaleVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -4653,17 +4680,23 @@ public class OmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
 			map.put("saleTimeEnd", request.getParameter("endSaleTime"));
 		}
-//		map.put("fromSystem", "OMSADMIN");
+		
+		map.put("start", String.valueOf(currPage));
+		map.put("limit", String.valueOf(size));
+		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list_phone"), jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcelByPhone.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
+			/*List<Object> list = (List<Object>) js.get("data");*/
 			
-			List<Object> list = (List<Object>) js.get("data");
-			
+			String data = js.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
 			//渠道字段转换(PCM接口)
 			String jsonStr22 = "";
 			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();

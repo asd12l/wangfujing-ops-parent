@@ -3218,7 +3218,7 @@
 					+ orderNo + "&&saleNo=" + saleNo + "&&startSaleTime=" + startSaleTime + "&&endSaleTime=" + endSaleTime + "&&receptPhone=" + receptPhone
 					+ "&&salesPaymentNo=" + salesPaymentNo + "&&casherNo=" + casherNo + "&&saleStatus=" + saleStatus + "&&payStatus="
 					+ payStatus + "&&saleSource=" + saleSource + "&&memberNo=" + memberNo + "&&shopNo=" + shopNo + "&&title="
-					+ title + "&&outOrderNo=" + outOrderNo);
+					+ title + "&&outOrderNo=" + outOrderNo +"&&pageSize=" + 1000 +"&&page=" + 1);
 		} else {
 			$("#model-body-warning")
 					.html(
