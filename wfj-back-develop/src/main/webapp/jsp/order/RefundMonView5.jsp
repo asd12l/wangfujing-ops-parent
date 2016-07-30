@@ -1234,7 +1234,8 @@ Author: WangSy
 										                   				{#/if}
 																	</td>
 																	<td align="center" class="salePriceClass" id="salePrice_{$T.Result.sid}">
-																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
+																		{#if $T.Result.salePrice != '[object Object]'}
+																			{parseFloat($T.Result.salePrice).toFixed(2)}
 																		{#elseif $T.Result.salePrice == ''}0
 										                   				{#/if}
 																	</td>
@@ -1269,12 +1270,14 @@ Author: WangSy
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="refundAmount_{$T.Result.sid}">
-																		{#if $T.Result.refundAmount != '[object Object]'}{$T.Result.refundAmount}
+																		{#if $T.Result.refundAmount != '[object Object]'}
+																			{parseFloat($T.Result.refundAmount).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
-																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}
+																			{parseFloat($T.Result.actualRefundAmount).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>

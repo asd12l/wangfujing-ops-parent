@@ -729,7 +729,8 @@
 										                   				{#/if}
 																	</td>
 																	<td align="center" class="salePriceClass" id="salePrice_{$T.Result.sid}">
-																		{#if $T.Result.salePrice != '[object Object]'}{$T.Result.salePrice}
+																		{#if $T.Result.salePrice != '[object Object]'}
+																			{parseFloat($T.Result.salePrice).toFixed(2)}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="refundNumAll_{$T.Result.sid}">
@@ -741,11 +742,13 @@
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="refundSalePrice_{$T.Result.sid}">
-																		{#if $T.Result.refundSalePrice!= '[object Object]'}{$T.Result.refundSalePrice}
+																		{#if $T.Result.refundSalePrice!= '[object Object]'}
+																			{parseFloat($T.Result.refundSalePrice).toFixed(2)}
 										                   				{#/if}
 																	</td>
 																	<td align="center" id="actualRefundAmount_{$T.Result.sid}">
-																		{#if $T.Result.actualRefundAmount != '[object Object]'}{$T.Result.actualRefundAmount}
+																		{#if $T.Result.actualRefundAmount != '[object Object]'}
+																			{parseFloat($T.Result.actualRefundAmount).toFixed(2)}
 																		{#else}0
 										                   				{#/if}
 																	</td>
