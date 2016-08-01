@@ -50,7 +50,7 @@
 				<div class="captcha_but">
 					<div class="captcha_sav" id="captcha_sav"></div>
 					<div class="captcha_img" id="captcha_img">
-						<img src="http://localhost:8080/ops/image/slider_valid.png">
+						<img src="${ctx}/image/slider_valid.png">
 					</div>
 				</div>
 			</div>
