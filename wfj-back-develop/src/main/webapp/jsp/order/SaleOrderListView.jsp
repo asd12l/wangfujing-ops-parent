@@ -1809,7 +1809,7 @@
 						}else if(ele.priviousStatus=="9106"){
 							option4+="<td align='center'>已提货</td>";
 						}else if(ele.priviousStatus=="9107"){
-							option4+="<td align='center'>已收货</td>";
+							option4+="<td align='center'>已签收</td>";
 						}else if(ele.priviousStatus=="9108"){
 							option4+="<td align='center'>已完成</td>";
 						}else if(ele.priviousStatus=="9201"){
@@ -1821,11 +1821,11 @@
 						}else if(ele.priviousStatus=="9301"){
 							option4+="<td align='center'>订单作废</td>";
 						}else if(ele.priviousStatus=="9302"){
-							option4+="<td align='center'>拒收</td>";
+							option4+="<td align='center'>已拒收</td>";
 						}else if(ele.priviousStatus=="9307"){
-							option4+="<td align='center'>已退货</td>";
+							option4+="<td align='center'>已取消</td>";
 						}else if(ele.priviousStatus=="9304"){
-							option4+="<td align='center'>取消成功</td>";
+							option4+="<td align='center'>订单关闭</td>";
 						}else if(ele.priviousStatus=="9305"){
 							option4+="<td align='center'>取消失败</td>";
 						}else if(ele.priviousStatus=="2015"){
@@ -3541,14 +3541,14 @@
 													</td>
 													<td align="center" id="saleAmount_{$T.Result.sid}">
 														{#if $T.Result.saleAmount != '[object Object]'}
-															{parseFloat(parseFloat($T.Result.saleAmount) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
+															{parseFloat(($T.Result.saleAmount == undefined ? 0 : parseFloat($T.Result.saleAmount)) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
 						                   				{#else}
 						                   					{parseFloat($T.Result.saleAmount).toFixed(2)}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.sid}">
 														{#if $T.Result.paymentAmount != '[object Object]' }
-															{parseFloat(parseFloat($T.Result.paymentAmount) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
+															{parseFloat(($T.Result.paymentAmount == undefined ? 0 : parseFloat($T.Result.paymentAmount)) + ($T.Result.shippingFee == undefined ? 0 : parseFloat($T.Result.shippingFee))).toFixed(2)}
 						                   				{#else}
 						                   					{parseFloat($T.Result.paymentAmount).toFixed(2)}
 						                   				{#/if}

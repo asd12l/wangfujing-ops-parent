@@ -54,7 +54,7 @@ public class TopicController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic/t_floor_tree.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -79,7 +79,7 @@ public class TopicController {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic/v_list.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		if (json.equals("") || json == null) {
 			JSONObject obj = new JSONObject();
@@ -269,7 +269,7 @@ public class TopicController {
 			resultMap.put("password", ftpJson.getString("password"));
 			resultMap.put("path", ftpJson.getString("path"));
 		} catch (Exception ex) {
-			logger.info(className + ":" + methodName + "发生异常：" + ex.getMessage());
+			logger.error(className + ":" + methodName + "发生异常：" + ex.getMessage());
 
 		}
 		String siteJsonResult = null;
@@ -281,7 +281,7 @@ public class TopicController {
 			resultMap.put("siteResourcePath", ftpJson.getString("path") + "/"
 					+ siteJson.getJSONObject("obj").getString("domain"));
 		} catch (Exception ex) {
-			logger.info(className + ":" + methodName + "发生异常：" + ex.getMessage());
+			logger.error(className + ":" + methodName + "发生异常：" + ex.getMessage());
 		}
 		return resultMap;
 	}
@@ -309,7 +309,7 @@ public class TopicController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic/o_update.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -324,7 +324,7 @@ public class TopicController {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic/v_add.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -352,7 +352,7 @@ public class TopicController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic/o_save.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -369,7 +369,7 @@ public class TopicController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic/o_delete.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}

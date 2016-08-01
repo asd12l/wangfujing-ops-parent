@@ -27,7 +27,7 @@ public class SiteController {
 	private String className = SiteController.class.getName();
 
 	/**
-	 * 查询站点列表modifySite
+	 * 查询站点列表querySiteList
 	 * 
 	 * @Methods Name querySiteList
 	 * @Create In 2016年3月29日 By wangsy
@@ -42,7 +42,7 @@ public class SiteController {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/site/v_list.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -97,7 +97,7 @@ public class SiteController {
 		} catch (Exception e) {
 			messageJson.put("success", "false");
 			messageJson.put("message", "修改失败，网络异常");
-			logger.info(className + ":" + e.getMessage());
+			logger.error(className + ":" + e.getMessage());
 			return messageJson.toString();
 		}
 		if (StringUtils.isNotBlank(resultString)) {
@@ -164,7 +164,7 @@ public class SiteController {
 		} catch (Exception e) {
 			messageJson.put("success", "false");
 			messageJson.put("message", "保存站点失败，网络链接异常");
-			logger.info(className + ":" + e.getMessage());
+			logger.error(className + ":" + e.getMessage());
 			return messageJson.toString();
 		}
 		if (StringUtils.isNotBlank(resultString)) {
@@ -210,7 +210,7 @@ public class SiteController {
 		} catch (Exception e) {
 			messageJson.put("success", "false");
 			messageJson.put("message", "删除失败，网络异常");
-			logger.info(className + ":" + e.getMessage());
+			logger.error(className + ":" + e.getMessage());
 			return messageJson.toString();
 		}
 		if (StringUtils.isNotBlank(resultString)) {
@@ -249,7 +249,7 @@ public class SiteController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/site/o_set.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -295,7 +295,7 @@ public class SiteController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/site/getFtpTplDirList.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -339,7 +339,7 @@ public class SiteController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/site/getFtpSiteResDirList.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -363,7 +363,7 @@ public class SiteController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/site/getResourceFtp.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -386,7 +386,7 @@ public class SiteController {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/site/getTplFtp.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -412,7 +412,7 @@ public class SiteController {
 							+ "/cmsChannelShopShoppe/getInfoByParam.htm",
 							JsonUtil.getJSONString(resultMap));
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -436,7 +436,7 @@ public class SiteController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/site/getTplFtpSitePath.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -461,7 +461,7 @@ public class SiteController {
 					resultMap);
 
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}

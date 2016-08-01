@@ -55,7 +55,7 @@ public class NavController {
 				json = "[{'id':0,'name':'根节点','pId':-1,'isShow':1}]";
 			}
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -74,7 +74,7 @@ public class NavController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/nav/n_edit.do", map);
 			jsonobj.put("list", json);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return jsonobj.toString();
 	}
@@ -95,7 +95,7 @@ public class NavController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/nav/n_childlist.do", map);
 			jsonobj.put("list", json);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return jsonobj.toString();
 	}
@@ -119,7 +119,7 @@ public class NavController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/nav/n_save.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -142,7 +142,7 @@ public class NavController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/nav/n_update.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -159,7 +159,7 @@ public class NavController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/nav/n_delete.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}

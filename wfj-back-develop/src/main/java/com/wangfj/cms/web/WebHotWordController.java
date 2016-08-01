@@ -119,7 +119,7 @@ public class WebHotWordController {
             json = ResultUtil.createSuccessResult();
         } catch (Exception e) {
             json = ResultUtil.createFailureResult(e);
-            logger.info("添加关键词错误" + className + ":" + methodName + " " + e.getMessage());
+            logger.error("添加关键词错误" + className + ":" + methodName + " " + e.getMessage());
         }
         return json;
     }
@@ -137,7 +137,7 @@ public class WebHotWordController {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/hotword/delHotword.do", resultMap);
         } catch (Exception e) {
             json = ResultUtil.createFailureResult(e);
-            logger.info("删除关键词错误" + className + ":" + methodName + " " + e.getMessage());
+            logger.error("删除关键词错误" + className + ":" + methodName + " " + e.getMessage());
         }
         return json;
     }

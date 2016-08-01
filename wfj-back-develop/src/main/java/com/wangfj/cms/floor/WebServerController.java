@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.constants.SystemConfig;
 import com.elong.common.StringUtil;
+import com.wangfj.cms.utils.Constants;
 import com.wangfj.order.utils.HttpUtil;
 import com.wangfj.search.utils.CookieUtil;
 import com.wangfj.wms.util.ResultUtil;
@@ -42,7 +43,7 @@ public class WebServerController {
 			json = HttpUtil
 					.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/webserver/o_list.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -62,7 +63,7 @@ public class WebServerController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/webserver/get_front.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -103,7 +104,7 @@ public class WebServerController {
 			resultString = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/webserver/o_init.do",
 					paramMap);
 		} catch (Exception e) {
-			logger.info(className + ": + " + e.getMessage());
+			logger.error(className + ": + " + e.getMessage());
 			messageJson.put("success", "false");
 			messageJson.put("message", "初始化失败，服务器网络异常");
 			return messageJson.toString();
@@ -127,11 +128,11 @@ public class WebServerController {
 	@RequestMapping(value = "/initStaticServer", method = { RequestMethod.GET, RequestMethod.POST })
 	public String initStaticServer(HttpServletRequest request, String serverId,
 			HttpServletResponse response) {
-		String methodName = "initTplRes";
+		String methodName = "initStaticServer";
 		logger.info(className + ":" + methodName + " 参数: serverId " + serverId);
 		String json = "";
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		if (serverId != null && !serverId.equals("")) {
+		if (serverId != null && !serverId.equals(Constants.EMPTY)) {
 			resultMap.put("serverId", serverId);
 			resultMap.put("msDate",new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss.SSS").format(new Date()));
 		}
@@ -140,7 +141,7 @@ public class WebServerController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -153,7 +154,7 @@ public class WebServerController {
 		String methodName = "getRecordList";
 		String json = "";
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		if (serverId != null && !serverId.equals("")) {
+		if (serverId != null && !serverId.equals(Constants.EMPTY)) {
 			resultMap.put("serverId", serverId);
 		}
 		try {
@@ -161,7 +162,7 @@ public class WebServerController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -177,7 +178,7 @@ public class WebServerController {
 			json = HttpUtil
 					.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/webserver/v_list.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -246,7 +247,7 @@ public class WebServerController {
 				valijson = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL,
 						"/webserver/valiWebServer.do", paramMap);
 			} catch (Exception e) {
-				logger.info(className + ":" + e.getMessage());
+				logger.error(className + ":" + e.getMessage());
 				JSONObject errorJson = new JSONObject();
 				errorJson.put("success", "false");
 				errorJson.put("message", "用户认证失败，网络中断。");
@@ -268,7 +269,7 @@ public class WebServerController {
 			resultString = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/webserver/o_update.do",
 					paramMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + e.getMessage());
+			logger.error(className + ":" + e.getMessage());
 			messageJson.put("success", "false");
 			messageJson.put("message", "更新失败，服务器网路异常");
 			return messageJson.toString();
@@ -361,7 +362,7 @@ public class WebServerController {
 			} catch (Exception e) {
 				messageJson.put("success", "false");
 				messageJson.put("data", "添加啊server失败，网络异常。");
-				logger.info(className + ":" + e.getMessage());
+				logger.error(className + ":" + e.getMessage());
 				return messageJson.toString();
 
 			}
@@ -413,7 +414,7 @@ public class WebServerController {
 		} catch (Exception e) {
 			messageJson.put("success", "false");
 			messageJson.put("message", "删除失败，网络异常");
-			logger.info(className + e.getMessage());
+			logger.error(className + e.getMessage());
 			return messageJson.toString();
 		}
 		if (StringUtils.isNotBlank(resultString)) {

@@ -67,7 +67,7 @@ public class StylelistController {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/style/list.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		JSONObject  resultJson = new JSONObject().fromObject(json);
 		resultJson.put("siteResultUrl", getImageServer()+"/");
@@ -94,7 +94,7 @@ public class StylelistController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/style/ftp_style_list_path.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 			messageJson.put("success", "false");
 			messageJson.put("message", "查询FTP路径失败，网络异常");
 			return messageJson.toString();
@@ -212,7 +212,7 @@ public class StylelistController {
 
 		} catch (Exception e) {
 			json.put("success", "false");
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json.toString();
 	}
@@ -269,7 +269,7 @@ public class StylelistController {
 			try {
 				file.transferTo(targetFile);
 			} catch (Exception e) {
-				logger.info(className + ": " + e.getMessage());
+				logger.error(className + ": " + e.getMessage());
 				messageJson.put("success", "false");
 				messageJson.put("message", "上传文件失败，内部方法异常， 请联系管理员");
 				return messageJson.toString();
@@ -287,7 +287,7 @@ public class StylelistController {
 			try {
 				file.transferTo(targetFile);
 			} catch (IOException e) {
-				logger.info(className + ": " + e.getMessage());
+				logger.error(className + ": " + e.getMessage());
 				messageJson.put("success", "false");
 				messageJson.put("message", "上传文件失败，内部方法异常， 请联系管理员");
 				return messageJson.toString();
@@ -296,7 +296,7 @@ public class StylelistController {
 		try {
 			HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/style/save.do", paramMap);
 		} catch (Exception e) {
-			logger.info(className + ": " + e.getMessage());
+			logger.error(className + ": " + e.getMessage());
 		}
 		messageJson.put("success", "true");
 		messageJson.put("message", "上传成功");

@@ -46,7 +46,7 @@ public class ActivityController {
 			jsonobj.put("list", json);
 			jsonobj.put("resource_root_path",SystemConfig.CMS_IMAGE_SERVER);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return jsonobj.toString();
 	}
@@ -74,7 +74,7 @@ public class ActivityController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/active/a_delete.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":delPro_ " + e.getMessage());
+			logger.error(className + ":delPro_ " + e.getMessage());
 		}
 		return json;
 	}
@@ -119,7 +119,7 @@ public class ActivityController {
 			}
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -162,7 +162,7 @@ public class ActivityController {
 			}
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
