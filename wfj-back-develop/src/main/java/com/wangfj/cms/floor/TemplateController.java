@@ -50,7 +50,7 @@ public class TemplateController {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/template/v_tree.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -92,7 +92,7 @@ public class TemplateController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/template/ftp_file_list.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -208,7 +208,7 @@ public class TemplateController {
 
 		} catch (Exception e) {
 			json.put("success", "false");
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json.toString();
 	}
@@ -467,7 +467,7 @@ public class TemplateController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/stylelist/viewStyleList.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -487,7 +487,7 @@ public class TemplateController {
 			json = HttpUtil
 					.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/template/viewTpl.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -510,7 +510,7 @@ public class TemplateController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/template/o_save.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -534,7 +534,7 @@ public class TemplateController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -556,7 +556,7 @@ public class TemplateController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -578,7 +578,7 @@ public class TemplateController {
 					.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/template/delFile.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -600,7 +600,7 @@ public class TemplateController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}

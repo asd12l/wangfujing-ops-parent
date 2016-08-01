@@ -110,7 +110,7 @@ public class FloorWeb {
 				
 			}
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json.toString();
 	}
@@ -208,7 +208,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floorPro/selectAllProduct.do",
 					proMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -234,7 +234,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/channel/load_template.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -259,7 +259,7 @@ public class FloorWeb {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floor/f_list.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -284,7 +284,7 @@ public class FloorWeb {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floor/f_load.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -314,7 +314,7 @@ public class FloorWeb {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -351,7 +351,7 @@ public class FloorWeb {
 				json = "[{'id':0,'name':'根节点','pId':-1,'isShow':1,'type':0,'floorContent':1}]";
 			}
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json.toString();
 	}
@@ -378,7 +378,7 @@ public class FloorWeb {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floor/floorList.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -434,7 +434,7 @@ public class FloorWeb {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -461,7 +461,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/template/ftp_style_list.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -528,7 +528,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floor/f_save.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -555,7 +555,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floor/f_del.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -582,7 +582,7 @@ public class FloorWeb {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floor/f_divlist.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -607,7 +607,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floorPro/fp_search.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -643,7 +643,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floorPro/fp_search.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -677,7 +677,7 @@ public class FloorWeb {
 					.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/floorPro/fp_save.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -707,7 +707,7 @@ public class FloorWeb {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -734,7 +734,7 @@ public class FloorWeb {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/fbrand/fb_list.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -778,7 +778,7 @@ public class FloorWeb {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/fbrand/fb_query.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -813,7 +813,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/fbrand/fb_save.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -840,7 +840,7 @@ public class FloorWeb {
 					.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/fbrand/fb_delete.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -867,7 +867,7 @@ public class FloorWeb {
 		try {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/fnav/fn_qlist.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		JSONObject result = JSONObject.fromObject(json);
 		JSONArray listJson = (JSONArray) result.get("list");
@@ -934,20 +934,20 @@ public class FloorWeb {
 					String pictPath = pict.substring(0, pict.lastIndexOf("/") + 1);
 					b = CdnHelper.flushCdn(SystemConfig.CDN_URL, new String[] { pictPath });
 					if (!b) {
-						logger.info("CDN刷新引导链接图片失败: " + pict);
+						logger.error("CDN刷新引导链接图片失败: " + pict);
 					}
 				}
 				if (StringUtils.isNotBlank(link)) {
 					String linktPath = pict.substring(0, pict.lastIndexOf("/") + 1);
 					b = CdnHelper.flushCdn(SystemConfig.CDN_URL, new String[] { linktPath });
 					if (!b) {
-						logger.info("CDN刷新引导链接地址失败: " + link);
+						logger.error("CDN刷新引导链接地址失败: " + link);
 					}
 				}
 			}
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -998,20 +998,20 @@ public class FloorWeb {
 					String pictPath = pict.substring(0, pict.lastIndexOf("/") + 1);
 					b = CdnHelper.flushCdn(SystemConfig.CDN_URL, new String[] { pictPath });
 					if (!b) {
-						logger.info("CDN刷新引导链接图片失败: " + pict);
+						logger.error("CDN刷新引导链接图片失败: " + pict);
 					}
 				}
 				if (StringUtils.isNotBlank(link)) {
 					String linktPath = pict.substring(0, pict.lastIndexOf("/") + 1);
 					b = CdnHelper.flushCdn(SystemConfig.CDN_URL, new String[] { linktPath });
 					if (!b) {
-						logger.info("CDN刷新引导链接地址失败: " + link);
+						logger.error("CDN刷新引导链接地址失败: " + link);
 					}
 				}
 			}
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -1038,7 +1038,7 @@ public class FloorWeb {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/fnav/fn_delete.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -1069,7 +1069,7 @@ public class FloorWeb {
 							JsonUtil.getJSONString(resultMap));
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;
@@ -1100,7 +1100,7 @@ public class FloorWeb {
 							JsonUtil.getJSONString(resultMap));
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 
 		return json;

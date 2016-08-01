@@ -147,7 +147,7 @@ public class ResourceController {
         try {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/resource/v_tree.do", resultMap);
         } catch (Exception e) {
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
 
         return json.toString();
@@ -169,7 +169,7 @@ public class ResourceController {
         try {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/resource/ftp_file_list.do", resultMap);
         } catch (Exception e) {
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
 
         return json;
@@ -228,7 +228,7 @@ public class ResourceController {
  		String password = ftp.getString("password");
  		String port = ftp.getString("port");
 		String dPath = ftp.getString("path");
-		
+		String domain = ftp.getString("domain");
 		//上传到tomcat文件存放路径
 		String srcpath = request.getSession().getServletContext().getRealPath("/") + "upload/";
 		String fileName = file.getOriginalFilename();
@@ -236,12 +236,12 @@ public class ResourceController {
 		if (!targetFile.exists()) {
 			targetFile.mkdirs();
 			try {
-				// 1.上传只tomcat				
+				// 1.上传至tomcat				
 				file.transferTo(targetFile);
 				
 				// 2.解压				
 				String unzipDirPath = srcpath + "/"
-						+ fileName.substring(0, fileName.lastIndexOf(".")) + "/";
+						+ domain + "/";
 				ZipUtil.unzip(targetFile.getPath(),unzipDirPath);
 				targetFile.delete();	
 				
@@ -298,7 +298,7 @@ public class ResourceController {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/template/o_rename.do", resultMap);
         } catch (Exception e) {
             json = ResultUtil.createFailureResult(e);
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
 
         return json;
@@ -319,7 +319,7 @@ public class ResourceController {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/template/delFile.do", resultMap);
         } catch (Exception e) {
             json = ResultUtil.createFailureResult(e);
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
 
         return json;

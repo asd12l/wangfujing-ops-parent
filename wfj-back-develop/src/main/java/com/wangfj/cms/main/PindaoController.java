@@ -33,7 +33,7 @@ public class PindaoController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/channel/v_add.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -78,7 +78,7 @@ public class PindaoController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/channel/o_save.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -100,7 +100,7 @@ public class PindaoController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/channel/v_edit.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -129,7 +129,7 @@ public class PindaoController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/channel/o_update.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -146,7 +146,7 @@ public class PindaoController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/channel/o_delete.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}

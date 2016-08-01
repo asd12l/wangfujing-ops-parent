@@ -41,7 +41,7 @@ public class AdvertisingSpaceController {
 		try {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/v_list.do", map);
 		} catch (Exception e) {
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json.toString();
 
@@ -64,7 +64,7 @@ public class AdvertisingSpaceController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/checkedSpaceEnabled.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}
@@ -93,7 +93,7 @@ public class AdvertisingSpaceController {
 		try {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/list_by_position.do", map);
 		} catch (Exception e) {
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json.toString();
 
@@ -112,7 +112,7 @@ public class AdvertisingSpaceController {
 		try {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/position_list.do", map);
 		} catch (Exception e) {
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json.toString();
 
@@ -130,7 +130,7 @@ public class AdvertisingSpaceController {
         try {
             json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/position.do", map);
         } catch (Exception e) {
-            logger.info(className+":"+methodName+" "+e.getMessage());
+            logger.error(className+":"+methodName+" "+e.getMessage());
         }
         return json.toString();
 
@@ -157,7 +157,7 @@ public class AdvertisingSpaceController {
         try {
             json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/add_position.do", map);
         } catch (Exception e) {
-            logger.info(className+":"+methodName+" "+e.getMessage());
+            logger.error(className+":"+methodName+" "+e.getMessage());
         }
         return json.toString();
 
@@ -187,7 +187,7 @@ public class AdvertisingSpaceController {
         try {
             json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/edit_position.do", map);
         } catch (Exception e) {
-            logger.info(className+":"+methodName+" "+e.getMessage());
+            logger.error(className+":"+methodName+" "+e.getMessage());
         }
         return json.toString();
 
@@ -203,7 +203,7 @@ public class AdvertisingSpaceController {
         try {
             json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/del_position.do", map);
         } catch (Exception e) {
-            logger.info(className+":"+methodName+" "+e.getMessage());
+            logger.error(className+":"+methodName+" "+e.getMessage());
         }
         return json.toString();
 
@@ -239,7 +239,7 @@ public class AdvertisingSpaceController {
 		try {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/v_list.do", map);
 		} catch (Exception e) {
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json.toString();
 
@@ -263,7 +263,7 @@ public class AdvertisingSpaceController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/o_save.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}
@@ -288,7 +288,7 @@ public class AdvertisingSpaceController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/o_update.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}
@@ -304,7 +304,7 @@ public class AdvertisingSpaceController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising_space/o_delete.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}

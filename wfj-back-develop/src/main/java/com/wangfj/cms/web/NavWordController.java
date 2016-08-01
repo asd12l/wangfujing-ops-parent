@@ -34,7 +34,7 @@ public class NavWordController {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/navword/a_list.do", map);
             jsonobj.put("list", json);
         } catch (Exception e) {
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
         return jsonobj.toString();
     }
@@ -51,7 +51,7 @@ public class NavWordController {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/navword/a_delete.do", map);
         } catch (Exception e) {
             json = ResultUtil.createFailureResult(e);
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
         return json;
     }
@@ -74,7 +74,7 @@ public class NavWordController {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/navword/a_save.do", map);
         } catch (Exception e) {
             json = ResultUtil.createFailureResult(e);
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
         return json;
     }

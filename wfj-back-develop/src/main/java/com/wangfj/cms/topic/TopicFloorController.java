@@ -72,7 +72,7 @@ public class TopicFloorController {
 
         diskFileItemFactory.setSizeThreshold(1024);
         ServletFileUpload servletFileUpload = new ServletFileUpload(diskFileItemFactory);
-        // 解析上传的请求 或许request中的请求的参数放入list
+        // 解析上传的请求  获取request中的请求的参数放入list
         List<FileItem> fileItems = null;
         FileItem fileItme = null;
         String fileName = null;
@@ -213,7 +213,7 @@ public class TopicFloorController {
             resultMap.put("password", ftpJson.getString("password"));
             resultMap.put("path", ftpJson.getString("path"));
         } catch (Exception ex) {
-            logger.info(className + ":" + methodName + "发生异常：" + ex.getMessage());
+            logger.error(className + ":" + methodName + "发生异常：" + ex.getMessage());
 
         }
         String siteJsonResult = null;
@@ -223,7 +223,7 @@ public class TopicFloorController {
             JSONObject siteJson = JSONObject.fromObject(siteJsonResult);//
             resultMap.put("siteResourcePath", ftpJson.getString("path") + "/" +  siteJson.getJSONObject("obj").getString("domain"));
         } catch (Exception ex) {
-            logger.info(className + ":" + methodName + "发生异常：" + ex.getMessage());
+            logger.error(className + ":" + methodName + "发生异常：" + ex.getMessage());
         }
         return resultMap;
     }
@@ -270,7 +270,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -293,7 +293,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -332,7 +332,7 @@ public class TopicFloorController {
 					.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic/t_add_link.do", resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -350,7 +350,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -389,7 +389,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -397,9 +397,8 @@ public class TopicFloorController {
 	// 楼层块里添加商品
 	@ResponseBody
 	@RequestMapping(value = "/addProduct", method = { RequestMethod.GET, RequestMethod.POST })
-	public String addProduct(String ids, String floorId, String prices, String picts,
-			String smallpicts, String brandNames, String oldPrices, String name,
-			HttpServletRequest request) {
+	public String addProduct(String ids, String floorId, String prices, String picts, 
+			String brandNames,  String name,HttpServletRequest request) {
 		String methodName = "addProduct";
 		String json = "";
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -418,7 +417,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -437,7 +436,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -456,7 +455,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -476,7 +475,7 @@ public class TopicFloorController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL,
 					"/topic_floor/f_query_brandlist.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -497,7 +496,7 @@ public class TopicFloorController {
 					"/topic_floor/f_query_linklist.do", resultMap);
 			
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		JSONObject result = JSONObject.fromObject(json);
 		JSONArray listJson = (JSONArray) result.get("list");
@@ -528,7 +527,7 @@ public class TopicFloorController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL,
 					"/topic_floor/f_query_prolist.do", resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -567,7 +566,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -587,7 +586,7 @@ public class TopicFloorController {
 					resultMap);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}
@@ -606,7 +605,7 @@ public class TopicFloorController {
 			json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/topic_floor/f_div_list.do",
 					resultMap);
 		} catch (Exception e) {
-			logger.info(className + ":" + methodName + " " + e.getMessage());
+			logger.error(className + ":" + methodName + " " + e.getMessage());
 		}
 		return json;
 	}

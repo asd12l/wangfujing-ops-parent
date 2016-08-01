@@ -77,7 +77,7 @@ public class AdvertisingController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/v_list.do", map);
 		} catch (Exception e) {
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json.toString();
 
@@ -176,7 +176,7 @@ public class AdvertisingController {
 
 		} catch (Exception e) {
 			json.put("success", "false");
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json.toString();
 	}
@@ -272,7 +272,7 @@ public class AdvertisingController {
 
 		} catch (Exception e) {
 			json.put("success", "false");
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json.toString();
 	}
@@ -338,7 +338,7 @@ public class AdvertisingController {
             json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/v_listProduct.do", map);
         }catch(Exception e){
             json = ResultUtil.createFailureResult(e);
-            logger.info(className+":"+methodName+" "+e.getMessage());
+            logger.error(className+":"+methodName+" "+e.getMessage());
         }
         return json;
     }
@@ -365,7 +365,7 @@ public class AdvertisingController {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/a_add_product.do", resultMap);
         } catch (Exception e) {
             json = ResultUtil.createFailureResult(e);
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
         return json;
     }
@@ -383,7 +383,7 @@ public class AdvertisingController {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/a_del_product.do", resultMap);
         } catch (Exception e) {
             json = ResultUtil.createFailureResult(e);
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
         return json;
     }
@@ -402,7 +402,7 @@ public class AdvertisingController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/v_listSpace.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}
@@ -424,7 +424,7 @@ public class AdvertisingController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/checkedEnabled.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}
@@ -479,7 +479,7 @@ public class AdvertisingController {
 		    JSONObject errorJson = new JSONObject();
 		    errorJson.put("success", "false");
 		    errorJson.put("message", "网络链接错误，请联系管理员");
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		if(!StringUtils.isNotBlank(json)){
 		    JSONObject errorJson = new JSONObject();
@@ -542,7 +542,7 @@ public class AdvertisingController {
 		try{
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/o_update.do", map);
 		}catch(Exception e){
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 			JSONObject message  = new JSONObject();
 			message.put("success", "falses");
 			message.put("message", " 网络异常"+e);
@@ -568,7 +568,7 @@ public class AdvertisingController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/find_cart_code.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}
@@ -585,7 +585,7 @@ public class AdvertisingController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/o_delete.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}
@@ -602,7 +602,7 @@ public class AdvertisingController {
 			json=HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/advertising/check_cart.do", map);
 		}catch(Exception e){
 			json = ResultUtil.createFailureResult(e);
-			logger.info(className+":"+methodName+" "+e.getMessage());
+			logger.error(className+":"+methodName+" "+e.getMessage());
 		}
 		return json;
 	}

@@ -51,7 +51,7 @@ public class FtpController {
         try {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/ftp/v_list.do", resultMap);
         } catch (Exception e) {
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
         return json;
     }
@@ -107,7 +107,7 @@ public class FtpController {
         } catch (Exception e) {
             messageJson.put("success", "true");
             messageJson.put("message", "修改失败，网络异常，请联系管理员");
-            logger.info(className + ":" + e.getMessage());
+            logger.error(className + ":" + e.getMessage());
             return messageJson.toString();
         }
         if (StringUtils.isNotBlank(resultString)) {
@@ -174,7 +174,7 @@ public class FtpController {
         } catch (Exception e) {
             messageJson.put("success", "false");
             messageJson.put("message", "保存FTP网络异常，请联系管理员");
-            logger.info(className + ":" + e.getMessage());
+            logger.error(className + ":" + e.getMessage());
             return messageJson.toString();
         }
         if (StringUtils.isNotBlank(resultString)) {
@@ -220,7 +220,7 @@ public class FtpController {
         } catch (Exception e) {
             messageJson.put("success", "false");
             messageJson.put("message", "删除失败，网络异常");
-            logger.info(className + ":" + e.getMessage());
+            logger.error(className + ":" + e.getMessage());
             return messageJson.toString();
         }
         if (StringUtils.isNotBlank(resultString)) {
@@ -275,7 +275,7 @@ public class FtpController {
         } catch (Exception e) {
             messageJson.put("success", "false");
             messageJson.put("message", "网络异常，请联系管理员");
-            logger.info(className + "测试Ftp链接" + e);
+            logger.error(className + "测试Ftp链接" + e);
             return messageJson.toString();
         }
         if (StringUtils.isNotBlank(resultString)) {

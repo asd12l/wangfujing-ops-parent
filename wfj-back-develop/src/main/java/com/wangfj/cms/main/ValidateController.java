@@ -47,7 +47,7 @@ public class ValidateController {
         try {
             json = HttpUtil.HttpPost(SystemConfig.CMS_SYSTEM_URL, "/site/validate_site.do", resultMap);
         } catch (Exception e) {
-            logger.info(className + ":" + methodName + " " + e.getMessage());
+            logger.error(className + ":" + methodName + " " + e.getMessage());
         }
         return json;
     }

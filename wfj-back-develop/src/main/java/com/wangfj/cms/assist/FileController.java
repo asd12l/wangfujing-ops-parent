@@ -355,7 +355,7 @@ public class FileController {
 			resultMap.put("password", ftpJson.getString("password"));
 			resultMap.put("path", ftpJson.getString("path"));
 		} catch (Exception ex) {
-			logger.info(className + ":" + methodName + "发生异常：" + ex.getMessage());
+			logger.error(className + ":" + methodName + "发生异常：" + ex.getMessage());
 
 		}
 		String siteJsonResult = null;
@@ -367,7 +367,7 @@ public class FileController {
 			resultMap.put("siteResourcePath", ftpJson.getString("path") + "/"
 					+ siteJson.getJSONObject("obj").getString("domain"));
 		} catch (Exception ex) {
-			logger.info(className + ":" + methodName + "发生异常：" + ex.getMessage());
+			logger.error(className + ":" + methodName + "发生异常：" + ex.getMessage());
 		}
 		return resultMap;
 	}
