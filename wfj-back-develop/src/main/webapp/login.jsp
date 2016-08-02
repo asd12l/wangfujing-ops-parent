@@ -40,7 +40,7 @@
 				<div class="captcha_but" id="drag" style="width: 380px;"></div>
 			</div> -->
 			
-			<div class="captcha_div">
+			<%-- <div class="captcha_div">
 				<div class="captcha_pic" id="big_pic1" >
 					<div class="captcha_big" id="big_pic">
 					</div>
@@ -53,7 +53,7 @@
 						<img src="${ctx}/image/slider_valid.png">
 					</div>
 				</div>
-			</div>
+			</div> --%>
 			
 			<div class="dianji">
 				<div style="color:red;margin-top:5px;margin-left:5px;float:left;font-size:13px;">${error} </div>
@@ -66,7 +66,7 @@
 	<div class="cloud"></div>
 </div>
 </body>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	document.ondragstart = function() { return false;}
 </script>
 <script type="text/javascript">
@@ -170,7 +170,7 @@
 			return false;
 		});
 	});
-</script>
+</script> -->
 <!-- <script type="text/javascript">
 	var rootPath = "${pageContext.request.contextPath}";
 	var loadSuccessDate, captchaSuc = false;
