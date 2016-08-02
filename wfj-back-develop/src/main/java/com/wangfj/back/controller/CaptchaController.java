@@ -67,7 +67,13 @@ public class CaptchaController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		String moveX = request.getParameter("moveX");
 		String startX = request.getParameter("startX");
-		if("".equals(moveX) || moveX == null || !moveX.equals(startX)){
+		if("".equals(moveX) || moveX == null){
+			resultMap.put("success", false);
+			return JSONObject.toJSONString(resultMap);
+		}
+		int startXInt = Integer.valueOf(startX);
+		int moveXInt = Integer.valueOf(moveX);
+		if(Math.abs(startXInt - moveXInt) > 2){
 			resultMap.put("success", false);
 			return JSONObject.toJSONString(resultMap);
 		}

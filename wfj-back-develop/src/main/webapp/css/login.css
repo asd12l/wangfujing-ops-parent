@@ -173,6 +173,7 @@ body {
 }
 .captcha_lit{
 	position: absolute;
+	border: solid 1px gray;
 }
 .captcha_but{
 	margin: 15px 73px 0 63px;
