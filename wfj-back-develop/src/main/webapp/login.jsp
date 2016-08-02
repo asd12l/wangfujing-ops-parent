@@ -19,7 +19,7 @@
 	<div class="header">Wang Fu Jing Operation support system</div>
 	<form action="${ctx}/security/login" method="post"  id="login">
 		<div class="box">
-			<div class="kuang">
+			<div class="kuang" style="padding-top: 40px;">
 				<%-- <div style="position:relative;float: left;top: -20px;left: 162px;color: #cc324b;">
 					<span>${backEnvironment }</span>
 				</div> --%>
