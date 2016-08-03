@@ -126,7 +126,8 @@
 //		$('#reservation').daterangepicker();
 		$('#reservation').daterangepicker({
 			timePicker: true,
-			timePickerIncrement: 30,
+			timePicker12Hour:false,
+			timePickerIncrement: 1,
 			format: 'YYYY/MM/DD HH:mm:ss',
             locale : {
                 applyLabel : '确定',
