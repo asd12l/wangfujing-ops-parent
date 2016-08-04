@@ -352,7 +352,7 @@
 											&nbsp; <input type="hidden" id="tid_form" name="tid" /> <input
 												type="hidden" id="ordersId_form" name="ordersId" /> <input
 												type="hidden" id="receiverName_form" name="receiverName" />
-												<input type="hidden" id="receiverMobile_form" name="receiverMobile" value="query"/>
+												<input type="hidden" id="receiverMobile_form" name="receiverMobile" value=""/>
 											<input type="hidden" id="title_form" name="goodName" /> <input
 												type="hidden" id="status_form" name="status" /> <input
 												type="hidden" id="payMent_form" name="symbol" /> <input
