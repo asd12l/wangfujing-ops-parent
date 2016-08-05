@@ -25,7 +25,7 @@ Author: WangSy
 	function selectAllChannel(){
 		$.ajax({
 			type : "post",
-			url : __ctxPath + "/stock/queryChannelList",
+			url : __ctxPath + "/stock/queryChannelListAddPermission",
 			dataType : "json",
 			async : false,
 			success : function(response) {

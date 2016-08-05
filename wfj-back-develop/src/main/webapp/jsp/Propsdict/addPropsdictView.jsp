@@ -16,7 +16,7 @@ Author: WangSy
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
-			url:__ctxPath + "/channel/findChannel",
+			url:__ctxPath + "/stock/queryChannelListAddPermission",
 			async:false,
 			dataType: "json",
 			ajaxStart: function() {
@@ -30,9 +30,11 @@ Author: WangSy
 	         },
 			success:function(response) {
 				/* 获取所有渠道 */
+				var result = response.list;
 				var option = "";
-				for(var i=0;i<response.length;i++){
-					option+="<option value='"+response[i].sid+"'>"+response[i].channelName+"</option>";
+				for (var i = 0; i < result.length; i++) {
+					var ele = result[i];
+					option += "<option value='"+ele.sid+"'>" + ele.channelName + "</option>";
 				}
 				$("#channelSid").append(option);
 			}
@@ -269,7 +271,6 @@ Author: WangSy
 										<label class="col-lg-4 control-label">渠道：</label>
 										<div class="col-lg-5">
 											<select id="channelSid" name="channelSid" class="form-control">
-												<option value="">全渠道&nbsp;&nbsp;</option>
 											</select>
 										</div>
 									</div>
