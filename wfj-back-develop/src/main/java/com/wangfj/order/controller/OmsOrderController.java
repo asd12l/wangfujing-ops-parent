@@ -2879,7 +2879,7 @@ public class OmsOrderController {
 		String jsonStr = JSON.toJSONString(map);
 		try {
 //			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_order_list_phone"), jsonStr);
-			String json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone2"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://172.16.255.157:8087/oms-core-sdc/order/queryOrderExcel3.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
@@ -2960,6 +2960,7 @@ public class OmsOrderController {
 		header.add("会员卡号");
 		header.add("订单来源");
 		header.add("订单类型");
+		header.add("商品名称");
 		header.add("商品销售总额");
 		header.add("销售时间");
 		header.add("延迟时间");
@@ -3019,6 +3020,7 @@ public class OmsOrderController {
 				orderType = "员工订单";
 			}
 			inlist.add(vo.getOrderType()==null?"":orderType);
+			inlist.add(vo.getShoppeProName()==null ? "" : vo.getShoppeProName());
 			inlist.add(vo.getSalesAmount()==null?"":vo.getSalesAmount().toString());
 			inlist.add(vo.getSaleTimeStr()==null?"":vo.getSaleTimeStr());
 			inlist.add(vo.getDelayTimeStr()==null?"":vo.getDelayTimeStr());
@@ -4688,7 +4690,7 @@ public class OmsOrderController {
 		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-			String json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list_phone"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list_phone2"), jsonStr);
 //			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcelByPhone.htm", jsonStr);
 			
@@ -4764,6 +4766,7 @@ public class OmsOrderController {
 		List<String> header = new ArrayList<String>();
 		header.add("销售单号");
 		header.add("订单号");
+		header.add("外部订单号");
 		header.add("销售单状态");
 		header.add("支付状态");
 		header.add("手机号");
@@ -4782,6 +4785,7 @@ public class OmsOrderController {
 		header.add("供应商编码");
 		header.add("供应商名称");
 		header.add("专柜名称");
+		header.add("商品名称");
 		header.add("销售类型");
 		header.add("总金额");
 		header.add("应付金额（含运费）");
@@ -4804,7 +4808,8 @@ public class OmsOrderController {
 		for(ExcelSaleVo vo:list){
 			List<String> inlist = new ArrayList<String>();
 			inlist.add(vo.getSaleNo()==null?"":vo.getSaleNo());	
-			inlist.add(vo.getOrderNo()==null?"":vo.getOrderNo());	
+			inlist.add(vo.getOrderNo()==null?"":vo.getOrderNo());
+			inlist.add(vo.getOutOrderNo() == null ? "" : vo.getOutOrderNo());
 			inlist.add(vo.getSaleStatusDesc()==null?"":vo.getSaleStatusDesc());	
 //			inlist.add(vo.getPayStatus()==null?"":vo.getPayStatus());
 			String payStatus = null;
@@ -4841,6 +4846,7 @@ public class OmsOrderController {
 			inlist.add(vo.getSupplyNo()==null?"":vo.getSupplyNo());	
 			inlist.add(vo.getSuppllyName()==null?"":vo.getSuppllyName());	
 			inlist.add(vo.getShoppeName()==null?"":vo.getShoppeName());	
+			inlist.add(vo.getShoppeProName() == null ? "" : vo.getShoppeProName());
 //			inlist.add(vo.getSaleClass()==null?"":vo.getSaleClass().toString());
 			String saleClass = null;
 			if(vo.getSaleClass()==1){
@@ -4850,7 +4856,8 @@ public class OmsOrderController {
 			}
 			inlist.add(vo.getSaleClass()==null?"":saleClass);
 			inlist.add(vo.getSaleAmount()==null?"":vo.getSaleAmount().toString());
-			inlist.add(vo.getPaymentAmount()==null?"":(vo.getPaymentAmount().add(vo.getShippingFee())).toString());
+			BigDecimal big = new BigDecimal("0");
+			inlist.add(vo.getPaymentAmount()==null?"":(vo.getPaymentAmount().add(vo.getShippingFee() == null ? big : vo.getShippingFee())).toString());
 			inlist.add(vo.getCashAmount()==null?"":(vo.getCashAmount().add(vo.getShippingFee())).toString());
 			inlist.add(vo.getIntegral()==null?"":vo.getIntegral().toString());
 			inlist.add(vo.getShippingFee()==null?"":vo.getShippingFee().toString());

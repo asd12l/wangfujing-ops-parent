@@ -23,6 +23,8 @@ public class ExcelOrderVo {
 	private String orderType;//订单类型
 
 	private String paymentClass;//支付类型
+	
+	private String shoppeProName;//商品名称
 
 	private Date saleTime;//销售时间
 
@@ -193,6 +195,14 @@ public class ExcelOrderVo {
 		return orderType;
 	}
 
+	public String getShoppeProName() {
+		return shoppeProName;
+	}
+
+	public void setShoppeProName(String shoppeProName) {
+		this.shoppeProName = shoppeProName;
+	}
+	
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
 	}
@@ -641,36 +651,48 @@ public class ExcelOrderVo {
 
 	@Override
 	public String toString() {
-		return "ExcelOrderVo [orderNo=" + orderNo + ", outOrderNo=" + outOrderNo + ", paymentNo="
-				+ paymentNo + ", accountNo=" + accountNo + ", memberNo=" + memberNo
-				+ ", salesPaymentNo=" + salesPaymentNo + ", orderSource=" + orderSource
-				+ ", orderType=" + orderType + ", paymentClass=" + paymentClass + ", saleTime="
-				+ saleTime + ", delayTime=" + delayTime + ", orderStatus=" + orderStatus
-				+ ", orderStatusDesc=" + orderStatusDesc + ", delivetyStatus=" + delivetyStatus
-				+ ", delivetyStatusDesc=" + delivetyStatusDesc + ", payStatus=" + payStatus
-				+ ", payTime=" + payTime + ", deliveryMode=" + deliveryMode + ", deliveryModeName="
-				+ deliveryModeName + ", needInvoice=" + needInvoice + ", needSendCost="
-				+ needSendCost + ", sendCost=" + sendCost + ", salesAmount=" + salesAmount
-				+ ", saleSum=" + saleSum + ", refundSum=" + refundSum + ", sendSum=" + sendSum
-				+ ", sendAmount=" + sendAmount + ", paymentAmount=" + paymentAmount
-				+ ", couponAmount=" + couponAmount + ", integral=" + integral + ", cashAmount="
-				+ cashAmount + ", cashIncome=" + cashIncome + ", accountBalanceAmount="
+		return "ExcelOrderVo [orderNo=" + orderNo + ", outOrderNo="
+				+ outOrderNo + ", paymentNo=" + paymentNo + ", accountNo="
+				+ accountNo + ", memberNo=" + memberNo + ", salesPaymentNo="
+				+ salesPaymentNo + ", orderSource=" + orderSource
+				+ ", orderType=" + orderType + ", paymentClass=" + paymentClass
+				+ ", shoppeProName=" + shoppeProName + ", saleTime=" + saleTime
+				+ ", delayTime=" + delayTime + ", orderStatus=" + orderStatus
+				+ ", orderStatusDesc=" + orderStatusDesc + ", delivetyStatus="
+				+ delivetyStatus + ", delivetyStatusDesc=" + delivetyStatusDesc
+				+ ", payStatus=" + payStatus + ", payTime=" + payTime
+				+ ", deliveryMode=" + deliveryMode + ", deliveryModeName="
+				+ deliveryModeName + ", needInvoice=" + needInvoice
+				+ ", needSendCost=" + needSendCost + ", sendCost=" + sendCost
+				+ ", salesAmount=" + salesAmount + ", saleSum=" + saleSum
+				+ ", refundSum=" + refundSum + ", sendSum=" + sendSum
+				+ ", sendAmount=" + sendAmount + ", paymentAmount="
+				+ paymentAmount + ", couponAmount=" + couponAmount
+				+ ", integral=" + integral + ", cashAmount=" + cashAmount
+				+ ", cashIncome=" + cashIncome + ", accountBalanceAmount="
 				+ accountBalanceAmount + ", promotionAmount=" + promotionAmount
-				+ ", cancelReasonNo=" + cancelReasonNo + ", cancelReason=" + cancelReason
-				+ ", customerComments=" + customerComments + ", callCenterComments="
-				+ callCenterComments + ", receptPhone=" + receptPhone + ", receptName="
-				+ receptName + ", receptCityNo=" + receptCityNo + ", receptCityName="
-				+ receptCityName + ", receptCityCode=" + receptCityCode + ", receptProvNo="
-				+ receptProvNo + ", receptProvName=" + receptProvName + ", receptAddress="
-				+ receptAddress + ", extractFlag=" + extractFlag + ", recoveryFlag=" + recoveryFlag
-				+ ", promFlag=" + promFlag + ", version=" + version + ", memberType=" + memberType
-				+ ", isCod=" + isCod + ", receptDistrictNo=" + receptDistrictNo
-				+ ", receptDistrictName=" + receptDistrictName + ", invoiceTitle=" + invoiceTitle
-				+ ", saleTimeStr=" + saleTimeStr + ", payTimeStr=" + payTimeStr + ", delayTimeStr="
-				+ delayTimeStr + ", latestUpdateMan=" + latestUpdateMan + ", contactNumber="
-				+ contactNumber + ", requiredDeliveryDate=" + requiredDeliveryDate + ", realName="
-				+ realName + ", identityCard=" + identityCard + "]";
+				+ ", cancelReasonNo=" + cancelReasonNo + ", cancelReason="
+				+ cancelReason + ", customerComments=" + customerComments
+				+ ", callCenterComments=" + callCenterComments
+				+ ", receptPhone=" + receptPhone + ", receptName=" + receptName
+				+ ", receptCityNo=" + receptCityNo + ", receptCityName="
+				+ receptCityName + ", receptCityCode=" + receptCityCode
+				+ ", receptProvNo=" + receptProvNo + ", receptProvName="
+				+ receptProvName + ", receptAddress=" + receptAddress
+				+ ", extractFlag=" + extractFlag + ", recoveryFlag="
+				+ recoveryFlag + ", promFlag=" + promFlag + ", version="
+				+ version + ", memberType=" + memberType + ", isCod=" + isCod
+				+ ", receptDistrictNo=" + receptDistrictNo
+				+ ", receptDistrictName=" + receptDistrictName
+				+ ", invoiceTitle=" + invoiceTitle + ", saleTimeStr="
+				+ saleTimeStr + ", payTimeStr=" + payTimeStr
+				+ ", delayTimeStr=" + delayTimeStr + ", latestUpdateMan="
+				+ latestUpdateMan + ", contactNumber=" + contactNumber
+				+ ", requiredDeliveryDate=" + requiredDeliveryDate
+				+ ", realName=" + realName + ", identityCard=" + identityCard
+				+ "]";
 	}
 
+	
 
 }

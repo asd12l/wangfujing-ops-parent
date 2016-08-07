@@ -10,7 +10,15 @@ public class ExcelSaleVo {
 	private String receptCityCode;
 	private String receptProvName;
 	private String receptAddress;
-	
+	public String getShoppeProName() {
+		return shoppeProName;
+	}
+
+	public void setShoppeProName(String shoppeProName) {
+		this.shoppeProName = shoppeProName;
+	}
+
+	private String shoppeProName;
 	public String getReceptName() {
 		return receptName;
 	}
@@ -699,33 +707,50 @@ public class ExcelSaleVo {
 
 	@Override
 	public String toString() {
-		return "ExcelSaleVo [sid=" + sid + ", saleNo=" + saleNo + ", isSynchronous="
-				+ isSynchronous + ", orderNo=" + orderNo + ", outOrderNo=" + outOrderNo
-				+ ", accountNo=" + accountNo + ", memberNo=" + memberNo + ", saleTime=" + saleTime
-				+ ", saleType=" + saleType + ", saleClass=" + saleClass + ", saleSource="
-				+ saleSource + ", payStatus=" + payStatus + ", payStatusDesc=" + payStatusDesc
-				+ ", saleStatus=" + saleStatus + ", saleStatusDesc=" + saleStatusDesc
-				+ ", saleAmount=" + saleAmount + ", paymentAmount=" + paymentAmount
-				+ ", cashAmount=" + cashAmount + ", discountAmount=" + discountAmount
-				+ ", shippingFee=" + shippingFee + ", cashIncome=" + cashIncome + ", isLock="
-				+ isLock + ", needInvoice=" + needInvoice + ", invoiceTitle=" + invoiceTitle
-				+ ", invoiceAmount=" + invoiceAmount + ", shopNo=" + shopNo + ", storeName="
-				+ storeName + ", supplyNo=" + supplyNo + ", suppllyName=" + suppllyName
-				+ ", shoppeNo=" + shoppeNo + ", shoppeName=" + shoppeName + ", createdTime="
-				+ createdTime + ", createdMode=" + createdMode + ", originalSalesOrder="
-				+ originalSalesOrder + ", exchangeOrder=" + exchangeOrder + ", sendToPosErp="
-				+ sendToPosErp + ", sendToStoreErp=" + sendToStoreErp + ", cashIncomeFlag="
-				+ cashIncomeFlag + ", hasInvoiced=" + hasInvoiced + ", salesPaymentNo="
-				+ salesPaymentNo + ", authorized=" + authorized + ", authorityCard="
-				+ authorityCard + ", deliveryNo=" + deliveryNo + ", offlineSaleBit="
-				+ offlineSaleBit + ", qrcode=" + qrcode + ", latestUpdateTime=" + latestUpdateTime
-				+ ", latestUpdateMan=" + latestUpdateMan + ", extractFlag=" + extractFlag
-				+ ", distributionStatus=" + distributionStatus + ", employeeNo=" + employeeNo
-				+ ", casherNo=" + casherNo + ", fromSystem=" + fromSystem + ", bankServiceCharge="
-				+ bankServiceCharge + ", calcBillid=" + calcBillid + ", employeeName="
-				+ employeeName + ", memberCardNo=" + memberCardNo + ", memberShipCardNo="
-				+ memberShipCardNo + ", memberCardType=" + memberCardType + ", problemDesc="
-				+ problemDesc + "]";
+		return "ExcelSaleVo [receptName=" + receptName + ", receptCityName="
+				+ receptCityName + ", receptCityCode=" + receptCityCode
+				+ ", receptProvName=" + receptProvName + ", receptAddress="
+				+ receptAddress + ", shoppeProName=" + shoppeProName
+				+ ", integral=" + integral + ", couponAmount=" + couponAmount
+				+ ", accountBalanceAmount=" + accountBalanceAmount + ", sid="
+				+ sid + ", saleNo=" + saleNo + ", receptPhone=" + receptPhone
+				+ ", isSynchronous=" + isSynchronous + ", orderNo=" + orderNo
+				+ ", outOrderNo=" + outOrderNo + ", accountNo=" + accountNo
+				+ ", memberNo=" + memberNo + ", saleTime=" + saleTime
+				+ ", saleType=" + saleType + ", saleClass=" + saleClass
+				+ ", saleSource=" + saleSource + ", payStatus=" + payStatus
+				+ ", payStatusDesc=" + payStatusDesc + ", saleStatus="
+				+ saleStatus + ", saleStatusDesc=" + saleStatusDesc
+				+ ", saleAmount=" + saleAmount + ", paymentAmount="
+				+ paymentAmount + ", cashAmount=" + cashAmount
+				+ ", discountAmount=" + discountAmount + ", shippingFee="
+				+ shippingFee + ", cashIncome=" + cashIncome + ", isLock="
+				+ isLock + ", needInvoice=" + needInvoice + ", invoiceTitle="
+				+ invoiceTitle + ", invoiceAmount=" + invoiceAmount
+				+ ", shopNo=" + shopNo + ", storeName=" + storeName
+				+ ", supplyNo=" + supplyNo + ", suppllyName=" + suppllyName
+				+ ", shoppeNo=" + shoppeNo + ", shoppeName=" + shoppeName
+				+ ", createdTime=" + createdTime + ", createdMode="
+				+ createdMode + ", originalSalesOrder=" + originalSalesOrder
+				+ ", exchangeOrder=" + exchangeOrder + ", sendToPosErp="
+				+ sendToPosErp + ", sendToStoreErp=" + sendToStoreErp
+				+ ", cashIncomeFlag=" + cashIncomeFlag + ", hasInvoiced="
+				+ hasInvoiced + ", salesPaymentNo=" + salesPaymentNo
+				+ ", authorized=" + authorized + ", authorityCard="
+				+ authorityCard + ", deliveryNo=" + deliveryNo
+				+ ", offlineSaleBit=" + offlineSaleBit + ", qrcode=" + qrcode
+				+ ", latestUpdateTime=" + latestUpdateTime
+				+ ", latestUpdateMan=" + latestUpdateMan + ", extractFlag="
+				+ extractFlag + ", distributionStatus=" + distributionStatus
+				+ ", employeeNo=" + employeeNo + ", casherNo=" + casherNo
+				+ ", fromSystem=" + fromSystem + ", bankServiceCharge="
+				+ bankServiceCharge + ", calcBillid=" + calcBillid
+				+ ", employeeName=" + employeeName + ", memberCardNo="
+				+ memberCardNo + ", memberShipCardNo=" + memberShipCardNo
+				+ ", memberCardType=" + memberCardType + ", problemDesc="
+				+ problemDesc + ", saleTimeStr=" + saleTimeStr
+				+ ", latestUpdateTimeStr=" + latestUpdateTimeStr + "]";
 	}
+
 
 }
