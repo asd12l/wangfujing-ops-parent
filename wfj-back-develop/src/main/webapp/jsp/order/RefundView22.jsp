@@ -660,7 +660,7 @@ function shbtgForm(){
 	//图片展示
 	function urlClick(ur,obj){
 //		$("#imageDiv").text(ur);
-		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.6.100.100/refundPicture/'+ur+'"/>');
+		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/refundPicture/'+ur+'"/>');
 		$("#btDiv2").show();
 	}
 	function closeBtDiv2(){

@@ -126,6 +126,7 @@
 //		$('#reservation').daterangepicker();
 		$('#reservation').daterangepicker({
 			timePicker: true,
+			timePickerSeconds:true,
 			timePicker12Hour:false,
 			timePickerIncrement: 1,
 			format: 'YYYY/MM/DD HH:mm:ss',
@@ -1221,7 +1222,7 @@
 	
 	function urlClick(ur,obj){
 //		$("#imageDiv").text(ur);
-		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.6.100.100/'+ur+'"/>');
+		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/'+ur+'"/>');
 		$("#btDiv2").show();
 	}
 	//点击tr事件
