@@ -154,7 +154,12 @@ Author: WangSy
 		$("#amount2").text(parseFloat(0).toFixed(2));
 		$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 		$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
-		$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
+	//	$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
+		if(isNaN(parseFloat(returnShippingFee))){
+			$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
+		}else{
+			$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)-parseFloat(returnShippingFee)).toFixed(2));
+		}
 	}else{
 //		$("#amount1").text(parseFloat(refundAmount).toFixed(2));
 		$("#amount2").text(parseFloat(0).toFixed(2));
