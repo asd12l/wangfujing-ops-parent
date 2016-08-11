@@ -52,4 +52,20 @@ public abstract class Constants {
      * 空字符串
      */
     public static final String EMPTY = "";
+    
+    /**
+     * 默认一页多少条数据
+     */
+    public static final String PAGESIZE = "10";
+    
+    /**
+     * 正常返回
+     */
+    public static final String SUCCRSSCODE = "1";
+    
+    /**
+     * 失败返回
+     */
+    public static final String FAILCODE = "0";
+    
 }

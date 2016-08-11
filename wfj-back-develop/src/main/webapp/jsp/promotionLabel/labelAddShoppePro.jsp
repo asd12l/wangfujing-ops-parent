@@ -280,14 +280,9 @@ function findShop() {
 	$.ajax({
 		type : "post",
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
-		url : __ctxPath + "/organization/queryOrganizationZero",
+		url : __ctxPath + "/shoppe/queryShopListAddPermission",
 		dataType : "json",
 		async : false,
-		data : {
-			"organizationType" : 3,
-			"page" : 1,
-			"pageSize" : 1000000
-		},
 		success : function(response) {
 			var result = response.list;
 			var option = "<option value=''>全部</option>";

@@ -9,9 +9,10 @@
 <script src="${ctx}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/msgbox/msgbox.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/myPagination/page.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/assets/css/dateTime/datePicker.css"/>
 <!--Bootstrap Date Range Picker-->
-<script src="${ctx}/assets/js/datetime/moment.js"></script>
-<script src="${ctx}/assets/js/datetime/daterangepicker.js"></script>
+<script src="${ctx}/assets/js/datetime/moment.min.js"></script>
+<script src="${ctx}/assets/js/datetime/datepicker.js"></script>
 <style type="text/css">
 .trClick>td,.trClick>th{
  color:red;
@@ -100,6 +101,7 @@
 			}
 		});
 		
+		
 		//销售单状态
 		$("#saleStatus_select").one("click",function(){
 			$.ajax({
@@ -121,6 +123,7 @@
 				}
 			});
 		}); 
+		
 		//支付状态
 		$("#payStatus_select").one("click",function(){
 			$.ajax({
@@ -144,10 +147,11 @@
 		}); 
 		$('#reservation').daterangepicker({
 			timePicker: true,
-			timePicker12Hour:false,
+			timePickerSeconds:true,
+			timePicker24Hour:true,
 			timePickerIncrement: 1,
-			format: 'YYYY/MM/DD HH:mm:ss',
             locale : {
+				format: 'YYYY/MM/DD HH:mm:ss',
                 applyLabel : '确定',
                 cancelLabel : '取消',
                 fromLabel : '起始时间',
@@ -159,8 +163,10 @@
                 firstDay : 1
             }
         });
+		$("#reservation").val("");
 	    initOlv();
 	});
+	
 	function olvQuery(){
 		$("#receptPhone_form").val($("#receptPhone_input").val());
 		$("#saleSource_form").val($("#saleSource_input").val());
@@ -249,7 +255,7 @@
     }
  	function urlClick(ur,obj){
 //		$("#imageDiv").text(ur);
-		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.6.100.100/'+ur+'"/>');
+		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/'+ur+'"/>');
 		$("#btDiv2").show();
 	}
  	//订单明细促销
@@ -2144,6 +2150,7 @@
 				}
 			}
 		});
+		
 		$("#OLV21_tab").html(option);
 		$("#OLV22_tab").html(option2);
 		$("#OLV23_tab").html(option3);
@@ -2383,7 +2390,7 @@
 						if(ele.saleNo=="[object Object]"||ele.saleNo==undefined){
 							option+="<td align='center'></td>";
 						}else{
-							option+="<td align='center'>"+ele.saleNo+"</td>";
+							option+="<td align='center' id='saleNo'>"+ele.saleNo+"</td>";
 						}
 						//销售单明细编号
 						if(ele.salesItemNo=="[object Object]"||ele.salesItemNo==undefined){
@@ -2602,6 +2609,45 @@
 							option+="<td align='center'></td></tr>";
 						}else{
 							option+="<td align='center'>"+ele.barcode+"</td></tr>";
+						}
+					}
+				}
+			}
+		});
+		//客服备注
+		var option8 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>备注时间</th>"+
+		"<th width='5%' style='text-align: center;'>备注人</th>"+
+		"<th width='5%' style='text-align: center;'>备注内容</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectRemarkLog",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":saleNo},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//备注时间
+						if(ele.createTimeStr=="[object Object]"||ele.createTimeStr==undefined){
+							option8+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option8+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.createTimeStr+"</td>";
+						}
+						//备注人
+						if(ele.createMan=="[object Object]"||ele.createMan==undefined){
+							option8+="<td align='center'></td>";
+						}else{
+							option8+="<td align='center'>"+ele.createMan+"</td>";
+						}
+						//备注内容
+						if(ele.remark=="[object Object]"||ele.remark==undefined){
+							option8+="<td align='center'></td>";
+						}else{
+							option8+="<td align='center'>"+ele.remark+"</td>";
 						}
 					}
 				}
@@ -3173,6 +3219,7 @@
 		}
 		$("#OLV3_tab").html(option3);
 		$("#OLV4_tab").html(option4);
+		$("#OLV8_tab").html(option8);
 		
 		$("#divTitle").html("销售单详情");
 		$("#btDiv").show();
@@ -3182,6 +3229,46 @@
 	}
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
+	}
+	//备注添加提交
+	$("#remarkButten").click(function() {
+		remarkButtenForm();
+	});
+	function remarkButtenForm(){
+		var saleNo = $("#saleNo").text();
+		var remarkInput=$("#remarkInput").val();
+//		var orderType="普通订单";
+		var userName=getCookieValue("username");
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/saveRemarkLog",
+			async:false,
+			dataType: "json",
+			ajaxStart: function() {
+		       	 $("#loading-container").attr("class","loading-container");
+		        },
+	        ajaxStop: function() {
+	          //隐藏加载提示
+	          setTimeout(function() {
+	       	        $("#loading-container").addClass("loading-inactive");
+	       	 },300);
+	        },
+			data:{"orderNo":saleNo,"remark":remarkInput,"userName":userName},
+			success : function(response) {
+				if (response.success == "true") {
+					$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>添加成功，返回列表页!</strong></div>");
+					$("#modal-success").attr({"style":"display:block;z-index:19891015;","aria-hidden":"false","class":"modal modal-message modal-success"});
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"添加失败"+"</strong></div>");
+					$("#modal-warning").attr({"style":"display:block;z-index: 19891015;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			},
+			error : function() {
+				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"添加失败"+"</strong></div>");
+				$("#modal-warning").attr({"style":"display:block;z-index: 19891015;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+			}
+		});
 	}
 	
 	//导出excel
@@ -3250,7 +3337,7 @@
 	
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
-		$("#pageBody").load(__ctxPath+"/jsp/OrderListView.jsp");
+		$("#pageBody").load(__ctxPath+"/jsp/order/SaleOrderListView.jsp");
 	}
 	</script> 
 </head>
@@ -3721,6 +3808,7 @@
 							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
+							<li><a href="#tab6" data-toggle="tab">客户备注</a></li>
 					      </ul>
 					      <div class="tab-content">
 					        <div class="tab-pane active" id="tab1">
@@ -3753,6 +3841,18 @@
 					                    </table>
 					                </div>
 					         </div>
+					         <div class="tab-pane" id="tab6">
+					          	<div style="width:100%;height:200px; overflow:scroll;">
+					                    <table class="table-striped table-hover table-bordered" id="OLV8_tab" style="width: 100%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                    &nbsp;&nbsp;&nbsp;&nbsp;
+					                    <div>&nbsp;
+					                    	<span>输入内容：</span>&nbsp;
+					                    	<input type="text" id="remarkInput"/>&nbsp;
+					                    	<input class="btn btn-success" style="width: 20%;" id="remarkButten" type="button" value="提交" />
+					                    </div>
+					             </div>
+					        </div>
 					      </div>
 					    </div>
                 <div class="modal-footer">

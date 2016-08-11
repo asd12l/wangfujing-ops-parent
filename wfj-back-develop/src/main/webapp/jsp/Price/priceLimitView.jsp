@@ -17,7 +17,7 @@
 		var parentSid = $("#shopName_input");
 		$.ajax({
 					type : "post",
-					url : __ctxPath + "/stock/queryShopList",
+					url : __ctxPath + "/shoppe/queryShopListAddPermission",
 					async : false,
 					dataType : "json",
 					success : function(response) {

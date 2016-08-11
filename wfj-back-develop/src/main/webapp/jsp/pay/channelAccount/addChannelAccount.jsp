@@ -109,7 +109,9 @@
 				                        message: 'appid必须由数字或字母或空格32位组成'
 				                    }
 								}
-							},
+							}
+						/*
+						,
 						publicKey : {
 								validators : {
 									regexp: {
@@ -126,6 +128,7 @@
 				                    }
 								}
 						}
+						*/
 				
 			}
 
@@ -381,6 +384,7 @@
 												<option value="CGBPAY">广发银行</option>
 												<option value="WECHATPAY_SHB">微信扫货邦</option>
 												<option value="ALIPAY_OFFLINE">支付宝线下</option>
+												<option value="WECHATPAY_OFFLINE">微信线下</option>
 												<option value="ALIPAY_MOBILE">支付宝WAP</option>
 												<option value="WECHATPAY_MOBILE">微信WAP</option>
 										    </select>

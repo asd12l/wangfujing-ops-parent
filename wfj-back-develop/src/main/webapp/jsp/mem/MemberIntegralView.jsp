@@ -147,7 +147,7 @@
 		//初始化函数
 		function initOlv() {
 			//请求地址
-			var url = __ctxPath+"/balanceRecord/get";
+			var url = __ctxPath+"/memScore/searchMemberScore";
 			//var url = __ctxPath+"/memDrawback/getWithdrawlsList";
 			/* setFormData(); */
 
@@ -200,7 +200,12 @@
 					},
 					//回调
 					callback: function(data) {
-						$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
+						if(data!=null && data.code == '1'){
+							$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data.object);
+						}else{
+							//错误提示
+						}
+						
 					}
 				}
 			});
@@ -271,6 +276,10 @@
 										<input type="text" id="time"/>
 									</li>
 									<li class="col-md-4">
+										<label class="titname">积分类别：</label>
+										<input type="text" id="integralType" />
+									</li>
+									<li class="col-md-4">
 										<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
 										<a class="btn btn-default shiny" onclick="reset();">重置</a>&nbsp;&nbsp;
 										<%--<a class="btn btn-yellow" onclick="excelOrder();">导出</a>--%>
@@ -284,6 +293,7 @@
 									<input type="hidden" id="hidEmail" name="hidEmail"/>
 									<input type="hidden" id="hidStartTime" name="hidStartTime"/>
 									<input type="hidden" id="hidEndTime" name="hidEndTime"/>
+									<input type="hidden" id="hidIntegralType" name="hidIntegralType">
 								</form>
 								<!--数据列表显示区域-->
 								<div style="width:100%; min-height:400px; overflow-Y: hidden;">
@@ -296,6 +306,7 @@
 											<th width="2%" style="text-align: center;">真实姓名</th>
 											<th width="2%" style="text-align: center;">手机</th>
 											<th width="2%" style="text-align: center;">邮箱</th>
+											<th width="2%" style="text-align: center;">会员来源</th>
 											<th width="2%" style="text-align: center;">会员等级</th>
 											<th width="2%" style="text-align: center;">收入/支出</th>
 											<th width="2%" style="text-align: center;">操作描述</th>
@@ -314,7 +325,7 @@
 							<p style="display:none">
 								<textarea id="olv-list" rows="0" cols="0">
 								{#template MAIN}
-									{#foreach $T.object.data as Result}
+									{#foreach $T.object.cust_accnt_logs as Result}
 										<tr class="gradeX" id="gradeX{$T.Result.sid}" ondblclick="trClick('{$T.Result.orderTradeNo}',this)" style="height:35px;">
 											<td align="center">
 												{#if $T.Result.logdate != '[object Object]'}{$T.Result.logdate}
@@ -338,6 +349,10 @@
 											</td>
 											<td align="center">
 												{#if $T.object.email != '[object Object]'}{$T.object.email}
+												{#/if}
+											</td>
+											<td align="center">
+												{#if $T.object.level != '[object Object]'}{$T.object.level}
 												{#/if}
 											</td>
 											<td align="center">

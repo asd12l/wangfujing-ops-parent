@@ -1266,6 +1266,7 @@ $(function(){
     					<option value="CMBPAY">招商银行</option>
     					<option value="CGBPAY">广发银行</option>
     					<option value="WECHATPAY">微信</option>
+    					<option value="WECHATPAY_OFFLINE">微信线下</option>
     					<option value='WECHATPAY_SHB'>微信扫货邦</option>
     					<option value='ALIPAY_OFFLINE'>支付宝线下</option>
     					<option value='ALIPAY_MOBILE'>支付宝WAP</option>
@@ -1348,6 +1349,7 @@ $(function(){
     					<option value="CMBPAY">招商银行</option>
     					<option value="CGBPAY">广发银行</option>
     					<option value="WECHATPAY">微信</option>
+    					<option value='WECHATPAY_OFFLINE'>微信线下</option>
     					<option value='WECHATPAY_SHB'>微信扫货邦</option>
     					<option value='ALIPAY_OFFLINE'>支付宝线下</option>
     					<option value='ALIPAY_MOBILE'>支付宝WAP</option>
