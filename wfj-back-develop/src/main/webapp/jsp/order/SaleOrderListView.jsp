@@ -255,7 +255,7 @@
     }
  	function urlClick(ur,obj){
 //		$("#imageDiv").text(ur);
-		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/'+ur+'"/>');
+		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.6.100.100/'+ur+'"/>');
 		$("#btDiv2").show();
 	}
  	//订单明细促销
