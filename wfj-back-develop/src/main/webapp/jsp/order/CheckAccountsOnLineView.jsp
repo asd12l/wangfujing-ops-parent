@@ -9,9 +9,10 @@
 <script src="${ctx}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/msgbox/msgbox.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/myPagination/page.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/assets/css/dateTime/datePicker.css"/>
 <!--Bootstrap Date Range Picker-->
-<script src="${ctx}/assets/js/datetime/moment.js"></script>
-<script src="${ctx}/assets/js/datetime/daterangepicker.js"></script>
+<script src="${ctx}/assets/js/datetime/moment.min.js"></script>
+<script src="${ctx}/assets/js/datetime/datepicker.js"></script>
 <style type="text/css">
 .trClick>td,.trClick>th{
  color:red;
@@ -42,10 +43,11 @@
  		}}); */
  		$('#reservation').daterangepicker({
  			timePicker: true,
- 			timePicker12Hour:false,
+ 			timePickerSeconds:true,
+ 			timePicker24Hour:true,
 			timePickerIncrement: 1,
-			format: 'YYYY/MM/DD HH:mm:ss',
             locale : {
+				format: 'YYYY/MM/DD HH:mm:ss',
                 applyLabel : '确定',
                 cancelLabel : '取消',
                 fromLabel : '起始时间',
@@ -57,6 +59,7 @@
                 firstDay : 1
             }
         });
+ 		$("#reservation").val("");
 	    initOlv(); 
 	});
 	function olvQuery(){

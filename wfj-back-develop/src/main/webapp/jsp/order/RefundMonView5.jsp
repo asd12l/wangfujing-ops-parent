@@ -220,7 +220,12 @@ Author: WangSy
 							$("#amount2").text(parseFloat(0).toFixed(2));
 							$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 							$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
-							$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
+				//			$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
+							if(isNaN(parseFloat(returnShippingFee))){
+								$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
+							}else{
+								$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)-parseFloat(returnShippingFee)).toFixed(2));
+							}
 					}else{
 						
 						$("#amount2").text(parseFloat(0).toFixed(2));
@@ -1117,7 +1122,7 @@ Author: WangSy
 	//图片展示
 	function urlClick(ur,obj){
 	//	$("#imageDiv").text(ur);
-		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.6.100.100/refundPicture/'+ur+'"/>');
+		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/refundPicture/'+ur+'"/>');
 		$("#btDiv2").show();
 	}
 	function closeBtDiv2(){

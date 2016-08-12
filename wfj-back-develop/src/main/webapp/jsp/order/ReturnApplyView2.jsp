@@ -675,7 +675,7 @@
  	}
  	function urlClick(ur,obj){
 //		$("#imageDiv").text(ur);
-		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.6.100.100/'+ur+'"/>');
+		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/'+ur+'"/>');
 		$("#btDiv211").show();
 	}
 	function closeBtDiv211(){
@@ -1780,7 +1780,7 @@
 	}
 	function urlClick221(ur,obj){
 //		$("#imageDiv").text(ur);
-		$("#imageDiv221").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.6.100.100/'+ur+'"/>');
+		$("#imageDiv221").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/'+ur+'"/>');
 		$("#btDiv221").show();
 	}
 	function closeBtDiv221(){
