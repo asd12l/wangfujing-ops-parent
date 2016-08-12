@@ -35,6 +35,12 @@
 	});
 	
 	function  obtain(){
+		LA.env = 'dev';
+		LA.sysCode = '47';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('jm-obtain', '聚美获取订单', 'admin',  sessionId);
+		
+		
 		$("#tid_form").val($("#tid_input").val());
 		var params = $("#stock_form").serialize();
 		params = decodeURI(params);

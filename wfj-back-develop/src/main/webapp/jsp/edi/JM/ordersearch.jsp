@@ -26,6 +26,8 @@
 <!--Bootstrap Date Range Picker-->
 <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
+<!-- log frame -->
+<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
 	image = "http://images.shopin.net/images";
@@ -55,6 +57,11 @@
 	});
 	
 	function olvQuery(){
+		  LA.env = 'dev';
+		  LA.sysCode = '47';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('jm-search', '聚美搜索', 'admin', sessionId);
+		
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
@@ -111,6 +118,11 @@
 	
 	// 导出excel
 	function exportexcle(){
+		LA.env = 'dev';
+		LA.sysCode = '47';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('jm-export', '聚美导出订单', 'admin',  sessionId);
+		
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
