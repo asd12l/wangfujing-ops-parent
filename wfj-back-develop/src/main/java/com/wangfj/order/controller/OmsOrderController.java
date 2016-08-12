@@ -2875,16 +2875,12 @@ public class OmsOrderController {
 		}
 		map.put("start", String.valueOf(currPage));
 		map.put("limit", String.valueOf(size));
-//		map.put("fromSystem", "OMSADMIN");
 		String jsonStr = JSON.toJSONString(map);
 		try {
-//			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_order_list_phone"), jsonStr);
+			logger.info("导出Excel表格调oms接口入参:{}",jsonStr);
 			String json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone2"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://172.16.255.157:8087/oms-core-sdc/order/queryOrderExcel3.htm", jsonStr);
-			
+			logger.info("导出Excel表格调oms接口出参:{}",json);
 			JSONObject js = JSONObject.fromObject(json);
-//			Object objs = js.get("data");
-//			List<Object> list = (List<Object>) js.get("data");
 			String data = js.getString("data");
 			JSONObject jsonObject2 = JSONObject.fromObject(data);
 			List<Object> list = (List<Object>) jsonObject2.get("list");
