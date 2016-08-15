@@ -329,7 +329,7 @@
 													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{$T.Result.receiverMobile}</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
-													<td align="center" id="lockedStock_{$T.Result.update}">{$T.Result.update}</td>
+													<td align="center" id="lockedStock_{$T.Result.cdate}">{$T.Result.cdate}</td>
 													<!-- <td align="center" id="">
 														<a class="btn btn-default btn-sm" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->
