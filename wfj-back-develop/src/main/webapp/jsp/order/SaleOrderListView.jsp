@@ -253,10 +253,40 @@
            }
          });
     }
- 	function urlClick(ur,obj){
+ 	//图片展示
+	function urlClick(ur,obj){
 //		$("#imageDiv").text(ur);
-		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/'+ur+'"/>');
-		$("#btDiv2").show();
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/ftpUrlController",
+			async:false,
+			dataType: "json",
+			ajaxStart: function() {
+		       	 $("#loading-container").attr("class","loading-container");
+		        },
+	        ajaxStop: function() {
+	          //隐藏加载提示
+	          setTimeout(function() {
+	       	        $("#loading-container").addClass("loading-inactive");
+	       	 },300);
+	        },
+	//		data:{"pro":"refund"},//退货图片传参数
+			success : function(response) {
+				if (response.success == "true") {
+					$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="'+response.data+ur+'"/>');
+					$("#btDiv2").show();
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			},
+			error : function() {
+				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+			}
+		});
+			
 	}
  	//订单明细促销
  	function spanTdOrder(obj) {

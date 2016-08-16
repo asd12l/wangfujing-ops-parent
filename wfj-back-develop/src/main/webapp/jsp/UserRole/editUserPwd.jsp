@@ -7,8 +7,17 @@
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
 	$(function(){
+		$("#renewPassword").focus(function(){
+			$("#errorMsg").hide();
+		});
   		$("#edit").click(function(){
-  			saveFrom();
+  			var vale = $("#newPassword").val();
+  			var reVale = $("#renewPassword").val();
+  			if(vale == reVale){
+  				saveFrom();
+  			} else {
+  				$("#errorMsg").show();
+  			}
   		});
   		/* $("#close").click(function(){
   			$("#pageBody").load(__ctxPath+"/jsp/userRole.jsp");
@@ -72,7 +81,13 @@
 											<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="必填"/>
 										</div>
 									</div>
-									
+									<div class="form-group">
+										<label class="col-lg-3 control-label">确认密码：</label>
+										<div class="col-lg-6">
+											<input type="password" class="form-control" id="renewPassword" placeholder="必填"/>
+										</div>
+										<dir id="errorMsg" style="color: red;display: none;">确认密码与新密码不相同</dir>
+									</div>
          							<div class="form-group">
 										<div class="col-lg-offset-4 col-lg-6">
 											<input class="btn btn-success" style="width: 25%;" id="edit" type="button" value="修改" />&emsp;&emsp;
