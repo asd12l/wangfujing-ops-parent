@@ -197,7 +197,7 @@
 													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{$T.Result.receiverMobile}</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
-													<td align="center" id="lockedStock_{$T.Result.cdate}">{$T.Result.cdate}</td>
+													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.update} {#else} {$T.Result.cdate} {#/if}</td>
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	
