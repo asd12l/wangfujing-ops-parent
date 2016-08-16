@@ -200,6 +200,12 @@
 			}
 		}
 	}
+	
+	function toggleShow(tid) {
+		$("#toggle_"+tid).toggleClass("fa-minus"); 
+		$("#items_"+tid).toggle();
+		
+	}
 </script>
 </head>
 <body>
@@ -269,6 +275,7 @@
 								<table class="table table-bordered table-striped table-condensed table-hover flip-content" id="stock_tab">
                                        <thead class="flip-content bordered-darkorange">
 										<tr role="row">
+													<th style="text-align: center;"></th>
 													<th style="text-align: center;">订单编号</th>
 													<!-- tid -->
 													<th style="text-align: center;">王府井订单编号</th>
@@ -322,6 +329,9 @@
 										{#template MAIN}
 											{#foreach $T.list as Result}
 												<tr class="gradeX">
+													<td align="center">
+														<a onclick="toggleShow('{$T.Result.tid}');" ><i class="fa fa-plus" id="toggle_{$T.Result.tid}"></i></a>
+													</td>
 													<td align="center" id="skuCode_{$T.Result.sid}">{$T.Result.tid}</td>
 													<td align="center" id="unitCode_{$T.Result.sid}">{#if $T.Result.ordersid == null || $T.Result.ordersid == ""} --- {#else} {$T.Result.ordersid} {#/if}</td>
 													<td align="center" id="productCode_{$T.Result.sid}">{$T.Result.receiverName}</td>
@@ -329,10 +339,47 @@
 													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{$T.Result.receiverMobile}</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
-													<td align="center" id="lockedStock_{$T.Result.update}">{$T.Result.update}</td>
+													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.update} {#else} {$T.Result.cdate} {#/if}</td>
 													<!-- <td align="center" id="">
 														<a class="btn btn-default btn-sm" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->
+									       		</tr>
+									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">
+									       			<td colspan="9">
+									       				<div>
+									       					<table
+																class="table table-bordered table-striped table-condensed table-hover flip-content"
+																>
+															<thead >
+									       						<tr role="row">
+																	<th style="text-align: center;font-size:10px;line-height:10px;">行项目编号</th>
+																	<th style="text-align: center;font-size:10px;line-height:10px;">商品编号</th>
+																	<th style="text-align: center;font-size:10px;line-height:10px;">商品名称</th>
+																	<th style="text-align: center;font-size:10px;line-height:10px;">数量</th>
+																	<th style="text-align: center;font-size:10px;line-height:10px;">金额</th>
+																	<th style="text-align: center;font-size:10px;line-height:10px;">订单状态</th>
+																	<th style="text-align: center;font-size:10px;line-height:10px;">物流单号</th>
+																	<th style="text-align: center;font-size:10px;line-height:10px;">物流公司</th>
+																</tr>
+									       					</thead>
+									       					<tbody >
+									       						{#foreach $T.Result.mtoList as OrderResult}
+											       					<tr class="gradeX" >
+																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.oid}</td>
+																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.outerSkuId}</td>
+																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.title}</td>
+																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.num}</td>
+																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.payment}</td>
+																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.status}</td>
+																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.logisticsNo}</td>
+																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.logisticsCompany}</td>
+																	</tr>
+										       					{#/for}
+									       					</tbody>
+									       					</table>
+									       				</div>
+									       				
+									       			</td>
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	

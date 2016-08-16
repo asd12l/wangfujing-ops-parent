@@ -114,7 +114,6 @@ Author: WangSy
 	$("#li_pro a").attr("data-toggle", " ");
 	$("#li_profile a").attr("data-toggle", " ");
 	$("#li_show a").attr("data-toggle", " ");
-	
 	var datas = data_;
 	$("#olv_tab4 tbody").setTemplateElement("refund-list").processTemplate(datas);
 	$("#olv_tab5 tbody").setTemplateElement("jifen-list").processTemplate(datas);
@@ -221,10 +220,10 @@ Author: WangSy
 							$("#amount3").text(parseFloat(quanAmount).toFixed(2));
 							$("#amount4").text(parseFloat(parseFloat(refundAmount)-quanAmount).toFixed(2));
 				//			$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
-							if(isNaN(parseFloat(returnShippingFee))){
+							if(isNaN(parseFloat(returnShippingFee_))){
 								$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)).toFixed(2));
 							}else{
-								$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)-parseFloat(returnShippingFee)).toFixed(2));
+								$("#amount6").text(parseFloat(parseFloat($("#amount1").text()).toFixed(2)-parseFloat($("#amount3").text()).toFixed(2)-parseFloat(returnShippingFee_)).toFixed(2));
 							}
 					}else{
 						
@@ -1119,12 +1118,41 @@ Author: WangSy
 
 <script type="text/javascript">
 	
-	//图片展示
-	function urlClick(ur,obj){
-	//	$("#imageDiv").text(ur);
-		$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="http://10.0.0.48/refundPicture/'+ur+'"/>');
-		$("#btDiv2").show();
-	}
+//图片展示
+function urlClick(ur,obj){
+//	$("#imageDiv").text(ur);
+	$.ajax({
+		type : "post",
+		contentType: "application/x-www-form-urlencoded;charset=utf-8",
+		url:__ctxPath + "/omsOrder/ftpUrlController",
+		async:false,
+		dataType: "json",
+		ajaxStart: function() {
+	       	 $("#loading-container").attr("class","loading-container");
+	        },
+        ajaxStop: function() {
+          //隐藏加载提示
+          setTimeout(function() {
+       	        $("#loading-container").addClass("loading-inactive");
+       	 },300);
+        },
+		data:{"pro":"refund"},//退货图片传参数
+		success : function(response) {
+			if (response.success == "true") {
+				$("#imageDiv").html('<img style="width:200px; heigth:200px;" align="center" src="'+response.data+ur+'"/>');
+				$("#btDiv2").show();
+			}else{
+				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+			}
+		},
+		error : function() {
+			$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+		}
+	});
+		
+}
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}

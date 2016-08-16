@@ -20,6 +20,7 @@
 	var payCode;
 	var parCodecre;
 	$(function(){
+		channelType();
 		
 		$('#theForm').bootstrapValidator({
 			message : 'This value is not valid',
@@ -65,23 +66,26 @@
 		                    }
 		                }
 		            },
-		            encryptKey: {
-		                validators: {
-		                	regexp: {
-		                        regexp: /^[A-Za-z0-9\s]{1,100}$/,
-		                        message: '秘钥必须由数字或字母或空格100位组成'
-		                    },
-		                	notEmpty : {
-								message : '密钥不能为空'
-		                    }
-		                }
-		            },
+//		            encryptKey: {
+//		                validators: {
+//		                	regexp: {
+//		                        regexp: /^[A-Za-z0-9\s]{1,100}$/,
+//		                        message: '秘钥必须由数字或字母或空格100位组成'
+//		                    },
+//		                	notEmpty : {
+//								message : '密钥不能为空'
+//		                    }
+//		                }
+//		            },
 	          payMediumCode: {
 		                validators: {
 		                   
 		                	regexp: {
 		                        regexp: /^[A-Za-z0-9\s]{1,32}$/,
-		                        message: '支付介质必须由数字或字母或空格32位组成'
+		                        message: '支付介质编码必须由数字或字母或空格32位组成'
+		                    },
+		                    notEmpty : {
+		                    	message : '支付介质编码不能为空'
 		                    }
 		                }
 		            }, 
@@ -90,8 +94,9 @@
 						validators : {
 							regexp: {
 		                        regexp: /^[A-Za-z0-9\s]{1,32}$/,
-		                        message: '支付介质编码必须由数字或字母或空格20位组成'
-		                    }
+		                        message: '信用卡支付介质必须由数字或字母或空格20位组成'
+		                    },
+		              
 						}
 					},
 					 branchId:{
@@ -357,7 +362,26 @@
   	function closeSetMediumDivCre(){
   		$("#setPayMediumCreDiv").hide();
   	}
-  	   
+	function channelType(){
+		var url=__ctxPath+"/wfjpay/selectChannelType";
+		$.ajax({
+			url:url,
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				if(data.success=="true"){
+					option="";
+					for(var i in data.list){
+						option+="<option value='"+data.list[i].name+"'>"+data.list[i].value+"</option>";
+					}
+					$("#channelPayType_input").html(option);
+				}
+			},
+			error:function(){
+				alert("获取渠道类型失败！");
+			}
+		});
+	}
 	</script> 
 	</head>
 <body>
@@ -374,20 +398,11 @@
 								<form id="theForm" method="post" class="form-horizontal" enctype="multipart/form-data">        
 									<div class="form-group">
 										<label class="col-lg-3 control-label">渠道类型：</label>
+										<div class="col-lg-6">
                                 			<select id="channelPayType_input" style="padding: 0 0;" name="payType">
-												<option value="ALIPAY">支付宝</option>
-												<option value="TENPAY">财付通</option>
-												<option value="NETPAY">银联</option>
-												<option value="WECHATPAY">微信</option>
-												<option value="ICBCPAY">工商银行</option>
-												<option value="CMBPAY">招商银行</option>
-												<option value="CGBPAY">广发银行</option>
-												<option value="WECHATPAY_SHB">微信扫货邦</option>
-												<option value="ALIPAY_OFFLINE">支付宝线下</option>
-												<option value="WECHATPAY_OFFLINE">微信线下</option>
-												<option value="ALIPAY_MOBILE">支付宝WAP</option>
-												<option value="WECHATPAY_MOBILE">微信WAP</option>
+												
 										    </select>
+										    </div>
 									</div>
         
 									<div class="form-group">
@@ -399,7 +414,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">密钥：</label>
 										<div class="col-lg-6">
-											<input type="text" class="form-control" id="addEncryptKey" name="encryptKey" placeholder="必填"/>
+											<input type="text" class="form-control" id="addEncryptKey" name="encryptKey" placeholder="非必填"/>
 										</div>
 									</div>
 									<!--

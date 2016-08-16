@@ -199,13 +199,13 @@ $(function () {
 </script>
 
 <div class="form-group">
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-2">
-        <label class="col-lg-6 col-sm-6 col-xs-6 control-label">门店名称：</label>
-        <div class="col-lg-5 col-sm-5 col-xs-5">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
+        <label class="col-lg-4 col-sm-6 col-xs-6 control-label">门店名称：</label>
+        <div class="col-lg-8 col-sm-5 col-xs-5">
             <label class="control-label" id="shopSid"></label>
         </div>
     </div>
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-1">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
         <label class="col-lg-4 col-sm-4 col-xs-4 control-label">门店编码：</label>
         <div class="col-lg-8 col-sm-8 col-xs-8">
             <label class="control-label" id="shopCode"></label>
@@ -214,13 +214,13 @@ $(function () {
 </div>
 
 <div class="form-group">
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-2">
-        <label class="col-lg-6 col-sm-6 col-xs-6 control-label">楼层名称：</label>
-        <div class="col-lg-5 col-sm-5 col-xs-5">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
+        <label class="col-lg-4 col-sm-6 col-xs-6 control-label">楼层名称：</label>
+        <div class="col-lg-8 col-sm-5 col-xs-5">
             <label class="control-label" id="floorName"></label>
         </div>
     </div>
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-1">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
         <label class="col-lg-4 col-sm-4 col-xs-4 control-label">楼层编码：</label>
         <div class="col-lg-8 col-sm-8 col-xs-8">
             <label class="control-label" id="floorCode"></label>
@@ -229,13 +229,13 @@ $(function () {
 </div>
 
 <div class="form-group">
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-2">
-        <label class="col-lg-6 col-sm-6 col-xs-6 control-label">专柜名称：</label>
-        <div class="col-lg-5 col-sm-5 col-xs-5">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
+        <label class="col-lg-4 col-sm-6 col-xs-6 control-label">专柜名称：</label>
+        <div class="col-lg-8 col-sm-5 col-xs-5">
             <label class="control-label" id="shoppeName"></label>
         </div>
     </div>
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-1">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
         <label class="col-lg-4 col-sm-4 col-xs-4 control-label">专柜编码：</label>
         <div class="col-lg-8 col-sm-8 col-xs-8">
             <label class="control-label" id="shoppeCode"></label>
@@ -244,13 +244,13 @@ $(function () {
 </div>
 
 <div class="form-group">
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-2">
-        <label class="col-lg-6 col-sm-6 col-xs-6 control-label">供应商名称：</label>
-        <div class="col-lg-5 col-sm-5 col-xs-5">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
+        <label class="col-lg-4 col-sm-6 col-xs-6 control-label">供应商名称：</label>
+        <div class="col-lg-8 col-sm-5 col-xs-5">
             <label class="control-label" id="supplyName"></label>
         </div>
     </div>
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-1">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
         <label class="col-lg-4 col-sm-4 col-xs-4 control-label">供应商编码：</label>
         <div class="col-lg-8 col-sm-8 col-xs-8">
             <label class="control-label" id="supplyCode"></label>
@@ -259,13 +259,13 @@ $(function () {
 </div>
 
 <div class="form-group">
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-2">
-        <label class="col-lg-6 col-sm-6 col-xs-6 control-label">业态：</label>
-        <div class="col-lg-5 col-sm-5 col-xs-5">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
+        <label class="col-lg-4 col-sm-6 col-xs-6 control-label">业态：</label>
+        <div class="col-lg-8 col-sm-5 col-xs-5">
             <label class="control-label" id="industryConditionSid"></label>
         </div>
     </div>
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-1">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
         <label class="col-lg-4 col-sm-4 col-xs-4 control-label">是否负库存销售：</label>
         <div class="col-lg-8 col-sm-8 col-xs-8">
             <label class="control-label" id="negativeStock"></label>
@@ -285,13 +285,13 @@ $(function () {
     </div>
 </div>--%>
 <div class="form-group">
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-2">
-        <label class="col-lg-6 col-sm-6 col-xs-6 control-label">专柜状态：</label>
-        <div class="col-lg-5 col-sm-5 col-xs-5">
+    <div class="col-lg-6 col-sm-4 col-xs-4">
+        <label class="col-lg-4 col-sm-6 col-xs-6 control-label">专柜状态：</label>
+        <div class="col-lg-8 col-sm-5 col-xs-5">
             <label class="control-label" id="shoppeStatus"></label>
         </div>
     </div>
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-1">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
         <label class="col-lg-4 col-sm-4 col-xs-4 control-label">专柜类型：</label>
         <div class="col-lg-8 col-sm-8 col-xs-8">
             <label class="control-label" id="shoppeType"></label>
@@ -300,13 +300,13 @@ $(function () {
 </div>
 
 <div class="form-group" id="isShippingPoint_div">
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-2">
-        <label class="col-lg-6 col-sm-6 col-xs-6 control-label">是否有集货地点：</label>
-        <div class="col-lg-5 col-sm-5 col-xs-5">
+    <div class="col-lg-6 col-sm-4 col-xs-4">
+        <label class="col-lg-4 col-sm-6 col-xs-6 control-label">是否有集货地点：</label>
+        <div class="col-lg-8 col-sm-5 col-xs-5">
             <label class="control-label" id="isShippingPoint"></label>
         </div>
     </div>
-    <div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-1">
+    <div class="col-lg-6 col-sm-4 col-xs-4 ">
         <label class="col-lg-4 col-sm-4 col-xs-4 control-label">集货地点：</label>
         <div class="col-lg-8 col-sm-8 col-xs-8">
             <label class="control-label" id="shoppeShippingPoint"></label>

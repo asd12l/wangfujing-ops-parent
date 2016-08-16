@@ -41,7 +41,9 @@ var olvPagination;
 
 //页面加载完成后自动执行
 $(function() {
+	
     initOlv();
+	
 });
 
 //解析时间
@@ -481,10 +483,13 @@ function showEditDiv(id){
 }
 //显示收银台窗口
 function showCashierDesk(id){
+	channelType_add();
+	channelType_edit();
 	$("#cashierPlatformName").val($("#bpName_"+id).text().trim());
 	$("#cashierBpId").val(id);
 	selectPayChannel($("#payService").val());
 	$("#cashierDeskDiv").show();
+	
 }
 //显示警告窗口
 function showWarningDiv(id){
@@ -525,6 +530,51 @@ function closeEditPayChannelDiv(){
 function proSaveSuccess(){
 	$("#proSaveSuccess").hide();
 }
+
+//添加渠道
+function channelType_add(){
+	var url=__ctxPath+"/wfjpay/selectChannelType";
+	$.ajax({
+		url:url,
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			if(data.success=="true"){
+				option="";
+				for(var i in data.list){
+					option+="<option value='"+data.list[i].name+"'>"+data.list[i].value+"</option>";
+				}
+				$("#payType_add").html(option);
+			}
+		},
+		error:function(){
+			alert("获取渠道类型失败！");
+		}
+	});
+}
+//修改渠道
+function channelType_edit(){
+	var url=__ctxPath+"/wfjpay/selectChannelType";
+	$.ajax({
+		url:url,
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			if(data.success=="true"){
+				option="";
+				for(var i in data.list){
+					option+="<option value='"+data.list[i].name+"'>"+data.list[i].value+"</option>";
+				}
+				$("#payType_edit").html(option);
+			}
+		},
+		error:function(){
+			alert("获取渠道类型失败！");
+		}
+	});
+}
+
+
 //showDetail
 function showDetail(flag, a) {
     var detailDiv = a.parentNode.getElementsByTagName("div")[0];
@@ -675,6 +725,11 @@ $(function(){
 				}
 	});
 });
+
+
+
+
+
 </script> 
 </head>
 <body>
@@ -1259,22 +1314,7 @@ $(function(){
 				<label class="col-lg-5 col-sm-5 col-xs-5 control-label">渠道：</label>
 				<div class="col-lg-8 col-sm-8 col-xs-8">
 					<select style="width:200px;" id="payType_add" style="padding:0 0;" onchange="selectChannelAccount('add');">
-						<option value="ALIPAY">支付宝</option>
-						<option value="TENPAY">财付通</option>
-						<option value="NETPAY">银联</option>
-						<option value="ICBCPAY">工商银行</option>
-    					<option value="CMBPAY">招商银行</option>
-    					<option value="CGBPAY">广发银行</option>
-    					<option value="WECHATPAY">微信</option>
-    					<option value="WECHATPAY_OFFLINE">微信线下</option>
-    					<option value='WECHATPAY_SHB'>微信扫货邦</option>
-    					<option value='ALIPAY_OFFLINE'>支付宝线下</option>
-    					<option value='ALIPAY_MOBILE'>支付宝WAP</option>
-    					<option value='WECHATPAY_MOBILE'>微信WAP</option>
-					<!--
-						<option value="YEEBAO">富汇易达</option>
-						<option value="PAYPAL">Paypal</option>
-					-->
+						
 					</select>
 					<span style="color:red;" id="payTypeError_add">*</span>
 				</div>	
@@ -1342,18 +1382,7 @@ $(function(){
 				<label class="col-lg-5 col-sm-5 col-xs-5 control-label">渠道：</label>
 				<div class="col-lg-6 col-sm-6 col-xs-6">
 					<select style="width:200px;" id="payType_edit" style="padding:0 0;" onchange="selectChannelAccount('edit');">
-						<option value="ALIPAY">支付宝</option>
-						<option value="TENPAY">财付通</option>
-						<option value="NETPAY">银联</option>
-						<option value="ICBCPAY">工商银行</option>
-    					<option value="CMBPAY">招商银行</option>
-    					<option value="CGBPAY">广发银行</option>
-    					<option value="WECHATPAY">微信</option>
-    					<option value='WECHATPAY_OFFLINE'>微信线下</option>
-    					<option value='WECHATPAY_SHB'>微信扫货邦</option>
-    					<option value='ALIPAY_OFFLINE'>支付宝线下</option>
-    					<option value='ALIPAY_MOBILE'>支付宝WAP</option>
-    					<option value='WECHATPAY_MOBILE'>微信WAP</option>
+						
 					</select>
 					<span style="color:red;" id="payTypeError_edit">*</span>
 				</div>											

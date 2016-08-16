@@ -5118,4 +5118,34 @@ public class OmsOrderController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
+	/**
+	 * 图片展示url
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/ftpUrlController")
+	public String ftpUrlController(HttpServletRequest request, HttpServletResponse response) {
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		String json = "";
+		try{
+			if(StringUtils.isNotBlank(request.getParameter("pro"))){
+				json = CommonProperties.get("ftpUrl");
+			}else{
+				json = CommonProperties.get("proFtpUrl");
+			}
+				logger.info("json:" + json);
+				if(StringUtils.isEmpty(json)){
+					m.put("success", "false");
+				}else{
+					m.put("data", json);
+					m.put("success", "true");
+				}
+		} catch (Exception e) {
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
 }

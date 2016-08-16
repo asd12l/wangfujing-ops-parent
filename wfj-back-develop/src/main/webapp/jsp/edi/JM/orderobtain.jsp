@@ -35,6 +35,12 @@
 	});
 	
 	function  obtain(){
+		LA.env = 'dev';
+		LA.sysCode = '47';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('jm-obtain', '聚美获取订单', 'admin',  sessionId);
+		
+		
 		$("#tid_form").val($("#tid_input").val());
 		var params = $("#stock_form").serialize();
 		params = decodeURI(params);
@@ -217,7 +223,7 @@
 													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{$T.Result.receiverMobile}</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
-													<td align="center" id="lockedStock_{$T.Result.update}">{$T.Result.update}</td>
+													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.update} {#else} {$T.Result.cdate} {#/if}</td>
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	
