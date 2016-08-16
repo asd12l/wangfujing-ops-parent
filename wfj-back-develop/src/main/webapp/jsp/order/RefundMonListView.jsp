@@ -3158,7 +3158,7 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="reMonStatus_{$T.Result.sid}">
-														{#if $T.Result.reMonStatus == '0'}待退款
+														{#if $T.Result.reMonStatus == '0'}未退款
 						                      			{#elseif $T.Result.reMonStatus == '1'}退款成功	
 						                   				{#/if}
 													</td>
