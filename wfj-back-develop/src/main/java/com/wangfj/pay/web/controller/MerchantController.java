@@ -157,6 +157,7 @@ public class MerchantController {
 		} catch (Exception e) {
 			m.put("success", "false");
 			//m.put("pageCount",0);
+			m.put("messages", "请选择商户编码修改方式");
 			e.printStackTrace();
 		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
