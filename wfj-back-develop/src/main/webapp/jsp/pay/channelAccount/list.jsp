@@ -47,6 +47,7 @@ var payCodeCre;
 $(function() {
 	initOlv();  
 	 bind();//建立ztree
+	 channelType();
 });
 
 function formatDate(time){
@@ -131,9 +132,11 @@ function olvQuery(){
          },
          //回调
          callback: function(data) {
-        	
+        
         	 for(var i in data.list){
+        		 
     			 data.list[i ].createDate=formatDate(data.list[i].createDate);
+    			 
     			 var pay_TypeText=data.list[i].payType;
     			 switch(pay_TypeText){
     				 case "ALIPAY" :
@@ -164,14 +167,35 @@ function olvQuery(){
         				 data.list[i].payType="微信";
         				 data.list[i].payTypeCode="WECHATPAY";
         				 break;
+    				 case "WECHATPAY_OFFLINE":
+        				 data.list[i].payType="微信线下支付";
+        				 data.list[i].payTypeCode="WECHATPAY_OFFLINE";
+        				 break;	 
     				 case "WECHATPAY_SHB":
         				 data.list[i].payType="微信扫货邦";
         				 data.list[i].payTypeCode="WECHATPAY_SHB";
         				 break;
     				 case "ALIPAY_OFFLINE":
-        				 data.list[i].payType="支付宝线下";
+        				 data.list[i].payType="支付宝线下支付";
         				 data.list[i].payTypeCode="ALIPAY_OFFLINE";
         				 break;
+    				 case "NETPAY_MOBILE":
+    					 data.list[i].payType="银联手机支付";
+        				 data.list[i].payTypeCode="NETPAY_MOBILE";
+        				 break;
+    				 case "TENPAY_MOBILE":
+    					 data.list[i].payType="财付通手机支付";
+        				 data.list[i].payTypeCode="TENPAY_MOBILE";
+        				 break;
+    				 case "WECHATPAY_MOBILE":
+    					 data.list[i].payType="微信手机支付";
+        				 data.list[i].payTypeCode="WECHATPAY_MOBILE";
+        				 break;
+    				 case "ALIPAY_MOBILE":
+    					 data.list[i].payType="支付宝手机支付";
+        				 data.list[i].payTypeCode="ALIPAY_MOBILE";
+        				 break;
+        				 
         				 
     				
     			};
@@ -556,6 +580,30 @@ function saveSetMediumCre(){
 		var url = __ctxPath + "/jsp/pay/channelAccount/setFeeRate.jsp";
 		$("#pageBody").load(url,{"partnerId":partnerId,"payTypeName":payTypeName,"payPartner":id,"payType":payType});
 	}
+	
+	function channelType(){
+		var url=__ctxPath+"/wfjpay/selectChannelType";
+		$.ajax({
+			url:url,
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				if(data.success=="true"){
+					option="";
+					for(var i in data.list){
+						option+="<option value='"+data.list[i].name+"'>"+data.list[i].value+"</option>";
+					}
+					$("#channelPayType_input").html("<option value=''>全部渠道</option>"+option);
+				}
+			},
+			error:function(){
+				alert("获取渠道类型失败！");
+			}
+		});
+	}
+		
+	
+	
 </script> 
 </head>
 <body>
@@ -586,18 +634,7 @@ function saveSetMediumCre(){
                                 				<label class="titname">渠道类型：</label>
                                 			<select id="channelPayType_input" style="padding: 0 0;">
 												<option value=" ">全部渠道</option>
-												<option value="ALIPAY">支付宝</option>
-												<option value="TENPAY">财付通</option>
-												<option value="NETPAY">银联</option>
-												<option value="ICBCPAY">工商银行</option>
-												<option value="CMBPAY">招商银行</option>
-												<option value="CGBPAY">广发银行</option>
-												<option value="WECHATPAY">微信</option>
-												<option value="WECHATPAY_OFFLINE">微信线下</option>
-												<option value="WECHATPAY_SHB ">微信扫货邦</option>
-												<option value="ALIPAY_OFFLINE">支付宝线下</option>
-												<option value="ALIPAY_MOBILE">支付宝WAP</option>
-												<option value="WECHATPAY_MOBILE">微信WAP</option>
+												
 										    </select>
                                 				&nbsp;&nbsp;&nbsp;&nbsp;
                                 				<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;

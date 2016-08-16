@@ -20,6 +20,7 @@
 	var payCode;
 	var parCodecre;
 	$(function(){
+		channelType();
 		
 		$('#theForm').bootstrapValidator({
 			message : 'This value is not valid',
@@ -357,7 +358,26 @@
   	function closeSetMediumDivCre(){
   		$("#setPayMediumCreDiv").hide();
   	}
-  	   
+	function channelType(){
+		var url=__ctxPath+"/wfjpay/selectChannelType";
+		$.ajax({
+			url:url,
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				if(data.success=="true"){
+					option="";
+					for(var i in data.list){
+						option+="<option value='"+data.list[i].name+"'>"+data.list[i].value+"</option>";
+					}
+					$("#channelPayType_input").html(option);
+				}
+			},
+			error:function(){
+				alert("获取渠道类型失败！");
+			}
+		});
+	}
 	</script> 
 	</head>
 <body>
@@ -374,20 +394,11 @@
 								<form id="theForm" method="post" class="form-horizontal" enctype="multipart/form-data">        
 									<div class="form-group">
 										<label class="col-lg-3 control-label">渠道类型：</label>
+										<div class="col-lg-6">
                                 			<select id="channelPayType_input" style="padding: 0 0;" name="payType">
-												<option value="ALIPAY">支付宝</option>
-												<option value="TENPAY">财付通</option>
-												<option value="NETPAY">银联</option>
-												<option value="WECHATPAY">微信</option>
-												<option value="ICBCPAY">工商银行</option>
-												<option value="CMBPAY">招商银行</option>
-												<option value="CGBPAY">广发银行</option>
-												<option value="WECHATPAY_SHB">微信扫货邦</option>
-												<option value="ALIPAY_OFFLINE">支付宝线下</option>
-												<option value="WECHATPAY_OFFLINE">微信线下</option>
-												<option value="ALIPAY_MOBILE">支付宝WAP</option>
-												<option value="WECHATPAY_MOBILE">微信WAP</option>
+												
 										    </select>
+										    </div>
 									</div>
         
 									<div class="form-group">
