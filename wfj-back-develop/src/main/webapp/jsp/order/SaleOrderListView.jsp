@@ -3838,7 +3838,7 @@
 							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
-							<li><a href="#tab6" data-toggle="tab">客户备注</a></li>
+							<li><a href="#tab6" data-toggle="tab">客服备注</a></li>
 					      </ul>
 					      <div class="tab-content">
 					        <div class="tab-pane active" id="tab1">
