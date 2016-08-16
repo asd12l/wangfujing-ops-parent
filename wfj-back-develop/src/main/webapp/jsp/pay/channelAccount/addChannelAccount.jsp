@@ -66,23 +66,26 @@
 		                    }
 		                }
 		            },
-		            encryptKey: {
-		                validators: {
-		                	regexp: {
-		                        regexp: /^[A-Za-z0-9\s]{1,100}$/,
-		                        message: '秘钥必须由数字或字母或空格100位组成'
-		                    },
-		                	notEmpty : {
-								message : '密钥不能为空'
-		                    }
-		                }
-		            },
+//		            encryptKey: {
+//		                validators: {
+//		                	regexp: {
+//		                        regexp: /^[A-Za-z0-9\s]{1,100}$/,
+//		                        message: '秘钥必须由数字或字母或空格100位组成'
+//		                    },
+//		                	notEmpty : {
+//								message : '密钥不能为空'
+//		                    }
+//		                }
+//		            },
 	          payMediumCode: {
 		                validators: {
 		                   
 		                	regexp: {
 		                        regexp: /^[A-Za-z0-9\s]{1,32}$/,
-		                        message: '支付介质必须由数字或字母或空格32位组成'
+		                        message: '支付介质编码必须由数字或字母或空格32位组成'
+		                    },
+		                    notEmpty : {
+		                    	message : '支付介质编码不能为空'
 		                    }
 		                }
 		            }, 
@@ -91,8 +94,9 @@
 						validators : {
 							regexp: {
 		                        regexp: /^[A-Za-z0-9\s]{1,32}$/,
-		                        message: '支付介质编码必须由数字或字母或空格20位组成'
-		                    }
+		                        message: '信用卡支付介质必须由数字或字母或空格20位组成'
+		                    },
+		              
 						}
 					},
 					 branchId:{
@@ -410,7 +414,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">密钥：</label>
 										<div class="col-lg-6">
-											<input type="text" class="form-control" id="addEncryptKey" name="encryptKey" placeholder="必填"/>
+											<input type="text" class="form-control" id="addEncryptKey" name="encryptKey" placeholder="非必填"/>
 										</div>
 									</div>
 									<!--
