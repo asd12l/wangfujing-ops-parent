@@ -114,7 +114,6 @@ Author: WangSy
 	$("#li_pro a").attr("data-toggle", " ");
 	$("#li_profile a").attr("data-toggle", " ");
 	$("#li_show a").attr("data-toggle", " ");
-	
 	var datas = data_;
 	$("#olv_tab4 tbody").setTemplateElement("refund-list").processTemplate(datas);
 	$("#olv_tab5 tbody").setTemplateElement("jifen-list").processTemplate(datas);
