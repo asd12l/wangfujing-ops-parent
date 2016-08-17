@@ -4675,10 +4675,10 @@ public class OmsOrderController {
 			map.put("casherNo", request.getParameter("casherNo"));
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("startSaleTime"))){
-			map.put("saleTimeStart", request.getParameter("startSaleTime"));
+			map.put("startSaleTime", request.getParameter("startSaleTime"));
 		}
 		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
-			map.put("saleTimeEnd", request.getParameter("endSaleTime"));
+			map.put("endSaleTime", request.getParameter("endSaleTime"));
 		}
 		
 		map.put("start", String.valueOf(currPage));
