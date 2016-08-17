@@ -134,6 +134,7 @@
 					$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>取消成功!</strong></div>");
 					$("#modal-success").attr({"style" : "display:block; z-index:2000;","aria-hidden" : "false","class" : "modal modal-message modal-success"});
 				}else{
+					$("#btDivCancel").hide();
 					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
  	     	  		$("#modal-warning").attr({"style":"display:block; z-index:2000;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 				}

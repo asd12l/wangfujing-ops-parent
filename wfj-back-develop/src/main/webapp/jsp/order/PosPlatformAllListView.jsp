@@ -2352,7 +2352,7 @@
 				                                			<option value="OOSReturn">缺货退货</option>
 				                                			<option value="RequestReturn">正常退</option>
 				                                			<option value="RejectReturn">拒收退货</option>
-				                                			<option value="03">换货退货</option>
+				                                			<!-- <option value="03">换货退货</option> -->
 				                                			<option value="RequestCancelReturn">发货前退货</option>
 				                                		</select>
                                     				</li>

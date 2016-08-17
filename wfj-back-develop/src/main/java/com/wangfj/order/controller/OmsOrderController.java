@@ -2182,6 +2182,7 @@ public class OmsOrderController {
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
 		paramMap.put("refundMonNo", request.getParameter("refundMonNo"));
 		paramMap.put("allRefUser", request.getParameter("userName"));
+		paramMap.put("financeMemo", request.getParameter("financeMemo"));
 		paramMap.put("reMonStatus", 1);
 		paramMap.put("fromSystem", "PAD");
 		Map<Object, Object> m = new HashMap<Object, Object>();
