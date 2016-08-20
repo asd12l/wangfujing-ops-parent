@@ -1223,7 +1223,7 @@
 							option+="<td align='center'></td>";
 						}else{
 							var salePriceSum = ele.salePrice*ele.saleSum;
-							option+="<td align='center'>"+salePriceSum+"</td>";
+							option+="<td align='center'>"+parseFloat(salePriceSum).toFixed(2)+"</td>";
 						}
 						//促销优惠分摊金额
 						if(ele.totalDiscount=="[object Object]"||ele.totalDiscount==undefined){
