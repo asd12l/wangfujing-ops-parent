@@ -3828,7 +3828,7 @@
 														{#if $T.Result.rebateStatus == '0'}
 															<span>未退款</span>
 						                      			{#elseif $T.Result.rebateStatus == '1'}
-						                      				<span>已退款</span>
+						                      				<span>退款成功</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="memberNo_{$T.Result.sid}">
