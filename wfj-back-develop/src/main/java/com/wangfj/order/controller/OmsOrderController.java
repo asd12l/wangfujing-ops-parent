@@ -3751,7 +3751,7 @@ public class OmsOrderController {
 		List<String> header = new ArrayList<String>();
 		header.add("订单号");
 		header.add("外部订单号");
-		header.add("订单金额");
+		header.add("支付金额");
 		header.add("支付时间");
 		header.add("支付对账日期");
 		header.add("付款方式");
@@ -3761,7 +3761,7 @@ public class OmsOrderController {
 			List<String> inlist = new ArrayList<String>();
 			inlist.add(vo.getOrderNo() == null ? "" : vo.getOrderNo());
 			inlist.add(vo.getOutOrderNo() == null ? "" : vo.getOutOrderNo());
-			inlist.add(vo.getAmount() == null ? "" : vo.getAmount().toString());
+			inlist.add(vo.getPaymentAmount() == null ? "" : vo.getPaymentAmount().toString());
 			inlist.add(vo.getPayTimeStr() == null ? "" : vo.getPayTimeStr());
 			inlist.add(vo.getReconciliationTime() == null ? "" : vo.getReconciliationTime()
 					.toString());

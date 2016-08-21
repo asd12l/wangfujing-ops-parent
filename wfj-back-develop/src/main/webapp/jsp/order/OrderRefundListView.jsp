@@ -1875,7 +1875,7 @@
 							option+="<td align='center'></td>";
 						}else{
 							var salePriceSum = ele.salesPrice*ele.saleSum;
-							option+="<td align='center'>"+salePriceSum+"</td>";
+							option+="<td align='center'>"+parseFloat(salePriceSum).toFixed(2)+"</td>";
 						}
 						//促销优惠分摊金额
 						if(ele.totalDiscount=="[object Object]"||ele.totalDiscount==undefined){
@@ -3828,7 +3828,7 @@
 														{#if $T.Result.rebateStatus == '0'}
 															<span>未退款</span>
 						                      			{#elseif $T.Result.rebateStatus == '1'}
-						                      				<span>已退款</span>
+						                      				<span>退款成功</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="memberNo_{$T.Result.sid}">

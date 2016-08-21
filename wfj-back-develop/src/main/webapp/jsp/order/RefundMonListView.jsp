@@ -1471,7 +1471,7 @@
 							option+="<td align='center'></td>";
 						}else{
 							var salePriceSum = ele.salesPrice*ele.saleSum;
-							option+="<td align='center'>"+salePriceSum+"</td>";
+							option+="<td align='center'>"+parseFloat(salePriceSum).toFixed(2)+"</td>";
 						}
 						//促销优惠分摊金额
 						if(ele.totalDiscount=="[object Object]"||ele.totalDiscount==undefined){
@@ -2581,248 +2581,391 @@
 				}
 			}
 		});
-		var option2 = "<tr role='row' style='height:35px;'>"+
-		"<th width='1%' style='text-align: center;'></th>"+
-		"<th width='5%' style='text-align: center;'>款机流水号</th>"+
-		"<th width='3%' style='text-align: center;'>总金额</th>"+
-		"<th width='3%' style='text-align: center;'>交易流水号</th>"+
-		"<th width='3%' style='text-align: center;'>机器号</th>"+
-		"<th width='3%' style='text-align: center;'>线上线下标识</th>"+
-		"<th width='4%' style='text-align: center;'>支付时间</th>"+
-		"<th width='3%' style='text-align: center;'>水单类型</th>"+
-		"<th width='3%' style='text-align: center;'>总折扣</th>"+
-		"<th width='3%' style='text-align: center;'>总应收</th>"+
-		"<th width='3%' style='text-align: center;'>实际支付</th>"+
-		"<th width='3%' style='text-align: center;'>找零</th>"+
-		"<th width='3%' style='text-align: center;'>折扣额</th>"+
-		"<th width='3%' style='text-align: center;'>折让额</th>"+
-		"<th width='3%' style='text-align: center;'>会员总折扣</th>"+
-		"<th width='3%' style='text-align: center;'>优惠折扣额</th>"+
-		"<th width='3%' style='text-align: center;'>收银损益</th>"+
-		"<th width='3%' style='text-align: center;'>收银员号</th>"+
-		"<th width='3%' style='text-align: center;'>班次</th>"+
-		"<th width='3%' style='text-align: center;'>渠道标志</th>"+
-		"<th width='5%' style='text-align: center;'>金卡</th>"+
-		"<th width='3%' style='text-align: center;'>微信卡门店号</th>"+
-		"<th width='4%' style='text-align: center;'>会员卡号</th>"+
-		"<th width='4%' style='text-align: center;'>订单号</th>"+
-		"<th width='3%' style='text-align: center;'>授权卡号</th>"+
-		"<th width='3%' style='text-align: center;'>人民币</th>"+
-		"<th width='3%' style='text-align: center;'>电子返券</th>"+
-		"<th width='3%' style='text-align: center;'>电子扣回</th>"+
-		"<th width='3%' style='text-align: center;'>银行手续费</th>"+
-		"<th width='3%' style='text-align: center;'>来源</th>"+
-		"<th width='3%' style='text-align: center;'>状态</th>"+
-		"<th width='3%' style='text-align: center;'>门店号</th></tr>";
-		$.ajax({
-			type:"post",
-			contentType: "application/x-www-form-urlencoded;charset=utf-8",
-			url:__ctxPath + "/oms/selectPosFlowList",
-			async:false,
-			dataType: "json",
-			data:{"refundNo":refundNo,
-				"isRefund":"1"},
-			success:function(response) {
-				if(response.success=='true'){
-					var result = response.list;
-					for(var i=0;i<result.length;i++){
-						var ele = result[i];
-						option2+="<tr id='gradeY1"+ele.salesPaymentNo+"' style='height:35px;overflow-X:hidden;'>"+
-						"<td align='center' style='vertical-align:middle;'>"+
-						"<span id='spanTd1_"+ele.salesPaymentNo+"' onclick='spanTd1(\""+ele.salesPaymentNo+"\")' "+
-						"class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;'></span></td>";
-						//款机流水号
-						if(ele.salesPaymentNo=="[object Object]"||ele.salesPaymentNo==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.salesPaymentNo+"</td>";
-						}
-						//总金额
-						if(ele.money=="[object Object]"||ele.money==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.money+"</td>";
-						}
-						//交易流水号
-						if(ele.payFlowNo=="[object Object]"||ele.payFlowNo==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.payFlowNo+"</td>";
-						}
-						//机器号
-						if(ele.posNo=="[object Object]"||ele.posNo==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.posNo+"</td>";
-						}
-						//线上线下标识
-						if(ele.ooFlag=="1"){
-							option2+="<td align='center'><span>线上</span></td>";
-						}else if(ele.ooFlag=="2"){
-							option2+="<td align='center'><span>线下</span></td>";
-						}else{
-							option2+="<td align='center'></td>";
-						}
-						//支付时间
-						if(ele.payTimeStr=="[object Object]"||ele.payTimeStr==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.payTimeStr+"</td>";
-						}
-						//水单类型
-						if(ele.isRefund=="[object Object]"||ele.isRefund==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.isRefund+"</td>";
-						}
-						//总折扣
-						if(ele.totalDiscountAmount=="[object Object]"||ele.totalDiscountAmount==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.totalDiscountAmount+"</td>";
-						}
-						//总应收
-						if(ele.paymentAmount=="[object Object]"||ele.paymentAmount==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.paymentAmount+"</td>";
-						}
-						//实际支付
-						if(ele.actualPaymentAmount=="[object Object]"||ele.actualPaymentAmount==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.actualPaymentAmount+"</td>";
-						}
-						//找零
-						if(ele.changeAmount=="[object Object]"||ele.changeAmount==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.changeAmount+"</td>";
-						}
-						//折扣额
-						if(ele.tempDiscountAmount=="[object Object]"||ele.tempDiscountAmount==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.tempDiscountAmount+"</td>";
-						}
-						//折让额
-						if(ele.zrAmount=="[object Object]"||ele.zrAmount==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.zrAmount+"</td>";
-						}
-						//会员总折扣
-						if(ele.memberDiscountAmount=="[object Object]"||ele.memberDiscountAmount==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.memberDiscountAmount+"</td>";
-						}
-						//优惠折扣额
-						if(ele.promDiscountAmount=="[object Object]"||ele.promDiscountAmount==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.promDiscountAmount+"</td>";
-						}
-						//收银损益
-						if(ele.income=="[object Object]"||ele.income==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.income+"</td>";
-						}
-						//收银员号
-						if(ele.casher=="[object Object]"||ele.casher==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.casher+"</td>";
-						}
-						//班次（早  中 晚  全班）
-						if(ele.shifts=="[object Object]"||ele.shifts==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.shifts+"</td>";
-						}
-						//渠道标志（M）
-						if(ele.channel=="[object Object]"||ele.channel==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.channel+"</td>";
-						}
-						//刷微信卡时的微信卡类型(金卡)
-						if(ele.weixinCard=="[object Object]"||ele.weixinCard==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.weixinCard+"</td>";
-						}
-						//微信卡门店号(扫二维码时其中的5位门店号)
-						if(ele.weixinStoreNo=="[object Object]"||ele.weixinStoreNo==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.weixinStoreNo+"</td>";
-						}
-						//会员卡号
-						if(ele.memberNo=="[object Object]"||ele.memberNo==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.memberNo+"</td>";
-						}
-						//线上订单号
-						if(ele.orderNo=="[object Object]"||ele.orderNo==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.orderNo+"</td>";
-						}
-						//授权卡号
-						if(ele.authorizationNo=="[object Object]"||ele.authorizationNo==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.authorizationNo+"</td>";
-						}
-						//人民币
-						if(ele.rmb=="[object Object]"||ele.rmb==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.rmb+"</td>";
-						}
-						//电子返券
-						if(ele.elecGet=="[object Object]"||ele.elecGet==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.elecGet+"</td>";
-						}
-						//电子扣回
-						if(ele.elecDeducation=="[object Object]"||ele.elecDeducation==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.elecDeducation+"</td>";
-						}
-						//银行手续费
-						if(ele.bankServiceCharge=="[object Object]"||ele.bankServiceCharge==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.bankServiceCharge+"</td>";
-						}
-						//来源
-						if(ele.sourceType=="[object Object]"||ele.sourceType==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.sourceType+"</td>";
-						}
-						//状态
-						if(ele.status=="[object Object]"||ele.status==undefined){
-							option2+="<td align='center'></td>";
-						}else{
-							option2+="<td align='center'>"+ele.status+"</td>";
-						}
-						//门店号
-						if(ele.shopNo=="[object Object]"||ele.shopNo==undefined){
-							option2+="<td align='center'></td></tr>";
-						}else{
-							option2+="<td align='center'>"+ele.shopNo+"</td></tr>";
+		if(refundType=="2"){
+			var option2 = "<tr role='row' style='height:35px;'>"+
+			"<th width='1%' style='text-align: center;'></th>"+
+			"<th width='5%' style='text-align: center;'>款机流水号</th>"+
+			"<th width='3%' style='text-align: center;'>总金额</th>"+
+			"<th width='3%' style='text-align: center;'>交易流水号</th>"+
+			"<th width='3%' style='text-align: center;'>机器号</th>"+
+			"<th width='3%' style='text-align: center;'>线上线下标识</th>"+
+			"<th width='4%' style='text-align: center;'>支付时间</th>"+
+			"<th width='3%' style='text-align: center;'>水单类型</th>"+
+			"<th width='3%' style='text-align: center;'>总折扣</th>"+
+			"<th width='3%' style='text-align: center;'>总应收</th>"+
+			"<th width='3%' style='text-align: center;'>实际支付</th>"+
+			"<th width='3%' style='text-align: center;'>找零</th>"+
+			"<th width='3%' style='text-align: center;'>折扣额</th>"+
+			"<th width='3%' style='text-align: center;'>折让额</th>"+
+			"<th width='3%' style='text-align: center;'>会员总折扣</th>"+
+			"<th width='3%' style='text-align: center;'>优惠折扣额</th>"+
+			"<th width='3%' style='text-align: center;'>收银损益</th>"+
+			"<th width='3%' style='text-align: center;'>收银员号</th>"+
+			"<th width='3%' style='text-align: center;'>班次</th>"+
+			"<th width='3%' style='text-align: center;'>渠道标志</th>"+
+			"<th width='5%' style='text-align: center;'>金卡</th>"+
+			"<th width='3%' style='text-align: center;'>微信卡门店号</th>"+
+			"<th width='4%' style='text-align: center;'>会员卡号</th>"+
+			"<th width='4%' style='text-align: center;'>订单号</th>"+
+			"<th width='3%' style='text-align: center;'>授权卡号</th>"+
+			"<th width='3%' style='text-align: center;'>人民币</th>"+
+			"<th width='3%' style='text-align: center;'>电子返券</th>"+
+			"<th width='3%' style='text-align: center;'>电子扣回</th>"+
+			"<th width='3%' style='text-align: center;'>银行手续费</th>"+
+			"<th width='3%' style='text-align: center;'>来源</th>"+
+			"<th width='3%' style='text-align: center;'>状态</th>"+
+			"<th width='3%' style='text-align: center;'>门店号</th></tr>";
+			$.ajax({
+				type:"post",
+				contentType: "application/x-www-form-urlencoded;charset=utf-8",
+				url:__ctxPath + "/oms/selectPosFlowList",
+				async:false,
+				dataType: "json",
+				data:{"refundNo":refundNo,
+					"isRefund":"1"},
+				success:function(response) {
+					if(response.success=='true'){
+						var result = response.list;
+						for(var i=0;i<result.length;i++){
+							var ele = result[i];
+							option2+="<tr id='gradeY1"+ele.salesPaymentNo+"' style='height:35px;overflow-X:hidden;'>"+
+							"<td align='center' style='vertical-align:middle;'>"+
+							"<span id='spanTd1_"+ele.salesPaymentNo+"' onclick='spanTd1(\""+ele.salesPaymentNo+"\")' "+
+							"class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;'></span></td>";
+							//款机流水号
+							if(ele.salesPaymentNo=="[object Object]"||ele.salesPaymentNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.salesPaymentNo+"</td>";
+							}
+							//总金额
+							if(ele.money=="[object Object]"||ele.money==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.money+"</td>";
+							}
+							//交易流水号
+							if(ele.payFlowNo=="[object Object]"||ele.payFlowNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.payFlowNo+"</td>";
+							}
+							//机器号
+							if(ele.posNo=="[object Object]"||ele.posNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.posNo+"</td>";
+							}
+							//线上线下标识
+							if(ele.ooFlag=="1"){
+								option2+="<td align='center'><span>线上</span></td>";
+							}else if(ele.ooFlag=="2"){
+								option2+="<td align='center'><span>线下</span></td>";
+							}else{
+								option2+="<td align='center'></td>";
+							}
+							//支付时间
+							if(ele.payTimeStr=="[object Object]"||ele.payTimeStr==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.payTimeStr+"</td>";
+							}
+							//水单类型
+							if(ele.isRefund=="[object Object]"||ele.isRefund==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.isRefund+"</td>";
+							}
+							//总折扣
+							if(ele.totalDiscountAmount=="[object Object]"||ele.totalDiscountAmount==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.totalDiscountAmount+"</td>";
+							}
+							//总应收
+							if(ele.paymentAmount=="[object Object]"||ele.paymentAmount==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.paymentAmount+"</td>";
+							}
+							//实际支付
+							if(ele.actualPaymentAmount=="[object Object]"||ele.actualPaymentAmount==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.actualPaymentAmount+"</td>";
+							}
+							//找零
+							if(ele.changeAmount=="[object Object]"||ele.changeAmount==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.changeAmount+"</td>";
+							}
+							//折扣额
+							if(ele.tempDiscountAmount=="[object Object]"||ele.tempDiscountAmount==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.tempDiscountAmount+"</td>";
+							}
+							//折让额
+							if(ele.zrAmount=="[object Object]"||ele.zrAmount==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.zrAmount+"</td>";
+							}
+							//会员总折扣
+							if(ele.memberDiscountAmount=="[object Object]"||ele.memberDiscountAmount==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.memberDiscountAmount+"</td>";
+							}
+							//优惠折扣额
+							if(ele.promDiscountAmount=="[object Object]"||ele.promDiscountAmount==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.promDiscountAmount+"</td>";
+							}
+							//收银损益
+							if(ele.income=="[object Object]"||ele.income==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.income+"</td>";
+							}
+							//收银员号
+							if(ele.casher=="[object Object]"||ele.casher==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.casher+"</td>";
+							}
+							//班次（早  中 晚  全班）
+							if(ele.shifts=="[object Object]"||ele.shifts==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.shifts+"</td>";
+							}
+							//渠道标志（M）
+							if(ele.channel=="[object Object]"||ele.channel==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.channel+"</td>";
+							}
+							//刷微信卡时的微信卡类型(金卡)
+							if(ele.weixinCard=="[object Object]"||ele.weixinCard==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.weixinCard+"</td>";
+							}
+							//微信卡门店号(扫二维码时其中的5位门店号)
+							if(ele.weixinStoreNo=="[object Object]"||ele.weixinStoreNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.weixinStoreNo+"</td>";
+							}
+							//会员卡号
+							if(ele.memberNo=="[object Object]"||ele.memberNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.memberNo+"</td>";
+							}
+							//线上订单号
+							if(ele.orderNo=="[object Object]"||ele.orderNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.orderNo+"</td>";
+							}
+							//授权卡号
+							if(ele.authorizationNo=="[object Object]"||ele.authorizationNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.authorizationNo+"</td>";
+							}
+							//人民币
+							if(ele.rmb=="[object Object]"||ele.rmb==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.rmb+"</td>";
+							}
+							//电子返券
+							if(ele.elecGet=="[object Object]"||ele.elecGet==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.elecGet+"</td>";
+							}
+							//电子扣回
+							if(ele.elecDeducation=="[object Object]"||ele.elecDeducation==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.elecDeducation+"</td>";
+							}
+							//银行手续费
+							if(ele.bankServiceCharge=="[object Object]"||ele.bankServiceCharge==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.bankServiceCharge+"</td>";
+							}
+							//来源
+							if(ele.sourceType=="[object Object]"||ele.sourceType==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.sourceType+"</td>";
+							}
+							//状态
+							if(ele.status=="[object Object]"||ele.status==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.status+"</td>";
+							}
+							//门店号
+							if(ele.shopNo=="[object Object]"||ele.shopNo==undefined){
+								option2+="<td align='center'></td></tr>";
+							}else{
+								option2+="<td align='center'>"+ele.shopNo+"</td></tr>";
+							}
 						}
 					}
 				}
-			}
-		});
+			});
+		}else{
+			var option2 = "<tr role='row' style='height:35px;'>"+
+		/* 	"<th width='1%' style='text-align: center;'></th>"+ */
+			"<th width='3%' style='text-align: center;'>退款单号</th>"+
+			"<th width='3%' style='text-align: center;'>原订单号</th>"+
+			"<th width='3%' style='text-align: center;'>退货单号</th>"+
+			"<th width='3%' style='text-align: center;'>销售渠道</th>"+
+			"<th width='3%' style='text-align: center;'>渠道订单号</th>"+
+			"<th width='3%' style='text-align: center;'>客户登录帐号</th>"+
+			"<th width='3%' style='text-align: center;'>客户编号</th>"+
+			"<th width='3%' style='text-align: center;'>退款状态</th>"+
+			"<th width='3%' style='text-align: center;'>退款金额</th>"+
+			"<th width='3%' style='text-align: center;'>退款介质</th>"+
+			"<th width='3%' style='text-align: center;'>开户行</th>"+
+			"<th width='3%' style='text-align: center;'>开户人</th>"+
+			"<th width='3%' style='text-align: center;'>卡号</th>"+
+			"<th width='3%' style='text-align: center;'>创建时间</th></tr>";
+			$.ajax({
+				type:"post",
+				contentType: "application/x-www-form-urlencoded;charset=utf-8",
+				url:__ctxPath + "/omsOrder/selectRefundMonList",
+				async:false,
+				dataType: "json",
+				data:{"refundNo":refundNo,"page":1,"pageSize":10},
+				success:function(response) {
+					if(response.success=='true'){
+						var result = response.list;
+						for(var i=0;i<result.length;i++){
+							var ele = result[i];
+							option2+="<tr id='gradeY1"+ele.salesPaymentNo+"' style='height:35px;overflow-X:hidden;'>"/* +
+							"<td align='center' style='vertical-align:middle;'>"+
+							"<span id='spanTd1_"+ele.salesPaymentNo+"' onclick='spanTd1(\""+ele.salesPaymentNo+"\")' "+
+							"class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;'></span></td>"; */
+							//退款单号
+							if(ele.refundMonNo=="[object Object]"||ele.refundMonNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.refundMonNo+"</td>";
+							}
+							//原订单号
+							if(ele.orderNo=="[object Object]"||ele.orderNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.orderNo+"</td>";
+							}
+							//退货单号
+							if(ele.refundNo=="[object Object]"||ele.refundNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.refundNo+"</td>";
+							}
+							//销售渠道
+							if(ele.saleSource=="C1"){
+								option2+="<td align='center'><span>线上 C1</span></td>";
+							}else if(ele.saleSource=="X1"){
+								option2+="<td align='center'><span>线下 X1</span></td>";
+							}else if(ele.saleSource=="CB"){
+								option2+="<td align='center'><span>全球购</span></td>";
+							}else if(ele.saleSource=="C7"){
+								option2+="<td align='center'><span>天猫</span></td>";
+							}else{
+								option2+="<td align='center'></td>";
+							}
+							//渠道订单号
+							if(ele.orderNo=="[object Object]"||ele.orderNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.orderNo+"</td>";
+							}
+							//客户登录帐号
+							if(ele.accountNo=="[object Object]"||ele.accountNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.accountNo+"</td>";
+							}
+							//客户编号
+							if(ele.memberNo=="[object Object]"||ele.memberNo==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.memberNo+"</td>";
+							}
+							//退款状态
+							if(ele.reMonStatus=="1"){
+								option2+="<td align='center'><span>已退款</span></td>";
+							}else if(ele.reMonStatus=="0"){
+								option2+="<td align='center'><span>未退款</span></td>";
+							}else{
+								option2+="<td align='center'></td>";
+							}
+							//退款金额
+							if(ele.needRefundMon=="[object Object]"||ele.needRefundMon==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.needRefundMon+"</td>";
+							}
+							//退款介质
+							if(ele.reMonStatus=="14101"){
+								option2+="<td align='center'><span>支付宝</span></td>";
+							}else if(ele.reMonStatus=="14102"){
+								option2+="<td align='center'><span>财务通</span></td>";
+							}else if(ele.reMonStatus=="14103"){
+								option2+="<td align='center'><span>银联</span></td>";
+							}else if(ele.reMonStatus=="14104"){
+								option2+="<td align='center'><span>工行</span></td>";
+							}else if(ele.reMonStatus=="14109"){
+								option2+="<td align='center'><span>微信支付</span></td>";
+							}else if(ele.reMonStatus=="14105"){
+								option2+="<td align='center'><span>移动支付宝</span></td>";
+							}else if(ele.reMonStatus=="14106"){
+								option2+="<td align='center'><span>余额退款</span></td>";
+							}else{
+								option2+="<td align='center'></td>";
+							}
+							//开户行
+							if(ele.bankName=="[object Object]"||ele.bankName==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.bankName+"</td>";
+							}
+							//开户人
+							if(ele.bankUse=="[object Object]"||ele.bankUse==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.bankUse+"</td>";
+							}
+							//卡号
+							if(ele.bankType=="[object Object]"||ele.bankType==undefined){
+								option2+="<td align='center'></td>";
+							}else{
+								option2+="<td align='center'>"+ele.bankType+"</td>";
+							}
+							//创建时间
+							if(ele.allRefTimeStr=="[object Object]"||ele.allRefTimeStr==undefined){
+								option2+="<td align='center'></td></tr>";
+							}else{
+								option2+="<td align='center'>"+ele.allRefTimeStr+"</td></tr>";
+							}
+						}
+					}
+				}
+			});
+		}
 		var option3 = "<tr role='row' style='height:35px;'>"+
 		"<th width='5%' style='text-align: center;'>退货单单号</th>"+
 		"<th width='5%' style='text-align: center;'>修改前状态</th>"+
