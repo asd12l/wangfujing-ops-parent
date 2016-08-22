@@ -195,6 +195,13 @@ public class MemberBasicController {
         paraMap.put("idType",request.getParameter("idType"));
         paraMap.put("identityNo",request.getParameter("identityNo"));
         paraMap.put("email",request.getParameter("email"));
+        //注册时间
+        paraMap.put("timeStartDate", request.getParameter("timeStartDate"));
+        paraMap.put("timeEndDate", request.getParameter("timeEndDate"));
+        //会员等级
+        paraMap.put("memberLevel", request.getParameter("memberLevel"));
+        
+        
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== getMemBasicInfo url " + url + "  =========");
@@ -261,6 +268,7 @@ public class MemberBasicController {
         Map<String, Object> paraMap = new HashMap<String, Object>();
         paraMap.put("mobile", request.getParameter("pay_mobile"));
         paraMap.put("cid",request.getParameter("cid"));
+        
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== sendPayPwdToPhone url " + url + "  =========");
