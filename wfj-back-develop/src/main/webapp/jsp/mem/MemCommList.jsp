@@ -24,7 +24,7 @@ label{width: 70px;}
 </style>	
 	
 <script
-	src="${pageContext.request.contextPath}/js/pagination/scriptpackage/memcomwirte.js">
+	src="${pageContext.request.contextPath}/js/member/comment/commentlist.js">
 
 	</script>
 	<script type="text/javascript">
