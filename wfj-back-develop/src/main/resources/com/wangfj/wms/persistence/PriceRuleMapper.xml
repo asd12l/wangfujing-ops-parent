@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.PriceRuleMapper" >
+<mapper namespace="com.wangfj.wms.persistence.PriceRuleMapper">
   <resultMap id="PriceRuleResultMap" type="com.wangfj.wms.domain.entity.PriceRule" >
     <id column="sid" property="sid" jdbcType="INTEGER" />
     <result column="tsid" property="tsid" jdbcType="INTEGER" />
