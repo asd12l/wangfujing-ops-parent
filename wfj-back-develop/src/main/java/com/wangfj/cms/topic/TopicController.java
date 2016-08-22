@@ -328,7 +328,7 @@ public class TopicController {
 		}
 		return json;
 	}
-
+	
 	// 添加专题活动
 	@ResponseBody
 	@RequestMapping(value = "/addTopic", method = { RequestMethod.GET, RequestMethod.POST })
