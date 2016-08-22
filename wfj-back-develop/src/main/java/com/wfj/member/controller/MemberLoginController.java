@@ -62,12 +62,17 @@ public class MemberLoginController {
 		Map<Object, Object> paraMap = new HashMap<Object, Object>();
 		paraMap.put("start", String.valueOf(start));
 		paraMap.put("limit", String.valueOf(pageSize));
+		
+		paraMap.put("mobile_input", request.getParameter("mobile_input"));
+		paraMap.put("email_input", request.getParameter("email_input"));
+		paraMap.put("loginchannel_input", request.getParameter("loginchannel_input"));
+		
 		paraMap.put("username", request.getParameter("username"));
 		paraMap.put("loginTimeStartDate", request.getParameter("loginTimeStartDate"));
 		paraMap.put("loginTimeEndDate", request.getParameter("loginTimeEndDate"));
 		try {
-			String url = CommonProperties.get("member_core_url");
-			System.err.println("============== member_core_url:" + url);
+			String url = CommonProperties.get("member_ops_url");
+			System.err.println("============== member_ops_url:" + url);
 			System.out.println("=============method:"+method);
 			jsonString = HttpUtil.HttpPost(url,method, paraMap);
 			logger.info("jsonString:"+jsonString);
