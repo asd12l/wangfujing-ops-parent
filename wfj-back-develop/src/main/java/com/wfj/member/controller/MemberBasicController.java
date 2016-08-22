@@ -114,6 +114,8 @@ public class MemberBasicController {
         paraMap.put("limit", String.valueOf(pageSize));
         paraMap.put("pullId", request.getParameter("pullId"));
         paraMap.put("backId", request.getParameter("backId"));
+        paraMap.put("cid", request.getParameter("cid"));
+        paraMap.put("listtype", request.getParameter("listtype"));
         paraMap.put("m_timePullStartDate",  request.getParameter("m_timePullStartDate"));
         paraMap.put("m_timePullEndDate",  request.getParameter("m_timePullEndDate"));
         paraMap.put("m_timeBackStartDate",  request.getParameter("m_timeBackStartDate"));
