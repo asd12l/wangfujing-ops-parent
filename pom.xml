@@ -547,6 +547,9 @@
 			<properties>
 				<resources.active>1-dev</resources.active>
 			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 		<profile>
 			<id>sit</id>
