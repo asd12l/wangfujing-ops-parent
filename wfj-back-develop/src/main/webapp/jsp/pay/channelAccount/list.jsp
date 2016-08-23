@@ -132,76 +132,6 @@ function olvQuery(){
          },
          //回调
          callback: function(data) {
-        	
-        
-        	 for(var i in data.list){
-        		 
-    			 data.list[i ].createDate=formatDate(data.list[i].createDate);
-    			 
-    			 var pay_TypeText=data.list[i].payType;
-    			 switch(pay_TypeText){
-    				 case "ALIPAY" :
-    				 	data.list[i].payType="支付宝";
-    				 	data.list[i].payTypeCode="ALIPAY";
-    					 break;
-    				 case "TENPAY":
-    				 	data.list[i].payType="财付通";
-    				 	data.list[i].payTypeCode="TENPAY";
-    					 break;
-    				 case "NETPAY":
-    				 	data.list[i].payType="银联";
-    				 	data.list[i].payTypeCode="NETPAY";
-    				 	 break;
-    				 case "ICBCPAY":
-        				 data.list[i].payType="工商银行";
-        				 data.list[i].payTypeCode="ICBCPAY";
-        				 break;
-    				 case "CMBPAY":
-        				 data.list[i].payType="招商银行";
-        				 data.list[i].payTypeCode="CMBPAY";
-        				 break;
-    				 case "CGBPAY":
-        				 data.list[i].payType="广发银行";
-        				 data.list[i].payTypeCode="CGBPAY";
-        				 break;
-    				 case "WECHATPAY":
-        				 data.list[i].payType="微信";
-        				 data.list[i].payTypeCode="WECHATPAY";
-        				 break;
-    				 case "WECHATPAY_OFFLINE":
-        				 data.list[i].payType="微信线下支付";
-        				 data.list[i].payTypeCode="WECHATPAY_OFFLINE";
-        				 break;	 
-    				 case "WECHATPAY_SHB":
-        				 data.list[i].payType="微信扫货邦";
-        				 data.list[i].payTypeCode="WECHATPAY_SHB";
-        				 break;
-    				 case "ALIPAY_OFFLINE":
-        				 data.list[i].payType="支付宝线下支付";
-        				 data.list[i].payTypeCode="ALIPAY_OFFLINE";
-        				 break;
-    				 case "NETPAY_MOBILE":
-    					 data.list[i].payType="银联手机支付";
-        				 data.list[i].payTypeCode="NETPAY_MOBILE";
-        				 break;
-    				 case "TENPAY_MOBILE":
-    					 data.list[i].payType="财付通手机支付";
-        				 data.list[i].payTypeCode="TENPAY_MOBILE";
-        				 break;
-    				 case "WECHATPAY_MOBILE":
-    					 data.list[i].payType="微信手机支付";
-        				 data.list[i].payTypeCode="WECHATPAY_MOBILE";
-        				 break;
-    				 case "ALIPAY_MOBILE":
-    					 data.list[i].payType="支付宝手机支付";
-        				 data.list[i].payTypeCode="ALIPAY_MOBILE";
-        				 break;
-        				 
-        				 
-    				
-    			};
-    			
-    		 }
     		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
          }
        }
@@ -216,65 +146,13 @@ function editChannelAccount(id){
 		alert("请选择要修改的商户");
 	}
 	$("#channelAccount_id").val(id);
-	$("#payType_"+ id).html().trim();
+	$("#payTypeCode_"+ id).html().trim();
 	//$("#channelAccount_payType").val($("#payType_"+ id).html().trim());
 	var tdVal=$("#payTypeval_input_"+ id).val().trim();
-	var tdVAlue;
-	 switch(tdVal){
-	 case "支付宝":
-		 tdVAlue="ALIPAY";
-		 break;
-	 case "财付通":
-		 tdVAlue="TENPAY";
-		 break;
-	 case "银联":
-		 tdVAlue="NETPAY";
-	 	 break;
-	 case "工商银行":
-		 tdVAlue="ICBCPAY";
-		 break;
-	 case "招商银行":
-		 tdVAlue="CMBPAY";
-		 break;
-	 case "广发银行":
-		 tdVAlue="CGBPAY";
-		 break;
-	 case "微信":
-		 tdVAlue="WECHATPAY";
-		 break;	
-	 case "微信线下支付":
-		 tdVAlue="WECHATPAY_OFFLINE";
-		 break;
-	 case "微信扫货邦":
-		 tdVAlue="WECHATPAY_SHB";
-		 break;	
-	 case "支付宝线下支付":
-		 tdVAlue="ALIPAY_OFFLINE";
-		 break;	
-	 case "银联手机支付":
-		 tdVAlue="NETPAY_MOBILE";
-		 break;	
-	 case "财付通手机支付":
-		 tdVAlue="TENPAY_MOBILE";
-		 break;	
-	 case "微信手机支付":
-		 tdVAlue="WECHATPAY_MOBILE";
-		 break;
-	 case "支付宝手机支付":
-		 tdVAlue="ALIPAY_MOBILE";
-		 break;	
-	 case "支付宝WAP":
-		 tdVAlue="ALIPAY_MOBILE";
-		 break;	
-	 case "微信WAP":
-		 tdVAlue="WECHATPAY_MOBILE";
-		 break;	
-				 
-		
-}
+
 	
-	$("#channelAccount_payType").val(tdVAlue);
-	$("#channelPayTypeform_input").val($("#payType_"+ id).text().trim());
+	$("#channelAccount_payType").val($("#payType_"+id).html().trim());
+	$("#channelPayTypeform_input").val($("#payTypeCode_"+ id).text().trim());
 	$("#qudao_Code").val($("#partner_"+ id).html().trim());
 	$("#paydium_Code").val($("#paymedium_"+ id).html().trim());
 	$("#qundao_feeCostRate").val($("#qudaoFee_"+ id).html().trim());
@@ -591,8 +469,8 @@ function saveSetMediumCre(){
 	function setFeeRate(id){
 		//商户ID
 		var partnerId=$("#partner_"+id).text().trim();
-		var payTypeName=$("#payType_"+id).text().trim();
-		var payType=$("#payTypeCode_"+id).text().trim();
+		var payTypeName=$("#payTypeCode_"+id).text().trim();
+		var payType=$("#payType_"+id).text().trim();
 		var url = __ctxPath + "/jsp/pay/channelAccount/setFeeRate.jsp";
 		$("#pageBody").load(url,{"partnerId":partnerId,"payTypeName":payTypeName,"payPartner":id,"payType":payType});
 	}
@@ -696,8 +574,8 @@ function saveSetMediumCre(){
 								{#template MAIN}
 									{#foreach $T.list as Result}
 									<tr class="gradeX" id="merchant_tr" onclick="" style="height:35px;"  value="{$T.Result.id}">
-										   <td align="center" id="payType_{$T.Result.id}">
-												{#if $T.Result.payType != '[object Object]'}{$T.Result.payType}
+										   <td align="center" id="payTypeCode_{$T.Result.id}">
+												{#if $T.Result.payTypeCode != '[object Object]'}{$T.Result.payTypeCode}
 				                   				{#/if}
 											</td>
 										   
@@ -728,7 +606,7 @@ function saveSetMediumCre(){
 											</td>
 											<td align="center" id=" ">
 											   <input type="hidden"  id="eidtMerchant_input_{$T.Result.id}"  value="{$T.Result.id}">
-											   <input type="hidden"  id="payTypeval_input_{$T.Result.id}"  value="{#if $T.Result.payType!= '[object Object]'}{$T.Result.payType}
+											   <input type="hidden"  id="payTypeval_input_{$T.Result.id}"  value="{#if $T.Result.payTypeCode!= '[object Object]'}{$T.Result.payTypeCode}
 				                   				{#/if}">
 											   <input type="hidden"  id="miyaoinput_key_{$T.Result.id}"   value="{#if $T.Result.encryptKey!= '[object Object]'}{$T.Result.encryptKey}
 				                   				{#/if}">
@@ -747,8 +625,8 @@ function saveSetMediumCre(){
 											   </a>
 											   <a onclick="setFeeRate({$T.Result.id});" class="btn btn-default purple btn-sm fa fa-cog"> 设置费率</a>
 											</td>
-											<td align="center" id="payTypeCode_{$T.Result.id}" style="display:none;">
-												{#if $T.Result.payTypeCode!= '[object Object]'}{$T.Result.payTypeCode}
+											<td align="center" id="payType_{$T.Result.id}" style="display:none;">
+												{#if $T.Result.payType!= '[object Object]'}{$T.Result.payType}
 				                   				{#/if}
 			                   				</td>
 							       		</tr>
