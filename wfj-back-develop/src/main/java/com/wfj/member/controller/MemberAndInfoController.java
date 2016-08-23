@@ -28,7 +28,7 @@ public class MemberAndInfoController {
 
 		private static Logger log =  LoggerFactory.getLogger(MemberAndInfoController.class);
 		/**
-		 * 查询会员信息
+		 * 会员等级查询
 		 * 
 		 * @param m
 		 * @param pageNo
@@ -166,14 +166,15 @@ public class MemberAndInfoController {
 			paraMap.put("username", request.getParameter("username"));
 			paraMap.put("mobile", request.getParameter("mobile"));
 			paraMap.put("identity_card_no", request.getParameter("identity_card_no"));
-			paraMap.put("m_timeStartDate",  request.getParameter("m_timeStartDate"));
-			paraMap.put("m_timeEndDate",  request.getParameter("m_timeEndDate"));
+			paraMap.put("registfrom",  request.getParameter("regist_from"));
+			paraMap.put("membergrade",  request.getParameter("membergrade"));
+			paraMap.put("changetime",  request.getParameter("changetime"));
 			try {
 				String url = CommonProperties.get("member_core_url");
 				log.info("======== getByMemberGrade url "+url+"  =========");
-				System.err.println("============== member_core_url:" + url);
-				System.err.println("=============method:"+method);
-				System.err.println("======== getByMemberGrade url "+url+ method+"  =========");
+				//System.err.println("============== member_core_url:" + url);
+				//System.err.println("=============method:"+method);
+				//System.err.println("======== getByMemberGrade url "+url+ method+"  =========");
 				jsonString = HttpUtil.HttpPost(url,method, paraMap);
 			} catch (Exception e) {
 				jsonString = "{success :false}";
