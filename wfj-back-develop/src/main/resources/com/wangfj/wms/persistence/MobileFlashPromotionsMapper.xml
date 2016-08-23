@@ -1,312 +1,327 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.MobileFlashPromotionsMapper" >
-  <resultMap id="MobileFlashPromotionsResultMap" type="com.wangfj.wms.domain.entity.MobileFlashPromotions" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="pro_desc" property="proDesc" jdbcType="VARCHAR" />
-    <result column="link" property="link" jdbcType="VARCHAR" />
-    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-    <result column="pict" property="pict" jdbcType="VARCHAR" />
-    <result column="seq" property="seq" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="creater" property="creater" jdbcType="VARCHAR" />
-    <result column="create_shop_name" property="createShopName" jdbcType="VARCHAR" />
-    <result column="create_shop_sid" property="createShopSid" jdbcType="INTEGER" />
-    <result column="flag" property="flag" jdbcType="INTEGER" />
-    <result column="promotion_type" property="promotionType" jdbcType="VARCHAR" />
-    <result column="promotion_type_sid" property="promotionTypeSid" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sid, title, pro_desc, link, start_time, end_time, pict, seq, create_time, creater, create_shop_name, 
-    create_shop_sid, flag,promotion_type,promotion_type_sid
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="MobileFlashPromotionsResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from mobile_flash_promotions
-    where sid = #{sid,jdbcType=INTEGER}
-  </select>
-  
-  <select id="getAllPromotions" resultMap="MobileFlashPromotionsResultMap"  >
-    select 
-    <include refid="Base_Column_List" />
-    from mobile_flash_promotions
-    order by sid desc
-  </select>
-  
-  <select id="getGoingPromotions" resultMap="MobileFlashPromotionsResultMap" parameterType="java.util.HashMap">
-  	select 
-    <include refid="Base_Column_List" />
-    from mobile_flash_promotions
-    where
-    	start_time &lt;= #{currentTime,jdbcType=TIMESTAMP} 
-    	and end_time &gt;= #{currentTime,jdbcType=TIMESTAMP} 
-    	and flag=#{flag,jdbcType=INTEGER}
-    	
-    order by end_time asc
-  </select>
-  
-  <select id="queryPromotionsByEndTime" resultMap="MobileFlashPromotionsResultMap" parameterType="com.wangfj.wms.util.MobileFlashPromotionsKey" >
-    select 
-    <include refid="Base_Column_List" />
-    from mobile_flash_promotions
-    <where>
-    	1=1
-    	 <if test="endDay != null" >
-        and end_time &lt;= DATE_FORMAT(#{endDay},'%Y-%m-%d %T')
-      </if>
-      <if test="startDay != null" >
-       and end_time &gt;= DATE_FORMAT(#{startDay},'%Y-%m-%d %T')
-      </if>
-    </where>
-  </select>
-  
-  
-   <select id="queryMaxSid" resultType="java.lang.Integer">
-		SELECT max(p.sid) 
-		from mobile_flash_promotions p  
-		
-  </select>
-  <select id="selectByPrams" resultMap="MobileFlashPromotionsResultMap" parameterType="com.wangfj.wms.domain.view.MobileFlashPromotionsVO">
-  	select
-  	<include refid="Base_Column_List" />
-  	from mobile_flash_promotions
-  	<where>
-  		<if test="sid != null and sid !='' ">
-  			and sid = #{sid}
-  		</if>
-  		<if test="title != null and title !='' ">
-			and title like "%"#{title,jdbcType=VARCHAR}"%"
-		</if>
-		<if test="startTime != null and startTime !='' ">
-			and start_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
-		</if>
-		<if test="endTime != null and endTime !='' ">
-			and end_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
-		</if>
-		<if test="flag != null ">
-		 	and flag = #{flag}
-		</if>
-		<if test="promotionTypeSid != null ">
-		 	and promotion_type_sid = #{promotionTypeSid}
-		</if>
-		
-  	</where>
-  	order by sid desc
-  	limit
-  		#{startRecords},#{pageSize}
-  </select>
-  
-   <select id="selectCountByPrams" resultType="java.lang.Integer" parameterType="com.wangfj.wms.domain.view.MobileFlashPromotionsVO">
-  	select count(sid)
-  	<include refid="Base_Column_List" />
-  	from mobile_flash_promotions
-  	<where>
-  	 	<if test="sid != null and sid !='' ">
-  			sid = #{sid}
-  		</if>
-  		<if test="title != null and title !='' ">
-			and title like "%"#{title,jdbcType=VARCHAR}"%"
-		</if>
- 
-		<if test="startTime != null and startTime !='' ">
-			and start_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
-		</if>
-		<if test="endTime != null and endTime !='' ">
-			and end_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
-		</if>
-		<if test="flag != null ">
-		 	and flag = #{flag}
-		</if>
-		<if test="promotionTypeSid != null ">
-		 	and promotion_type_sid = #{promotionTypeSid}
-		</if>
-  	</where>
-  </select>
-  
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from mobile_flash_promotions
-    where sid = #{sid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.MobileFlashPromotions" >
-    insert into mobile_flash_promotions (sid, title, pro_desc, 
-      link, start_time, end_time, 
-      pict, seq, create_time, 
-      creater, create_shop_name, create_shop_sid, 
-      flag,promotion_type,promotion_type_sid)
-    values (#{sid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{proDesc,jdbcType=VARCHAR}, 
-      #{link,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{pict,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{creater,jdbcType=VARCHAR}, #{createShopName,jdbcType=VARCHAR}, #{createShopSid,jdbcType=INTEGER}, 
-      #{flag,jdbcType=INTEGER},#{promotionType,jdbcType=VARCHAR}, #{promotionTypeSid,jdbcType=INTEGER}, )
-  </insert>
-  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.MobileFlashPromotions" >
-    insert into mobile_flash_promotions
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        sid,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="proDesc != null" >
-        pro_desc,
-      </if>
-      <if test="link != null" >
-        link,
-      </if>
-      <if test="startTime != null" >
-        start_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
-      <if test="pict != null" >
-        pict,
-      </if>
-      <if test="seq != null" >
-        seq,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="creater != null" >
-        creater,
-      </if>
-      <if test="createShopName != null" >
-        create_shop_name,
-      </if>
-      <if test="createShopSid != null" >
-        create_shop_sid,
-      </if>
-      
-      <if test="flag != null" >
-        flag,
-      </if>
-       <if test="promotionType != null" >
-        promotion_type,
-      </if>
-      <if test="promotionTypeSid != null" >
-        promotion_type_sid
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="proDesc != null" >
-        #{proDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="link != null" >
-        #{link,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="pict != null" >
-        #{pict,jdbcType=VARCHAR},
-      </if>
-      <if test="seq != null" >
-        #{seq,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creater != null" >
-        #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="createShopName != null" >
-        #{createShopName,jdbcType=VARCHAR},
-      </if>
-      <if test="createShopSid != null" >
-        #{createShopSid,jdbcType=INTEGER},
-      </if>
-      <if test="flag != null" >
-        #{flag,jdbcType=INTEGER},
-      </if>
-       <if test="promotionType != null" >
-        #{promotionType,jdbcType=VARCHAR},
-      </if>
-      <if test="promotionTypeSid != null" >
-        #{promotionTypeSid,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.MobileFlashPromotions" >
-    update mobile_flash_promotions
-    <set >
-    <if test="sid != null" >
-        sid = #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="proDesc != null" >
-        pro_desc = #{proDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="link != null" >
-        link = #{link,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null" >
-        start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="pict != null" >
-        pict = #{pict,jdbcType=VARCHAR},
-      </if>
-      <if test="seq != null" >
-        seq = #{seq,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creater != null" >
-        creater = #{creater,jdbcType=VARCHAR},
-      </if>
-      <if test="createShopName != null" >
-        create_shop_name = #{createShopName,jdbcType=VARCHAR},
-      </if>
-      <if test="createShopSid != null" >
-        create_shop_sid = #{createShopSid,jdbcType=INTEGER},
-      </if>
-      <if test="flag != null" >
-        flag = #{flag,jdbcType=INTEGER},
-      </if>
-       <if test="promotionType != null" >
-        promotion_type = #{promotionType,jdbcType=VARCHAR},
-      </if>
-      <if test="promotionTypeSid != null" >
-        promotion_type_sid = #{promotionTypeSid,jdbcType=INTEGER},
-      </if>
-    </set>
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.MobileFlashPromotions" >
-    update mobile_flash_promotions
-    set title = #{title,jdbcType=VARCHAR},
-      pro_desc = #{proDesc,jdbcType=VARCHAR},
-      link = #{link,jdbcType=VARCHAR},
-      start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      pict = #{pict,jdbcType=VARCHAR},
-      seq = #{seq,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      creater = #{creater,jdbcType=VARCHAR},
-      create_shop_name = #{createShopName,jdbcType=VARCHAR},
-      create_shop_sid = #{createShopSid,jdbcType=INTEGER},
-      promotion_type = #{promotionType,jdbcType=VARCHAR},
-      promotion_type_sid = #{promotionTypeSid,jdbcType=INTEGER},
-      flag = #{flag,jdbcType=INTEGER}
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.wangfj.wms.persistence.MobileFlashPromotionsMapper">
+	<resultMap id="MobileFlashPromotionsResultMap"
+		type="com.wangfj.wms.domain.entity.MobileFlashPromotions">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="pro_desc" property="proDesc" jdbcType="VARCHAR" />
+		<result column="link" property="link" jdbcType="VARCHAR" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="pict" property="pict" jdbcType="VARCHAR" />
+		<result column="seq" property="seq" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="creater" property="creater" jdbcType="VARCHAR" />
+		<result column="create_shop_name" property="createShopName"
+			jdbcType="VARCHAR" />
+		<result column="create_shop_sid" property="createShopSid"
+			jdbcType="INTEGER" />
+		<result column="flag" property="flag" jdbcType="INTEGER" />
+		<result column="promotion_type" property="promotionType"
+			jdbcType="VARCHAR" />
+		<result column="promotion_type_sid" property="promotionTypeSid"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, title, pro_desc, link, start_time, end_time, pict, seq, create_time,
+		creater, create_shop_name,
+		create_shop_sid, flag,promotion_type,promotion_type_sid
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="MobileFlashPromotionsResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from mobile_flash_promotions
+		where sid = #{sid,jdbcType=INTEGER}
+	</select>
+
+	<select id="getAllPromotions" resultMap="MobileFlashPromotionsResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from mobile_flash_promotions
+		order by sid desc
+	</select>
+
+	<select id="getGoingPromotions" resultMap="MobileFlashPromotionsResultMap"
+		parameterType="java.util.HashMap">
+		select
+		<include refid="Base_Column_List" />
+		from mobile_flash_promotions
+		where
+		start_time &lt;= #{currentTime,jdbcType=TIMESTAMP}
+		and end_time &gt;= #{currentTime,jdbcType=TIMESTAMP}
+		and flag=#{flag,jdbcType=INTEGER}
+
+		order by end_time asc
+	</select>
+
+	<select id="queryPromotionsByEndTime" resultMap="MobileFlashPromotionsResultMap"
+		parameterType="com.wangfj.wms.util.MobileFlashPromotionsKey">
+		select
+		<include refid="Base_Column_List" />
+		from mobile_flash_promotions
+		<where>
+			1=1
+			<if test="endDay != null">
+				and end_time &lt;= DATE_FORMAT(#{endDay},'%Y-%m-%d %T')
+			</if>
+			<if test="startDay != null">
+				and end_time &gt;= DATE_FORMAT(#{startDay},'%Y-%m-%d %T')
+			</if>
+		</where>
+	</select>
+
+
+	<select id="queryMaxSid" resultType="java.lang.Integer">
+		SELECT max(p.sid)
+		from mobile_flash_promotions p
+
+	</select>
+	<select id="selectByPrams" resultMap="MobileFlashPromotionsResultMap"
+		parameterType="com.wangfj.wms.domain.view.MobileFlashPromotionsVO">
+		select
+		<include refid="Base_Column_List" />
+		from mobile_flash_promotions
+		<where>
+			<if test="sid != null and sid !='' ">
+				and sid = #{sid}
+			</if>
+			<if test="title != null and title !='' ">
+				and title like "%"#{title,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="startTime != null and startTime !='' ">
+				and start_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
+			</if>
+			<if test="endTime != null and endTime !='' ">
+				and end_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
+			</if>
+			<if test="flag != null ">
+				and flag = #{flag}
+			</if>
+			<if test="promotionTypeSid != null ">
+				and promotion_type_sid = #{promotionTypeSid}
+			</if>
+
+		</where>
+		order by sid desc
+		limit
+		#{startRecords},#{pageSize}
+	</select>
+
+	<select id="selectCountByPrams" resultType="java.lang.Integer"
+		parameterType="com.wangfj.wms.domain.view.MobileFlashPromotionsVO">
+		select count(sid)
+		<include refid="Base_Column_List" />
+		from mobile_flash_promotions
+		<where>
+			<if test="sid != null and sid !='' ">
+				sid = #{sid}
+			</if>
+			<if test="title != null and title !='' ">
+				and title like "%"#{title,jdbcType=VARCHAR}"%"
+			</if>
+
+			<if test="startTime != null and startTime !='' ">
+				and start_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
+			</if>
+			<if test="endTime != null and endTime !='' ">
+				and end_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
+			</if>
+			<if test="flag != null ">
+				and flag = #{flag}
+			</if>
+			<if test="promotionTypeSid != null ">
+				and promotion_type_sid = #{promotionTypeSid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from mobile_flash_promotions
+		where sid = #{sid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.MobileFlashPromotions">
+		insert into mobile_flash_promotions (sid, title, pro_desc,
+		link, start_time, end_time,
+		pict, seq, create_time,
+		creater, create_shop_name, create_shop_sid,
+		flag,promotion_type,promotion_type_sid)
+		values (#{sid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+		#{proDesc,jdbcType=VARCHAR},
+		#{link,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+		#{pict,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{creater,jdbcType=VARCHAR}, #{createShopName,jdbcType=VARCHAR},
+		#{createShopSid,jdbcType=INTEGER},
+		#{flag,jdbcType=INTEGER},#{promotionType,jdbcType=VARCHAR},
+		#{promotionTypeSid,jdbcType=INTEGER}, )
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.MobileFlashPromotions">
+		insert into mobile_flash_promotions
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="proDesc != null">
+				pro_desc,
+			</if>
+			<if test="link != null">
+				link,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="pict != null">
+				pict,
+			</if>
+			<if test="seq != null">
+				seq,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="creater != null">
+				creater,
+			</if>
+			<if test="createShopName != null">
+				create_shop_name,
+			</if>
+			<if test="createShopSid != null">
+				create_shop_sid,
+			</if>
+
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="promotionType != null">
+				promotion_type,
+			</if>
+			<if test="promotionTypeSid != null">
+				promotion_type_sid
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="proDesc != null">
+				#{proDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="link != null">
+				#{link,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="pict != null">
+				#{pict,jdbcType=VARCHAR},
+			</if>
+			<if test="seq != null">
+				#{seq,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creater != null">
+				#{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="createShopName != null">
+				#{createShopName,jdbcType=VARCHAR},
+			</if>
+			<if test="createShopSid != null">
+				#{createShopSid,jdbcType=INTEGER},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=INTEGER},
+			</if>
+			<if test="promotionType != null">
+				#{promotionType,jdbcType=VARCHAR},
+			</if>
+			<if test="promotionTypeSid != null">
+				#{promotionTypeSid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.MobileFlashPromotions">
+		update mobile_flash_promotions
+		<set>
+			<if test="sid != null">
+				sid = #{sid,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="proDesc != null">
+				pro_desc = #{proDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="link != null">
+				link = #{link,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="pict != null">
+				pict = #{pict,jdbcType=VARCHAR},
+			</if>
+			<if test="seq != null">
+				seq = #{seq,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="createShopName != null">
+				create_shop_name = #{createShopName,jdbcType=VARCHAR},
+			</if>
+			<if test="createShopSid != null">
+				create_shop_sid = #{createShopSid,jdbcType=INTEGER},
+			</if>
+			<if test="flag != null">
+				flag = #{flag,jdbcType=INTEGER},
+			</if>
+			<if test="promotionType != null">
+				promotion_type = #{promotionType,jdbcType=VARCHAR},
+			</if>
+			<if test="promotionTypeSid != null">
+				promotion_type_sid = #{promotionTypeSid,jdbcType=INTEGER},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.MobileFlashPromotions">
+		update mobile_flash_promotions
+		set title = #{title,jdbcType=VARCHAR},
+		pro_desc = #{proDesc,jdbcType=VARCHAR},
+		link = #{link,jdbcType=VARCHAR},
+		start_time = #{startTime,jdbcType=TIMESTAMP},
+		end_time = #{endTime,jdbcType=TIMESTAMP},
+		pict = #{pict,jdbcType=VARCHAR},
+		seq = #{seq,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		creater = #{creater,jdbcType=VARCHAR},
+		create_shop_name = #{createShopName,jdbcType=VARCHAR},
+		create_shop_sid = #{createShopSid,jdbcType=INTEGER},
+		promotion_type = #{promotionType,jdbcType=VARCHAR},
+		promotion_type_sid = #{promotionTypeSid,jdbcType=INTEGER},
+		flag = #{flag,jdbcType=INTEGER}
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
 </mapper>

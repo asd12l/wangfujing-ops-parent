@@ -2,31 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wangfj.wms.persistence.LimitRoleMapper">
-	<resultMap id="LimitRoleResultMap" type="com.wangfj.wms.domain.entity.LimitRole" >
-    <id column="sid" property="sid" jdbcType="BIGINT" />
-    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
-    <result column="roleCode" property="roleCode" jdbcType="VARCHAR" />
-     <result column="createdTime" property="createdTime" jdbcType="TIMESTAMP" />
-    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
-     <result column="delFlag" property="delFlag" jdbcType="INTEGER" />
-   
-  	</resultMap>
+	<resultMap id="LimitRoleResultMap" type="com.wangfj.wms.domain.entity.LimitRole">
+		<id column="sid" property="sid" jdbcType="BIGINT" />
+		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+		<result column="roleCode" property="roleCode" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="TIMESTAMP" />
+		<result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="delFlag" property="delFlag" jdbcType="INTEGER" />
+
+	</resultMap>
 	<sql id="Base_Column_List">
 		sid,roleName,roleCode,createdTime,updateTime,delFlag
 	</sql>
-	
-	<select id="getAllLimitRole" parameterType="com.wangfj.wms.domain.entity.LimitRole" resultMap="LimitRoleResultMap">
-  		select * 
-  		from
-  		limit_role limit #{start},#{pageSize}
-  	</select>
-  	<select id="getAllUsefullRole" resultMap="LimitRoleResultMap">
-  		select * 
-  		from
-  		limit_role where delFlag=0
-  	</select>
-	<select id="getTotalByParam" parameterType="com.wangfj.wms.domain.entity.LimitRole" resultType="java.lang.Integer">
-	select count(*)
+
+	<select id="getAllLimitRole" parameterType="com.wangfj.wms.domain.entity.LimitRole"
+		resultMap="LimitRoleResultMap">
+		select *
+		from
+		limit_role limit #{start},#{pageSize}
+	</select>
+	<select id="getAllUsefullRole" resultMap="LimitRoleResultMap">
+		select *
+		from
+		limit_role where delFlag=0
+	</select>
+	<select id="getTotalByParam" parameterType="com.wangfj.wms.domain.entity.LimitRole"
+		resultType="java.lang.Integer">
+		select count(*)
 		from
 		limit_role
 		<where>
@@ -41,7 +43,8 @@
 			</if>
 		</where>
 	</select>
-	<select id="getLimitRoleByParam" parameterType="com.wangfj.wms.domain.entity.LimitRole" resultMap="LimitRoleResultMap">
+	<select id="getLimitRoleByParam" parameterType="com.wangfj.wms.domain.entity.LimitRole"
+		resultMap="LimitRoleResultMap">
 		select *
 		from
 		limit_role
@@ -57,19 +60,20 @@
 			</if>
 		</where>
 	</select>
-	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.LimitRole" useGeneratedKeys="true" keyProperty="sid">
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.LimitRole"
+		useGeneratedKeys="true" keyProperty="sid">
 		insert into limit_role(
-			sid,roleName,roleCode,createdTime,updateTime,delFlag
+		sid,roleName,roleCode,createdTime,updateTime,delFlag
 		)values(
-			#{sid,jdbcType=BIGINT},
-			#{roleName,jdbcType=VARCHAR},
-			#{roleCode,jdbcType=VARCHAR},
-			#{createdTime,jdbcType=TIMESTAMP},
-			#{updateTime,jdbcType=TIMESTAMP},
-			#{delFlag,jdbcType=INTEGER}
+		#{sid,jdbcType=BIGINT},
+		#{roleName,jdbcType=VARCHAR},
+		#{roleCode,jdbcType=VARCHAR},
+		#{createdTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{delFlag,jdbcType=INTEGER}
 		)
 	</insert>
-	
+
 	<update id="update" parameterType="com.wangfj.wms.domain.entity.LimitRole">
 		update limit_role
 		<set>
@@ -92,11 +96,13 @@
 		where sid = #{sid,jdbcType=BIGINT}
 	</update>
 	<delete id="delete" parameterType="com.wangfj.wms.domain.entity.LimitRole">
-		delete limit_role where sid = #{sid,jdbcType=BIGINT}
+		delete limit_role where sid =
+		#{sid,jdbcType=BIGINT}
 	</delete>
-	
-	<select id="getUserRolesByRoleCode" parameterType="java.util.List" resultMap="LimitRoleResultMap">
-		select * from limit_role 
+
+	<select id="getUserRolesByRoleCode" parameterType="java.util.List"
+		resultMap="LimitRoleResultMap">
+		select * from limit_role
 		where roleCode in
 		<foreach collection="paramList" item="itemCode" index="index"
 			open="(" close=")" separator=",">

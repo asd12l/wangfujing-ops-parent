@@ -1,90 +1,93 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.NoticeTypeMapper" >
-  <resultMap id="NoticeTypeResultMap" type="com.wangfj.wms.domain.entity.NoticeType" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="memo" property="memo" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sid, name, memo
-  </sql>
-  <select id="selectAll" resultMap="NoticeTypeResultMap">
-  	select
-  	<include refid="Base_Column_List"/>
-  	from notice_type
-  	order by
-  		name asc
-  </select>
-  <select id="selectByPrimaryKey" resultMap="NoticeTypeResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from notice_type
-    where sid = #{sid,jdbcType=INTEGER}
-  </select>
-  <select id="selectByParams" resultMap="NoticeTypeResultMap" parameterType="com.wangfj.wms.domain.entity.NoticeType">
-  	select
-  	<include refid="Base_Column_List" />
-  	from notice_type
-  	<where>
-  		<if test="name != null">
-			name like "%"#{name,jdbcType=VARCHAR}"%"
-		</if>
-		<if test="memo != null">
-			and tid = #{memo}
-		</if>
-  	</where>
-  	order by
-  		name asc
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from notice_type
-    where sid = #{sid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.NoticeType" >
-    insert into notice_type (sid, name, memo
-      )
-    values (#{sid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.NoticeType" >
-    insert into notice_type
-    <trim prefix="values(" suffix=")" suffixOverrides="," >
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="memo != null" >
-        memo
-      </if>
-    </trim>
-    <trim prefix="values(" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="memo != null" >
-        #{memo,jdbcType=VARCHAR}
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.NoticeType" >
-    update notice_type
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="memo != null" >
-        memo = #{memo,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.NoticeType" >
-    update notice_type
-    set name = #{name,jdbcType=VARCHAR},
-      memo = #{memo,jdbcType=VARCHAR}
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.wangfj.wms.persistence.NoticeTypeMapper">
+	<resultMap id="NoticeTypeResultMap" type="com.wangfj.wms.domain.entity.NoticeType">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, name, memo
+	</sql>
+	<select id="selectAll" resultMap="NoticeTypeResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from notice_type
+		order by
+		name asc
+	</select>
+	<select id="selectByPrimaryKey" resultMap="NoticeTypeResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from notice_type
+		where sid = #{sid,jdbcType=INTEGER}
+	</select>
+	<select id="selectByParams" resultMap="NoticeTypeResultMap"
+		parameterType="com.wangfj.wms.domain.entity.NoticeType">
+		select
+		<include refid="Base_Column_List" />
+		from notice_type
+		<where>
+			<if test="name != null">
+				name like "%"#{name,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="memo != null">
+				and tid = #{memo}
+			</if>
+		</where>
+		order by
+		name asc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from notice_type
+		where sid = #{sid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.NoticeType">
+		insert into notice_type (sid, name, memo
+		)
+		values (#{sid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.NoticeType">
+		insert into notice_type
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="memo != null">
+				memo
+			</if>
+		</trim>
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				#{memo,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.NoticeType">
+		update notice_type
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				memo = #{memo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.NoticeType">
+		update notice_type
+		set name = #{name,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR}
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
 </mapper>
