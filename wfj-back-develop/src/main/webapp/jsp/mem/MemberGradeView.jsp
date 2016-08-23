@@ -150,10 +150,17 @@
                                 <div class="widget-body" id="pro">
                                     <div class="table-toolbar">
                                     		<div class="mtb10">
-                                    		<span class="titname">升降时间：</span> <input type="text" id="reservation" />
-											<span class="titname">账号：</span> <input type="text" id="username_input" />&nbsp;&nbsp;&nbsp;&nbsp;
-											<span class="titname">手机号码：</span> <input type="text" id="mobile_input" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                    		<span class="titname">等级变更时间：</span> <input type="text" id="reservation" />
+											<span class="titname">账号：</span> <input type="text" id="Account_number" />&nbsp;&nbsp;&nbsp;&nbsp;
+											<span class="titname">手机号码：</span> <input type="text" id="mobile_number" />&nbsp;&nbsp;&nbsp;&nbsp;
 											<span class="titname">身份证号：</span> <input type="text" id="identity_card_no_input" />&nbsp;&nbsp;&nbsp;&nbsp;
+											<span class="titname">当前会员等级：</span> <input type="text" id="member_grade" />&nbsp;&nbsp;&nbsp;&nbsp;
+											<span class="titname">会员来源：</span> <select  id="member_regist_from" >
+																						<option value="">===请选择===</option>
+																						<option value="">线上</option>
+																						<option value="">门店</option>
+																						<option value="">第三方</option>
+																				</select>&nbsp;&nbsp;&nbsp;&nbsp;
 											&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-default shiny"
 												onclick="query();">查询</a>&nbsp;&nbsp;&nbsp;&nbsp; <a
 												class="btn btn-default shiny" onclick="reset();">重置</a>
@@ -163,16 +170,17 @@
                                         <thead>
                                             <tr role="row" style='height:35px;'>
                                             <th style="text-align: center;" width="2%">选择</th>
-											<th style="text-align: center;" width="10%">账户</th>
+											<th style="text-align: center;" width="10%">账号</th>
 											<th style="text-align: center;" width="10%">昵称</th>
 											<th style="text-align: center;" width="10%">真实姓名</th>
-											<th style="text-align: center;" width="10%">注册时间</th>
 											<th style="text-align: center;" width="10%">手机</th>
-											<th style="text-align: center;" width="10%">身份证号</th>
+											<th style="text-align: center;" width="10%">邮箱</th>
 											<th style="text-align: center;" width="10%">会员来源</th>
 											<th style="text-align: center;" width="10%">会员等级</th>
+											<th style="text-align: center;" width="10%">注册时间</th>
 											<th style="text-align: center;" width="10%">初始等级</th>
-											<th style="text-align: center;" width="10%">升降级记录</th>
+											<th style="text-align: center;" width="10%">升降级</th>
+											<th style="text-align: center;" width="10%">升降级名称</th>
 											<th style="text-align: center;" width="10%">升降级时间</th>
                                             </tr>
                                         </thead>
@@ -181,12 +189,12 @@
                                     </table>                          
                                   <div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
-											<input type="hidden" id="username_from" name="username" />
-											<input type="hidden" id="mobile_from" name="mobile" /> 
-											<input type="hidden" id="identity_card_no_from" name="identity_card_no" />
-											<input type="hidden" id="m_timeStartDate_form" name="m_timeStartDate"/>
-											<input type="hidden" id="m_timeEndDate_form" name="m_timeEndDate"/> 
-											<input type="hidden" id="cache" name="cache" value="1" />
+											<input type="hidden" id="username_form" name="username" />
+											<input type="hidden" id="mobile_form" name="mobile" /> 
+											<input type="hidden" id="identity_card_no_form" name="identity_card_no" />
+											<input type="hidden" id="member_grade_form" name="membergrade"/>
+											<input type="hidden" id="changetime_form" name="changetime"/> 
+											<input type="hidden" id="regist_from_form" name="regist_from"  />
 									</form>
 								</div>
                                     <div id="olvPagination"></div>
@@ -225,39 +233,39 @@
 														{#if $T.Result.real_name == "" || $T.Result.real_name == null}无
 						                   				{#/if}	
 													</td>
-													<td align="center" id="m_time_{$T.Result.sid}">
-														{#if $T.Result.m_time == "" || $T.Result.m_time == null}{$T.Result.features}
-													    {#else}{$T.Result.m_time}
-													    {#/if}
-														{#if $T.Result.m_time == "" || $T.Result.gender == null}无
-						                   				{#/if}	
-													</td>
 													<td align="center" id="mobile_{$T.Result.sid}">
 														{#if $T.Result.mobile == "" || $T.Result.mobile == null}{$T.Result.features}
 													    {#else}{$T.Result.mobile}
 													    {#/if}
-													    {#if $T.Result.mobile == "" || $T.Result.mobile == null}无
+														{#if $T.Result.mobile == "" || $T.Result.gender == null}无
+						                   				{#/if}	
+													</td>
+													<td align="center" id="email_{$T.Result.sid}">
+														{#if $T.Result.email == "" || $T.Result.email == null}{$T.Result.features}
+													    {#else}{$T.Result.email}
+													    {#/if}
+													    {#if $T.Result.email == "" || $T.Result.email == null}无
 						                   				{#/if}														
 													</td>
-													<td align="center" id="identity_card_no_{$T.Result.sid}">
-														{#if $T.Result.identity_card_no == "" || $T.Result.identity_card_no == null}{$T.Result.features}
-													    {#else}{$T.Result.identity_card_no}
+													<td align="center" id="regist_from_{$T.Result.sid}">
+														{#if $T.Result.regist_from == "" || $T.Result.regist_from == null}{$T.Result.features}
+													    {#else}{$T.Result.regist_from}
 													    {#/if}
-													    {#if $T.Result.identity_card_no == "" || $T.Result.identity_card_no == null}无
+													    {#if $T.Result.regist_from == "" || $T.Result.regist_from == null}无
 						                   				{#/if}
 													</td>
-													<td align="center" id="teach_level_{$T.Result.sid}">
-														{#if $T.Result.teach_level == "" || $T.Result.teach_level == null}{$T.Result.features}
-													    {#else}{$T.Result.teach_level}
+													<td align="center" id="cust_typename_{$T.Result.sid}">
+														{#if $T.Result.cust_typename == "" || $T.Result.cust_typename == null}{$T.Result.features}
+													    {#else}{$T.Result.cust_typename}
 													    {#/if}
-													    {#if $T.Result.teach_level == "" || $T.Result.teach_level == null}无
+													    {#if $T.Result.cust_typename == "" || $T.Result.cust_typename == null}无
 						                   				{#/if}
 													</td>
-													<td align="center" id="profession_{$T.Result.sid}">
-														{#if $T.Result.profession == "" || $T.Result.profession == null}{$T.Result.features}
-													    {#else}{$T.Result.profession}
+													<td align="center" id="regist_time_{$T.Result.sid}">
+														{#if $T.Result.regist_time == "" || $T.Result.regist_time == null}{$T.Result.features}
+													    {#else}{$T.Result.regist_time}
 													    {#/if}
-													    {#if $T.Result.profession == "" || $T.Result.profession == null}无
+													    {#if $T.Result.regist_time == "" || $T.Result.regist_time == null}无
 						                   				{#/if}
 													</td>
 													<td align="center" id="profession_{$T.Result.sid}">
