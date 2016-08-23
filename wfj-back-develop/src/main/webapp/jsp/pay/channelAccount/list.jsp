@@ -132,6 +132,7 @@ function olvQuery(){
          },
          //回调
          callback: function(data) {
+        	
         
         	 for(var i in data.list){
         		 
@@ -241,11 +242,26 @@ function editChannelAccount(id){
 	 case "微信":
 		 tdVAlue="WECHATPAY";
 		 break;	
+	 case "微信线下支付":
+		 tdVAlue="WECHATPAY_OFFLINE";
+		 break;
 	 case "微信扫货邦":
 		 tdVAlue="WECHATPAY_SHB";
 		 break;	
-	 case "支付宝线下":
+	 case "支付宝线下支付":
 		 tdVAlue="ALIPAY_OFFLINE";
+		 break;	
+	 case "银联手机支付":
+		 tdVAlue="NETPAY_MOBILE";
+		 break;	
+	 case "财付通手机支付":
+		 tdVAlue="TENPAY_MOBILE";
+		 break;	
+	 case "微信手机支付":
+		 tdVAlue="WECHATPAY_MOBILE";
+		 break;
+	 case "支付宝手机支付":
+		 tdVAlue="ALIPAY_MOBILE";
 		 break;	
 	 case "支付宝WAP":
 		 tdVAlue="ALIPAY_MOBILE";
