@@ -108,8 +108,9 @@
             	 
             	 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
             	 $("#loginchannel_input").setTemplateElement("olv-listB").processTemplate(data);
-            	 
-            	 $("#loginchannel_input").append($("<option selected='selected'>").html("===请选择===").val(""));
+            	 $("#loginchannel_input").prepend("<option vaue='' selected='selected'>===请选择===</option>");
+            
+            	
             	
             	 
              	  //debugger;
@@ -218,7 +219,7 @@
 										<textarea id="olv-listB" rows="0" cols="0" style="display:none">
                                    			{#template MAIN}
 										{#foreach $T.listB as Result}
-											 <option value="{$T.Result.sDomain}">{$T.Result.sDesc}</option>
+											 <option value="{$T.Result.sDomain}" selected="selected">{$T.Result.sDesc}</option>
 											{#/for}
 									    {#/template MAIN}
 											</textarea>
