@@ -14,7 +14,7 @@
 <!--Bootstrap Date Range Picker-->
 <script src="${ctx}/assets/js/datetime/moment.min.js"></script>
 <script src="${ctx}/assets/js/datetime/datepicker.js"></script>
-
+<title>已签收销售单查询</title>
   <script type="text/javascript">
 		__ctxPath = "${ctx}";
 		image="http://images.shopin.net/images";
@@ -130,6 +130,7 @@
 		$("#saleNo_form").val($("#saleNo_input").val());
 		$("#orderNo_form").val($("#orderNo_input").val());
 		$("#orderNo2_form").val($("#orderNo2_input").val());
+		$("#receptPhone_form").val($("#receptPhone_input").val());
 		$("#suppllyName_form").val($("#suppllyName_input").val());
 		$("#supplyNo_form").val($("#supplyNo_input").val());
 		$("#shortProduct_form").val($("#shortProduct_select").val());
@@ -153,6 +154,7 @@
 		$("#saleNo_input").val("");
 		$("#orderNo_input").val("");
 		$("#orderNo2_input").val("");
+		$("#receptPhone_input").val("");
 		$("#suppllyName_input").val("");
 		$("#supplyNo_input").val("");
 		
@@ -2320,6 +2322,10 @@
                                    					<label class="titname">第三方订单号：</label>
                                    					<input type="text" id="orderNo2_input"/>
                                    				</li>
+											    <li class="col-md-4">
+										            <label class="titname">手机号：</label>
+													<input type="text" id="receptPhone_input"/>
+											    </li>
                                    				<li class="col-md-4">
                                    					<label class="titname">销售渠道：</label>
                                    					<select id="saleSource_input" style="padding:0 0;">
@@ -2350,6 +2356,7 @@
 											<input type="hidden" id="saleNo_form" name="saleNo"/>
 											<input type="hidden" id="orderNo_form" name="orderNo"/>
 											<input type="hidden" id="orderNo2_form" name="outOrderNo"/>
+											<input type="hidden" id="receptPhone_form" name="receptPhone"/>
 											<input type="hidden" id="suppllyName_form" name="suppllyName"/>
 											<input type="hidden" id="supplyNo_form" name="supplyNo"/>
 											<input type="hidden" id="shortProduct_form" name="saleStatus"/>
@@ -2367,6 +2374,8 @@
                                                 <th width="2%" style="text-align: center;">销售单号</th>
                                                 <th width="2%" style="text-align: center;">销售渠道</th>
                                                 <th width="2%" style="text-align: center;">订单号</th>
+                                                <th width="2%" style="text-align: center;">外部订单号</th>
+                                                <th width="2%" style="text-align: center;">手机号</th>
                                                 <th width="2%" style="text-align: center;">CID</th>
                                                 <th width="2%" style="text-align: center;">客户编号</th>
                                                 <th width="2%" style="text-align: center;">供应商名称</th>
@@ -2415,6 +2424,14 @@
 													</td>
 													<td align="center" id="orderNo_{$T.Result.sid}">
 														{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="outOrderNo_{$T.Result.sid}">
+														{#if $T.Result.outOrderNo != '[object Object]'}{$T.Result.outOrderNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptPhone_{$T.Result.sid}">
+														{#if $T.Result.receptPhone != '[object Object]'}{$T.Result.receptPhone}
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
@@ -2506,7 +2523,9 @@
                                             <tr role="row" style='height:35px;'>
                                                 <th width="2%" style="text-align: center;">销售单号</th>
                                                 <th width="2%" style="text-align: center;">销售渠道</th>
-                                                <th width="2%" style="text-align: center;">订单渠道号</th>
+                                                <th width="2%" style="text-align: center;">订单号</th>
+                                                <th width="2%" style="text-align: center;">外部订单号</th>
+                                                <th width="2%" style="text-align: center;">手机号</th>
                                                 <th width="2%" style="text-align: center;">CID</th>
                                                 <th width="2%" style="text-align: center;">客户编号</th>
                                                 <th width="2%" style="text-align: center;">供应商名称</th>

@@ -7,7 +7,21 @@ import java.util.List;
 public class ExcelRefundVo {
 	private Long sid;
 	private String refundReasionNo;
+	private String outOrderNo;
+	private String receptPhone;
 	
+public String getOutOrderNo() {
+		return outOrderNo;
+	}
+	public void setOutOrderNo(String outOrderNo) {
+		this.outOrderNo = outOrderNo;
+	}
+	public String getReceptPhone() {
+		return receptPhone;
+	}
+	public void setReceptPhone(String receptPhone) {
+		this.receptPhone = receptPhone;
+	}
 public String getRefundReasionNo() {
 		return refundReasionNo;
 	}

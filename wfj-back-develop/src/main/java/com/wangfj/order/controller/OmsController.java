@@ -371,6 +371,7 @@ public class OmsController {
 		Map<String, String> paramMap = this.createParam(request);
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		paramMap.put("outOrderNo", request.getParameter("outOrderNo"));
+		paramMap.put("receptPhone", request.getParameter("receptPhone"));
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("saleStatus", "08");//已签收
@@ -525,6 +526,7 @@ public class OmsController {
 		Map<String, String> paramMap = this.createParam(request);
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		paramMap.put("outOrderNo", request.getParameter("outOrderNo"));
+		paramMap.put("receptPhone", request.getParameter("receptPhone"));
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("saleStatus", "09");//已拒收
