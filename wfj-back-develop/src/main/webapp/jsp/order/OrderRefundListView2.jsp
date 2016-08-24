@@ -991,7 +991,7 @@
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
-		 newTr.find("td:eq(10)").hide();
+		 newTr.find("td:eq(12)").hide();
 		 $("#mainTr3").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -2158,7 +2158,7 @@
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
-		 newTr.find("td:eq(10)").hide();
+		 newTr.find("td:eq(12)").hide();
 		$("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
@@ -2902,7 +2902,7 @@
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
-		 newTr.find("td:eq(10)").hide();
+		 newTr.find("td:eq(12)").hide();
 		 $("#mainTr4").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -4043,7 +4043,7 @@
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
-		 newTr.find("td:eq(10)").hide();
+		 newTr.find("td:eq(12)").hide();
 		$("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
