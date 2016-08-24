@@ -754,6 +754,83 @@
 		}
 		
 	}
+ 	
+ 	//包裹单明细 销售单下
+ 	function spanTd3211(obj) {
+		if ($("#spanTd3211_"+obj).attr("class") == "expand-collapse click-expand glyphicon glyphicon-plus") {
+			$("#spanTd3211_"+obj).attr("class","expand-collapse click-collapse glyphicon glyphicon-minus");
+			$.ajax({
+				type : "post",
+				contentType : "application/x-www-form-urlencoded;charset=utf-8",
+				url : __ctxPath + "/omsOrder/selectPackageItemList",
+				async : false,
+				dataType : "json",
+				ajaxStart : function() {
+					$("#loading-container").attr("class",
+							"loading-container");
+				},
+				ajaxStop : function() {
+					//隐藏加载提示
+					setTimeout(function() {
+						$("#loading-container").addClass(
+								"loading-inactive");
+					}, 300);
+				},
+				data : {"packageNo" : obj},
+				success : function(response) {
+				var option = "<tr id='afterTr3211"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
+						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+					option += "<th width='3%' style='text-align: center;'>包裹单号</th>"+
+					"<th width='2%' style='text-align: center;'>物流单号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
+					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
+					if(response.success=='true'){
+						var result = response.list;
+						for (var i = 0; i < result.length; i++) {
+							var ele = result[i];
+							//包裹单号
+							if(ele.packageNo=="[object Object]"||ele.packageNo==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.packageNo+"</td>";
+							}
+							//物流单号
+							if(ele.deliveryNo=="[object Object]"||ele.deliveryNo==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.deliveryNo+"</td>";
+							}
+							//销售单号
+							if(ele.saleNo=="[object Object]"||ele.saleNo==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.saleNo+"</td>";
+							}
+							//销售单明细号
+							if(ele.saleItemNo=="[object Object]"||ele.saleItemNo==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.saleItemNo+"</td>";
+							}
+							//销售数量
+							if(ele.saleNum=="[object Object]"||ele.saleNum==undefined){
+								option+="<td align='center'></td></tr>";
+							}else{
+								option+="<td align='center'>"+ele.saleNum+"</td></tr>";
+							}
+						}
+					}
+					option += "</table></div></td></tr>";
+					$("#gradeY3211" + obj).after(option);
+				}
+			});
+		} else {
+			$("#spanTd3211_" + obj).attr("class","expand-collapse click-expand glyphicon glyphicon-plus");
+			$("#afterTr3211" + obj).remove();
+		}
+		
+	}
  	//查询销售单明细(挂在销售单下)
  	function spanTd12(obj) {
 		if ($("#spanTd12_"+obj).attr("class") == "expand-collapse click-expand glyphicon glyphicon-plus") {
@@ -1479,7 +1556,7 @@
 						"<td align='center' style='vertical-align:middle;'>"+
 						"<span id='spanTd321_"+ele.packageNo+"' onclick='spanTd321(\""+ele.packageNo+"\")' "+
 						"class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;'></span></td>";
-						//款机流水号
+						//订单号
 						if(ele.orderNo=="[object Object]"||ele.orderNo==undefined){
 							option2+="<td align='center'></td>";
 						}else{
@@ -3237,6 +3314,127 @@
 				}
 			}
 		});
+		var option51 = "<tr role='row' style='height:35px;'>"+
+		"<th width='1%' style='text-align: center;'></th>"+
+		"<th width='4%' style='text-align: center;'>销售单号</th>"+
+		"<th width='4%' style='text-align: center;'>订单号</th>"+
+		"<th width='3%' style='text-align: center;'>包裹单号</th>"+
+		"<th width='3%' style='text-align: center;'>包裹状态</th>"+
+		"<th width='3%' style='text-align: center;'>快递公司</th>"+
+		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
+		"<th width='3%' style='text-align: center;'>快递单号</th>"+
+		"<th width='4%' style='text-align: center;'>发货时间</th>"+
+		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
+		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
+		"<th width='4%' style='text-align: center;'>签收时间</th>"+
+		"<th width='3%' style='text-align: center;'>签收人</th>"+
+		"<th width='3%' style='text-align: center;'>退货地址</th>"+
+		"<th width='4%' style='text-align: center;'>创建时间</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectPackage",
+			async:false,
+			dataType: "json",
+			data:{"saleNo":saleNo,
+				"isRefund":"0"},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						option51+="<tr id='gradeY3211"+ele.packageNo+"' style='height:35px;overflow-X:hidden;'>"+
+						"<td align='center' style='vertical-align:middle;'>"+
+						"<span id='spanTd3211_"+ele.packageNo+"' onclick='spanTd3211(\""+ele.packageNo+"\")' "+
+						"class='expand-collapse click-expand glyphicon glyphicon-plus' style='cursor:pointer;'></span></td>";
+						//销售单号
+						if(ele.saleNo=="[object Object]"||ele.saleNo==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.saleNo+"</td>";
+						}
+						//订单号
+						if(ele.orderNo=="[object Object]"||ele.orderNo==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.orderNo+"</td>";
+						}
+						//包裹单号
+						if(ele.packageNo=="[object Object]"||ele.packageNo==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.packageNo+"</td>";
+						}
+						//包裹状态
+						if(ele.packageStatusDesc=="[object Object]"||ele.packageStatusDesc==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.packageStatusDesc+"</td>";
+						}
+						//快递公司
+						if(ele.delComName=="[object Object]"||ele.delComName==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.delComName+"</td>";
+						}
+						//快递公司编号
+						if(ele.delComNo=="[object Object]"||ele.delComNo==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.delComNo+"</td>";
+						}
+						//快递单号
+						if(ele.deliveryNo=="[object Object]"||ele.deliveryNo==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.deliveryNo+"</td>";
+						}
+						//发货时间
+						if(ele.sendTimeStr=="[object Object]"||ele.sendTimeStr==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.sendTimeStr+"</td>";
+						}
+						//自提点编号
+						if(ele.extPlaceNo=="[object Object]"||ele.extPlaceNo==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.extPlaceNo+"</td>";
+						}
+						//自提点名称
+						if(ele.extPlaceName=="[object Object]"||ele.extPlaceName==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.extPlaceName+"</td>";
+						}
+						//签收时间
+						if(ele.signTimeStr=="[object Object]"||ele.signTimeStr==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.signTimeStr+"</td>";
+						}
+						//签收人
+						if(ele.signName=="[object Object]"||ele.signName==undefined||'\"null\"'==ele.signName){//有个名为null的人故意捣乱
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.signName+"</td>";
+						}
+						//退货地址
+						if(ele.refundAddress=="[object Object]"||ele.refundAddress==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.refundAddress+"</td>";
+						}
+						//创建时间
+						if(ele.createTimeStr=="[object Object]"||ele.createTimeStr==undefined){
+							option51+="<td align='center'></td></tr>";
+						}else{
+							option51+="<td align='center'>"+ele.createTimeStr+"</td></tr>";
+						}
+					}
+				}
+			}
+		});
 		$("#OLV1_tab").html(option);
 		if(""==orderNo){
 			$("#OLV2_tab").html(option2);
@@ -3250,6 +3448,7 @@
 		$("#OLV3_tab").html(option3);
 		$("#OLV4_tab").html(option4);
 		$("#OLV8_tab").html(option8);
+		$("#OLV51_tab").html(option51);
 		
 		$("#divTitle").html("销售单详情");
 		$("#btDiv").show();
@@ -3836,6 +4035,7 @@
 					        <li class="active"><a href="#tab1" data-toggle="tab">销售单商品明细</a></li>
 					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付信息</a></li>
 							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
+							<li><a href="#tab51" data-toggle="tab">包裹信息</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
 							<li><a href="#tab6" data-toggle="tab">客服备注</a></li>
@@ -3850,6 +4050,12 @@
 					        <div class="tab-pane" id="tab2">
 					          <div style="width:100%;height:200px; overflow:scroll;">
 					                    <table class="table-striped table-hover table-bordered" id="OLV2_tab" style="width: 650%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					        </div>
+					        <div class="tab-pane" id="tab51">
+					          <div style="width:100%;height:200px; overflow:scroll;">
+					                    <table class="table-striped table-hover table-bordered" id="OLV51_tab" style="width: 250%;background-color: #fff;margin-bottom: 0;">
 					                    </table>
 					                </div>
 					        </div>

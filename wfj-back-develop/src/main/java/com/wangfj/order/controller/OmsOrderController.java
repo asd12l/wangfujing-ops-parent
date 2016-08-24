@@ -942,7 +942,12 @@ public class OmsOrderController {
 	public String selectPackage(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
-		paramMap.put("orderNo", request.getParameter("orderNo"));
+		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
+			paramMap.put("orderNo", request.getParameter("orderNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("saleNo"))){
+			paramMap.put("saleNo", request.getParameter("saleNo"));
+		}
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
