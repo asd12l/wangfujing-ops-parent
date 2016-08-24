@@ -18,6 +18,7 @@
 }
 </style>
   <script type="text/javascript">
+  
 		__ctxPath = "${pageContext.request.contextPath}";
 		image="http://images.shopin.net/images";
 	saleMsgImage="http://images.shopin.net/images";
@@ -103,9 +104,14 @@
 					}, 300);
 				},
              callback: function(data) {
+            	
+            	 
             	 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
             	 $("#loginchannel_input").setTemplateElement("olv-listB").processTemplate(data);
-            	// $("#loginchannel_input").find("option").prop("请选择");
+            	 
+            	 $("#loginchannel_input").append($("<option selected='selected'>").html("===请选择===").val(""));
+            	
+            	 
              	  //debugger;
            /*  	 var orderStatusSpace = $(".orderStatusSpace");
             		 var status=data.listB;
@@ -208,6 +214,7 @@
                                    			<select id="loginchannel_input" class="orderStatusSpace">
                                    		      
 											</select>
+											
 										<textarea id="olv-listB" rows="0" cols="0" style="display:none">
                                    			{#template MAIN}
 										{#foreach $T.listB as Result}
@@ -246,8 +253,8 @@
                                             	<th width="8%" style="text-align: center;">第三方登录渠道</th>
                                             	<th width="8%" style="text-align: center;">第三方登录账号</th>
                                                <!--  <th width="5%" style="text-align: center;">会员编号</th>
-                                                <th width="15%" style="text-align: center;">用户名</th>
-                                                <th width="15%" style="text-align: center;">登录系统</th> -->
+                                               <th width="15%" style="text-align: center;">用户名</th>
+                                               <th width="15%" style="text-align: center;">登录系统</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>

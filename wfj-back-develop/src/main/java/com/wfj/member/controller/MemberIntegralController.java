@@ -3,6 +3,10 @@ package com.wfj.member.controller;
 import com.google.gson.Gson;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -37,10 +41,12 @@ public class MemberIntegralController {
     public String getByMemberIntegral(HttpServletRequest request,
                                      HttpServletResponse response) {
         log.info("======== getByMemberIntegral in  =========");
+        response.setCharacterEncoding("utf-8");
         String method = "/memberIntegral/getByMemberIntegral.do";
         Gson gson = new Gson();
         List<Object> list = new ArrayList<Object>();
         String jsonString = gson.toJson(list);
+        String rejson = null;
         //获取每页显示多少条数据
         Integer pageSize = 0;
         //获取当前页
@@ -56,7 +62,10 @@ public class MemberIntegralController {
         paraMap.put("limit", String.valueOf(pageSize));
         paraMap.put("login", request.getParameter("login"));
         paraMap.put("sid", request.getParameter("sid"));
-        paraMap.put("order", request.getParameter("order"));
+        paraMap.put("mobile", request.getParameter("mobile"));
+        paraMap.put("email", request.getParameter("email"));
+        paraMap.put("fromOrder", request.getParameter("fromOrder"));
+        paraMap.put("checkStatus", request.getParameter("check_status"));
         paraMap.put("applyName",request.getParameter("applyName"));
         paraMap.put("m_timeApStartDate",  request.getParameter("m_timeApStartDate"));
         paraMap.put("m_timeApEndDate",  request.getParameter("m_timeApEndDate"));
@@ -69,6 +78,7 @@ public class MemberIntegralController {
             System.err.println("=============method:"+method);
             System.err.println("======== getByMemberIntegral url "+url+ method+"  =========");
             jsonString = HttpUtil.HttpPost(url, method, paraMap);
+           
         } catch (Exception e) {
             jsonString = "{success :false}";
         }
@@ -199,5 +209,30 @@ public class MemberIntegralController {
             jsonString = "{success:false}";
         }
         return jsonString;
+    }
+    /**
+     * 积分申请中查看用户信息
+     * @param request
+     * @param response
+     * **/
+    @ResponseBody
+    @RequestMapping(value="/ShowMemberInfo",method= { RequestMethod.POST, RequestMethod.GET })
+    public String showMemberInfo(HttpServletRequest request,HttpServletResponse response){
+		log.info("+++++++++进入showMmberInfo方法++++++++++");
+    	String jString ="";
+    	String username = request.getParameter("loginName");
+		String method = "/memberIntegral/ShowMemberInfo.do";
+		String url = CommonProperties.get("member_ops_url");
+		Map<String, String>map = new HashMap<String, String>();
+		map.put("username", username);
+		try {
+			jString = HttpUtil.HttpPostForRest(url, method, map);
+			log.info("返回值++++++++"+jString);
+		} catch (Exception e) {
+			log.error("+++++++++++++http请求失败+++++++++");
+			e.printStackTrace();
+		}
+    	return jString;
+    	
     }
 }
