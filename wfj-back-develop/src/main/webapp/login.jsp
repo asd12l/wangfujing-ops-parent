@@ -82,7 +82,7 @@
 			var minX = butDivX + imgDivW/2 + 2;
 			var maxX = butDivX + butDivW - imgDivW/2 + 2;
 			var minX1 = ((imgDivW-litPicDivW));
-			console.log(butDivX+"  "+butDivW+"  "+imgDivW);
+			
 			if(event.pageX < minX){
 				$("#captcha_img").attr("style","left: " + 2 + "px;");
 				$("#lit_pic").attr("style","left: "+ 12 +"px;top :" + startY + "px;");
