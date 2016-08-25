@@ -12,7 +12,7 @@
 	<!-- <context:property-placeholder
 		file-encoding="UTF-8" location="classpath*:redis.properties"
 		ignore-unresolvable="true" /> -->
-	<bean id="propertyConfigurer1"
+	<!-- <bean id="propertyConfigurer1"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
@@ -20,7 +20,7 @@
 			</list>
 		</property>
 		<property name="fileEncoding" value="UTF-8" />
-	</bean>
+	</bean> -->
 
 	<!-- redis缓存配置开始 -->
 	<bean id="clusterConfig"
@@ -30,8 +30,8 @@
 				<constructor-arg name="name" value="redis.properties" />
 				<constructor-arg name="source">
 					<map>
-						<entry key="spring.redis.cluster.nodes" value="${spring.redis.cluster.nodes}" />
-						<entry key="spring.redis.cluster.max-redirects" value="${spring.redis.cluster.max-redirects}" />
+						<entry key="spring.redis.cluster.nodes" value="10.6.2.110:7001,10.6.2.110:7002,10.6.2.110:7003,10.6.2.110:7004,10.6.2.110:7005,10.6.2.110:7006" />
+						<entry key="spring.redis.cluster.max-redirects" value="3" />
 					</map>
 				</constructor-arg>
 			</bean>
@@ -40,7 +40,7 @@
 
 	<bean id="redisConnectionFactory"
 		class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"
-		c:clusterConfig-ref="clusterConfig" p:password="${spring.redis.cluster.password}" />
+		c:clusterConfig-ref="clusterConfig" p:password="redis7001" />
 
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
 		c:connectionFactory-ref="redisConnectionFactory">
