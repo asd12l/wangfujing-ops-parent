@@ -3911,9 +3911,11 @@ public class OmsOrderController {
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_pos_Allplatform"), jsonStr);
 //			json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSelect/checkReconciliation.htm", jsonStr);
 			logger.info("json:" + json);
-			JSONObject jsonObject = JSONObject.fromObject(json);
+//			JSONObject jsonObject = JSONObject.fromObject(json);
+			com.alibaba.fastjson.JSONObject jsonObject = (com.alibaba.fastjson.JSONObject) JSON.parseObject(json);
 			String data = jsonObject.getString("data");
-			JSONObject jsonObject2 = JSONObject.fromObject(data);
+//			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			com.alibaba.fastjson.JSONObject jsonObject2 = (com.alibaba.fastjson.JSONObject) JSON.parseObject(data);
 			List<Object> list = (List<Object>) jsonObject2.get("list");
 			
 			String jsonStr2 = "";
@@ -3956,7 +3958,7 @@ public class OmsOrderController {
 			list=list3;
 					
 					
-			Integer count = jsonObject2.getInt("count");
+			Integer count = jsonObject2.getInteger("count");
 			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			if (list != null && list.size() != 0) {
 				m.put("list", list);
