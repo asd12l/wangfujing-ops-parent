@@ -128,7 +128,7 @@ Author: WangSy
 	var reMonStatus =reMonStatus_;
 	if(reMonStatus=='1'){
 		$("#qrtk").attr("disabled", "true");
-		$("#financeMemo").attr("readonly", "readonly");
+		$("#financeMemo").attr("disabled", "disabled");
 	}else{
 		$("#qrtk").removeAttr("disabled");
 	}
