@@ -21,8 +21,10 @@ Author: wangzi
 <style>
 
 label{width: 70px;}
-</style>	
-	
+</style>
+ <!--Bootstrap Date Range Picker-->
+<script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>		
 <script
 	src="${pageContext.request.contextPath}/js/member/comment/commentlist.js">
 
