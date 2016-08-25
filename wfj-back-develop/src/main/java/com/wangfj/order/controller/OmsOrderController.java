@@ -2106,6 +2106,7 @@ public class OmsOrderController {
 		header.add("开户人");
 		header.add("卡号");
 		header.add("审核人");
+		header.add("财务备注");
 		header.add("创建时间");
 		header.add("退款成功时间");
 	
@@ -2154,6 +2155,7 @@ public class OmsOrderController {
 			inlist.add(vo.getBankUser()==null?"":vo.getBankUser());
 			inlist.add(vo.getBankType()==null?"":vo.getBankType().toString());
 			inlist.add(vo.getAllRefUser()==null?"":vo.getAllRefUser());
+			inlist.add(vo.getFinanceMemo()==null?"":vo.getFinanceMemo());
 			inlist.add(vo.getAllRefTimeStr()==null?"":vo.getAllRefTimeStr());
 			inlist.add(vo.getConfirmRefundTimeStr()==null?"":vo.getConfirmRefundTimeStr());
 			

@@ -281,9 +281,10 @@
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}
-	function fundButten(reMonStatus,applyNo,refundMonNo,orderNo,refundNo,needRefundMon,obj){
+	function fundButten(reMonStatus,applyNo,refundMonNo,orderNo,refundNo,needRefundMon,financeMemo,obj){
 		needRefundMon_ = needRefundMon;
 		refundMonNo_ = refundMonNo;
+		financeMemo_ = financeMemo;
 		//查询退货单及连带信息
 		 $.ajax({
 			type : "post",
@@ -1283,7 +1284,7 @@
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
-		 newTr.find("td:eq(18)").hide();
+		 newTr.find("td:eq(19)").hide();
 		 $("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -2366,7 +2367,7 @@
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
-		newTr.find("td:eq(18)").hide();
+		newTr.find("td:eq(19)").hide();
 		$("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
@@ -3244,6 +3245,7 @@
                                                 <th width="4%" style="text-align: center;">开户人</th>
                                                 <th width="4%" style="text-align: center;">卡号</th>
                                                 <th width="4%" style="text-align: center;">审核人</th>
+                                                <th width="4%" style="text-align: center;">财务备注</th>
                                                 <th width="4%" style="text-align: center;">创建时间</th>
                                                 <th width="4%" style="text-align: center;">退款成功时间</th>
                                                 <th width="4%" style="text-align: center;">操作</th>
@@ -3337,6 +3339,10 @@
 														{#if $T.Result.allRefUser != '[object Object]'}{$T.Result.allRefUser}
 						                   				{#/if}
 													</td>
+													<td align="center" id="financeMemo_{$T.Result.sid}">
+														{#if $T.Result.financeMemo != '[object Object]'}{$T.Result.financeMemo}
+						                   				{#/if}
+													</td>
 													<td align="center" id="allRefTimeStr_{$T.Result.sid}">
 														{#if $T.Result.allRefTimeStr != '[object Object]'}{$T.Result.allRefTimeStr}
 						                   				{#/if}
@@ -3346,7 +3352,7 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="opt">
-														<input class="btn btn-success" style="width: 40%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.reMonStatus}','{$T.Result.applyNo}','{$T.Result.refundMonNo}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.needRefundMon}',this)" type="button" value="查看" />
+														<input class="btn btn-success" style="width: 40%;height: 30px;" id="fundButten" onclick="fundButten('{$T.Result.reMonStatus}','{$T.Result.applyNo}','{$T.Result.refundMonNo}','{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.needRefundMon}','{$T.Result.financeMemo}',this)" type="button" value="查看" />
 													</td>
 									       		</tr>
 											{#/for}
@@ -3394,6 +3400,7 @@
                                                 <th width="4%" style="text-align: center;">开户人</th>
                                                 <th width="4%" style="text-align: center;">卡号</th>
                                                 <th width="4%" style="text-align: center;">审核人</th>
+                                                <th width="4%" style="text-align: center;">财务备注</th>
                                                 <th width="4%" style="text-align: center;">创建时间</th>
                                                 <th width="4%" style="text-align: center;">确认退款时间</th>
                                             </tr>
@@ -3472,6 +3479,7 @@
                                                 <th width="4%" style="text-align: center;">开户人</th>
                                                 <th width="4%" style="text-align: center;">卡号</th>
                                                 <th width="4%" style="text-align: center;">审核人</th>
+                                                <th width="4%" style="text-align: center;">财务备注</th>
                                                 <th width="4%" style="text-align: center;">创建时间</th>
                                                 <th width="4%" style="text-align: center;">确认退款时间</th>
                                             </tr>

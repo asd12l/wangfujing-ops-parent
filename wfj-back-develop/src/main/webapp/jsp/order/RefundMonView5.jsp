@@ -128,6 +128,7 @@ Author: WangSy
 	var reMonStatus =reMonStatus_;
 	if(reMonStatus=='1'){
 		$("#qrtk").attr("disabled", "true");
+		$("#financeMemo").attr("readonly", "readonly");
 	}else{
 		$("#qrtk").removeAttr("disabled");
 	}
@@ -166,7 +167,8 @@ Author: WangSy
 		//通过退货单号查询信息
 		var refundNo = refundNo_;
 		var returnType;
-		
+		var financeMemo = financeMemo_;
+		$("#financeMemo").val(financeMemo);
 		$.ajax({
 			type : "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -274,6 +276,7 @@ Author: WangSy
 		//修改退款单状态
 		var refundMonNo = refundMonNo_;
 		var userName = getCookieValue("username");
+		var financeMemo =$("#financeMemo").val();
 		$("#qrtk").click(function() {
 			$.ajax({
 				type : "post",
@@ -290,7 +293,7 @@ Author: WangSy
 		       	        $("#loading-container").addClass("loading-inactive");
 		       	 },300);
 		        },
-				data:{"refundMonNo":refundMonNo,"userName":userName},
+				data:{"refundMonNo":refundMonNo,"userName":userName,"financeMemo":financeMemo},
 				success : function(response) {
 					if (response.success == "true") {
 						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>确认成功，返回列表页!</strong></div>");
@@ -1825,8 +1828,13 @@ function urlClick(ur,obj){
 													<div class="col-md-12">
 														<div class="col-md-6">
 														<span>&nbsp;&nbsp;退回顾客优惠券金额：</span>
-														<label id="amount2" class="control-label"></label>
+														<label id="amount2" class="control-label"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</div>
+														<div class="col-md-6">
+														<span>&nbsp;&nbsp;财务备注：</span>
+														<input id="financeMemo"></input>
+														</div>&nbsp;
 														&nbsp;
 													</div>
 													<div class="col-md-12">

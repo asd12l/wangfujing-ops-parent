@@ -18,7 +18,14 @@ private String refundMonNo;
 	private String orderNo;
 	private String outOrderNo;
 	private String applyNo;
+	private String financeMemo;
 	
+	public String getFinanceMemo() {
+		return financeMemo;
+	}
+	public void setFinanceMemo(String financeMemo) {
+		this.financeMemo = financeMemo;
+	}
 	public String getApplyNo() {
 		return applyNo;
 	}
