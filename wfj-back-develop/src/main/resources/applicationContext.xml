@@ -21,6 +21,7 @@
 
 	<import resource="applicationContext-db.xml" />
 	<import resource="applicationContext-search.xml" />
+	<import resource="beans-redis.xml" />
 
 	<!-- 激活annotation功能 -->
 	<context:annotation-config />
