@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangfj.back.mapper.CaptchaMapper">
+	<resultMap id="BaseResultMap" type="com.wangfj.back.entity.po.Captcha">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="random" property="random" jdbcType="INTEGER" />
+		<result column="big_img" property="bigImg" jdbcType="VARCHAR" />
+		<result column="lit_img" property="litImg" jdbcType="VARCHAR" />
+		<result column="start_x" property="startX" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, random, big_img, lit_img, start_x
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from captcha
+		where sid = #{sid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from captcha
+		where sid = #{sid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangfj.back.entity.po.Captcha">
+		insert into captcha (sid, random, big_img,
+		lit_img, start_x)
+		values (#{sid,jdbcType=INTEGER}, #{random,jdbcType=INTEGER},
+		#{bigImg,jdbcType=VARCHAR},
+		#{litImg,jdbcType=VARCHAR}, #{startX,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangfj.back.entity.po.Captcha">
+		insert into captcha
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="random != null">
+				random,
+			</if>
+			<if test="bigImg != null">
+				big_img,
+			</if>
+			<if test="litImg != null">
+				lit_img,
+			</if>
+			<if test="startX != null">
+				start_x,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=INTEGER},
+			</if>
+			<if test="random != null">
+				#{random,jdbcType=INTEGER},
+			</if>
+			<if test="bigImg != null">
+				#{bigImg,jdbcType=VARCHAR},
+			</if>
+			<if test="litImg != null">
+				#{litImg,jdbcType=VARCHAR},
+			</if>
+			<if test="startX != null">
+				#{startX,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangfj.back.entity.po.Captcha">
+		update captcha
+		<set>
+			<if test="random != null">
+				random = #{random,jdbcType=INTEGER},
+			</if>
+			<if test="bigImg != null">
+				big_img = #{bigImg,jdbcType=VARCHAR},
+			</if>
+			<if test="litImg != null">
+				lit_img = #{litImg,jdbcType=VARCHAR},
+			</if>
+			<if test="startX != null">
+				start_x = #{startX,jdbcType=INTEGER},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangfj.back.entity.po.Captcha">
+		update captcha
+		set random = #{random,jdbcType=INTEGER},
+		big_img = #{bigImg,jdbcType=VARCHAR},
+		lit_img = #{litImg,jdbcType=VARCHAR},
+		start_x = #{startX,jdbcType=INTEGER}
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	
+	<select id="selectBySelective" resultMap="BaseResultMap"
+		parameterType="com.wangfj.back.entity.po.Captcha">
+		select
+		<include refid="Base_Column_List" />
+		from captcha
+		<where>
+			1 = 1
+			<if test="sid != null">
+				and sid = #{sid,jdbcType=INTEGER}
+			</if>
+			<if test="random != null">
+				and random = #{random,jdbcType=INTEGER}
+			</if>
+			<if test="bigImg != null">
+				and big_img = #{bigImg,jdbcType=VARCHAR}
+			</if>
+			<if test="litImg != null">
+				and lit_img = #{litImg,jdbcType=VARCHAR}
+			</if>
+			<if test="startX != null">
+				and start_x = #{startX,jdbcType=INTEGER}
+			</if>
+			LIMIT 1
+		</where>
+	</select>
+	
+	<select id="selectCountBySelective" resultType="java.lang.Integer"
+		parameterType="com.wangfj.back.entity.po.Captcha">
+		select
+			count(1)
+		from captcha
+		<where>
+			1 = 1
+			<if test="sid != null">
+				and sid = #{sid,jdbcType=INTEGER}
+			</if>
+			<if test="random != null">
+				and random = #{random,jdbcType=INTEGER}
+			</if>
+			<if test="bigImg != null">
+				and big_img = #{bigImg,jdbcType=VARCHAR}
+			</if>
+			<if test="litImg != null">
+				and lit_img = #{litImg,jdbcType=VARCHAR}
+			</if>
+			<if test="startX != null">
+				and start_x = #{startX,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+</mapper>

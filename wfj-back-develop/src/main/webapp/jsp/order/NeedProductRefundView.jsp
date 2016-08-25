@@ -1084,6 +1084,7 @@
 		"<th width='3%' style='text-align: center;'>销售数量</th>"+
 		
 		"<th width='3%' style='text-align: center;'>销售金额</th>"+
+		"<th width='3%' style='text-align: center;'>明细现金类支付金额</th>"+
 		"<th width='3%' style='text-align: center;'>促销优惠分摊金额</th>"+
 		"<th width='3%' style='text-align: center;'>促销后销售金额</th>"+
 		
@@ -1226,6 +1227,12 @@
 						}else{
 							var salePriceSum = ele.salePrice*ele.saleSum;
 							option+="<td align='center'>"+parseFloat(salePriceSum).toFixed(2)+"</td>";
+						}
+						//明细现金类支付金额
+						if(ele.itemCashAmount=="[object Object]"||ele.itemCashAmount==undefined){
+							option+="<td align='center'></td>";
+						}else{
+							option+="<td align='center'>"+ele.itemCashAmount+"</td>";
 						}
 						//促销优惠分摊金额
 						if(ele.totalDiscount=="[object Object]"||ele.totalDiscount==undefined){

@@ -10,6 +10,15 @@ public class ExcelAllPosPlatformVo {
 	private String paymentType;//支付方式
 	
 	private BigDecimal paymentAmount;//应收金额
+	private BigDecimal Amount;//应收金额
+
+	public BigDecimal getAmount() {
+		return Amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		Amount = amount;
+	}
 
 	public String getRefundClass() {
 		return refundClass;
