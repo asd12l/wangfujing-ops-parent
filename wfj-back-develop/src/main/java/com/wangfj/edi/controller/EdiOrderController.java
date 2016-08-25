@@ -47,7 +47,7 @@ import net.sf.json.JSONObject;
 @RequestMapping("/ediOrder")
 public class EdiOrderController {
 	
-private static final Logger logger = LoggerFactory.getLogger(OmsOrderController.class);
+private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.class);
 	
 	public static final String FROM_SYSTEM = "ORDERBACK";
 	/**
