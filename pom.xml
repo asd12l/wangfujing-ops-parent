@@ -567,13 +567,13 @@
 			<id>pre</id>
 			<properties>
 				<resources.active>3-pre</resources.active>
-			</properties>
+			</properties>			
 		</profile>
 		<profile>
 			<id>pro</id>
 			<properties>
 				<resources.active>4-pro</resources.active>
-			</properties>
+			</properties>		
 		</profile>
 	</profiles>
 

@@ -718,7 +718,7 @@
                                                 <th width="3%" style="text-align: center;">机器号</th>
                                                 <th width="3%" style="text-align: center;">线上线下标识</th>
                                                 <th width="3%" style="text-align: center;">支付时间</th>
-                                                <th width="3%" style="text-align: center;">总折扣</th>
+                                                <th width="3%" style="text-align: center;">总折扣</th><!-- 2016-8-23 %去掉   -->
                                                 <th width="3%" style="text-align: center;">总应收</th>
                                                 <th width="3%" style="text-align: center;">实际支付</th>
                                                 <th width="3%" style="text-align: center;">找零</th>
@@ -786,7 +786,7 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="totalDiscountAmount_{$T.Result.salesPaymentNo}">
-														{#if $T.Result.totalDiscountAmount != '[object Object]'}{$T.Result.totalDiscountAmount}%
+														{#if $T.Result.totalDiscountAmount != '[object Object]'}{$T.Result.totalDiscountAmount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentAmount_{$T.Result.salesPaymentNo}">
