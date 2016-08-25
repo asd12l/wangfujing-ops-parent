@@ -126,6 +126,7 @@ function productQuery(){
 		$("#pay_mobile").val("");
 		$("#pay_code").val("");
 		$("#payCode").val("");
+		
 		$("#pay_password").attr("disabled",true);
 		$("#pay_code").attr("disabled",true);
 		var checkboxArray=[];
@@ -273,7 +274,7 @@ function productQuery(){
 		$("#login_email").val("");
 		$("#login_code").val("");
 		$("#login_me").val("");
-		
+		 
 		$("#login_password").attr("disabled",true);
 		$("#login_code").attr("disabled",true);
 		$("#sendcodeEmail").hide();
@@ -323,6 +324,11 @@ function productQuery(){
 	function access(){
 		var login_me=$("#login_me").val();
 		if(login_me=="邮箱"){
+			$("#login_password").attr("disabled",true);
+			$("#mobileCode_msg").html("");
+			$("#login_msg").html("");
+			$("#login_code").val("");
+			
 			$("#sendcodePhone").hide();
 			$("#login_mobile").hide();
 			$("#sendcodeEmail").show();
@@ -331,7 +337,11 @@ function productQuery(){
 			$("#login_mobile2").hide();
 		} 
 		if(login_me=="手机"){
-			
+			$("#login_msg").html("");
+			$("#login_code").val("");
+			$("#login_mobile").hide();
+			$("#emailCode_msg").html("");
+			 
 			$("#sendcodePhone").show();
 			$("#login_mobile").show();
 			$("#sendcodeEmail").hide();

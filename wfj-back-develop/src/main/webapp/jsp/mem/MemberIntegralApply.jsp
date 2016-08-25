@@ -173,9 +173,9 @@
 		$("#apply_cid").val(fromOrder[1]);
 		$("#sid").val(value);
 		$("#apply_name").val($("#apply_name_" + value).text().trim());
-		$("#apply_num").val($("#apply_point_" + value).text().trim());
+		$("#apply_num").val($("#apply_point_num_" + value).text().trim());
 		$("#apply_reason").val($("#apply_reason_" + value).text().trim());
-		$("#apply_status").val($("#apply_status_" + value).text().trim());
+		$("#show_check_memo").val($("#checkMemo_" + value).text().trim());
 
 		var applyType = $("#apply_type_" + value).text().trim();
 		if (applyType == "2") {
@@ -403,7 +403,7 @@
 		$("#edit_orderNo").val(fromOrder[1]);
 		$("#edit_sid").val(value);
 		$("#edit_applynName").val($("#apply_name_" + value).text().trim());
-		$("#edit_applyNum").val($("#apply_point_" + value).text().trim());
+		$("#edit_applyNum").val($("#apply_point_num_" + value).text().trim());
 		$("#edit_applyReason").val($("#apply_reason_" + value).text().trim());
 		$("#edit_checkMemo").val($("#checkMemo_" + value).text().trim());
 
@@ -929,9 +929,9 @@
 													    {#else}{$T.Result.apply_name}
 													    {#/if}
 													</td>
-													<td align="center" id="check_time_{$T.Result.sid}">
-														{#if $T.Result.check_time== "" || $T.Result.check_time == null}--
-													    {#else}{$T.Result.check_time}
+													<td align="center" id="checkTime_{$T.Result.sid}">
+														{#if $T.Result.checkTime== "" || $T.Result.checkTime == null}--
+													    {#else}{$T.Result.checkTime}
 													    {#/if}
 													</td>
 													<td align="center" id="from_order_{$T.Result.sid}">
@@ -994,7 +994,7 @@
 
 								<div class="col-md-12" style="padding: 10px 100px;">
 									<label class="col-md-5 control-label"
-										style="line-height: 20px; text-align: right;">用户编号：</label>
+										style="line-height: 20px; text-align: right;">来源单号：</label>
 									<div class="col-md-6">
 										<input type="text" class="form-control" name="feeCostRate"
 											id="apply_cid" readonly="readonly"/>
@@ -1070,7 +1070,7 @@
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">审核备注：</label>
 									<div class="col-md-6">
-										<input type="textarea" class="form-control" id="check_status"
+										<input type="textarea" class="form-control" id="show_check_memo"
 											readonly="readonly" />
 									</div>
 									<br>&nbsp;
@@ -1244,7 +1244,7 @@
 										style="line-height: 20px; text-align: right;">申请人：</label>
 									<div class="col-md-6">
 										<input type="text" class="form-control" name="applyName"
-											id="edit_applynName" readonly="readonly" />
+											id="edit_applynName" />
 									</div>
 									<br>&nbsp;
 									<div class="col-md-12" style="padding: 10px 100px;">
@@ -1284,7 +1284,7 @@
 									<br>&nbsp; <label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">订/退货单号：</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="edit_orderNo" /> <span
+										<input type="text" class="form-control" id="edit_orderNo" readonly="readonly"/> <span
 											id="editOrderNo_msg" style="color: red; display: none;"
 											class="edit_msg">不能为空!</span>
 									</div>
@@ -1299,7 +1299,7 @@
 										style="line-height: 20px; text-align: right;">审核备注：</label>
 									<div class="col-md-6">
 										<input type="textarea" class="form-control"
-											id="edit_checkMemo" readonly="readonly" />
+											id="edit_checkMemo"  />
 									</div>
 									<br>&nbsp;
 								</div>

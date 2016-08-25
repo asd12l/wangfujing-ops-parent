@@ -53,7 +53,7 @@
    	}
 	// 查询
 	function query() {
-		
+		 
 		$("#cache").val(0);
 		productQuery();
 	}
@@ -108,28 +108,9 @@
             	 
             	 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
             	 $("#loginchannel_input").setTemplateElement("olv-listB").processTemplate(data);
+            	 $("#loginchannel_input").prepend("<option value='' selected='selected' >===请选择===</option>");
+            	  
             	 
-            	 $("#loginchannel_input").append($("<option selected='selected'>").html("===请选择===").val(""));
-            	
-            	 
-             	  //debugger;
-           /*  	 var orderStatusSpace = $(".orderStatusSpace");
-            		 var status=data.listB;
-            		 status.unshift({sDomain:"",sDesc:"===请选择==="});
-
-            		// alert("status=====:"+status);
-            		orderStatusSpace.html("");
-            		//alert("status.length=====:"+status.length);
-            		//alert("status[0]=====:"+status[0].sDomain);
-            		for ( var i = 0; i < status.length; i++) {
- 					var ele = status[i];
- 					if(ele.sDomain!= null){
- 						var option = $("<option value='" + ele.sDomain + "'>"
- 	 							+ ele.sDesc + "</option>");
- 						option.appendTo(orderStatusSpace);
- 					}
-            		}   */
-
              }
            }
          });
@@ -218,7 +199,7 @@
 										<textarea id="olv-listB" rows="0" cols="0" style="display:none">
                                    			{#template MAIN}
 										{#foreach $T.listB as Result}
-											 <option value="{$T.Result.sDomain}">{$T.Result.sDesc}</option>
+											 <option value="{$T.Result.sDomain}" >{$T.Result.sDesc}</option>
 											{#/for}
 									    {#/template MAIN}
 											</textarea>

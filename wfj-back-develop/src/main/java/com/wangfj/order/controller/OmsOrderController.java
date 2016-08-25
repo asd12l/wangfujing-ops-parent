@@ -942,7 +942,12 @@ public class OmsOrderController {
 	public String selectPackage(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
-		paramMap.put("orderNo", request.getParameter("orderNo"));
+		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
+			paramMap.put("orderNo", request.getParameter("orderNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("saleNo"))){
+			paramMap.put("saleNo", request.getParameter("saleNo"));
+		}
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
@@ -3245,7 +3250,7 @@ public class OmsOrderController {
 		String jsonStr = JSON.toJSONString(map);
 		try {
 //			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refund_list"), jsonStr);
-			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list_excel"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/refund/queryRefundExcel.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
@@ -3773,7 +3778,7 @@ public class OmsOrderController {
 			List<String> inlist = new ArrayList<String>();
 			inlist.add(vo.getOrderNo() == null ? "" : vo.getOrderNo());
 			inlist.add(vo.getOutOrderNo() == null ? "" : vo.getOutOrderNo());
-			inlist.add(vo.getPaymentAmount() == null ? "" : vo.getPaymentAmount().toString());
+			inlist.add(vo.getAmount() == null ? "" : vo.getAmount().toString());
 			inlist.add(vo.getPayTimeStr() == null ? "" : vo.getPayTimeStr());
 			inlist.add(vo.getReconciliationTime() == null ? "" : vo.getReconciliationTime()
 					.toString());
@@ -4078,7 +4083,7 @@ public class OmsOrderController {
 			inlist.add(vo.getRefundClass() == null ? "" : refundClass);
 			
 			inlist.add(vo.getPaymentType() == null ? "" : vo.getPaymentType());
-			inlist.add(vo.getPaymentAmount() == null ? "" : vo.getPaymentAmount().toString());
+			inlist.add(vo.getAmount() == null ? "" : vo.getAmount().toString());
 
 			data.add(inlist);
 		}

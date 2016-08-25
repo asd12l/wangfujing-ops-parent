@@ -2430,8 +2430,8 @@
 														{#if $T.Result.outOrderNo != '[object Object]'}{$T.Result.outOrderNo}
 						                   				{#/if}
 													</td>
-													<td align="center" id="paymentAmount_{$T.Result.sid}">
-														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount}
+													<td align="center" id="amount_{$T.Result.sid}">
+														{#if $T.Result.amount != '[object Object]'}{$T.Result.amount}
 						                   				{#/if}
 													</td>
 													<td align="center" id="payTimeStr_{$T.Result.sid}">
