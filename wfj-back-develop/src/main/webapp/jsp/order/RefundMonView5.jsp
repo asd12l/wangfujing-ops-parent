@@ -167,8 +167,8 @@ Author: WangSy
 		//通过退货单号查询信息
 		var refundNo = refundNo_;
 		var returnType;
-		var financeMemo = financeMemo_;
-		$("#financeMemo").val(financeMemo);
+		var financeMemo_ = financeMemo_;
+		$("#financeMemo").val(financeMemo_);
 		$.ajax({
 			type : "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -276,8 +276,8 @@ Author: WangSy
 		//修改退款单状态
 		var refundMonNo = refundMonNo_;
 		var userName = getCookieValue("username");
-		var financeMemo =$("#financeMemo").val();
 		$("#qrtk").click(function() {
+			var financeMemo =$("#financeMemo").val();
 			$.ajax({
 				type : "post",
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
