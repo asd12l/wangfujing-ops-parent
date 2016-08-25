@@ -80,6 +80,7 @@ public class MemberBasicController {
             System.err.println("======== editBlackList url "+url+ method+"  =========");
             jsonString = HttpUtil.HttpPost(url, method, paraMap);
         } catch (Exception e) {
+        	log.error(this.getClass()+" :"+method+e.getMessage());
             jsonString = "{success :false}";
         }
         return jsonString;
@@ -184,8 +185,15 @@ public class MemberBasicController {
         pageSize = request.getParameter("pageSize") == null ? null
                 : Integer.parseInt(request.getParameter("pageSize"));
         if (pageSize == null || pageSize == 0) {
-            pageSize = 10;
+            pageSize = 10; 
         }
+           
+        log.info("member getMemBasicInfo的请求参数:cid:"+request.getParameter("cid")+",belongStore:"
+        		+request.getParameter("belongStore")+",mobile:"+request.getParameter("mobile")+
+        		",idType:"+request.getParameter("idType")+",identityNo:"+request.getParameter("identityNo")
+        		+",email:"+request.getParameter("email")+",timeStartDate:"+request.getParameter("timeStartDate")
+        		+",timeEndDate:"+request.getParameter("timeEndDate")+",memberLevel:"+request.getParameter("memberLevel"));
+        
         Map<String, Object> paraMap = new HashMap<String, Object>();
         paraMap.put("currPage", String.valueOf(currPage));
         paraMap.put("pageSize", String.valueOf(pageSize));
@@ -398,7 +406,10 @@ public class MemberBasicController {
         Map<String, Object> paraMap = new HashMap<String, Object>();
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
-        paraMap.put("cid",request.getParameter("cid"));
+        paraMap.put("username",request.getParameter("cid"));
+        paraMap.put("mobile",request.getParameter("mobile"));
+        paraMap.put("email",request.getParameter("email"));
+        paraMap.put("saleNo",request.getParameter("saleNo"));
         paraMap.put("orderNo",request.getParameter("orderNo"));
         paraMap.put("outOrderNo",request.getParameter("outOrderNo"));
         paraMap.put("orderStatus",request.getParameter("orderStatus"));
@@ -408,17 +419,11 @@ public class MemberBasicController {
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== getMemPurchase url " + url + "  =========");
-            System.err.println("============== member_ops_url:" + url);
-            System.err.println("=============method:"+method);
-            System.err.println("======== getMemPurchase url "+url+ method+"  =========");
+           
             String resJson = HttpUtil.HttpPost(url, method, paraMap);
             JSONObject resJsonObj= JSONObject.fromObject(resJson);
-            String code=resJsonObj.getString("code");
-            if(code==null||!"0".equals(code)){
-                jsonString="{success :false}";
-            }else{
                 jsonString=resJsonObj.getJSONObject("object").toString();
-            }
+           
         } catch (Exception e) {
             jsonString = "{success :false}";
         }
@@ -446,7 +451,9 @@ public class MemberBasicController {
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
         paraMap.put("cid",request.getParameter("cid"));
-        paraMap.put("reOrderNo",request.getParameter("reOrderNo"));
+        paraMap.put("mobile",request.getParameter("mobile"));
+        paraMap.put("email",request.getParameter("email"));
+        paraMap.put("reOrderNo",request.getParameter("refundNo"));
         paraMap.put("orderNo",request.getParameter("orderNo"));
         paraMap.put("m_timeStartDate",  request.getParameter("m_timeStartDate"));
         paraMap.put("m_timeEndDate",  request.getParameter("m_timeEndDate"));
@@ -458,12 +465,8 @@ public class MemberBasicController {
             System.err.println("======== getMemRefund url "+url+ method+"  =========");
             String resJson = HttpUtil.HttpPost(url, method, paraMap);
             JSONObject resJsonObj= JSONObject.fromObject(resJson);
-            String code=resJsonObj.getString("code");
-            if(code==null||!"0".equals(code)){
-                jsonString="{success :false}";
-            }else{
                 jsonString=resJsonObj.getJSONObject("object").toString();
-            }
+          
         } catch (Exception e) {
             jsonString = "{success :false}";
         }
