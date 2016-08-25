@@ -80,6 +80,7 @@ public class MemberBasicController {
             System.err.println("======== editBlackList url "+url+ method+"  =========");
             jsonString = HttpUtil.HttpPost(url, method, paraMap);
         } catch (Exception e) {
+        	log.error(this.getClass()+" :"+method+e.getMessage());
             jsonString = "{success :false}";
         }
         return jsonString;
@@ -184,8 +185,15 @@ public class MemberBasicController {
         pageSize = request.getParameter("pageSize") == null ? null
                 : Integer.parseInt(request.getParameter("pageSize"));
         if (pageSize == null || pageSize == 0) {
-            pageSize = 10;
+            pageSize = 10; 
         }
+           
+        log.info("member getMemBasicInfo的请求参数:cid:"+request.getParameter("cid")+",belongStore:"
+        		+request.getParameter("belongStore")+",mobile:"+request.getParameter("mobile")+
+        		",idType:"+request.getParameter("idType")+",identityNo:"+request.getParameter("identityNo")
+        		+",email:"+request.getParameter("email")+",timeStartDate:"+request.getParameter("timeStartDate")
+        		+",timeEndDate:"+request.getParameter("timeEndDate")+",memberLevel:"+request.getParameter("memberLevel"));
+        
         Map<String, Object> paraMap = new HashMap<String, Object>();
         paraMap.put("currPage", String.valueOf(currPage));
         paraMap.put("pageSize", String.valueOf(pageSize));
