@@ -3250,7 +3250,7 @@ public class OmsOrderController {
 		String jsonStr = JSON.toJSONString(map);
 		try {
 //			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refund_list"), jsonStr);
-			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list"), jsonStr);
+			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list_excel"), jsonStr);
 //			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/refund/queryRefundExcel.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
