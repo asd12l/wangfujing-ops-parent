@@ -185,7 +185,7 @@ public class MemberBasicController {
         pageSize = request.getParameter("pageSize") == null ? null
                 : Integer.parseInt(request.getParameter("pageSize"));
         if (pageSize == null || pageSize == 0) {
-            pageSize = 10;
+            pageSize = 10; 
         }
         
         log.info("member getMemBasicInfo的请求参数:cid:"+request.getParameter("cid")+",belongStore:"
