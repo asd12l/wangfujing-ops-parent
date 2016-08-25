@@ -2800,6 +2800,8 @@
                                             <tr role="row" style='height:35px;'>
                                                <th width="5%" style="text-align: center;">订单号</th>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">会员编号</th>
                                                 <th width="4%" style="text-align: center;">CID</th>
                                                 <th width="3%" style="text-align: center;">申请单状态</th>

@@ -3778,7 +3778,7 @@ public class OmsOrderController {
 			List<String> inlist = new ArrayList<String>();
 			inlist.add(vo.getOrderNo() == null ? "" : vo.getOrderNo());
 			inlist.add(vo.getOutOrderNo() == null ? "" : vo.getOutOrderNo());
-			inlist.add(vo.getPaymentAmount() == null ? "" : vo.getPaymentAmount().toString());
+			inlist.add(vo.getAmount() == null ? "" : vo.getAmount().toString());
 			inlist.add(vo.getPayTimeStr() == null ? "" : vo.getPayTimeStr());
 			inlist.add(vo.getReconciliationTime() == null ? "" : vo.getReconciliationTime()
 					.toString());
@@ -4083,7 +4083,7 @@ public class OmsOrderController {
 			inlist.add(vo.getRefundClass() == null ? "" : refundClass);
 			
 			inlist.add(vo.getPaymentType() == null ? "" : vo.getPaymentType());
-			inlist.add(vo.getPaymentAmount() == null ? "" : vo.getPaymentAmount().toString());
+			inlist.add(vo.getAmount() == null ? "" : vo.getAmount().toString());
 
 			data.add(inlist);
 		}
