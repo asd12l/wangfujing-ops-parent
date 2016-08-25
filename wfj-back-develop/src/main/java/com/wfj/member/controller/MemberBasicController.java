@@ -187,7 +187,7 @@ public class MemberBasicController {
         if (pageSize == null || pageSize == 0) {
             pageSize = 10; 
         }
-        
+           
         log.info("member getMemBasicInfo的请求参数:cid:"+request.getParameter("cid")+",belongStore:"
         		+request.getParameter("belongStore")+",mobile:"+request.getParameter("mobile")+
         		",idType:"+request.getParameter("idType")+",identityNo:"+request.getParameter("identityNo")
