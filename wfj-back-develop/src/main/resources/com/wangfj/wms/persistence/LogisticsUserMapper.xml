@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.LogisticsUserMapper" >
-  <resultMap id="LogisticsUserResultMap" type="com.wangfj.wms.domain.entity.LogisticsUser" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="supply_sid" property="supplySid" jdbcType="INTEGER" />
-    <result column="shop_sid" property="shopSid" jdbcType="INTEGER" />
-    <result column="user_sid" property="userSid" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sid, supply_sid, shop_sid, user_sid
-  </sql>
-  <insert id="insertLogiticsUser" parameterType="com.wangfj.wms.domain.entity.LogisticsUser">
-      insert into logistics_user(supply_sid, supply_name, shop_sid,shop_name,user_sid) values (#{supplySid},#{supplyName}, #{shopSid}, #{shopName}, #{userSid})
-  </insert>
- 
+<mapper namespace="com.wangfj.wms.persistence.LogisticsUserMapper">
+	<resultMap id="LogisticsUserResultMap" type="com.wangfj.wms.domain.entity.LogisticsUser">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="supply_sid" property="supplySid" jdbcType="INTEGER" />
+		<result column="shop_sid" property="shopSid" jdbcType="INTEGER" />
+		<result column="user_sid" property="userSid" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, supply_sid, shop_sid, user_sid
+	</sql>
+	<insert id="insertLogiticsUser" parameterType="com.wangfj.wms.domain.entity.LogisticsUser">
+		insert into logistics_user(supply_sid, supply_name,
+		shop_sid,shop_name,user_sid) values (#{supplySid},#{supplyName},
+		#{shopSid}, #{shopName}, #{userSid})
+	</insert>
+
 </mapper>

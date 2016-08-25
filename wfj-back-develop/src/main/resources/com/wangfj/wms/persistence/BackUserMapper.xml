@@ -1,85 +1,104 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.BackUserMapper" >
-  <resultMap id="BackUserResultMap" type="com.wangfj.wms.domain.entity.BackUser" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="organ_depart_sid" property="orgDepartSid" jdbcType="INTEGER" />
-    <result column="real_name" property="realName" jdbcType="VARCHAR" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="user_pwd" property="passWord" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sid, organ_depart_sid, real_name, user_name, user_pwd, status,type
-  </sql>
-  <select id="queryUserByName" resultMap="BackUserResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from users
-    where user_name = #{username}
-  </select>
-    
-  <select id="getByParam" resultType="java.util.HashMap" parameterType="com.wangfj.wms.domain.entity.BackUser" >
-    select 
-    r.sid, r.organ_depart_sid orgDepartSid, r.real_name realName, r.user_name userName, r.user_pwd passWord, r.status,r.type,ur.role_sid roleSid
-    from users r left join user_role ur on r.sid=ur.users_sid
-   <where>1=1
-      <if test="userName != null" >
-       and r.user_name like "%"#{userName}"%"
-      </if>
-       <if test="type != null" >
-       and r.type = #{type}
-      </if>
-   </where>
- 	  order by r.sid limit #{start},#{pageSize}
-  </select>
-  <select id="getTotalByParam" parameterType="com.wangfj.wms.domain.entity.BackUser" resultType="java.lang.Integer">
-  	 select count(*)
-    from users r left join user_role ur on r.sid=ur.users_sid
-   <where>1=1
-      <if test="userName != null" >
-       and r.user_name like "%"#{userName}"%"
-      </if>
-       <if test="type != null" >
-       and r.type = #{type}
-      </if>
-   </where>
-  </select>
-  <select id="getAll" resultType="java.util.HashMap" >
-    select r.sid, r.organ_depart_sid orgDepartSid, r.real_name realName, r.user_name userName, r.user_pwd passWord, r.status,r.type,ur.role_sid roleSid
-    from users r left join user_role ur on r.sid=ur.users_sid order by r.sid
-  </select>
-    <select id="getBackUserRoleInfo" resultType="java.util.HashMap" parameterType="java.lang.Integer">
-    select ur.sid, ur.users_sid userSid, ur.users_name userName, ur.role_sid roleSid, lr.roleCode
-    from user_role ur left join limit_role lr on ur.role_sid=lr.sid where ur.users_sid=#{sid}
-  </select>
-    <select id="getBLUserInfo" resultType="java.util.HashMap" parameterType="java.lang.Integer">
-		 SELECT
-			u.user_name,
-			u.real_name,
-			l.shop_name,
-			l.shop_sid
+<mapper namespace="com.wangfj.wms.persistence.BackUserMapper">
+	<resultMap id="BackUserResultMap" type="com.wangfj.wms.domain.entity.BackUser">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="organ_depart_sid" property="orgDepartSid"
+			jdbcType="INTEGER" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="user_pwd" property="passWord" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, organ_depart_sid, real_name, user_name, user_pwd, status,type
+	</sql>
+	<select id="queryUserByName" resultMap="BackUserResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from users
+		where user_name = #{username}
+	</select>
+
+	<select id="getByParam" resultType="java.util.HashMap"
+		parameterType="com.wangfj.wms.domain.entity.BackUser">
+		select
+		r.sid, r.organ_depart_sid orgDepartSid, r.real_name realName, r.user_name
+		userName, r.user_pwd passWord, r.status,r.type,ur.role_sid roleSid
+		from users r left join user_role ur on r.sid=ur.users_sid
+		<where>
+			1=1
+			<if test="userName != null">
+				and r.user_name like "%"#{userName}"%"
+			</if>
+			<if test="type != null">
+				and r.type = #{type}
+			</if>
+		</where>
+		order by r.sid limit #{start},#{pageSize}
+	</select>
+	<select id="getTotalByParam" parameterType="com.wangfj.wms.domain.entity.BackUser"
+		resultType="java.lang.Integer">
+		select count(*)
+		from users r left join user_role ur on r.sid=ur.users_sid
+		<where>
+			1=1
+			<if test="userName != null">
+				and r.user_name like "%"#{userName}"%"
+			</if>
+			<if test="type != null">
+				and r.type = #{type}
+			</if>
+		</where>
+	</select>
+	<select id="getAll" resultType="java.util.HashMap">
+		select r.sid, r.organ_depart_sid orgDepartSid, r.real_name realName,
+		r.user_name userName, r.user_pwd passWord, r.status,r.type,ur.role_sid
+		roleSid
+		from users r left join user_role ur on r.sid=ur.users_sid order by r.sid
+	</select>
+	<select id="getBackUserRoleInfo" resultType="java.util.HashMap"
+		parameterType="java.lang.Integer">
+		select ur.sid, ur.users_sid userSid, ur.users_name userName, ur.role_sid
+		roleSid, lr.roleCode
+		from user_role ur left join limit_role lr on ur.role_sid=lr.sid where
+		ur.users_sid=#{sid}
+	</select>
+	<select id="getBLUserInfo" resultType="java.util.HashMap"
+		parameterType="java.lang.Integer">
+		SELECT
+		u.user_name,
+		u.real_name,
+		l.shop_name,
+		l.shop_sid
 		FROM
-			users u
+		users u
 		LEFT JOIN logistics_user l ON u.sid = l.user_sid
 		WHERE
-			u.sid = #{sid};
+		u.sid = #{sid};
 	</select>
-  
-   <insert id="insertUserRole" parameterType="com.wangfj.wms.domain.entity.BackUserRole" >
-    insert into user_role(users_sid, role_sid, users_name) values (#{userSid,jdbcType=INTEGER}, #{roleSid,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR})
-  </insert>
-  
-  <update id="updateUserRole" parameterType="com.wangfj.wms.domain.entity.BackUserRole" >
-    update user_role
-    set role_sid = #{roleSid,jdbcType=INTEGER}
-    where users_sid = #{userSid,jdbcType=INTEGER}
-  </update>
-  <update id="deleteBackUser" parameterType="java.lang.Integer" >
-    update users set status = 0 where sid = #{sid,jdbcType=INTEGER}
-  </update>
-  <insert id="insertBackUser" parameterType="com.wangfj.wms.domain.entity.BackUser" useGeneratedKeys="true" keyProperty="sid">
-      insert into users(organ_depart_sid, real_name, user_name,user_pwd,status,type) values (1,#{realName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},1, #{type,jdbcType=VARCHAR})
-  </insert>
+
+	<insert id="insertUserRole" parameterType="com.wangfj.wms.domain.entity.BackUserRole">
+		insert into user_role(users_sid, role_sid, users_name) values
+		(#{userSid,jdbcType=INTEGER}, #{roleSid,jdbcType=INTEGER},
+		#{userName,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateUserRole" parameterType="com.wangfj.wms.domain.entity.BackUserRole">
+		update user_role
+		set role_sid = #{roleSid,jdbcType=INTEGER}
+		where users_sid = #{userSid,jdbcType=INTEGER}
+	</update>
+	<update id="deleteBackUser" parameterType="java.lang.Integer">
+		update users set status = 0 where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	<insert id="insertBackUser" parameterType="com.wangfj.wms.domain.entity.BackUser"
+		useGeneratedKeys="true" keyProperty="sid">
+		insert into users(organ_depart_sid, real_name,
+		user_name,user_pwd,status,type) values
+		(1,#{realName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+		#{passWord,jdbcType=VARCHAR},1, #{type,jdbcType=VARCHAR})
+	</insert>
 </mapper>

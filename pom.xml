@@ -547,6 +547,9 @@
 			<properties>
 				<resources.active>1-dev</resources.active>
 			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 		<profile>
 			<id>sit</id>
@@ -558,13 +561,13 @@
 			<id>pre</id>
 			<properties>
 				<resources.active>3-pre</resources.active>
-			</properties>
+			</properties>			
 		</profile>
 		<profile>
 			<id>pro</id>
 			<properties>
 				<resources.active>4-pro</resources.active>
-			</properties>
+			</properties>		
 		</profile>
 	</profiles>
 

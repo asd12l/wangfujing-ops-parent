@@ -2,22 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wangfj.wms.persistence.LimitRoleResourcesMapper">
-	<resultMap id="LimitRoleResourcesResultMap" type="com.wangfj.wms.domain.entity.LimitRoleResources" >
-    <id column="sid" property="sid" jdbcType="BIGINT" />
-    <result column="role_sid" property="roleSid" jdbcType="BIGINT" />
-    <result column="rs_sid" property="rsSid" jdbcType="BIGINT" />
-  	</resultMap>
+	<resultMap id="LimitRoleResourcesResultMap"
+		type="com.wangfj.wms.domain.entity.LimitRoleResources">
+		<id column="sid" property="sid" jdbcType="BIGINT" />
+		<result column="role_sid" property="roleSid" jdbcType="BIGINT" />
+		<result column="rs_sid" property="rsSid" jdbcType="BIGINT" />
+	</resultMap>
 	<sql id="Base_Column_List">
 		sid,role_sid,rs_sid
 	</sql>
 	<select id="getAllLimitRoleResources" resultMap="LimitRoleResourcesResultMap">
-  		select * 
-  		from
-  		limit_role_resources
-  	</select>
-	
+		select *
+		from
+		limit_role_resources
+	</select>
+
 	<select id="getLimitRoleResourcesByParam" parameterType="com.wangfj.wms.domain.entity.LimitRoleResources"
-	 resultMap="LimitRoleResourcesResultMap">
+		resultMap="LimitRoleResourcesResultMap">
 		select *
 		from
 		limit_role_resources
@@ -33,15 +34,16 @@
 			</if>
 		</where>
 	</select>
-	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.LimitRoleResources" useGeneratedKeys="true" keyProperty="sid">
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.LimitRoleResources"
+		useGeneratedKeys="true" keyProperty="sid">
 		insert into limit_role_resources(
-			role_sid,rs_sid
+		role_sid,rs_sid
 		)values(
-			#{roleSid,jdbcType=BIGINT},
-			#{rsSid,jdbcType=BIGINT}
+		#{roleSid,jdbcType=BIGINT},
+		#{rsSid,jdbcType=BIGINT}
 		)
 	</insert>
-	
+
 	<update id="update" parameterType="com.wangfj.wms.domain.entity.LimitRoleResources">
 		update limit_role_resources
 		<set>

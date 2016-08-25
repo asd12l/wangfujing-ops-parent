@@ -24,7 +24,6 @@ import com.wangfj.wms.service.IPromotionTypeService;
  * @Create In 2013-8-29
  */
 @Component("promotionTypeService")
-@Scope("prototype")
 @Transactional
 public class PromotionTypeServiceImpl implements IPromotionTypeService {
 

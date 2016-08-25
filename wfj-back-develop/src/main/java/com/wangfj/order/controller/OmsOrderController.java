@@ -730,6 +730,8 @@ public class OmsOrderController {
 		}
 //		int start = (currPage-1)*size;
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("outOrderNo", request.getParameter("outOrderNo"));
+		paramMap.put("receptPhone", request.getParameter("receptPhone"));
 		paramMap.put("refundApplyNo", request.getParameter("refundApplyNo"));
 		paramMap.put("orderNo", request.getParameter("orderNo"));
 		paramMap.put("refundStatus", request.getParameter("refundStatus"));
@@ -3192,6 +3194,12 @@ public class OmsOrderController {
 		List<ExcelRefundVo> epv = new ArrayList<ExcelRefundVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		
+		if(StringUtils.isNotEmpty(request.getParameter("outOrderNo"))){
+			map.put("outOrderNo", request.getParameter("outOrderNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("receptPhone"))){
+			map.put("receptPhone", request.getParameter("receptPhone"));
+		}
 		if(StringUtils.isNotEmpty(request.getParameter("refundApplyNo"))){
 			map.put("refundApplyNo", request.getParameter("refundApplyNo"));
 		}
@@ -3314,6 +3322,8 @@ public class OmsOrderController {
 		header.add("订单号");
 		header.add("退货申请单号");
 		header.add("原销售单号");
+		header.add("外部订单号");
+		header.add("手机号");
 		header.add("退货单状态");
 		header.add("退款状态");
 		header.add("会员卡号");
@@ -3347,6 +3357,8 @@ public class OmsOrderController {
 			inlist.add(vo.getOrderNo()==null?"":vo.getOrderNo());
 			inlist.add(vo.getRefundApplyNo()==null?"":vo.getRefundApplyNo());
 			inlist.add(vo.getOriginalSalesNo()==null?"":vo.getOriginalSalesNo());	
+			inlist.add(vo.getOutOrderNo()==null?"":vo.getOutOrderNo());	
+			inlist.add(vo.getReceptPhone()==null?"":vo.getReceptPhone());	
 			inlist.add(vo.getRefundStatus()==null?"":vo.getRefundStatus());
 //			inlist.add(vo.getRebateStatus()==null?"":vo.getRebateStatus());	
 			String rebateStatus = null;
