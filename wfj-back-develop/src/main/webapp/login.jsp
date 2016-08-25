@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			
-			<%-- <div class="captcha_div">
+			<div class="captcha_div">
 				<div class="captcha_pic" id="big_pic1" >
 					<div class="captcha_big" id="big_pic">
 					</div>
@@ -50,7 +50,7 @@
 						<img src="${ctx}/image/slider.png" height="37" id="validImg">
 					</div>
 				</div>
-			</div> --%>
+			</div>
 			
 			<div class="dianji">
 				<div style="color:red;margin-top:5px;margin-left:5px;float:left;font-size:13px;">${error} </div>
@@ -63,12 +63,12 @@
 	<div class="cloud"></div>
 </div>
 </body>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	document.ondragstart = function() { return false;}
 </script>
 <script type="text/javascript">
 	var rootPath = "${pageContext.request.contextPath}";
-	var loadSuccessDate, captchaSuc = false;
+	var /* loadSuccessDate, */ captchaSuc = false;
 	var startX = 0, startY = 0, maxRandomNum = "";
 	$(document).ready(function(){
 		function butMove(event){
@@ -113,7 +113,7 @@
 				dataType : "json",
 				data : {
 					"moveX" : litPicX,
-					"datastr" : loadSuccessDate,
+					/* "datastr" : loadSuccessDate, */
 					"startX" : startX
 				},
 				success : function(result) {
@@ -152,7 +152,7 @@
 					if(result.success){
 						$("#big_pic").html("<img src='"+(rootPath+result.bigPic)+"'>");
 						$("#lit_pic").html("<img src='"+(rootPath+result.litPic)+"'>");
-						loadSuccessDate = new Date().getTime();
+						//loadSuccessDate = new Date().getTime();
 						startX = result.startX;
 						maxRandomNum = result.maxRandomNum;
 						$("#lit_pic").attr("style","left: 0px;top: 0px;");
@@ -175,5 +175,5 @@
 			return false;
 		});
 	});
-</script> -->
+</script>
 </html>

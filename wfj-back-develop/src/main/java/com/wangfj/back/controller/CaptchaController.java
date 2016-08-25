@@ -1,7 +1,6 @@
 package com.wangfj.back.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +59,7 @@ public class CaptchaController {
 	@ResponseBody
 	@RequestMapping(value="/checked", method = { RequestMethod.GET, RequestMethod.POST })
 	public String check(HttpServletRequest request, HttpServletResponse response){
-		Date dateNow = new Date();
+//		Date dateNow = new Date();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		String moveX = request.getParameter("moveX");
 		String startX = request.getParameter("startX");
@@ -74,12 +73,12 @@ public class CaptchaController {
 			resultMap.put("success", false);
 			return JSONObject.toJSONString(resultMap);
 		}
-		String datastr = request.getParameter("datastr");
+		/*String datastr = request.getParameter("datastr");
 		Date date = new Date(Long.valueOf(datastr));
 		if((dateNow.getTime()-date.getTime())<1000){
 			resultMap.put("success", false);
 			return JSONObject.toJSONString(resultMap);
-		}
+		}*/
 		resultMap.put("success", true);
 		return JSONObject.toJSONString(resultMap);
 	}
