@@ -274,27 +274,27 @@
 																>
 															<thead >
 									       						<tr role="row">
-																	<th style="text-align: center;font-size:10px;line-height:10px;">行项目编号</th>
-																	<th style="text-align: center;font-size:10px;line-height:10px;">商品编号</th>
-																	<th style="text-align: center;font-size:10px;line-height:10px;">商品名称</th>
-																	<th style="text-align: center;font-size:10px;line-height:10px;">数量</th>
-																	<th style="text-align: center;font-size:10px;line-height:10px;">金额</th>
-																	<th style="text-align: center;font-size:10px;line-height:10px;">订单状态</th>
-																	<th style="text-align: center;font-size:10px;line-height:10px;">物流单号</th>
-																	<th style="text-align: center;font-size:10px;line-height:10px;">物流公司</th>
+																	<th style="text-align: center;font-size:10px;line-height:20px;">行项目编号</th>
+																	<th style="text-align: center;font-size:10px;line-height:20px;">商品编号</th>
+																	<th style="text-align: center;font-size:10px;line-height:20px;">商品名称</th>
+																	<th style="text-align: center;font-size:10px;line-height:20px;">数量</th>
+																	<th style="text-align: center;font-size:10px;line-height:20px;">金额</th>
+																	<th style="text-align: center;font-size:10px;line-height:20px;">订单状态</th>
+																	<th style="text-align: center;font-size:10px;line-height:20px;">物流单号</th>
+																	<th style="text-align: center;font-size:10px;line-height:20px;">物流公司</th>
 																</tr>
 									       					</thead>
 									       					<tbody >
 									       						{#foreach $T.Result.mtoList as OrderResult}
 											       					<tr class="gradeX" >
-																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.oid}</td>
-																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.outerSkuId}</td>
-																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.title}</td>
-																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.num}</td>
-																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.payment}</td>
-																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.status}</td>
-																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.logisticsNo}</td>
-																		<td style="text-align: center;font-size:10px;line-height:10px;">{$T.OrderResult.logisticsCompany}</td>
+																		<td style="text-align: center;font-size:10px;line-height:20px;">{$T.OrderResult.oid}</td>
+																		<td style="text-align: center;font-size:10px;line-height:20px;">{$T.OrderResult.outerSkuId}</td>
+																		<td style="text-align: center;font-size:10px;line-height:20px;">{$T.OrderResult.title}</td>
+																		<td style="text-align: center;font-size:10px;line-height:20px;">{$T.OrderResult.num}</td>
+																		<td style="text-align: center;font-size:10px;line-height:20px;">{$T.OrderResult.payment}</td>
+																		<td style="text-align: center;font-size:10px;line-height:20px;">{$T.OrderResult.status}</td>
+																		<td style="text-align: center;font-size:10px;line-height:20px;">{$T.OrderResult.logisticsNo}</td>
+																		<td style="text-align: center;font-size:10px;line-height:20px;">{$T.OrderResult.logisticsCompany}</td>
 																	</tr>
 										       					{#/for}
 									       					</tbody>

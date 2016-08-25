@@ -68,7 +68,7 @@
 </script>
 <script type="text/javascript">
 	var rootPath = "${pageContext.request.contextPath}";
-	var loadSuccessDate, captchaSuc = false;
+	var /* loadSuccessDate, */ captchaSuc = false;
 	var startX = 0, startY = 0, maxRandomNum = "";
 	$(document).ready(function(){
 		function butMove(event){
@@ -84,19 +84,19 @@
 			var minX1 = ((imgDivW-litPicDivW));
 			
 			if(event.pageX < minX){
-				$("#captcha_img").prop("style","left: " + 2 + "px;");
-				$("#lit_pic").prop("style","left: "+ 12 +"px;top :" + startY + "px;");
+				$("#captcha_img").attr("style","left: " + 2 + "px;");
+				$("#lit_pic").attr("style","left: "+ 12 +"px;top :" + startY + "px;");
 			} else if(event.pageX > minX && event.pageX < maxX){
-				$("#captcha_img").prop("style","left: " + (event.pageX - butDivX - imgDivW/2) + "px;");
-				$("#lit_pic").prop("style","left: " + (event.pageX - butDivX - imgDivW/2 + 12) + "px;top :" + startY + "px;");
+				$("#captcha_img").attr("style","left: " + (event.pageX - butDivX - imgDivW/2) + "px;");
+				$("#lit_pic").attr("style","left: " + (event.pageX - butDivX - imgDivW/2 + 12) + "px;top :" + startY + "px;");
 			} else if(event.pageX > maxX){
-				$("#captcha_img").prop("style","left: " + (butDivW - imgDivW) + "px;");
-				$("#lit_pic").prop("style","left: "+ (butDivW - imgDivW + 12) + "px;top :" + startY + "px;");
+				$("#captcha_img").attr("style","left: " + (butDivW - imgDivW) + "px;");
+				$("#lit_pic").attr("style","left: "+ (butDivW - imgDivW + 12) + "px;top :" + startY + "px;");
 			}
 		}
 		function butDown(event){
 			$(".dianji div").text("");
-			$("#validImg").prop("src", rootPath + "/image/slider.png"); 
+			$("#validImg").attr("src", rootPath + "/image/slider.png"); 
 			$(document).bind("mousemove",butMove);
 			$(document).bind("mouseup",butUp);
 			$("#captcha_img").unbind("mouseout", butOut);
@@ -113,20 +113,20 @@
 				dataType : "json",
 				data : {
 					"moveX" : litPicX,
-					"datastr" : loadSuccessDate,
+					/* "datastr" : loadSuccessDate, */
 					"startX" : startX
 				},
 				success : function(result) {
 					if(result.success){
 						captchaSuc = true;
 						$(".dianji div").text("验证通过！");
-						$("#validImg").prop("src", rootPath + "/image/slider_valid.png");
+						$("#validImg").attr("src", rootPath + "/image/slider_valid.png");
 						setTimeout(butOut,"800");
 					} else {
-						$("#validImg").prop("src", rootPath + "/image/slider_invalid.png");
+						$("#validImg").attr("src", rootPath + "/image/slider_invalid.png");
 						loadCaptcha();
 						$("#big_pic1").hide();
-						$("#captcha_img").prop("style","left: " + 2 + "px;");
+						$("#captcha_img").attr("style","left: " + 2 + "px;");
 						$(".dianji div").text("验证错误！");
 						captchaSuc = false;
 					}
@@ -152,10 +152,10 @@
 					if(result.success){
 						$("#big_pic").html("<img src='"+(rootPath+result.bigPic)+"'>");
 						$("#lit_pic").html("<img src='"+(rootPath+result.litPic)+"'>");
-						loadSuccessDate = new Date().getTime();
+						//loadSuccessDate = new Date().getTime();
 						startX = result.startX;
 						maxRandomNum = result.maxRandomNum;
-						$("#lit_pic").prop("style","left: 0px;top: 0px;");
+						$("#lit_pic").attr("style","left: 0px;top: 0px;");
 					}
 				}
 			});
