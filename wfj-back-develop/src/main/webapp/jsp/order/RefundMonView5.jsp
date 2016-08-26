@@ -167,8 +167,9 @@ Author: WangSy
 		//通过退货单号查询信息
 		var refundNo = refundNo_;
 		var returnType;
-		var financeMemo_ = financeMemo_;
-		$("#financeMemo").val(financeMemo_);
+		var financeMemos = financeMemo_;
+		console.log(financeMemos);
+		$("#financeMemo").val(financeMemos);
 		$.ajax({
 			type : "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",

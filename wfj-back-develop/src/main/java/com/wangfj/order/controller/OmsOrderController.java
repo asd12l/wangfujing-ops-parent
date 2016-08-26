@@ -3658,6 +3658,9 @@ public class OmsOrderController {
 		String json = "";
 
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(request.getParameter("remark"))){
+			paramMap.put("remark", request.getParameter("remark"));
+		}
 		paramMap.put("fromSystem", "OMSADMIN");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
