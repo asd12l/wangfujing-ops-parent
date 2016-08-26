@@ -2523,7 +2523,7 @@
                                    					<input type="text" id="accountNo_input"/>
                                    				</li>
                                    				<li class="col-md-4">
-                                   					<label class="titname">第三方订单号：</label>
+                                   					<label class="titname">外部订单号：</label>
                                    					<input type="text" id="orderNo2_input"/>
                                    				</li>
 											    <li class="col-md-4">
