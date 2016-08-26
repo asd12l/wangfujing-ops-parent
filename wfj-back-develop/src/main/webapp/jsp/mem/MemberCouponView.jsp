@@ -120,9 +120,13 @@
 				$("#hidStartTime").val("");
 				$("#hidEndTime").val("");
 			}
-			$("#hidAccount").val($("#account").val())
+			$("#hidAccount").val($("#account").val());
 			$("#hidPhone").val($("#phone").val());
 			$("#hidEmail").val($("#email").val());
+			$("#hidCouponCode").val($("#couponCode").val());
+			$("#hidCoponType").val($("#CoponType").val());
+			$("#hidCoponStatus").val($("#coponStatus").val());
+			$("#hidMember").val($("#member").val());
 		}
 
 		//查询数据
@@ -267,8 +271,24 @@
 										<input type="text" id="email" />
 									</li>
 									<li class="col-md-4">
-										<label class="titname">积分变动时间：</label>
+										<label class="titname">优惠券动时间：</label>
 										<input type="text" id="time"/>
+									</li>
+									<li class="col-md-4">
+										<label class="titname">券码：</label>
+										<input type="text" id="couponCode"/>
+									</li>
+									<li class="col-md-4">
+										<label class="titname">优惠券类别：</label>
+										<input type="text" id="coponType"/>
+									</li>
+									<li class="col-md-4">
+										<label class="titname">优惠券状态：</label>
+										<input type="text" id="coponStatus"/>
+									</li>
+									<li class="col-md-4">
+										<label class="titname">会员：</label>
+										<input type="text" id="member"/>
 									</li>
 									<li class="col-md-4">
 										<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
@@ -284,6 +304,10 @@
 									<input type="hidden" id="hidEmail" name="hidEmail"/>
 									<input type="hidden" id="hidStartTime" name="hidStartTime"/>
 									<input type="hidden" id="hidEndTime" name="hidEndTime"/>
+									<input type="hidden" id="hidCouponCode" name="hidCouponCode">
+									<input type="hidden" id="hidCoponType" name="hidCoponType">
+									<input type="hidden" id="hidCoponStatus" name="hidCoponStatus">
+									<input type="hidden" id="hidMember" name="hidMember">
 								</form>
 								<!--数据列表显示区域-->
 								<div style="width:100%; min-height:400px; overflow-Y: hidden;">

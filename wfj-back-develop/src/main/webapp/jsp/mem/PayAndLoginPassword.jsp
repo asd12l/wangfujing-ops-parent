@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script>
+	<%-- <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script>
 	<script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script>
 	<script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/>
@@ -12,8 +12,8 @@
 	<!--Bootstrap Date Range Picker-->
 	<script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
-	<%-- <script src="${pageContext.request.contextPath}/assets/js/datetime/Pageload.js"></script> --%>
-	<script type="text/javascript" src="js/member/comment/MemberAndInfoView.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/datetime/Pageload.js"></script>
+	<script type="text/javascript" src="js/member/comment/MemberAndInfoView.js"></script> --%>
 	<style type="text/css">
 		.trClick>td,.trClick>th{
 			color:red;

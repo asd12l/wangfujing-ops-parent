@@ -620,7 +620,7 @@
 <div class="modal modal-darkorange" id="deitCouponApplyDiv">
 </div>
 <!-- 审核积分申请-->
-<div class="modal modal-darkorange"
+<!-- div class="modal modal-darkorange"
      id="checkIntegralDiv">
     <div class="modal-dialog"
          style="width: 800px; height: auto; margin: 4% auto;">
@@ -692,14 +692,19 @@
             </div>
         </div>
     </div>
-    <!-- /.modal-content -->
+    /.modal-content
 </div>
-<!-- /.modal-dialog -->
-</div>
+/.modal-dialog
+</div> -->
     <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script>
     <script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script>
     <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
-    <!--Bootstrap Date Range Picker-->
+    <!-- jquery validate -->
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	<!-- jquery validate 本地化信息文件 -->
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <!--Bootstrap Date Range Picker-->	
     <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
     <script src="${pageContext.request.contextPath}/js/member/coupon/CouponApplyView.js"></script>
