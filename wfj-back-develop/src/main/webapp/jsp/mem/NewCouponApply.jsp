@@ -31,13 +31,12 @@
 									<!-- BaseMessage start -->
 									<div class="tab-content">
 										<div id="base" class="tab-pane in active">
-											<form id="baseForm" method="post" class="form-horizontal">
+											<form id="saveForm" method="post" class="form-horizontal" name="couponApplyForm">
 												<div class="col-md-12">
 														<div class="col-md-11" style="padding: 2px 100px;">
 	                               							<label class="col-md-3 control-label" style="line-height: 20px; text-align: right;">客户登录账号：</label>
 							                                <div class="col-md-6">
 							                                    <input type="text" class="form-control" name="login_name" id="login_name" />
-							                                    <span id="login_msg" style="color:red;display:none;" class="add_msg">不能为空!</span>
 							                                </div>	
                             							</div>
 								                        <div class="col-md-11"  style="padding: 2px 100px;">
@@ -71,8 +70,9 @@
 														<div class="col-md-6">
 															<label class="col-md-3 control-label">优惠券模板：</label>
 															<div class="col-md-9 js-data-example-ajax">
-																<select id="coupon_template" name="coupon_template" style="width: 100%">
-																</select>
+<!-- 																<select id="coupon_template" name="coupon_template" style="width: 100%">
+																</select> -->
+																<input type="text" class="form-control" name="coupon_template" id="coupon_template" />
 															</div>
 															&nbsp;
 														</div>
@@ -87,8 +87,9 @@
 													<div class="col-md-6">
 														<label class="col-md-3 control-label">优惠券批次：</label>
 														<div class="col-md-9 js-data-example-ajax">
-															<select id="coupon_batch" name="coupon_batch" style="width: 100%">
-															</select>
+															<!-- <select id="coupon_batch" name="coupon_batch" style="width: 100%">
+															</select> -->
+															<input type="text" class="form-control" name="coupon_batch" id="coupon_batch" />
 														</div>
 														&nbsp;
 													</div>
@@ -111,7 +112,7 @@
 													<div class="col-md-6">
 														<label class="col-md-3 control-label">优惠券金额：</label>
 														<div class="col-md-3">
-															<input type="text" class="form-control" id="" name="" oninput="value.replace(/[\u4E00-\u9FA5]/g,'');" onkeydown="if(event.keyCode==13)event.keyCode=9" />
+															<input type="text" class="form-control" id="couponMonay" name="couponMonay"  onkeydown="if(event.keyCode==13)event.keyCode=9" />
 														</div>
 													</div>
 													<div class="col-md-12">	

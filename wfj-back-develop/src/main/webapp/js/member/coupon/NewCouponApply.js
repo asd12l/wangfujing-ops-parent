@@ -10,5 +10,7 @@
 	 * 插入新优惠券申请
 	 */
 	function saveNewCouponApply(){
-    	
+    	$(saveNewCoupon).click(function(){
+    		
+    	});
     }
