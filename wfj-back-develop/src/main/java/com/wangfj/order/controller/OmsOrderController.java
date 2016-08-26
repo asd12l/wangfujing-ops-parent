@@ -4013,7 +4013,8 @@ public class OmsOrderController {
 			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_PosPlatformAllNoPage_list"),jsonStr);
 //			 String json =HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSelect/checkReconciliationNoPage.htm",jsonStr);
 
-			JSONObject js = JSONObject.fromObject(json);
+//			JSONObject js = JSONObject.fromObject(json);
+			com.alibaba.fastjson.JSONObject js = (com.alibaba.fastjson.JSONObject) JSON.parseObject(json);
 			Object objs = js.get("data");
 			// 得到JSONArray
 			JSONArray arr = JSONArray.fromObject(objs);
