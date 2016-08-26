@@ -24,7 +24,7 @@
 					<div class="col-lg-12 col-sm-12 col-xs-12">
 						<div class="widget radius-bordered">
 							<div class="widget-header">
-								<span class="widget-caption">新建优惠券申请</span>
+								<span class="widget-caption">新建优惠券申请</span>		<!-- readonly="readonly" -->
 							</div>
 							<div class="widget-body">
 								<div class="tabbable">
@@ -47,11 +47,11 @@
 								                                    <span class="text">客服：服务投诉补偿</span>
 							                                	</label>
 							                                	<label>
-								                                	<input class="basic divtype cart_flag" type="radio" name="apply_type" value="2">
+								                                	<input class="basic divtype cart_flag" type="radio" id="apply_type" name="apply_type" value="2">
 								                                    <span class="text">客服：外呼关怀回访</span>
 							                                	</label>
 																<label>
-												                 	<input class="basic divtype cat_flag" type="radio" name="apply_type" value="3">
+												                 	<input class="basic divtype cat_flag" type="radio" id="apply_type" name="apply_type" value="3">
 								                                    <span class="text">客服：系统原因补券</span>
 																</label>
 							                            	</div>
@@ -80,7 +80,7 @@
 													<div class="col-md-6" id="productNumDiv">
 														<label class="col-md-3 control-label">优惠券类型：</label>
 														<div class="col-md-9">
-															<input type="text" class="form-control" readonly="readonly" id="coupon_type" name="coupon_type" />
+															<input type="text" class="form-control"  id="coupon_type" name="coupon_type" />
 														</div>
 													</div>
 													
@@ -96,7 +96,7 @@
 													<div class="col-md-6" id="mainAttributeDiv">
 														<label class="col-md-3 control-label">优惠券名称：</label>
 														<div class="col-md-9">
-															<input type="text" class="form-control" readonly="readonly" id="coupon_name" name="coupon_name" />
+															<input type="text" class="form-control" id="coupon_name" name="coupon_name" />
 														</div>
 														&nbsp;
 													</div>
@@ -105,7 +105,7 @@
 													<div class="col-md-12">										
 														<label class="col-md-2 control-label">优惠券描述：</label>
 														<div class="col-md-10">
-															<textarea class="form-control" rows="3" readonly="readonly" id="coupon_memo" name="coupon_memo"></textarea>
+															<textarea class="form-control" rows="3" id="coupon_memo" name="coupon_memo"></textarea>
 															
 														</div>
 													</div>	

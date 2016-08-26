@@ -72,8 +72,9 @@
 														<div class="col-md-6">
 															<label class="col-md-3 control-label">优惠券模板：</label>
 															<div class="col-md-9 js-data-example-ajax">
-																<select id="coupon_template" name="coupon_template" style="width: 100%">
-																</select>
+															<!-- 	<select id="coupon_template" name="coupon_template" style="width: 100%">
+																</select> -->
+																<input type="text" class="form-control" id="coupon_template" name="coupon_template" />
 															</div>
 															&nbsp;
 														</div>
@@ -88,8 +89,9 @@
 													<div class="col-md-6">
 														<label class="col-md-3 control-label">优惠券批次：</label>
 														<div class="col-md-9 js-data-example-ajax">
-															<select id="coupon_batch" name="coupon_batch" style="width: 100%">
-															</select>
+															<!-- <select id="coupon_batch" name="coupon_batch" style="width: 100%">
+															</select> -->
+															<input type="text" class="form-control" id="coupon_batch" name="coupon_batch" />
 														</div>
 														&nbsp;
 													</div>
@@ -106,7 +108,6 @@
 														<label class="col-md-2 control-label">优惠券描述：</label>
 														<div class="col-md-10">
 															<textarea class="form-control" rows="3" readonly="readonly" id="coupon_memo" name="coupon_memo"></textarea>
-															
 														</div>
 													</div>	
 													<div class="col-md-6">
