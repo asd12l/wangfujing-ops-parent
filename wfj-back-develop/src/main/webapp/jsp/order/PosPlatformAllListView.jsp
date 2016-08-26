@@ -36,6 +36,7 @@
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
 				url: __ctxPath+"/omsOrder/selectPaymentType",
 				dataType: "json",
+				data : {"remark" : '1'},
 				success: function(response) {
 					var result = response;
 					var codeValue = $("#payType_select");
