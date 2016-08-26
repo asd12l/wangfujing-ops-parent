@@ -613,7 +613,7 @@
 
 <!--审核优惠券 审核状态 和备注 -->
 <div class="modal modal-darkorange" id="checkCouponStatusDiv">
-	<div class="modal-dialog" style="width: 400px; height: auto; margin: 4% auto;">
+	<div class="modal-dialog" style="width: 600px; height: auto; margin: 4% auto;">
         <div class="modal-content">
             <div class="page-body">
                 <div class="row">
