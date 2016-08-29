@@ -19,7 +19,7 @@
 	<div class="header">Wang Fu Jing Operation support system</div>
 	<form action="${ctx}/security/login" method="post"  id="login">
 		<div class="box">
-			<div class="kuang" style="padding-top: 40px;">
+			<div class="kuang" style="padding-top: 30px;">
 				<%-- <div style="position:relative;float: left;top: -20px;left: 162px;color: #cc324b;">
 					<span>${backEnvironment }</span>
 				</div> --%>
@@ -36,11 +36,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="captcha_div">
-				<div class="captcha_but" id="drag" style="width: 380px;"></div>
-			</div> -->
 			
-			<%-- <div class="captcha_div">
+			<div class="captcha_div">
 				<div class="captcha_pic" id="big_pic1" >
 					<div class="captcha_big" id="big_pic">
 					</div>
@@ -50,10 +47,10 @@
 				<div class="captcha_but">
 					<div class="captcha_sav" id="captcha_sav"></div>
 					<div class="captcha_img" id="captcha_img">
-						<img src="${ctx}/image/slider_valid.png">
+						<img src="${ctx}/image/slider.png" height="37" id="validImg">
 					</div>
 				</div>
-			</div> --%>
+			</div>
 			
 			<div class="dianji">
 				<div style="color:red;margin-top:5px;margin-left:5px;float:left;font-size:13px;">${error} </div>
@@ -66,13 +63,13 @@
 	<div class="cloud"></div>
 </div>
 </body>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	document.ondragstart = function() { return false;}
 </script>
 <script type="text/javascript">
 	var rootPath = "${pageContext.request.contextPath}";
-	var loadSuccessDate, captchaSuc = false;
-	var startX = 0, startY = 0;
+	var /* loadSuccessDate, */ captchaSuc = false;
+	var startX = 0, startY = 0, maxRandomNum = "";
 	$(document).ready(function(){
 		function butMove(event){
 			var butDivX = $('.captcha_but').offset().left;
@@ -87,24 +84,27 @@
 			var minX1 = ((imgDivW-litPicDivW));
 			
 			if(event.pageX < minX){
-				$("#captcha_img").prop("style","left: " + 2 + "px;");
-				$("#lit_pic").prop("style","left: "+ 13 +"px;top :" + startY + "px;");
+				$("#captcha_img").attr("style","left: " + 2 + "px;");
+				$("#lit_pic").attr("style","left: "+ 12 +"px;top :" + startY + "px;");
 			} else if(event.pageX > minX && event.pageX < maxX){
-				$("#captcha_img").prop("style","left: " + (event.pageX - butDivX - imgDivW/2) + "px;");
-				$("#lit_pic").prop("style","left: " + (event.pageX - butDivX - imgDivW/2 + 11) + "px;top :" + startY + "px;");
+				$("#captcha_img").attr("style","left: " + (event.pageX - butDivX - imgDivW/2) + "px;");
+				$("#lit_pic").attr("style","left: " + (event.pageX - butDivX - imgDivW/2 + 12) + "px;top :" + startY + "px;");
 			} else if(event.pageX > maxX){
-				$("#captcha_img").prop("style","left: " + (butDivW - imgDivW) + "px;");
-				$("#lit_pic").prop("style","left: "+ (butDivW - imgDivW +11) + "px;top :" + startY + "px;");
+				$("#captcha_img").attr("style","left: " + (butDivW - imgDivW) + "px;");
+				$("#lit_pic").attr("style","left: "+ (butDivW - imgDivW + 12) + "px;top :" + startY + "px;");
 			}
 		}
 		function butDown(event){
 			$(".dianji div").text("");
+			$("#validImg").attr("src", rootPath + "/image/slider.png"); 
 			$(document).bind("mousemove",butMove);
 			$(document).bind("mouseup",butUp);
 			$("#captcha_img").unbind("mouseout", butOut);
+			$("#lit_pic").addClass("alpha");
 		}
 		function butUp(event){
 			$(document).unbind();
+			$("#lit_pic").removeClass("alpha");
 			$("#captcha_img").bind("mouseout", butOut);
 			var litPicX = $("#lit_pic").position().left;
 			$.ajax({
@@ -113,18 +113,20 @@
 				dataType : "json",
 				data : {
 					"moveX" : litPicX,
-					"datastr" : loadSuccessDate,
+					/* "datastr" : loadSuccessDate, */
 					"startX" : startX
 				},
 				success : function(result) {
 					if(result.success){
 						captchaSuc = true;
 						$(".dianji div").text("验证通过！");
-						setTimeout(butOut,"800")
+						$("#validImg").attr("src", rootPath + "/image/slider_valid.png");
+						setTimeout(butOut,"800");
 					} else {
+						$("#validImg").attr("src", rootPath + "/image/slider_invalid.png");
 						loadCaptcha();
 						$("#big_pic1").hide();
-						$("#captcha_img").prop("style","left: " + 2 + "px;");
+						$("#captcha_img").attr("style","left: " + 2 + "px;");
 						$(".dianji div").text("验证错误！");
 						captchaSuc = false;
 					}
@@ -143,14 +145,17 @@
 				url : rootPath+"/mycaptcha/getCaptcha",
 				type : "get",
 				dataType : "json",
+				data : {
+					"maxRandomNum" : maxRandomNum
+				},
 				success : function(result) {
 					if(result.success){
 						$("#big_pic").html("<img src='"+(rootPath+result.bigPic)+"'>");
 						$("#lit_pic").html("<img src='"+(rootPath+result.litPic)+"'>");
-						loadSuccessDate = new Date().getTime();
+						//loadSuccessDate = new Date().getTime();
 						startX = result.startX;
-						startY = result.startY;
-						$("#lit_pic").prop("style","left: "+ 11 + "px;top :" + startY + "px;");
+						maxRandomNum = result.maxRandomNum;
+						$("#lit_pic").attr("style","left: 0px;top: 0px;");
 					}
 				}
 			});
@@ -170,74 +175,5 @@
 			return false;
 		});
 	});
-</script> -->
-<!-- <script type="text/javascript">
-	var rootPath = "${pageContext.request.contextPath}";
-	var loadSuccessDate, captchaSuc = false;
-	var startX = 0, startY = 0;
-	$(document).ready(function(){
-		function butMove(event){
-			var butDivX = $('.captcha_but').offset().left;
-			var butDivW = $('.captcha_but').width();
-			var imgDivW = $('.captcha_img').width();
-			
-			
-			var minX = butDivX + imgDivW/2 + 2;
-			var maxX = butDivX + butDivW - imgDivW/2 + 2;
-			
-			if(event.pageX < minX){
-				$("#captcha_img").prop("style","left: " + 2 + "px;");
-			} else if(event.pageX > minX && event.pageX < maxX){
-				$("#captcha_img").prop("style","left: " + (event.pageX - butDivX - imgDivW/2) + "px;");
-			} else if(event.pageX > maxX){
-				$("#captcha_img").prop("style","left: " + (butDivW - imgDivW) + "px;");
-			}
-		}
-		function butDown(event){
-			$(document).bind("mousemove",butMove);
-		}
-		function butUp(event){
-			$(document).unbind();
-			var litPicX = $("#captcha_img").position().left;
-			/* $.ajax({
-				url : rootPath+"/mycaptcha/checked",
-				type : "get",
-				dataType : "json",
-				data : {
-					"moveX" : litPicX,
-					"datastr" : loadSuccessDate,
-					"startX" : startX
-				},
-				success : function(result) {
-					if(result.success){
-						captchaSuc = true;
-						$(".dianji div").text("验证通过！");
-					} else {
-						$("#captcha_img").prop("style","left: " + 2 + "px;");
-						captchaSuc = false;
-					}
-				}
-			}); */
-		}
-		$("#captcha_img").on({
-			mousedown : butDown,
-			mouseup : butUp
-		});
-		$(".login").click(function(){
-			if(captchaSuc){
-				return true;
-			}
-			$(".dianji div").text("请验证登录！");
-			return false;
-		});
-	});
-</script> -->
-<!-- <script type="text/javascript">
-	$(function(){
-		$("#drag").drag();
-		$(".drag_text").prop("style", "width:380px;");
-		/* $("#drag").prop("style", "border-radius: 15px;");
-		$(".handler_bg").prop("style", "border-radius: 15px;"); */
-	});
-</script> -->
+</script>
 </html>

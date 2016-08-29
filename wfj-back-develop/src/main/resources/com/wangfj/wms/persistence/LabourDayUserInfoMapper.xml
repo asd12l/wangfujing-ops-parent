@@ -1,121 +1,125 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.LabourDayUserInfoMapper" >
-  <resultMap id="LabourDayUserInfoResultMap" type="com.wangfj.wms.domain.entity.LabourDayUserInfo" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sid, username, tel, address, email, create_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="LabourDayUserInfoResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from labour_day_user_info
-    where sid = #{sid,jdbcType=INTEGER}
-  </select>
-  <select id="selectAllUserInfoByTime" resultMap="LabourDayUserInfoResultMap" parameterType="com.wangfj.wms.util.MobileFlashPromotionsKey" >
-    select 
-    <include refid="Base_Column_List" />
-    from labour_day_user_info
-    <where>
-    	1=1
-    	 <if test="endDay != null" >
-        and create_time &lt;= DATE_FORMAT(#{endDay},'%Y-%m-%d %T')
-      </if>
-      <if test="startDay != null" >
-       and create_time &gt;= DATE_FORMAT(#{startDay},'%Y-%m-%d %T')
-      </if>
-    </where>
-    order by create_time desc
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from labour_day_user_info
-    where sid = #{sid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.LabourDayUserInfo" >
-    insert into labour_day_user_info (sid, username, tel, 
-      address, email, create_time
-      )
-    values (#{sid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.LabourDayUserInfo" >
-    insert into labour_day_user_info
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        sid,
-      </if>
-      <if test="username != null" >
-        username,
-      </if>
-      <if test="tel != null" >
-        tel,
-      </if>
-      <if test="address != null" >
-        address,
-      </if>
-      <if test="email != null" >
-        email,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="tel != null" >
-        #{tel,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.LabourDayUserInfo" >
-    update labour_day_user_info
-    <set >
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="tel != null" >
-        tel = #{tel,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.LabourDayUserInfo" >
-    update labour_day_user_info
-    set username = #{username,jdbcType=VARCHAR},
-      tel = #{tel,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.wangfj.wms.persistence.LabourDayUserInfoMapper">
+	<resultMap id="LabourDayUserInfoResultMap"
+		type="com.wangfj.wms.domain.entity.LabourDayUserInfo">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, username, tel, address, email, create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="LabourDayUserInfoResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from labour_day_user_info
+		where sid = #{sid,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllUserInfoByTime" resultMap="LabourDayUserInfoResultMap"
+		parameterType="com.wangfj.wms.util.MobileFlashPromotionsKey">
+		select
+		<include refid="Base_Column_List" />
+		from labour_day_user_info
+		<where>
+			1=1
+			<if test="endDay != null">
+				and create_time &lt;= DATE_FORMAT(#{endDay},'%Y-%m-%d %T')
+			</if>
+			<if test="startDay != null">
+				and create_time &gt;= DATE_FORMAT(#{startDay},'%Y-%m-%d %T')
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from labour_day_user_info
+		where sid = #{sid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.LabourDayUserInfo">
+		insert into labour_day_user_info (sid, username, tel,
+		address, email, create_time
+		)
+		values (#{sid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
+		#{tel,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.LabourDayUserInfo">
+		insert into labour_day_user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.LabourDayUserInfo">
+		update labour_day_user_info
+		<set>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.LabourDayUserInfo">
+		update labour_day_user_info
+		set username = #{username,jdbcType=VARCHAR},
+		tel = #{tel,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
 </mapper>

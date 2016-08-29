@@ -137,6 +137,7 @@
 	    function openUrl(data){
 	    	var __ctxPath = $("#__ctxPath").val();
 	    	var url = __ctxPath + data;
+	    	 
 			$("#pageBody").load(url);
 			_site_id_param = "";
 	    }
@@ -222,6 +223,10 @@
 					<li class="active"><a href="index.jsp"> <i
 							class="menu-icon glyphicon glyphicon-home"></i> <span
 							class="menu-text"> 首页 </span>
+							
+							
+							
+							
 					</a></li>
 				</ul>
 				<!-- /Sidebar Menu -->

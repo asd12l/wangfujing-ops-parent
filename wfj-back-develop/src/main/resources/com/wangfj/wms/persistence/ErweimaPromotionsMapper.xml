@@ -1,176 +1,182 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.ErweimaPromotionsMapper" >
-  <resultMap id="ErweimaPromotionsResultMap" type="com.wangfj.wms.domain.entity.ErweimaPromotions" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="pro_desc" property="proDesc" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-    <result column="flag" property="flag" jdbcType="INTEGER" />
-    <result column="seq" property="seq" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sid, title, pro_desc, url, start_time, end_time, flag, seq
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ErweimaPromotionsResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from erweima_promotions
-    where sid = #{sid,jdbcType=INTEGER}
-  </select>
-  <select id="selectCountByPrams" resultType="java.lang.Integer" parameterType="com.wangfj.wms.domain.view.ErweimaPromotionsVO">
-  	select count(sid)
-  	<include refid="Base_Column_List" />
-  	from erweima_promotions
-  	<where>
-  	 	<if test="sid != null and sid !='' ">
-  			sid = #{sid}
-  		</if>
-  		<if test="title != null and title !='' ">
-			and title like "%"#{title,jdbcType=VARCHAR}"%"
-		</if>
- 
-		<if test="startTime != null and startTime !='' ">
-			and start_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
-		</if>
-		<if test="endTime != null and endTime !='' ">
-			and end_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
-		</if>
-		<if test="flag != null ">
-		 	and flag = #{flag}
-		</if>
-  	</where>
-  </select>
-   <select id="selectByPrams" resultMap="ErweimaPromotionsResultMap" parameterType="com.wangfj.wms.domain.view.ErweimaPromotionsVO">
-  	select
-  	<include refid="Base_Column_List" />
-  	from erweima_promotions
-  	<where>1=1
-  		<if test="sid != null and sid !='' ">
-  			and sid = #{sid}
-  		</if>
-  		<if test="title != null and title !='' ">
-			and title like "%"#{title,jdbcType=VARCHAR}"%"
-		</if>
-		<if test="startTime != null and startTime !='' ">
-			and start_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
-		</if>
-		<if test="endTime != null and endTime !='' ">
-			and end_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
-		</if>
-		<if test="flag != null ">
-		 	and flag = ${flag}
-		</if>
-  	</where>
-  	order by sid desc
-  	limit
-  		#{startRecords},#{pageSize}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from erweima_promotions
-    where sid = #{sid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.ErweimaPromotions" >
-    insert into erweima_promotions (sid, title, pro_desc, 
-      url, start_time, end_time, 
-      flag, seq)
-    values (#{sid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{proDesc,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{flag,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.ErweimaPromotions" >
-    insert into erweima_promotions
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        sid,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="proDesc != null" >
-        pro_desc,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="startTime != null" >
-        start_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
-      <if test="flag != null" >
-        flag,
-      </if>
-      <if test="seq != null" >
-        seq,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="proDesc != null" >
-        #{proDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="flag != null" >
-        #{flag,jdbcType=INTEGER},
-      </if>
-      <if test="seq != null" >
-        #{seq,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.ErweimaPromotions" >
-    update erweima_promotions
-    <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="proDesc != null" >
-        pro_desc = #{proDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null" >
-        start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="flag != null" >
-        flag = #{flag,jdbcType=INTEGER},
-      </if>
-      <if test="seq != null" >
-        seq = #{seq,jdbcType=INTEGER},
-      </if>
-    </set>
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.ErweimaPromotions" >
-    update erweima_promotions
-    set title = #{title,jdbcType=VARCHAR},
-      pro_desc = #{proDesc,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      flag = #{flag,jdbcType=INTEGER},
-      seq = #{seq,jdbcType=INTEGER}
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.wangfj.wms.persistence.ErweimaPromotionsMapper">
+	<resultMap id="ErweimaPromotionsResultMap"
+		type="com.wangfj.wms.domain.entity.ErweimaPromotions">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="pro_desc" property="proDesc" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="flag" property="flag" jdbcType="INTEGER" />
+		<result column="seq" property="seq" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, title, pro_desc, url, start_time, end_time, flag, seq
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ErweimaPromotionsResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from erweima_promotions
+		where sid = #{sid,jdbcType=INTEGER}
+	</select>
+	<select id="selectCountByPrams" resultType="java.lang.Integer"
+		parameterType="com.wangfj.wms.domain.view.ErweimaPromotionsVO">
+		select count(sid)
+		<include refid="Base_Column_List" />
+		from erweima_promotions
+		<where>
+			<if test="sid != null and sid !='' ">
+				sid = #{sid}
+			</if>
+			<if test="title != null and title !='' ">
+				and title like "%"#{title,jdbcType=VARCHAR}"%"
+			</if>
+
+			<if test="startTime != null and startTime !='' ">
+				and start_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
+			</if>
+			<if test="endTime != null and endTime !='' ">
+				and end_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
+			</if>
+			<if test="flag != null ">
+				and flag = #{flag}
+			</if>
+		</where>
+	</select>
+	<select id="selectByPrams" resultMap="ErweimaPromotionsResultMap"
+		parameterType="com.wangfj.wms.domain.view.ErweimaPromotionsVO">
+		select
+		<include refid="Base_Column_List" />
+		from erweima_promotions
+		<where>
+			1=1
+			<if test="sid != null and sid !='' ">
+				and sid = #{sid}
+			</if>
+			<if test="title != null and title !='' ">
+				and title like "%"#{title,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="startTime != null and startTime !='' ">
+				and start_time &gt;= DATE_FORMAT(#{startTime},'%Y-%m-%d %T')
+			</if>
+			<if test="endTime != null and endTime !='' ">
+				and end_time &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d %T')
+			</if>
+			<if test="flag != null ">
+				and flag = ${flag}
+			</if>
+		</where>
+		order by sid desc
+		limit
+		#{startRecords},#{pageSize}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from erweima_promotions
+		where sid = #{sid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.ErweimaPromotions">
+		insert into erweima_promotions (sid, title, pro_desc,
+		url, start_time, end_time,
+		flag, seq)
+		values (#{sid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+		#{proDesc,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+		#{flag,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.ErweimaPromotions">
+		insert into erweima_promotions
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="proDesc != null">
+				pro_desc,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="seq != null">
+				seq,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="proDesc != null">
+				#{proDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=INTEGER},
+			</if>
+			<if test="seq != null">
+				#{seq,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.ErweimaPromotions">
+		update erweima_promotions
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="proDesc != null">
+				pro_desc = #{proDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="flag != null">
+				flag = #{flag,jdbcType=INTEGER},
+			</if>
+			<if test="seq != null">
+				seq = #{seq,jdbcType=INTEGER},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.ErweimaPromotions">
+		update erweima_promotions
+		set title = #{title,jdbcType=VARCHAR},
+		pro_desc = #{proDesc,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		start_time = #{startTime,jdbcType=TIMESTAMP},
+		end_time = #{endTime,jdbcType=TIMESTAMP},
+		flag = #{flag,jdbcType=INTEGER},
+		seq = #{seq,jdbcType=INTEGER}
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
 </mapper>
