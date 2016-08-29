@@ -63,6 +63,10 @@
 		$("#username_input").val("");
 		$("#mobile_input").val("");
 		$("#email_input").val("");
+		$("#orderNo_input").val("");
+		$("#outOrderNo_input").val("");
+		$("#saleNo_input").val("");
+		$("#reservation").val("");
 		productQuery();
 	}
 	//初始化包装单位列表

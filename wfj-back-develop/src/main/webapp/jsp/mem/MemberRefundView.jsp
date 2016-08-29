@@ -30,7 +30,6 @@
 		});
 
 		function productQuery(){
-			debugger;
 			$("#cid_form").val($("#cid_input").val().trim());
 			$("#mobile_form").val($("#mobile_input").val().trim());
 			$("#email_form").val($("#email_input").val().trim());
@@ -62,6 +61,9 @@
 			$("#cid_input").val("");
 			$("#mobile_input").val("");
 			$("#email_input").val("");
+			$("#refundNo_input").val("");
+			$("#orderNo_input").val("");
+			$("#reservation").val("");
 			productQuery();
 		}
 		//初始化包装单位列表
