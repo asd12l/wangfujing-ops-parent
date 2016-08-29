@@ -1133,6 +1133,8 @@ $(function(){
 							<tr class="gradeX" style="height:35px;">
 								<!--银行-->	
 								<td align="center" id="dicCode_{$T.Result.id}" val="{$T.Result.dic_code}">
+							        {$T.Result.bankCode}
+							        <!-- 	{$T.Result.dic_code}   
 									{#if $T.Result.dic_code== 'ABC'}中国农业银行
 	                   				{#/if}
 									{#if $T.Result.dic_code== 'ICBCB2C'}中国工商银行
@@ -1193,6 +1195,7 @@ $(function(){
 	                   				{#/if}
 	                   				{#if $T.Result.dic_code== 'WECHATPAY_OFFLINE'}微信线下支付
 	                   				{#/if}
+	                   				-->
 								</td>
 								<!--简码-->	
 								<td align="center" id="">
@@ -1211,6 +1214,8 @@ $(function(){
 								</td>
 								<!--支付渠道-->	
 								<td align="center" id="payType_{$T.Result.id}" val="{$T.Result.pay_type}">
+									{$T.Result.payTypeCode}
+									<!-- 
 									{#if $T.Result.pay_type== 'ALIPAY'}支付宝
 	                   				{#/if}
 									{#if $T.Result.pay_type== 'TENPAY'}财付通
@@ -1233,7 +1238,7 @@ $(function(){
 	                   				{#/if}
 	                   				{#if $T.Result.pay_type== 'WECHATPAY_MOBILE'}微信WAP
 	                   				{#/if}
-	                   				
+	                   				 -->
 								<!--
 									{#if $T.Result.pay_type== 'YEEBAO'}富汇易达
 	                   				{#/if}

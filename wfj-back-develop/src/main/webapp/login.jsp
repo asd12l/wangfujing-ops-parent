@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/drag.css"/>
 <script src="${ctx }/js/jquery-1.9.1.js"></script>
-<script src="${ctx }/js/drag.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>王府井运营支撑系统登录</title>
 <link rel="shortcut icon" href="${ctx }/images/titleLogo.png" type="image/x-icon">
@@ -122,6 +121,7 @@
 						$(".dianji div").text("验证通过！");
 						$("#validImg").attr("src", rootPath + "/image/slider_valid.png");
 						setTimeout(butOut,"800");
+						$("#captcha_img").unbind();
 					} else {
 						$("#validImg").attr("src", rootPath + "/image/slider_invalid.png");
 						loadCaptcha();
