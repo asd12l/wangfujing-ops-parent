@@ -68,6 +68,8 @@
       $("#reservationBack").val("");
       $("#pullId_input").val("");
       $("#backId_input").val("");
+      $("#username_input").val("");
+      $("#blacklisttype_input").val("");
       productQuery();
     }
     //初始化包装单位列表

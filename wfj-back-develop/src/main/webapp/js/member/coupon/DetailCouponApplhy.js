@@ -1,15 +1,15 @@
 
 $(function(){
-	initsEdit();
+	initsDetailCouponApply();
 });
 
 /**
  * 关闭优惠券编辑
  */
-$("#closeEditCoupon").click(function(){
+$("#closeDetailCoupon").click(function(){
 	$("#pageBody").load(__ctxPath+"/jsp/mem/CouponApplyView.jsp");
 });
- function initsEdit(){
+ function initsDetailCouponApply(){
      $("#editSid").val($sid);
      $("#login_name").val($loginName);
      if(null!=$applyType){
@@ -39,7 +39,7 @@ $("#closeEditCoupon").click(function(){
  /**
   * 修改优惠券申请
   */
-$("#saveEditCoupon").click(function(){
+$("#saveDeatilCoupon").click(function(){
 		var sid = $("#editSid").val().trim();
 		var loginName = $("#login_name").val().trim();
 	    var applyType = $('input[name="apply_type"]').filter(':checked').val();			//var applyType = $("#apply_type").val().trim(); 

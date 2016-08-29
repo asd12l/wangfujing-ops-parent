@@ -414,8 +414,8 @@ public class MemberBasicController {
         paraMap.put("outOrderNo",request.getParameter("outOrderNo"));
         paraMap.put("orderStatus",request.getParameter("orderStatus"));
         paraMap.put("orderFrom",request.getParameter("orderFrom"));
-        paraMap.put("m_timeStartDate",  request.getParameter("m_timeStartDate"));
-        paraMap.put("m_timeEndDate",  request.getParameter("m_timeEndDate"));
+        paraMap.put("m_timeStartDate",  request.getParameter("m_buytimeStartDate"));
+        paraMap.put("m_timeEndDate",  request.getParameter("m_buytimeEndDate"));
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== getMemPurchase url " + url + "  =========");
@@ -429,7 +429,12 @@ public class MemberBasicController {
         }
         return jsonString;
     }
-
+/**
+ *查询 退货记录
+ *@return
+ *@param request
+ *@param response
+ **/
     @ResponseBody
     @RequestMapping(value ="/getMemRefund", method = { RequestMethod.POST, RequestMethod.GET })
     public String getMemRefund(HttpServletRequest request,
@@ -455,14 +460,12 @@ public class MemberBasicController {
         paraMap.put("email",request.getParameter("email"));
         paraMap.put("reOrderNo",request.getParameter("refundNo"));
         paraMap.put("orderNo",request.getParameter("orderNo"));
-        paraMap.put("m_timeStartDate",  request.getParameter("m_timeStartDate"));
-        paraMap.put("m_timeEndDate",  request.getParameter("m_timeEndDate"));
+        paraMap.put("m_timeStartDate",  request.getParameter("startTime"));
+        paraMap.put("m_timeEndDate",  request.getParameter("endTime"));
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== getMemRefund url " + url + "  =========");
-            System.err.println("============== member_ops_url:" + url);
-            System.err.println("=============method:"+method);
-            System.err.println("======== getMemRefund url "+url+ method+"  =========");
+            
             String resJson = HttpUtil.HttpPost(url, method, paraMap);
             JSONObject resJsonObj= JSONObject.fromObject(resJson);
                 jsonString=resJsonObj.getJSONObject("object").toString();

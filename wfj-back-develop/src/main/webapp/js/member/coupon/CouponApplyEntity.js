@@ -42,9 +42,8 @@ function emptyProperty(){
 	this.$couponMoney = 0;
 	this.applyReason = null;
 }
-
+/*
 $().ready(function(){
-	jqueryValidate();
 });
 function jqueryValidate(){
 	$('form[name="couponApplyForm"]').validate({
@@ -97,4 +96,4 @@ $("#saveNewCoupon").click(){
 			
 		}
 	});
-}
+}*/
