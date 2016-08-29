@@ -36,6 +36,7 @@
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
 				url: __ctxPath+"/omsOrder/selectPaymentType",
 				dataType: "json",
+				data : {"remark" : '1'},
 				success: function(response) {
 					var result = response;
 					var codeValue = $("#payType_select");
@@ -2438,8 +2439,8 @@
 														{#if $T.Result.paymentType != '[object Object]'}{$T.Result.paymentType}
 						                   				{#/if}
 													</td>
-													<td align="center" id="paymentAmount_{$T.Result.sid}">
-														{#if $T.Result.paymentAmount != '[object Object]'}{$T.Result.paymentAmount}
+													<td align="center" id="amount_{$T.Result.sid}">
+														{#if $T.Result.amount != '[object Object]'}{$T.Result.amount}
 						                   				{#/if}
 													</td>
 									       		</tr>

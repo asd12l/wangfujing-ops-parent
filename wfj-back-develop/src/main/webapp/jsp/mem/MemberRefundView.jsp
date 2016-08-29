@@ -30,29 +30,45 @@
 		});
 
 		function productQuery(){
-			$("#username_from").val($("#username_input").val().trim());
-			$("#mobile_from").val($("#mobile_input").val().trim());
-			$("#email_from").val($("#email_input").val().trim());
+			$("#cid_form").val($("#cid_input").val().trim());
+			$("#mobile_form").val($("#mobile_input").val().trim());
+			$("#email_form").val($("#email_input").val().trim());
+			$("#orderNo_form").val($("#orderNo_input").val().trim());
+			$("#refundNo_form").val($("#refundNo_input").val().trim());
+			var returnTime = $("#reservation").val();
+			if(returnTime!=""){
+				returnTime = returnTime.split("-");
+				$("#m_startTime").val(returnTime[0].replace("/","-").replace("/","-"));
+				$("#m_endTime").val(returnTime[1].replace("/","-").replace("/","-"));
+			}else{
+				$("#m_startTime").val("");
+				$("#m_endTime").val("");
+			}
 			var params = $("#product_form").serialize();
 			params = decodeURI(params);
+			debugger;
 			olvPagination.onLoad(params);
 		}
 		// 查询
 		function query() {
+			debugger;
 			$("#cache").val(0);
 			productQuery();
 		}
 		//重置
 		function reset(){
 			$("#cache").val(1);
-			$("#username_input").val("");
+			$("#cid_input").val("");
 			$("#mobile_input").val("");
 			$("#email_input").val("");
+			$("#refundNo_input").val("");
+			$("#orderNo_input").val("");
+			$("#reservation").val("");
 			productQuery();
 		}
 		//初始化包装单位列表
 		function initOlv() {
-			var url = __ctxPath+"/memBasic/getMemBasicInfo";
+			var url = __ctxPath+"/memBasic/getMemRefund";
 			olvPagination = $("#olvPagination").myPagination({
 				panel: {
 					tipInfo_on: true,
@@ -99,7 +115,7 @@
 		}
 
 		function showMemRefundView(){
-			var checkboxArray=[];
+			var checkboxArray=[];function init(param, obj)
 			$("input[type='checkbox']:checked").each(function(i,team){
 				var cid=$(this).val().trim();
 				checkboxArray.push(cid);
@@ -147,7 +163,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-md-12">
 					<div class="widget">
-						<div class="widget-header ">会员信息</h5>
+						<div class="widget-header ">会员退货记录</h5>
 							<div class="widget-buttons">
 								<a href="#" data-toggle="maximize"></a> <a href="#"
 																		   data-toggle="collapse" onclick="tab('pro');"> <i
@@ -158,12 +174,18 @@
 						<div class="widget-body" id="pro">
 							<div class="table-toolbar">
 								<ul class="topList clearfix">
+									<li class="col-md-4"><label class="titname">退货时间：</label>
+										<input type="text" id="reservation" /></li>
 									<li class="col-md-4"><label class="titname">账号：</label>
-										<input type="text" id="username_input" /></li>
+										<input type="text" id="cid_input" /></li>
 									<li class="col-md-4"><label class="titname">手机号：</label>
 										<input type="text" id="mobile_input" /></li>
 									<li class="col-md-4"><label class="titname">邮箱：</label>
 										<input type="text" id="email_input" /></li>
+									<li class="col-md-4"><label class="titname">退货单号：</label>
+										<input type="text" id="refundNo_input" /></li>
+									<li class="col-md-4"><label class="titname">订单号：</label>
+										<input type="text" id="orderNo_input" /></li>
 									<li class="col-md-6">
 										<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
 										<a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
@@ -176,14 +198,20 @@
 									<thead>
 									<tr role="row" style='height:35px;'>
 										<th style="text-align: center;" width="2%">选择</th>
+										<th style="text-align: center;" width="12%">退货申请时间</th>
+										<th style="text-align: center;" width="12%">购买时间</th>
 										<th style="text-align: center;" width="12%">账户</th>
 										<th style="text-align: center;" width="12%">昵称</th>
 										<th style="text-align: center;" width="12%">真实姓名</th>
 										<th style="text-align: center;" width="12%">手机</th>
 										<th style="text-align: center;" width="12%">邮箱</th>
-										<th style="text-align: center;" width="12">所属门店</th>
+										<th style="text-align: center;" width="12">会员来源</th>
 										<th style="text-align: center;" width="12%">会员等级</th>
 										<th style="text-align: center;" width="12%">地址</th>
+										<th style="text-align: center;" width="12%">退货原因</th>
+										<th style="text-align: center;" width="12%">退货单号</th>
+										<th style="text-align: center;" width="12%">退货金额</th>
+										<th style="text-align: center;" width="12%">退货单状态</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -191,9 +219,13 @@
 								</table>
 								<div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
-										<input type="hidden" id="username_from" name="cid" />
-										<input type="hidden" id="mobile_from" name="mobile" />
-										<input type="hidden" id="email_from" name="email" />
+										<input type="hidden" id="cid_form" name="cid" />
+										<input type="hidden" id="mobile_form" name="mobile" />
+										<input type="hidden" id="email_form" name="email" />
+										<input type="hidden" id="orderNo_form" name="orderNo"  />
+										<input type="hidden" id="refundNo_form" name="refundNo"  />
+										<input type="hidden" id="m_startTime" name="startTime"  />
+										<input type="hidden" id="m_endTime" name="endTime"  />
 										<input type="hidden" id="cache" name="cache" value="1" />
 									</form>
 								</div>
@@ -214,34 +246,44 @@
 														</div>
 													</td>
 													<td align="center" id="cid_{$T.Result.cid}">
-														{#if $T.Result.cid == "" || $T.Result.cid == null}--
-														{#else}{$T.Result.cid}
+														{#if $T.Result.refundTimeStr == "" || $T.Result.refundTimeStr == null}--
+														{#else}{$T.Result.refundTimeStr}
 														{#/if}
 													</td>
-													<td align="center" id="nickname_{$T.Result.cid}">
-														{#if $T.Result.cmnickname == "" || $T.Result.cmnickname == null}--
-														{#else}{$T.Result.cmnickname}
+													<td align="center" id="cid_{$T.Result.cid}">
+														{#if $T.Result.saleTime == "" || $T.Result.saleTime == null}--
+														{#else}{$T.Result.saleTime}
 														{#/if}
 													</td>
-													<td align="center" id="realname_{$T.Result.cid}">
-														{#if $T.Result.cmname == "" || $T.Result.cmname == null}--
-														{#else}{$T.Result.cmname}
+													<td align="center" id="cid_{$T.Result.cid}">
+														{#if $T.Result.username == "" || $T.Result.username == null}--
+														{#else}{$T.Result.username}
+														{#/if}
+													</td>
+													<td align="center" id="nick_name_{$T.Result.cid}">
+														{#if $T.Result.nick_name == "" || $T.Result.nick_name == null}--
+														{#else}{$T.Result.nick_name}
+														{#/if}
+													</td>
+													<td align="center" id="real_name_{$T.Result.cid}">
+														{#if $T.Result.real_name == "" || $T.Result.real_name == null}--
+														{#else}{$T.Result.real_name}
 														{#/if}
 													</td>
 													<td align="center" id="mobile_{$T.Result.cid}">
-														{#if $T.Result.cmmobile1 == "" || $T.Result.cmmobile1 == null}--
-														{#else}{$T.Result.cmmobile1}
+														{#if $T.Result.mobile == "" || $T.Result.mobile == null}--
+														{#else}{$T.Result.mobile}
 														{#/if}
 													</td>
 													<td align="center" id="email_{$T.Result.cid}">
-														{#if $T.Result.cmemail == "" || $T.Result.cmemail == null}--
-														{#else}{$T.Result.cmemail}
+														{#if $T.Result.email == "" || $T.Result.email == null}--
+														{#else}{$T.Result.email}
 														{#/if}
 													</td>
 
-													<td align="center" id="belongStore_{$T.Result.cid}">
-														{#if $T.Result.cmmkt == "" || $T.Result.cmmkt == null}--
-														{#else}{$T.Result.cmmkt}
+													<td align="center" id="regist_from_{$T.Result.cid}">
+														{#if $T.Result.regist_from == "" || $T.Result.regist_from == null}--
+														{#else}{$T.Result.regist_from}
 														{#/if}
 													</td>
 													<td align="center" id="levelName_{$T.Result.cid}">
@@ -249,9 +291,29 @@
 														{#else}{$T.Result.levelName}
 														{#/if}
 													</td>
-													<td align="center" id="address_{$T.Result.cid}">
-														{#if $T.Result.address == "" || $T.Result.address == null}--
-														{#else}{$T.Result.address}
+													<td align="center" id="receptAddress_{$T.Result.cid}">
+														{#if $T.Result.receptAddress == "" || $T.Result.receptAddress == null}--
+														{#else}{$T.Result.receptAddress}
+														{#/if}
+													</td>
+													<td align="center" id="refundReason_{$T.Result.cid}">
+														{#if $T.Result.refundReason == "" || $T.Result.refundReason == null}--
+														{#else}{$T.Result.refundReason}
+														{#/if}
+													</td>
+													<td align="center" id="refundNo_{$T.Result.cid}">
+														{#if $T.Result.refundNo == "" || $T.Result.refundNo == null}--
+														{#else}{$T.Result.refundNo}
+														{#/if}
+													</td>
+													<td align="center" id="needRefundAmount_{$T.Result.cid}">
+														{#if $T.Result.needRefundAmount == "" || $T.Result.needRefundAmount == null}--
+														{#else}{$T.Result.needRefundAmount}
+														{#/if}
+													</td>
+													<td align="center" id="refundStatusDesc_{$T.Result.cid}">
+														{#if $T.Result.refundStatusDesc == "" || $T.Result.refundStatusDesc == null}--
+														{#else}{$T.Result.refundStatusDesc}
 														{#/if}
 													</td>
 												</tr>

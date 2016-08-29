@@ -11,6 +11,14 @@ public class ExcelPosPlatformVo {
 
 	private String paymentType;//支付方式
 	private BigDecimal amount;//订单金额
+	private BigDecimal paymentAmount;//支付金额
+	
+	public BigDecimal getPaymentAmount() {
+		return paymentAmount;
+	}
+	public void setPaymentAmount(BigDecimal paymentAmount) {
+		this.paymentAmount = paymentAmount;
+	}
 	private Date payTime;//支付时间
 	private Date reconciliationTime;//对账时间
 	private String payTimeStr;

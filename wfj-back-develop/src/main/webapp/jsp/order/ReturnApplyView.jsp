@@ -99,6 +99,8 @@
 	    initOlv();
 	});
 	function olvQuery(){
+		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
+		$("#receptPhone_form").val($("#receptPhone_input").val().trim());
 		$("#refundApplyNo_form").val($("#refundApplyNo_input").val().trim());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
 		$("#memberNo_form").val($("#memberNo_input").val().trim());
@@ -118,6 +120,8 @@
         olvPagination.onLoad(params);
    	}
 	function reset(){
+		$("#outOrderNo_input").val("");
+		$("#receptPhone_input").val("");
 		$("#refundApplyNo_input").val("");
 		$("#orderNo_input").val("");
 		$("#memberNo_input").val("");
@@ -1014,7 +1018,7 @@
 							option+="<td align='center'></td>";
 						}else{
 							var salePriceSum = ele.salesPrice*ele.saleSum;
-							option+="<td align='center'>"+salePriceSum+"</td>";
+							option+="<td align='center'>"+parseFloat(salePriceSum).toFixed(2)+"</td>";
 						}
 						//促销优惠分摊金额
 						if(ele.totalDiscount=="[object Object]"||ele.totalDiscount==undefined){
@@ -2339,6 +2343,14 @@
 													<input type="text" id="memberNo_input"/>
 											    </li>
 											    <li class="col-md-4">
+										            <label class="titname">外部订单号：</label>
+													<input type="text" id="outOrderNo_input"/>
+											    </li>
+											    <li class="col-md-4">
+										            <label class="titname">手机号：</label>
+													<input type="text" id="receptPhone_input"/>
+											    </li>
+											    <li class="col-md-4">
 										            <a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
 													<a class="btn btn-default shiny" onclick="reset();">重置</a>
 										            <!-- <a id="editabledatatable_new" onclick="olvQuery();"
@@ -2352,6 +2364,8 @@
 										</ul>
                                			<form id="olv_form" action="">
 											<input type="hidden" id="pageSelect" name="pageSize" value="10"/>
+											<input type="hidden" id="outOrderNo_form" name="outOrderNo"/>
+											<input type="hidden" id="receptPhone_form" name="receptPhone"/>
 											<input type="hidden" id="refundApplyNo_form" name="refundApplyNo"/>
 											<input type="hidden" id="orderNo_form" name="orderNo"/>
 											<input type="hidden" id="memberNo_form" name="memberNo"/>
@@ -2366,6 +2380,8 @@
                                             <tr role="row" style='height:35px;'>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
                                                 <th width="5%" style="text-align: center;">订单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="3%" style="text-align: center;">申请单状态</th>
                                                 <th width="3%" style="text-align: center;">退货类型</th>
                                                 <th width="3%" style="text-align: center;">退货类别</th>
@@ -2419,6 +2435,14 @@
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>
+													</td>
+													<td align="center" id="outOrderNo_{$T.Result.sid}">
+														{#if $T.Result.outOrderNo != '[object Object]'}{$T.Result.outOrderNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptPhone_{$T.Result.sid}">
+														{#if $T.Result.receptPhone != '[object Object]'}{$T.Result.receptPhone}
+						                   				{#/if}
 													</td>
 													<td align="center" id="refundStatus_{$T.Result.sid}">
 														{#if $T.Result.refundStatus != '[object Object]'}{$T.Result.refundStatus}
@@ -2571,6 +2595,8 @@
                                             <tr role="row" style='height:35px;'>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
                                                 <th width="5%" style="text-align: center;">订单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="3%" style="text-align: center;">申请单状态</th>
                                                 <th width="3%" style="text-align: center;">退货类型</th>
                                                 <th width="3%" style="text-align: center;">退货类别</th>
@@ -2666,6 +2692,8 @@
                                             <tr role="row" style='height:35px;'>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
                                                 <th width="5%" style="text-align: center;">订单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="3%" style="text-align: center;">申请单状态</th>
                                                 <th width="3%" style="text-align: center;">退货类型</th>
                                                 <th width="3%" style="text-align: center;">退货类别</th>

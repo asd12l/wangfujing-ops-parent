@@ -1,182 +1,186 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.CommentsMapper" >
-  <resultMap id="CommentsResultMap" type="com.wangfj.wms.domain.entity.Comments" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="sales_sid" property="salesSid" jdbcType="INTEGER" />
-    <result column="user" property="user" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="comment_time" property="commentTime" jdbcType="TIMESTAMP" />
-    <result column="shop_sid" property="shopSid" jdbcType="VARCHAR" />
-    <result column="parent_user" property="parentUser" jdbcType="VARCHAR" />
-    <result column="parent_sid" property="parentSid" jdbcType="INTEGER" />
-    <result column="review" property="review" jdbcType="INTEGER" />
-    <result column="review_user" property="reviewUser" jdbcType="VARCHAR" />
-    <result column="review_time" property="reviewTime" jdbcType="TIMESTAMP" />
-    <result column="flag" property="flag" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sid, sales_sid, user, content, comment_time, shop_sid, parent_user, parent_sid, review, 
-    review_user, review_time, flag
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="CommentsResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from comments
-    where sid = #{sid,jdbcType=INTEGER}
-  </select>
-  <select id="getAllComments" resultMap="CommentsResultMap" >
-    select 
-    <include refid="Base_Column_List" />
-    from comments order by sales_sid , comment_time desc
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from comments
-    where sid = #{sid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.Comments" >
-    insert into comments (sid, sales_sid, user, 
-      content, comment_time, shop_sid, 
-      parent_user, parent_sid, review, 
-      review_user, review_time, flag
-      )
-    values (#{sid,jdbcType=INTEGER}, #{salesSid,jdbcType=INTEGER}, #{user,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{commentTime,jdbcType=TIMESTAMP}, #{shopSid,jdbcType=VARCHAR}, 
-      #{parentUser,jdbcType=VARCHAR}, #{parentSid,jdbcType=INTEGER}, #{review,jdbcType=INTEGER}, 
-      #{reviewUser,jdbcType=VARCHAR}, #{reviewTime,jdbcType=TIMESTAMP}, #{flag,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.Comments" >
-    insert into comments
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        sid,
-      </if>
-      <if test="salesSid != null" >
-        sales_sid,
-      </if>
-      <if test="user != null" >
-        user,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-      <if test="commentTime != null" >
-        comment_time,
-      </if>
-      <if test="shopSid != null" >
-        shop_sid,
-      </if>
-      <if test="parentUser != null" >
-        parent_user,
-      </if>
-      <if test="parentSid != null" >
-        parent_sid,
-      </if>
-      <if test="review != null" >
-        review,
-      </if>
-      <if test="reviewUser != null" >
-        review_user,
-      </if>
-      <if test="reviewTime != null" >
-        review_time,
-      </if>
-      <if test="flag != null" >
-        flag,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="salesSid != null" >
-        #{salesSid,jdbcType=INTEGER},
-      </if>
-      <if test="user != null" >
-        #{user,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="commentTime != null" >
-        #{commentTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="shopSid != null" >
-        #{shopSid,jdbcType=VARCHAR},
-      </if>
-      <if test="parentUser != null" >
-        #{parentUser,jdbcType=VARCHAR},
-      </if>
-      <if test="parentSid != null" >
-        #{parentSid,jdbcType=INTEGER},
-      </if>
-      <if test="review != null" >
-        #{review,jdbcType=INTEGER},
-      </if>
-      <if test="reviewUser != null" >
-        #{reviewUser,jdbcType=VARCHAR},
-      </if>
-      <if test="reviewTime != null" >
-        #{reviewTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="flag != null" >
-        #{flag,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.Comments" >
-    update comments
-    <set >
-      <if test="salesSid != null" >
-        sales_sid = #{salesSid,jdbcType=INTEGER},
-      </if>
-      <if test="user != null" >
-        user = #{user,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="commentTime != null" >
-        comment_time = #{commentTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="shopSid != null" >
-        shop_sid = #{shopSid,jdbcType=VARCHAR},
-      </if>
-      <if test="parentUser != null" >
-        parent_user = #{parentUser,jdbcType=VARCHAR},
-      </if>
-      <if test="parentSid != null" >
-        parent_sid = #{parentSid,jdbcType=INTEGER},
-      </if>
-      <if test="review != null" >
-        review = #{review,jdbcType=INTEGER},
-      </if>
-      <if test="reviewUser != null" >
-        review_user = #{reviewUser,jdbcType=VARCHAR},
-      </if>
-      <if test="reviewTime != null" >
-        review_time = #{reviewTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="flag != null" >
-        flag = #{flag,jdbcType=INTEGER},
-      </if>
-    </set>
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.Comments" >
-    update comments
-    set sales_sid = #{salesSid,jdbcType=INTEGER},
-      user = #{user,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
-      comment_time = #{commentTime,jdbcType=TIMESTAMP},
-      shop_sid = #{shopSid,jdbcType=VARCHAR},
-      parent_user = #{parentUser,jdbcType=VARCHAR},
-      parent_sid = #{parentSid,jdbcType=INTEGER},
-      review = #{review,jdbcType=INTEGER},
-      review_user = #{reviewUser,jdbcType=VARCHAR},
-      review_time = #{reviewTime,jdbcType=TIMESTAMP},
-      flag = #{flag,jdbcType=INTEGER}
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.wangfj.wms.persistence.CommentsMapper">
+	<resultMap id="CommentsResultMap" type="com.wangfj.wms.domain.entity.Comments">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="sales_sid" property="salesSid" jdbcType="INTEGER" />
+		<result column="user" property="user" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="comment_time" property="commentTime" jdbcType="TIMESTAMP" />
+		<result column="shop_sid" property="shopSid" jdbcType="VARCHAR" />
+		<result column="parent_user" property="parentUser" jdbcType="VARCHAR" />
+		<result column="parent_sid" property="parentSid" jdbcType="INTEGER" />
+		<result column="review" property="review" jdbcType="INTEGER" />
+		<result column="review_user" property="reviewUser" jdbcType="VARCHAR" />
+		<result column="review_time" property="reviewTime" jdbcType="TIMESTAMP" />
+		<result column="flag" property="flag" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, sales_sid, user, content, comment_time, shop_sid, parent_user,
+		parent_sid, review,
+		review_user, review_time, flag
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="CommentsResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from comments
+		where sid = #{sid,jdbcType=INTEGER}
+	</select>
+	<select id="getAllComments" resultMap="CommentsResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from comments order by sales_sid , comment_time desc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from comments
+		where sid = #{sid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.Comments">
+		insert into comments (sid, sales_sid, user,
+		content, comment_time, shop_sid,
+		parent_user, parent_sid, review,
+		review_user, review_time, flag
+		)
+		values (#{sid,jdbcType=INTEGER}, #{salesSid,jdbcType=INTEGER},
+		#{user,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR}, #{commentTime,jdbcType=TIMESTAMP}, #{shopSid,jdbcType=VARCHAR},
+		#{parentUser,jdbcType=VARCHAR}, #{parentSid,jdbcType=INTEGER},
+		#{review,jdbcType=INTEGER},
+		#{reviewUser,jdbcType=VARCHAR}, #{reviewTime,jdbcType=TIMESTAMP}, #{flag,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.Comments">
+		insert into comments
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="salesSid != null">
+				sales_sid,
+			</if>
+			<if test="user != null">
+				user,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="commentTime != null">
+				comment_time,
+			</if>
+			<if test="shopSid != null">
+				shop_sid,
+			</if>
+			<if test="parentUser != null">
+				parent_user,
+			</if>
+			<if test="parentSid != null">
+				parent_sid,
+			</if>
+			<if test="review != null">
+				review,
+			</if>
+			<if test="reviewUser != null">
+				review_user,
+			</if>
+			<if test="reviewTime != null">
+				review_time,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=INTEGER},
+			</if>
+			<if test="salesSid != null">
+				#{salesSid,jdbcType=INTEGER},
+			</if>
+			<if test="user != null">
+				#{user,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="commentTime != null">
+				#{commentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="shopSid != null">
+				#{shopSid,jdbcType=VARCHAR},
+			</if>
+			<if test="parentUser != null">
+				#{parentUser,jdbcType=VARCHAR},
+			</if>
+			<if test="parentSid != null">
+				#{parentSid,jdbcType=INTEGER},
+			</if>
+			<if test="review != null">
+				#{review,jdbcType=INTEGER},
+			</if>
+			<if test="reviewUser != null">
+				#{reviewUser,jdbcType=VARCHAR},
+			</if>
+			<if test="reviewTime != null">
+				#{reviewTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.Comments">
+		update comments
+		<set>
+			<if test="salesSid != null">
+				sales_sid = #{salesSid,jdbcType=INTEGER},
+			</if>
+			<if test="user != null">
+				user = #{user,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="commentTime != null">
+				comment_time = #{commentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="shopSid != null">
+				shop_sid = #{shopSid,jdbcType=VARCHAR},
+			</if>
+			<if test="parentUser != null">
+				parent_user = #{parentUser,jdbcType=VARCHAR},
+			</if>
+			<if test="parentSid != null">
+				parent_sid = #{parentSid,jdbcType=INTEGER},
+			</if>
+			<if test="review != null">
+				review = #{review,jdbcType=INTEGER},
+			</if>
+			<if test="reviewUser != null">
+				review_user = #{reviewUser,jdbcType=VARCHAR},
+			</if>
+			<if test="reviewTime != null">
+				review_time = #{reviewTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="flag != null">
+				flag = #{flag,jdbcType=INTEGER},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.Comments">
+		update comments
+		set sales_sid = #{salesSid,jdbcType=INTEGER},
+		user = #{user,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		comment_time = #{commentTime,jdbcType=TIMESTAMP},
+		shop_sid = #{shopSid,jdbcType=VARCHAR},
+		parent_user = #{parentUser,jdbcType=VARCHAR},
+		parent_sid = #{parentSid,jdbcType=INTEGER},
+		review = #{review,jdbcType=INTEGER},
+		review_user = #{reviewUser,jdbcType=VARCHAR},
+		review_time = #{reviewTime,jdbcType=TIMESTAMP},
+		flag = #{flag,jdbcType=INTEGER}
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
 </mapper>

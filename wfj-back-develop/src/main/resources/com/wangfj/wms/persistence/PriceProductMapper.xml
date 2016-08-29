@@ -1,128 +1,135 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangfj.wms.persistence.PriceProductMapper" >
-  <resultMap id="PriceProductResultMap" type="com.wangfj.wms.domain.entity.PriceProduct" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="page_layout_sid" property="pageLayoutSid" jdbcType="INTEGER" />
-    <result column="product_list_sid" property="productListSid" jdbcType="INTEGER" />
-    <result column="promotion_price" property="promotionPrice" jdbcType="DECIMAL" />
-    <result column="flag" property="flag" jdbcType="INTEGER" />
-    <result column="optor" property="optor" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    sid, page_layout_sid, product_list_sid, promotion_price,flag,optor
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="PriceProductResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from price_product
-    where sid = #{sid,jdbcType=INTEGER}
-  </select>
-  
-   <select id="queryByPageLayoutSid" resultMap="PriceProductResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from price_product
-    where 
-    page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER}
-  </select>
-  
-   <select id="queryByPageLayoutSidFlg" resultMap="PriceProductResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from price_product
-    where
-    page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER}
-  </select>
-  
-  
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from price_product
-    where sid = #{sid,jdbcType=INTEGER}
-  </delete>
-  
-  <delete id="deleteBySelect" parameterType="com.wangfj.wms.domain.entity.PriceProduct" >
-    delete from price_product
-    where page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER}
-    and product_list_sid = #{productListSid,jdbcType=INTEGER}
-  </delete>
-  
-  <insert id="insert" parameterType="com.wangfj.wms.domain.entity.PriceProduct" >
-    insert into price_product (sid, page_layout_sid, product_list_sid, 
-      promotion_price,flag,optor)
-    values (#{sid,jdbcType=INTEGER}, #{pageLayoutSid,jdbcType=INTEGER}, #{productListSid,jdbcType=INTEGER}, 
-      #{promotionPrice,jdbcType=DECIMAL},#{flag,jdbcType=INTEGER},#{optor,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.PriceProduct" >
-    insert into price_product
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        sid,
-      </if>
-      <if test="pageLayoutSid != null" >
-        page_layout_sid,
-      </if>
-      <if test="productListSid != null" >
-        product_list_sid,
-      </if>
-      <if test="promotionPrice != null" >
-        promotion_price,
-      </if>
-      <if test="flag != null" >
-        flag,
-      </if>
-      <if test="optor != null" >
-        optor,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="pageLayoutSid != null" >
-        #{pageLayoutSid,jdbcType=INTEGER},
-      </if>
-      <if test="productListSid != null" >
-        #{productListSid,jdbcType=INTEGER},
-      </if>
-      <if test="promotionPrice != null" >
-        #{promotionPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="flag != null" >
-        #{flag,jdbcType=INTEGER},
-      </if>
-      <if test="optor != null" >
-        #{optor,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.PriceProduct" >
-    update price_product
-    <set >
-      <if test="pageLayoutSid != null" >
-        page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER},
-      </if>
-      <if test="productListSid != null" >
-        product_list_sid = #{productListSid,jdbcType=INTEGER},
-      </if>
-      <if test="promotionPrice != null" >
-        promotion_price = #{promotionPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="flag != null" >
-        flag = #{flag,jdbcType=INTEGER},
-      </if>
-      <if test="optor != null" >
-        optor = #{optor,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.PriceProduct" >
-    update price_product
-    set page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER},
-      product_list_sid = #{productListSid,jdbcType=INTEGER},
-      promotion_price = #{promotionPrice,jdbcType=DECIMAL}
-      optor = #{optor,jdbcType=VARCHAR}
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.wangfj.wms.persistence.PriceProductMapper">
+	<resultMap id="PriceProductResultMap" type="com.wangfj.wms.domain.entity.PriceProduct">
+		<id column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="page_layout_sid" property="pageLayoutSid"
+			jdbcType="INTEGER" />
+		<result column="product_list_sid" property="productListSid"
+			jdbcType="INTEGER" />
+		<result column="promotion_price" property="promotionPrice"
+			jdbcType="DECIMAL" />
+		<result column="flag" property="flag" jdbcType="INTEGER" />
+		<result column="optor" property="optor" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		sid, page_layout_sid, product_list_sid, promotion_price,flag,optor
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="PriceProductResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from price_product
+		where sid = #{sid,jdbcType=INTEGER}
+	</select>
+
+	<select id="queryByPageLayoutSid" resultMap="PriceProductResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from price_product
+		where
+		page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER}
+	</select>
+
+	<select id="queryByPageLayoutSidFlg" resultMap="PriceProductResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from price_product
+		where
+		page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER}
+	</select>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from price_product
+		where sid = #{sid,jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteBySelect" parameterType="com.wangfj.wms.domain.entity.PriceProduct">
+		delete from price_product
+		where page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER}
+		and product_list_sid = #{productListSid,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.PriceProduct">
+		insert into price_product (sid, page_layout_sid, product_list_sid,
+		promotion_price,flag,optor)
+		values (#{sid,jdbcType=INTEGER}, #{pageLayoutSid,jdbcType=INTEGER},
+		#{productListSid,jdbcType=INTEGER},
+		#{promotionPrice,jdbcType=DECIMAL},#{flag,jdbcType=INTEGER},#{optor,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangfj.wms.domain.entity.PriceProduct">
+		insert into price_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="pageLayoutSid != null">
+				page_layout_sid,
+			</if>
+			<if test="productListSid != null">
+				product_list_sid,
+			</if>
+			<if test="promotionPrice != null">
+				promotion_price,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="optor != null">
+				optor,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sid != null">
+				#{sid,jdbcType=INTEGER},
+			</if>
+			<if test="pageLayoutSid != null">
+				#{pageLayoutSid,jdbcType=INTEGER},
+			</if>
+			<if test="productListSid != null">
+				#{productListSid,jdbcType=INTEGER},
+			</if>
+			<if test="promotionPrice != null">
+				#{promotionPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=INTEGER},
+			</if>
+			<if test="optor != null">
+				#{optor,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangfj.wms.domain.entity.PriceProduct">
+		update price_product
+		<set>
+			<if test="pageLayoutSid != null">
+				page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER},
+			</if>
+			<if test="productListSid != null">
+				product_list_sid = #{productListSid,jdbcType=INTEGER},
+			</if>
+			<if test="promotionPrice != null">
+				promotion_price = #{promotionPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="flag != null">
+				flag = #{flag,jdbcType=INTEGER},
+			</if>
+			<if test="optor != null">
+				optor = #{optor,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangfj.wms.domain.entity.PriceProduct">
+		update price_product
+		set page_layout_sid = #{pageLayoutSid,jdbcType=INTEGER},
+		product_list_sid = #{productListSid,jdbcType=INTEGER},
+		promotion_price = #{promotionPrice,jdbcType=DECIMAL}
+		optor = #{optor,jdbcType=VARCHAR}
+		where sid = #{sid,jdbcType=INTEGER}
+	</update>
 </mapper>

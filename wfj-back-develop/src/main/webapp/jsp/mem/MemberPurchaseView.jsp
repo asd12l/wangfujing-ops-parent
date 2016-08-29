@@ -30,10 +30,25 @@
 	});
 	
 	function productQuery(){
-		$("#username_from").val($("#username_input").val().trim());
-		$("#mobile_from").val($("#mobile_input").val().trim());
-		$("#email_from").val($("#email_input").val().trim());
-        var params = $("#product_form").serialize();
+		debugger;
+		$("#username_form").val($("#username_input").val().trim());
+		$("#mobile_form").val($("#mobile_input").val().trim());
+		$("#email_form").val($("#email_input").val().trim());
+		$("#orderNo_form").val($("#orderNo_input").val().trim());
+		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
+		$("#orderStatus_form").val($("#orderStatus_input").val().trim());
+		$("#orderFrom_form").val($("#orderFrom_input").val().trim());
+		$("#saleNo_form").val($("#saleNo_input").val().trim());
+		var buytime =  $("#reservation").val();
+		if (buytime!=""){
+			buytime = buytime.split("-");
+			$("#m_buytimeStartDate_form").val(buytime[0].replace("/","-").replace("/","-"));
+			$("#m_buytimeEndDate_form").val(buytime[1].replace("/","-").replace("/","-"));
+		}else{
+			$("#m_buytimeStartDate_form").val("");
+			$("#m_buytimeEndDate_form").val("");
+		}
+      	var params = $("#product_form").serialize();
         params = decodeURI(params);
         olvPagination.onLoad(params);
    	}
@@ -48,11 +63,16 @@
 		$("#username_input").val("");
 		$("#mobile_input").val("");
 		$("#email_input").val("");
+		$("#orderNo_input").val("");
+		$("#outOrderNo_input").val("");
+		$("#saleNo_input").val("");
+		$("#reservation").val("");
 		productQuery();
 	}
 	//初始化包装单位列表
+
  	function initOlv() {
-		var url = __ctxPath+"/memBasic/getMemBasicInfo";
+		var url = __ctxPath+"/memBasic/getMemPurchase";
 		olvPagination = $("#olvPagination").myPagination({
            panel: {
              tipInfo_on: true,
@@ -83,6 +103,28 @@
 				},
              callback: function(data) {
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
+           		//订单来源
+           		var orderFromSpace = $(".orderFromSpace");
+           		var result = data.from;
+           		result.unshift({channelCode:"",channelName:"===请选择==="});
+           		orderFromSpace.html("");
+           		for ( var i = 0; i < result.length; i++) {
+					var ele = result[i];
+					var option = $("<option value='" + ele.channelCode + "'>"
+							+ ele.channelName + "</option>");
+					option.appendTo(orderFromSpace);
+				}
+           		//订单状态
+           		var orderStatusSpace = $(".orderStatusSpace");
+           		var status = data.status;
+           		status.unshift({codeValue:"",codeName:"===请选择==="});
+           		orderStatusSpace.html("");
+           		for ( var i = 0; i < status.length; i++) {
+					var ele = status[i];
+					var option = $("<option value='" + ele.codeValue + "'>"
+							+ ele.codeName + "</option>");
+					option.appendTo(orderStatusSpace);
+				}
              }
            }
          });
@@ -93,6 +135,9 @@
 			return data;
 			}
     } 
+	/* function orderResourceList(data){
+		var resourceList = data.get
+	} */
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 		$("#pageBody").load(__ctxPath+"/jsp/mem/MemberPurchaseView.jsp");
@@ -147,7 +192,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
-                                <div class="widget-header ">会员信息</h5>
+                                <div class="widget-header ">购买记录</h5>
                                    <div class="widget-buttons">
 										<a href="#" data-toggle="maximize"></a> <a href="#"
 											data-toggle="collapse" onclick="tab('pro');"> <i
@@ -158,12 +203,24 @@
                                 <div class="widget-body" id="pro">
                                     <div class="table-toolbar">
 										<ul class="topList clearfix">
+											<li class="col-md-4"><label class="titname">购买时间：</label>
+												<input type="text" id="reservation" /></li>
 											<li class="col-md-4"><label class="titname">账号：</label>
 												<input type="text" id="username_input" /></li>
 											<li class="col-md-4"><label class="titname">手机号：</label>
 												<input type="text" id="mobile_input" /></li>
 											<li class="col-md-4"><label class="titname">邮箱：</label>
 												<input type="text" id="email_input" /></li>
+											<li class="col-md-4"><label class="titname">订单号：</label>
+												<input type="text" id="orderNo_input" /></li>
+											<li class="col-md-4"><label class="titname">外部单号：</label>
+												<input type="text" id="outOrderNo_input" /></li>
+											<li class="col-md-4"><label class="titname">订单状态：</label>
+												<select class="form-control orderStatusSpace" id="orderStatus_input" data-bv-field="country" style="width:60%;"></select></li>
+											<li class="col-md-4"><label class="titname">销售单号：</label>
+												<input type="text" id="saleNo_input" /></li>
+											<li class="col-md-4 " ><label class="titname">订单来源：</label>
+												<select class="form-control orderFromSpace" id="orderFrom_input" data-bv-field="country" style="width:60%;"></select></li>
 											<li class="col-md-6">
 												<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
 												<a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
@@ -176,14 +233,20 @@
 										<thead>
                                             <tr role="row" style='height:35px;'>
 												<th style="text-align: center;" width="2%">选择</th>
-												<th style="text-align: center;" width="12%">账户</th>
-												<th style="text-align: center;" width="12%">昵称</th>
-												<th style="text-align: center;" width="12%">真实姓名</th>
-												<th style="text-align: center;" width="12%">手机</th>
-												<th style="text-align: center;" width="12%">邮箱</th>
-												<th style="text-align: center;" width="12">所属门店</th>
-												<th style="text-align: center;" width="12%">会员等级</th>
-												<th style="text-align: center;" width="12%">地址</th>
+												<th style="text-align: center;" width="8%">购买时间</th>
+												<th style="text-align: center;" width="8%">账户</th>
+												<th style="text-align: center;" width="8%">昵称</th>
+												<th style="text-align: center;" width="8%">真实姓名</th>
+												<th style="text-align: center;" width="8%">手机</th>
+												<th style="text-align: center;" width="8%">邮箱</th>
+												<th style="text-align: center;" width="8%">所属门店</th>
+												<th style="text-align: center;" width="8%">会员等级</th>
+												<th style="text-align: center;" width="8%">地址</th>
+												<th style="text-align: center;" width="8%">购买订单号</th>
+												<th style="text-align: center;" width="8%">销售单号</th>
+												<th style="text-align: center;" width="8%">订单总额</th>
+												<th style="text-align: center;" width="8%">支付方式</th>
+												<th style="text-align: center;" width="8%">订单状态</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -191,9 +254,16 @@
                                     </table>                          
                                   <div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
-											<input type="hidden" id="username_from" name="cid" />
-											<input type="hidden" id="mobile_from" name="mobile" /> 
-											<input type="hidden" id="email_from" name="email" />
+											<input type="hidden" id="username_form" name="username" />
+											<input type="hidden" id="mobile_form" name="mobile" /> 
+											<input type="hidden" id="email_form" name="email" />
+											<input type="hidden" id="orderNo_form" name="orderNo" />
+											<input type="hidden" id="orderStatus_form" name="orderStatus" />
+											<input type="hidden" id="outOrderNo_form" name="outOrderNo" />
+											<input type="hidden" id="orderFrom_form" name="orderFrom" />
+											<input type="hidden" id="saleNo_form" name="saleNo" />
+											<input type="hidden" id="m_buytimeStartDate_form" name="m_buytimeStartDate" />
+											<input type="hidden" id="m_buytimeEndDate_form" name="m_buytimeEndDate" />
 											<input type="hidden" id="cache" name="cache" value="1" />
 									</form>
 								</div>
@@ -214,34 +284,39 @@
 														</div>
 													</td>
 													<td align="center" id="cid_{$T.Result.cid}">
-														{#if $T.Result.cid == "" || $T.Result.cid == null}--
-														{#else}{$T.Result.cid}
+														{#if $T.Result.saleTimeStr == "" || $T.Result.saleTimeStr == null}--
+														{#else}{$T.Result.saleTimeStr}
+														{#/if}
+													</td>
+													<td align="center" id="cid_{$T.Result.cid}">
+														{#if $T.Result.accountNo == "" || $T.Result.accountNo == null}--
+														{#else}{$T.Result.accountNo}
 														{#/if}
 													</td>
 													<td align="center" id="nickname_{$T.Result.cid}">
-														{#if $T.Result.cmnickname == "" || $T.Result.cmnickname == null}--
-														{#else}{$T.Result.cmnickname}
+														{#if $T.Result.nick_name == "" || $T.Result.nick_name == null}--
+														{#else}{$T.Result.nick_name}
 														{#/if}
 													</td>
 													<td align="center" id="realname_{$T.Result.cid}">
-														{#if $T.Result.cmname == "" || $T.Result.cmname == null}--
-														{#else}{$T.Result.cmname}
+														{#if $T.Result.real_name == "" || $T.Result.real_name == null}--
+														{#else}{$T.Result.real_name}
 														{#/if}
 													</td>
 													<td align="center" id="mobile_{$T.Result.cid}">
-														{#if $T.Result.cmmobile1 == "" || $T.Result.cmmobile1 == null}--
-														{#else}{$T.Result.cmmobile1}
+														{#if $T.Result.mobile == "" || $T.Result.mobile == null}--
+														{#else}{$T.Result.mobile}
 														{#/if}
 													</td>
 													<td align="center" id="email_{$T.Result.cid}">
-														{#if $T.Result.cmemail == "" || $T.Result.cmemail == null}--
-														{#else}{$T.Result.cmemail}
+														{#if $T.Result.email == "" || $T.Result.email == null}--
+														{#else}{$T.Result.email}
 														{#/if}
 													</td>
 
-													<td align="center" id="belongStore_{$T.Result.cid}">
-														{#if $T.Result.cmmkt == "" || $T.Result.cmmkt == null}--
-														{#else}{$T.Result.cmmkt}
+													<td align="center" id="newOrderSource_{$T.Result.cid}">
+														{#if $T.Result.newOrderSource == "" || $T.Result.newOrderSource == null}--
+														{#else}{$T.Result.newOrderSource}
 														{#/if}
 													</td>
 													<td align="center" id="levelName_{$T.Result.cid}">
@@ -249,9 +324,34 @@
 														{#else}{$T.Result.levelName}
 														{#/if}
 													</td>
+													<td align="center" id="receptAddress_{$T.Result.cid}">
+														{#if $T.Result.receptAddress == "" || $T.Result.receptAddress == null}--
+														{#else}{$T.Result.receptAddress}
+														{#/if}
+													</td>
+													<td align="center" id="orderNo_{$T.Result.cid}">
+														{#if $T.Result.orderNo == "" || $T.Result.orderNo == null}--
+														{#else}{$T.Result.orderNo}
+														{#/if}
+													</td>
+													<td align="center" id="saleNo_{$T.Result.cid}">
+														{#if $T.Result.saleNo == "" || $T.Result.saleNo == null}--
+														{#else}{$T.Result.saleNo}
+														{#/if}
+													</td>
+													<td align="center" id="paymentAmount_{$T.Result.cid}">
+														{#if $T.Result.paymentAmount == "" || $T.Result.paymentAmount == null}--
+														{#else}{$T.Result.paymentAmount}
+														{#/if}
+													</td>
 													<td align="center" id="address_{$T.Result.cid}">
 														{#if $T.Result.address == "" || $T.Result.address == null}--
 														{#else}{$T.Result.address}
+														{#/if}
+													</td>
+													<td align="center" id="newOrderStatus_{$T.Result.cid}">
+														{#if $T.Result.newOrderStatus == "" || $T.Result.newOrderStatus == null}--
+														{#else}{$T.Result.newOrderStatus}
 														{#/if}
 													</td>
 									       		</tr>

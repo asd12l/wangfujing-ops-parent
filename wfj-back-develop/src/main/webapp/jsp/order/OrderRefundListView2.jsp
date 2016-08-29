@@ -107,6 +107,8 @@
 		$("#refundApplyNo_form").val($("#refundApplyNo_input").val().trim());
 		$("#refundNo_form").val($("#refundNo_input").val().trim());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
+		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
+		$("#receptPhone_form").val($("#receptPhone_input").val().trim());
 		$("#memberNo_form").val($("#memberNo_input").val().trim());
 		$("#refundStatus_form").val($("#refundStatus_select").val());
 		$("#refundClass_form").val($("#refundClass_select").val());
@@ -128,6 +130,8 @@
 		$("#refundApplyNo_input").val("");
 		$("#refundNo_input").val("");
 		$("#orderNo_input").val("");
+		$("#outOrderNo_input").val("");
+		$("#receptPhone_input").val("");
 		$("#memberNo_input").val("");
 		$("#refundStatus_select").val("");
 		$("#refundClass_select").val("");
@@ -987,7 +991,7 @@
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
-		 newTr.find("td:eq(10)").hide();
+		 newTr.find("td:eq(12)").hide();
 		 $("#mainTr3").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -2154,7 +2158,7 @@
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
-		 newTr.find("td:eq(10)").hide();
+		 newTr.find("td:eq(12)").hide();
 		$("#mainTr2").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
@@ -2898,7 +2902,7 @@
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
-		 newTr.find("td:eq(10)").hide();
+		 newTr.find("td:eq(12)").hide();
 		 $("#mainTr4").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		
@@ -3063,7 +3067,7 @@
 							option+="<td align='center'></td>";
 						}else{
 							var salePriceSum = ele.salePrice*ele.saleSum;
-							option+="<td align='center'>"+salePriceSum+"</td>";
+							option+="<td align='center'>"+parseFloat(salePriceSum).toFixed(2)+"</td>";
 						}
 						//促销优惠分摊金额
 						if(ele.totalDiscount=="[object Object]"||ele.totalDiscount==undefined){
@@ -4039,7 +4043,7 @@
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
 		 newTr.children().find("#"+refundNo+"_").replaceWith(refundNo);
 		 newTr.children().find("#"+saleNo+"_").replaceWith(saleNo);
-		 newTr.find("td:eq(10)").hide();
+		 newTr.find("td:eq(12)").hide();
 		$("#mainTr").html(newTr);
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 		var option = "<tr role='row' style='height:35px;'>"+
@@ -4471,6 +4475,14 @@
 										            <label class="titname">会员卡号：</label>
 													<input type="text" id="memberNo_input"/>
 											    </li>
+										        <li class="col-md-4">
+										            <label class="titname">外部订单号：</label>
+													<input type="text" id="outOrderNo_input"/>
+											    </li>
+										        <li class="col-md-4">
+										            <label class="titname">手机号：</label>
+													<input type="text" id="receptPhone_input"/>
+											    </li>
 										     <li class="col-md-4">
 										            <label class="titname">退货类别：</label>
 													<select id="refundClass_select" style="padding:0 0;">
@@ -4496,6 +4508,8 @@
 											<input type="hidden" id="refundApplyNo_form" name="refundApplyNo"/>
 											<input type="hidden" id="refundNo_form" name="refundNo"/>
 											<input type="hidden" id="orderNo_form" name="orderNo"/>
+											<input type="hidden" id="outOrderNo_form" name="outOrderNo"/>
+											<input type="hidden" id="receptPhone_form" name="receptPhone"/>
 											<input type="hidden" id="memberNo_form" name="memberNo"/>
 											<input type="hidden" id="refundClass_form" name="refundClass"/>
 											<input type="hidden" id="refundStatus_form" name="refundStatus"/>
@@ -4510,6 +4524,8 @@
                                                 <th width="5%" style="text-align: center;">退货单号</th>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
                                                 <th width="5%" style="text-align: center;">原销售单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">账号ID</th>
                                                 <th width="5%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>
@@ -4577,6 +4593,14 @@
 															{#if $T.Result.originalSalesNo != '[object Object]'}{$T.Result.originalSalesNo}
 							                   				{#/if}
 														</a>
+													</td>
+													<td align="center" id="outOrderNo_{$T.Result.sid}">
+														{#if $T.Result.outOrderNo != '[object Object]'}{$T.Result.outOrderNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptPhone_{$T.Result.sid}">
+														{#if $T.Result.receptPhone != '[object Object]'}{$T.Result.receptPhone}
+						                   				{#/if}
 													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
 														{#if $T.Result.accountNo != '[object Object]'}{$T.Result.accountNo}
@@ -4655,6 +4679,8 @@
                                                 <th width="5%" style="text-align: center;">退货单号</th>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
                                                 <th width="5%" style="text-align: center;">原销售单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">账号ID</th>
                                                 <th width="5%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>
@@ -4718,6 +4744,8 @@
                                                 <th width="5%" style="text-align: center;">退货单号</th>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
                                                 <th width="5%" style="text-align: center;">原销售单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">账号ID</th>
                                                 <th width="5%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>
@@ -4786,6 +4814,8 @@
                                                 <th width="5%" style="text-align: center;">退货单号</th>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
                                                 <th width="5%" style="text-align: center;">原销售单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">账号ID</th>
                                                 <th width="5%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>
@@ -4858,6 +4888,8 @@
                                                 <th width="5%" style="text-align: center;">退货单号</th>
                                                 <th width="5%" style="text-align: center;">退货申请单号</th>
                                                 <th width="5%" style="text-align: center;">原销售单号</th>
+                                                <th width="5%" style="text-align: center;">外部订单号</th>
+                                                <th width="5%" style="text-align: center;">手机号</th>
                                                 <th width="4%" style="text-align: center;">账号ID</th>
                                                 <th width="5%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>

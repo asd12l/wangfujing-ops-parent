@@ -178,6 +178,8 @@
 	    initOlv();
 	});
 	function olvQuery(){
+		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
+		$("#receptPhone_form").val($("#receptPhone_input").val().trim());
 		$("#refundApplyNo_form").val($("#refundApplyNo_input").val().trim());
 		$("#refundNo_form").val($("#refundNo_input").val().trim());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
@@ -203,6 +205,8 @@
         olvPagination.onLoad(params);
    	}
 	function reset(){
+		$("#outOrderNo_input").val("");
+		$("#receptPhone_input").val("");
 		$("#refundApplyNo_input").val("");
 		$("#refundNo_input").val("");
 		$("#orderNo_input").val("");
@@ -1875,7 +1879,7 @@
 							option+="<td align='center'></td>";
 						}else{
 							var salePriceSum = ele.salesPrice*ele.saleSum;
-							option+="<td align='center'>"+salePriceSum+"</td>";
+							option+="<td align='center'>"+parseFloat(salePriceSum).toFixed(2)+"</td>";
 						}
 						//促销优惠分摊金额
 						if(ele.totalDiscount=="[object Object]"||ele.totalDiscount==undefined){
@@ -3545,7 +3549,8 @@
 		var rebateStatus = $("#rebateStatus_select").val();
 		var refundType = $("#refundType_select").val();
 		var refundClass = $("#refundClass_select").val();
-		
+		var outOrderNo = $("#outOrderNo_input").val();
+		var receptPhone = $("#receptPhone_input").val();
 		var strTime = $("#reservation").val();
 		var endRefundTime;
 		var startRefundTime;
@@ -3566,7 +3571,7 @@
 					+ refundApplyNo + "&&orderNo=" + orderNo + "&&refundNo=" + refundNo + "&&originalSalesNo=" + originalSalesNo + "&&memberNo=" + memberNo
 					+ "&&salesPaymentNo=" + salesPaymentNo + "&&endRefundTime=" + endRefundTime + "&&startRefundTime=" + startRefundTime + "&&refundStatus="
 					+ refundStatus + "&&shopNo=" + shopNo + "&&rebateStatus=" + rebateStatus + "&&refundType=" + refundType + "&&refundClass=" + refundClass + "&&title="
-					+ title +"&&pageSize=" + 1000 +"&&page=" + 1);
+					+ title + "&&outOrderNo=" + outOrderNo + "&&receptPhone=" + receptPhone +"&&pageSize=" + 1000 +"&&page=" + 1);
 		} else {
 			$("#model-body-warning")
 					.html(
@@ -3720,6 +3725,14 @@
 										            <label class="titname">会员卡号：</label>
 													<input type="text" id="memberNo_input"/>
 											    </li>
+											     <li class="col-md-4">
+										            <label class="titname">外部订单号：</label>
+													<input type="text" id="outOrderNo_input"/>
+											    </li>
+											    <li class="col-md-4">
+										            <label class="titname">手机号：</label>
+													<input type="text" id="receptPhone_input"/>
+											    </li>
 											    <li class="col-md-4">
 										           	<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
 													<a class="btn btn-default shiny" onclick="reset();">重置</a>&nbsp;&nbsp;
@@ -3736,6 +3749,8 @@
                                     
                                			<form id="olv_form" action="">
 											<input type="hidden" id="pageSelect" name="pageSize" value="10"/>
+											<input type="hidden" id="outOrderNo_form" name="outOrderNo"/>
+											<input type="hidden" id="receptPhone_form" name="receptPhone"/>
 											<input type="hidden" id="refundApplyNo_form" name="refundApplyNo"/>
 											<input type="hidden" id="refundNo_form" name="refundNo"/>
 											<input type="hidden" id="orderNo_form" name="orderNo"/>
@@ -3758,6 +3773,8 @@
                                                 <th width="4%" style="text-align: center;">订单号</th>
                                                 <th width="4%" style="text-align: center;">退货申请单号</th>
                                                 <th width="4%" style="text-align: center;">原销售单号</th>
+                                                <th width="4%" style="text-align: center;">外部订单号</th>
+                                                <th width="4%" style="text-align: center;">手机号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>
                                                 <th width="3%" style="text-align: center;">退款状态</th>
                                                 <th width="4%" style="text-align: center;">会员卡号</th>
@@ -3820,6 +3837,14 @@
 														{#if $T.Result.originalSalesNo != '[object Object]'}{$T.Result.originalSalesNo}
 						                   				{#/if}
 													</td>
+													<td align="center" id="outOrderNo_{$T.Result.sid}">
+														{#if $T.Result.outOrderNo != '[object Object]'}{$T.Result.outOrderNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptPhone_{$T.Result.sid}">
+														{#if $T.Result.receptPhone != '[object Object]'}{$T.Result.receptPhone}
+						                   				{#/if}
+													</td>
 													<td align="center" id="refundStatusDesc_{$T.Result.sid}">
 														{#if $T.Result.refundStatusDesc != '[object Object]'}{$T.Result.refundStatusDesc}
 						                   				{#/if}
@@ -3828,7 +3853,7 @@
 														{#if $T.Result.rebateStatus == '0'}
 															<span>未退款</span>
 						                      			{#elseif $T.Result.rebateStatus == '1'}
-						                      				<span>已退款</span>
+						                      				<span>退款成功</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="memberNo_{$T.Result.sid}">
@@ -3837,6 +3862,7 @@
 													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
 														{#if $T.Result.accountNo != '[object Object]'}{$T.Result.accountNo}
+														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
@@ -3960,6 +3986,8 @@
                                                 <th width="4%" style="text-align: center;">订单号</th>
                                                 <th width="4%" style="text-align: center;">退货申请单号</th>
                                                 <th width="4%" style="text-align: center;">原销售单号</th>
+                                                <th width="4%" style="text-align: center;">外部订单号</th>
+                                                <th width="4%" style="text-align: center;">手机号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>
                                                 <th width="3%" style="text-align: center;">退款状态</th>
                                                 <th width="4%" style="text-align: center;">会员卡号</th>
@@ -4045,6 +4073,8 @@
                                                 <th width="4%" style="text-align: center;">订单号</th>
                                                 <th width="4%" style="text-align: center;">退货申请单号</th>
                                                 <th width="4%" style="text-align: center;">原销售单号</th>
+                                                <th width="4%" style="text-align: center;">外部订单号</th>
+                                                <th width="4%" style="text-align: center;">手机号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>
                                                 <th width="3%" style="text-align: center;">退款状态</th>
                                                 <th width="4%" style="text-align: center;">会员卡号</th>
@@ -4149,6 +4179,8 @@
                                                 <th width="4%" style="text-align: center;">订单号</th>
                                                 <th width="4%" style="text-align: center;">退货申请单号</th>
                                                 <th width="4%" style="text-align: center;">原销售单号</th>
+                                                <th width="4%" style="text-align: center;">外部订单号</th>
+                                                <th width="4%" style="text-align: center;">手机号</th>
                                                 <th width="3%" style="text-align: center;">退货单状态</th>
                                                 <th width="3%" style="text-align: center;">退款状态</th>
                                                 <th width="5%" style="text-align: center;">会员卡号</th>

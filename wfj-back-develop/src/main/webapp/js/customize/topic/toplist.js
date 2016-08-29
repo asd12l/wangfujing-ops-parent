@@ -492,6 +492,7 @@ function initTplList(path){
 	
 	//打开添加活动窗口
 	function addDir(){
+		//alert("6767")
 		var time2 = new Date().Format("yyyy-MM-dd hh:mm:ss");
 		$("#msg1").addClass("hide");
 		$("#startTime").val(time2);
@@ -501,6 +502,7 @@ function initTplList(path){
 		$("#add_site_sid").val(siteSid);
 		initTplList($("#add_tpl_path").val());
 	};
+	//添加专题活动保存
 	function addTopic(){
 		 if(topicValidform().form()){
 			$.ajax({

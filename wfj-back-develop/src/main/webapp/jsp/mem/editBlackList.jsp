@@ -30,6 +30,8 @@
     });
 
     function productQuery(){
+      $("#username_from").val($("#username_input").val().trim());
+      $("#blacklisttype_from").val($("#blacklisttype_input").val().trim());
       $("#pullId_from").val($("#pullId_input").val().trim());
       $("#backId_from").val($("#backId_input").val().trim());
       var strPullTime = $("#reservationPull").val();
@@ -66,6 +68,8 @@
       $("#reservationBack").val("");
       $("#pullId_input").val("");
       $("#backId_input").val("");
+      $("#username_input").val("");
+      $("#blacklisttype_input").val("");
       productQuery();
     }
     //初始化包装单位列表
@@ -385,6 +389,14 @@
                     <input type="text" id="pullId_input" /></li>
                   <li class="col-md-4"><label class="titname">解除客服ID：</label>
                     <input type="text" id="backId_input" /></li>
+                    <li class="col-md-4"><label class="titname">账号：</label>
+                    <input type="text" id="username_input" /></li>
+                    <li class="col-md-4"><label class="titname">拉黑类型：</label>
+                    <select type="text" id="blacklisttype_input" >
+                    <option value="">请选择</option>
+                    <option value="0">恶意下单</option>
+                    <option value="1">恶意评论</option>
+                    </select></li>
                   <li class="col-md-6">
                     <a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
                     <a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
@@ -418,6 +430,8 @@
                     <input type="hidden" id="m_timePullEndDate_form" name="m_timePullEndDate"/>
                     <input type="hidden" id="m_timeBackStartDate_form" name="m_timeBackStartDate"/>
                     <input type="hidden" id="m_timeBackEndDate_form" name="m_timeBackEndDate"/>
+                    <input type="hidden" id="username_from" name="cid" />
+                    <input type="hidden" id="blacklisttype_from" name="listtype" />
                     <input type="hidden" id="pullId_from" name="pullId" />
                     <input type="hidden" id="backId_from" name="backId" />
                     <input type="hidden" id="cache" name="cache" value="1" />
