@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
 import com.wangfj.search.utils.CookieUtil;
+import com.wfj.member.utils.Constants;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -140,7 +143,7 @@ public class BalanceApplyController {
 
         } catch (Exception e) {
             JSONObject json = new JSONObject();
-            json.put("code", "0");
+            json.put("code", Constants.RESULT_FAIL);
             json.put("desc","添加出错");
             reqJsonString = json.toString();
             return reqJsonString;

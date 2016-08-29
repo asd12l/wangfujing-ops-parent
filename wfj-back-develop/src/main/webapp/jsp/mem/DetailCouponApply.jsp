@@ -12,7 +12,7 @@
     <!--Bootstrap Date Range Picker-->
     <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/js/member/coupon/NewCouponApply.js"></script>
+    <script src="${pageContext.request.contextPath}/js/member/coupon/DetailCouponApplhy.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -24,34 +24,36 @@
 					<div class="col-lg-12 col-sm-12 col-xs-12">
 						<div class="widget radius-bordered">
 							<div class="widget-header">
-								<span class="widget-caption">新建优惠券申请</span>		<!-- readonly="readonly" -->
+								<span class="widget-caption">查看优惠券申请</span>
 							</div>
 							<div class="widget-body">
 								<div class="tabbable">
 									<!-- BaseMessage start -->
 									<div class="tab-content">
 										<div id="base" class="tab-pane in active">
-											<form id="saveForm" method="post" class="form-horizontal" name="couponApplyForm">
+											<form id="baseForm" method="post" class="form-horizontal">
 												<div class="col-md-12">
+													<input type="text" id="editSid" name="editSid" value="" style="display: none;"/>
 														<div class="col-md-11" style="padding: 2px 100px;">
 	                               							<label class="col-md-3 control-label" style="line-height: 20px; text-align: right;">客户登录账号：</label>
 							                                <div class="col-md-6">
 							                                    <input type="text" class="form-control" name="login_name" id="login_name" />
+							                                    <span id="login_msg" style="color:red;display:none;" class="add_msg">不能为空!</span>
 							                                </div>	
                             							</div>
 								                        <div class="col-md-11"  style="padding: 2px 100px;">
 							                                <label class="col-md-3 control-label"  style="line-height: 20px; text-align: right;">申请类型：</label>
 							                                <div class="radio">
 							                                	<label>
-								                                    <input class="basic divtype cart_flag" type="radio" id="apply_type" name="apply_type" value="1" checked="checked"> 
+								                                    <input class="basic divtype cart_flag" type="radio" id="apply_type_1" name="apply_type" value="1"> 
 								                                    <span class="text">客服：服务投诉补偿</span>
 							                                	</label>
 							                                	<label>
-								                                	<input class="basic divtype cart_flag" type="radio" id="apply_type" name="apply_type" value="2">
+								                                	<input class="basic divtype cart_flag" type="radio" id="apply_type_2" name="apply_type" value="2">
 								                                    <span class="text">客服：外呼关怀回访</span>
 							                                	</label>
 																<label>
-												                 	<input class="basic divtype cat_flag" type="radio" id="apply_type" name="apply_type" value="3">
+												                 	<input class="basic divtype cat_flag" type="radio" id="apply_type_3" name="apply_type" value="3">
 								                                    <span class="text">客服：系统原因补券</span>
 																</label>
 							                            	</div>
@@ -70,9 +72,9 @@
 														<div class="col-md-6">
 															<label class="col-md-3 control-label">优惠券模板：</label>
 															<div class="col-md-9 js-data-example-ajax">
-<!-- 																<select id="coupon_template" name="coupon_template" style="width: 100%">
+															<!-- 	<select id="coupon_template" name="coupon_template" style="width: 100%">
 																</select> -->
-																<input type="text" class="form-control" name="coupon_template" id="coupon_template" />
+																<input type="text" class="form-control" id="coupon_template" name="coupon_template" />
 															</div>
 															&nbsp;
 														</div>
@@ -80,7 +82,7 @@
 													<div class="col-md-6" id="productNumDiv">
 														<label class="col-md-3 control-label">优惠券类型：</label>
 														<div class="col-md-9">
-															<input type="text" class="form-control"  id="coupon_type" name="coupon_type" />
+															<input type="text" class="form-control" readonly="readonly" id="coupon_type" name="coupon_type" />
 														</div>
 													</div>
 													
@@ -89,14 +91,14 @@
 														<div class="col-md-9 js-data-example-ajax">
 															<!-- <select id="coupon_batch" name="coupon_batch" style="width: 100%">
 															</select> -->
-															<input type="text" class="form-control" name="coupon_batch" id="coupon_batch" />
+															<input type="text" class="form-control" id="coupon_batch" name="coupon_batch" />
 														</div>
 														&nbsp;
 													</div>
 													<div class="col-md-6" id="mainAttributeDiv">
 														<label class="col-md-3 control-label">优惠券名称：</label>
 														<div class="col-md-9">
-															<input type="text" class="form-control" id="coupon_name" name="coupon_name" />
+															<input type="text" class="form-control" readonly="readonly" id="coupon_name" name="coupon_name" />
 														</div>
 														&nbsp;
 													</div>
@@ -105,14 +107,13 @@
 													<div class="col-md-12">										
 														<label class="col-md-2 control-label">优惠券描述：</label>
 														<div class="col-md-10">
-															<textarea class="form-control" rows="3" id="coupon_memo" name="coupon_memo"></textarea>
-															
+															<textarea class="form-control" rows="3" readonly="readonly" id="coupon_memo" name="coupon_memo"></textarea>
 														</div>
 													</div>	
 													<div class="col-md-6">
 														<label class="col-md-3 control-label">优惠券金额：</label>
 														<div class="col-md-3">
-															<input type="text" class="form-control" id="couponMonay" name="couponMonay"  onkeydown="if(event.keyCode==13)event.keyCode=9" />
+															<input type="text" class="form-control" id="" name="" oninput="value.replace(/[\u4E00-\u9FA5]/g,'');" onkeydown="if(event.keyCode==13)event.keyCode=9" />
 														</div>
 													</div>
 													<div class="col-md-12">	
@@ -125,8 +126,8 @@
 												<div  style="height: 447px;overflow-x: auto;"></div>
 												<div class="form-group">
 													<div class="col-lg-offset-4 col-lg-6">
-														<input class="btn btn-success" style="width: 25%;" id="saveNewCoupon" type="button" value="保存" />&emsp;&emsp; 
-														<input class="btn btn-danger" style="width: 25%;" id="closeNewCoupon" type="button" value="取消" />
+														<input class="btn btn-success" style="width: 25%;" id="saveDeatilCoupon" type="button" value="保存" />&emsp;&emsp; 
+														<input class="btn btn-danger" style="width: 25%;" id="closeDetailCoupon" type="button" value="取消" />
 													</div>
 												</div>
 											</form>
