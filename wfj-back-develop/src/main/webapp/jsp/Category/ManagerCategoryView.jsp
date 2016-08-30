@@ -125,13 +125,15 @@ Author: WangSy
 	function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
 		if(isAutoOpen){
 			index_1--;
-			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-			var node = treeObj.getNodeByParam("id", list_1[index_1].sid);
-			if(index_1 == 0){
-				treeObj.selectNode(node);
-				isAutoOpen = false;
-			} else {
-				treeObj.expandNode(node, true, true, true);
+			if(index_1>=0){
+				var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+				var node = treeObj.getNodeByParam("id", list_1[index_1].sid);
+				if(index_1 == 0){
+					treeObj.selectNode(node);
+					isAutoOpen = false;
+				} else {
+					treeObj.expandNode(node, true, true, true);
+				}
 			}
 		}
 		/* if(treeNode.id == "managerCate"){
@@ -2200,7 +2202,7 @@ Author: WangSy
 			dataType : "json",
 			data : {
 				"categoryType" : "1",
-				"categoryCode" : $("#categoryCode").val(),
+				"categoryCode" : $("#categoryCode").val() || "0",
 				"shopCode" : $("#shopCode").val()
 			},
 			ajaxStart : function() {
