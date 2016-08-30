@@ -137,8 +137,9 @@
 		var url = __ctxPath + "/jsp/organization/editOrganizationThreeInfomationNode.jsp";
 		$("#pageBody").load(url);
 	}
-	function getShopDetail(organizationCode, groupSid){
-		
+	function getShopDetail(parentSid, groupSid, organizationCode){
+
+        parentSid_ = parentSid;
 		groupSid_ = groupSid;
 		organizationCode_= organizationCode;
 		
@@ -308,12 +309,17 @@
 													</td>
 													<td align="center" id="organizationName_{$T.Result.sid}">
 													{#if $T.Result.organizationName != '[object Object]'}
-														<a onclick="getShopDetail('{$T.Result.organizationCode}','{$T.Result.groupSid}')"  style="cursor:pointer;">{$T.Result.organizationName}</a>
-													{#/if}</td>
+														<a onclick="getShopDetail('{$T.Result.parentSid}','{$T.Result.groupSid}','{$T.Result.organizationCode}')" style="cursor:pointer;">
+														    {$T.Result.organizationName}
+														</a>
+													{#/if}
+													</td>
 													
 													<td align="center" id="organizationCode_{$T.Result.sid}">
 													{#if $T.Result.organizationCode != '[object Object]'}
-														<a onclick="getShopDetail('{$T.Result.organizationCode}','{$T.Result.groupSid}')"  style="cursor:pointer;">{$T.Result.organizationCode}</a>
+														<a onclick="getShopDetail('{$T.Result.parentSid}','{$T.Result.groupSid}','{$T.Result.organizationCode}')" style="cursor:pointer;">
+														    {$T.Result.organizationCode}
+													    </a>
 													{#/if}
 													</td>
 													

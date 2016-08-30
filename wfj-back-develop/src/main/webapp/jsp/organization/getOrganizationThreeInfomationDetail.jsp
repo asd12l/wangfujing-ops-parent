@@ -12,7 +12,6 @@
 __ctxPath = "${pageContext.request.contextPath}";
 var url = __ctxPath + "/category/getAllCategory";
 	$(function(){
-		$("#sid").val(sid_); 
 		$("#parentSid").val(parentSid_);
 		$("#groupSid").val(groupSid_);
 		$("#organizationCode").val(organizationCode_);
