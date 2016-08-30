@@ -150,16 +150,11 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '门店编码第一位不能为0且不超过18位的数字组成'
 					}
 				}
-			}/* ,
-			
+			},
 			registeredAddress:{
 				validators : {
 					notEmpty : {
 						message : '注册地址不能为空'
-					},
-					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
 					}
 				}
 			},
@@ -169,8 +164,8 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '邮编不能为空'
 					},
 					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
+						regexp : /^[1-9]\d{5}$/,
+						message : '邮政编码是1-9开头的6位数字'
 					}
 				}
 			},
@@ -180,8 +175,8 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '法定代表人不能为空'
 					},
 					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
+						regexp : /^[A-Za-z\.\s\u4E00-\u9FA5]{1,20}$/,
+						message : '法定代理人必须是中文或英文或点或空格且不超过20位'
 					}
 				}
 			},
@@ -192,7 +187,7 @@ var url = __ctxPath + "/category/getAllCategory";
 					},
 					regexp : {
 						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
+						message : '委托代理人必须是中文或英文或点或空格且不超过20位'
 					}
 				}
 			},
@@ -202,8 +197,8 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '税务登记号不能为空'
 					},
 					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
+						regexp : /^[A-Za-z0-9]{1,20}$/,
+						message : '税务登记号必须是数字或英文且不超过20位'
 					}
 				}
 			},
@@ -211,10 +206,6 @@ var url = __ctxPath + "/category/getAllCategory";
 				validators : {
 					notEmpty : {
 						message : '开户行不能为空'
-					},
-					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
 					}
 				}
 			},
@@ -224,8 +215,8 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '开户行账号不能为空'
 					},
 					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
+						regexp : /^[A-Za-z0-9]{1,30}$/,
+						message : '开户行账号必须是数字或英文且不超过30位'
 					}
 				}
 			},
@@ -235,8 +226,8 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '电话不能为空'
 					},
 					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
+						regexp : /^\d{3}-\d{8}|\d{4}-\d{7}$/,
+						message : '电话号码格式不正确'
 					}
 				}
 			},
@@ -244,13 +235,9 @@ var url = __ctxPath + "/category/getAllCategory";
 				validators : {
 					notEmpty : {
 						message : '传真不能为空'
-					},
-					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
 					}
 				}
-			}*/
+			}
 		}
 
 	}).find('button[data-toggle]').on('click',function() {
