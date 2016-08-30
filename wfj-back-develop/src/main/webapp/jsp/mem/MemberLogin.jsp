@@ -25,11 +25,10 @@
 	ctx="http://www.shopin.net"; 
 	
 	var olvPagination;
+	var loginchannel_input;
 	$(function() {
 		$("#reservation").daterangepicker();
-	    initOlv();
-	  
-	    
+		getChannel();
 	});
 	
 	function productQuery(){
@@ -50,12 +49,14 @@
         var params = $("#product_form").serialize();
         params = decodeURI(params);
         olvPagination.onLoad(params);
+        
    	}
 	// 查询
 	function query() {
-		 
+		
 		$("#cache").val(0);
 		productQuery();
+		
 	}
 	//重置
 	function reset(){
@@ -64,17 +65,29 @@
 		$("#reservation").val("");
 		$("#mobile_input").val("");
 		$("#email_input").val("");
-		$("#loginchannel_input").val("");
+		$("#loginchannel_input").val("1");
 		productQuery();
 	}
-
 	
+	//初始化第三方渠道下拉选
+    function getChannel() {
+		var url = __ctxPath+"/memLogin/getLoginLogList1";
+	           $.ajax( {
+	        	   on: true,
+	               url: url,
+	               dataType: 'json',
+	               success: function(data) {
+	            	
+	            	 $("#loginchannel_input").setTemplateElement("olv-listB").processTemplate(data);
+	             	  $("#loginchannel_input").prepend("<option id='choose' value='' selected>===请选择===</option>");
+	             	 initOlv();
+	             }
+	         });
+    } 
 	
 	//初始化包装单位列表
  	function initOlv() {
-		
 		var url = __ctxPath+"/memLogin/getLoginLogList";
-		
 		olvPagination = $("#olvPagination").myPagination({
            panel: {
              tipInfo_on: true,
@@ -104,13 +117,7 @@
 					}, 300);
 				},
              callback: function(data) {
-            	
-            	 
             	 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
-            	 $("#loginchannel_input").setTemplateElement("olv-listB").processTemplate(data);
-            	 $("#loginchannel_input").prepend("<option value='' selected='selected' >===请选择===</option>");
-            	  
-            	 
              }
            }
          });
@@ -193,16 +200,15 @@
                                    			<li class="col-md-4" id="loginchannel">
                                    			<label class="titname"  style="width:105px;">第三方登录渠道：</label>
                                    			<select id="loginchannel_input" class="orderStatusSpace">
-                                   		      
+                                   				 
 											</select>
-											
-										<textarea id="olv-listB" rows="0" cols="0" style="display:none">
+										  <textarea id="olv-listB" rows="0" cols="0" style="display:none">
                                    			{#template MAIN}
 										{#foreach $T.listB as Result}
 											 <option value="{$T.Result.sDomain}" >{$T.Result.sDesc}</option>
 											{#/for}
 									    {#/template MAIN}
-											</textarea>
+											</textarea> 
 											</li>
 											
                                    				<li class="col-md-4">
