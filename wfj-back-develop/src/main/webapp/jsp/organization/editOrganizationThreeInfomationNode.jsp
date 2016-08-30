@@ -35,16 +35,34 @@ var url = __ctxPath + "/category/getAllCategory";
 					$("#organizationName").val(result.organizationName);
 					$("#organizationStatus").val(result.organizationStatus);
 					$("#storeType").val(result.storeType);
-					
-					$("#registeredAddress").val(result.registeredAddress);
-					$("#postCode").val(result.postCode);
-					$("#legalRepresentative").val(result.legalRepresentative);
-					$("#agent").val(result.agent);
-					$("#taxRegistrationNumber").val(result.taxRegistrationNumber);
-					$("#bank").val(result.bank);
-					$("#bankAccount").val(result.bankAccount);
-					$("#telephoneNumber").val(result.telephoneNumber);
-					$("#faxNumber").val(result.faxNumber);
+
+                    if(typeof result.registeredAddress != "object") {
+                        $("#registeredAddress").val(result.registeredAddress);
+                    }
+                    if(typeof result.postCode != "object") {
+                        $("#postCode").val(result.postCode);
+                    }
+                    if(typeof result.legalRepresentative != "object") {
+                        $("#legalRepresentative").val(result.legalRepresentative);
+                    }
+                    if(typeof result.agent != "object") {
+                        $("#agent").val(result.agent);
+                    }
+                    if(typeof result.taxRegistrationNumber != "object") {
+                        $("#taxRegistrationNumber").val(result.taxRegistrationNumber);
+                    }
+                    if(typeof result.bank != "object") {
+                        $("#bank").val(result.bank);
+                    }
+                    if(typeof result.bankAccount != "object") {
+                        $("#bankAccount").val(result.bankAccount);
+                    }
+                    if(typeof result.telephoneNumber != "object") {
+                        $("#telephoneNumber").val(result.telephoneNumber);
+                    }
+                    if(typeof result.faxNumber != "object") {
+                        $("#faxNumber").val(result.faxNumber);
+                    }
 				}
 				return;
 			}
