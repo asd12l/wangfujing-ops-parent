@@ -242,8 +242,9 @@
       <div class="row">
         <div class="col-xs-12 col-md-12">
           <div class="widget">
-            <div class="widget-header ">会员信息</h5>
-              <div class="widget-buttons">
+            <div class="widget-header ">
+            	<h5 class="widget-caption">会员信息</h5>
+              	<div class="widget-buttons">
                 <a href="#" data-toggle="maximize"></a> <a href="#"
                                                            data-toggle="collapse" onclick="tab('pro');"> <i
                       class="fa fa-minus" id="pro-i"></i>
