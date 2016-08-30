@@ -158,6 +158,7 @@
     }
     function closeEdit(){
       //清除隐藏div表单内容
+      alert("================")
       $(".edit_msg").hide();
       $("#pullType").val("0");
       $("#pullReason").val("");
@@ -262,6 +263,14 @@
       $("#relieveBlackDiv").show();
     }
     function closeEdit(){
+        //清除隐藏div表单内容
+        $(".relieve_msg").hide();
+        $("#relServiceId").val("");
+        $("#relieveReason").val("");
+        $("#editBlackDiv").hide();
+      }
+    
+    function closeRelieveBlack(){
       //清除隐藏div表单内容
       $(".relieve_msg").hide();
       $("#relServiceId").val("");
@@ -370,8 +379,9 @@
       <div class="row">
         <div class="col-xs-12 col-md-12">
           <div class="widget">
-            <div class="widget-header ">黑名单信息</h5>
-              <div class="widget-buttons">
+            <div class="widget-header ">
+            	<h5 class="widget-caption">黑名单信息</h5>
+              	<div class="widget-buttons">
                 <a href="#" data-toggle="maximize"></a> <a href="#"
                                                            data-toggle="collapse" onclick="tab('pro');"> <i
                       class="fa fa-minus" id="pro-i"></i>
