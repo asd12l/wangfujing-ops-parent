@@ -131,7 +131,10 @@ public class OrganizationController {
 	public String updateOrganizationZero(String groupSid, String organizationCode,
 			String organizationName, String organizationType, String organizationStatus,
 			String storeType, String shippingPoint, String createName, String areaCode,
-			String updateName, String parentSid, String sid) {
+			String updateName, String parentSid, String sid,
+			String registeredAddress, String postCode, String legalRepresentative, 
+			String agent, String taxRegistrationNumber, String bank, String bankAccount, 
+			String telephoneNumber, String faxNumber) {
 		String json = "";
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -171,6 +174,34 @@ public class OrganizationController {
 			if (StringUtils.isNotEmpty(updateName)) {
 				map.put("updateName", updateName);
 			}
+			
+			if (StringUtils.isNotEmpty(registeredAddress)) {
+				map.put("registeredAddress", registeredAddress);
+			}
+			if (StringUtils.isNotEmpty(postCode)) {
+				map.put("postCode", postCode);
+			}
+			if (StringUtils.isNotEmpty(legalRepresentative)) {
+				map.put("legalRepresentative", legalRepresentative);
+			}
+			if (StringUtils.isNotEmpty(agent)) {
+				map.put("agent", agent);
+			}
+			if (StringUtils.isNotEmpty(taxRegistrationNumber)) {
+				map.put("taxRegistrationNumber", taxRegistrationNumber);
+			}
+			if (StringUtils.isNotEmpty(bank)) {
+				map.put("bank", bank);
+			}
+			if (StringUtils.isNotEmpty(bankAccount)) {
+				map.put("bankAccount", bankAccount);
+			}
+			if (StringUtils.isNotEmpty(telephoneNumber)) {
+				map.put("telephoneNumber", telephoneNumber);
+			}
+			if (StringUtils.isNotEmpty(faxNumber)) {
+				map.put("faxNumber", faxNumber);
+			}
 			map.put("actionCode", "U");
 			json = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
 					+ "/organization/saveOrUpdateOrg.htm", JsonUtil.getJSONString(map));
@@ -205,7 +236,10 @@ public class OrganizationController {
 	public String saveOrganizationOne(String groupSid, String organizationCode,
 			String organizationName, String organizationType, String organizationStatus,
 			String storeType, String shippingPoint, String areaCode, String createName,
-			String updateName, String parentSid) {
+			String updateName, String parentSid, 
+			String registeredAddress, String postCode, String legalRepresentative, 
+			String agent, String taxRegistrationNumber, String bank, String bankAccount, 
+			String telephoneNumber, String faxNumber) {
 		String json = "";
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -241,6 +275,34 @@ public class OrganizationController {
 			}
 			if (StringUtils.isNotEmpty(updateName)) {
 				map.put("updateName", updateName);
+			}
+			
+			if (StringUtils.isNotEmpty(registeredAddress)) {
+				map.put("registeredAddress", registeredAddress);
+			}
+			if (StringUtils.isNotEmpty(postCode)) {
+				map.put("postCode", postCode);
+			}
+			if (StringUtils.isNotEmpty(legalRepresentative)) {
+				map.put("legalRepresentative", legalRepresentative);
+			}
+			if (StringUtils.isNotEmpty(agent)) {
+				map.put("agent", agent);
+			}
+			if (StringUtils.isNotEmpty(taxRegistrationNumber)) {
+				map.put("taxRegistrationNumber", taxRegistrationNumber);
+			}
+			if (StringUtils.isNotEmpty(bank)) {
+				map.put("bank", bank);
+			}
+			if (StringUtils.isNotEmpty(bankAccount)) {
+				map.put("bankAccount", bankAccount);
+			}
+			if (StringUtils.isNotEmpty(telephoneNumber)) {
+				map.put("telephoneNumber", telephoneNumber);
+			}
+			if (StringUtils.isNotEmpty(faxNumber)) {
+				map.put("faxNumber", faxNumber);
 			}
 			map.put("actionCode", "A");
 			json = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
