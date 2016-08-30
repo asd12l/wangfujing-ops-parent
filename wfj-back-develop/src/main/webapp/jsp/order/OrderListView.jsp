@@ -2579,10 +2579,15 @@
 		var option7 = "<tr role='row' style='height:35px;'>"+
 		"<th width='5%' style='text-align: center;'>客户账户</th>"+
 		"<th width='5%' style='text-align: center;'>客户级别</th>"+
-		"<th width='5%' style='text-align: center;'>收货人</th>"+
-		"<th width='5%' style='text-align: center;'>收货地址</th>"+
-		"<th width='5%' style='text-align: center;'>电话 </th>"+
-		"<th width='5%' style='text-align: center;'>手机</th></tr>";
+		"<th width='5%' style='text-align: center;'>持卡人姓名</th>"+
+		"<th width='5%' style='text-align: center;'>证件号</th>"+
+		"<th width='5%' style='text-align: center;'>邮箱</th>"+
+		"<th width='5%' style='text-align: center;'>手机</th>"+
+		"<th width='5%' style='text-align: center;'>注册时间</th>"+
+		"<th width='5%' style='text-align: center;'>卡面卡号</th>"+
+		"<th width='5%' style='text-align: center;'>昵称</th>"+
+		"<th width='5%' style='text-align: center;'>头像地址</th>"+
+		"<th width='5%' style='text-align: center;'>注册类型</th></tr>";
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -2607,29 +2612,105 @@
 						}else{
 							option7+="<td align='center'>"+ele.customerLevel+"</td>";
 						}
-						//收货人
-						if(ele.receptName=="[object Object]"||ele.receptName==undefined){
+						//持卡人姓名
+						if(ele.cmname=="[object Object]"||ele.cmname==undefined){
 							option7+="<td align='center'></td>";
 						}else{
-							option7+="<td align='center'>"+ele.receptName+"</td>";
+							option7+="<td align='center'>"+ele.cmname+"</td>";
 						}
-						//收货地址
-						if(ele.receptAddress=="[object Object]"||ele.receptAddress==undefined){
+						//证件号
+						if(ele.cmidno=="[object Object]"||ele.cmidno==undefined){
 							option7+="<td align='center'></td>";
 						}else{
-							option7+="<td align='center'>"+ele.receptAddress+"</td>";
+							option7+="<td align='center'>"+ele.cmidno+"</td>";
+						}
+						//邮箱
+						if(ele.email=="[object Object]"||ele.email==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.email+"</td>";
+						}
+						//手机号
+						if(ele.phone=="[object Object]"||ele.phone==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.phone+"</td>";
+						}
+						//注册时间
+						if(ele.registerTime=="[object Object]"||ele.registerTime==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.registerTime+"</td>";
+						}
+						///卡面卡号
+						if(ele.card_no=="[object Object]"||ele.card_no==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.card_no+"</td>";
+						}
+						//昵称
+						if(ele.nickName=="[object Object]"||ele.nickName==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.nickName+"</td>";
+						}
+						//头像地址
+						if(ele.userHeadUrl=="[object Object]"||ele.userHeadUrl==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.userHeadUrl+"</td>";
+						}
+						//注册类型
+						if(ele.loginType=="[object Object]"||ele.loginType==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.loginType+"</td>";
+						}
+					}
+				}
+			}
+		});
+		//配送信息
+		var option9 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>手机</th>"+
+		"<th width='5%' style='text-align: center;'>电话</th>"+
+		"<th width='5%' style='text-align: center;'>姓名</th>"+
+		"<th width='15%' style='text-align: center;'>收货地址</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":orderNo},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//手机
+						if(ele.receptPhone=="[object Object]"||ele.receptPhone==undefined){
+							option9+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option9+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.receptPhone+"</td>";
 						}
 						//电话
 						if(ele.contactNumber=="[object Object]"||ele.contactNumber==undefined){
-							option7+="<td align='center'></td>";
+							option9+="<td align='center'></td>";
 						}else{
-							option7+="<td align='center'>"+ele.contactNumber+"</td>";
+							option9+="<td align='center'>"+ele.contactNumber+"</td>";
 						}
-						//手机号
-						if(ele.receptPhone=="[object Object]"||ele.receptPhone==undefined){
-							option7+="<td align='center'></td>";
+						//姓名
+						if(ele.receptName=="[object Object]"||ele.receptName==undefined){
+							option9+="<td align='center'></td>";
 						}else{
-							option7+="<td align='center'>"+ele.receptPhone+"</td>";
+							option9+="<td align='center'>"+ele.receptName+"</td>";
+						}
+						//收货地址
+						if(ele.receptAddress=="[object Object]"||ele.receptAddress==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.receptAddress+"</td>";
 						}
 					}
 				}
@@ -2680,6 +2761,7 @@
 		$("#OLV5_tab").html(option5);
 		$("#OLV6_tab").html(option6);
 		$("#OLV7_tab").html(option7);
+		$("#OLV9_tab").html(option9)
 		$("#OLV8_tab").html(option8);
 		$("#divTitle").html("订单详情");
 		$("#btDiv").show();
@@ -3318,6 +3400,7 @@
 							<li><a href="#tab5" data-toggle="tab">销售单信息</a></li>
 							<li><a href="#tab6" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab7" data-toggle="tab">客户信息</a></li>
+							<li><a href="#tab9" data-toggle="tab">配送信息</a></li>
 							<li><a href="#tab8" data-toggle="tab">客服备注</a></li>
 					      </ul>
 					      <div class="tab-content">
@@ -3360,6 +3443,12 @@
 					          <div class="tab-pane" id="tab7">
 					          	<div style="width:100%;height:200px; overflow:scroll;">
 					                    <table class="table-striped table-hover table-bordered" id="OLV7_tab" style="width: 150%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					             </div>
+					        </div>
+					        <div class="tab-pane" id="tab9">
+					          	<div style="width:100%;height:200px; overflow:scroll;">
+					                    <table class="table-striped table-hover table-bordered" id="OLV9_tab" style="width: 100%;background-color: #fff;margin-bottom: 0;">
 					                    </table>
 					             </div>
 					        </div>

@@ -3321,6 +3321,147 @@
 				}
 			}
 		});
+		//客户帐户
+		var option7 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>客户账户</th>"+
+		"<th width='5%' style='text-align: center;'>客户级别</th>"+
+		"<th width='5%' style='text-align: center;'>持卡人姓名</th>"+
+		"<th width='5%' style='text-align: center;'>证件号</th>"+
+		"<th width='5%' style='text-align: center;'>邮箱</th>"+
+		"<th width='5%' style='text-align: center;'>手机</th>"+
+		"<th width='5%' style='text-align: center;'>注册时间</th>"+
+		"<th width='5%' style='text-align: center;'>卡面卡号</th>"+
+		"<th width='5%' style='text-align: center;'>昵称</th>"+
+		"<th width='5%' style='text-align: center;'>头像地址</th>"+
+		"<th width='5%' style='text-align: center;'>注册类型</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":orderNo},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//客户账户
+						if(ele.customerAccount=="[object Object]"||ele.customerAccount==undefined){
+							option7+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option7+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.customerAccount+"</td>";
+						}
+						//客户级别
+						if(ele.customerLevel=="[object Object]"||ele.customerLevel==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.customerLevel+"</td>";
+						}
+						//持卡人姓名
+						if(ele.cmname=="[object Object]"||ele.cmname==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cmname+"</td>";
+						}
+						//证件号
+						if(ele.cmidno=="[object Object]"||ele.cmidno==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cmidno+"</td>";
+						}
+						//邮箱
+						if(ele.email=="[object Object]"||ele.email==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.email+"</td>";
+						}
+						//手机号
+						if(ele.phone=="[object Object]"||ele.phone==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.phone+"</td>";
+						}
+						//注册时间
+						if(ele.registerTime=="[object Object]"||ele.registerTime==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.registerTime+"</td>";
+						}
+						///卡面卡号
+						if(ele.card_no=="[object Object]"||ele.card_no==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.card_no+"</td>";
+						}
+						//昵称
+						if(ele.nickName=="[object Object]"||ele.nickName==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.nickName+"</td>";
+						}
+						//头像地址
+						if(ele.userHeadUrl=="[object Object]"||ele.userHeadUrl==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.userHeadUrl+"</td>";
+						}
+						//注册类型
+						if(ele.loginType=="[object Object]"||ele.loginType==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.loginType+"</td>";
+						}
+					}
+				}
+			}
+		});
+		//配送信息
+		var option9 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>手机</th>"+
+		"<th width='5%' style='text-align: center;'>电话</th>"+
+		"<th width='5%' style='text-align: center;'>姓名</th>"+
+		"<th width='15%' style='text-align: center;'>收货地址</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":orderNo},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//手机
+						if(ele.receptPhone=="[object Object]"||ele.receptPhone==undefined){
+							option9+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option9+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.receptPhone+"</td>";
+						}
+						//电话
+						if(ele.contactNumber=="[object Object]"||ele.contactNumber==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.contactNumber+"</td>";
+						}
+						//姓名
+						if(ele.receptName=="[object Object]"||ele.receptName==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.receptName+"</td>";
+						}
+						//收货地址
+						if(ele.receptAddress=="[object Object]"||ele.receptAddress==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.receptAddress+"</td>";
+						}
+					}
+				}
+			}
+		});
 		var option51 = "<tr role='row' style='height:35px;'>"+
 		"<th width='1%' style='text-align: center;'></th>"+
 		"<th width='4%' style='text-align: center;'>销售单号</th>"+
@@ -3455,6 +3596,8 @@
 		$("#OLV3_tab").html(option3);
 		$("#OLV4_tab").html(option4);
 		$("#OLV8_tab").html(option8);
+		$("#OLV7_tab").html(option7);
+		$("#OLV9_tab").html(option9);
 		$("#OLV51_tab").html(option51);
 		
 		$("#divTitle").html("销售单详情");
@@ -4045,6 +4188,8 @@
 							<li><a href="#tab51" data-toggle="tab">包裹信息</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
+							<li><a href="#tab7" data-toggle="tab">客户信息</a></li>
+							<li><a href="#tab8" data-toggle="tab">配送信息</a></li>
 							<li><a href="#tab6" data-toggle="tab">客服备注</a></li>
 					      </ul>
 					      <div class="tab-content">
@@ -4081,6 +4226,18 @@
 					         <div class="tab-pane" id="tab5">
 					         	<div style="width:100%;height:200px;overflow:scroll; ">
 					                    <table class="table-striped table-hover table-bordered" id="OLV5_tab" style="width: 400%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
+					         <div class="tab-pane" id="tab7">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV7_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
+					         <div class="tab-pane" id="tab8">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV9_tab" style="width: 100%;background-color: #fff;margin-bottom: 0;">
 					                    </table>
 					                </div>
 					         </div>
