@@ -5,9 +5,10 @@
 		<id column="sid" property="sid" jdbcType="INTEGER" />
 		<result column="sys_key" property="sysKey" jdbcType="VARCHAR" />
 		<result column="sys_value" property="sysValue" jdbcType="VARCHAR" />
+		<result column="sys_desc" property="sysDesc" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		sid, sys_key, sys_value
+		sid, sys_key, sys_value, sys_desc
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -21,10 +22,10 @@
 		where sid = #{sid,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.wangfj.back.entity.po.SysConfig">
-		insert into sys_config (sid, sys_key, sys_value
+		insert into sys_config (sid, sys_key, sys_value, sys_desc
 		)
 		values (#{sid,jdbcType=INTEGER}, #{sysKey,jdbcType=VARCHAR},
-		#{sysValue,jdbcType=VARCHAR}
+		#{sysValue,jdbcType=VARCHAR}, #{sysDesc,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.wangfj.back.entity.po.SysConfig">
@@ -39,6 +40,9 @@
 			<if test="sysValue != null">
 				sys_value,
 			</if>
+			<if test="sysDesc != null">
+				sys_desc,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="sid != null">
@@ -49,6 +53,9 @@
 			</if>
 			<if test="sysValue != null">
 				#{sysValue,jdbcType=VARCHAR},
+			</if>
+			<if test="sysDesc != null">
+				#{sysDesc,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -61,13 +68,17 @@
 			<if test="sysValue != null">
 				sys_value = #{sysValue,jdbcType=VARCHAR},
 			</if>
+			<if test="sysDesc != null">
+				sys_desc = #{sysDesc,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where sid = #{sid,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.wangfj.back.entity.po.SysConfig">
 		update sys_config
 		set sys_key = #{sysKey,jdbcType=VARCHAR},
-		sys_value = #{sysValue,jdbcType=VARCHAR}
+		sys_value = #{sysValue,jdbcType=VARCHAR},
+		sys_desc = #{sysDesc,jdbcType=VARCHAR}
 		where sid = #{sid,jdbcType=INTEGER}
 	</update>
 	
