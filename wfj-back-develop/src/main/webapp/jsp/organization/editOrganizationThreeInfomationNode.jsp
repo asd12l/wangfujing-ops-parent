@@ -233,7 +233,7 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '电话不能为空'
 					},
 					regexp : {
-						regexp : /^\d{3}-\d{8}|\d{4}-\d{7}$/,
+						regexp : /^(\d{3}-\d{8}|\d{4}-\d{7})$/,
 						message : '电话号码格式不正确'
 					}
 				}
