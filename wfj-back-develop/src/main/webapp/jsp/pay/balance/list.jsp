@@ -256,7 +256,7 @@ function queryCount(){
 var payChannelOption = "<option value=''>全部</option>";
 //动态获取支付渠道类型
 function payChannelType(){
-		var url=__ctxPath+"/wfjpay/selectChannelType";
+		var url=__ctxPath+"/wfjpay/selectPayChannel";
 		$.ajax({
 			url:url,
 			type:"post",
