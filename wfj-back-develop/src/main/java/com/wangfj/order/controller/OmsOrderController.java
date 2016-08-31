@@ -953,6 +953,7 @@ public class OmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_package_list"), jsonStr);
+//			json = HttpUtilPcm.doPost("http://172.16.255.169:8087/oms-core-sdc/omsPackageInfo/selectListOmsPackage.htm", jsonStr);
 			logger.info("json:" + json);
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			List<Object> list = (List<Object>) jsonObject.get("data");
@@ -5168,6 +5169,40 @@ public class OmsOrderController {
 					m.put("data", json);
 					m.put("success", "true");
 				}
+		} catch (Exception e) {
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
+	/**
+	 * 查询快递历史信息
+	 * @Methods Name selectPackageHistoryByOrderNo
+	 * @Create In 2016-4-14 By chenHu
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping("/selectPackageHistoryByOrderNo")
+	public String selectPackageHistoryByOrderNo(HttpServletRequest request, HttpServletResponse response) {
+		String json = "";
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(request.getParameter("deliveryNo"))){
+			paramMap.put("deliveryNo", request.getParameter("deliveryNo"));
+		}
+		paramMap.put("fromSystem", "OMSADMIN");
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("select_PackageHistory_deliver"),jsonStr);
+//			json = HttpUtilPcm.doPost("http://172.16.255.169:8087/oms-core-sdc/omsPackageInfo/selectPackageHistoryByOrderNo.htm", jsonStr);
+			if(StringUtils.isEmpty(json)){
+				m.put("success", "false");
+			}else{
+				return json;
+			}
 		} catch (Exception e) {
 			m.put("success", "false");
 		}

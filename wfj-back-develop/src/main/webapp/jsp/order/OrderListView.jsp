@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/msgbox/msgbox.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/myPagination/page.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/assets/css/dateTime/datePicker.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/timeline/css/timeline2.css" />
 <!--Bootstrap Date Range Picker-->
 <script src="${ctx}/assets/js/datetime/moment.min.js"></script>
 <script src="${ctx}/assets/js/datetime/datepicker.js"></script>
@@ -1257,6 +1258,64 @@
 		});
 			
 	}
+	//快递状态
+	function deliveryClick(deliveryNo,obj){
+		$("#cd-timeline").html("")
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectPackageHistoryByOrderNo",
+			async:false,
+			dataType: "json",
+			data : {"deliveryNo":deliveryNo},
+			ajaxStart: function() {
+		       	 $("#loading-container").attr("class","loading-container");
+		        },
+	        ajaxStop: function() {
+	          //隐藏加载提示
+	          setTimeout(function() {
+	       	        $("#loading-container").addClass("loading-inactive");
+	       	 },300);
+	        },
+			success : function(response) {
+				if (response.success == "true") {
+					var result = response.data;
+					for (var j = 0; j < result.length; j++) {
+						var ele = result[j];
+						var priceLine = "<div class='cd-timeline-block'>"
+								+ "<div class='cd-timeline-img cd-picture'>"
+								+ ele.packageStatusDesc
+								+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+								+ ele.deliveryDateStr  +ele.deliveryRecord
+								+ "</span></div></div>"
+								/* + "<div class='cd-timeline-block'>"
+								+ "<div class='cd-timeline-img cd-movie'>"
+								+ ele.packageStatusDesc
+								+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+								+ ele.deliveryDateStr  +ele.deliveryRecord
+								+ "</span></div></div>" */
+
+						$("#cd-timeline").append(priceLine);
+					}
+					$('.shiji').slideDown(600);
+					$("#btDiv3").show();
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			},
+			error : function() {
+				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+			}
+		});
+			
+	}
+	/*打开时间轴*/
+	function showTimeLine() {
+		$('.shiji').slideDown(600);
+
+	}
 	//点击tr事件
 	function trClick(orderNo,isCod,orderType,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
@@ -1639,6 +1698,7 @@
 		"<th width='3%' style='text-align: center;'>快递公司</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
 		"<th width='3%' style='text-align: center;'>快递单号</th>"+
+		"<th width='3%' style='text-align: center;'>快递状态</th>"+
 		"<th width='4%' style='text-align: center;'>发货时间</th>"+
 		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
 		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
@@ -1698,6 +1758,12 @@
 							option2+="<td align='center'></td>";
 						}else{
 							option2+="<td align='center'>"+ele.deliveryNo+"</td>";
+						}
+						//快递状态
+						if(ele.c2=="[object Object]"||ele.c2==undefined){
+							option2+="<td align='center'></td>";
+						}else{
+							option2+="<td align='center'><a onclick='deliveryClick("+'"'+ele.deliveryNo+'"'+",this);' style='cursor:pointer;'> "+ele.c2+"</a></td>";
 						}
 						//发货时间
 						if(ele.sendTimeStr=="[object Object]"||ele.sendTimeStr==undefined){
@@ -2778,6 +2844,9 @@
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
 	}
+	function closeBtDiv3(){
+		$("#btDiv3").hide();
+	}
 	function shtgForm(){
 		var userName = getCookieValue("username");
 		var orderStatus = "9202";
@@ -3499,6 +3568,37 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div> 
+    <div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+		id="btDiv3">
+		<div class="modal-dialog"
+			style="width: 800px; height: auto; margin: 4% auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close"
+						type="button" onclick="closeBtDiv3();">×</button>
+					<h2 class="modal-title" id="divTitle">快递信息</h2>
+				</div>
+				<div class="page-body" id="pageBodyRight"
+					style="overflow-x: hidden; height: 400px;">
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<div class="widget">
+								<section id="cd-timeline" class="cd-container">
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default"
+						onclick="closeBtDiv3();" type="button">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+    
     <script>
     jQuery(document).ready(
 			function () {
