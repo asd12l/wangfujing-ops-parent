@@ -2575,19 +2575,19 @@
 				}
 			}
 		});
-		//客户帐户
+		//会员信息
 		var option7 = "<tr role='row' style='height:35px;'>"+
-		"<th width='5%' style='text-align: center;'>客户账户</th>"+
-		"<th width='5%' style='text-align: center;'>客户级别</th>"+
+		/* "<th width='5%' style='text-align: center;'>客户账户</th>"+ */
+		"<th width='5%' style='text-align: center;'>CID系统会员卡号</th>"+
+		"<th width='5%' style='text-align: center;'>会员卡号</th>"+
+		"<th width='5%' style='text-align: center;'>会员等级</th>"+
+		"<th width='5%' style='text-align: center;'>手机号</th>"+
 		"<th width='5%' style='text-align: center;'>持卡人姓名</th>"+
 		"<th width='5%' style='text-align: center;'>证件号</th>"+
 		"<th width='5%' style='text-align: center;'>邮箱</th>"+
-		"<th width='5%' style='text-align: center;'>手机</th>"+
-		"<th width='5%' style='text-align: center;'>注册时间</th>"+
-		"<th width='5%' style='text-align: center;'>卡面卡号</th>"+
-		"<th width='5%' style='text-align: center;'>昵称</th>"+
-		"<th width='5%' style='text-align: center;'>头像地址</th>"+
-		"<th width='5%' style='text-align: center;'>注册类型</th></tr>";
+		/* "<th width='5%' style='text-align: center;'>昵称</th>"+
+		"<th width='5%' style='text-align: center;'>头像地址</th>"+ */
+		"<th width='5%' style='text-align: center;'>昵称</th></tr>";
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -2600,17 +2600,41 @@
 					var result = response.list;
 					for(var i=0;i<result.length;i++){
 						var ele = result[i];
-						//客户账户
+						/* //客户账户
 						if(ele.customerAccount=="[object Object]"||ele.customerAccount==undefined){
 							option7+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
 						}else{
 							option7+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.customerAccount+"</td>";
+						} */
+						/* //注册时间
+						if(ele.registerTime=="[object Object]"||ele.registerTime==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.registerTime+"</td>";
+						} */
+						//CID系统会员卡号
+						if(ele.cid=="[object Object]"||ele.cid==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cid+"</td>";
 						}
-						//客户级别
+						///会员卡号
+						if(ele.card_no=="[object Object]"||ele.card_no==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.card_no+"</td>";
+						}
+						//会员等级
 						if(ele.customerLevel=="[object Object]"||ele.customerLevel==undefined){
 							option7+="<td align='center'></td>";
 						}else{
 							option7+="<td align='center'>"+ele.customerLevel+"</td>";
+						}
+						//手机号
+						if(ele.phone=="[object Object]"||ele.phone==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.phone+"</td>";
 						}
 						//持卡人姓名
 						if(ele.cmname=="[object Object]"||ele.cmname==undefined){
@@ -2630,31 +2654,13 @@
 						}else{
 							option7+="<td align='center'>"+ele.email+"</td>";
 						}
-						//手机号
-						if(ele.phone=="[object Object]"||ele.phone==undefined){
-							option7+="<td align='center'></td>";
-						}else{
-							option7+="<td align='center'>"+ele.phone+"</td>";
-						}
-						//注册时间
-						if(ele.registerTime=="[object Object]"||ele.registerTime==undefined){
-							option7+="<td align='center'></td>";
-						}else{
-							option7+="<td align='center'>"+ele.registerTime+"</td>";
-						}
-						///卡面卡号
-						if(ele.card_no=="[object Object]"||ele.card_no==undefined){
-							option7+="<td align='center'></td>";
-						}else{
-							option7+="<td align='center'>"+ele.card_no+"</td>";
-						}
 						//昵称
 						if(ele.nickName=="[object Object]"||ele.nickName==undefined){
 							option7+="<td align='center'></td>";
 						}else{
 							option7+="<td align='center'>"+ele.nickName+"</td>";
 						}
-						//头像地址
+						/* //头像地址
 						if(ele.userHeadUrl=="[object Object]"||ele.userHeadUrl==undefined){
 							option7+="<td align='center'></td>";
 						}else{
@@ -2665,7 +2671,7 @@
 							option7+="<td align='center'></td>";
 						}else{
 							option7+="<td align='center'>"+ele.loginType+"</td>";
-						}
+						} */
 					}
 				}
 			}
@@ -3399,7 +3405,7 @@
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
 							<li><a href="#tab5" data-toggle="tab">销售单信息</a></li>
 							<li><a href="#tab6" data-toggle="tab">发票信息</a></li>
-							<li><a href="#tab7" data-toggle="tab">客户信息</a></li>
+							<li><a href="#tab7" data-toggle="tab">会员信息</a></li>
 							<li><a href="#tab9" data-toggle="tab">配送信息</a></li>
 							<li><a href="#tab8" data-toggle="tab">客服备注</a></li>
 					      </ul>
