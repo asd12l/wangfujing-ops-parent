@@ -79,8 +79,8 @@ public class SysConfigController {
 			String key, String value) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		SysConfig cof = new SysConfig();
-		cof.setKey(key);
-		cof.setValue(value);
+		cof.setSysKey(key);
+		cof.setSysValue(value);
 		try {
 			boolean success = sysConfigService.saveOrEditSysConfigByKey(cof);
 			if(success){
@@ -104,8 +104,8 @@ public class SysConfigController {
 			String key, String value) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		SysConfig cof = new SysConfig();
-		cof.setKey(key);
-		cof.setValue(value);
+		cof.setSysKey(key);
+		cof.setSysValue(value);
 		try {
 			boolean success = sysConfigService.saveOrEditSysConfigByKey(cof);
 			if(success){

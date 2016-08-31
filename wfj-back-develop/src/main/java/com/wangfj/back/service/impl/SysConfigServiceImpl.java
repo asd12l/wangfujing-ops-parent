@@ -47,7 +47,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
 	public boolean saveOrEditSysConfigByKey(SysConfig config) {
 		// TODO Auto-generated method stub
 		List<String> paramList = new ArrayList<String>();
-		paramList.add(config.getKey());
+		paramList.add(config.getSysKey());
 		List<SysConfig> list = sysConfigMapper.selectByKeys(paramList);
 		if(list == null || list.size() == 0){
 			int i = sysConfigMapper.insertSelective(config);

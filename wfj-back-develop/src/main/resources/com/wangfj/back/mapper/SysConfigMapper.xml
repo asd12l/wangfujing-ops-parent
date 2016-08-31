@@ -3,11 +3,11 @@
 <mapper namespace="com.wangfj.back.mapper.SysConfigMapper">
 	<resultMap id="BaseResultMap" type="com.wangfj.back.entity.po.SysConfig">
 		<id column="sid" property="sid" jdbcType="INTEGER" />
-		<result column="key" property="key" jdbcType="VARCHAR" />
-		<result column="value" property="value" jdbcType="VARCHAR" />
+		<result column="sys_key" property="sysKey" jdbcType="VARCHAR" />
+		<result column="sys_value" property="sysValue" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		*
+		sid, sys_key, sys_value
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -21,10 +21,10 @@
 		where sid = #{sid,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.wangfj.back.entity.po.SysConfig">
-		insert into sys_config (sid, key, value
+		insert into sys_config (sid, sys_key, sys_value
 		)
-		values (#{sid,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR},
-		#{value,jdbcType=VARCHAR}
+		values (#{sid,jdbcType=INTEGER}, #{sysKey,jdbcType=VARCHAR},
+		#{sysValue,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.wangfj.back.entity.po.SysConfig">
@@ -33,42 +33,42 @@
 			<if test="sid != null">
 				sid,
 			</if>
-			<if test="key != null">
-				key,
+			<if test="sysKey != null">
+				sys_key,
 			</if>
-			<if test="value != null">
-				value,
+			<if test="sysValue != null">
+				sys_value,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="sid != null">
 				#{sid,jdbcType=INTEGER},
 			</if>
-			<if test="key != null">
-				#{key,jdbcType=VARCHAR},
+			<if test="sysKey != null">
+				#{sysKey,jdbcType=VARCHAR},
 			</if>
-			<if test="value != null">
-				#{value,jdbcType=VARCHAR},
+			<if test="sysValue != null">
+				#{sysValue,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.wangfj.back.entity.po.SysConfig">
 		update sys_config
 		<set>
-			<if test="key != null">
-				key = #{key,jdbcType=VARCHAR},
+			<if test="sysKey != null">
+				sys_key = #{sysKey,jdbcType=VARCHAR},
 			</if>
-			<if test="value != null">
-				value = #{value,jdbcType=INTEGER},
+			<if test="sysValue != null">
+				sys_value = #{sysValue,jdbcType=VARCHAR},
 			</if>
 		</set>
-		where sid = #{sid,jdbcType=VARCHAR}
+		where sid = #{sid,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.wangfj.back.entity.po.SysConfig">
 		update sys_config
-		set key = #{key,jdbcType=VARCHAR},
-		value = #{value,jdbcType=INTEGER}
-		where sid = #{sid,jdbcType=VARCHAR}
+		set sys_key = #{sysKey,jdbcType=VARCHAR},
+		sys_value = #{sysValue,jdbcType=VARCHAR}
+		where sid = #{sid,jdbcType=INTEGER}
 	</update>
 	
 	<select id="selectAll" resultMap="BaseResultMap">
@@ -84,7 +84,7 @@
 		<where>
             <foreach item="item" index="index" collection="list" open=" "
                      separator="or" close=" ">
-                key = #{item}
+                sys_key = #{item}
             </foreach>
         </where>
 	</select>
