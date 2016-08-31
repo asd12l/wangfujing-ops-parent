@@ -115,7 +115,8 @@
 		}
 
 		function showMemRefundView(){
-			var checkboxArray=[];function init(param, obj)
+			debugger;
+			var checkboxArray=[];
 			$("input[type='checkbox']:checked").each(function(i,team){
 				var cid=$(this).val().trim();
 				checkboxArray.push(cid);
@@ -246,17 +247,17 @@
 															</label>
 														</div>
 													</td>
-													<td align="center" id="cid_{$T.Result.cid}">
+													<td align="center" id="refundTimeStr_{$T.Result.cid}">
 														{#if $T.Result.refundTimeStr == "" || $T.Result.refundTimeStr == null}--
 														{#else}{$T.Result.refundTimeStr}
 														{#/if}
 													</td>
-													<td align="center" id="cid_{$T.Result.cid}">
+													<td align="center" id="saleTime_{$T.Result.cid}">
 														{#if $T.Result.saleTime == "" || $T.Result.saleTime == null}--
 														{#else}{$T.Result.saleTime}
 														{#/if}
 													</td>
-													<td align="center" id="cid_{$T.Result.cid}">
+													<td align="center" id="username_{$T.Result.cid}">
 														{#if $T.Result.username == "" || $T.Result.username == null}--
 														{#else}{$T.Result.username}
 														{#/if}

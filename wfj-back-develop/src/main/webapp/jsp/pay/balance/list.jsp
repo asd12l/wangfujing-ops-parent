@@ -86,6 +86,8 @@ $(function() {
 	timePickInit();
 	//初始化
   initOlv();
+	//动态获取支付渠道
+  payChannelType();
 });
 function parseTime1(strTime){
 	if(format.test(strTime)){
@@ -251,6 +253,28 @@ function queryCount(){
 		}
 	},"json");
 }
+var payChannelOption = "<option value=''>全部</option>";
+//动态获取支付渠道类型
+function payChannelType(){
+		var url=__ctxPath+"/wfjpay/selectPayChannel";
+		$.ajax({
+			url:url,
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				if(data.success=="true"){
+				//	option="";
+					for(var i in data.list){
+						payChannelOption+="<option value='"+data.list[i].name+"'>"+data.list[i].value+"</option>";
+					}
+					//$("#payType_input").html("<option value=''>全部渠道</option>"+option);
+				}
+			},
+			error:function(){
+				alert("获取支付渠道类型失败！");
+			}
+		});
+	}
 //初始化函数
 	function initOlv() {
 	//请求地址
@@ -338,7 +362,7 @@ function queryCount(){
 	setFormData();
 	
 	//菜单联动
-	var payChannelOption="<option value=''>全部</option>"
+	/* var payChannelOption="<option value=''>全部</option>"
 						+"<option value='ALIPAY'>支付宝</option>"
 						+"<option value='TENPAY'>财付通</option>"
 						+"<option value='NETPAY'>银联</option>"
@@ -349,7 +373,7 @@ function queryCount(){
     					+"<option value='WECHATPAY_SHB'>微信扫货邦</option>"
     					+"<option value='ALIPAY_OFFLINE'>支付宝线下</option>"
     					+"<option value='ALIPAY_MOBILE'>支付宝WAP</option>"
-    					+"<option value='WECHATPAY_MOBILE'>微信WAP</option>";
+    					+"<option value='WECHATPAY_MOBILE'>微信WAP</option>"; */
 	var payServiceOption0="<option value='0'>全部</option>"
 						+"<option value='1'>网银直连</option>"
 						+"<option value='2'>第三方渠道</option>"

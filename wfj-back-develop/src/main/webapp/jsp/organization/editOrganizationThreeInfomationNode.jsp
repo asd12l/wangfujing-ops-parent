@@ -158,17 +158,6 @@ var url = __ctxPath + "/category/getAllCategory";
 					}
 				}
 			},
-			organizationCode:{
-				validators : {
-					notEmpty : {
-						message : '门店编码不能为空'
-					},
-					regexp : {
-						regexp : /^[1-9]{1}[0-9]{0,17}$/,
-						message : '门店编码第一位不能为0且不超过18位的数字组成'
-					}
-				}
-			},
 			registeredAddress:{
 				validators : {
 					notEmpty : {
@@ -244,7 +233,7 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '电话不能为空'
 					},
 					regexp : {
-						regexp : /^\d{3}-\d{8}|\d{4}-\d{7}$/,
+						regexp : /^(\d{3}-\d{8}|\d{4}-\d{7})$/,
 						message : '电话号码格式不正确'
 					}
 				}

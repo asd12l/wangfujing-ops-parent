@@ -1,14 +1,12 @@
-package com.wangfj.back.entity.po;
+package com.wangfj.back.entity.vo;
 
-public class SysConfig {
-    private Integer sid;
+public class SysConfigVO {
+	private Integer sid;
 
     private String sysKey;
 
     private String sysValue;
     
-    private String sysDesc;
-
     public Integer getSid() {
         return sid;
     }
@@ -33,18 +31,9 @@ public class SysConfig {
         this.sysValue = sysValue;
     }
 
-	public String getSysDesc() {
-		return sysDesc;
-	}
-
-	public void setSysDesc(String sysDesc) {
-		this.sysDesc = sysDesc;
-	}
-
 	@Override
 	public String toString() {
 		return "SysConfig [sid=" + sid + ", sysKey=" + sysKey + ", sysValue="
-				+ sysValue + ", sysDesc=" + sysDesc + "]";
+				+ sysValue + "]";
 	}
-
 }
