@@ -66,7 +66,7 @@
 										<option value="邮箱">邮箱</option>
 								</select> 
 						 
-								<input type="text" class="form-control" id="login_mobile" name="login_mobile" style=" width:30px; float:right;">
+								<input   type="text" class="form-control" id="login_mobile" name="login_mobile" style=" width:30px; float:right;">
    							 <span style="color:red;float:right;" id="mobileCode_msg"></span>
    							 
    							 <input type="text" class="form-control" name="login_email"
@@ -77,20 +77,6 @@
 								<a onclick="sendLoginCodeToEmail();" class="btn btn-info"id="sendcodeEmail">发送验证码</a>&nbsp;<br>&nbsp;								
 						</div>
 							</div>
-								 <!-- <div class="col-md-12"   style="padding: 10px 100px;">
-								<div class="col-md-6">
-								 <select id="login_me1" onclick="access1()" class=" col-md-5" style="line-height: 20px; width:55px; float:none; height:33px; ">
-										<option value="邮箱">邮箱</option>
-										<option  value="手机"> 手 机 </option>
-								</select>  
-									<input type="text" class="form-control" name="login_email"
-										   id="login_email" style=" width:30px;  float:right; "/>
-									<span id="emailCode_msg" style="color:red;float: right;"></span>
-								</div>
-								 	<div>
-										<a onclick="sendLoginCodeToEmail();" class="btn btn-info">发送验证码</a>&nbsp;<br>&nbsp; 
-									</div>
-							     </div> -->
 							     
 							<div class="col-md-12"  style="padding: 10px 100px;">
 								<div class="col-md-6" >
@@ -156,12 +142,12 @@
 									<span id="payCode_msg" style="color:red;float:right;"></span>
 								</div>
 								<div>
-								<a onclick="sendPayCodeToPhone();" class="btn btn-info">发送验证码</a>
+								<a onclick="sendPayCodeToPhone();" class="btn btn-info" id="payPhone">发送验证码</a>
 								</div>
 							</div>
 							<div class="col-md-12"  style="padding: 10px 100px;">
 								<div class="col-md-6">
-									<label style="line-height: 20px; width:85px;" class="col-md-5 control-label" >输入验证码</label>
+									<label style="line-height: 20px;  width:115px; left:-25px; top:28px;" class="col-md-5 control-label" >输入验证码：</label>
 									<input type="text" class="form-control" name="pay_code"  
 										   id="pay_code"  style=" width:30px; float:right;" />
 									<span id="payPwd_msg" style="color:red"></span>

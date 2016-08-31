@@ -3,6 +3,8 @@ $(function() {
 		initOlv();
 	});
 
+
+
 function productQuery(){
 		
 		$("#cid_from").val($("#cid_input").val().trim());
@@ -158,12 +160,39 @@ function productQuery(){
 	}
 	function closePay(){
 		$("#resetPayPwdDiv").hide();
+		//$("#payPhone").attr("disabled",false);
+		 payPhone=0;
+		 
 	}
+	
+	//支付密码 倒计时发送验证吗至手机
+    function payPhoneTimer() {
+    	payPhone = payPhone - 1;
+    	if(payPhone==0){
+    		$("#payPhone").html("发送验证码");
+	        $("#payPhone").attr("disabled",false);
+    	}
+    	
+	    if (payPhone < 1) {
+	        $("#payPhone").html("发送验证码");
+	        $("#payPhone").attr("disabled",false);
+	      //  $('#sendcodePhone').removeAttr("disabled");
+	        return;
+	    }
+	    $("#payPhone").html("(" + payPhone + "秒)后重新发送");
+	    setTimeout(payPhoneTimer, 1000);
+	}
+	
+	//发送验证码至手机 支付重置
 	function sendPayCodeToPhone(){
 		
 		$("#pay_code").attr("disabled",false);
 		var pay_mobile=$("#pay_mobile").val().trim();
 		$("#payCode_msg").html("");
+		
+		if(!(/^1[3|4|5|7|8]\d{9}$/.test(pay_mobile))){
+			$("#payCode_msg").html("手机号码格式不正确，请重新输入！");
+		}else{
 		var url = __ctxPath+"/memBasic/sendPayCodeToPhone";
 		$.ajax({
 			type : "post",
@@ -190,6 +219,11 @@ function productQuery(){
 					$("#payCode_msg").html("验证码已发送");
 					$("#payCode").val(response.object);
 					
+					//倒计时
+					$("#payPhone").attr("disabled", true);
+					payPhone = 90;
+					payPhoneTimer();
+					
 				}else{
 					$("#payCode_msg").html("验证码发送失败");
 				}
@@ -199,8 +233,9 @@ function productQuery(){
 			}
 
 		});
+		}
 	}
-	//支付密码光标双击验证
+	//支付密码光标单击验证
 	$("#pay_code").blur(
 	function (){
 		var verCode_input=$("#pay_code").val().trim();
@@ -351,18 +386,50 @@ function productQuery(){
 		}
 	}
 	
+	//取消
 	function closeLogin(){
 		$("#resetLoginPwdDiv").hide();
+		//$("#sendcodePhone").attr("disabled",false);
+			emailSecond=0;
+			 
+		    phoneSecond=0;
+		    
 	}
+	
+	 
+	//倒计时发送验证吗至手机
+    function phoneTimer() {
+	    phoneSecond = phoneSecond - 1;
+	    if(phoneSecond==0){
+	    	 $("#sendcodePhone").html("发送验证码");
+		        $("#sendcodePhone").attr("disabled",false);
+		        return;
+	    }
+	    
+	    if (phoneSecond < 1) {
+	        $("#sendcodePhone").html("发送验证码");
+	        $("#sendcodePhone").attr("disabled",false);
+	      //  $('#sendcodePhone').removeAttr("disabled");
+	        return;
+	    }
+	    $("#sendcodePhone").html("(" + phoneSecond + "秒)后重新发送");
+	    setTimeout(phoneTimer, 1000);
+	}
+	
+	
 	//发送重置登录密码的验证码至手机
+    var phoneSecond = 0;
 	function sendLoginCodeToPhone(){
-		
 		$("#login_code").attr("disabled",false);
 		
 		$("#mobileCode_msg").html("");
 		$("#emailCode_msg").html("");
 		$("#login_msg").html("");
 		var mobile=$("#login_mobile").val().trim();
+		
+		if(!(/^1[3|4|5|7|8]\d{9}$/.test(mobile))){
+			$("#mobileCode_msg").html("手机号码有误，请重填");
+	} else{		  
 		if(mobile==""||mobile=="--"){
 			$("#mobileCode_msg").html("未绑定手机号，无法发送验证码");
 			return;
@@ -393,6 +460,13 @@ function productQuery(){
 					$("#mobileCode_msg").html("验证码已发送");
 					$("#loginCode").val(response.object);
 					$("#loginStatus").val("1");
+					
+					//倒计时
+					
+					$("#sendcodePhone").attr("disabled", true);
+					phoneSecond = 90;
+			        phoneTimer();
+					
 				}else{
 					$("#mobileCode_msg").html("验证码发送失败");
 				}
@@ -402,17 +476,41 @@ function productQuery(){
 			}
 
 		});
+			}
 	}
 	
 	
+	//倒计时发送验证吗至邮箱
+    function  emailTimer() {
+    	emailSecond = emailSecond - 1;
+    	if(emailSecond==0){
+    		 $("#sendcodeEmail").html("发送验证码");
+ 	        $("#sendcodeEmail").attr("disabled",false);
+ 	        return;
+    	}
+    	
+	    if (emailSecond < 1) {
+	        $("#sendcodeEmail").html("发送验证码");
+	        $("#sendcodeEmail").attr("disabled",false);
+	      //  $('#sendcodePhone').removeAttr("disabled");
+	        return;
+	    }
+	    $("#sendcodeEmail").html("(" + emailSecond + "秒)后重新发送");
+	    setTimeout(emailTimer, 1000);
+	}
 	//发送登录密码的验证码至邮箱
+    var emailSecond = 0;
 	function sendLoginCodeToEmail(){
 		$("#login_code").attr("disabled",false);
-		
 		$("#mobileCode_msg").html("");
 		$("#emailCode_msg").html("");
 		$("#login_msg").html("");
 		var email=$("#login_email").val().trim();
+		
+		if((/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email))){
+			
+			
+		 
 		if(email==""||email=="--"){
 			$("#emailCode_msg").html("未绑定邮箱，无法发送验证码");
 			return;
@@ -443,7 +541,11 @@ function productQuery(){
 					$("#emailCode_msg").html("验证码已发送");
 					$("#loginCode").val(response.object);
 					$("#loginStatus").val("2");
-				 
+					//倒计时
+					$("#sendcodeEmail").attr("disabled", true);
+					emailSecond = 90;
+					emailTimer();
+					
 				}else{
 					$("#emailCode_msg").html("验证码发送失败");
 				}
@@ -453,13 +555,16 @@ function productQuery(){
 			}
 
 		});
+		}else{
+			$("#emailCode_msg").html("邮箱号码有误，请重填");
+		}
 	}
 	//登录密码光标移除时验证
 	$("#login_code").blur(
 	function (){
 		var verCode=$("#loginCode").val().trim();
 		var verCode_input=$("#login_code").val().trim();
-		if(verCode!=verCode_input){
+		if(verCode!=verCode_input||verCode==""){
 			$("#login_msg").html("验证失败");
 			return;
 		}else{
