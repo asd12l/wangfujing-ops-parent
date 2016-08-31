@@ -20,5 +20,4 @@ public interface SysConfigMapper {
     List<SysConfig> selectAll();
     
     List<SysConfig> selectByKeys(List<String> keys);
-    
 }

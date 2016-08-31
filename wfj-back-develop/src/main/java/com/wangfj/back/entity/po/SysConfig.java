@@ -3,9 +3,9 @@ package com.wangfj.back.entity.po;
 public class SysConfig {
     private Integer sid;
 
-    private String key;
+    private String sysKey;
 
-    private String value;
+    private String sysValue;
 
     public Integer getSid() {
         return sid;
@@ -15,26 +15,25 @@ public class SysConfig {
         this.sid = sid;
     }
 
-    public String getKey() {
-        return key;
+    public String getSysKey() {
+        return sysKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setSysKey(String sysKey) {
+        this.sysKey = sysKey;
     }
 
-    public String getValue() {
-        return value;
+    public String getSysValue() {
+        return sysValue;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setSysValue(String sysValue) {
+        this.sysValue = sysValue;
     }
 
 	@Override
 	public String toString() {
-		return "SysConfig [sid=" + sid + ", key=" + key + ", value=" + value
-				+ "]";
+		return "SysConfig [sid=" + sid + ", sysKey=" + sysKey + ", sysValue="
+				+ sysValue + "]";
 	}
-    
 }
