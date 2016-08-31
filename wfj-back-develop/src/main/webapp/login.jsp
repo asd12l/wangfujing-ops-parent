@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			
-			<%-- <div class="captcha_div">
+			<div class="captcha_div">
 				<div class="captcha_pic" id="big_pic1" >
 					<div class="captcha_big" id="big_pic">
 					</div>
@@ -49,7 +49,7 @@
 						<img src="${ctx}/image/slider.png" height="37" id="validImg">
 					</div>
 				</div>
-			</div> --%>
+			</div>
 			
 			<div class="dianji">
 				<div style="color:red;margin-top:5px;margin-left:5px;float:left;font-size:13px;">${error} </div>
@@ -62,7 +62,7 @@
 	<div class="cloud"></div>
 </div>
 </body>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	document.ondragstart = function() { return false;}
 </script>
 <script type="text/javascript">
@@ -175,5 +175,5 @@
 			return false;
 		});
 	});
-</script> -->
+</script>
 </html>
