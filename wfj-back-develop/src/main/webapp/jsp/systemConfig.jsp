@@ -196,7 +196,7 @@
 									id="sysCof_tab">
 									<thead>
 										<tr role="row">
-											<th width="7.5%"></th>
+											<th width="7.5%">选择</th>
 											<th style="text-align: center;">参数名</th>
 											<th style="text-align: center;">参数值</th>
 											<th style="text-align: center;">参数描述</th>
