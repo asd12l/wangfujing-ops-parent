@@ -50,7 +50,7 @@ public class SysConfigController {
 	public String findSysConfigByKeys(HttpServletRequest request, HttpServletResponse response,
 			String keys) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		if(keys != null && "".equals(keys)){
+		if(keys != null && !"".equals(keys)){
 			List<String> paramKeys = new ArrayList<String>();
 			
 			String[] ks = keys.split(",");
