@@ -144,10 +144,12 @@
       var serviceId=$("#serviceId").val();
       var pullType=$("#pullType").val();
       var pullReason=$("#pullReason").val();
+      serviceId=$.trim(serviceId);
       if(serviceId==""||serviceId==null){
         $("#serviceId_msg").show();
         return;
       }
+      pullReason=$.trim(pullReason);
       if(pullReason==""||pullReason==null){
         $("#pullReason_msg").show();
         return;
@@ -352,7 +354,7 @@
                                                     {#/if}
                                                   </td>
                                                   <td align="center" id="blackStatus_{$T.Result.cid}">
-                                                    {#if $T.Result.blackStatus == "" || $T.Result.blackStatus == null}--
+                                                    {#if $T.Result.blackStatus == "" || $T.Result.blackStatus == null}正常
                                                     {#/if}
                                                     {#if $T.Result.blackStatus == "0"}正常
                                                     {#/if}

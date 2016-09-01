@@ -168,6 +168,7 @@
       var sid=$("#editBlackSid").val();
       var pullType=$("#pullType").val();
       var pullReason=$("#pullReason").val();
+      pullReason=$.trim(pullReason);
       if(pullReason==""||pullReason==null){
         $("#pullReason_msg").show();
         return;
@@ -281,10 +282,12 @@
       var sid=$("#relieveBlackSid").val();
       var relServiceId=$("#relServiceId").val();
       var relieveReason=$("#relieveReason").val();
+      relServiceId=$.trim(relServiceId);
       if(relServiceId==""||relServiceId==null){
         $("#relServiceId_msg").show();
         return;
       }
+      relieveReason=$.trim(relieveReason);
       if(relieveReason==""||relieveReason==null){
         $("#relieveReason_msg").show();
         return;
