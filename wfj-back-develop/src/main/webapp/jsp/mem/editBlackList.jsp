@@ -415,20 +415,28 @@
                   </li>
                 </ul>
 
-                <table class="table table-bordered table-striped table-condensed table-hover flip-content"
-                       id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
+                <!--  <table class="table table-bordered table-striped table-condensed table-hover flip-content"
+                       id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">-->
+                       <div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+									<table class="table-striped table-hover table-bordered"
+										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
                   <thead>
                   <tr role="row" style='height:35px;'>
                     <th style="text-align: center;" width="2%">选择</th>
-                    <th style="text-align: center;" width="10%">账户</th>
-                    <th style="text-align: center;" width="10%">拉黑客服</th>
-                    <th style="text-align: center;" width="10%">拉黑时间</th>
-                    <th style="text-align: center;" width="10%">拉黑类型</th>
-                    <th style="text-align: center;" width="10%">拉黑原因</th>
-                    <th style="text-align: center;" width="10%">解除客服</th>
-                    <th style="text-align: center;" width="10">解除时间</th>
-                    <th style="text-align: center;" width="10%">解除原因</th>
-                    <th style="text-align: center;" width="10%">状态</th>
+                    <th style="text-align: center;" width="6%">账户</th>
+                    <th style="text-align: center;" width="6%">昵称</th>
+                    <th style="text-align: center;" width="6%">真实姓名</th>
+                    <th style="text-align: center;" width="6%">所属门店</th>
+                    <th style="text-align: center;" width="6%">当前会员等级</th>
+                    <th style="text-align: center;" width="6%">注册时间</th>
+                    <th style="text-align: center;" width="6%">拉黑客服</th>
+                    <th style="text-align: center;" width="8%">拉黑时间</th>
+                    <th style="text-align: center;" width="6%">拉黑类型</th>
+                    <th style="text-align: center;" width="6%">拉黑原因</th>
+                    <th style="text-align: center;" width="6%">解除客服</th>
+                    <th style="text-align: center;" width="8%">解除时间</th>
+                    <th style="text-align: center;" width="6%">解除原因</th>
+                    <th style="text-align: center;" width="6%">状态</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -466,6 +474,31 @@
                                                   <td align="center" id="cid_{$T.Result.sid}">
                                                     {#if $T.Result.cid == "" || $T.Result.cid == null}--
                                                     {#else}{$T.Result.cid}
+                                                    {#/if}
+                                                  </td>
+                                                  <td align="center" id="nickName_{$T.Result.sid}">
+                                                    {#if $T.Result.nickName == "" || $T.Result.nickName == null}--
+                                                    {#else}{$T.Result.nickName}
+                                                    {#/if}
+                                                  </td>
+                                                  <td align="center" id="realName_{$T.Result.sid}">
+                                                    {#if $T.Result.realName == "" || $T.Result.realName == null}--
+                                                    {#else}{$T.Result.realName}
+                                                    {#/if}
+                                                  </td>
+                                                  <td align="center" id="memberSource_{$T.Result.sid}">
+                                                    {#if $T.Result.memberSource == "" || $T.Result.memberSource == null}--
+                                                    {#else}{$T.Result.memberSource}
+                                                    {#/if}
+                                                  </td>
+                                                  <td align="center" id="memberLevel_{$T.Result.sid}">
+                                                    {#if $T.Result.memberLevel == "" || $T.Result.memberLevel == null}--
+                                                    {#else}{$T.Result.memberLevel}
+                                                    {#/if}
+                                                  </td>
+                                                  <td align="center" id="registerTime_{$T.Result.sid}">
+                                                    {#if $T.Result.registerTime == "" || $T.Result.registerTime == null}--
+                                                    {#else}{$T.Result.registerTime}
                                                     {#/if}
                                                   </td>
                                                   <td align="center" id="pullId_{$T.Result.sid}">
