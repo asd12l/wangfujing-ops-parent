@@ -1832,11 +1832,7 @@ function urlClick(ur,obj){
 														<label id="amount2" class="control-label"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</div>
-														<div class="col-md-6">
-														<span>&nbsp;&nbsp;财务备注：</span>
-														<input id="financeMemo"></input>
-														</div>&nbsp;
-														&nbsp;
+														
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6">
@@ -1850,7 +1846,10 @@ function urlClick(ur,obj){
 														<span>&nbsp;&nbsp;实际退款金额合计（含运费）：</span>
 														<label id="amount4" class="control-label"></label>
 														</div>
-														&nbsp;
+														<div class="col-md-6">
+														<span>&nbsp;&nbsp;财务备注：</span>
+														<input id="financeMemo"></input>
+														</div>&nbsp;
 													</div>
 												</div>
 												<div style="display: none;">
