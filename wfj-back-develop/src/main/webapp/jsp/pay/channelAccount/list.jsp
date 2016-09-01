@@ -132,7 +132,10 @@ function olvQuery(){
          },
          //回调
          callback: function(data) {
+        	 for(var i in data.list){
+        		 data.list[i ].createDate=formatDate(data.list[i].createDate);
     		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
+        	 }
          }
        }
      });
