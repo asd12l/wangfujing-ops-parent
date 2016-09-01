@@ -29,6 +29,7 @@ import com.alibaba.fastjson.JSON;
 import com.constants.SystemConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.thoughtworks.xstream.alias.ClassMapper.Null;
 import com.wangfj.order.controller.suppot.ExcelAllPosPlatformVo;
 import com.wangfj.order.controller.suppot.ExcelOrderPosPlatformVo;
 import com.wangfj.order.controller.suppot.ExcelOrderVo;
@@ -40,6 +41,7 @@ import com.wangfj.order.entity.ExcelFile;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.wms.util.HttpUtilPcm;
 import com.wangfj.wms.util.ResultUtil;
+import com.wfj.netty.servlet.util.StringUtil;
 
 /**
  * 
@@ -364,178 +366,185 @@ public class OmsOrderController {
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			String data = jsonObject.getString("data");
 			JSONObject jsonObject2 = JSONObject.fromObject(data);
-			List<Object> list = (List<Object>) jsonObject2.get("list");
-			
-			String jsonStr2 = "";
-			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
-			paramMap2.put("fromSystem", "OMSADMIN");
-			paramMap2.put("typeValue", "order_status");
-			jsonStr2 = JSON.toJSONString(paramMap2);
-			String json2 = HttpUtilPcm.doPost(CommonProperties.get("select_codelist_selectBox"), jsonStr2);
-			logger.info("json2:" + json2);
-			JSONObject jsonObjectJ2 = JSONObject.fromObject(json2);
-			String codeData = jsonObjectJ2.getString("data");
-			JSONArray json2Object = JSONArray.fromObject(codeData);
-//			List<Object> list2 = JSONArray.toList(json2Object, Object.class);
-			
-			List<Object> list3 = new ArrayList<Object>();
-//			for (int i = 0; i < json2Object.size(); i++) {
-////				JSONObject jsonObject3 = JSONObject.fromObject(object2);
-//				JSONObject jsonObject3 = (JSONObject) json2Object.get(i);
-//				String codeValue = jsonObject3.getString("codeValue");
-//				String codeName = jsonObject3.getString("codeName");
-//				for (Object object : list) {
-//					JSONObject jsonObject4 = JSONObject.fromObject(object);
-//					String orderStatus = jsonObject4.getString("orderStatus");
-//					if(orderStatus.equals(codeValue)){
-//						orderStatus = codeName;
-//						jsonObject4.put("orderStatusDesc",orderStatus);
-////						object = JSONObject.toBean(jsonObject4, Object.class);
-//						list3.add(jsonObject4);
+			System.out.println(jsonObject2.get("list"));
+			if(null == jsonObject2.get("list")||jsonObject2.get("list").equals(null)){
+				m.put("pageCount", 0);
+				m.put("success", "true");
+			}else {
+				List<Object> list = (List<Object>) jsonObject2.get("list");
+				
+				String jsonStr2 = "";
+				Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
+				paramMap2.put("fromSystem", "OMSADMIN");
+				paramMap2.put("typeValue", "order_status");
+				jsonStr2 = JSON.toJSONString(paramMap2);
+				String json2 = HttpUtilPcm.doPost(CommonProperties.get("select_codelist_selectBox"), jsonStr2);
+				logger.info("json2:" + json2);
+				JSONObject jsonObjectJ2 = JSONObject.fromObject(json2);
+				String codeData = jsonObjectJ2.getString("data");
+				JSONArray json2Object = JSONArray.fromObject(codeData);
+//				List<Object> list2 = JSONArray.toList(json2Object, Object.class);
+				
+				List<Object> list3 = new ArrayList<Object>();
+//				for (int i = 0; i < json2Object.size(); i++) {
+////					JSONObject jsonObject3 = JSONObject.fromObject(object2);
+//					JSONObject jsonObject3 = (JSONObject) json2Object.get(i);
+//					String codeValue = jsonObject3.getString("codeValue");
+//					String codeName = jsonObject3.getString("codeName");
+//					for (Object object : list) {
+//						JSONObject jsonObject4 = JSONObject.fromObject(object);
+//						String orderStatus = jsonObject4.getString("orderStatus");
+//						if(orderStatus.equals(codeValue)){
+//							orderStatus = codeName;
+//							jsonObject4.put("orderStatusDesc",orderStatus);
+////							object = JSONObject.toBean(jsonObject4, Object.class);
+//							list3.add(jsonObject4);
+//						}
 //					}
 //				}
-//			}
-			for(int i=0; i<list.size(); i++){
-				Object object = list.get(i);
-				JSONObject jsonObject4 = JSONObject.fromObject(object);
-				String orderStatus=null;
-				try {
-					orderStatus = jsonObject4.getString("orderStatus");
-					if(null!=json2Object){
-						for(int j=0; j < json2Object.size(); j++){
-							JSONObject jsonObject3 = (JSONObject) json2Object.get(j);
-							String codeValue = jsonObject3.getString("codeValue");
-							String codeName = jsonObject3.getString("codeName");
-							if(orderStatus.equals(codeValue)){
-								orderStatus = codeName;
-								jsonObject4.put("orderStatusDesc",orderStatus);
-								list3.add(jsonObject4);
-								break;
-							}else if(j==json2Object.size()-1){
-								JSONObject jsonObject5 = JSONObject.fromObject(object);
-								list3.add(jsonObject5);
+				for(int i=0; i<list.size(); i++){
+					Object object = list.get(i);
+					JSONObject jsonObject4 = JSONObject.fromObject(object);
+					String orderStatus=null;
+					try {
+						orderStatus = jsonObject4.getString("orderStatus");
+						if(null!=json2Object){
+							for(int j=0; j < json2Object.size(); j++){
+								JSONObject jsonObject3 = (JSONObject) json2Object.get(j);
+								String codeValue = jsonObject3.getString("codeValue");
+								String codeName = jsonObject3.getString("codeName");
+								if(orderStatus.equals(codeValue)){
+									orderStatus = codeName;
+									jsonObject4.put("orderStatusDesc",orderStatus);
+									list3.add(jsonObject4);
+									break;
+								}else if(j==json2Object.size()-1){
+									JSONObject jsonObject5 = JSONObject.fromObject(object);
+									list3.add(jsonObject5);
+								}
 							}
+						}else{
+							list3.add(jsonObject4);
 						}
-					}else{
+					} catch (Exception e) {
 						list3.add(jsonObject4);
+						
 					}
-				} catch (Exception e) {
-					list3.add(jsonObject4);
-					
 				}
-			}
-			list=list3;
-			
-			String jsonStr21 = "";
-			Map<Object, Object> paramMap21 = new HashMap<Object, Object>();
-			paramMap21.put("fromSystem", "OMSADMIN");
-			paramMap21.put("typeValue", "order_type");
-			jsonStr21 = JSON.toJSONString(paramMap21);
-			String json21 = HttpUtilPcm.doPost(CommonProperties.get("select_codelist_selectBox"), jsonStr21);
-			logger.info("json21:" + json21);
-			JSONObject jsonObjectJ21 = JSONObject.fromObject(json21);
-			String codeData1 = jsonObjectJ21.getString("data");
-			JSONArray json2Object1 = JSONArray.fromObject(codeData1);
-//			List<Object> list2 = JSONArray.toList(json2Object, Object.class);
-			
-			List<Object> list4 = new ArrayList<Object>();
-//			for (int i = 0; i < json2Object1.size(); i++) {
-////				JSONObject jsonObject3 = JSONObject.fromObject(object2);
-//				JSONObject jsonObject3 = (JSONObject) json2Object1.get(i);
-//				String codeValue = jsonObject3.getString("codeValue");
-//				String codeName = jsonObject3.getString("codeName");
-//				for (Object object : list) {
-//					JSONObject jsonObject4 = JSONObject.fromObject(object);
-//					String orderType = jsonObject4.getString("orderType");
-//					if(orderType.equals(codeValue)){
-//						orderType = codeName;
-//						jsonObject4.put("orderType",orderType);
-////						object = JSONObject.toBean(jsonObject4, Object.class);
-//						list4.add(jsonObject4);
+				list=list3;
+				
+				String jsonStr21 = "";
+				Map<Object, Object> paramMap21 = new HashMap<Object, Object>();
+				paramMap21.put("fromSystem", "OMSADMIN");
+				paramMap21.put("typeValue", "order_type");
+				jsonStr21 = JSON.toJSONString(paramMap21);
+				String json21 = HttpUtilPcm.doPost(CommonProperties.get("select_codelist_selectBox"), jsonStr21);
+				logger.info("json21:" + json21);
+				JSONObject jsonObjectJ21 = JSONObject.fromObject(json21);
+				String codeData1 = jsonObjectJ21.getString("data");
+				JSONArray json2Object1 = JSONArray.fromObject(codeData1);
+//				List<Object> list2 = JSONArray.toList(json2Object, Object.class);
+				
+				List<Object> list4 = new ArrayList<Object>();
+//				for (int i = 0; i < json2Object1.size(); i++) {
+////					JSONObject jsonObject3 = JSONObject.fromObject(object2);
+//					JSONObject jsonObject3 = (JSONObject) json2Object1.get(i);
+//					String codeValue = jsonObject3.getString("codeValue");
+//					String codeName = jsonObject3.getString("codeName");
+//					for (Object object : list) {
+//						JSONObject jsonObject4 = JSONObject.fromObject(object);
+//						String orderType = jsonObject4.getString("orderType");
+//						if(orderType.equals(codeValue)){
+//							orderType = codeName;
+//							jsonObject4.put("orderType",orderType);
+////							object = JSONObject.toBean(jsonObject4, Object.class);
+//							list4.add(jsonObject4);
+//						}
 //					}
 //				}
-//			}
-			for (int i = 0; i < list.size(); i++) {
-				Object object = list.get(i);
-				JSONObject jsonObject4 = JSONObject.fromObject(object);
-				String orderType =null;
-				try {
-					orderType = jsonObject4.getString("orderType");
-					if(null!=json2Object1){
-						for(int j=0; j < json2Object1.size(); j++){
-							JSONObject jsonObject3 = (JSONObject) json2Object1.get(j);
-							String codeValue = jsonObject3.getString("codeValue");
-							String codeName = jsonObject3.getString("codeName");
-							if(orderType.equals(codeValue)){
-								orderType = codeName;
-								jsonObject4.put("orderType",orderType);
-								list4.add(jsonObject4);
-								break;
-							}else if(j==json2Object1.size()-1){
-								JSONObject jsonObject5 = JSONObject.fromObject(object);
-								list4.add(jsonObject5);
+				for (int i = 0; i < list.size(); i++) {
+					Object object = list.get(i);
+					JSONObject jsonObject4 = JSONObject.fromObject(object);
+					String orderType =null;
+					try {
+						orderType = jsonObject4.getString("orderType");
+						if(null!=json2Object1){
+							for(int j=0; j < json2Object1.size(); j++){
+								JSONObject jsonObject3 = (JSONObject) json2Object1.get(j);
+								String codeValue = jsonObject3.getString("codeValue");
+								String codeName = jsonObject3.getString("codeName");
+								if(orderType.equals(codeValue)){
+									orderType = codeName;
+									jsonObject4.put("orderType",orderType);
+									list4.add(jsonObject4);
+									break;
+								}else if(j==json2Object1.size()-1){
+									JSONObject jsonObject5 = JSONObject.fromObject(object);
+									list4.add(jsonObject5);
+								}
 							}
+						}else{
+							list4.add(jsonObject4);
 						}
-					}else{
+					} catch (Exception e) {
 						list4.add(jsonObject4);
 					}
-				} catch (Exception e) {
-					list4.add(jsonObject4);
 				}
-			}
-			list=list4;
-			
-			//渠道字段转换(PCM接口)
-			String jsonStr22 = "";
-			Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
-			jsonStr22 = JSON.toJSONString(paramMap22);
-			String json22 = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL + "/pcmAdminChannel/findListChannel.htm", jsonStr22);
-			logger.info("json22:" + json22);
-			JSONObject jsonObjectJ22 = JSONObject.fromObject(json22);
-			String codeData2 = jsonObjectJ22.getString("data");
-			JSONArray json2Object2 = JSONArray.fromObject(codeData2);
-			
-			List<Object> list41 = new ArrayList<Object>();
-			for (int i = 0; i < list.size(); i++) {
-				Object object = list.get(i);
-				JSONObject jsonObject41 = JSONObject.fromObject(object);
-				String channelName =null;
-				try {
-					channelName = jsonObject41.getString("orderSource");
-					if(null!=json2Object2){
-						for(int j=0; j < json2Object2.size(); j++){
-							JSONObject jsonObject31 = (JSONObject) json2Object2.get(j);
-							String codeValue = jsonObject31.getString("channelCode");
-							String codeName = jsonObject31.getString("channelName");
-							if(channelName.equals(codeValue)){
-								channelName = codeName;
-								jsonObject41.put("orderSource",codeName);
-								list41.add(jsonObject41);
-								break;
-							}else if(j==json2Object2.size()-1){
-								JSONObject jsonObject51 = JSONObject.fromObject(object);
-								list41.add(jsonObject51);
+				list=list4;
+				
+				//渠道字段转换(PCM接口)
+				String jsonStr22 = "";
+				Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
+				jsonStr22 = JSON.toJSONString(paramMap22);
+				String json22 = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL + "/pcmAdminChannel/findListChannel.htm", jsonStr22);
+				logger.info("json22:" + json22);
+				JSONObject jsonObjectJ22 = JSONObject.fromObject(json22);
+				String codeData2 = jsonObjectJ22.getString("data");
+				JSONArray json2Object2 = JSONArray.fromObject(codeData2);
+				
+				List<Object> list41 = new ArrayList<Object>();
+				for (int i = 0; i < list.size(); i++) {
+					Object object = list.get(i);
+					JSONObject jsonObject41 = JSONObject.fromObject(object);
+					String channelName =null;
+					try {
+						channelName = jsonObject41.getString("orderSource");
+						if(null!=json2Object2){
+							for(int j=0; j < json2Object2.size(); j++){
+								JSONObject jsonObject31 = (JSONObject) json2Object2.get(j);
+								String codeValue = jsonObject31.getString("channelCode");
+								String codeName = jsonObject31.getString("channelName");
+								if(channelName.equals(codeValue)){
+									channelName = codeName;
+									jsonObject41.put("orderSource",codeName);
+									list41.add(jsonObject41);
+									break;
+								}else if(j==json2Object2.size()-1){
+									JSONObject jsonObject51 = JSONObject.fromObject(object);
+									list41.add(jsonObject51);
+								}
 							}
+						}else{
+							list41.add(jsonObject41);
 						}
-					}else{
+					} catch (Exception e) {
 						list41.add(jsonObject41);
 					}
-				} catch (Exception e) {
-					list41.add(jsonObject41);
+				}
+				list=list41;
+				
+				Integer count = jsonObject2.getInt("count");
+				int pageCount = count % size == 0 ? count / size : (count / size + 1);
+				if (list != null && list.size() != 0) {
+					m.put("list", list);
+					m.put("pageCount", pageCount);
+					m.put("success", "true");
+				} else {
+					m.put("pageCount", 0);
+					m.put("success", "false");
 				}
 			}
-			list=list41;
 			
-			Integer count = jsonObject2.getInt("count");
-			int pageCount = count % size == 0 ? count / size : (count / size + 1);
-			if (list != null && list.size() != 0) {
-				m.put("list", list);
-				m.put("pageCount", pageCount);
-				m.put("success", "true");
-			} else {
-				m.put("pageCount", 0);
-				m.put("success", "false");
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.put("pageCount", 0);
@@ -953,6 +962,7 @@ public class OmsOrderController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_package_list"), jsonStr);
+//			json = HttpUtilPcm.doPost("http://172.16.255.169:8087/oms-core-sdc/omsPackageInfo/selectListOmsPackage.htm", jsonStr);
 			logger.info("json:" + json);
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			List<Object> list = (List<Object>) jsonObject.get("data");
@@ -5168,6 +5178,40 @@ public class OmsOrderController {
 					m.put("data", json);
 					m.put("success", "true");
 				}
+		} catch (Exception e) {
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
+	/**
+	 * 查询快递历史信息
+	 * @Methods Name selectPackageHistoryByOrderNo
+	 * @Create In 2016-4-14 By chenHu
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping("/selectPackageHistoryByOrderNo")
+	public String selectPackageHistoryByOrderNo(HttpServletRequest request, HttpServletResponse response) {
+		String json = "";
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(request.getParameter("deliveryNo"))){
+			paramMap.put("deliveryNo", request.getParameter("deliveryNo"));
+		}
+		paramMap.put("fromSystem", "OMSADMIN");
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("select_PackageHistory_deliver"),jsonStr);
+//			json = HttpUtilPcm.doPost("http://172.16.255.169:8087/oms-core-sdc/omsPackageInfo/selectPackageHistoryByOrderNo.htm", jsonStr);
+			if(StringUtils.isEmpty(json)){
+				m.put("success", "false");
+			}else{
+				return json;
+			}
 		} catch (Exception e) {
 			m.put("success", "false");
 		}

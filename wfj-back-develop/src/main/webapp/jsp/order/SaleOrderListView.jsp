@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/msgbox/msgbox.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/myPagination/page.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/assets/css/dateTime/datePicker.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/timeline/css/timeline2.css" />
 <!--Bootstrap Date Range Picker-->
 <script src="${ctx}/assets/js/datetime/moment.min.js"></script>
 <script src="${ctx}/assets/js/datetime/datepicker.js"></script>
@@ -287,6 +288,64 @@
 			}
 		});
 			
+	}
+	//快递状态
+	function deliveryClick(deliveryNo,obj){
+		$("#cd-timeline").html("")
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectPackageHistoryByOrderNo",
+			async:false,
+			dataType: "json",
+			data : {"deliveryNo":deliveryNo},
+			ajaxStart: function() {
+		       	 $("#loading-container").attr("class","loading-container");
+		        },
+	        ajaxStop: function() {
+	          //隐藏加载提示
+	          setTimeout(function() {
+	       	        $("#loading-container").addClass("loading-inactive");
+	       	 },300);
+	        },
+			success : function(response) {
+				if (response.success == "true") {
+					var result = response.data;
+					for (var j = 0; j < result.length; j++) {
+						var ele = result[j];
+						var priceLine = "<div class='cd-timeline-block'>"
+								+ "<div class='cd-timeline-img cd-picture'>"
+								+ ele.packageStatusDesc
+								+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+								+ ele.deliveryDateStr  +ele.deliveryRecord
+								+ "</span></div></div>"
+								/* + "<div class='cd-timeline-block'>"
+								+ "<div class='cd-timeline-img cd-movie'>"
+								+ ele.packageStatusDesc
+								+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+								+ ele.deliveryDateStr  +ele.deliveryRecord
+								+ "</span></div></div>" */
+
+						$("#cd-timeline").append(priceLine);
+					}
+					$('.shiji').slideDown(600);
+					$("#btDiv3").show();
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			},
+			error : function() {
+				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+			}
+		});
+			
+	}
+	/*打开时间轴*/
+	function showTimeLine() {
+		$('.shiji').slideDown(600);
+
 	}
  	//订单明细促销
  	function spanTdOrder(obj) {
@@ -1532,6 +1591,7 @@
 		"<th width='3%' style='text-align: center;'>快递公司</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
 		"<th width='3%' style='text-align: center;'>快递单号</th>"+
+		"<th width='3%' style='text-align: center;'>快递状态</th>"+
 		"<th width='4%' style='text-align: center;'>发货时间</th>"+
 		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
 		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
@@ -1591,6 +1651,12 @@
 							option2+="<td align='center'></td>";
 						}else{
 							option2+="<td align='center'>"+ele.deliveryNo+"</td>";
+						}
+						//快递状态
+						if(ele.c2=="[object Object]"||ele.c2==undefined){
+							option2+="<td align='center'></td>";
+						}else{
+							option2+="<td align='center'><a onclick='deliveryClick("+'"'+ele.deliveryNo+'"'+",this);' style='cursor:pointer;'> "+ele.c2+"</a></td>";
 						}
 						//发货时间
 						if(ele.sendTimeStr=="[object Object]"||ele.sendTimeStr==undefined){
@@ -3321,6 +3387,153 @@
 				}
 			}
 		});
+		//会员信息
+		var option7 = "<tr role='row' style='height:35px;'>"+
+		/* "<th width='5%' style='text-align: center;'>客户账户</th>"+ */
+		"<th width='5%' style='text-align: center;'>CID系统会员卡号</th>"+
+		"<th width='5%' style='text-align: center;'>会员卡号</th>"+
+		"<th width='5%' style='text-align: center;'>会员等级</th>"+
+		"<th width='5%' style='text-align: center;'>手机号</th>"+
+		"<th width='5%' style='text-align: center;'>持卡人姓名</th>"+
+		"<th width='5%' style='text-align: center;'>证件号</th>"+
+		"<th width='5%' style='text-align: center;'>邮箱</th>"+
+		/* "<th width='5%' style='text-align: center;'>昵称</th>"+
+		"<th width='5%' style='text-align: center;'>头像地址</th>"+ */
+		"<th width='5%' style='text-align: center;'>昵称</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":orderNo},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						/* //客户账户
+						if(ele.customerAccount=="[object Object]"||ele.customerAccount==undefined){
+							option7+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option7+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.customerAccount+"</td>";
+						} */
+						/* //注册时间
+						if(ele.registerTime=="[object Object]"||ele.registerTime==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.registerTime+"</td>";
+						} */
+						//CID系统会员卡号
+						if(ele.cid=="[object Object]"||ele.cid==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cid+"</td>";
+						}
+						///会员卡号
+						if(ele.card_no=="[object Object]"||ele.card_no==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.card_no+"</td>";
+						}
+						//会员等级
+						if(ele.customerLevel=="[object Object]"||ele.customerLevel==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.customerLevel+"</td>";
+						}
+						//手机号
+						if(ele.phone=="[object Object]"||ele.phone==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.phone+"</td>";
+						}
+						//持卡人姓名
+						if(ele.cmname=="[object Object]"||ele.cmname==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cmname+"</td>";
+						}
+						//证件号
+						if(ele.cmidno=="[object Object]"||ele.cmidno==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cmidno+"</td>";
+						}
+						//邮箱
+						if(ele.email=="[object Object]"||ele.email==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.email+"</td>";
+						}
+						//昵称
+						if(ele.nickName=="[object Object]"||ele.nickName==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.nickName+"</td>";
+						}
+						/* //头像地址
+						if(ele.userHeadUrl=="[object Object]"||ele.userHeadUrl==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.userHeadUrl+"</td>";
+						}
+						//注册类型
+						if(ele.loginType=="[object Object]"||ele.loginType==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.loginType+"</td>";
+						} */
+					}
+				}
+			}
+		});
+		//配送信息
+		var option9 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>手机</th>"+
+		"<th width='5%' style='text-align: center;'>电话</th>"+
+		"<th width='5%' style='text-align: center;'>姓名</th>"+
+		"<th width='15%' style='text-align: center;'>收货地址</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":orderNo},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//手机
+						if(ele.receptPhone=="[object Object]"||ele.receptPhone==undefined){
+							option9+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option9+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.receptPhone+"</td>";
+						}
+						//电话
+						if(ele.contactNumber=="[object Object]"||ele.contactNumber==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.contactNumber+"</td>";
+						}
+						//姓名
+						if(ele.receptName=="[object Object]"||ele.receptName==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.receptName+"</td>";
+						}
+						//收货地址
+						if(ele.receptAddress=="[object Object]"||ele.receptAddress==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.receptAddress+"</td>";
+						}
+					}
+				}
+			}
+		});
 		var option51 = "<tr role='row' style='height:35px;'>"+
 		"<th width='1%' style='text-align: center;'></th>"+
 		"<th width='4%' style='text-align: center;'>销售单号</th>"+
@@ -3330,6 +3543,7 @@
 		"<th width='3%' style='text-align: center;'>快递公司</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
 		"<th width='3%' style='text-align: center;'>快递单号</th>"+
+		"<th width='3%' style='text-align: center;'>快递状态</th>"+
 		"<th width='4%' style='text-align: center;'>发货时间</th>"+
 		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
 		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
@@ -3396,6 +3610,12 @@
 						}else{
 							option51+="<td align='center'>"+ele.deliveryNo+"</td>";
 						}
+						//快递状态
+						if(ele.c2=="[object Object]"||ele.c2==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'><a onclick='deliveryClick("+'"'+ele.deliveryNo+'"'+",this);' style='cursor:pointer;'> "+ele.c2+"</a></td>";
+						}
 						//发货时间
 						if(ele.sendTimeStr=="[object Object]"||ele.sendTimeStr==undefined){
 							option51+="<td align='center'></td>";
@@ -3455,6 +3675,8 @@
 		$("#OLV3_tab").html(option3);
 		$("#OLV4_tab").html(option4);
 		$("#OLV8_tab").html(option8);
+		$("#OLV7_tab").html(option7);
+		$("#OLV9_tab").html(option9);
 		$("#OLV51_tab").html(option51);
 		
 		$("#divTitle").html("销售单详情");
@@ -3465,6 +3687,9 @@
 	}
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
+	}
+	function closeBtDiv3(){
+		$("#btDiv3").hide();
 	}
 	//备注添加提交
 	$("#remarkButten").click(function() {
@@ -4045,6 +4270,8 @@
 							<li><a href="#tab51" data-toggle="tab">包裹信息</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
+							<li><a href="#tab7" data-toggle="tab">会员信息</a></li>
+							<li><a href="#tab8" data-toggle="tab">配送信息</a></li>
 							<li><a href="#tab6" data-toggle="tab">客服备注</a></li>
 					      </ul>
 					      <div class="tab-content">
@@ -4081,6 +4308,18 @@
 					         <div class="tab-pane" id="tab5">
 					         	<div style="width:100%;height:200px;overflow:scroll; ">
 					                    <table class="table-striped table-hover table-bordered" id="OLV5_tab" style="width: 400%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
+					         <div class="tab-pane" id="tab7">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV7_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
+					         <div class="tab-pane" id="tab8">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV9_tab" style="width: 100%;background-color: #fff;margin-bottom: 0;">
 					                    </table>
 					                </div>
 					         </div>
@@ -4392,6 +4631,36 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div> 
+     <div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+		id="btDiv3">
+		<div class="modal-dialog"
+			style="width: 800px; height: auto; margin: 4% auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close"
+						type="button" onclick="closeBtDiv3();">×</button>
+					<h2 class="modal-title" id="divTitle">快递信息</h2>
+				</div>
+				<div class="page-body" id="pageBodyRight"
+					style="overflow-x: hidden; height: 400px;">
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<div class="widget">
+								<section id="cd-timeline" class="cd-container">
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default"
+						onclick="closeBtDiv3();" type="button">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
     <script>
 		jQuery(document).ready(
 			function () {

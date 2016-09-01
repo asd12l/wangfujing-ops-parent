@@ -43,7 +43,7 @@ public class StoreInfoController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         if (StringUtils.isNotEmpty(organizationCode)) {
-            map.put("organizationCode", Integer.parseInt(organizationCode.trim()));
+            map.put("organizationCode", organizationCode.trim());
         }
 
         if (StringUtils.isNotEmpty(groupSid)) {
