@@ -342,71 +342,79 @@
 						"<th width='3%' style='text-align: center;'>删除标志</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
-						for (var i = 0; i < result.length; i++) {
-							var ele = result[i];
-							//商品行项目编号
-							if(ele.orderItemNo=="[object Object]"||ele.orderItemNo==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.orderItemNo+"</td>";
+						if(result.length != 0){
+							for (var i = 0; i < result.length; i++) {
+								var ele = result[i];
+								//商品行项目编号
+								if(ele.orderItemNo=="[object Object]"||ele.orderItemNo==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.orderItemNo+"</td>";
+								}
+								//返利编码
+								if(ele.code=="[object Object]"||ele.code==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.code+"</td>";
+								}
+								/* //促销类型
+								if(ele.promotionType=="[object Object]"||ele.promotionType==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.promotionType+"</td>";
+								} */
+								//返利名称
+								if(ele.name=="[object Object]"||ele.name==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.name+"</td>";
+								}
+								//返利值
+								if(ele.amount=="[object Object]"||ele.amount==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.amount+"</td>";
+								}
+								//返利类型
+								if(ele.getType=="[object Object]"||ele.getType==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.getType+"</td>";
+								}
+								//返利渠道
+								if(ele.getChannel=="[object Object]"||ele.getChannel==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.getChannel+"</td>";
+								}
+								//返利时间
+								if(ele.getTime=="[object Object]"||ele.getTime==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.getTime+"</td>";
+								}
+								//返利批次
+								if(ele.couponBatch=="[object Object]"||ele.couponBatch==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.couponBatch+"</td>";
+								}
+								//删除标记
+								if(ele.deleteFlag=="[object Object]"||ele.deleteFlag==undefined){
+									option+="<td align='center'></td></tr>";
+								}else if(ele.deleteFlag=='1'){
+									option+="<td align='center'>"+'是'+"</td></tr>";
+								}else if(ele.deleteFlag=='0'){
+									option+="<td align='center'>"+'否'+"</td></tr>";
+								}
 							}
-							//返利编码
-							if(ele.code=="[object Object]"||ele.code==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.code+"</td>";
-							}
-							/* //促销类型
-							if(ele.promotionType=="[object Object]"||ele.promotionType==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.promotionType+"</td>";
-							} */
-							//返利名称
-							if(ele.name=="[object Object]"||ele.name==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.name+"</td>";
-							}
-							//返利值
-							if(ele.amount=="[object Object]"||ele.amount==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.amount+"</td>";
-							}
-							//返利类型
-							if(ele.getType=="[object Object]"||ele.getType==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.getType+"</td>";
-							}
-							//返利渠道
-							if(ele.getChannel=="[object Object]"||ele.getChannel==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.getChannel+"</td>";
-							}
-							//返利时间
-							if(ele.getTime=="[object Object]"||ele.getTime==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.getTime+"</td>";
-							}
-							//返利批次
-							if(ele.couponBatch=="[object Object]"||ele.couponBatch==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.couponBatch+"</td>";
-							}
-							//删除标记
-							if(ele.deleteFlag=="[object Object]"||ele.deleteFlag==undefined){
-								option+="<td align='center'></td></tr>";
-							}else if(ele.deleteFlag=='1'){
-								option+="<td align='center'>"+'是'+"</td></tr>";
-							}else if(ele.deleteFlag=='0'){
-								option+="<td align='center'>"+'否'+"</td></tr>";
-							}
+						}else{
+							option += "<td height='26px' align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td>"+
+					 		  "<td align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td></tr>";
 						}
+					}else{
+						option += "<td height='26px' align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td>"+
+				 		  "<td align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td></tr>";
 					}
 					option += "</table></div></td></tr>";
 					$("#gradeYOrder" + obj).after(option);
@@ -446,69 +454,77 @@
 					"<th width='3%' style='text-align: center;'>运费促销分摊</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
-						for (var i = 0; i < result.length; i++) {
-							var ele = result[i];
-							//商品行项目编号
-							if(ele.orderItemNo=="[object Object]"||ele.orderItemNo==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.orderItemNo+"</td>";
+						if(result.length != 0){
+							for (var i = 0; i < result.length; i++) {
+								var ele = result[i];
+								//商品行项目编号
+								if(ele.orderItemNo=="[object Object]"||ele.orderItemNo==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.orderItemNo+"</td>";
+								}
+								//促销编码
+								if(ele.promotionCode=="[object Object]"||ele.promotionCode==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.promotionCode+"</td>";
+								}
+								/* //促销类型
+								if(ele.promotionType=="[object Object]"||ele.promotionType==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.promotionType+"</td>";
+								} */
+								//促销名称
+								if(ele.promotionName=="[object Object]"||ele.promotionName==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.promotionName+"</td>";
+								}
+								//促销描述
+								if(ele.promotionDesc=="[object Object]"||ele.promotionDesc==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.promotionDesc+"</td>";
+								}
+								//促销优惠分摊金额
+								if(ele.promotionAmount=="[object Object]"||ele.promotionAmount==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.promotionAmount+"</td>";
+								}
+								//促销规则
+								if(ele.promotionRule=="[object Object]"||ele.promotionRule==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.promotionRule+"</td>";
+								}
+								//促销规则值
+								if(ele.promotionRuleName=="[object Object]"||ele.promotionRuleName==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.promotionRuleName+"</td>";
+								}
+								//分摊比例
+								if(ele.splitRate=="[object Object]"||ele.splitRate==undefined){
+									option+="<td align='center'></td>";
+								}else{
+									option+="<td align='center'>"+ele.splitRate+"</td>";
+								}
+								//运费促销分摊
+								if(ele.freightAmount=="[object Object]"||ele.freightAmount==undefined){
+									option+="<td align='center'></td></tr>";
+								}else{
+									option+="<td align='center'>"+ele.freightAmount+"</td></tr>";
+								}
 							}
-							//促销编码
-							if(ele.promotionCode=="[object Object]"||ele.promotionCode==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.promotionCode+"</td>";
-							}
-							/* //促销类型
-							if(ele.promotionType=="[object Object]"||ele.promotionType==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.promotionType+"</td>";
-							} */
-							//促销名称
-							if(ele.promotionName=="[object Object]"||ele.promotionName==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.promotionName+"</td>";
-							}
-							//促销描述
-							if(ele.promotionDesc=="[object Object]"||ele.promotionDesc==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.promotionDesc+"</td>";
-							}
-							//促销优惠分摊金额
-							if(ele.promotionAmount=="[object Object]"||ele.promotionAmount==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.promotionAmount+"</td>";
-							}
-							//促销规则
-							if(ele.promotionRule=="[object Object]"||ele.promotionRule==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.promotionRule+"</td>";
-							}
-							//促销规则值
-							if(ele.promotionRuleName=="[object Object]"||ele.promotionRuleName==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.promotionRuleName+"</td>";
-							}
-							//分摊比例
-							if(ele.splitRate=="[object Object]"||ele.splitRate==undefined){
-								option+="<td align='center'></td>";
-							}else{
-								option+="<td align='center'>"+ele.splitRate+"</td>";
-							}
-							//运费促销分摊
-							if(ele.freightAmount=="[object Object]"||ele.freightAmount==undefined){
-								option+="<td align='center'></td></tr>";
-							}else{
-								option+="<td align='center'>"+ele.freightAmount+"</td></tr>";
-							}
+						}else{
+							option += "<td height='26px' align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td>"+
+					 		  "<td align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td></tr>";
 						}
+					}else{
+						option += "<td height='26px' align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td>"+
+				 		  "<td align='center'>——</td><td align='center'>——</td><td align='center'>——</td><td align='center'>——</td></tr>";
 					}
 					option += "</table></div></td></tr>";
 					$("#gradeYOrder" + obj).after(option);
@@ -2165,6 +2181,7 @@
 		"<th width='3%' style='text-align: center;'>快递公司</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
 		"<th width='3%' style='text-align: center;'>快递单号</th>"+
+		"<th width='3%' style='text-align: center;'>快递状态</th>"+
 		"<th width='4%' style='text-align: center;'>发货时间</th>"+
 		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
 		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
@@ -2224,6 +2241,12 @@
 							option2+="<td align='center'></td>";
 						}else{
 							option2+="<td align='center'>"+ele.deliveryNo+"</td>";
+						}
+						//快递状态
+						if(ele.c2=="[object Object]"||ele.c2==undefined){
+							option2+="<td align='center'></td>";
+						}else{
+							option2+="<td align='center'>"+ele.c2+"</td>";
 						}
 						//发货时间
 						if(ele.sendTimeStr=="[object Object]"||ele.sendTimeStr==undefined){
