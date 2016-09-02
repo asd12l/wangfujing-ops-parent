@@ -90,6 +90,8 @@ $(function() {
 //	$('#timeSelect_input').val(formateDate2(startTime)+" - "+formateDate2(endTime));
 	//初始化
     initOlv();
+	//获取支付渠道
+	payChannelType();
 });
 function parseTime1(strTime){
 	if(format.test(strTime)){
@@ -302,6 +304,27 @@ function tab(data){
 function successBtn(){
 	$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 }
+//动态获取支付渠道类型
+function payChannelType(){
+		var url=__ctxPath+"/wfjpay/selectPayChannel";
+		$.ajax({
+			url:url,
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				if(data.success=="true"){
+					option="";
+					for(var i in data.list){
+						option+="<option value='"+data.list[i].name+"'>"+data.list[i].value+"</option>";
+					}
+					$("#payType_input").html("<option value=''>全部渠道</option>"+option);
+				}
+			},
+			error:function(){
+				alert("获取支付渠道类型失败！");
+			}
+		});
+	}
 </script> 
 </head>
 <body>
@@ -355,6 +378,7 @@ function successBtn(){
 	                        					<label class="titname">支付渠道：</label>
 	                        					<select id="payType_input" style="padding:0 0;">
 	                        					<option value="">全部</option>
+	                        					<!--
 	                        					<option value="ALIPAY">支付宝</option>
 	                        					<option value="TENPAY">财付通</option>
 	                        					<option value="NETPAY">银联</option>
@@ -366,7 +390,6 @@ function successBtn(){
 												<option value="ALIPAY_OFFLINE">支付宝线下</option>
 												<option value=" ALIPAY_MOBILE ">支付宝WAP</option>
 												<option value="WECHATPAY_MOBILE">微信WAP</option>
-	                        					<!--
 	                            					<option value="YEEBAO">富汇易达</option>
 	                            					<option value="PAYPAL">Paypal</option>
 	                        					-->

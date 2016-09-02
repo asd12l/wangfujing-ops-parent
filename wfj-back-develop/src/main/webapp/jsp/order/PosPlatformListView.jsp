@@ -2439,8 +2439,8 @@
 														{#if $T.Result.payTimeStr != '[object Object]'}{$T.Result.payTimeStr}
 						                   				{#/if}
 													</td>
-													<td align="center" id="memberNo_{$T.Result.sid}">
-														{#if $T.Result.memberNo != '[object Object]'}{$T.Result.memberNo}
+													<td align="center" id="createdTimeStr_{$T.Result.sid}">
+														{#if $T.Result.createdTimeStr != '[object Object]'}{$T.Result.createdTimeStr}
 						                   				{#/if}
 													</td>
 													<td align="center" id="paymentType_{$T.Result.sid}">

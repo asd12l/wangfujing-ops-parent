@@ -18,6 +18,7 @@
 	src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js">
 	
 </script>
+<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css" />
 <link rel="stylesheet" type="text/css"

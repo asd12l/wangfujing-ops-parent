@@ -30,7 +30,6 @@
 		});
 
 		function productQuery(){
-			debugger;
 			$("#cid_form").val($("#cid_input").val().trim());
 			$("#mobile_form").val($("#mobile_input").val().trim());
 			$("#email_form").val($("#email_input").val().trim());
@@ -62,6 +61,9 @@
 			$("#cid_input").val("");
 			$("#mobile_input").val("");
 			$("#email_input").val("");
+			$("#refundNo_input").val("");
+			$("#orderNo_input").val("");
+			$("#reservation").val("");
 			productQuery();
 		}
 		//初始化包装单位列表
@@ -113,7 +115,8 @@
 		}
 
 		function showMemRefundView(){
-			var checkboxArray=[];function init(param, obj)
+			debugger;
+			var checkboxArray=[];
 			$("input[type='checkbox']:checked").each(function(i,team){
 				var cid=$(this).val().trim();
 				checkboxArray.push(cid);
@@ -161,12 +164,13 @@
 			<div class="row">
 				<div class="col-xs-12 col-md-12">
 					<div class="widget">
-						<div class="widget-header ">会员退货记录</h5>
+						<div class="widget-header ">
+						<h5 class="widget-caption">会员退货记录</h5>
 							<div class="widget-buttons">
-								<a href="#" data-toggle="maximize"></a> <a href="#"
-																		   data-toggle="collapse" onclick="tab('pro');"> <i
-									class="fa fa-minus" id="pro-i"></i>
-							</a> <a href="#" data-toggle="dispose"></a>
+								<a href="#" data-toggle="maximize"></a> 
+								<a href="#" data-toggle="collapse" onclick="tab('pro');"> 
+									<i class="fa fa-minus" id="pro-i"></i>
+							    </a> <a href="#" data-toggle="dispose"></a>
 							</div>
 						</div>
 						<div class="widget-body" id="pro">
@@ -243,17 +247,17 @@
 															</label>
 														</div>
 													</td>
-													<td align="center" id="cid_{$T.Result.cid}">
+													<td align="center" id="refundTimeStr_{$T.Result.cid}">
 														{#if $T.Result.refundTimeStr == "" || $T.Result.refundTimeStr == null}--
 														{#else}{$T.Result.refundTimeStr}
 														{#/if}
 													</td>
-													<td align="center" id="cid_{$T.Result.cid}">
+													<td align="center" id="saleTime_{$T.Result.cid}">
 														{#if $T.Result.saleTime == "" || $T.Result.saleTime == null}--
 														{#else}{$T.Result.saleTime}
 														{#/if}
 													</td>
-													<td align="center" id="cid_{$T.Result.cid}">
+													<td align="center" id="username_{$T.Result.cid}">
 														{#if $T.Result.username == "" || $T.Result.username == null}--
 														{#else}{$T.Result.username}
 														{#/if}

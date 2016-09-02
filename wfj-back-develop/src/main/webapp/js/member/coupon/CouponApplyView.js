@@ -114,43 +114,59 @@
      * 查看优惠券申请
      */
     function showCouPonDetail(){
+
+        $(".edit_msg").hide();
+        //回显
         var checkboxArray=[];
         $("input[type='checkbox']:checked").each(function(i,team){
             var sid=$(this).val();
             checkboxArray.push(sid);
         });
         if (checkboxArray.length > 1) {
-            $("#warning2Body").text("只能选择一条申请记录!");
+            $("#warning2Body").text("只能选择一条优惠券申请记录!");
             $("#warning2").show();
             return;
         } else if (checkboxArray.length == 0) {
-            $("#warning2Body").text("请选择要查看的申请!");
+            $("#warning2Body").text("请选择要编辑的优惠券申请!");
             $("#warning2").show();
             return;
         }
         var value=checkboxArray[0];
-        $("#sid").val(value);
-        $("#apply_cid").val($("#apply_cid_"+value).text().trim());
-        $("#apply_name").val($("#apply_name_"+value).text().trim());
-        $("#apply_num").val($("#apply_point_"+value).text().trim());
-        $("#apply_reason").val($("#apply_reason_"+value).text().trim());
-        $("#apply_status").val($("#apply_status_"+value).text().trim());
-
-        var applyType=$("#apply_type_"+value).text().trim();
-        if(applyType=="2"){
-            $("#apply_type_1").attr("checked",true);
-        }else{
-            $("#apply_type_0").attr("checked",true);
+        var checkStatus=$("#check_status_"+value).text().trim();
+        if(checkStatus=="审核通过"){
+            $("#warning2Body").text("该申请已通过,请选择其他申请记录!!");
+            $("#warning2").show();
+            return;
         }
-
-        var sourceType=$("#source_type_"+value).text().trim();
-        if(sourceType=="2"){
-            $("#source_type_1").attr("checked",true);
+       emptyProperty();
+        $sid = value;
+        $applyCid = $("#apply_cid_"+value).text().trim();
+        $loginName = $("#login_name_"+value).text().trim();
+        var apptype = $("#apply_type_"+value).text().trim();
+        if(apptype == '服务投诉补偿'){
+        	$applyType = 1;
+        }else if(apptype == "外呼关怀回访"){
+        	$applyType = 2;
         }else{
-            $("#source_type_0").attr("checked",true);
+        	$applyType = 3;
         }
-		//显示优惠券申请详情
-        $("#CouponDetailDiv").show();
+        
+        var sourceType= $("#source_type_"+value).text().trim();
+        if(sourceType == "订单号"){
+        	$sourceType = 1;
+        }else{
+        	$sourceType = 2;
+        }
+        $couponTemplate = $("#coupon_template_"+value).text().trim();
+        $couponType = $("#coupon_type_"+value).text().trim();
+        $couponBatch = $("#coupon_batch_"+value).text().trim();
+        $couponName = $("#coupon_name_"+value).text().trim();
+        $conponMemo = $("#coupon_memo_"+value).text().trim();
+        $applyReason = $("#apply_reason_"+value).text().trim();
+        $couponMoney = $("#coupon_Money_"+value).text().trim();
+        //$("#deitCouponApplyDiv").show();
+        $("#pageBody").load(__ctxPath+"/jsp/mem/DetailCouponApply.jsp");
+    
     }
     /**
      * 隐藏优惠券申请详情

@@ -27,10 +27,48 @@
 	$(function() {
 		$("#reservation").daterangepicker();
 	    initOlv();
+	   
+	    $.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url : __ctxPath + "/memBasic/selectOrderFrom",
+			dataType : "json",
+			async : false,
+			success : function(response) {
+				//订单来源
+           		var result = response.list;
+				var option = "";
+				for (var i = 0; i < result.length; i++) {
+					var ele = result[i];
+					option += "<option value='"+ele.channelCode+"'>"
+							+ ele.channelName + "</option>";
+				}
+				$("#orderFrom_input").append(option);
+           		return;
+			}
+	    });
+	   
+			$.ajax({
+				type: "post",
+				contentType: "application/x-www-form-urlencoded;charset=utf-8",
+				url: __ctxPath+"/testOnlineOmsOrder/selectCodelist?typeValue=order_status",
+				dataType: "json",
+				success: function(response) {
+					var result = response;
+					var codeValue = $("#orderStatus_input");
+					for ( var i = 0; i < result.list.length; i++) {
+						var ele = result.list[i];
+						var option;
+						option = $("<option value='" + ele.codeValue + "'>"
+								+ ele.codeName + "</option>");
+						option.appendTo(codeValue);
+					}
+					return;
+				}
+			});
 	});
 	
 	function productQuery(){
-		debugger;
 		$("#username_form").val($("#username_input").val().trim());
 		$("#mobile_form").val($("#mobile_input").val().trim());
 		$("#email_form").val($("#email_input").val().trim());
@@ -63,6 +101,10 @@
 		$("#username_input").val("");
 		$("#mobile_input").val("");
 		$("#email_input").val("");
+		$("#orderNo_input").val("");
+		$("#outOrderNo_input").val("");
+		$("#saleNo_input").val("");
+		$("#reservation").val("");
 		productQuery();
 	}
 	//初始化包装单位列表
@@ -99,29 +141,8 @@
 				},
              callback: function(data) {
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
-           		//订单来源
-           		var orderFromSpace = $(".orderFromSpace");
-           		var result = data.from;
-           		result.unshift({channelCode:"",channelName:"===请选择==="});
-           		orderFromSpace.html("");
-           		for ( var i = 0; i < result.length; i++) {
-					var ele = result[i];
-					var option = $("<option value='" + ele.channelCode + "'>"
-							+ ele.channelName + "</option>");
-					option.appendTo(orderFromSpace);
+           		
 				}
-           		//订单状态
-           		var orderStatusSpace = $(".orderStatusSpace");
-           		var status = data.status;
-           		status.unshift({codeValue:"",codeName:"===请选择==="});
-           		orderStatusSpace.html("");
-           		for ( var i = 0; i < status.length; i++) {
-					var ele = status[i];
-					var option = $("<option value='" + ele.codeValue + "'>"
-							+ ele.codeName + "</option>");
-					option.appendTo(orderStatusSpace);
-				}
-             }
            }
          });
 		function toChar(data) {
@@ -131,9 +152,6 @@
 			return data;
 			}
     } 
-	/* function orderResourceList(data){
-		var resourceList = data.get
-	} */
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 		$("#pageBody").load(__ctxPath+"/jsp/mem/MemberPurchaseView.jsp");
@@ -188,7 +206,8 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
-                                <div class="widget-header ">购买记录</h5>
+                                <div class="widget-header ">
+                                <h5 class="widget-caption">购买记录</h5>
                                    <div class="widget-buttons">
 										<a href="#" data-toggle="maximize"></a> <a href="#"
 											data-toggle="collapse" onclick="tab('pro');"> <i
@@ -212,11 +231,15 @@
 											<li class="col-md-4"><label class="titname">外部单号：</label>
 												<input type="text" id="outOrderNo_input" /></li>
 											<li class="col-md-4"><label class="titname">订单状态：</label>
-												<select class="form-control orderStatusSpace" id="orderStatus_input" data-bv-field="country" style="width:60%;"></select></li>
+												<select class="form-control orderStatusSpace" id="orderStatus_input" data-bv-field="country" style="width:60%;">
+												<option value="">请选择</option>
+												</select></li>
 											<li class="col-md-4"><label class="titname">销售单号：</label>
 												<input type="text" id="saleNo_input" /></li>
 											<li class="col-md-4 " ><label class="titname">订单来源：</label>
-												<select class="form-control orderFromSpace" id="orderFrom_input" data-bv-field="country" style="width:60%;"></select></li>
+												<select class="form-control orderFromSpace" id="orderFrom_input" data-bv-field="country" style="width:60%;">
+												<option value="">请选择</option>
+												</select></li>
 											<li class="col-md-6">
 												<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
 												<a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
@@ -279,12 +302,12 @@
 															</label>
 														</div>
 													</td>
-													<td align="center" id="cid_{$T.Result.cid}">
-														{#if $T.Result.saleTimeStr == "" || $T.Result.saleTimeStr == null}--
-														{#else}{$T.Result.saleTimeStr}
+													<td align="center" id="createdTime_{$T.Result.cid}">
+														{#if $T.Result.createdTime == "" || $T.Result.createdTime == null}--
+														{#else}{$T.Result.createdTime}
 														{#/if}
 													</td>
-													<td align="center" id="cid_{$T.Result.cid}">
+													<td align="center" id="accountNo_{$T.Result.cid}">
 														{#if $T.Result.accountNo == "" || $T.Result.accountNo == null}--
 														{#else}{$T.Result.accountNo}
 														{#/if}
@@ -340,10 +363,12 @@
 														{#else}{$T.Result.paymentAmount}
 														{#/if}
 													</td>
-													<td align="center" id="address_{$T.Result.cid}">
-														{#if $T.Result.address == "" || $T.Result.address == null}--
-														{#else}{$T.Result.address}
+													<td align="center" id="isCod_{$T.Result.cid}">
+														{#if $T.Result.isCod == "0"}在线支付
+														{#else}货到付款
+														
 														{#/if}
+														
 													</td>
 													<td align="center" id="newOrderStatus_{$T.Result.cid}">
 														{#if $T.Result.newOrderStatus == "" || $T.Result.newOrderStatus == null}--
