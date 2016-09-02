@@ -121,7 +121,7 @@
 				<div class="col-xs-12 col-md-12">
 					<div class="widget">
 						<div class="widget-header ">
-							<span class="widget-caption"><h5>余额年设置列表</h5></span>
+							<span class="widget-caption"><h5>余额月设置列表</h5></span>
 							<div class="widget-buttons">
 								<a href="#" data-toggle="maximize"></a>
 								<a href="#" data-toggle="collapse" onclick="tab('pro');">

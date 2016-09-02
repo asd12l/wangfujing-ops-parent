@@ -82,13 +82,13 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">投诉补偿额度</label>
                                     <div class="col-lg-4">
-                                        <input type="text" class="form-control" id="setupComplaintBal" name="setupComplaintBal" placeholder="必填"/>
+                                        <input type="text" class="form-control" id="setupComplaintBal" name="setupComplaintBal" maxlength="10" placeholder="必填"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">运费补偿额度</label>
                                     <div class="col-lg-4">
-                                        <input type="text" class="form-control" id="setupCarriageBal"  name="setupCarriageBal" placeholder="必填"/>
+                                        <input type="text" class="form-control" id="setupCarriageBal"  name="setupCarriageBal" maxlength="10" placeholder="必填"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
