@@ -359,8 +359,8 @@
 				success : function(response) {
 				var option = "<tr id='afterTr3211"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
 						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-					option += "<th width='3%' style='text-align: center;'>包裹单号</th>"+
-					"<th width='2%' style='text-align: center;'>物流单号</th>"+
+					option += "<th width='3%' style='text-align: center;'>内部交货单号</th>"+
+					"<th width='2%' style='text-align: center;'>快递单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
 					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
@@ -368,13 +368,13 @@
 						var result = response.list;
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
-							//包裹单号
+							//内部交货单号
 							if(ele.packageNo=="[object Object]"||ele.packageNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
 								option+="<td align='center'>"+ele.packageNo+"</td>";
 							}
-							//物流单号
+							//快递单号
 							if(ele.deliveryNo=="[object Object]"||ele.deliveryNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
@@ -2021,8 +2021,8 @@
 		"<th width='1%' style='text-align: center;'></th>"+
 		"<th width='4%' style='text-align: center;'>销售单号</th>"+
 		"<th width='4%' style='text-align: center;'>订单号</th>"+
-		"<th width='3%' style='text-align: center;'>包裹单号</th>"+
-		"<th width='3%' style='text-align: center;'>包裹状态</th>"+
+		"<th width='3%' style='text-align: center;'>内部交货单号</th>"+
+		"<th width='3%' style='text-align: center;'>内部交货单状态</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
 		"<th width='3%' style='text-align: center;'>快递单号</th>"+
@@ -2030,9 +2030,9 @@
 		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
 		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
 		"<th width='4%' style='text-align: center;'>签收时间</th>"+
-		"<th width='3%' style='text-align: center;'>签收人</th>"+
-		"<th width='3%' style='text-align: center;'>退货地址</th>"+
-		"<th width='4%' style='text-align: center;'>创建时间</th></tr>";
+		/* "<th width='3%' style='text-align: center;'>签收人</th>"+
+		"<th width='3%' style='text-align: center;'>退货地址</th>"+ */
+		"<th width='4%' style='text-align: center;'>签收人</th></tr>";
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -2062,13 +2062,13 @@
 						}else{
 							option51+="<td align='center'>"+ele.orderNo+"</td>";
 						}
-						//包裹单号
+						//内部交货单号
 						if(ele.packageNo=="[object Object]"||ele.packageNo==undefined){
 							option51+="<td align='center'></td>";
 						}else{
 							option51+="<td align='center'>"+ele.packageNo+"</td>";
 						}
-						//包裹状态
+						//内部交货单状态
 						if(ele.packageStatusDesc=="[object Object]"||ele.packageStatusDesc==undefined){
 							option51+="<td align='center'></td>";
 						}else{
@@ -2118,11 +2118,11 @@
 						}
 						//签收人
 						if(ele.signName=="[object Object]"||ele.signName==undefined||'\"null\"'==ele.signName){//有个名为null的人故意捣乱
-							option51+="<td align='center'></td>";
+							option51+="<td align='center'></td></tr>";
 						}else{
-							option51+="<td align='center'>"+ele.signName+"</td>";
+							option51+="<td align='center'>"+ele.signName+"</td></tr>";
 						}
-						//退货地址
+						/* //退货地址
 						if(ele.refundAddress=="[object Object]"||ele.refundAddress==undefined){
 							option51+="<td align='center'></td>";
 						}else{
@@ -2133,7 +2133,7 @@
 							option51+="<td align='center'></td></tr>";
 						}else{
 							option51+="<td align='center'>"+ele.createTimeStr+"</td></tr>";
-						}
+						} */
 					}
 				}
 			}
@@ -2747,8 +2747,8 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
 					        <li class="active"><a href="#tab10" data-toggle="tab">销售单商品明细</a></li>
-					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付信息</a></li>
-							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
+					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付介质分摊信息</a></li>
+							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质分摊信息</a></li>
 							<li><a href="#tab51" data-toggle="tab">包裹信息</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>

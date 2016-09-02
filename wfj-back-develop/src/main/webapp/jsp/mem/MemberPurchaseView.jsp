@@ -30,7 +30,6 @@
 	});
 	
 	function productQuery(){
-		debugger;
 		$("#username_form").val($("#username_input").val().trim());
 		$("#mobile_form").val($("#mobile_input").val().trim());
 		$("#email_form").val($("#email_input").val().trim());
@@ -135,9 +134,6 @@
 			return data;
 			}
     } 
-	/* function orderResourceList(data){
-		var resourceList = data.get
-	} */
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 		$("#pageBody").load(__ctxPath+"/jsp/mem/MemberPurchaseView.jsp");
@@ -192,7 +188,8 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
-                                <div class="widget-header ">购买记录</h5>
+                                <div class="widget-header ">
+                                <h5 class="widget-caption">购买记录</h5>
                                    <div class="widget-buttons">
 										<a href="#" data-toggle="maximize"></a> <a href="#"
 											data-toggle="collapse" onclick="tab('pro');"> <i
@@ -344,10 +341,12 @@
 														{#else}{$T.Result.paymentAmount}
 														{#/if}
 													</td>
-													<td align="center" id="address_{$T.Result.cid}">
-														{#if $T.Result.address == "" || $T.Result.address == null}--
-														{#else}{$T.Result.address}
+													<td align="center" id="isCod_{$T.Result.cid}">
+														{#if $T.Result.isCod == "0"}在线支付
+														{#else}货到付款
+														
 														{#/if}
+														
 													</td>
 													<td align="center" id="newOrderStatus_{$T.Result.cid}">
 														{#if $T.Result.newOrderStatus == "" || $T.Result.newOrderStatus == null}--

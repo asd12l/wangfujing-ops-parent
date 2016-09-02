@@ -36,8 +36,8 @@
 			remember-me-parameter="remember-me"/> -->
 		<access-denied-handler error-page="/security/logoutAction.do?error='002'" />
 
-		<session-management session-fixation-protection="none">
+		<!-- <session-management session-fixation-protection="none">
 			<concurrency-control error-if-maximum-exceeded="false" />
-		</session-management>
+		</session-management> -->
 	</http>
 </beans:beans>

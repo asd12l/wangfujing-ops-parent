@@ -2335,8 +2335,8 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
 					        <li class="active"><a href="#tab10" data-toggle="tab">销售单商品明细</a></li>
-					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付信息</a></li>
-							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
+					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付介质分摊信息</a></li>
+							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质分摊信息</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
 					      </ul>

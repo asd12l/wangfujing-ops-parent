@@ -2285,6 +2285,9 @@ public class TestOnlineOmsOrderController {
 		String json = "";
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
 		paramMap.put("orderNo", request.getParameter("orderNo"));
+		if(StringUtils.isNotEmpty(request.getParameter("sysValue"))){
+			paramMap.put("sysValue", request.getParameter("sysValue"));
+		}
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {

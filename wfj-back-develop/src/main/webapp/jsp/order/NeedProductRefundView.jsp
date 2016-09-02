@@ -1960,44 +1960,64 @@
 		var saleNo = saleNo11;
 		var orerNo = orerNo11;
 		var refundReason = $("#sp4").val(); //退货原因
-//		console.log(stockoutAmount);
-		/* if(stockoutAmount !="[object Object]" ){
-			stockoutAmount = stockoutAmount;
-		}else{
-			stockoutAmount = 0;
-		} */
 		var userName = getCookieValue("username");
+		console.log("saleNo:"+saleNo);
+		//粗粒度判断销售单发货前退货状态
 		$.ajax({
 			type : "post",
-			contentType : "application/x-www-form-urlencoded;charset=utf-8",
-			url : __ctxPath + "/testOnlineOmsOrder/createKeRefund3",
-			async : false,
-			data : {
-				"saleNo" : saleNo,
-				"problemDesc" : refundReason,
-				"latestUpdateMan":userName,
-				"saleStatus":"08"
-			},
-			dataType : "json",
-			
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/oms/selectSaleListByPhone",
+			async:false,
+			dataType: "json",
+			data:{"saleNo":saleNo,"page":1},
 			success : function(response) {
-				if(response.success=='true'){
-					refundApplyNo_ = response.data.refundApplyNo;  /* 拿到refundApplyNo */
-					supplyProductNo_ =response.data.products[0].supplyProductNo;
-					shoppeProName_ =response.data.products[0].shoppeProName;
-					salePrice_ =response.data.products[0].salePrice;
-					orderNo_ = response.data.orderNo;
+				if (response.success == "true") {
+					saleStatus = response.list[0].saleStatus;
+					saleStatusDesc = response.list[0].saleStatusDesc;
+					console.log("saleStatus:"+saleStatus);
+					if(saleStatus=='02'||saleStatus=='03'||saleStatus=='04'||saleStatus=='10'||saleStatus=='11'){
+						
+						$.ajax({
+							type : "post",
+							contentType : "application/x-www-form-urlencoded;charset=utf-8",
+							url : __ctxPath + "/testOnlineOmsOrder/createKeRefund3",
+							async : false,
+							data : {
+								"saleNo" : saleNo,
+								"problemDesc" : refundReason,
+								"latestUpdateMan":userName,
+								"saleStatus":"08"
+							},
+							dataType : "json",
+							
+							success : function(response) {
+								if(response.success=='true'){
+									refundApplyNo_ = response.data.refundApplyNo;  /* 拿到refundApplyNo */
+									supplyProductNo_ =response.data.products[0].supplyProductNo;
+									shoppeProName_ =response.data.products[0].shoppeProName;
+									salePrice_ =response.data.products[0].salePrice;
+									orderNo_ = response.data.orderNo;
+									
+									var url = __ctxPath + "/jsp/order/RefundView4.jsp";
+									$("#pageBody").load(url);
+								}else{
+									$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
+				 	     	  		$("#modal-warning").attr({"style":"display:block;z-index:2000","aria-hidden":"false","class":"modal modal-message modal-warning"});
+									//没有保存成功，不跳转
+								}
+								return;
+							}
+						});
+						
+					}else{
+						$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+saleStatusDesc+"不可做发货前退货！</strong></div>");
+	 	     	  		$("#modal-warning").attr({"style":"display:block;z-index:2000","aria-hidden":"false","class":"modal modal-message modal-warning"});
+					}
 					
-					var url = __ctxPath + "/jsp/order/RefundView4.jsp";
-					$("#pageBody").load(url);
-				}else{
-					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.data.errorMsg+"</strong></div>");
- 	     	  		$("#modal-warning").attr({"style":"display:block;z-index:2000","aria-hidden":"false","class":"modal modal-message modal-warning"});
-					//没有保存成功，不跳转
-				}
-				return;
+				} 
 			}
 		});
+		
 		/* salesPrice1= $("#salesPrice_"+orderItemNo).text().trim();
 		orderItemNo_ = orderItemNo;
 		shoppeProName1= $("#shoppeProName_"+orderItemNo).text().trim();
@@ -2334,8 +2354,8 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
 					        <li class="active"><a href="#tab10" data-toggle="tab">销售单商品明细</a></li>
-					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付信息</a></li>
-							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
+					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付介质分摊信息</a></li>
+							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质分摊信息</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
 							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
 					      </ul>
