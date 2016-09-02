@@ -1334,12 +1334,12 @@ var sysValue ='';
 					$('.shiji').slideDown(600);
 					$("#btDiv3").show();
 				}else{
-					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"快递获取失败"+"</strong></div>");
 		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 				}
 			},
 			error : function() {
-				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"快递获取失败"+"</strong></div>");
 	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 			}
 		});
