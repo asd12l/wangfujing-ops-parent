@@ -1134,68 +1134,6 @@ $(function(){
 								<!--银行-->	
 								<td align="center" id="dicCode_{$T.Result.id}" val="{$T.Result.dic_code}">
 							        {$T.Result.bankCode}
-							        <!-- 	{$T.Result.dic_code}   
-									{#if $T.Result.dic_code== 'ABC'}中国农业银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'ICBCB2C'}中国工商银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'CCB'}中国建设银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'POSTGC'}中国邮政储蓄银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'COMM'}交通银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'CMB'}招商银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'BOCB2C'}中国银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'CEBBANK'}中国光大银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'CMBC'}中国民生银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'CITIC'}中信银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'CIB'}兴业银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'SPABANK'}平安银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'ALIPAY'}支付宝
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'ALIPAY_MOBILE'}支付宝手机支付
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'NETPAY'}银联
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'NETPAY_MOBILE'}银联手机支付
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'TENPAY'}财付通
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'TENPAY_MOBILE'}财付通手机支付
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'WECHATPAY'}微信
-	                   				{#/if}
-	                   				{#if $T.Result.dic_code== 'WECHATPAY_SHB'}微信扫货邦
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'CMBPAY'}招商银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'ICBCPAY'}工商银行
-	                   				{#/if}
-									{#if $T.Result.dic_code== 'CGBPAY'}广发银行
-	                   				{#/if}
-	                   				{#if $T.Result.dic_code== 'CGB'}广发银行
-	                   				{#/if}
-	                   				{#if $T.Result.dic_code== 'SPDB'}浦发银行
-	                   				{#/if}
-	                   				{#if $T.Result.dic_code== 'BOS'}上海银行
-	                   				{#/if}
-	                   			    {#if $T.Result.dic_code== 'BRCB'}北京农商银行
-	                   				{#/if}
-	                   				{#if $T.Result.dic_code== 'ALIPAY_OFFLINE'}支付宝线下支付
-	                   				{#/if}
-	                   				{#if $T.Result.dic_code== 'WECHATPAY_MOBILE'}财付通手机支付
-	                   				{#/if}
-	                   				{#if $T.Result.dic_code== 'WECHATPAY_OFFLINE'}微信线下支付
-	                   				{#/if}
-	                   				-->
 								</td>
 								<!--简码-->	
 								<td align="center" id="">
@@ -1215,36 +1153,6 @@ $(function(){
 								<!--支付渠道-->	
 								<td align="center" id="payType_{$T.Result.id}" val="{$T.Result.pay_type}">
 									{$T.Result.payTypeCode}
-									<!-- 
-									{#if $T.Result.pay_type== 'ALIPAY'}支付宝
-	                   				{#/if}
-									{#if $T.Result.pay_type== 'TENPAY'}财付通
-	                   				{#/if}
-									{#if $T.Result.pay_type== 'NETPAY'}银联
-	                   				{#/if}
-									{#if $T.Result.pay_type== 'ICBCPAY'}工商银行
-	                   				{#/if}
-									{#if $T.Result.pay_type== 'CMBPAY'}招商银行
-	                   				{#/if}
-									{#if $T.Result.pay_type== 'CGBPAY'}广发银行
-	                   				{#/if}
-									{#if $T.Result.pay_type== 'WECHATPAY'}微信
-	                   				{#/if}
-	                   				{#if $T.Result.pay_type== 'WECHATPAY_SHB'}微信扫货邦
-	                   				{#/if}
-	                   				{#if $T.Result.pay_type== 'ALIPAY_OFFLINE'}支付宝线下
-	                   				{#/if}
-	                   				{#if $T.Result.pay_type== 'ALIPAY_MOBILE'}支付宝WAP 
-	                   				{#/if}
-	                   				{#if $T.Result.pay_type== 'WECHATPAY_MOBILE'}微信WAP
-	                   				{#/if}
-	                   				 -->
-								<!--
-									{#if $T.Result.pay_type== 'YEEBAO'}富汇易达
-	                   				{#/if}
-									{#if $T.Result.pay_type== 'PAYPAL'}Paypal
-	                   				{#/if}
-								-->
 								</td>
 								<td align="center" id="payPartner_{$T.Result.id}" val="{$T.Result.pay_partner}" style="display:none;">
 								</td>

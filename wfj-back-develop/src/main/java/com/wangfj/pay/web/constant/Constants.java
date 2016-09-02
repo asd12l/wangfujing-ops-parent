@@ -101,6 +101,8 @@ public class Constants {
 	public static final String SELECT_CHANNEL_FEE_RATE_TYPE="select_channel_fee_rate_type";
 	//保存角色权限
 	public static String SAVE_USER_RIGHTS="save_user_rights";
-	//查询支付渠道类型(下拉选)
+	//查询渠道支付类型(下拉选)
 	public static final String SELECT_PAY_CHANNEL_TYPE="select_pay_channel_type";
+	//查询支付渠道(下拉选)
+	public static final String SELECT_PAY_CHANNEL="select_pay_channel";
 }

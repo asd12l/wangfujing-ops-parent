@@ -126,13 +126,24 @@
 		parentSid_ = $("#parentSid_" + value).text().trim();
 		groupSid_ = $("#groupSid_" + value).text().trim();
 		organizationCode_= $("#organizationCode_" + value).val().trim();
-		organizationName_= $("#organizationName_" + value).text().trim();
+		/* organizationName_= $("#organizationName_" + value).text().trim();
 		organizationType_= $("#organizationType_" + value).text().trim();
 		organizationStatus_= $("#organizationStatus_" + value).attr("organizationStatus").trim();
 		storeType_= $("#storeType_" + value).attr("storeType").trim();
 		shippingPoint_= $("#shippingPoint_" + value).text().trim();
-		areaCode_= $("#areaCode_" + value).text().trim();
+		areaCode_= $("#areaCode_" + value).text().trim(); */
+		
+		
 		var url = __ctxPath + "/jsp/organization/editOrganizationThreeInfomationNode.jsp";
+		$("#pageBody").load(url);
+	}
+	function getShopDetail(parentSid, groupSid, organizationCode){
+
+        parentSid_ = parentSid;
+		groupSid_ = groupSid;
+		organizationCode_= organizationCode;
+		
+		var url = __ctxPath + "/jsp/organization/getOrganizationThreeInfomationDetail.jsp";
 		$("#pageBody").load(url);
 	}
 </script>
@@ -298,12 +309,17 @@
 													</td>
 													<td align="center" id="organizationName_{$T.Result.sid}">
 													{#if $T.Result.organizationName != '[object Object]'}
-														{$T.Result.organizationName}
-													{#/if}</td>
+														<a onclick="getShopDetail('{$T.Result.parentSid}','{$T.Result.groupSid}','{$T.Result.organizationCode}')" style="cursor:pointer;">
+														    {$T.Result.organizationName}
+														</a>
+													{#/if}
+													</td>
 													
 													<td align="center" id="organizationCode_{$T.Result.sid}">
 													{#if $T.Result.organizationCode != '[object Object]'}
-														{$T.Result.organizationCode}
+														<a onclick="getShopDetail('{$T.Result.parentSid}','{$T.Result.groupSid}','{$T.Result.organizationCode}')" style="cursor:pointer;">
+														    {$T.Result.organizationCode}
+													    </a>
 													{#/if}
 													</td>
 													

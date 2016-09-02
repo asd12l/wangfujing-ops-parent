@@ -2362,7 +2362,7 @@
 		$("#btDiv21").hide();
 	}
 	//点击tr事件
-	function trClick(orderNo,refundNo,obj){
+	function trClick(orderNo,refundNo,refundType,obj){
 		 var newTr =  $(obj).parent().parent().clone(true);
 		 newTr.children().children().removeAttr("onclick").removeClass("trClick");
 		 newTr.children().find("#"+orderNo+"_").replaceWith(orderNo);
@@ -3281,7 +3281,7 @@
 													</td>
 													<td align="center" id="refundNo_{$T.Result.sid}">
 														
-						                   				<a id="{$T.Result.refundNo}_" onclick="trClick('{$T.Result.orderNo}','{$T.Result.refundNo}',this);" style="cursor:pointer;">
+						                   				<a id="{$T.Result.refundNo}_" onclick="trClick('{$T.Result.orderNo}','{$T.Result.refundNo}','{$T.Result.reType}',this);" style="cursor:pointer;">
 															{#if $T.Result.refundNo != '[object Object]'}{$T.Result.refundNo}
 						                   					{#/if}
 														</a>

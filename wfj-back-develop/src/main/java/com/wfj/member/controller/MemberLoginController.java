@@ -84,6 +84,40 @@ public class MemberLoginController {
 	}
 	
 	/**
+	 * 第三方渠道下拉选字段查询
+	 * 
+	 * @param m
+	 * @param pageNo
+	 * @param request
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getLoginLogList1", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public String getLoginLogList1(HttpServletRequest request,
+			HttpServletResponse response) {
+		String method = "/mem_login/MemberloginLog1.do";
+		Gson gson = new Gson();
+		List<Object> list = new ArrayList<Object>();
+		String jsonString = gson.toJson(list);
+		
+		Map<Object, Object> paraMap = new HashMap<Object, Object>();
+		
+		paraMap.put("loginchannel_input", request.getParameter("loginchannel_input"));
+
+		try {
+			String url = CommonProperties.get("member_ops_url");
+			System.err.println("============== member_ops_url:" + url);
+			System.out.println("=============method:"+method);
+			jsonString = HttpUtil.HttpPost(url,method, paraMap);
+			logger.info("jsonString:"+jsonString);
+		} catch (Exception e) {
+			jsonString = "{success :false}";
+		}
+		return jsonString;
+	}
+	
+	
+	/**
 	 * 用户活跃度
 	 * 
 	 * @param m

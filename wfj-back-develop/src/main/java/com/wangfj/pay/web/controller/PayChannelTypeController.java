@@ -24,7 +24,7 @@ import com.wangfj.pay.web.constant.Constants;
 import com.wangfj.pay.web.util.HttpClientUtil;
 
 /**
- * 支付渠道类型
+ * 支付类型
  * @author sunfei
  *
  */
@@ -33,7 +33,7 @@ import com.wangfj.pay.web.util.HttpClientUtil;
 public class PayChannelTypeController {
 	private static final Logger logger = LoggerFactory.getLogger(PayChannelTypeController.class);
 	/**
-	 * 查询渠道类型
+	 * 查询渠道支付类型
 	 */
 	@ResponseBody
 	@RequestMapping(value="/selectChannelType")
@@ -43,6 +43,43 @@ public class PayChannelTypeController {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String url=CommonProperties.get(Constants.PAY_CORE_URL)+"/"+CommonProperties.get(Constants.SELECT_PAY_CHANNEL_TYPE);
+			json=HttpClientUtil.post(url,paramMap);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+			JSONArray object=jsonObject.getJSONArray("data");
+			
+			List<Object> list = new ArrayList<Object>();
+			for (int i = 0; i < object.size(); i++) {
+				Object object2 = object.get(i);
+				list.add(object2);
+			}
+			if(list !=null && list.size() !=0){
+			m.put("list", list);
+			m.put("success", "true");
+			m.put("msg", "查询下拉渠道类型列表成功！");
+			} else {
+				m.put("success", "false");
+				m.put("msg", "查询下拉渠道类型列表成功！");
+			}
+		} catch (Exception e) {
+			m.put("success", "false");
+			m.put("msg", "查询下拉渠道类型列表异常！");
+			logger.error(e.getMessage());
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
+	/**
+	 * 查询支付渠道类型
+	 * 2016-08-31 
+	 */
+	@ResponseBody
+	@RequestMapping(value="/selectPayChannel")
+	public String selectPayChannel(HttpServletRequest request, HttpServletResponse response) {
+		String json="";
+		Map<String,String> paramMap = new HashMap<String,String>();
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			String url=CommonProperties.get(Constants.PAY_CORE_URL)+"/"+CommonProperties.get(Constants.SELECT_PAY_CHANNEL);
 			json=HttpClientUtil.post(url,paramMap);
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			JSONArray object=jsonObject.getJSONArray("data");

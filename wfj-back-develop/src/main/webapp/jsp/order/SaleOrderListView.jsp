@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/msgbox/msgbox.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/js/pagination/myPagination/page.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/assets/css/dateTime/datePicker.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/timeline/css/timeline2.css" />
 <!--Bootstrap Date Range Picker-->
 <script src="${ctx}/assets/js/datetime/moment.min.js"></script>
 <script src="${ctx}/assets/js/datetime/datepicker.js"></script>
@@ -31,6 +32,7 @@
 	var qudaos1='';
 	var mendians1='' ;
 	var olvPagination;
+	var sysValue='';
 	$(function() {
 		//权限
 		$.ajax({
@@ -60,6 +62,23 @@
 					$("#op1").val(qudaos1);
 					$("#op2").val(mendians1);
 //					var fenleis1 = fenleis.substring(0,fenleis.length-3);
+				return;
+			}
+		});
+		
+		//会员权限
+		$.ajax({
+			type: "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url: __ctxPath+"/omsOrder/sysConfig",//0-否，屏蔽敏感信息按钮未开启，信息不做屏蔽处理；1-是，屏蔽敏感信息按钮开启，信息需要做屏蔽处理；
+			dataType: "json",
+			success: function(response) {
+				var result = response;
+				for ( var i = 0; i < result.data.length; i++) {
+						var ele = result.data[i];
+						sysValue=ele.sysValue;
+						console.log("sysValue:"+sysValue);
+					}
 				return;
 			}
 		});
@@ -288,10 +307,173 @@
 		});
 			
 	}
+	//快递状态
+	function deliveryClick(deliveryNo,obj){
+		$("#cd-timeline").html("")
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/selectPackageHistoryByOrderNo",
+			async:false,
+			dataType: "json",
+			data : {"deliveryNo":deliveryNo},
+			ajaxStart: function() {
+		       	 $("#loading-container").attr("class","loading-container");
+		        },
+	        ajaxStop: function() {
+	          //隐藏加载提示
+	          setTimeout(function() {
+	       	        $("#loading-container").addClass("loading-inactive");
+	       	 },300);
+	        },
+			success : function(response) {
+				if (response.success == "true") {
+					var result = response.data;
+					for (var j = 0; j < result.length; j++) {
+						var ele = result[j];
+						var priceLine = "<div class='cd-timeline-block'>"
+								+ "<div class='cd-timeline-img cd-picture'>"
+								+ ele.packageStatusDesc
+								+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+								+ ele.deliveryDateStr  +ele.deliveryRecord
+								+ "</span></div></div>"
+								/* + "<div class='cd-timeline-block'>"
+								+ "<div class='cd-timeline-img cd-movie'>"
+								+ ele.packageStatusDesc
+								+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+								+ ele.deliveryDateStr  +ele.deliveryRecord
+								+ "</span></div></div>" */
+
+						$("#cd-timeline").append(priceLine);
+					}
+					$('.shiji').slideDown(600);
+					$("#btDiv3").show();
+				}else{
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+				}
+			},
+			error : function() {
+				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+			}
+		});
+			
+	}
+	/*打开时间轴*/
+	function showTimeLine() {
+		$('.shiji').slideDown(600);
+
+	}
  	//订单明细促销
  	function spanTdOrder(obj) {
 		if ($("#spanTdOrder_"+obj).attr("class") == "expand-collapse click-expand glyphicon glyphicon-plus") {
 			$("#spanTdOrder_"+obj).attr("class","expand-collapse click-collapse glyphicon glyphicon-minus");
+			
+			$.ajax({
+				type : "post",
+				contentType : "application/x-www-form-urlencoded;charset=utf-8",
+				url : __ctxPath + "/omsOrder/selectOrderGetSplit",
+				async : false,
+				dataType : "json",
+				ajaxStart : function() {
+					$("#loading-container").attr("class",
+							"loading-container");
+				},
+				ajaxStop : function() {
+					//隐藏加载提示
+					setTimeout(function() {
+						$("#loading-container").addClass(
+								"loading-inactive");
+					}, 300);
+				},
+				data : {"orderItemNo" : obj},
+				success : function(response) {
+					var option = "<tr id='afterTr"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 150%;'>"
+							+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
+						option += "<th width='4%' style='text-align: center;'>商品行项目编号</th>"+
+						/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
+						"<th width='3%' style='text-align: center;'>返利编码</th>"+
+						"<th width='3%' style='text-align: center;'>返利名称</th>"+
+						"<th width='3%' style='text-align: center;'>返利值</th>"+
+						"<th width='3%' style='text-align: center;'>返利类型</th>"+
+						"<th width='3%' style='text-align: center;'>返利渠道</th>"+
+						"<th width='3%' style='text-align: center;'>返利时间</th>"+
+						"<th width='3%' style='text-align: center;'>券批次</th>"+
+						"<th width='3%' style='text-align: center;'>删除标志</th></tr>";
+					if(response.success=='true'){
+						var result = response.list;
+						for (var i = 0; i < result.length; i++) {
+							var ele = result[i];
+							//商品行项目编号
+							if(ele.orderItemNo=="[object Object]"||ele.orderItemNo==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.orderItemNo+"</td>";
+							}
+							//返利编码
+							if(ele.code=="[object Object]"||ele.code==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.code+"</td>";
+							}
+							/* //促销类型
+							if(ele.promotionType=="[object Object]"||ele.promotionType==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.promotionType+"</td>";
+							} */
+							//返利名称
+							if(ele.name=="[object Object]"||ele.name==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.name+"</td>";
+							}
+							//返利值
+							if(ele.amount=="[object Object]"||ele.amount==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.amount+"</td>";
+							}
+							//返利类型
+							if(ele.getType=="[object Object]"||ele.getType==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.getType+"</td>";
+							}
+							//返利渠道
+							if(ele.getChannel=="[object Object]"||ele.getChannel==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.getChannel+"</td>";
+							}
+							//返利时间
+							if(ele.getTime=="[object Object]"||ele.getTime==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.getTime+"</td>";
+							}
+							//返利批次
+							if(ele.couponBatch=="[object Object]"||ele.couponBatch==undefined){
+								option+="<td align='center'></td>";
+							}else{
+								option+="<td align='center'>"+ele.couponBatch+"</td>";
+							}
+							//删除标记
+							if(ele.deleteFlag=="[object Object]"||ele.deleteFlag==undefined){
+								option+="<td align='center'></td></tr>";
+							}else if(ele.deleteFlag=='1'){
+								option+="<td align='center'>"+'是'+"</td></tr>";
+							}else if(ele.deleteFlag=='0'){
+								option+="<td align='center'>"+'否'+"</td></tr>";
+							}
+						}
+					}
+					option += "</table></div></td></tr>";
+					$("#gradeYOrder" + obj).after(option);
+				}
+			});
+			
 			$.ajax({
 				type : "post",
 				contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -703,8 +885,8 @@
 				success : function(response) {
 				var option = "<tr id='afterTr321"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
 						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-					option += "<th width='3%' style='text-align: center;'>包裹单号</th>"+
-					"<th width='2%' style='text-align: center;'>物流单号</th>"+
+					option += "<th width='3%' style='text-align: center;'>内部交货单号</th>"+
+					"<th width='2%' style='text-align: center;'>快递单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
 					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
@@ -712,13 +894,13 @@
 						var result = response.list;
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
-							//包裹单号
+							//内部交货单号
 							if(ele.packageNo=="[object Object]"||ele.packageNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
 								option+="<td align='center'>"+ele.packageNo+"</td>";
 							}
-							//物流单号
+							//快递单号
 							if(ele.deliveryNo=="[object Object]"||ele.deliveryNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
@@ -780,8 +962,8 @@
 				success : function(response) {
 				var option = "<tr id='afterTr3211"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 200%;'>"
 						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-					option += "<th width='3%' style='text-align: center;'>包裹单号</th>"+
-					"<th width='2%' style='text-align: center;'>物流单号</th>"+
+					option += "<th width='3%' style='text-align: center;'>内部交货单号</th>"+
+					"<th width='2%' style='text-align: center;'>快递单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
 					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
@@ -789,13 +971,13 @@
 						var result = response.list;
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
-							//包裹单号
+							//内部交货单号
 							if(ele.packageNo=="[object Object]"||ele.packageNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
 								option+="<td align='center'>"+ele.packageNo+"</td>";
 							}
-							//物流单号
+							//快递单号
 							if(ele.deliveryNo=="[object Object]"||ele.deliveryNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
@@ -1527,18 +1709,19 @@
 		var option2 = "<tr role='row' style='height:35px;'>"+
 		"<th width='1%' style='text-align: center;'></th>"+
 		"<th width='4%' style='text-align: center;'>订单号</th>"+
-		"<th width='3%' style='text-align: center;'>包裹单号</th>"+
-		"<th width='3%' style='text-align: center;'>包裹状态</th>"+
+		"<th width='3%' style='text-align: center;'>内部交货单号</th>"+
+		"<th width='3%' style='text-align: center;'>内部交货单状态</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
 		"<th width='3%' style='text-align: center;'>快递单号</th>"+
+		"<th width='3%' style='text-align: center;'>快递状态</th>"+
 		"<th width='4%' style='text-align: center;'>发货时间</th>"+
 		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
 		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
 		"<th width='4%' style='text-align: center;'>签收时间</th>"+
-		"<th width='3%' style='text-align: center;'>签收人</th>"+
-		"<th width='3%' style='text-align: center;'>退货地址</th>"+
-		"<th width='4%' style='text-align: center;'>创建时间</th></tr>";
+		/* "<th width='3%' style='text-align: center;'>签收人</th>"+
+		"<th width='3%' style='text-align: center;'>退货地址</th>"+ */
+		"<th width='4%' style='text-align: center;'>签收人</th></tr>";
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -1562,13 +1745,13 @@
 						}else{
 							option2+="<td align='center'>"+ele.orderNo+"</td>";
 						}
-						//包裹单号
+						//内部交货单号
 						if(ele.packageNo=="[object Object]"||ele.packageNo==undefined){
 							option2+="<td align='center'></td>";
 						}else{
 							option2+="<td align='center'>"+ele.packageNo+"</td>";
 						}
-						//包裹状态
+						//内部交货单状态
 						if(ele.packageStatusDesc=="[object Object]"||ele.packageStatusDesc==undefined){
 							option2+="<td align='center'></td>";
 						}else{
@@ -1591,6 +1774,12 @@
 							option2+="<td align='center'></td>";
 						}else{
 							option2+="<td align='center'>"+ele.deliveryNo+"</td>";
+						}
+						//快递状态
+						if(ele.c2=="[object Object]"||ele.c2==undefined){
+							option2+="<td align='center'></td>";
+						}else{
+							option2+="<td align='center'><a onclick='deliveryClick("+'"'+ele.deliveryNo+'"'+",this);' style='cursor:pointer;'> "+ele.c2+"</a></td>";
 						}
 						//发货时间
 						if(ele.sendTimeStr=="[object Object]"||ele.sendTimeStr==undefined){
@@ -1616,7 +1805,7 @@
 						}else{
 							option2+="<td align='center'>"+ele.signTimeStr+"</td>";
 						}
-						//签收人
+						/* //签收人
 						if(ele.signName=="[object Object]"||ele.signName==undefined){
 							option2+="<td align='center'></td>";
 						}else{
@@ -1627,12 +1816,12 @@
 							option2+="<td align='center'></td>";
 						}else{
 							option2+="<td align='center'>"+ele.refundAddress+"</td>";
-						}
-						//创建时间
-						if(ele.createTimeStr=="[object Object]"||ele.createTimeStr==undefined){
+						} */
+						//签收人
+						if(ele.signName=="[object Object]"||ele.signName==undefined){
 							option2+="<td align='center'></td></tr>";
 						}else{
-							option2+="<td align='center'>"+ele.createTimeStr+"</td></tr>";
+							option2+="<td align='center'>"+ele.signName+"</td></tr>";
 						}
 					}
 				}
@@ -3321,22 +3510,232 @@
 				}
 			}
 		});
+		//会员信息
+		var option7 = "<tr role='row' style='height:35px;'>"+
+		/* "<th width='5%' style='text-align: center;'>客户账户</th>"+ */
+		"<th width='5%' style='text-align: center;'>CID系统会员卡号</th>"+
+		"<th width='5%' style='text-align: center;'>会员卡号</th>"+
+		"<th width='5%' style='text-align: center;'>会员等级</th>"+
+		"<th width='5%' style='text-align: center;'>手机号</th>"+
+		"<th width='5%' style='text-align: center;'>持卡人姓名</th>"+
+		"<th width='5%' style='text-align: center;'>证件号</th>"+
+		"<th width='5%' style='text-align: center;'>邮箱</th>"+
+		/* "<th width='5%' style='text-align: center;'>昵称</th>"+
+		"<th width='5%' style='text-align: center;'>头像地址</th>"+ */
+		"<th width='5%' style='text-align: center;'>昵称</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":orderNo,"sysValue":sysValue},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						/* //客户账户
+						if(ele.customerAccount=="[object Object]"||ele.customerAccount==undefined){
+							option7+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option7+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.customerAccount+"</td>";
+						} */
+						/* //注册时间
+						if(ele.registerTime=="[object Object]"||ele.registerTime==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.registerTime+"</td>";
+						} */
+						//CID系统会员卡号
+						if(ele.cid=="[object Object]"||ele.cid==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cid+"</td>";
+						}
+						///会员卡号
+						if(ele.card_no=="[object Object]"||ele.card_no==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.card_no+"</td>";
+						}
+						//会员等级
+						if(ele.customerLevel=="[object Object]"||ele.customerLevel==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.customerLevel+"</td>";
+						}
+						//手机号
+						if(ele.phone=="[object Object]"||ele.phone==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.phone+"</td>";
+						}
+						//持卡人姓名
+						if(ele.cmname=="[object Object]"||ele.cmname==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cmname+"</td>";
+						}
+						//证件号
+						if(ele.cmidno=="[object Object]"||ele.cmidno==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.cmidno+"</td>";
+						}
+						//邮箱
+						if(ele.email=="[object Object]"||ele.email==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.email+"</td>";
+						}
+						//昵称
+						if(ele.nickName=="[object Object]"||ele.nickName==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.nickName+"</td>";
+						}
+						/* //头像地址
+						if(ele.userHeadUrl=="[object Object]"||ele.userHeadUrl==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.userHeadUrl+"</td>";
+						}
+						//注册类型
+						if(ele.loginType=="[object Object]"||ele.loginType==undefined){
+							option7+="<td align='center'></td>";
+						}else{
+							option7+="<td align='center'>"+ele.loginType+"</td>";
+						} */
+					}
+				}
+			}
+		});
+		//配送信息
+		var option9 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>手机</th>"+
+		"<th width='5%' style='text-align: center;'>电话</th>"+
+		"<th width='5%' style='text-align: center;'>姓名</th>"+
+		"<th width='15%' style='text-align: center;'>收货地址</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":orderNo,"sysValue":sysValue},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//手机
+						if(ele.receptPhone=="[object Object]"||ele.receptPhone==undefined){
+							option9+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option9+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.receptPhone+"</td>";
+						}
+						//电话
+						if(ele.contactNumber=="[object Object]"||ele.contactNumber==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.contactNumber+"</td>";
+						}
+						//姓名
+						if(ele.receptName=="[object Object]"||ele.receptName==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.receptName+"</td>";
+						}
+						//收货地址
+						if(ele.receptAddress=="[object Object]"||ele.receptAddress==undefined){
+							option9+="<td align='center'></td>";
+						}else{
+							option9+="<td align='center'>"+ele.receptAddress+"</td>";
+						}
+					}
+				}
+			}
+		});
+		//退货信息
+		var option10 = "<tr role='row' style='height:35px;'>"+
+		"<th width='5%' style='text-align: center;'>退货单号</th>"+
+		"<th width='5%' style='text-align: center;'>原销售单号</th>"+
+		"<th width='5%' style='text-align: center;'>退货单状态</th>"+
+		"<th width='5%' style='text-align: center;'>退货类型</th>"+
+		"<th width='5%' style='text-align: center;'>最后修改人</th>"+
+		"<th width='5%' style='text-align: center;'>最后修改时间</th></tr>";
+		$.ajax({
+			type:"post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/oms/selectRefundList",
+			async:false,
+			dataType: "json",
+			data:{"originalSalesNo":saleNo,"page":1},
+			success:function(response) {
+				if(response.success=='true'){
+					var result = response.list;
+					for(var i=0;i<result.length;i++){
+						var ele = result[i];
+						//退货单号
+						if(ele.refundNo=="[object Object]"||ele.refundNo==undefined){
+							option10+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+						}else{
+							option10+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.refundNo+"</td>";
+						}
+						//原销售单号
+						if(ele.originalSalesNo=="[object Object]"||ele.originalSalesNo==undefined){
+							option10+="<td align='center'></td>";
+						}else{
+							option10+="<td align='center'>"+ele.originalSalesNo+"</td>";
+						}
+						//退货单状态
+						if(ele.refundStatusDesc=="[object Object]"||ele.refundStatusDesc==undefined){
+							option10+="<td align='center'></td>";
+						}else{
+							option10+="<td align='center'>"+ele.refundStatusDesc+"</td>";
+						}
+						//退货类型
+						if(ele.refundType=="[object Object]"||ele.refundType==undefined){
+							option10+="<td align='center'></td>";
+						}else if(ele.refundType=='1'){
+							option10+="<td align='center'>线上</td>";
+						}else if(ele.refundType=='2'){
+							option10+="<td align='center'>线下</td>";
+						}
+						//最后修改人
+						if(ele.latestUpdateMan=="[object Object]"||ele.latestUpdateMan==undefined){
+							option10+="<td align='center'></td>";
+						}else{
+							option10+="<td align='center'>"+ele.latestUpdateMan+"</td>";
+						}
+						//最后修改时间
+						if(ele.latestUpdateTimeStr=="[object Object]"||ele.latestUpdateTimeStr==undefined){
+							option10+="<td align='center'></td>";
+						}else{
+							option10+="<td align='center'>"+ele.latestUpdateTimeStr+"</td>";
+						}
+					}
+				}
+			}
+		});
 		var option51 = "<tr role='row' style='height:35px;'>"+
 		"<th width='1%' style='text-align: center;'></th>"+
 		"<th width='4%' style='text-align: center;'>销售单号</th>"+
 		"<th width='4%' style='text-align: center;'>订单号</th>"+
-		"<th width='3%' style='text-align: center;'>包裹单号</th>"+
-		"<th width='3%' style='text-align: center;'>包裹状态</th>"+
+		"<th width='3%' style='text-align: center;'>内部交货单号</th>"+
+		"<th width='3%' style='text-align: center;'>内部交货单状态</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
 		"<th width='3%' style='text-align: center;'>快递单号</th>"+
+		"<th width='3%' style='text-align: center;'>快递状态</th>"+
 		"<th width='4%' style='text-align: center;'>发货时间</th>"+
 		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
 		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
 		"<th width='4%' style='text-align: center;'>签收时间</th>"+
-		"<th width='3%' style='text-align: center;'>签收人</th>"+
-		"<th width='3%' style='text-align: center;'>退货地址</th>"+
-		"<th width='4%' style='text-align: center;'>创建时间</th></tr>";
+		/* "<th width='3%' style='text-align: center;'>签收人</th>"+
+		"<th width='3%' style='text-align: center;'>退货地址</th>"+ */
+		"<th width='4%' style='text-align: center;'>签收人</th></tr>";
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -3366,13 +3765,13 @@
 						}else{
 							option51+="<td align='center'>"+ele.orderNo+"</td>";
 						}
-						//包裹单号
+						//内部交货单号
 						if(ele.packageNo=="[object Object]"||ele.packageNo==undefined){
 							option51+="<td align='center'></td>";
 						}else{
 							option51+="<td align='center'>"+ele.packageNo+"</td>";
 						}
-						//包裹状态
+						//内部交货单状态
 						if(ele.packageStatusDesc=="[object Object]"||ele.packageStatusDesc==undefined){
 							option51+="<td align='center'></td>";
 						}else{
@@ -3395,6 +3794,12 @@
 							option51+="<td align='center'></td>";
 						}else{
 							option51+="<td align='center'>"+ele.deliveryNo+"</td>";
+						}
+						//快递状态
+						if(ele.c2=="[object Object]"||ele.c2==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'><a onclick='deliveryClick("+'"'+ele.deliveryNo+'"'+",this);' style='cursor:pointer;'> "+ele.c2+"</a></td>";
 						}
 						//发货时间
 						if(ele.sendTimeStr=="[object Object]"||ele.sendTimeStr==undefined){
@@ -3420,7 +3825,7 @@
 						}else{
 							option51+="<td align='center'>"+ele.signTimeStr+"</td>";
 						}
-						//签收人
+						/* //签收人
 						if(ele.signName=="[object Object]"||ele.signName==undefined||'\"null\"'==ele.signName){//有个名为null的人故意捣乱
 							option51+="<td align='center'></td>";
 						}else{
@@ -3431,12 +3836,12 @@
 							option51+="<td align='center'></td>";
 						}else{
 							option51+="<td align='center'>"+ele.refundAddress+"</td>";
-						}
-						//创建时间
-						if(ele.createTimeStr=="[object Object]"||ele.createTimeStr==undefined){
+						} */
+						//签收人
+						if(ele.signName=="[object Object]"||ele.signName==undefined){
 							option51+="<td align='center'></td></tr>";
 						}else{
-							option51+="<td align='center'>"+ele.createTimeStr+"</td></tr>";
+							option51+="<td align='center'>"+ele.signName+"</td></tr>";
 						}
 					}
 				}
@@ -3455,6 +3860,9 @@
 		$("#OLV3_tab").html(option3);
 		$("#OLV4_tab").html(option4);
 		$("#OLV8_tab").html(option8);
+		$("#OLV7_tab").html(option7);
+		$("#OLV9_tab").html(option9);
+		$("#OLV10_tab").html(option10);
 		$("#OLV51_tab").html(option51);
 		
 		$("#divTitle").html("销售单详情");
@@ -3465,6 +3873,9 @@
 	}
 	function closeBtDiv2(){
 		$("#btDiv2").hide();
+	}
+	function closeBtDiv3(){
+		$("#btDiv3").hide();
 	}
 	//备注添加提交
 	$("#remarkButten").click(function() {
@@ -3980,7 +4391,7 @@
         <!-- Main Container -->
     </div>   
     <div class="modal modal-darkorange" id="btDiv">
-        <div class="modal-dialog" style="width: 800px;height:80%;margin: 3% auto;">
+        <div class="modal-dialog" style="width: 900px;height:80%;margin: 3% auto;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closeBtDiv();">×</button>
@@ -4040,12 +4451,15 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
 					        <li class="active"><a href="#tab1" data-toggle="tab">销售单商品明细</a></li>
-					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付信息</a></li>
-							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质</a></li>
+					        <li><a href="#tab2" id="idtab1" data-toggle="tab">支付介质分摊信息</a></li>
+							<li><a href="#tab5" id="idtab2" data-toggle="tab">支付介质分摊信息</a></li>
 							<li><a href="#tab51" data-toggle="tab">包裹信息</a></li>
 							<li><a href="#tab3" data-toggle="tab">发票信息</a></li>
-							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
+							<li><a href="#tab8" data-toggle="tab">配送信息</a></li>
+							<li><a href="#tab7" data-toggle="tab">会员信息</a></li>
+							<li><a href="#tab10" data-toggle="tab">退货信息</a></li>
 							<li><a href="#tab6" data-toggle="tab">客服备注</a></li>
+							<li><a href="#tab4" data-toggle="tab">历史信息</a></li>
 					      </ul>
 					      <div class="tab-content">
 					        <div class="tab-pane active" id="tab1">
@@ -4081,6 +4495,24 @@
 					         <div class="tab-pane" id="tab5">
 					         	<div style="width:100%;height:200px;overflow:scroll; ">
 					                    <table class="table-striped table-hover table-bordered" id="OLV5_tab" style="width: 400%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
+					         <div class="tab-pane" id="tab7">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV7_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
+					         <div class="tab-pane" id="tab10">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV10_tab" style="width: 150%;background-color: #fff;margin-bottom: 0;">
+					                    </table>
+					                </div>
+					         </div>
+					         <div class="tab-pane" id="tab8">
+					         	<div style="width:100%;height:200px;overflow:scroll; ">
+					                    <table class="table-striped table-hover table-bordered" id="OLV9_tab" style="width: 100%;background-color: #fff;margin-bottom: 0;">
 					                    </table>
 					                </div>
 					         </div>
@@ -4324,11 +4756,11 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
 					      <ul class="nav nav-tabs">
 					        <li class="active"><a href="#tab21" data-toggle="tab">订单明细</a></li>
+							<li><a href="#tab25" data-toggle="tab">销售单信息</a></li>
 					        <li><a href="#tab23" data-toggle="tab">支付信息</a></li>
 					        <li><a href="#tab22" data-toggle="tab">包裹信息</a></li>
-							<li><a href="#tab24" data-toggle="tab">历史信息</a></li>
-							<li><a href="#tab25" data-toggle="tab">销售单信息</a></li>
 							<li><a href="#tab26" data-toggle="tab">发票信息</a></li>
+							<li><a href="#tab24" data-toggle="tab">历史信息</a></li>
 					      </ul>
 					      <div class="tab-content">
 					        <div class="tab-pane active" id="tab21">
@@ -4392,6 +4824,36 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div> 
+     <div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
+		id="btDiv3">
+		<div class="modal-dialog"
+			style="width: 800px; height: auto; margin: 4% auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close"
+						type="button" onclick="closeBtDiv3();">×</button>
+					<h2 class="modal-title" id="divTitle">快递信息</h2>
+				</div>
+				<div class="page-body" id="pageBodyRight"
+					style="overflow-x: hidden; height: 400px;">
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<div class="widget">
+								<section id="cd-timeline" class="cd-container">
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default"
+						onclick="closeBtDiv3();" type="button">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
     <script>
 		jQuery(document).ready(
 			function () {
