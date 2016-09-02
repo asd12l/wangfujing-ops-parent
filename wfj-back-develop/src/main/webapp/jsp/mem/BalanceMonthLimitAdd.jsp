@@ -54,7 +54,7 @@
                                 "<i class=''></i><strong>添加成功，返回列表页!</strong></div>");
                         $("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
                     }else{
-                        $("#model-body-success").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!"+response.desc+"</strong></div>");
+                        $("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!"+response.desc+"</strong></div>");
                         $("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
                     }
                 }
