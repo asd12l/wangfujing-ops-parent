@@ -69,7 +69,7 @@ public class CaptchaController {
 		}
 		int startXInt = Integer.valueOf(startX);
 		double moveXInt = Double.valueOf(moveX);
-		if(Math.abs(startXInt - moveXInt) > 2){
+		if(Math.abs(startXInt - moveXInt) > 3){
 			resultMap.put("success", false);
 			return JSONObject.toJSONString(resultMap);
 		}
