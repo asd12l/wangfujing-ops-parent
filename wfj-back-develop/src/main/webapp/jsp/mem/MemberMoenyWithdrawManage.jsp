@@ -547,7 +547,7 @@ function tab(data){
 
 function successBtn(){
 	$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
-	$("#pageBody").load(__ctxPath+"/jsp/mem/MemberMoneyWithdrawMange.jsp");
+	$("#pageBody").load(__ctxPath+"/jsp/mem/MemberMoenyWithdrawManage.jsp");
 }
 </script> 
 </head>
