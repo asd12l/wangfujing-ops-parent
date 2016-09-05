@@ -3904,10 +3904,8 @@
 		$("#OLV10_tab").html(option10);
 		$("#divTitle").html("销售单详情");
 		if(orderNo == "" || orderNo == undefined){
-			alert(orderNo);
 			$("#btDiv .tabbable .hid").css('display', 'none');
 		}else{
-			alert("dfg"+orderNo);
 			$("#OLV8_tab").html(option8);
 			$("#OLV51_tab").html(option51);
 			$("#btDiv .tabbable .hid").css('display', 'block');

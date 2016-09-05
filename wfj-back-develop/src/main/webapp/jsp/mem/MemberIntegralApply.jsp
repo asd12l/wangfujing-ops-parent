@@ -1407,19 +1407,60 @@
 				</div>
 				<div class="page-body">
 					<div class="row">
-						<ul class="topList clearfix">
-							<li class="col-md-4"><label class="titname">客户账号：</label> <input
-								type="text" id="show_username_input" class="form-control" readonly="readonly"/></li>
-							<li class="col-md-4"><label class="titname">姓名：</label> <input
-								type="text" id="show_realname_input" class="form-control" readonly="readonly"/></li>
+					<form method="post" class="form-horizontal" id="editForm">
+							<div class="col-xs-12 col-md-12">
+								<input type="hidden" name="id" id="merchant_id">
+								<div class="col-md-12" style="padding: 10px 100px;">
+									<label class="col-md-5 control-label"
+										style="line-height: 20px; text-align: right;">客户账号：</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="name" id="show_username_input" readonly="readonly"/>
+									</div>
+									<br>&nbsp;
+								</div>
+
+								<div class="col-md-12" style="padding: 10px 100px;">
+									<label class="col-md-5 control-label"
+										style="line-height: 20px; text-align: right;">姓名：</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="feeCostRate"
+											id="show_realname_input" readonly="readonly"/>
+									</div>
+									<br>&nbsp;
+								</div>
+
+								<div class="col-md-12" style="padding: 10px 100px;">
+									<label class="col-md-5 control-label"
+										style="line-height: 20px; text-align: right;">昵称：</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" id="show_nickname_input"
+											readonly="readonly" />
+									</div>
+									<br>&nbsp;
+								</div>
+								<div class="col-md-12" style="padding: 10px 100px;"
+									id="old_input">
+									<label class="col-md-5 control-label"
+										style="line-height: 20px; text-align: right;">手机号：</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" id="show_mobile_input"
+											readonly="readonly" />
+									</div>
+									<br>&nbsp;
+								</div>
+
+								<div class="col-md-12" style="padding: 10px 100px;"
+									id="old_input">
+									<label class="col-md-5 control-label"
+										style="line-height: 20px; text-align: right;">邮箱：</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" id="show_email_input"
+											readonly="readonly" />
+									</div>
+								</div>
+							</div>
 							
-							<li class="col-md-4"><label class="titname">昵称：</label> <input
-								type="text" id="show_nickname_input" class="form-control" readonly="readonly"/></li>
-							<li class="col-md-4"><label class="titname">手机号：</label> <input
-								type="text" id="show_mobile_input" class="form-control" readonly="readonly"/></li>
-							<li class="col-md-4"><label class="titname">邮箱：</label> <input
-								type="text" id="show_email_input" class="form-control" readonly="readonly"/></li>
-						</ul>
+						</form>
 					</div>
 				</div>
 			</div>
