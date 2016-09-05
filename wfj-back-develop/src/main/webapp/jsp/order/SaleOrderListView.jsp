@@ -2954,19 +2954,19 @@
 						if(ele.createTimeStr=="[object Object]"||ele.createTimeStr==undefined){
 							option8+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
 						}else{
-							option8+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.createTimeStr+"</td>";
+							option8+="<tr style='height:35px;overflow-X:hidden;'><td align='left'>"+ele.createTimeStr+"</td>";
 						}
 						//备注人
 						if(ele.createMan=="[object Object]"||ele.createMan==undefined){
 							option8+="<td align='center'></td>";
 						}else{
-							option8+="<td align='center'>"+ele.createMan+"</td>";
+							option8+="<td align='left'>"+ele.createMan+"</td>";
 						}
 						//备注内容
 						if(ele.remark=="[object Object]"||ele.remark==undefined){
 							option8+="<td align='center'></td>";
 						}else{
-							option8+="<td align='center'>"+ele.remark+"</td>";
+							option8+="<td align='left'>"+ele.remark+"</td>";
 						}
 					}
 				}
