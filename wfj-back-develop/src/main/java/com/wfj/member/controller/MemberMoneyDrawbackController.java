@@ -38,6 +38,7 @@ import com.wfj.member.utils.Constants;
 @RequestMapping("/memDrawback")
 public class MemberMoneyDrawbackController {
 	private static Logger log =  LoggerFactory.getLogger(MemberMoneyDrawbackController.class);
+	
 	/**
 	 * 发送验证码
 	 */
