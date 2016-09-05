@@ -1,6 +1,8 @@
 package com.wfj.member.controller;
 
 import com.google.gson.Gson;
+import com.wangfj.back.entity.po.SysConfig;
+import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
 
@@ -9,6 +11,7 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +32,8 @@ import java.util.Map;
 public class MemberIntegralController {
     private static Logger log =  LoggerFactory.getLogger(MemberAndInfoController.class);
 
+    @Autowired
+    private ISysConfigService sysConfigService;
     /**
      * 查询会员积分申请信息
      * @param request
@@ -46,6 +51,18 @@ public class MemberIntegralController {
         Gson gson = new Gson();
         List<Object> list = new ArrayList<Object>();
         String jsonString = gson.toJson(list);
+        List<String> syslist = new ArrayList<String>();
+        syslist.add("memberInfo");
+        String sysValue="";
+        List<SysConfig> sysConfigs=null;
+		try {
+			sysConfigs = sysConfigService.selectByKeys(syslist);
+			sysValue = "";
+			SysConfig sysConfig = sysConfigs.get(0);
+			sysValue = sysConfig.getSysValue();
+		} catch (Exception e1) {
+			log.error("查询sysValue异常！查询结果sysConfigs="+sysConfigs+e1);
+		}
         String rejson = null;
         //获取每页显示多少条数据
         Integer pageSize = 0;
@@ -58,6 +75,7 @@ public class MemberIntegralController {
         }
         int start = (currPage - 1) * pageSize;
         Map<Object, Object> paraMap = new HashMap<Object, Object>();
+        paraMap.put("mask", sysValue);
         paraMap.put("start", String.valueOf(start));
         paraMap.put("limit", String.valueOf(pageSize));
         paraMap.put("login", request.getParameter("login"));

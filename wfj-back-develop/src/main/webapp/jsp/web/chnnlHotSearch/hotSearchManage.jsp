@@ -90,7 +90,3 @@
 	</div>
 
 <%@ include file="addHotWord.jsp"%>
-<%@ include file="../brand/editBrand.jsp"%>
-<%@ include file="../promotion/addPromotion.jsp"%>
-<%@ include file="../promotion/editPromotion.jsp"%>
-<%@ include file="../search/addSearch.jsp"%>

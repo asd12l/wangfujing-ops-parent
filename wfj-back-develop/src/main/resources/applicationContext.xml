@@ -21,7 +21,7 @@
 
 	<import resource="applicationContext-db.xml" />
 	<import resource="applicationContext-search.xml" />
-	<import resource="spring-session.xml" />
+	<!-- <import resource="spring-session.xml" /> -->
 	<!-- 激活annotation功能 -->
 	<context:annotation-config />
 	<context:spring-configured />
