@@ -115,7 +115,6 @@
 		}
 
 		function showMemRefundView(){
-			debugger;
 			var checkboxArray=[];
 			$("input[type='checkbox']:checked").each(function(i,team){
 				var cid=$(this).val().trim();

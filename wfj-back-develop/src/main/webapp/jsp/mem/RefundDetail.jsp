@@ -155,7 +155,7 @@
                     <input type="text" id="reservation" /></li>
                   <li class="col-md-4"><label class="titname">退货单号：</label>
                     <input type="text" id="reOrderNo_input" /></li>
-                  <li class="col-md-4"><label class="titname">订+单号：</label>
+                  <li class="col-md-4"><label class="titname">订单号：</label>
                     <input type="text" id="orderNo_input" /></li>
                   <li class="col-md-6">
                     <a onclick="query();" class="btn btn-yellow">
@@ -188,10 +188,10 @@
                 <div class="pull-left" style="padding: 10px 0;">
                   <form id="product_form" action="">
                     <input type="hidden" id="refund_cid" name="cid" />
-                    <input type="hidden" id="reOrderNo_from" name="reOrderNo" />
+                    <input type="hidden" id="reOrderNo_from" name="refundNo" />
                     <input type="hidden" id="orderNo_from" name="orderNo" />
-                    <input type="hidden" id="m_timeStartDate_form" name="m_timeStartDate"/>
-                    <input type="hidden" id="m_timeEndDate_form" name="m_timeEndDate"/>
+                    <input type="hidden" id="m_timeStartDate_form" name="startTime"/>
+                    <input type="hidden" id="m_timeEndDate_form" name="endTime"/>
                     <input type="hidden" id="cache" name="cache" value="1" />
                   </form>
                 </div>

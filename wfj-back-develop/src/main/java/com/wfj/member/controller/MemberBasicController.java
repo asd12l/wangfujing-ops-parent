@@ -1,6 +1,5 @@
 package com.wfj.member.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.constants.SystemConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -424,7 +423,7 @@ public class MemberBasicController {
                                HttpServletResponse response) {
         log.info("======== getMemPurchase in  =========");
         response.setCharacterEncoding("utf-8");
-        String method = "/memBasic/getMemPurchase.do";
+        String method = "/memRecord/getMemPurchase.do";
         String jsonString="";
         //屏显判断
         List<String >list = new ArrayList<String >();
@@ -449,7 +448,7 @@ public class MemberBasicController {
             pageSize = 10;
         }
         Map<String, Object> paraMap = new HashMap<String, Object>();
-        paraMap.put("sysValue", sysValue);
+        paraMap.put("mask", sysValue);
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
         paraMap.put("username",request.getParameter("cid"));
@@ -487,7 +486,7 @@ public class MemberBasicController {
                                  HttpServletResponse response) {
         log.info("======== getMemRefund in  =========");
         response.setCharacterEncoding("utf-8");
-        String method = "/memBasic/getMemRefund.do";
+        String method = "/memRecord/getMemRefund.do";
         String jsonString="";
         //屏显判断
         List<String> syslist = new ArrayList<String>();
@@ -514,7 +513,7 @@ public class MemberBasicController {
         Map<String, Object> paraMap = new HashMap<String, Object>();
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
-        paraMap.put("sysValue", sysValue);
+        paraMap.put("mask", sysValue);
         paraMap.put("cid",request.getParameter("cid"));
         paraMap.put("mobile",request.getParameter("mobile"));
         paraMap.put("email",request.getParameter("email"));
