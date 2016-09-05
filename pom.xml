@@ -556,12 +556,16 @@
 		</profile>
 		<profile>
 			<id>sit</id>
+			
 			<properties>
 				<resources.active>2-sit</resources.active>
 			</properties>
 		</profile>
 		<profile>
 			<id>pre</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<resources.active>3-pre</resources.active>
 			</properties>			

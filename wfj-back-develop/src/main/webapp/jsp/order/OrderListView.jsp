@@ -1315,31 +1315,50 @@ var sysValue ='';
 				if (response.success == "true") {
 					var result = response.data;
 					for (var j = 0; j < result.length; j++) {
+						var priceLine;
 						var ele = result[j];
-						var priceLine = "<div class='cd-timeline-block'>"
-								+ "<div class='cd-timeline-img cd-picture'>"
-								+ ele.packageStatusDesc
-								+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
-								+ ele.deliveryDateStr  +ele.deliveryRecord
-								+ "</span></div></div>"
-								/* + "<div class='cd-timeline-block'>"
-								+ "<div class='cd-timeline-img cd-movie'>"
-								+ ele.packageStatusDesc
-								+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
-								+ ele.deliveryDateStr  +ele.deliveryRecord
-								+ "</span></div></div>" */
-
+						if((ele.deliveryDateStr != "" && ele.deliveryDateStr != undefined) && (ele.deliveryRecord != "" && ele.deliveryRecord != undefined)){
+							if(ele.packageStatusDesc != "" && ele.packageStatusDesc != undefined){
+								priceLine = "<div class='cd-timeline-block'>"
+									+ "<div class='cd-timeline-img cd-picture'>"
+									+ ele.packageStatusDesc
+									+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+									+ ele.deliveryDateStr  +ele.deliveryRecord
+									+ "</span></div></div>";
+							}else{
+								priceLine = "<div class='cd-timeline-block'>"
+									+ "<div class='cd-timeline-img cd-picture'>"
+									+"已发出"+
+									+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+									+ ele.deliveryDateStr  +ele.deliveryRecord
+									+ "</span></div></div>";
+							}
+						}else{
+							if(ele.packageStatusDesc != "" && ele.packageStatusDesc != undefined){
+								priceLine = "<div class='cd-timeline-block'>"
+									+ "<div class='cd-timeline-img cd-picture'>"
+									+ ele.packageStatusDesc
+									+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+									+ "</span></div></div>";
+							}else{
+								priceLine = "<div class='cd-timeline-block'>"
+									+ "<div class='cd-timeline-img cd-picture'>"
+									+"已发出"+
+									+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+									+ "</span></div></div>";
+							}
+						}
 						$("#cd-timeline").append(priceLine);
 					}
 					$('.shiji').slideDown(600);
 					$("#btDiv3").show();
 				}else{
-					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"快递获取失败"+"</strong></div>");
 		     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 				}
 			},
 			error : function() {
-				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"图片获取失败"+"</strong></div>");
+				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+"快递获取失败"+"</strong></div>");
 	     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 			}
 		});
@@ -2823,9 +2842,9 @@ var sysValue ='';
 			}
 		});
 		var option8 = "<tr role='row' style='height:35px;'>"+
-		"<th width='5%' style='text-align: center;'>备注时间</th>"+
-		"<th width='5%' style='text-align: center;'>备注人</th>"+
-		"<th width='5%' style='text-align: center;'>备注内容</th></tr>";
+		"<th width='5%' >备注时间</th>"+
+		"<th width='5%' >备注人</th>"+
+		"<th width='5%' >备注内容</th></tr>";
 		$.ajax({
 			type:"post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -2840,21 +2859,21 @@ var sysValue ='';
 						var ele = result[i];
 						//备注时间
 						if(ele.createTimeStr=="[object Object]"||ele.createTimeStr==undefined){
-							option8+="<tr style='height:35px;overflow-X:hidden;'><td align='center'></td>";
+							option8+="<tr style='height:35px;overflow-X:hidden;'><td ></td>";
 						}else{
-							option8+="<tr style='height:35px;overflow-X:hidden;'><td align='center'>"+ele.createTimeStr+"</td>";
+							option8+="<tr style='height:35px;overflow-X:hidden;'><td >"+ele.createTimeStr+"</td>";
 						}
 						//备注人
 						if(ele.createMan=="[object Object]"||ele.createMan==undefined){
-							option8+="<td align='center'></td>";
+							option8+="<td ></td>";
 						}else{
-							option8+="<td align='center'>"+ele.createMan+"</td>";
+							option8+="<td >"+ele.createMan+"</td>";
 						}
 						//备注内容
 						if(ele.remark=="[object Object]"||ele.remark==undefined){
-							option8+="<td align='center'></td>";
+							option8+="<td ></td>";
 						}else{
-							option8+="<td align='center'>"+ele.remark+"</td>";
+							option8+="<td >"+ele.remark+"</td>";
 						}
 					}
 				}
