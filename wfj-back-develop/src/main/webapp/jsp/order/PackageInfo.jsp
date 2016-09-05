@@ -289,7 +289,8 @@
 										<!--
 										{#template MAIN}
 											{#foreach $T.list as Result}
-												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
+												{#if $T.Result.dayNum >= 6}
+												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; color:red;">
 													<td align="center" id="saleNo_{$T.Result.sid}">
 														{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 						                   				{#/if}
@@ -313,6 +314,58 @@
 						                   				{#/if}
 													</td>
 									       		</tr>
+												{#elseif $T.Result.dayNum >= 3}
+												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; color:red;">
+													<td align="center" id="saleNo_{$T.Result.sid}">
+														{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="deliveryNo{$T.Result.sid}">
+														{#if $T.Result.deliveryNo != '[object Object]'}{$T.Result.deliveryNo}
+						                   				{#/if}
+													</td>
+													<td align="center">
+														<a id="{$T.Result.c2}_" onclick="trClick('{$T.Result.deliveryNo}',this);" style="cursor:pointer;">
+															{#if $T.Result.c2 != '[object Object]'}{$T.Result.c2}
+						                   					{#/if}
+														</a>
+													</td>
+													<td align="center" id="sendTimeStr_{$T.Result.sid}">
+														{#if $T.Result.sendTimeStr != '[object Object]'}{$T.Result.sendTimeStr	}
+						                   				{#/if}
+													</td>
+													<td align="center" id="delComName_{$T.Result.sid}">
+														{#if $T.Result.delComName != '[object Object]'}{$T.Result.delComName}
+						                   				{#/if}
+													</td>
+									       		</tr>
+												{#elseif $T.Result.isCod == 1}
+												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; ">
+						                   			<td align="center" id="saleNo_{$T.Result.sid}">
+														{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
+						                   				{#/if}
+													</td>
+													<td align="center" id="deliveryNo{$T.Result.sid}">
+														{#if $T.Result.deliveryNo != '[object Object]'}{$T.Result.deliveryNo}
+						                   				{#/if}
+													</td>
+													<td align="center">
+														<a id="{$T.Result.c2}_" onclick="trClick('{$T.Result.deliveryNo}',this);" style="cursor:pointer;">
+															{#if $T.Result.c2 != '[object Object]'}{$T.Result.c2}
+						                   					{#/if}
+														</a>
+													</td>
+													<td align="center" id="sendTimeStr_{$T.Result.sid}">
+														{#if $T.Result.sendTimeStr != '[object Object]'}{$T.Result.sendTimeStr	}
+						                   				{#/if}
+													</td>
+													<td align="center" id="delComName_{$T.Result.sid}">
+														{#if $T.Result.delComName != '[object Object]'}{$T.Result.delComName}
+						                   				{#/if}
+													</td>
+									       		</tr>
+						                   		{#/if}
+													
 											{#/for}
 									    {#/template MAIN}	-->
 									</textarea>
