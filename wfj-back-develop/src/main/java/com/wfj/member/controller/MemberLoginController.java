@@ -12,6 +12,7 @@ import net.sf.json.JSONArray;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.wangfj.back.entity.po.SysConfig;
+import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
 
@@ -32,7 +35,8 @@ public class MemberLoginController {
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(MemberLoginController.class);
-
+	@Autowired
+	private ISysConfigService isysConfigService;
 	/**
 	 * 登录日志分页查询
 	 * 
@@ -60,6 +64,17 @@ public class MemberLoginController {
 		}
 		int start = (currPage - 1) * pageSize;
 		Map<Object, Object> paraMap = new HashMap<Object, Object>();
+		
+		//获取value值0或1,1隐藏，0不隐藏
+		List<String> paramKeys = new ArrayList<String>();
+		paramKeys.add("memberInfo");
+		List<SysConfig> listValue = isysConfigService.selectByKeys(paramKeys);
+		String value="";
+		for (int i = 0; i < listValue.size(); i++) {
+		 value=listValue.get(i).getSysValue();
+		}
+		paraMap.put("mask", value);
+		
 		paraMap.put("start", String.valueOf(start));
 		paraMap.put("limit", String.valueOf(pageSize));
 		
