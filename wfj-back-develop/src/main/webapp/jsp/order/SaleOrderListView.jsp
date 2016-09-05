@@ -3872,14 +3872,14 @@
 			$("#OLV5_tab").html(option5);
 			$("#idtab1").hide();
 			$("#idtab2").show();
+			$("#OLV51_tab").html(option51);
+			$("#OLV8_tab").html(option8);
 		}
 		$("#OLV3_tab").html(option3);
 		$("#OLV4_tab").html(option4);
-		$("#OLV8_tab").html(option8);
 		$("#OLV7_tab").html(option7);
 		$("#OLV9_tab").html(option9);
 		$("#OLV10_tab").html(option10);
-		$("#OLV51_tab").html(option51);
 		
 		$("#divTitle").html("销售单详情");
 		$("#btDiv").show();
