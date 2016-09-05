@@ -12,6 +12,8 @@ import com.wangfj.wms.util.HttpUtilPcm;
 import com.wangfj.wms.util.JsonUtil;
 
 import net.sf.json.JSONObject;
+ 
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,9 +35,13 @@ import java.util.Map;
 @Controller
 @RequestMapping("/memBasic")
 public class MemberBasicController {
+	@Autowired
+	private ISysConfigService isysConfigService;
+	 
     private static org.slf4j.Logger log =  LoggerFactory.getLogger(MemberBasicController.class);
     @Autowired
     private ISysConfigService sysConfigService;
+
     /**
      * 解除黑名单
      * @param request
@@ -65,6 +71,9 @@ public class MemberBasicController {
         }
         return jsonString;
     }
+    
+    
+    
     /**
      * 编辑黑名单
      * @param request
@@ -205,6 +214,18 @@ public class MemberBasicController {
         		+",timeEndDate:"+request.getParameter("timeEndDate")+",memberLevel:"+request.getParameter("memberLevel"));
         
         Map<String, Object> paraMap = new HashMap<String, Object>();
+        
+        //获取value值0或1,1隐藏，0不隐藏
+			List<String> paramKeys = new ArrayList<String>();
+			paramKeys.add("memberInfo");
+			List<SysConfig> list = isysConfigService.selectByKeys(paramKeys);
+			String value="";
+			for (int i = 0; i < list.size(); i++) {
+			 value=list.get(i).getSysValue();
+			}
+			paraMap.put("mask", value);
+
+		
         paraMap.put("currPage", String.valueOf(currPage));
         paraMap.put("pageSize", String.valueOf(pageSize));
         paraMap.put("cid", request.getParameter("cid"));
@@ -218,6 +239,7 @@ public class MemberBasicController {
         paraMap.put("timeEndDate", request.getParameter("timeEndDate"));
         //会员等级
         paraMap.put("memberLevel", request.getParameter("memberLevel"));
+        
         
         
         try {
