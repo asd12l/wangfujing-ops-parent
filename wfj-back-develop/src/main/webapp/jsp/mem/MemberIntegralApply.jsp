@@ -218,7 +218,6 @@
 			$("#login_msg").show();
 			return false;
 		}
-		debugger;
 		$.ajax({
 			type : "post",
 			contentype : "application/x-www-form-urlencoded;charset=utf-8",
@@ -229,7 +228,10 @@
 			},
 			async : false,
 			success : function(response) {
-				debugger;
+				if(JSON.parse(response).success=="false"){
+					alert("该用户不存在！");
+					return;
+				}
 				var login = JSON.parse(response).loginName;
 				var mobile = JSON.parse(response).mobile;
 				var email = JSON.parse(response).email;
@@ -1115,7 +1117,8 @@
 										<input type="text" class="form-control" name="name"
 											id="login_name_add" />
 										<button type="button" onclick="showMemberMsg();">查看</button>
-
+										<span id="showMember_msg"
+											style="color: red; display: none;" class="add_msg">客户账号不存在!</span>				
 										<span id="login_msg" style="color: red; display: none;"
 											class="add_msg">不能为空!</span>
 									</div>
