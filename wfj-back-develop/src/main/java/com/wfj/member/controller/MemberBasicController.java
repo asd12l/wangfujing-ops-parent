@@ -127,6 +127,14 @@ public class MemberBasicController {
         if (pageSize == null || pageSize == 0) {
             pageSize = 10;
         }
+        //屏显规则
+        List<String> keys=new ArrayList<String>();
+        keys.add("memberInfo");
+        List<SysConfig>list1=sysConfigService.selectByKeys(keys);
+        String value="";
+        for(int i=0;i<list1.size();i++){
+        	value=list1.get(i).getSysValue();
+        }
         int start = (currPage - 1) * pageSize;
         Map<Object, Object> paraMap = new HashMap<Object, Object>();
         paraMap.put("start", String.valueOf(start));
@@ -139,6 +147,7 @@ public class MemberBasicController {
         paraMap.put("m_timePullEndDate",  request.getParameter("m_timePullEndDate"));
         paraMap.put("m_timeBackStartDate",  request.getParameter("m_timeBackStartDate"));
         paraMap.put("m_timeBackEndDate",  request.getParameter("m_timeBackEndDate"));
+        paraMap.put("mask", value);
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== getBlackList url "+url+"  =========");

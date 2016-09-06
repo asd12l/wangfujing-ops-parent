@@ -204,14 +204,14 @@
 													</td>
 
 													<td align="center" id="mobile_{$T.Result.cid}">
-														<input type="hidden" id="phone" value="{$T.Result.phone}">
+														<input type="hidden" id="phone5_{$T.Result.cid}" value="{$T.Result.phone5}">
 														{#if $T.Result.cmmobile1 == "" || $T.Result.cmmobile1 == null}--
 														{#else}{$T.Result.cmmobile1}
 														{#/if}
 													</td>
 
 													<td align="center" id="email_{$T.Result.cid}">
-														<input type="hidden" id="email1" value="{$T.Result.email1}">
+														<input type="hidden" id="email1_{$T.Result.cid}" value="{$T.Result.email1}">
 														{#if $T.Result.cmemail == "" || $T.Result.cmemail == null}--
 														{#else}{$T.Result.cmemail}
 														{#/if}

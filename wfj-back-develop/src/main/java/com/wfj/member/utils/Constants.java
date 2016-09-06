@@ -1,6 +1,11 @@
 package com.wfj.member.utils;
 
 public class Constants {
+	
+	/**
+	 *member-ops返回的成功编码
+	 */
+	public static final String MEMBER_OPS_SUCCESS_CODE = "1";
 
 	/**
 	 * 成功返回编码
@@ -33,4 +38,9 @@ public class Constants {
 	 * 优惠券申请 4表示取消审核。
 	 */
 	public static String COUPONAPPLY_CHECKSTATUS_4 = "4";
+	
+	/**
+	 * 富基返回成功的代码
+	 */
+	public static String FJ_SECCESS_RESULT_CODE = "0";
 }

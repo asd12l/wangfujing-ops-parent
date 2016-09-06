@@ -739,9 +739,6 @@
     <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script>
     <script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script>
     <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
-    <!-- jquery validate -->
-    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
-	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 	<!-- jquery validate 本地化信息文件 -->
 	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
     <!--Bootstrap Date Range Picker-->	

@@ -1,18 +1,53 @@
 
 	/**
+	 * validate校验返回validate对象。
+	 */
+	function validateVal(){
+		return $("#saveForm").validate({
+			rules:{
+				login_name:"required",
+				coupon_template:"required",
+				coupon_batch:"required",
+				couponMonay:{
+					required:true,
+				 	number:true
+				},
+				apply_reason:"required"
+			},
+			messages:{
+				login_name:"请输入客户登陆账号",
+				coupon_template:"请选择优惠券模板",
+				coupon_batch:"请选择优惠券批次",
+				couponMonay:{
+					required:"请输入优惠券金额",
+					number:"请输入正确的数字形式"
+				},
+				apply_reason:"请输入申请理由"
+			}
+		});
+	}
+	
+	/**
 	 * 关闭新建优惠券页面
 	 */
 	$("#closeNewCoupon").click(function(){
 		$("#pageBody").load(__ctxPath+"/jsp/mem/CouponApplyView.jsp");
 	});
 	
-	/**
-	 * 插入新优惠券申请
-	 */
-	$("#saveNewCoupon").click(function(){
-		saveNewCouponParam();
+	$().ready(function() {
+		/**
+		 * 添加新建优惠券
+		 */
+	  	$("#saveNewCoupon").click(function(){
+			if(validateVal().form()){
+				saveNewCouponParam();
+			}else{
+				return;
+			}
+		});
 	});
-	
+
+	//data commit.
 	function saveNewCouponParam(){
 		var loginName = $("#login_name").val().trim();
 		var applyType = $('input[id="apply_type"]').filter(':checked').val();			//		var applyType = $("#apply_type").val().trim(); 
@@ -43,7 +78,7 @@
                                 function() {
                                     $("#loading-container")
                                             .addClass(
-                                            "loading-inactive")
+                                            "loading-inactive");
                                 }, 300);
                     },
                     data :{
