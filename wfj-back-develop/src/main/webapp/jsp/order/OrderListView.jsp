@@ -3251,10 +3251,10 @@ var sysValue ='';
 												-->
                                                 <th width="2%" style="text-align: center;">收件人电话</th>
                                                 <th width="2%" style="text-align: center;">收件人姓名</th>
-                                                <th width="2%" style="text-align: center;">收件人城市</th>
-                                                <th width="2%" style="text-align: center;">收件城市邮编</th>
                                                 <th width="2%" style="text-align: center;">收件地区省份</th>
+                                                <th width="2%" style="text-align: center;">收件人城市</th>
                                                 <th width="3%" style="text-align: center;">收货地址</th>
+                                                <th width="2%" style="text-align: center;">收件城市邮编</th>
                                                 <!-- <th width="2%" style="text-align: center;">提货类型</th>
                                                 <th width="2%" style="text-align: center;">版本号</th> -->
                                                 <th width="2%" style="text-align: center;">是否货到付款</th>
@@ -3412,20 +3412,20 @@ var sysValue ='';
 														{#if $T.Result.receptName != '[object Object]'}{$T.Result.receptName}
 						                   				{#/if}
 													</td>
-													<td align="center" id="receptCityName_{$T.Result.sid}">
-														{#if $T.Result.receptCityName != '[object Object]'}{$T.Result.receptCityName}
-						                   				{#/if}
-													</td>
-													<td align="center" id="receptCityCode_{$T.Result.sid}">
-														{#if $T.Result.receptCityCode != '[object Object]'}{$T.Result.receptCityCode}
-						                   				{#/if}
-													</td>
 													<td align="center" id="receptProvName_{$T.Result.sid}">
 														{#if $T.Result.receptProvName != '[object Object]'}{$T.Result.receptProvName}
 						                   				{#/if}
 													</td>
+													<td align="center" id="receptCityName_{$T.Result.sid}">
+														{#if $T.Result.receptCityName != '[object Object]'}{$T.Result.receptCityName}
+						                   				{#/if}
+													</td>
 													<td align="center" id="receptAddress_{$T.Result.sid}">
 														{#if $T.Result.receptAddress != '[object Object]'}{$T.Result.receptAddress}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptCityCode_{$T.Result.sid}">
+														{#if $T.Result.receptCityCode != '[object Object]'}{$T.Result.receptCityCode}
 						                   				{#/if}
 													</td>
 													
@@ -3503,10 +3503,10 @@ var sysValue ='';
                                                 <!-- <th width="2%" style="text-align: center;">客服备注</th> -->
                                                 <th width="2%" style="text-align: center;">收件人电话</th>
                                                 <th width="2%" style="text-align: center;">收件人姓名</th>
-                                                <th width="2%" style="text-align: center;">收件人城市</th>
-                                                <th width="2%" style="text-align: center;">收件城市邮编</th>
                                                 <th width="2%" style="text-align: center;">收件地区省份</th>
+                                                <th width="2%" style="text-align: center;">收件人城市</th>
                                                 <th width="3%" style="text-align: center;">收货地址</th>
+                                                <th width="2%" style="text-align: center;">收件城市邮编</th>
                                                 <!-- <th width="2%" style="text-align: center;">提货类型</th>
                                                 <th width="2%" style="text-align: center;">版本号</th> -->
                                                 <th width="2%" style="text-align: center;">是否货到付款</th>

@@ -248,7 +248,7 @@
 				success : function(response) {
 				var option = "<tr id='afterTr"+obj+"'><td></td><td colspan='5'><div style='padding:2px;width: 150%;'>"
 						+ "<table class='table table-bordered table-striped table-condensed table-hover flip-content' ><tr role='row'>";
-					option += "<th width='4%' style='text-align: center;'>商品行项目编号</th>"+
+					option += "<th width='4%' style='text-align: center;'>销售单明细编号</th>"+
 					"<th width='3%' style='text-align: center;'>促销编码</th>"+
 					/* "<th width='3%' style='text-align: center;'>促销类型</th>"+ */
 					"<th width='3%' style='text-align: center;'>促销名称</th>"+
@@ -262,7 +262,7 @@
 						var result = response.list;
 						for (var i = 0; i < result.length; i++) {
 							var ele = result[i];
-							//商品行项目编号
+							//销售单明细编号
 							if(ele.orderItemNo=="[object Object]"||ele.orderItemNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
@@ -362,7 +362,7 @@
 					option += "<th width='3%' style='text-align: center;'>内部交货单号</th>"+
 					"<th width='2%' style='text-align: center;'>快递单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单号</th>"+
-					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单明细编号</th>"+
 					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
@@ -386,7 +386,7 @@
 							}else{
 								option+="<td align='center'>"+ele.saleNo+"</td>";
 							}
-							//销售单明细号
+							//销售单明细编号
 							if(ele.saleItemNo=="[object Object]"||ele.saleItemNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
@@ -1173,7 +1173,7 @@
 		"<th width='1%' style='text-align: center;'></th>"+
 		"<th width='3%' style='text-align: center;'>行号</th>"+
 		"<th width='5%' style='text-align: center;'>销售单号</th>"+
-		"<th width='3%' style='text-align: center;'>商品行项目编号</th>"+
+		"<th width='3%' style='text-align: center;'>销售单明细编号</th>"+
 		"<th width='3%' style='text-align: center;'>订单号</th>"+
 		"<th width='3%' style='text-align: center;'>sku编号</th>"+
 		"<th width='3%' style='text-align: center;'>spu编号</th>"+
@@ -1235,7 +1235,7 @@
 						}else{
 							option+="<td align='center'>"+ele.saleNo+"</td>";
 						}
-						//商品行项目编号
+						//销售单明细编号
 						if(ele.salesItemNo=="[object Object]"||ele.salesItemNo==undefined){
 							option+="<td align='center'></td>";
 						}else{
@@ -2278,7 +2278,7 @@
 		$("#btDiv2").hide();
 		var saleNo = saleNo11;
 		var orderNo = orderNo11;
-		var orderItemNo = saleItemNo11;//销售单明细号就是订单明细号
+		var orderItemNo = saleItemNo11;//销售单明细编号就是订单明细号
 		var userName = getCookieValue("username");
 		saleSum3 = $("#sp3").text().trim();
 		var packStatus = $("#packStatus").val();

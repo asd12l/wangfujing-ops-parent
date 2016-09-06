@@ -164,11 +164,6 @@ public class goodsController {
 			map.put("pageCount", 0);
 			map.put("success", "false");
 		}
-		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
-			paramMap.put("userName", CookiesUtil.getUserName(request));
-		}else{
-			paramMap.put("userName", "");
-		}
 	}
 	
 	/**
@@ -192,11 +187,6 @@ public class goodsController {
 				logger.error("上传的excel文件不正确!", e);
 			} catch (InvalidFormatException e) {
 				logger.error("不合法的excel文件格式!", e);
-			}
-			if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
-				paramMap.put("userName", CookiesUtil.getUserName(request));
-			}else{
-				paramMap.put("userName", "");
 			}
 			if(book != null){
 				readPushSkuFromXls(book,channelCode,request);
@@ -323,11 +313,6 @@ public class goodsController {
 		} catch (Exception e) {
 			map.put("pageCount", 0);
 			map.put("success", "false");
-		}
-		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
-			paramMap.put("userName", CookiesUtil.getUserName(request));
-		}else{
-			paramMap.put("userName", "");
 		}
 	}
 }
