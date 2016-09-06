@@ -134,7 +134,8 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		}else{
 			paramMap.put("userName", "");
 		}
-		
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		paramMap.put("logJs", js);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
