@@ -255,12 +255,23 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			} else {
 				m.put("success", "false");
 			}*/
+			if (!"".equals(json)) {
+				JSONObject jsonPage = JSONObject.fromObject(json);
+				if (jsonPage != null) {
+					paramMap.put("list", jsonPage.get("list"));
+				} else {
+					paramMap.put("list", null);
+				}
+			} else {
+				paramMap.put("list", null);
+			}
 		} catch (Exception e) {
 			m.put("success", "false");
 			e.printStackTrace();
 		}
-	//	Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		return json;
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		System.out.println(gson.toJson(paramMap));
+		return gson.toJson(paramMap);
 	}
 	
 	
