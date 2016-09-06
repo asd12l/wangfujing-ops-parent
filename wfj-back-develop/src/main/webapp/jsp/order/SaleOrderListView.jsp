@@ -923,7 +923,7 @@
 					option += "<th width='3%' style='text-align: center;'>内部交货单号</th>"+
 					"<th width='2%' style='text-align: center;'>快递单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单号</th>"+
-					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单明细编号</th>"+
 					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
@@ -947,7 +947,7 @@
 							}else{
 								option+="<td align='center'>"+ele.saleNo+"</td>";
 							}
-							//销售单明细号
+							//销售单明细编号
 							if(ele.saleItemNo=="[object Object]"||ele.saleItemNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
@@ -1000,7 +1000,7 @@
 					option += "<th width='3%' style='text-align: center;'>内部交货单号</th>"+
 					"<th width='2%' style='text-align: center;'>快递单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单号</th>"+
-					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单明细编号</th>"+
 					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
@@ -1024,7 +1024,7 @@
 							}else{
 								option+="<td align='center'>"+ele.saleNo+"</td>";
 							}
-							//销售单明细号
+							//销售单明细编号
 							if(ele.saleItemNo=="[object Object]"||ele.saleItemNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
