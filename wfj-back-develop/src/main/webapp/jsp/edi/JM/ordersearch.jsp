@@ -34,6 +34,7 @@
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
 	var stockPagination;
+	var username;
 	
 	$(function() { 
 		$('#startDate').daterangepicker({
@@ -60,7 +61,7 @@
 		  LA.env = 'dev';
 		  LA.sysCode = '47';
 		  var sessionId = '<%=request.getSession().getId()%>';
-		  LA.log('jm-search', '聚美搜索', 'admin', sessionId);
+		  LA.log('jm-search', '聚美搜索', username, sessionId);
 		
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
@@ -121,7 +122,7 @@
 		LA.env = 'dev';
 		LA.sysCode = '47';
 		  var sessionId = '<%=request.getSession().getId()%>';
-		  LA.log('jm-export', '聚美导出订单', 'admin',  sessionId);
+		  LA.log('jm-export', '聚美导出订单', username,  sessionId);
 		
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
@@ -226,6 +227,7 @@
 							}, 300);
 						},
 						callback : function(data) {
+							username = data.userName ;
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
 						}

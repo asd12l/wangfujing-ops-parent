@@ -150,8 +150,8 @@ function productQuery(){
 		}
 		var cid=checkboxArray[0];
 		$("#pay_cid").val(cid);
-		var mobile=$("#phone").val().trim();
-		if(mobile=="--"){
+		var mobile=$("#phone5_"+cid).val().trim();
+		if(mobile==""){
 			$("#warning2Body").text("该用户未绑定手机号!");
 			$("#warning2").show();
 			return;
@@ -327,6 +327,7 @@ function productQuery(){
 		$("#sendcodeEmail").hide();
 		$("#login_email").hide();
 		
+		
 		var checkboxArray=[];
 		$("input[type='checkbox']:checked").each(function(i,team){
 			var cid=$(this).val().trim();
@@ -343,10 +344,10 @@ function productQuery(){
 		}
 		var cid=checkboxArray[0];
 		$("#login_cid").val(cid);
-		var mobile=$("#phone").val().trim();
-		 
-		var email=$("#email1").val().trim();
-		if(mobile=="--"&&email=="--"){
+		var mobile=$("#phone5_"+cid).val().trim();
+		var email=$("#email1_"+cid).val().trim();
+		if(mobile==""&&email==""){
+		
 			$("#warning2Body").text("该用户未绑定手机号和邮箱!");
 			$("#warning2").show();
 			return;

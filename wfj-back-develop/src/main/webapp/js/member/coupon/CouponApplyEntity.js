@@ -45,47 +45,7 @@ function emptyProperty(){
 /*
 $().ready(function(){
 });
-function jqueryValidate(){
-	$('form[name="couponApplyForm"]').validate({
-		rules:{
-			login_name:{
-				required:true
-			},
-			coupon_template:{
-				required:true
-			},
-			coupon_batch:{
-				required:true
-			},
-			couponMonay:{
-				required:true,
-			 	number:true
-			},
-			apply_reason:{
-				required:true
-			}
-		},
-		messages:{
-			login_name:{
-				required:"请输入客户登陆账号",
-				
-			},
-			coupon_template:{
-				required:"请选择优惠券模板"
-			},
-			coupon_batch:{
-				required:"请选择优惠券批次"
-			},
-			couponMonay:{
-				required:"请输入优惠券金额",
-				number:"请输入正确的数字形式"
-			},
-			apply_reason:{
-				required:"请输入申请理由"
-			}
-		}
-	});
-}
+
 
 $("#saveNewCoupon").click(){
 	$.ajax({

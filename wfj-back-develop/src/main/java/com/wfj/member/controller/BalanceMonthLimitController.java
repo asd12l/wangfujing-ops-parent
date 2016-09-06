@@ -57,11 +57,27 @@ public class BalanceMonthLimitController {
             return errJson.toString();
         }
     }
+    private String vilStr(String str){
+        StringBuffer sb = new StringBuffer(str);
+        if (str.indexOf(".") != -1){
+            String str1 =str.substring(str.indexOf(".")+1, str.length());
+            if (str1.length()<2){
+                sb.append("0");
+                str = sb.toString();
 
+            }
+        }else {
+            sb.append(".00");
+            str = sb.toString();
+        }
+        return str;
+    }
     @RequestMapping("/insert")
     @ResponseBody
     public String insert(HttpServletRequest request, String yearMonth, String setupComplaintBal, String setupCarriageBal){
         Map<String,String> map = new HashMap<>();
+        setupComplaintBal= vilStr(setupComplaintBal);
+        setupCarriageBal = vilStr(setupCarriageBal);
         map.put("sid", Long.toString(System.currentTimeMillis()));
         map.put("setupComplaintBal", setupComplaintBal);
         map.put("setupCarriageBal",setupCarriageBal);
@@ -87,6 +103,12 @@ public class BalanceMonthLimitController {
                          String usableMonthcptBal, String usedMonthcptBal, String setupCarriageBal, String usableMonthcrgBal,String usedMonthcrgBal){
         String url = CommonProperties.get("member_ops_url");
         String method = "/setMonthBal/update.do";
+        setupComplaintBal= vilStr(setupComplaintBal);
+        usableMonthcptBal= vilStr(usableMonthcptBal);
+        usedMonthcptBal =vilStr(usedMonthcptBal);
+        setupCarriageBal = vilStr(setupCarriageBal);
+        usableMonthcrgBal=vilStr(usableMonthcrgBal);
+        usedMonthcrgBal =vilStr(usedMonthcrgBal) ;
         String req;
         Map<String,String> mapRequest = new HashMap<>();
         mapRequest.put("sid",sid);

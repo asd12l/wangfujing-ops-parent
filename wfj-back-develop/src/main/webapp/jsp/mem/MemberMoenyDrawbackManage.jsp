@@ -282,7 +282,7 @@ function editMerchant1(id){
 function excelOrder() {
 	var url=__ctxPath+"/memDrawback/getWithdrawlsList";
 //	var remoteUrl="http://10.6.2.150/wfjpay/admin/order/orderExport.do?";
-	var remoteUrl=__ctxPath+"/memDrawback/getWithdrowToExcel2?";
+	var remoteUrl=__ctxPath+"/memDrawback/getWithdrowToExcel?";
 	var params = $("#olv_form").serialize();
     params = decodeURI(params);
     var downloadUrl=remoteUrl+params;
