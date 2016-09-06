@@ -24,20 +24,39 @@
             $("#save").click(function(){
                 var setupComplaintBal=$("#setupComplaintBal").val();
                 var setupCarriageBal=$("#setupCarriageBal").val();
+                setupComplaintBal = valStr(setupComplaintBal);
+                setupCarriageBal = valStr(setupCarriageBal);
+                $("#setupComplaintBal").val(setupComplaintBal);
+                $("#setupCarriageBal").val(setupCarriageBal);
+                //alert(setupComplaintBal);
                 var filter  = /^[0-9].*$/;
                 if(filter.test(setupComplaintBal) && filter.test(setupCarriageBal)){
                     saveFrom();
                 }else{
-                    alert("请输入正数！");
+                    $("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!请输入数字</strong></div>");
+                    $("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
                     return false;
                 }
 
             });
+
             $("#close").click(function(){
                 $("#pageBody").load(__ctxPath+"/jsp/mem/BalanceMonthLimit.jsp");
             });
         });
-
+        function valStr(str){
+            //先把非数字的都替换掉，除了数字和.
+            str = str.replace(/[^\d.]/g, "");
+            //必须保证第一个为数字而不是.
+            str = str.replace(/^\./g, "");
+            //保证只有出现一个.而没有多个.
+            str = str.replace(/\.{2,}/g, ".");
+            //保证.只出现一次，而不能出现两次以上
+            str = str.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+            //保证.只后面只能出现两位有效数字
+            str = str.replace(/([0-9]+\.[0-9]{2})[0-9]*/, "$1");
+            return str;
+        }
         //保存数据
         function saveFrom(){
             $.ajax({
@@ -54,13 +73,12 @@
                                 "<i class=''></i><strong>添加成功，返回列表页!</strong></div>");
                         $("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
                     }else{
-                        $("#model-body-success").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!"+response.desc+"</strong></div>");
+                        $("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!"+response.desc+"</strong></div>");
                         $("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
                     }
                 }
             });
         }
-
         function successBtn(){
             $("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
             $("#pageBody").load(__ctxPath+"/jsp/mem/BalanceMonthLimit.jsp");
