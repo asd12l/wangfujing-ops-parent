@@ -305,11 +305,6 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			m.put("pageCount", 0);
 			m.put("success", "false");
 		}
-		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
-			paramMap.put("userName", CookiesUtil.getUserName(request));
-		}else{
-			paramMap.put("userName", "");
-		}
 		return json;
 	}
 	/**
