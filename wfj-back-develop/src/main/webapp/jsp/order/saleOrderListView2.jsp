@@ -2026,6 +2026,7 @@
 		"<th width='3%' style='text-align: center;'>快递公司</th>"+
 		"<th width='3%' style='text-align: center;'>快递公司编号</th>"+
 		"<th width='3%' style='text-align: center;'>快递单号</th>"+
+		"<th width='3%' style='text-align: center;'>快递状态</th>"+
 		"<th width='4%' style='text-align: center;'>发货时间</th>"+
 		"<th width='3%' style='text-align: center;'>自提点编号</th>"+
 		"<th width='3%' style='text-align: center;'>自提点名称</th>"+
@@ -2091,6 +2092,12 @@
 							option51+="<td align='center'></td>";
 						}else{
 							option51+="<td align='center'>"+ele.deliveryNo+"</td>";
+						}
+						//快递状态
+						if(ele.c2=="[object Object]"||ele.c2==undefined){
+							option51+="<td align='center'></td>";
+						}else{
+							option51+="<td align='center'>"+ele.c2+"</td>";
 						}
 						//发货时间
 						if(ele.sendTimeStr=="[object Object]"||ele.sendTimeStr==undefined){

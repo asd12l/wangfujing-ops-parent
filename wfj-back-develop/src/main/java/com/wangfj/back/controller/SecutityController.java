@@ -150,7 +150,7 @@ public class SecutityController extends AbstractController {
 		}
 	}
 	
-	//@RequestMapping(value = { "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = { "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String login1(Model m, HttpServletRequest request, HttpServletResponse response)
 			throws SQLException {
 		String username = request.getParameter("username");
@@ -229,7 +229,7 @@ public class SecutityController extends AbstractController {
 		}
 	}
 	
-	@RequestMapping(value = { "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
+	//@RequestMapping(value = { "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String login2(Model m, HttpServletRequest request, HttpServletResponse response)
 			throws SQLException {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
@@ -404,7 +404,7 @@ public class SecutityController extends AbstractController {
 		return "redirect:/login.jsp";
 	}
 	
-	@RequestMapping(value = { "/logoutAction" }, method = { RequestMethod.GET, RequestMethod.POST })
+	//@RequestMapping(value = { "/logoutAction" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout_v2(Model m, @RequestParam String error,
 			HttpServletRequest request, HttpServletResponse response) {
 		if(error.equals("001")){
@@ -417,6 +417,12 @@ public class SecutityController extends AbstractController {
 		request.setAttribute("error", error);
 		CookiesUtil.delAllCookies(request, response);
 		return "forward:/login.jsp";
+	}
+	
+	@RequestMapping(value = { "/logoutAction" }, method = { RequestMethod.GET, RequestMethod.POST })
+	public String logout_v1(Model m, HttpServletRequest request, HttpServletResponse response) {
+		CookiesUtil.delAllCookies(request, response);
+		return "redirect:/login.jsp";
 	}
 
 	public static List getDTOList(String jsonString, Class clazz, Map map) {

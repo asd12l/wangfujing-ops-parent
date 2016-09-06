@@ -1,10 +1,20 @@
 package com.wfj.member.controller;
 
+import com.constants.SystemConfig;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.wangfj.back.entity.po.SysConfig;
+import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
+import com.wangfj.wms.util.JsonUtil;
+
 import net.sf.json.JSONObject;
+ 
+
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +34,12 @@ import java.util.Map;
 @Controller
 @RequestMapping("/memBasic")
 public class MemberBasicController {
+	@Autowired
+	private ISysConfigService isysConfigService;
+	 
     private static org.slf4j.Logger log =  LoggerFactory.getLogger(MemberBasicController.class);
+    @Autowired
+    private ISysConfigService sysConfigService;
 
     /**
      * 解除黑名单
@@ -55,6 +70,9 @@ public class MemberBasicController {
         }
         return jsonString;
     }
+    
+    
+    
     /**
      * 编辑黑名单
      * @param request
@@ -109,6 +127,14 @@ public class MemberBasicController {
         if (pageSize == null || pageSize == 0) {
             pageSize = 10;
         }
+        //屏显规则
+        List<String> keys=new ArrayList<String>();
+        keys.add("memberInfo");
+        List<SysConfig>list1=sysConfigService.selectByKeys(keys);
+        String value="";
+        for(int i=0;i<list1.size();i++){
+        	value=list1.get(i).getSysValue();
+        }
         int start = (currPage - 1) * pageSize;
         Map<Object, Object> paraMap = new HashMap<Object, Object>();
         paraMap.put("start", String.valueOf(start));
@@ -121,6 +147,7 @@ public class MemberBasicController {
         paraMap.put("m_timePullEndDate",  request.getParameter("m_timePullEndDate"));
         paraMap.put("m_timeBackStartDate",  request.getParameter("m_timeBackStartDate"));
         paraMap.put("m_timeBackEndDate",  request.getParameter("m_timeBackEndDate"));
+        paraMap.put("mask", value);
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== getBlackList url "+url+"  =========");
@@ -195,6 +222,18 @@ public class MemberBasicController {
         		+",timeEndDate:"+request.getParameter("timeEndDate")+",memberLevel:"+request.getParameter("memberLevel"));
         
         Map<String, Object> paraMap = new HashMap<String, Object>();
+        
+        //获取value值0或1,1隐藏，0不隐藏
+			List<String> paramKeys = new ArrayList<String>();
+			paramKeys.add("memberInfo");
+			List<SysConfig> list = isysConfigService.selectByKeys(paramKeys);
+			String value="";
+			for (int i = 0; i < list.size(); i++) {
+			 value=list.get(i).getSysValue();
+			}
+			paraMap.put("mask", value);
+
+		
         paraMap.put("currPage", String.valueOf(currPage));
         paraMap.put("pageSize", String.valueOf(pageSize));
         paraMap.put("cid", request.getParameter("cid"));
@@ -208,6 +247,7 @@ public class MemberBasicController {
         paraMap.put("timeEndDate", request.getParameter("timeEndDate"));
         //会员等级
         paraMap.put("memberLevel", request.getParameter("memberLevel"));
+        
         
         
         try {
@@ -392,8 +432,21 @@ public class MemberBasicController {
                                HttpServletResponse response) {
         log.info("======== getMemPurchase in  =========");
         response.setCharacterEncoding("utf-8");
-        String method = "/memBasic/getMemPurchase.do";
+        String method = "/memRecord/getMemPurchase.do";
         String jsonString="";
+        //屏显判断
+        List<String >list = new ArrayList<String >();
+        list.add("memberInfo");
+        String sysValue="";
+        List<SysConfig> sysConfigs=null;
+		try {
+			sysConfigs = sysConfigService.selectByKeys(list);
+			sysValue = "";
+			SysConfig sysConfig = sysConfigs.get(0);
+			sysValue = sysConfig.getSysValue();
+		} catch (Exception e1) {
+			log.error("查询sysValue异常！查询结果sysConfigs="+sysConfigs+e1);
+		}
         //获取每页显示多少条数据
         Integer pageSize = 0;
         //获取当前页
@@ -404,6 +457,7 @@ public class MemberBasicController {
             pageSize = 10;
         }
         Map<String, Object> paraMap = new HashMap<String, Object>();
+        paraMap.put("mask", sysValue);
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
         paraMap.put("username",request.getParameter("cid"));
@@ -441,8 +495,21 @@ public class MemberBasicController {
                                  HttpServletResponse response) {
         log.info("======== getMemRefund in  =========");
         response.setCharacterEncoding("utf-8");
-        String method = "/memBasic/getMemRefund.do";
+        String method = "/memRecord/getMemRefund.do";
         String jsonString="";
+        //屏显判断
+        List<String> syslist = new ArrayList<String>();
+        syslist.add("memberInfo");
+        String sysValue="";
+        List<SysConfig> sysConfigs=null;
+		try {
+			sysConfigs = sysConfigService.selectByKeys(syslist);
+			sysValue = "";
+			SysConfig sysConfig = sysConfigs.get(0);
+			sysValue = sysConfig.getSysValue();
+		} catch (Exception e1) {
+			log.error("查询sysValue异常！查询结果sysConfigs="+sysConfigs+e1);
+		}
         //获取每页显示多少条数据
         Integer pageSize = 0;
         //获取当前页
@@ -455,6 +522,7 @@ public class MemberBasicController {
         Map<String, Object> paraMap = new HashMap<String, Object>();
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
+        paraMap.put("mask", sysValue);
         paraMap.put("cid",request.getParameter("cid"));
         paraMap.put("mobile",request.getParameter("mobile"));
         paraMap.put("email",request.getParameter("email"));
@@ -475,4 +543,35 @@ public class MemberBasicController {
         }
         return jsonString;
     }
+ /**
+  * 查询订单来源
+  * @param request
+  * @param response
+  * @return
+  * **/
+    @ResponseBody
+    @RequestMapping(value="/selectOrderFrom",method= {RequestMethod.POST, RequestMethod.GET})
+    public String selectOrderFrom(HttpServletRequest request,HttpServletResponse response){
+    	String json = "";
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            json = HttpUtilPcm.doPost(SystemConfig.SSD_SYSTEM_URL
+                    + "/pcmAdminChannel/findListChannel.htm", JsonUtil.getJSONString(map));
+            map.clear();
+            JSONObject jsonObject = JSONObject.fromObject(json);
+            List<?> list = (List<?>) jsonObject.get("data");
+            if ((list != null) && (list.size() != 0)) {
+                map.put("list", list);
+                map.put("success", "true");
+            } else {
+                map.put("success", "false");
+            }
+        } catch (Exception e) {
+            map.put("success", "false");
+        }
+
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        return gson.toJson(map);    	
+    }
+   
 }

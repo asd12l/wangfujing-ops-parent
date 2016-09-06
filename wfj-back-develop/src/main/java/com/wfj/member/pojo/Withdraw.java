@@ -2,7 +2,6 @@ package com.wfj.member.pojo;
 
 import java.util.Date;
 
-import javax.xml.crypto.Data;
 
 public class Withdraw {
 
@@ -58,7 +57,7 @@ public class Withdraw {
 	
 	private String refundName;
 	
-	private Data refundTime; //退款时间
+	private Date refundTime; //退款时间
 
 	private String withdrowType; //退款类型
 	
@@ -105,11 +104,11 @@ public class Withdraw {
 		this.endApplyTime = endApplyTime;
 	}
 
-	public Data getRefundTime() {
+	public Date getRefundTime() {
 		return refundTime;
 	}
 
-	public void setRefundTime(Data refundTime) {
+	public void setRefundTime(Date refundTime) {
 		this.refundTime = refundTime;
 	}
 	
