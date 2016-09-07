@@ -11,7 +11,6 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css" />
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.form.js"></script>
-
 <style>
 .jiechu{
 	cursor: pointer;
@@ -68,7 +67,23 @@ a:hover{color: black;text-decoration: none;}
 	/* 	saleMsgImage="http://172.16.200.4/images"; */
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
-
+    var userName;
+    var logJs;
+    
+function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
 	
 	function initStock() {
 		var url = $("#ctxPath").val() + "/Commoditymessage/selectCommoditySearch?type=ITEMADD";
@@ -101,6 +116,9 @@ a:hover{color: black;text-decoration: none;}
 							}, 300);
 						},
 						callback : function(data) {
+							userName = data.userName ;
+							logJs = data.logJs;
+							reloadjs();
 							//使用模板
 							$("#stock_tab tbody").setTemplateElement("stock-list").processTemplate(data);
 						}
@@ -137,6 +155,10 @@ a:hover{color: black;text-decoration: none;}
 	
 	//按条件查询
 	function goodsQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '47';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('hlm-abnormalSearch', '好没买异常搜索', userName, sessionId);
 		$("#num_iid").val($("#num_iids").val());
 		$("#outer_id").val($("#outer_ids").val());
 		var newStr = $("#sku_names").val().replace(/\s+/g,"");
@@ -187,6 +209,7 @@ a:hover{color: black;text-decoration: none;}
                }, 300);
              },
              callback: function(data) {
+            	 userName = data.userName;
             	//alert($("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data));
            		 $("#goods_table tbody").setTemplateElement("goods-list").processTemplate(data);
              }
@@ -233,6 +256,10 @@ a:hover{color: black;text-decoration: none;}
  	
  	//手动关联
 	function manual(){
+		LA.env = 'dev';
+		LA.sysCode = '49';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('hlm-relation', '好乐买手动关联', userName, sessionId);
         var numiid = $("#numiid").val();
         if(numiid){
         	 $.ajax({
@@ -254,6 +281,10 @@ a:hover{color: black;text-decoration: none;}
  	
 	//批量关联
  	function batchAssociated(){
+ 		LA.env = 'dev';
+		LA.sysCode = '49';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('hlm-relarions', '好乐买批量关联', userName, sessionId);
  		var fileName = $('#file').val();
  		var fileA = fileName.split(".");
  	 	//获取截取的最后一个字符串，即为后缀名
@@ -296,6 +327,10 @@ a:hover{color: black;text-decoration: none;}
 	
 	//解除关联关系
 	function removeRelation(outerid,numiid){
+		LA.env = 'dev';
+		LA.sysCode = '49';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('hlm-removeRelation', '好乐买解除关联', userName, sessionId);
        	 $.ajax({
        		on: true,
     			url : __ctxPath + "/ediGoods/goodsRemove?outerid="+outerid+"&numiid="+numiid+"&channelCode=CC",
