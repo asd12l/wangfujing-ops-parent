@@ -1,18 +1,16 @@
 package com.wfj.member.controller;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.wangfj.order.entity.ExcelFile;
+import com.wangfj.order.utils.CommonProperties;
+import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.search.utils.CookieUtil;
+import com.wfj.member.pojo.ResultVO;
+import com.wfj.member.pojo.Withdraw;
+import com.wfj.member.utils.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,18 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.wangfj.order.entity.ExcelFile;
-import com.wangfj.order.utils.CommonProperties;
-import com.wangfj.order.utils.HttpUtil;
-import com.wangfj.pay.web.vo.ExcelBalanceVo;
-import com.wangfj.search.utils.CookieUtil;
-import com.wfj.member.pojo.ResultVO;
-import com.wfj.member.pojo.Withdraw;
-import com.wfj.member.utils.Constants;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/memDrawback")
@@ -496,6 +488,7 @@ public class MemberMoneyDrawbackController {
 		map.put("startCheckTime",request.getParameter("hidStartCheckTime"));
 		map.put("endCheckTime", request.getParameter("hidEndCheckTime"));
 		map.put("applyName", request.getParameter("hidapplyName"));
+		map.put("mobile", request.getParameter("hidapplyName"));
 		map.put("checkStatus",request.getParameter("hidcheckStatus") );
 		map.put("refundStatus",request.getParameter("hidrefundStatus"));
 		try {
