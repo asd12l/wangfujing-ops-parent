@@ -5319,7 +5319,7 @@ public class OmsOrderController {
 				m.put("success", "false");
 			}
 		} catch (Exception e) {
-			m.put("success", "false");
+			m.put("pageCount", 0);
 			m.put("success", "false");
 		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -5392,7 +5392,7 @@ public class OmsOrderController {
 				m.put("success", "false");
 			}
 		} catch (Exception e) {
-			m.put("success", "false");
+			m.put("pageCount", 0);
 			m.put("success", "false");
 		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
