@@ -150,7 +150,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="widget">
                                 <div class="widget-header ">
-                                    <h5 class="widget-caption">包裹单信息管理</h5>
+                                    <h5 class="widget-caption">日志信息管理</h5>
                                     <div class="widget-buttons">
                                         <a href="#" data-toggle="maximize"></a>
                                         <a href="#" data-toggle="collapse" onclick="tab('pro');">
