@@ -31,8 +31,10 @@
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
 	
-	
 	var olvPagination;
+	var userName;
+	var logJs;
+	
 	$(function() {
 		var tid=${param.tid};
 		/* $.ajax({url:__ctxPath + "/DataDictionary/getItemType?dictTypeCode="+51,dataType:"json",async:false,success:function(response){
@@ -47,6 +49,22 @@
 		//$('#reservation').daterangepicker();
 		initOlv(tid);
 	});
+	
+	function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
+	
 	function olvQuery(){
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
@@ -167,6 +185,9 @@
                }, 300);
              },
              callback: function(data) {
+            	userName = data.userName;
+            	logJs = data.logJs;
+				reloadjs();
             	// alert($("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data));
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
@@ -181,6 +202,10 @@
 	
 	//保存数据
   	function save(){
+  		LA.env = 'dev';
+		  LA.sysCode = '44';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('lady-exception-modify', '爱逛街异常订单修改', userName, sessionId);
  		var oidT=document.getElementsByName("oid");
  		var salecodeT=document.getElementsByName("outerSkuId");
  		  
