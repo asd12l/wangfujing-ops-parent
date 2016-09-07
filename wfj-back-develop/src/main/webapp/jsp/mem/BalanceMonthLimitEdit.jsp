@@ -17,11 +17,16 @@
             $("#save").click(function(){
                 var setupComplaintBal=$("#setupComplaintBal").val();
                 var setupCarriageBal=$("#setupCarriageBal").val();
+                setupComplaintBal = valStr(setupComplaintBal);
+                setupCarriageBal = valStr(setupCarriageBal);
+                $("#setupComplaintBal").val(setupComplaintBal);
+                $("#setupCarriageBal").val(setupCarriageBal);
                 var filter  = /^[0-9].*$/;
                 if(filter.test(setupComplaintBal) && filter.test(setupCarriageBal)){
                     saveFrom();
                 }else{
-                    alert("请输入正数！");
+                    $("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!请输入数字</strong></div>");
+                    $("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
                     return false;
                 }
 
@@ -31,7 +36,19 @@
             });
 
         });
-
+        function valStr(str){
+            //先把非数字的都替换掉，除了数字和.
+            str = str.replace(/[^\d.]/g, "");
+            //必须保证第一个为数字而不是.
+            str = str.replace(/^\./g, "");
+            //保证只有出现一个.而没有多个.
+            str = str.replace(/\.{2,}/g, ".");
+            //保证.只出现一次，而不能出现两次以上
+            str = str.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+            //保证.只后面只能出现两位有效数字
+            str = str.replace(/([0-9]+\.[0-9]{2})[0-9]*/, "$1");
+            return str;
+        }
 
 
         //保存数据
@@ -83,13 +100,13 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">投诉补偿额度</label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="setupComplaintBal" value="${param.setupComplaintBal }" name="setupComplaintBal" />
+                                        <input type="text" class="form-control" id="setupComplaintBal" maxlength="10" value="${param.setupComplaintBal }" name="setupComplaintBal" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">运费补偿额度</label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="setupCarriageBal" value="${param.setupCarriageBal }" name="setupCarriageBal" />
+                                        <input type="text" class="form-control" id="setupCarriageBal" maxlength="10" value="${param.setupCarriageBal }" name="setupCarriageBal" />
                                     </div>
                                 </div>
                                 <div class="form-group">

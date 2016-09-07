@@ -30,7 +30,7 @@
 		});
 
 		function productQuery(){
-			$("#cid_form").val($("#cid_input").val().trim());
+			$("#username_form").val($("#username_input").val().trim());
 			$("#mobile_form").val($("#mobile_input").val().trim());
 			$("#email_form").val($("#email_input").val().trim());
 			$("#orderNo_form").val($("#orderNo_input").val().trim());
@@ -46,19 +46,17 @@
 			}
 			var params = $("#product_form").serialize();
 			params = decodeURI(params);
-			debugger;
 			olvPagination.onLoad(params);
 		}
 		// 查询
 		function query() {
-			debugger;
 			$("#cache").val(0);
 			productQuery();
 		}
 		//重置
 		function reset(){
 			$("#cache").val(1);
-			$("#cid_input").val("");
+			$("#username_input").val("");
 			$("#mobile_input").val("");
 			$("#email_input").val("");
 			$("#refundNo_input").val("");
@@ -115,7 +113,6 @@
 		}
 
 		function showMemRefundView(){
-			debugger;
 			var checkboxArray=[];
 			$("input[type='checkbox']:checked").each(function(i,team){
 				var cid=$(this).val().trim();
@@ -179,7 +176,7 @@
 									<li class="col-md-4"><label class="titname">退货时间：</label>
 										<input type="text" id="reservation" /></li>
 									<li class="col-md-4"><label class="titname">账号：</label>
-										<input type="text" id="cid_input" /></li>
+										<input type="text" id="username_input" /></li>
 									<li class="col-md-4"><label class="titname">手机号：</label>
 										<input type="text" id="mobile_input" /></li>
 									<li class="col-md-4"><label class="titname">邮箱：</label>
@@ -221,7 +218,7 @@
 								</table>
 								<div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
-										<input type="hidden" id="cid_form" name="cid" />
+										<input type="hidden" id="username_form" name="username" />
 										<input type="hidden" id="mobile_form" name="mobile" />
 										<input type="hidden" id="email_form" name="email" />
 										<input type="hidden" id="orderNo_form" name="orderNo"  />

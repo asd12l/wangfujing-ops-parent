@@ -177,17 +177,17 @@
 													    {#else}{$T.Result.cid}
 													    {#/if}
 													</td>
-													<td align="center" id="nickname_{$T.Result.cid}">
+													<td align="center" id="cmnickname_{$T.Result.cid}">
 														{#if $T.Result.cmnickname == "" || $T.Result.cmnickname == null}--
 													    {#else}{$T.Result.cmnickname}
 													    {#/if}
 													</td>
-													<td align="center" id="realname_{$T.Result.cid}">
+													<td align="center" id="cmname_{$T.Result.cid}">
 														{#if $T.Result.cmname == "" || $T.Result.cmname == null}--
 													    {#else}{$T.Result.cmname}
 													    {#/if}
 													</td>
-													<td align="center" id="belongStore_{$T.Result.cid}">
+													<td align="center" id="cmmkt_{$T.Result.cid}">
 														{#if $T.Result.cmmkt == "" || $T.Result.cmmkt == null}--
 													    {#else}{$T.Result.cmmkt}
 													    {#/if}
@@ -197,17 +197,21 @@
 														{#else}{$T.Result.levelName}
 														{#/if}
 													</td>
-													<td align="center" id="registTime_{$T.Result.cid}">
+													<td align="center" id="cmkhdate_{$T.Result.cid}">
 														{#if $T.Result.cmkhdate == "" || $T.Result.cmkhdate == null}--
 													    {#else}{$T.Result.cmkhdate}
 													    {#/if}
 													</td>
+
 													<td align="center" id="mobile_{$T.Result.cid}">
+														<input type="hidden" id="phone5_{$T.Result.cid}" value="{$T.Result.phone5}">
 														{#if $T.Result.cmmobile1 == "" || $T.Result.cmmobile1 == null}--
 														{#else}{$T.Result.cmmobile1}
 														{#/if}
 													</td>
+
 													<td align="center" id="email_{$T.Result.cid}">
+														<input type="hidden" id="email1_{$T.Result.cid}" value="{$T.Result.email1}">
 														{#if $T.Result.cmemail == "" || $T.Result.cmemail == null}--
 														{#else}{$T.Result.cmemail}
 														{#/if}
@@ -217,7 +221,7 @@
 														{#else}{$T.Result.address}
 														{#/if}
 													</td>
-													<td align="center" id="gender_{$T.Result.cid}">
+													<td align="center" id="cmsex_{$T.Result.cid}">
 														{#if $T.Result.cmsex == "F"}女
 						                   				{#/if}
 						                   				{#if $T.Result.cmsex == "M"}男
@@ -225,7 +229,7 @@
 						                   				{#if $T.Result.cmsex == ""||$T.Result.cmsex ==null}--
 						                   				{#/if}
 													</td>
-													<td align="center" id="birthdate_{$T.Result.cid}">
+													<td align="center" id="cmbirthdate_{$T.Result.cid}">
 														{#if $T.Result.cmbirthdate == "" || $T.Result.cmbirthdate == null}--
 													    {#else}{$T.Result.cmbirthdate}
 													    {#/if}
@@ -252,7 +256,7 @@
 													    {#/if}
 													</td>
 													
-													<td align="center" id="identityNo_{$T.Result.cid}">
+													<td align="center" id="cmidno_{$T.Result.cid}">
 														{#if $T.Result.cmidno == "" || $T.Result.cmidno == null}--
 													    {#else}{$T.Result.cmidno}
 													    {#/if}
@@ -266,7 +270,7 @@
 													    {#/if}
 													</td>
 													
-													<td align="center" id="work_{$T.Result.cid}">
+													<td align="center" id="cmoccup_{$T.Result.cid}">
 														{#if $T.Result.cmoccup == "" || $T.Result.cmoccup == null}--
 													    {#else}{$T.Result.cmoccup}
 													    {#/if}

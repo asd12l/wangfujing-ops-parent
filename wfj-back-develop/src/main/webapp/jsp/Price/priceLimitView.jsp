@@ -21,14 +21,16 @@
 					async : false,
 					dataType : "json",
 					success : function(response) {
-						var list1 = response.list;
-						var option = "<option value=''>所有</option>";
-						$("#shopSid_select").append(option);
-						for (var i = 0; i < list1.length; i++) {
-							var ele = list1[i];
-							option = "<option value='"+ele.organizationCode+"'>"
-									+ ele.organizationName + "</option>";
-							$("#shopName_input").append(option);
+						if(response.success == "true"){
+							var list1 = response.list;
+							var option = "<option value=''>所有</option>";
+							$("#shopSid_select").append(option);
+							for (var i = 0; i < list1.length; i++) {
+								var ele = list1[i];
+								option = "<option value='"+ele.organizationCode+"'>"
+										+ ele.organizationName + "</option>";
+								$("#shopName_input").append(option);
+							}
 						}
 						return;
 					},

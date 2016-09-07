@@ -150,6 +150,13 @@ public class EdiYzOrderController {
 		} catch (Exception e) {
 			paramMap.put("pageCount", Integer.valueOf(0));
 		}
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+		paramMap.put("logJs", js);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
@@ -299,12 +306,32 @@ public class EdiYzOrderController {
 			String url =(String) PropertiesUtil.getContextProperty("edi_yz_order_findChild");
 			json = HttpUtilPcm.doPost(url, jsonStr);
 			logger.info("json:" + json);
-
+			if (!"".equals(json)) {
+				JSONObject jsonPage = JSONObject.fromObject(json);
+				if (jsonPage != null) {
+					m.put("list", jsonPage.get("list"));
+				} else {
+					m.put("list", null);
+				}
+			} else {
+				m.put("list", null);
+			}
+			
 		} catch (Exception e) {
 			m.put("success", "false");
 			e.printStackTrace();
 		}
-		return json;
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			m.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			m.put("userName", "");
+		}
+		m.put("logJs", js);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        System.out.println(gson.toJson(m));
+        return gson.toJson(m);
+		
 	}
 	
 	/**

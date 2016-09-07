@@ -1,18 +1,16 @@
 package com.wfj.member.controller;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.wangfj.order.entity.ExcelFile;
+import com.wangfj.order.utils.CommonProperties;
+import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.search.utils.CookieUtil;
+import com.wfj.member.pojo.ResultVO;
+import com.wfj.member.pojo.Withdraw;
+import com.wfj.member.utils.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,21 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.wangfj.order.entity.ExcelFile;
-import com.wangfj.order.utils.CommonProperties;
-import com.wangfj.order.utils.HttpUtil;
-import com.wangfj.pay.web.vo.ExcelBalanceVo;
-import com.wangfj.search.utils.CookieUtil;
-import com.wfj.member.pojo.Withdraw;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/memDrawback")
 public class MemberMoneyDrawbackController {
 	private static Logger log =  LoggerFactory.getLogger(MemberMoneyDrawbackController.class);
+	
 	/**
 	 * 发送验证码
 	 */
@@ -169,9 +164,9 @@ public class MemberMoneyDrawbackController {
 			String withdrowType, String withdrowMedium) {
 		log.info("======== checkPhoneCode  =========");
 		String method = "/moneyWithdrawals/applyWithdrawals.do";
-		Gson gson = new Gson();
+/*		Gson gson = new Gson();
 		List<Object> list = new ArrayList<Object>();
-		String jsonString = gson.toJson(list);
+		String jsonString = gson.toJson(list);*/
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		Random rd = new Random();
@@ -194,19 +189,29 @@ public class MemberMoneyDrawbackController {
 		map.put("withdrowMedium", withdrowMedium);
 		map.put("seqno", seqno);
 		map.put("applyCustomer", CookieUtil.getUserName(request));
+		String url = CommonProperties.get("member_ops_url");
+		String jsonString = null;
 		try {
-			String url = CommonProperties.get("member_ops_url");
-			log.info("======== applyWithdrawals url "+url+"  =========");
-			System.err.println("============== member_ops_url:" + url);
-			System.err.println("=============method:"+method);
-			System.err.println("======== applyWithdrawals url "+url+ method+"  =========");
 			jsonString = HttpUtil.HttpPost(url,method, map);
 		} catch (Exception e) {
 			JSONObject json = new JSONObject();
-			json.put("code", "0");
-			jsonString = json.toString();
+			json.put("code", Constants.RESULT_FAIL);
+			log.error("======== applyWithdrawals url "+url+"  ========= error: " + e.getMessage());
 		}
-		return jsonString;
+		ResultVO resultVO =  new ResultVO();
+		if(StringUtils.isNotBlank(jsonString)){
+			JSONObject jsonObject = (JSONObject) JSONObject.parse(jsonString);
+			if(jsonObject.getString("code").equals(Constants.MEMBER_OPS_SUCCESS_CODE)){
+				resultVO.setCode(Constants.RESULT_SUCCESS);
+			}else{
+				resultVO.setCode(Constants.RESULT_FAIL);
+				resultVO.setDesc(jsonObject.getString("desc"));
+			}
+		}else{
+			resultVO.setCode(Constants.RESULT_FAIL);
+			resultVO.setDesc("member-ops网络异常，请求超时！！！");
+		}
+		return JSONObject.toJSONString(resultVO);
 	}
 	
 	/**
@@ -483,6 +488,7 @@ public class MemberMoneyDrawbackController {
 		map.put("startCheckTime",request.getParameter("hidStartCheckTime"));
 		map.put("endCheckTime", request.getParameter("hidEndCheckTime"));
 		map.put("applyName", request.getParameter("hidapplyName"));
+		map.put("mobile", request.getParameter("hidapplyName"));
 		map.put("checkStatus",request.getParameter("hidcheckStatus") );
 		map.put("refundStatus",request.getParameter("hidrefundStatus"));
 		try {

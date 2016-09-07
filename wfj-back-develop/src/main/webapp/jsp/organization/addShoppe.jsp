@@ -40,16 +40,18 @@
 			async : false,
 			data : "organizationType=3",
 			success : function(response) {
-				var result = response.list;
-				var shopSid = $("#shopSid");
-				shopSid.html("<option value=''>请选择</option>");
-				for (var i = 0; i < result.length; i++) {
-					var ele = result[i];
-					var option = $("<option value='" + ele.sid + "' groupSid='" + ele.groupSid
-							+ "' organizationCode='" + ele.organizationCode
-							+ "' onclick=classifyTwo(" + ele.sid + ",'" + ele.organizationCode
-							+ "')>" + ele.organizationName + "</option>");
-					option.appendTo(shopSid);
+				if(response.sccess == "true"){
+					var result = response.list;
+					var shopSid = $("#shopSid");
+					shopSid.html("<option value=''>请选择</option>");
+					for (var i = 0; i < result.length; i++) {
+						var ele = result[i];
+						var option = $("<option value='" + ele.sid + "' groupSid='" + ele.groupSid
+								+ "' organizationCode='" + ele.organizationCode
+								+ "' onclick=classifyTwo(" + ele.sid + ",'" + ele.organizationCode
+								+ "')>" + ele.organizationName + "</option>");
+						option.appendTo(shopSid);
+					}
 				}
 				return;
 			},

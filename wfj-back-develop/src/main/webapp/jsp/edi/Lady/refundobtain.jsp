@@ -28,13 +28,33 @@
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
 	var stockPagination;
+	var userName;
+	var logJs;
 	
 	$(function() { 
 		initStock();
 		$("#pageSelect").change(stockQuery);
 	});
 	
+	function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
 	function  obtain(){
+		LA.env = 'dev';
+		  LA.sysCode = '44';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('lady-refund-obtain', '爱逛街退单获取', userName, sessionId);
 		$("#new_refundId_from").val($("#new_refundId_input").val());
 		var params = $("#stock_form").serialize();
 		params = decodeURI(params);
@@ -84,6 +104,9 @@
 							}, 300);
 						},
 						callback : function(data) {
+							userName = data.userName;
+							logJs = data.logJs;
+							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
 						}

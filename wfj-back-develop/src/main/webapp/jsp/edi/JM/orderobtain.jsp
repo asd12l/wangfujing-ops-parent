@@ -18,7 +18,6 @@
 	src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js">
 	
 </script>
-<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css" />
 <link rel="stylesheet" type="text/css"
@@ -29,17 +28,34 @@
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
 	var stockPagination;
+	var userName;
+	var logJs;
 	
 	$(function() { 
 		initStock();
 		$("#pageSelect").change(stockQuery);
 	});
 	
+	function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
+	
 	function  obtain(){
 		LA.env = 'dev';
 		LA.sysCode = '47';
 		  var sessionId = '<%=request.getSession().getId()%>';
-		  LA.log('jm-obtain', '聚美获取订单', 'admin',  sessionId);
+		  LA.log('jm-obtain', '聚美获取订单', userName,  sessionId);
 		
 		
 		$("#tid_form").val($("#tid_input").val());
@@ -91,6 +107,9 @@
 							}, 300);
 						},
 						callback : function(data) {
+							userName = data.userName ;
+							logJs = data.logJs;
+							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
 						},
