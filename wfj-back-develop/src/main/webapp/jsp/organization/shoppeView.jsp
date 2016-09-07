@@ -32,13 +32,15 @@
 				async : false,
 				success: function(response) {
 					var result = response;
-					var groupSid = $("#groupSid_select");
-					for ( var i = 0; i < result.list.length; i++) {
-						var ele = result.list[i];
-						var option;
-						option = $("<option value='" + ele.sid + "'>"
-								+ ele.organizationName + "</option>");
-						option.appendTo(groupSid);
+					if(result.success == "true"){
+						var groupSid = $("#groupSid_select");
+						for ( var i = 0; i < result.list.length; i++) {
+							var ele = result.list[i];
+							var option;
+							option = $("<option value='" + ele.sid + "'>"
+									+ ele.organizationName + "</option>");
+							option.appendTo(groupSid);
+						}
 					}
 					return;
 				}
@@ -73,15 +75,18 @@
 				"groupSid" : $("#groupSid_select option:selected").val().trim()
 			},
 			success : function(response) {
-				var result = response.list;
-				var option = "";
-				$("#shopSid_select").html("");
-				for ( var i = 0; i < result.length; i++) {
-					var ele = result[i];
-					option += "<option value='"+ele.sid+"' organizationCode='" + ele.organizationCode + "'>"
-							+ ele.organizationName + "</option>";
+				$("#shopSid_select").html("<option value='' organizationCode=''>亲选择</option>");
+				if(response.success == "true"){
+					var result = response.list;
+					var option = "";
+					$("#shopSid_select").html("");
+					for ( var i = 0; i < result.length; i++) {
+						var ele = result[i];
+						option += "<option value='"+ele.sid+"' organizationCode='" + ele.organizationCode + "'>"
+								+ ele.organizationName + "</option>";
+					}
+					$("#shopSid_select").append(option);
 				}
-				$("#shopSid_select").append(option);
 				return;
 			}
 		});
