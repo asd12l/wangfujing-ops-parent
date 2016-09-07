@@ -42,12 +42,14 @@
             async : false,
             data : "organizationType=3",
             success : function(response) {
-                var result = response.list;
-                for (var i = 0; i < result.length; i++) {
-                    var ele = result[i];
-                    var option = $("<option value='" + ele.organizationCode + "'>" + ele.organizationName + "</option>");
-                    option.appendTo(shopSid);
-                }
+            	if(response.success == "true"){
+            		var result = response.list;
+                    for (var i = 0; i < result.length; i++) {
+                        var ele = result[i];
+                        var option = $("<option value='" + ele.organizationCode + "'>" + ele.organizationName + "</option>");
+                        option.appendTo(shopSid);
+                    }
+            	}
                 return;
             },
             error : function(XMLHttpRequest, textStatus) {
