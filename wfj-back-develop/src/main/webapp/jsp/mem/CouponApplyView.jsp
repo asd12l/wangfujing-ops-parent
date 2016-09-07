@@ -632,7 +632,7 @@
                             <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">审核备注：</label>
                                 <div class="col-md-6">
-                                    <textarea class="form-control" rows="3" readonly="readonly" id="checkMemo_" name="checkMemo_"></textarea>
+                                    <textarea class="form-control" rows="3" id="checkMemo_" name="checkMemo_"></textarea>
                                 </div>
                                 <br>&nbsp;
                             </div>
@@ -739,10 +739,8 @@
     <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script>
     <script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script>
     <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
-    <!-- jquery validate -->
-    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
-	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 	<!-- jquery validate 本地化信息文件 -->
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
     <!--Bootstrap Date Range Picker-->	
     <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>

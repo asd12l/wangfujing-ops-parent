@@ -923,7 +923,7 @@
 					option += "<th width='3%' style='text-align: center;'>内部交货单号</th>"+
 					"<th width='2%' style='text-align: center;'>快递单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单号</th>"+
-					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单明细编号</th>"+
 					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
@@ -947,7 +947,7 @@
 							}else{
 								option+="<td align='center'>"+ele.saleNo+"</td>";
 							}
-							//销售单明细号
+							//销售单明细编号
 							if(ele.saleItemNo=="[object Object]"||ele.saleItemNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
@@ -1000,7 +1000,7 @@
 					option += "<th width='3%' style='text-align: center;'>内部交货单号</th>"+
 					"<th width='2%' style='text-align: center;'>快递单号</th>"+
 					"<th width='3%' style='text-align: center;'>销售单号</th>"+
-					"<th width='3%' style='text-align: center;'>销售单明细号</th>"+
+					"<th width='3%' style='text-align: center;'>销售单明细编号</th>"+
 					"<th width='2%' style='text-align: center;'>销售数量</th></tr>";
 					if(response.success=='true'){
 						var result = response.list;
@@ -1024,7 +1024,7 @@
 							}else{
 								option+="<td align='center'>"+ele.saleNo+"</td>";
 							}
-							//销售单明细号
+							//销售单明细编号
 							if(ele.saleItemNo=="[object Object]"||ele.saleItemNo==undefined){
 								option+="<td align='center'></td>";
 							}else{
@@ -4171,16 +4171,16 @@
                                                 <th width="3%" style="text-align: center;">订单号</th>
                                                 <th width="3%" style="text-align: center;">销售单状态</th>
                                                 <th width="3%" style="text-align: center;">支付状态</th>
-                                                <th width="3%" style="text-align: center;">手机号</th>
                                                 <th width="2%" style="text-align: center;">CID</th>
                                                 <th width="2%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">销售类别</th>
                                                 <th width="3%" style="text-align: center;">销售单来源</th>
+                                                <th width="3%" style="text-align: center;">收件人电话</th>
                                                 <th width="3%" style="text-align: center;">收件人姓名</th>
-                                                <th width="3%" style="text-align: center;">收件人城市</th>
-                                                <th width="3%" style="text-align: center;">收件城市邮编</th>
                                                 <th width="3%" style="text-align: center;">收件地区省份</th>
+                                                <th width="3%" style="text-align: center;">收件人城市</th>
                                                 <th width="4%" style="text-align: center;">收货地址</th>
+                                                <th width="3%" style="text-align: center;">收件城市邮编</th>
                                                 <th width="3%" style="text-align: center;">门店名称</th>
                                                 <th width="3%" style="text-align: center;">供应商编码</th>
                                                 <th width="3%" style="text-align: center;">供应商名称</th>
@@ -4246,13 +4246,6 @@
 						                      				<span>已支付</span>
 						                   				{#/if}
 													</td>
-													<td align="center" id="receptPhone_{$T.Result.sid}">
-														{#if $T.Result.receptPhone != '' && $T.Result.receptPhone != null}
-															{$T.Result.receptPhone}
-														{#else}
-															<span>——</span>
-						                   				{#/if}
-													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
 														{#if $T.Result.accountNo != '' && $T.Result.accountNo != null}
 															{$T.Result.accountNo}
@@ -4275,24 +4268,31 @@
 						                   				{#/if}
 													</td>
 													
+													<td align="center" id="receptPhone_{$T.Result.sid}">
+														{#if $T.Result.receptPhone != '' && $T.Result.receptPhone != null}
+															{$T.Result.receptPhone}
+														{#else}
+															<span>——</span>
+						                   				{#/if}
+													</td>
 													<td align="center" id="receptName_{$T.Result.sid}">
 														{#if $T.Result.receptName != '[object Object]'}{$T.Result.receptName}
-						                   				{#/if}
-													</td>
-													<td align="center" id="receptCityName_{$T.Result.sid}">
-														{#if $T.Result.receptCityName != '[object Object]'}{$T.Result.receptCityName}
-						                   				{#/if}
-													</td>
-													<td align="center" id="receptCityCode_{$T.Result.sid}">
-														{#if $T.Result.receptCityCode != '[object Object]'}{$T.Result.receptCityCode}
 						                   				{#/if}
 													</td>
 													<td align="center" id="receptProvName_{$T.Result.sid}">
 														{#if $T.Result.receptProvName != '[object Object]'}{$T.Result.receptProvName}
 						                   				{#/if}
 													</td>
+													<td align="center" id="receptCityName_{$T.Result.sid}">
+														{#if $T.Result.receptCityName != '[object Object]'}{$T.Result.receptCityName}
+						                   				{#/if}
+													</td>
 													<td align="center" id="receptAddress_{$T.Result.sid}">
 														{#if $T.Result.receptAddress != '[object Object]'}{$T.Result.receptAddress}
+						                   				{#/if}
+													</td>
+													<td align="center" id="receptCityCode_{$T.Result.sid}">
+														{#if $T.Result.receptCityCode != '[object Object]'}{$T.Result.receptCityCode}
 						                   				{#/if}
 													</td>
 													
@@ -4451,16 +4451,16 @@
                                                 <th width="3%" style="text-align: center;">订单号</th>
                                                 <th width="3%" style="text-align: center;">销售单状态</th>
                                                 <th width="3%" style="text-align: center;">支付状态</th>
-                                                <th width="3%" style="text-align: center;">手机号</th>
                                                 <th width="2%" style="text-align: center;">CID</th>
                                                 <th width="2%" style="text-align: center;">会员卡号</th>
                                                 <th width="3%" style="text-align: center;">销售类别</th>
                                                 <th width="3%" style="text-align: center;">销售单来源</th>
+                                                <th width="3%" style="text-align: center;">收件人电话</th>
                                                 <th width="3%" style="text-align: center;">收件人姓名</th>
-                                                <th width="3%" style="text-align: center;">收件人城市</th>
-                                                <th width="3%" style="text-align: center;">收件城市邮编</th>
                                                 <th width="3%" style="text-align: center;">收件地区省份</th>
+                                                <th width="3%" style="text-align: center;">收件人城市</th>
                                                 <th width="4%" style="text-align: center;">收货地址</th>
+                                                <th width="3%" style="text-align: center;">收件城市邮编</th>
                                                 <th width="3%" style="text-align: center;">门店名称</th>
                                                 <th width="3%" style="text-align: center;">供应商编码</th>
                                                 <th width="3%" style="text-align: center;">供应商名称</th>

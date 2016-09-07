@@ -31,6 +31,9 @@
 	ctx = "http://www.shopin.net";
 
 	var stockPagination;
+	var userName;
+	var logJs;
+	
 	$(function() {
 		initStock();
 		$("#pageSelect").change(stockQuery);
@@ -48,6 +51,10 @@
 	}
 
 	function stockQuery() {
+		LA.env = 'dev';
+		LA.sysCode = '44';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('tm-rufundSearch', '天猫退单查询', userName,  sessionId);
 		$("#refund_id_from").val($("#refund_id").val());
 		$("#tid_from").val($("#tid").val());
 		$("#oid_from").val($("#oid").val());
@@ -58,6 +65,22 @@
 		stockPagination.onLoad(params);
 
 	}
+	
+        function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
+	
 	function initStock() {
 		var url = $("#ctxPath").val() + "/refund/obtain?type=TM";
 		stockPagination = $("#stockPagination").myPagination(
@@ -91,7 +114,9 @@
 							}, 300);
 						},
 						callback : function(data) {
-
+							userName = data.userName ;
+							logJs = data.logJs;
+							reloadjs();
 							//使用模板
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);

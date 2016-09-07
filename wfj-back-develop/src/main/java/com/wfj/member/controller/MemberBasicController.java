@@ -127,6 +127,14 @@ public class MemberBasicController {
         if (pageSize == null || pageSize == 0) {
             pageSize = 10;
         }
+        //屏显规则
+        List<String> keys=new ArrayList<String>();
+        keys.add("memberInfo");
+        List<SysConfig>list1=sysConfigService.selectByKeys(keys);
+        String value="";
+        for(int i=0;i<list1.size();i++){
+        	value=list1.get(i).getSysValue();
+        }
         int start = (currPage - 1) * pageSize;
         Map<Object, Object> paraMap = new HashMap<Object, Object>();
         paraMap.put("start", String.valueOf(start));
@@ -139,6 +147,7 @@ public class MemberBasicController {
         paraMap.put("m_timePullEndDate",  request.getParameter("m_timePullEndDate"));
         paraMap.put("m_timeBackStartDate",  request.getParameter("m_timeBackStartDate"));
         paraMap.put("m_timeBackEndDate",  request.getParameter("m_timeBackEndDate"));
+        paraMap.put("mask", value);
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== getBlackList url "+url+"  =========");
@@ -429,7 +438,7 @@ public class MemberBasicController {
         List<String >list = new ArrayList<String >();
         list.add("memberInfo");
         String sysValue="";
-        List<SysConfig> sysConfigs=null;
+       List<SysConfig> sysConfigs=null;
 		try {
 			sysConfigs = sysConfigService.selectByKeys(list);
 			sysValue = "";
@@ -451,7 +460,8 @@ public class MemberBasicController {
         paraMap.put("mask", sysValue);
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
-        paraMap.put("username",request.getParameter("cid"));
+        paraMap.put("username",request.getParameter("username"));
+        paraMap.put("memberNo",request.getParameter("cid"));
         paraMap.put("mobile",request.getParameter("mobile"));
         paraMap.put("email",request.getParameter("email"));
         paraMap.put("saleNo",request.getParameter("saleNo"));
@@ -514,7 +524,8 @@ public class MemberBasicController {
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
         paraMap.put("mask", sysValue);
-        paraMap.put("cid",request.getParameter("cid"));
+        paraMap.put("memberNo",request.getParameter("cid"));
+        paraMap.put("username",request.getParameter("username"));
         paraMap.put("mobile",request.getParameter("mobile"));
         paraMap.put("email",request.getParameter("email"));
         paraMap.put("reOrderNo",request.getParameter("refundNo"));

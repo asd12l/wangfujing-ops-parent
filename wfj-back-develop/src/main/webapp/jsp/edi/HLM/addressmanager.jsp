@@ -29,10 +29,28 @@
 </head>
 <script type="text/javascript">
 
+	var userName;
+	var logJs;
+
 	__ctxPath = "${pageContext.request.contextPath}";
 	
 	function getFontCss(treeId, treeNode) {
 		return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+	}
+	
+	function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
 	}
 	
 	var _lookbackBrand = function(brandJSON) {
@@ -105,6 +123,10 @@
 					util.msg("无法识别地区对应！！");
 					return;
 				}
+				userName = resJSON.userName ;
+				logJs = resJSON.logJs;
+				reloadjs();
+				
 				_$paramForm.find("#paramName").val(resJSON.addressName);
 				_$paramForm.find("#paramCode").val(resJSON.addressCode);
 				_$paramForm.find("#tWfjParamName").val(resJSON.wfjAddressName);
@@ -261,6 +283,10 @@
 		if (!_$paramForm.valid()) {
 			return;
 		}
+		LA.env = 'dev';
+		  LA.sysCode = '49';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('hlm-address-modify', '好乐买收货地址修改', userName, sessionId);
 		var treeObj = $.fn.zTree.getZTreeObj("paramTree");
 		var nodes = treeObj.getSelectedNodes();
 		var _id = _$paramForm.find("#p_id").val();

@@ -5235,8 +5235,206 @@ public class OmsOrderController {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			logger.info("paramMap:" + paramMap);
-			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			json = "{'data':[{'sid':1,'sysKey':'memberInfo','sysValue':'0'}],'success':true}";//暂时写死0是权限未开启
+//			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
 //			json = HttpUtilPcm.HttpGet("http://10.6.2.49:8080/ops/sysConfig", "findSysConfigByKeys", paramMap);
+			if(StringUtils.isEmpty(json)){
+				m.put("success", "false");
+			}else{
+				return json;
+			}
+		} catch (Exception e) {
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
+	
+	/**
+	 * 查询包裹单信息（要求有距离发货时间）
+	 * @Methods Name selectPackageInfoPage
+	 * @Create In 2016-4-14 By chenHu
+	 * @param request
+	 * @param response
+	 * @return String
+	 * @throws ParseException 
+	 */
+	@ResponseBody
+	@RequestMapping("/selectPackageInfoPage")
+	public String selectPackageInfoPage(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+		String json = "";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
+		if(size==null || size==0){
+			size = 10;
+		}
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(request.getParameter("deliveryNo"))){
+			paramMap.put("deliveryNo", request.getParameter("deliveryNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("saleNo"))){
+			paramMap.put("saleNo", request.getParameter("saleNo"));
+		}
+//		paramMap.put("fromSystem", "OMSADMIN");
+		SimpleDateFormat formatter; 
+		formatter = new SimpleDateFormat ("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		if(StringUtils.isNotEmpty(request.getParameter("startSaleTime"))){
+			Date date = sdf.parse(request.getParameter("startSaleTime"));
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.HOUR_OF_DAY, 0);
+			Date date2 = calendar.getTime();
+			String startDate = sdf.format(date2);
+			paramMap.put("startTimeStr", startDate);
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
+			Date date = sdf.parse(request.getParameter("endSaleTime"));
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.HOUR_OF_DAY, 0);
+			Date date2 = calendar.getTime();
+			String endDate = sdf.format(date2);
+			paramMap.put("endTimeStr", endDate);
+		}
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		paramMap.put("currentPage", String.valueOf(currPage));
+		paramMap.put("pageSize", String.valueOf(size));
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("select_Package_info"),jsonStr);
+//			json = HttpUtilPcm.doPost("http://127.0.0.1:8087/oms-core-sdc/omsPackageInfo/selectNotPackagePage.htm", jsonStr);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+			String data = jsonObject.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
+			Integer count = jsonObject2.getInt("count");
+			int pageCount = count % size == 0 ? count / size : (count / size + 1);
+			if (list != null && list.size() != 0) {
+				m.put("list", list);
+				m.put("pageCount", pageCount);
+				m.put("success", "true");
+			} else {
+				m.put("pageCount", 0);
+				m.put("success", "false");
+			}
+		} catch (Exception e) {
+			m.put("pageCount", 0);
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
+	/**
+	 * ops操作日志记录查询
+	 * @Methods Name selectOpsOperateLogs
+	 * @Create In 2016-4-14 By chenHu
+	 * @param request
+	 * @param response
+	 * @return String
+	 * @throws ParseException 
+	 */
+	@ResponseBody
+	@RequestMapping("/selectOpsOperateLogs")
+	public String selectOpsOperateLogs(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+		String json = "";
+		Integer size = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
+		Integer currPage = Integer.parseInt(request.getParameter("page"));
+		if(size==null || size==0){
+			size = 10;
+		}
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
+			paramMap.put("orderNo", request.getParameter("orderNo"));
+		}
+//		paramMap.put("fromSystem", "OMSADMIN");
+		SimpleDateFormat formatter; 
+		formatter = new SimpleDateFormat ("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		if(StringUtils.isNotEmpty(request.getParameter("startSaleTime"))){
+			Date date = sdf.parse(request.getParameter("startSaleTime"));
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.HOUR_OF_DAY, 0);
+			Date date2 = calendar.getTime();
+			String startDate = sdf.format(date2);
+			paramMap.put("startTimeStr", startDate);
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("endSaleTime"))){
+			Date date = sdf.parse(request.getParameter("endSaleTime"));
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.HOUR_OF_DAY, 0);
+			Date date2 = calendar.getTime();
+			String endDate = sdf.format(date2);
+			paramMap.put("endTimeStr", endDate);
+		}
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		paramMap.put("currentPage", String.valueOf(currPage));
+		paramMap.put("pageSize", String.valueOf(size));
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("select_opsOperate_logs"),jsonStr);
+//			json = HttpUtilPcm.doPost("http://127.0.0.1:8087/oms-core-sdc/opsOperateLogs/selectListOpsOperateLogsPage.htm", jsonStr);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+			String data = jsonObject.getString("data");
+			JSONObject jsonObject2 = JSONObject.fromObject(data);
+			List<Object> list = (List<Object>) jsonObject2.get("list");
+			Integer count = jsonObject2.getInt("count");
+			int pageCount = count % size == 0 ? count / size : (count / size + 1);
+			if (list != null && list.size() != 0) {
+				m.put("list", list);
+				m.put("pageCount", pageCount);
+				m.put("success", "true");
+			} else {
+				m.put("pageCount", 0);
+				m.put("success", "false");
+			}
+		} catch (Exception e) {
+			m.put("pageCount", 0);
+			m.put("success", "false");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
+	/**
+	 * 保存操作日志
+	 * @Methods Name saveOpsOperateLogs
+	 * @Create In 2016-3-11 By chenhu
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping("/saveOpsOperateLogs")
+	public String saveOpsOperateLogs(HttpServletRequest request, HttpServletResponse response) {
+		String json = "";
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();//= this.createParam(request);
+		if(StringUtils.isNotEmpty(request.getParameter("orderNo"))){
+			paramMap.put("orderNo", request.getParameter("orderNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("pageName"))){
+			paramMap.put("pageName", request.getParameter("pageName"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("buttonType"))){
+			paramMap.put("buttonType", request.getParameter("buttonType"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("remark"))){
+			paramMap.put("remark", request.getParameter("remark"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("operateMan"))){
+			paramMap.put("operateMan", request.getParameter("operateMan"));
+		}
+
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		paramMap.put("fromSystem", "PCM");
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			json = HttpUtilPcm.doPost(CommonProperties.get("save_opsOperate_logs"), jsonStr);
+//			json = HttpUtilPcm.doPost("http://127.0.0.1:8087/oms-core-sdc/opsOperateLogs/saveOpsOperateLogs.htm", jsonStr);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
 			}else{

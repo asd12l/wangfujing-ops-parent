@@ -4,6 +4,8 @@
 <!--Page Related Scripts-->
 <html>
 <head>
+<!-- <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script> -->
     <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script>
     <script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script>
     <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
@@ -15,6 +17,11 @@
     <script src="${pageContext.request.contextPath}/js/member/coupon/NewCouponApply.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+.error{
+	color:red;
+}
+</style>
 </head>
 <body>
 	<div class="page-body" id="productSaveBody">
@@ -31,7 +38,7 @@
 									<!-- BaseMessage start -->
 									<div class="tab-content">
 										<div id="base" class="tab-pane in active">
-											<form id="saveForm" method="post" class="form-horizontal" name="couponApplyForm">
+											<form id="saveForm" method="post" class="form-horizontal" name="newCouponApplyForm">
 												<div class="col-md-12">
 														<div class="col-md-11" style="padding: 2px 100px;">
 	                               							<label class="col-md-3 control-label" style="line-height: 20px; text-align: right;">客户登录账号：</label>
@@ -126,7 +133,7 @@
 												<div class="form-group">
 													<div class="col-lg-offset-4 col-lg-6">
 														<input class="btn btn-success" style="width: 25%;" id="saveNewCoupon" type="button" value="保存" />&emsp;&emsp; 
-														<input class="btn btn-danger" style="width: 25%;" id="closeNewCoupon" type="button" value="取消" />
+														<input class="btn  btn-danger" style="width: 25%;" id="closeNewCoupon" type="button" value="取消" />
 													</div>
 												</div>
 											</form>

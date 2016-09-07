@@ -32,6 +32,8 @@
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
 	var stockPagination;
+	var userName;
+	var logJs;
 	
 	$(function() { 
 		$('#startDate').daterangepicker();
@@ -40,6 +42,10 @@
 	});
 	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '49';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('hlm-abnormal', '好乐买异常查询', userName, sessionId);
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
@@ -77,6 +83,21 @@
 		$("#pageBody").load(url);
 	}
 	
+function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
+	
 	function initStock() {
 		var url = $("#ctxPath").val() + "/ediHlmOrder/selectHlmOrderCatchList?status=EC";//
 		stockPagination = $("#stockPagination").myPagination(
@@ -109,6 +130,9 @@
 							}, 300);
 						},
 						callback : function(data) {
+							userName = data.userName ;
+							logJs = data.logJs;
+							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
 						}
