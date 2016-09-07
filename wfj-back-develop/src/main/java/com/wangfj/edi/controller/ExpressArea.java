@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.utils.StringUtils;
 import com.wangfj.edi.bean.ExpressVO;
 import com.wangfj.edi.util.HttpClients;
 import com.wangfj.edi.util.PropertiesUtil;
+import com.wangfj.wms.util.CookiesUtil;
 
 import net.sf.json.JSONObject;
 
@@ -52,9 +54,10 @@ public class ExpressArea {
 	
 	@ResponseBody
 	@RequestMapping(value = "/queryExpressInfo", method = { RequestMethod.GET, RequestMethod.POST })
-	public String queryExpressInfo(String id,String channel) {
+	public String queryExpressInfo(String id,String channel,HttpServletRequest request) {
 		String json = "";
 		String url = "";
+		JSONObject jsonPage = new JSONObject();
 		if("M4".equals(channel)){
 			url = (String) PropertiesUtil.getContextProperty("edi_yz_express_Info")+id;
 		}else if("C8".equals(channel)){
@@ -66,6 +69,9 @@ public class ExpressArea {
 		}
 		try {
 			json = HttpClients.httpdoGet(url);
+			if (!"".equals(json)) {
+				jsonPage = JSONObject.fromObject(json);
+			}
 			System.out.println("-------------------json" + json);
 			
 		} catch (Exception e) {
@@ -75,7 +81,22 @@ public class ExpressArea {
 				json = "{success:false}";
 			}
 		}
-		return json;
+		JSONObject jsonob = new JSONObject ();
+		JSONObject userName = new JSONObject ();
+		JSONObject logJs = new JSONObject ();
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			userName.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			userName.put("userName", "");
+		}
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		logJs.put("logJs", js);
+		
+		jsonob.putAll(jsonPage);
+		jsonob.putAll(userName);
+		jsonob.putAll(logJs);
+		
+		return jsonob.toString();
 	}
 	
 	@ResponseBody

@@ -22,12 +22,14 @@
 			dataType: "json",
 			 data: "organizationType=0", 
 			success: function(response) {
-				var result = response.list;
-				group.html("<option value=''>请选择集团(必填)</option>");
-				for ( var i = 0; i < result.length; i++) {
-					var ele = result[i];
-					var option = $("<option value='" + ele.sid + "'>" + ele.organizationName + "</option>");
-					option.appendTo(group);
+				if(response.success == "true"){
+					var result = response.list;
+					group.html("<option value=''>请选择集团(必填)</option>");
+					for ( var i = 0; i < result.length; i++) {
+						var ele = result[i];
+						var option = $("<option value='" + ele.sid + "'>" + ele.organizationName + "</option>");
+						option.appendTo(group);
+					}
 				}
 				return;
 			},

@@ -21,12 +21,14 @@
 			dataType: "json",
 			 data: "organizationType=3", 
 			success: function(response) {
-				var result = response.list;
-				shopSid.html("<option value=''>请选择门店(必填)</option>");
-				for ( var i = 0; i < result.length; i++) {
-					var ele = result[i];
-					var option = $("<option value='" + ele.sid + "'>" + ele.organizationName + "</option>");
-					option.appendTo(shopSid);
+				if(response.success == "true"){
+					var result = response.list;
+					shopSid.html("<option value=''>请选择门店(必填)</option>");
+					for ( var i = 0; i < result.length; i++) {
+						var ele = result[i];
+						var option = $("<option value='" + ele.sid + "'>" + ele.organizationName + "</option>");
+						option.appendTo(shopSid);
+					}
 				}
 				return;
 			},

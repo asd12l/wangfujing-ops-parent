@@ -34,6 +34,8 @@
 /* 	saleMsgImage="http://172.16.200.4/images"; */
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
+	var userName;
+	var logJs;
 	
 	
 	var olvPagination;
@@ -51,7 +53,27 @@
 		//$('#reservation').daterangepicker();
 		initOlv(tid);
 	});
+	
+function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
+	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '44';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('tm-modify', '天猫异常修改', userName, sessionId);
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
@@ -171,6 +193,9 @@
                }, 300);
              },
              callback: function(data) {
+            	 userName = data.userName ;
+            	 logJs = data.logJs;
+            	 reloadjs();;
             	// alert($("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data));
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
@@ -185,6 +210,10 @@
 	
 	//保存数据
   	function save(){
+  		LA.env = 'dev';
+		LA.sysCode = '44';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('tm-modify', '天猫异常保存', userName,  sessionId);
  		var oidT=document.getElementsByName("oid");
  		var salecodeT=document.getElementsByName("outerSkuId");
  		  
@@ -207,7 +236,6 @@
  	    		salecodes += "," + salecodeV;
  	    	}else
  			{
- 	    		salecodes += salecodeV;
  			}
  		}
 

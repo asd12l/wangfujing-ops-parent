@@ -49,6 +49,29 @@
 	    initOlv();
 	});
 	function olvQuery(){
+		var userName = getCookieValue("username");
+		var orderNo = $("#saleNo_input").val().trim();
+		var deliveryNo = $("#deliveryNo_input").val().trim();
+		if(""==orderNo){
+			orderNo=deliveryNo;
+		}
+		//保存日志
+		$.ajax({
+			type : "post",
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			url:__ctxPath + "/omsOrder/saveOpsOperateLogs",
+			async:false,
+			dataType: "json",
+			data:{"orderNo":orderNo,"operateMan":userName,"buttonType":"查询","pageName":"OpsOperateLogs.jsp"},
+			success : function(response) {
+				if (response.success == "true") {
+					console.log("日志保存成功！");
+				} else{
+					console.log("日志保存失败！");
+				}
+			}
+		});
+		
 		$("#saleNo_form").val($("#saleNo_input").val().trim());
 		$("#deliveryNo_form").val($("#deliveryNo_input").val().trim());
 		var strTime = $("#reservation").val();
@@ -289,8 +312,8 @@
 										<!--
 										{#template MAIN}
 											{#foreach $T.list as Result}
-												{#if $T.Result.dayNum >= 6}
-												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; color:red;">
+												{#if $T.Result.dayNum ==3}
+												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; color:yellow;">
 													<td align="center" id="saleNo_{$T.Result.sid}">
 														{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 						                   				{#/if}
@@ -314,9 +337,10 @@
 						                   				{#/if}
 													</td>
 									       		</tr>
-												{#elseif $T.Result.dayNum >= 3}
-												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; color:red;">
-													<td align="center" id="saleNo_{$T.Result.sid}">
+												
+												{#elseif ($T.Result.dayNum >=4&&$T.Result.dayNum <=7)}
+												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; color:orange">
+						                   			<td align="center" id="saleNo_{$T.Result.sid}">
 														{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 						                   				{#/if}
 													</td>
@@ -339,8 +363,8 @@
 						                   				{#/if}
 													</td>
 									       		</tr>
-												{#elseif $T.Result.isCod == 1}
-												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; ">
+												{#elseif $T.Result.dayNum >7}
+												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px; color:red">
 						                   			<td align="center" id="saleNo_{$T.Result.sid}">
 														{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 						                   				{#/if}

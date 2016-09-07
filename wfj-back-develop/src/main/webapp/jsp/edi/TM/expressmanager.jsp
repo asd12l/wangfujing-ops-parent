@@ -28,6 +28,9 @@
 
 <script type="text/javascript">
 
+	var userName;
+	var logJs;
+
 	__ctxPath = "${pageContext.request.contextPath}";
 	
 	function getFontCss(treeId, treeNode) {
@@ -56,6 +59,9 @@
 					util.msg("无法识别地区对应！！");
 					return;
 				}
+				userName = resJSON.userName ;
+				logJs = resJSON.logJs;
+				reloadjs();
 				_$paramForm.find("#paramName").val(resJSON.expressName);
 				_$paramForm.find("#paramCode").val(resJSON.expressCode);
 				_$paramForm.find("#tWfjParamName").val(resJSON.wfjExpressName);
@@ -211,6 +217,10 @@
 		if (!_$paramForm.valid()) {
 			return;
 		}
+		LA.env = 'dev';
+		  LA.sysCode = '44';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('tmall-express-modify', '阿里快递修改', userName, sessionId);
 		var treeObj = $.fn.zTree.getZTreeObj("paramTree");
 		var nodes = treeObj.getSelectedNodes();
 		var _id = _$paramForm.find("#p_id").val();

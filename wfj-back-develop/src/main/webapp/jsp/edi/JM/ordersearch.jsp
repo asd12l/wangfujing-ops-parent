@@ -27,14 +27,14 @@
 <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
 <!-- log frame -->
-<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
 	image = "http://images.shopin.net/images";
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
 	var stockPagination;
-	var username;
+	var userName;
+	var logJs;
 	
 	$(function() { 
 		$('#startDate').daterangepicker({
@@ -55,13 +55,29 @@
         });
 		initStock();
 		$("#pageSelect").change(stockQuery);
+		
 	});
+	
+	function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
 	
 	function olvQuery(){
 		  LA.env = 'dev';
 		  LA.sysCode = '47';
 		  var sessionId = '<%=request.getSession().getId()%>';
-		  LA.log('jm-search', '聚美搜索', username, sessionId);
+		  LA.log('jm-search', '聚美搜索', userName, sessionId);
 		
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
@@ -122,7 +138,7 @@
 		LA.env = 'dev';
 		LA.sysCode = '47';
 		  var sessionId = '<%=request.getSession().getId()%>';
-		  LA.log('jm-export', '聚美导出订单', username,  sessionId);
+		  LA.log('jm-export', '聚美导出订单', userName,  sessionId);
 		
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
@@ -227,7 +243,9 @@
 							}, 300);
 						},
 						callback : function(data) {
-							username = data.userName ;
+							userName = data.userName ;
+							logJs = data.logJs;
+							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
 						}

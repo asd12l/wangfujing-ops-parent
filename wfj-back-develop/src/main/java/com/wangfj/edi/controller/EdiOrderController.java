@@ -134,7 +134,8 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		}else{
 			paramMap.put("userName", "");
 		}
-		
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		paramMap.put("logJs", js);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
@@ -205,6 +206,15 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		} catch (Exception e) {
 			paramMap.put("pageCount", Integer.valueOf(0));
 		}
+		
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		paramMap.put("logJs", js);
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
@@ -245,12 +255,30 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			} else {
 				m.put("success", "false");
 			}*/
+			if (!"".equals(json)) {
+				JSONObject jsonPage = JSONObject.fromObject(json);
+				if (jsonPage != null) {
+					paramMap.put("list", jsonPage.get("list"));
+				} else {
+					paramMap.put("list", null);
+				}
+			} else {
+				paramMap.put("list", null);
+			}
 		} catch (Exception e) {
 			m.put("success", "false");
 			e.printStackTrace();
 		}
-	//	Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		return json;
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+		paramMap.put("logJs", js);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		System.out.println(gson.toJson(paramMap));
+		return gson.toJson(paramMap);
 	}
 	
 	
@@ -304,11 +332,6 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
-		}
-		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
-			paramMap.put("userName", CookiesUtil.getUserName(request));
-		}else{
-			paramMap.put("userName", "");
 		}
 		return json;
 	}
