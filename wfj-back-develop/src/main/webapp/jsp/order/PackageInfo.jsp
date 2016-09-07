@@ -50,6 +50,7 @@
 	});
 	function olvQuery(){
 		var userName = getCookieValue("username");
+		var orderNo = $("#saleNo_input").val().trim();
 		//保存日志
 		$.ajax({
 			type : "post",
@@ -57,7 +58,7 @@
 			url:__ctxPath + "/omsOrder/saveOpsOperateLogs",
 			async:false,
 			dataType: "json",
-			data:{"operateMan":userName,"buttonType":"查询","pageName":"OpsOperateLogs.jsp"},
+			data:{"orderNo":orderNo,"operateMan":userName,"buttonType":"查询","pageName":"OpsOperateLogs.jsp"},
 			success : function(response) {
 				if (response.success == "true") {
 					console.log("日志保存成功！");
