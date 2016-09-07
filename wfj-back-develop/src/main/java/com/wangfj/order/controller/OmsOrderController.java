@@ -5235,8 +5235,8 @@ public class OmsOrderController {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			logger.info("paramMap:" + paramMap);
-			json = "{'data':[{'sid':1,'sysKey':'memberInfo','sysValue':'0'}],'success':true}";//暂时写死0是权限未开启
-//			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+//			json = "{'data':[{'sid':1,'sysKey':'memberInfo','sysValue':'0'}],'success':true}";//暂时写死0是权限未开启
+			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
 //			json = HttpUtilPcm.HttpGet("http://10.6.2.49:8080/ops/sysConfig", "findSysConfigByKeys", paramMap);
 			if(StringUtils.isEmpty(json)){
 				m.put("success", "false");
