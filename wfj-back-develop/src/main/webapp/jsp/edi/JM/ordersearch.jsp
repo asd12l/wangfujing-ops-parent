@@ -71,7 +71,6 @@
 		} }; 
 		script.src= logJs; 
 		head.appendChild(script);  
-		console.log(script);
 	}
 	
 	function olvQuery(){
