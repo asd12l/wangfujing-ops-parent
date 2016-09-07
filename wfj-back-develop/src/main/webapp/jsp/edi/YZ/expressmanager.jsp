@@ -28,12 +28,29 @@
 
 <script type="text/javascript">
 
+	var userName;
+	var logJs;
+
 	__ctxPath = "${pageContext.request.contextPath}";
 	
 	function getFontCss(treeId, treeNode) {
 		return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
 	}
 	
+	function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+	}
 		
 	function zTreeOnClick(e, treeId, treeNode) {
 		var _resId = treeNode.id;
@@ -56,6 +73,10 @@
 					util.msg("无法识别地区对应！！");
 					return;
 				}
+				userName = resJSON.userName ;
+				logJs = resJSON.logJs;
+				reloadjs();
+				
 				_$paramForm.find("#paramName").val(resJSON.expressName);
 				_$paramForm.find("#paramCode").val(resJSON.expressCode);
 				_$paramForm.find("#tWfjParamName").val(resJSON.wfjExpressName);
@@ -211,6 +232,10 @@
 		if (!_$paramForm.valid()) {
 			return;
 		}
+		LA.env = 'dev';
+		  LA.sysCode = '45';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('yz-express-modify', '有赞快递修改', userName, sessionId);
 		var treeObj = $.fn.zTree.getZTreeObj("paramTree");
 		var nodes = treeObj.getSelectedNodes();
 		var _id = _$paramForm.find("#p_id").val();

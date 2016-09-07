@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.utils.StringUtils;
 import com.wangfj.edi.util.HttpUtils;
 import com.wangfj.edi.util.PropertiesUtil;
 import com.wangfj.wms.util.CookiesUtil;
@@ -94,6 +95,13 @@ public class JmRefundController {
 		} catch (Exception e) {
 			map.put("pageCount", Integer.valueOf(0));
 		}
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			map.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			map.put("userName", "");
+		}
+		map.put("logJs", js);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(map);
 	}
