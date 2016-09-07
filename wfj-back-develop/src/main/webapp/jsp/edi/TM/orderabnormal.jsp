@@ -49,7 +49,7 @@
 	}
 	function olvQuery(){
 		LA.env = 'dev';
-		LA.sysCode = '47';
+		LA.sysCode = '44';
 		var sessionId = '<%=request.getSession().getId()%>';
 		LA.log('tm-abnormalSearch', '天猫异常搜索', userName, sessionId);
 		$("#tid_form").val($("#tid_input").val());

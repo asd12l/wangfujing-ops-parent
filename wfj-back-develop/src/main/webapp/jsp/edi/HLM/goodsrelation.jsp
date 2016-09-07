@@ -156,9 +156,9 @@ function reloadjs(){
 	//按条件查询
 	function goodsQuery(){
 		LA.env = 'dev';
-		LA.sysCode = '47';
+		LA.sysCode = '49';
 		var sessionId = '<%=request.getSession().getId()%>';
-		LA.log('hlm-abnormalSearch', '好没买异常搜索', userName, sessionId);
+		LA.log('hlm-abnormalSearch', '好乐买异常搜索', userName, sessionId);
 		$("#num_iid").val($("#num_iids").val());
 		$("#outer_id").val($("#outer_ids").val());
 		var newStr = $("#sku_names").val().replace(/\s+/g,"");
