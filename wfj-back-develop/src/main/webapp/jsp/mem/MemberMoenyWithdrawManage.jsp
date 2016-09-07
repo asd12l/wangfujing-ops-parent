@@ -278,8 +278,9 @@
 			var sid = $("#hsid").val();
 			var billno = $("#hbillno").val();
 			var balance = $("#balanceHid").val();
+			var withdrowMoney1 = $("#withdrowMoney").val();
 			$("#editDiv").hide();
-			if(balance == 0){
+			if(balance == 0 || withdrowMoney1> balance){
 				$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>余额不足，审核失败</strong></div>");
 				$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 				return false;
@@ -448,9 +449,10 @@
 			$("#sid").val("");
 			$("#applyTime").val("");
 			$("#checkTime").val("");
-			$("#appyeName").val("");
+			$("#applyName").val("");
 			$("#checkStatus").val("");
 			$("#refundStatus").val("");
+			//$("#mobile").val("");
 			timePickInit();
 			olvQuery();
 		}
