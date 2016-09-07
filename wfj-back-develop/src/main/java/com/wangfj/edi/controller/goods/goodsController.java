@@ -123,6 +123,13 @@ public class goodsController {
 		}else{
 			map.put("userName", "");
 		}
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			map.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			map.put("userName", "");
+		}
+		map.put("logJs", js);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(map));
 		return gson.toJson(map);

@@ -27,20 +27,22 @@
 						url : __ctxPath + "/priceLimit/findAllShopSidFromPriceLimit",
 						dataType : "json",
 						success : function(json){
-						    var shopsSid=json["shopsSid"];
-						    var isShow=true;			    
-							var result = response.list;
-							shopName_input.html("<option value='-1'>请选择门店</option>");
-							for ( var i = 0; i < result.length; i++) {
-								var ele = result[i];
-								if(shopsSid != undefined) isShow=shopsSid.indexOf(ele.sid)<0;
-								
-								if(isShow){
-									var option = $("<option value='" + ele.sid + "'>"
-											+ ele.organizationName + "</option>");
-									option.appendTo(shopName_input);
-								}	
-							}
+							if(json.success != "false"){
+								var shopsSid=json["shopsSid"];
+							    var isShow=true;			    
+								var result = response.list;
+								shopName_input.html("<option value='-1'>请选择门店</option>");
+								for ( var i = 0; i < result.length; i++) {
+									var ele = result[i];
+									if(shopsSid != undefined) isShow=shopsSid.indexOf(ele.sid)<0;
+									
+									if(isShow){
+										var option = $("<option value='" + ele.sid + "'>"
+												+ ele.organizationName + "</option>");
+										option.appendTo(shopName_input);
+									}	
+								}
+							} 
 						}
 					});					
 					return;

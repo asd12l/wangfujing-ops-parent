@@ -254,7 +254,7 @@
 												<tr class="gradeX">
 													<td align="center" id="skuCode_{$T.Result.sid}">{$T.Result.refund_id}</td>
 													<td align="center" id="unitCode_{$T.Result.sid}">{$T.Result.tid}</td>
-													<td align="center" id="productCode_{$T.Result.sid}">{$T.Result.oid}</td>
+													<td align="center" id="productCode_{$T.Result.sid}">{$T.Result.tid}</td>
 													<td align="center" id="unitName_{$T.Result.sid}">{$T.Result.status}</td>
 													
 													<td align="center" id="saleStock_{$T.Result.sid}">

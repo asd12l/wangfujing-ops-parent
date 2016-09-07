@@ -297,80 +297,80 @@
 													<td align="left">
 														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
-																<input type="checkbox" id="tdCheckbox_{$T.Result.cid}" value="{$T.Result.cid}" >
+																<input type="checkbox" id="tdCheckbox_{$T.Result.memberNo}" value="{$T.Result.memberNo}" >
 																<span class="text"></span>
 															</label>
 														</div>
 													</td>
-													<td align="center" id="createdTime_{$T.Result.cid}">
+													<td align="center" id="createdTime_{$T.Result.memberNo}">
 														{#if $T.Result.createdTime == "" || $T.Result.createdTime == null}--
 														{#else}{$T.Result.createdTime}
 														{#/if}
 													</td>
-													<td align="center" id="accountNo_{$T.Result.cid}">
+													<td align="center" id="accountNo_{$T.Result.memberNo}">
 														{#if $T.Result.accountNo == "" || $T.Result.accountNo == null}--
 														{#else}{$T.Result.accountNo}
 														{#/if}
 													</td>
-													<td align="center" id="nickname_{$T.Result.cid}">
+													<td align="center" id="nickname_{$T.Result.memberNo}">
 														{#if $T.Result.nick_name == "" || $T.Result.nick_name == null}--
 														{#else}{$T.Result.nick_name}
 														{#/if}
 													</td>
-													<td align="center" id="realname_{$T.Result.cid}">
+													<td align="center" id="realname_{$T.Result.memberNo}">
 														{#if $T.Result.real_name == "" || $T.Result.real_name == null}--
 														{#else}{$T.Result.real_name}
 														{#/if}
 													</td>
-													<td align="center" id="mobile_{$T.Result.cid}">
+													<td align="center" id="mobile_{$T.Result.memberNo}">
 														{#if $T.Result.mobile == "" || $T.Result.mobile == null}--
 														{#else}{$T.Result.mobile}
 														{#/if}
 													</td>
-													<td align="center" id="email_{$T.Result.cid}">
+													<td align="center" id="email_{$T.Result.memberNo}">
 														{#if $T.Result.email == "" || $T.Result.email == null}--
 														{#else}{$T.Result.email}
 														{#/if}
 													</td>
 
-													<td align="center" id="newOrderSource_{$T.Result.cid}">
+													<td align="center" id="newOrderSource_{$T.Result.memberNo}">
 														{#if $T.Result.newOrderSource == "" || $T.Result.newOrderSource == null}--
 														{#else}{$T.Result.newOrderSource}
 														{#/if}
 													</td>
-													<td align="center" id="levelName_{$T.Result.cid}">
+													<td align="center" id="levelName_{$T.Result.memberNo}">
 														{#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
 														{#else}{$T.Result.levelName}
 														{#/if}
 													</td>
-													<td align="center" id="receptAddress_{$T.Result.cid}">
+													<td align="center" id="receptAddress_{$T.Result.memberNo}">
 														{#if $T.Result.receptAddress == "" || $T.Result.receptAddress == null}--
 														{#else}{$T.Result.receptAddress}
 														{#/if}
 													</td>
-													<td align="center" id="orderNo_{$T.Result.cid}">
+													<td align="center" id="orderNo_{$T.Result.memberNo}">
 														{#if $T.Result.orderNo == "" || $T.Result.orderNo == null}--
 														{#else}{$T.Result.orderNo}
 														{#/if}
 													</td>
-													<td align="center" id="saleNo_{$T.Result.cid}">
+													<td align="center" id="saleNo_{$T.Result.memberNo}">
 														{#if $T.Result.saleNo == "" || $T.Result.saleNo == null}--
 														{#else}{$T.Result.saleNo}
 														{#/if}
 													</td>
-													<td align="center" id="paymentAmount_{$T.Result.cid}">
+													<td align="center" id="paymentAmount_{$T.Result.memberNo}">
 														{#if $T.Result.paymentAmount == "" || $T.Result.paymentAmount == null}--
 														{#else}{$T.Result.paymentAmount}
 														{#/if}
 													</td>
-													<td align="center" id="isCod_{$T.Result.cid}">
+													<td align="center" id="isCod_{$T.Result.memberNo}">
 														{#if $T.Result.isCod == "0"}在线支付
 														{#else}货到付款
 														
 														{#/if}
 														
 													</td>
-													<td align="center" id="newOrderStatus_{$T.Result.cid}">
+													<td align="center" id="newOrderStatus_{$T.Result.memberNo}">
 														{#if $T.Result.newOrderStatus == "" || $T.Result.newOrderStatus == null}--
 														{#else}{$T.Result.newOrderStatus}
 														{#/if}

@@ -438,7 +438,7 @@ public class MemberBasicController {
         List<String >list = new ArrayList<String >();
         list.add("memberInfo");
         String sysValue="";
-        List<SysConfig> sysConfigs=null;
+       List<SysConfig> sysConfigs=null;
 		try {
 			sysConfigs = sysConfigService.selectByKeys(list);
 			sysValue = "";
@@ -460,7 +460,8 @@ public class MemberBasicController {
         paraMap.put("mask", sysValue);
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
-        paraMap.put("username",request.getParameter("cid"));
+        paraMap.put("username",request.getParameter("username"));
+        paraMap.put("memberNo",request.getParameter("cid"));
         paraMap.put("mobile",request.getParameter("mobile"));
         paraMap.put("email",request.getParameter("email"));
         paraMap.put("saleNo",request.getParameter("saleNo"));
@@ -523,7 +524,8 @@ public class MemberBasicController {
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
         paraMap.put("mask", sysValue);
-        paraMap.put("cid",request.getParameter("cid"));
+        paraMap.put("memberNo",request.getParameter("cid"));
+        paraMap.put("username",request.getParameter("username"));
         paraMap.put("mobile",request.getParameter("mobile"));
         paraMap.put("email",request.getParameter("email"));
         paraMap.put("reOrderNo",request.getParameter("refundNo"));

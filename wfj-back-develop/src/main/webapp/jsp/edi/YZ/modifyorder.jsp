@@ -22,6 +22,7 @@
 	src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js">
 	
 </script>
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css" />
 <link rel="stylesheet" type="text/css"
@@ -32,11 +33,29 @@
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
 	var stockPagination;
+	var userName;
+    var logJs;
 	
 	$(function() { 
 		var tid = "<%=tid%>";
 		initOlv(tid);
 	});
+	
+   function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+		
+	}
 	
 	//初始化包装单位列表
  	function initOlv(tid) {
@@ -71,6 +90,9 @@
 	               }, 300);
 	             },
 	             callback: function(data) {
+	            	 userName= data.userName;
+	            	 logJs=data.logJs;
+	            	 reloadjs();
 	            	// alert($("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data));
 	           		 $("#stock_tab tbody").setTemplateElement("stock-list").processTemplate(data);
 	             }
@@ -80,6 +102,11 @@
 	
  	//保存数据
   	function save(){
+  		LA.env = 'dev';
+		  LA.sysCode = '45';
+		  var sessionId = '<%=request.getSession().getId()%>';
+		  LA.log('yz-modify', '有赞行项目修改', userName, sessionId);
+		 
  		var oidT=document.getElementsByName("oid");
  		var salecodeT=document.getElementsByName("outerSkuId");
  		/* alert(oidT);

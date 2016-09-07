@@ -230,8 +230,8 @@
 											{#foreach $T.list as Result}
 												<tr class="gradeX">
                                                   <td align="center">
-                                                    {#if $T.Result.newSaleTime == "" || $T.Result.newSaleTime == null}--
-                                                    {#else}{$T.Result.newSaleTime}
+                                                    {#if $T.Result.createdTime == "" || $T.Result.createdTime == null}--
+                                                    {#else}{$T.Result.createdTime}
                                                     {#/if}
                                                   </td>
                                                   <td align="center">

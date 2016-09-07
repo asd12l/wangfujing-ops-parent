@@ -34,14 +34,16 @@
 			dataType : "json",
 			async:false,
 			success : function(response) {
-				var result = response.list;
-				var option = "";
-				for ( var i = 0; i < result.length; i++) {
-					var ele = result[i];
-					option += "<option value='"+ele.sid+"'>" + ele.organizationName
-							+ "</option>";
+				if(response.success == "true"){
+					var result = response.list;
+					var option = "";
+					for ( var i = 0; i < result.length; i++) {
+						var ele = result[i];
+						option += "<option value='"+ele.sid+"'>" + ele.organizationName
+								+ "</option>";
+					}
+					$("#shopSid_select").append(option);
 				}
-				$("#shopSid_select").append(option);
 				return;
 			}
 		});

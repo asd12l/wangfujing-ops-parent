@@ -35,6 +35,8 @@
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
 	var stockPagination;
+	var userName;
+	var logJs;
 	
 	$(function() { 
 		$('#startDate_form').daterangepicker();
@@ -46,6 +48,10 @@
 		$("#pageBody").load(url);
 	}
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '47';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('tm-abnormalSearch', '天猫异常搜索', userName, sessionId);
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
 		$("#receiverName_form").val($("#receiverName_input").val());
@@ -110,6 +116,9 @@
 							}, 300);
 						},
 						callback : function(data) {
+							userName = data.userName ;
+							logJs = data.logJs;
+							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
 						}

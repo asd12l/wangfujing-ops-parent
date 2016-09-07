@@ -24,13 +24,15 @@
 				async : false,
 				success: function(response) {
 					var result = response;
-					var groupSid = $("#groupSid_select");
-					for ( var i = 0; i < result.list.length; i++) {
-						var ele = result.list[i];
-						var option;
-						option = $("<option value='" + ele.sid + "'>"
-								+ ele.organizationName + "</option>");
-						option.appendTo(groupSid);
+					if(result.success == "true"){
+						var groupSid = $("#groupSid_select");
+						for ( var i = 0; i < result.list.length; i++) {
+							var ele = result.list[i];
+							var option;
+							option = $("<option value='" + ele.sid + "'>"
+									+ ele.organizationName + "</option>");
+							option.appendTo(groupSid);
+						}
 					}
 					return;
 				}

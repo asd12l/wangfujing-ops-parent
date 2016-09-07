@@ -269,6 +269,13 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			m.put("success", "false");
 			e.printStackTrace();
 		}
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+		paramMap.put("logJs", js);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);

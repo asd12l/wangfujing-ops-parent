@@ -135,6 +135,13 @@ private static final Logger logger = LoggerFactory.getLogger(EdiYzOrderControlle
 		} catch (Exception e) {
 			paramMap.put("pageCount", Integer.valueOf(0));
 		}
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+		paramMap.put("logJs", js);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
@@ -212,6 +219,11 @@ private static final Logger logger = LoggerFactory.getLogger(EdiYzOrderControlle
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
 		//return jsons;
 	}
 	
@@ -286,6 +298,18 @@ private static final Logger logger = LoggerFactory.getLogger(EdiYzOrderControlle
 			m.put("success", "false");
 			e.printStackTrace();
 		}
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+		String js = (String) PropertiesUtil.getContextProperty("log_js");
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+		paramMap.put("logJs", js);
 		return json;
 	}
 	
@@ -322,6 +346,11 @@ private static final Logger logger = LoggerFactory.getLogger(EdiYzOrderControlle
 			logger.info("json:" + json);
 		} catch (Exception e) {
 			m.put("success", "false");
+		}
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
 		}
 		return json;
 	}

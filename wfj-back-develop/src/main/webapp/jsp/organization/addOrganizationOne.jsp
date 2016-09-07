@@ -20,12 +20,14 @@
 			dataType: "json",
 			success: function(response) {
 				var result = response;
-				parentSid.html("<option value=''>请选择集团(必填)</option>");
-				for ( var i = 0; i < result.list.length; i++) {
-					var ele = result.list[i];
-					var option;
-					option = $("<option value='" + ele.sid + "'>" + ele.organizationName + "</option>");
-					option.appendTo(parentSid);
+				if(result.success == "true"){
+					parentSid.html("<option value=''>请选择集团(必填)</option>");
+					for ( var i = 0; i < result.list.length; i++) {
+						var ele = result.list[i];
+						var option;
+						option = $("<option value='" + ele.sid + "'>" + ele.organizationName + "</option>");
+						option.appendTo(parentSid);
+					}
 				}
 				return;
 			}
