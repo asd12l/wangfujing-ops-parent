@@ -230,7 +230,7 @@ var sysValue ='';
              on: true,
              url: url,
              dataType: 'json',
-             param : "&saleSource=" + $("#saleSource_input").val(),
+             param : "&saleSource=" + $("#saleSource_input").val()+"&sysValue="+sysValue,
              /* ajaxStart: function() {
                ZENG.msgbox.show(" 正在加载中，请稍后...", 1, 1000);
              },
