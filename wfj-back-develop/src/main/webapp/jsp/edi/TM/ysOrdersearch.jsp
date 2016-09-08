@@ -37,6 +37,7 @@
 	var stockPagination;
 	var userName;
 	var logJs;
+	var memberInfo;
 	
 	$(function() { 
 		$('#startDate_form').daterangepicker();
@@ -80,6 +81,20 @@
 		var params = $("#stock_form").serialize();
 		params = decodeURI(params);
 		stockPagination.onLoad(params);
+	}
+	
+	function plusXing (str,frontLen,endLen) { 
+		var len = str.length-frontLen-endLen;
+		var xing = '';
+		for (var i=0;i<len;i++) {
+		xing+='*';
+		}
+		if(memberInfo=1){
+			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
+		}else{
+			return str;
+		}
+		
 	}
 	
     function reloadjs(){
@@ -131,6 +146,7 @@
 						callback : function(data) {
 							userName = data.userName ;
 							logJs = data.logJs;
+							memberInfo=data.memberInfo;
 							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
@@ -248,9 +264,9 @@
 													   {#else} {$T.Result.ordersid}
 													   {#/if}													
 													</td>
-													<td align="center" id="productCode_{$T.Result.sid}">{$T.Result.receiverName}</td>
+													<td align="center" id="productCode_{$T.Result.sid}">{plusXing($T.Result.receiverName,1,0)}</td>
 													<td align="center" id="unitName_{$T.Result.sid}">{$T.Result.buyerNick}</td>
-													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{$T.Result.receiverMobile}</td>
+													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{plusXing($T.Result.receiverMobile,3,4)}</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
