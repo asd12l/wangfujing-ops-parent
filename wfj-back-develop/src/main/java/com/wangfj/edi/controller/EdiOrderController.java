@@ -35,6 +35,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.utils.DateUtils;
 import com.utils.StringUtils;
+import com.wangfj.edi.bean.Member;
+import com.wangfj.edi.bean.MemberInfo;
+import com.wangfj.edi.util.HttpUtils;
 import com.wangfj.edi.util.PropertiesUtil;
 import com.wangfj.order.controller.OmsOrderController;
 import com.wangfj.order.utils.CommonProperties;
@@ -136,6 +139,21 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		}
 		String js = (String) PropertiesUtil.getContextProperty("log_js");
 		paramMap.put("logJs", js);
+		
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl");
+		String s = HttpUtils.HttpdoGet(url);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				paramMap.put("memberInfo", memberInfo.getData().get(0).getSysValue());
+			}
+		}
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
