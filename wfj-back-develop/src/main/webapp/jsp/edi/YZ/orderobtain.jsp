@@ -31,12 +31,25 @@
 	var stockPagination;
 	var userName;
 	var logJs;
+	var memberInfo;
 	
 	$(function() { 
 		initStock();
 		$("#pageSelect").change(stockQuery);
 	});
-	
+	function plusXing (str,frontLen,endLen) { 
+		var len = str.length-frontLen-endLen;
+		var xing = '';
+		for (var i=0;i<len;i++) {
+		xing+='*';
+		}
+		if(memberInfo=1){
+			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
+		}else{
+			return str;
+		}
+		
+	}
    function reloadjs(){
 		
 		var head= document.getElementsByTagName('head')[0]; 
@@ -110,6 +123,7 @@
 						callback : function(data) {
 							userName= data.userName ;
 							logJs=data.logJs;
+							memberInfo=data.memberInfo;
 							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
@@ -219,9 +233,17 @@
 												<tr class="gradeX">
 													<td align="center" id="skuCode_{$T.Result.sid}">{$T.Result.tid}</td>
 													<td align="center" id="unitCode_{$T.Result.sid}">{#if $T.Result.ordersid == null || $T.Result.ordersid == ""} --- {#else} {$T.Result.ordersid} {#/if}</td>
-													<td align="center" id="productCode_{$T.Result.sid}">{$T.Result.receiverName}</td>
+													<td align="center" id="productCode_{$T.Result.sid}">
+													{#if $T.Result.receiverName == "" || $T.Result.receiverName == null} ---
+													   	{#else} {plusXing($T.Result.receiverName,1,0)}
+													   	{#/if}
+													</td>
 													<td align="center" id="unitName_{$T.Result.sid}">{$T.Result.buyerNick}</td>
-													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{$T.Result.receiverMobile}</td>
+													<td align="center" id="saleStock_{$T.Result.receiverMobile}">
+													{#if $T.Result.receiverMobile == "" || $T.Result.receiverMobile == null} ---
+													   	{#else} {plusXing($T.Result.receiverMobile,3,4)}
+													   	{#/if}
+													</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.update} {#else} {$T.Result.cdate} {#/if}</td>
