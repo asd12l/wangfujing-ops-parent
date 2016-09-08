@@ -156,7 +156,7 @@
 									<span id="payCode_msg" style="color:red;float:right;"></span>
 								</div>
 								<div>
-								<a onclick="sendPayCodeToPhone();" class="btn btn-info">发送验证码</a>
+								<a onclick="sendPayCodeToPhone();" class="btn btn-info" id="payPhone">发送验证码</a>
 								</div>
 							</div>
 							<div class="col-md-12"  style="padding: 10px 100px;">
