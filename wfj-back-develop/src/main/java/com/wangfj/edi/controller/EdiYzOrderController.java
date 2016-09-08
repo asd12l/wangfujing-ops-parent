@@ -22,6 +22,9 @@ import com.google.gson.GsonBuilder;
 import com.utils.StringUtils;
 import com.wangfj.edi.bean.ExcelField;
 import com.wangfj.edi.bean.ExprotVo;
+import com.wangfj.edi.bean.Member;
+import com.wangfj.edi.bean.MemberInfo;
+import com.wangfj.edi.util.HttpUtils;
 import com.wangfj.edi.util.PropertiesUtil;
 import com.wangfj.wms.util.CookiesUtil;
 import com.wangfj.wms.util.HttpUtilPcm;
@@ -157,6 +160,20 @@ public class EdiYzOrderController {
 			paramMap.put("userName", "");
 		}
 		paramMap.put("logJs", js);
+		//添加隐藏私密信息
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl");
+		String s = HttpUtils.HttpdoGet(url);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				paramMap.put("memberInfo", memberInfo.getData().get(0).getSysValue());
+			}
+		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
