@@ -45,5 +45,14 @@ public class RequestUtils {
 	public static String decode(String str) throws Exception{
     	return new String(str.getBytes("ISO-8859-1"), "UTF-8");
     }
+	
+	public static String hideSecret(String s,int front,int back) { 
+		int len = s.length()-front-back;
+		String xing = "";
+		for (int i=0;i<len;i++) {
+			xing+='*';
+		}
+		return s.substring(0,front)+xing+s.substring(s.length()-back);
+	}
 
 }

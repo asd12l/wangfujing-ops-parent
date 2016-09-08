@@ -30,6 +30,7 @@ import com.constants.SystemConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wangfj.order.utils.CommonProperties;
+import com.wangfj.order.utils.sysValues;
 import com.wangfj.wms.util.HttpUtilPcm;
 /**
  * 
@@ -1876,6 +1877,10 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 //			json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSelect/selectSale2.htm", jsonStr);
@@ -2086,6 +2091,10 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_refund2_list"), jsonStr);

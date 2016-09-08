@@ -39,6 +39,7 @@ import com.wangfj.order.controller.suppot.ExcelRefundVo;
 import com.wangfj.order.controller.suppot.ExcelSaleVo;
 import com.wangfj.order.entity.ExcelFile;
 import com.wangfj.order.utils.CommonProperties;
+import com.wangfj.order.utils.sysValues;
 import com.wangfj.wms.util.HttpUtilPcm;
 import com.wangfj.wms.util.ResultUtil;
 import com.wfj.netty.servlet.util.StringUtil;
@@ -115,6 +116,10 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list"), jsonStr);
@@ -359,6 +364,10 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone"), jsonStr);
@@ -570,6 +579,10 @@ public class OmsOrderController {
 		paramMap.put("orderNo", request.getParameter("orderNo"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_orderItem_list"), jsonStr);
@@ -775,6 +788,10 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_refundApply_list"), jsonStr);
@@ -959,6 +976,10 @@ public class OmsOrderController {
 		}
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_package_list"), jsonStr);
@@ -1213,6 +1234,10 @@ public class OmsOrderController {
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_orderNo"), jsonStr);
