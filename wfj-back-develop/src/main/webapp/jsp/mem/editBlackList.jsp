@@ -531,7 +531,7 @@
                                                     {#/if}
                                                   </td>
                                                   <td align="center" id="backTime_{$T.Result.sid}">
-                                                    {#if $T.Result.relieve_time == "" || $T.Result.relieve_time == null}
+                                                    {#if $T.Result.relieve_time == "" || $T.Result.relieve_time == null}--
                                                     {#else}{$T.Result.relieve_time}
                                                     {#/if}
                                                   </td>

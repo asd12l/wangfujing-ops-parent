@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.wangfj.back.entity.po.SysConfig;
+import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
 
@@ -28,7 +31,8 @@ import com.wangfj.order.utils.HttpUtil;
 public class MemberCommentController {
 
 	private static Logger log =  LoggerFactory.getLogger(MemberAccountController.class);
-	
+	 @Autowired
+	    private ISysConfigService sysConfigService;
 @ResponseBody
 @RequestMapping(value ="/getBycommentwirtlist", method = { RequestMethod.POST, RequestMethod.GET })
 	public String getByMemberCoupon(HttpServletRequest request,
@@ -51,6 +55,14 @@ public class MemberCommentController {
 		int start = (currPage - 1) * pageSize;                        
 		Map<Object, Object> paraMap = new HashMap<Object, Object>();
 		System.out.println(request.getParameterMap());
+		//屏显规则
+        List<String> keys=new ArrayList<String>();
+        keys.add("memberInfo");
+        List<SysConfig>list1=sysConfigService.selectByKeys(keys);
+        String value="";
+        for(int i=0;i<list1.size();i++){
+        	value=list1.get(i).getSysValue();
+        }
 		paraMap.put("start", String.valueOf(start));
 		paraMap.put("limit", String.valueOf(pageSize));
 		paraMap.put("customeraccount", request.getParameter("customeraccount"));
@@ -70,6 +82,7 @@ public class MemberCommentController {
 		paraMap.put("deletnot", request.getParameter("deletnot"));
 		paraMap.put("cache",request.getParameter("modowtype"));
 		paraMap.put("start",start);
+		paraMap.put("mask", value);
 //		paraMap.put("cache",  request.getParameter("cache").replace("#",""));	//首位为#的是要求屏蔽的commentid主键字段
 		try {
 			String url = CommonProperties.get("member_ops_url");
