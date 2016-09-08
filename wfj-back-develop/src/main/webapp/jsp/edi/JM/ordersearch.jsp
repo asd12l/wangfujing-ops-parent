@@ -35,6 +35,7 @@
 	var stockPagination;
 	var userName;
 	var logJs;
+	var memberInfo;
 	
 	$(function() { 
 		$('#startDate').daterangepicker({
@@ -57,7 +58,19 @@
 		$("#pageSelect").change(stockQuery);
 		
 	});
-	
+	function plusXing (str,frontLen,endLen) { 
+		var len = str.length-frontLen-endLen;
+		var xing = '';
+		for (var i=0;i<len;i++) {
+		xing+='*';
+		}
+		if(memberInfo=1){
+			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
+		}else{
+			return str;
+		}
+		
+	}
 	function reloadjs(){
 		
 		var head= document.getElementsByTagName('head')[0]; 
@@ -213,6 +226,7 @@
 
 	function initStock() {
 		var url = $("#ctxPath").val() + "/ediJmOrder/selectJmOrderCatchList?tradesource=C8";
+		
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
@@ -245,6 +259,7 @@
 						callback : function(data) {
 							userName = data.userName ;
 							logJs = data.logJs;
+							memberInfo=data.memberInfo;
 							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
@@ -280,6 +295,9 @@
 	<input type="hidden" id="ctxPath"
 		value="${pageContext.request.contextPath}" />
 	<!-- Main Container -->
+	<form action="do.jsp"> 
+	<input id="hd" name="hd" type="hidden" />
+	  <input type="sumbit" value="提交">  </form>
 	<div class="main-container container-fluid">
 		<!-- Page Container -->
 		<div class="page-container">
@@ -411,7 +429,7 @@
 													</td>
 													<td align="center" id="productCode_{$T.Result.sid}">
 														{#if $T.Result.receiverName == "" || $T.Result.receiverName == null} ---
-													   	{#else} {$T.Result.receiverName}
+													   	{#else} {plusXing($T.Result.receiverName,1,0)}
 													   	{#/if}
 													</td>
 													<td align="center" id="unitName_{$T.Result.sid}">
@@ -419,7 +437,11 @@
 													   	{#else} {$T.Result.buyerNick}
 													   	{#/if}
 													</td>
-													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{$T.Result.receiverMobile}</td>
+													<td align="center" id="saleStock_{$T.Result.receiverMobile}">
+														{#if $T.Result.receiverMobile == "" || $T.Result.receiverMobile == null} ---
+													   	{#else} {plusXing($T.Result.receiverMobile,3,4)}
+													   	{#/if}
+													</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.update} {#else} {$T.Result.cdate} {#/if}</td>

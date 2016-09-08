@@ -132,7 +132,10 @@ function validform() {
 						required : true,
 						digits : true
 					},
-					startTime : "required",
+					startTime : {
+						required : true,
+						TimeVal : true
+					},
 					endTime : {
 						required : true,
 						TimeVal : true
