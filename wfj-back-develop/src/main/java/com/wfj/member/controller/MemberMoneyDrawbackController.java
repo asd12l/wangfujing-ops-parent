@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.wangfj.back.entity.po.SysConfig;
+import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.entity.ExcelFile;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
@@ -14,6 +16,7 @@ import com.wfj.member.utils.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +33,8 @@ import java.util.*;
 @RequestMapping("/memDrawback")
 public class MemberMoneyDrawbackController {
 	private static Logger log =  LoggerFactory.getLogger(MemberMoneyDrawbackController.class);
-	
+	@Autowired
+	private ISysConfigService sysConfigService;
 	/**
 	 * 发送验证码
 	 */
@@ -318,6 +322,12 @@ public class MemberMoneyDrawbackController {
 			System.err.println("============== member_ops_url:" + url);
 			System.err.println("=============method:"+method);
 			System.err.println("======== getWithdrawlsList url "+url+ method+"  =========");
+			List<String> keys=new ArrayList<String>();
+			keys.add("memberInfo");
+			List<SysConfig>list1=sysConfigService.selectByKeys(keys);
+			String value="";
+			value = list1.get(0).getSysValue();
+			map.put("mask",value);
 			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
 			JSONObject json = JSONObject.parseObject(jsonString);
 			JSONArray ja = json.getJSONArray("object");
