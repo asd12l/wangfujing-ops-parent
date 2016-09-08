@@ -220,10 +220,10 @@
 				},
 				success: function(response) {
 					if(response.code == "1"){
-						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>审核不通过成功!</strong></div>");
+						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>"+response.desc+"</strong></div>");
 						$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
 					}else{
-						$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>审核不通过失败</strong></div>");
+						$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+response.desc+"</strong></div>");
 						$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 
 					}
