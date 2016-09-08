@@ -26,6 +26,7 @@ import com.wangfj.edi.bean.Member;
 import com.wangfj.edi.bean.MemberInfo;
 import com.wangfj.edi.util.HttpUtils;
 import com.wangfj.edi.util.PropertiesUtil;
+import com.wangfj.edi.util.RequestUtils;
 import com.wangfj.wms.util.CookiesUtil;
 import com.wangfj.wms.util.HttpUtilPcm;
 
@@ -271,8 +272,8 @@ public class EdiYzOrderController {
 				
 			inlist.add(vo.getTid()==null?"":vo.getTid());			
 			inlist.add(vo.getOrdersId()==null?"":vo.getOrdersId().toString());
-			inlist.add(vo.getReceiverName()==null?"":vo.getReceiverName());
-			inlist.add(vo.getReceiverMobile()==null?"":vo.getReceiverMobile());
+			inlist.add(vo.getReceiverName()==null?"":RequestUtils.hideSecret(vo.getReceiverName(),1,0));
+			inlist.add(vo.getReceiverMobile()==null?"":RequestUtils.hideSecret(vo.getReceiverMobile(),3,4));
 			inlist.add(vo.getPayment()==null?"":vo.getPayment().toString());
 			inlist.add(vo.getStatus()==null?"":getOrderStatus(vo.getStatus()));			
 			inlist.add(vo.getCreateDate()==null?"":vo.getCreateDate());
