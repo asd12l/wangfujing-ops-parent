@@ -596,6 +596,15 @@ Author: YeDong/zhangdl
 							&nbsp;
 						</div>
 
+                        <div class="col-md-6">
+                            <label class="col-lg-3 control-label"
+                                   style="width: 35%; text-align: right;">要约号：</label>
+                            <div class="col-lg-6" style="width: 65%;">
+                                <label class="control-label" id="offerNo_lb"></label>
+                            </div>
+                            &nbsp;
+                        </div>
+
 						<div class="col-md-6">
 							<label class="col-lg-3 control-label"
 								style="width: 35%; text-align: right;">经营方式：</label>
