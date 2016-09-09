@@ -414,6 +414,9 @@ public class OmsOrderController {
 				for(int i=0; i<list.size(); i++){
 					Object object = list.get(i);
 					JSONObject jsonObject4 = JSONObject.fromObject(object);
+					jsonObject4.put("receptAddress", (jsonObject4.getString("receptProvName") != null ? jsonObject4.getString("receptProvName") : "")
+							+ (jsonObject4.getString("receptCityName") != null ? jsonObject4.getString("receptCityName"):"") 
+							+ (jsonObject4.getString("receptAddress") != null ? jsonObject4.getString("receptAddress") : ""));
 					String orderStatus=null;
 					try {
 						orderStatus = jsonObject4.getString("orderStatus");
