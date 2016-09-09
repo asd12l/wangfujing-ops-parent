@@ -28,6 +28,7 @@ import com.constants.SystemConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wangfj.order.utils.CommonProperties;
+import com.wangfj.order.utils.sysValues;
 import com.wangfj.wms.util.HttpUtilPcm;
 
 /**
@@ -222,6 +223,10 @@ public class OmsController {
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list_phone"), jsonStr);
@@ -377,6 +382,10 @@ public class OmsController {
 		paramMap.put("saleStatus", "08");//已签收
 		paramMap.put("fromSystem", "PCM");
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list"), jsonStr);
@@ -532,6 +541,10 @@ public class OmsController {
 		paramMap.put("saleStatus", "09");//已拒收
 		paramMap.put("fromSystem", "PCM");
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list"), jsonStr);
@@ -965,6 +978,10 @@ public class OmsController {
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_posFlow_Page"), jsonStr);
@@ -1118,6 +1135,10 @@ public class OmsController {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		paramMap.put("fromSystem", "PCM");
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_refundInfo_list"), jsonStr);

@@ -35,7 +35,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.utils.DateUtils;
 import com.utils.StringUtils;
+import com.wangfj.edi.bean.Member;
+import com.wangfj.edi.bean.MemberInfo;
+import com.wangfj.edi.util.HttpUtils;
 import com.wangfj.edi.util.PropertiesUtil;
+import com.wangfj.edi.util.RequestUtils;
 import com.wangfj.order.controller.OmsOrderController;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.wms.util.CookiesUtil;
@@ -136,6 +140,21 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		}
 		String js = (String) PropertiesUtil.getContextProperty("log_js");
 		paramMap.put("logJs", js);
+		
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl");
+		String s = HttpUtils.HttpdoGet(url);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				paramMap.put("memberInfo", memberInfo.getData().get(0).getSysValue());
+			}
+		}
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
@@ -432,8 +451,8 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			Map<String, Object> map = (Map) ordersDetailList.get(i);
 			String tid = map.get("tid") == null ? "" : map.get("tid").toString();
 			String ordersid = map.get("ordersid") == null ? "" : map.get("ordersid").toString();
-			String receiverName = map.get("receiverName") == null ? "" : map.get("receiverName").toString();
-			String receiverMobile = map.get("receiverMobile") == null ? "" : map.get("receiverMobile").toString();
+			String receiverName = map.get("receiverName") == null ? "" : RequestUtils.hideSecret(map.get("receiverName").toString(),1,0);
+			String receiverMobile = map.get("receiverMobile") == null ? "" : RequestUtils.hideSecret(map.get("receiverMobile").toString(),3,4);
 			String payment = map.get("payment") == null ? "" : map.get("payment").toString();
 			String tradeStatus = map.get("tradeStatus") == null ? "" : map.get("tradeStatus").toString();
 			String createDate = map.get("createDate") == null ? "" : map.get("createDate").toString();
@@ -502,4 +521,5 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		cell0.setCellValue(cellValue);
 		cell0.setCellStyle(style);
 	}
+	
 }

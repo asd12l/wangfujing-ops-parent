@@ -99,7 +99,6 @@
 		<include refid="Base_Column_List" />
 		from captcha
 		<where>
-			1 = 1
 			<if test="sid != null">
 				and sid = #{sid,jdbcType=INTEGER}
 			</if>
@@ -122,10 +121,9 @@
 	<select id="selectCountBySelective" resultType="java.lang.Integer"
 		parameterType="com.wangfj.back.entity.po.Captcha">
 		select
-			count(1)
+			count(sid)
 		from captcha
 		<where>
-			1 = 1
 			<if test="sid != null">
 				and sid = #{sid,jdbcType=INTEGER}
 			</if>

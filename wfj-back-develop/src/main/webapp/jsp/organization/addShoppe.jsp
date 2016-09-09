@@ -40,7 +40,7 @@
 			async : false,
 			data : "organizationType=3",
 			success : function(response) {
-				if(response.sccess == "true"){
+				if(response.success == "true"){
 					var result = response.list;
 					var shopSid = $("#shopSid");
 					shopSid.html("<option value=''>请选择</option>");
