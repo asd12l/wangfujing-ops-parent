@@ -32,7 +32,7 @@ public class SysConfigController {
 	ISysConfigService sysConfigService;
 	
 	@ResponseBody
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/findAll", method ={ RequestMethod.GET,RequestMethod.POST})
 	public String findAll(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<SysConfig> list = sysConfigService.selectAll();
@@ -46,7 +46,7 @@ public class SysConfigController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/findSysConfigByKeys", method = RequestMethod.GET)
+	@RequestMapping(value = "/findSysConfigByKeys", method ={ RequestMethod.GET,RequestMethod.POST})
 	public String findSysConfigByKeys(HttpServletRequest request, HttpServletResponse response,
 			String keys) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -74,7 +74,7 @@ public class SysConfigController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/editSysConfigByKey", method = RequestMethod.GET)
+	@RequestMapping(value = "/editSysConfigByKey", method ={ RequestMethod.GET,RequestMethod.POST})
 	public String editSysConfigByKey(HttpServletRequest request, HttpServletResponse response,
 			String key, String value) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -99,7 +99,7 @@ public class SysConfigController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/saveSysConfigByKey", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveSysConfigByKey", method ={ RequestMethod.GET,RequestMethod.POST})
 	public String saveSysConfigByKey(HttpServletRequest request, HttpServletResponse response,
 			String key, String value) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
