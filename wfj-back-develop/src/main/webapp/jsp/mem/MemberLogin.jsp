@@ -71,7 +71,7 @@
 	
 	//初始化第三方渠道下拉选
     function getChannel() {
-		var url = __ctxPath+"/memLogin/getLoginLogList1";
+		var url = __ctxPath+"/memLogin/getChannelDrop";
 	           $.ajax( {
 	        	   on: true,
 	               url: url,
