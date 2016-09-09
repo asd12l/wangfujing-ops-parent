@@ -788,6 +788,10 @@ public class OmsController {
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
 		try {
+			String result = sysValues.desensitization();
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list"), jsonStr);
