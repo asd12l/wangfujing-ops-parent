@@ -257,7 +257,7 @@ public class MemberMoneyDrawbackController {
 	@ResponseBody
 	@RequestMapping(value ="/giveupApplyWithdrawals", method = { RequestMethod.POST, RequestMethod.GET })
 	public String giveupApplyWithdrawals(HttpServletRequest request,
-			HttpServletResponse response,String sid, String cancelReason,String checkStatus) {
+			HttpServletResponse response,String sid, String cancelReason,String checkStatus,String phone,String billno) {
 		log.info("======== giveupApplyWithdrawals  =========");
 		String method = "/moneyWithdrawals/giveupApplyWithdrawals.do";
 		Gson gson = new Gson();
@@ -267,6 +267,8 @@ public class MemberMoneyDrawbackController {
 		map.put("sid", sid);
 		map.put("cancelReason", cancelReason);
 		map.put("checkStatus", checkStatus);
+		map.put("mobile", phone);
+		map.put("billno", billno);
 		try {
 			String url = CommonProperties.get("member_ops_url");
 			log.info("======== giveupApplyWithdrawals url "+url+"  =========");
