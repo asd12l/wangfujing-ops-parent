@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wangfj.back.entity.po.SysConfig;
+import com.wangfj.back.entity.vo.SysConfigVO;
 import com.wangfj.back.service.ISysConfigService;
 
 /**
@@ -63,7 +64,14 @@ public class SysConfigController {
 				resultMap.put("msg", "查询为空");
 				resultMap.put("success", false);
 			} else {
-				resultMap.put("data", list);
+				List<SysConfigVO> listVO = new ArrayList<SysConfigVO>();
+				for(SysConfig sc : list){
+					SysConfigVO vo = new SysConfigVO();
+					vo.setSysKey(sc.getSysKey());
+					vo.setSysValue(sc.getSysValue());
+					listVO.add(vo);
+				}
+				resultMap.put("data", listVO);
 				resultMap.put("success", true);
 			}
 		} else {
