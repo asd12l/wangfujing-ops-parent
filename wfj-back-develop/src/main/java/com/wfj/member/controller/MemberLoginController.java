@@ -106,11 +106,11 @@ public class MemberLoginController {
 	 * @param request
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getLoginLogList1", method = { RequestMethod.GET,
+	@RequestMapping(value="/getChannelDrop", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public String getLoginLogList1(HttpServletRequest request,
+	public String getChannelDrop(HttpServletRequest request,
 			HttpServletResponse response) {
-		String method = "/mem_login/MemberloginLog1.do";
+		String method = "/mem_login/Memberchanneldrop.do";
 		Gson gson = new Gson();
 		List<Object> list = new ArrayList<Object>();
 		String jsonString = gson.toJson(list);

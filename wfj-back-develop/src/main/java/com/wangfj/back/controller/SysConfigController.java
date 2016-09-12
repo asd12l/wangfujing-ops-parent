@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wangfj.back.entity.po.SysConfig;
+import com.wangfj.back.entity.vo.SysConfigVO;
 import com.wangfj.back.service.ISysConfigService;
 
 /**
@@ -32,7 +33,7 @@ public class SysConfigController {
 	ISysConfigService sysConfigService;
 	
 	@ResponseBody
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/findAll", method ={ RequestMethod.GET,RequestMethod.POST})
 	public String findAll(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<SysConfig> list = sysConfigService.selectAll();
@@ -46,7 +47,7 @@ public class SysConfigController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/findSysConfigByKeys", method = RequestMethod.GET)
+	@RequestMapping(value = "/findSysConfigByKeys", method ={ RequestMethod.GET,RequestMethod.POST})
 	public String findSysConfigByKeys(HttpServletRequest request, HttpServletResponse response,
 			String keys) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -63,7 +64,14 @@ public class SysConfigController {
 				resultMap.put("msg", "查询为空");
 				resultMap.put("success", false);
 			} else {
-				resultMap.put("data", list);
+				List<SysConfigVO> listVO = new ArrayList<SysConfigVO>();
+				for(SysConfig sc : list){
+					SysConfigVO vo = new SysConfigVO();
+					vo.setSysKey(sc.getSysKey());
+					vo.setSysValue(sc.getSysValue());
+					listVO.add(vo);
+				}
+				resultMap.put("data", listVO);
 				resultMap.put("success", true);
 			}
 		} else {
@@ -74,7 +82,7 @@ public class SysConfigController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/editSysConfigByKey", method = RequestMethod.GET)
+	@RequestMapping(value = "/editSysConfigByKey", method ={ RequestMethod.GET,RequestMethod.POST})
 	public String editSysConfigByKey(HttpServletRequest request, HttpServletResponse response,
 			String key, String value) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -99,7 +107,7 @@ public class SysConfigController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/saveSysConfigByKey", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveSysConfigByKey", method ={ RequestMethod.GET,RequestMethod.POST})
 	public String saveSysConfigByKey(HttpServletRequest request, HttpServletResponse response,
 			String key, String value) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
