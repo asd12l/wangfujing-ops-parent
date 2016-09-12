@@ -142,6 +142,7 @@
     function submitPullBlack(){
       var cid=$("#pullBlackCid").val();
       var serviceId=$("#serviceId").val();
+      var serviceID=/^[0-9]\d{1,20}$/.test(serviceId);
       var pullType=$("#pullType").val();
       var pullReason=$("#pullReason").val();
       if(serviceId==""||serviceId==null){
@@ -152,7 +153,10 @@
         $("#pullReason_msg").show();
         return;
       }
-
+	  if(!serviceID){
+		  $("#serviceId_Msg").show();
+		  return;
+	  }
       var url = __ctxPath+"/memBasic/pullBlackList";
       $.ajax({
         type : "post",
@@ -399,6 +403,7 @@
                   <input type="text" class="form-control" name="name"
                          id="serviceId" />
                   <span id="serviceId_msg" style="color:red;display:none;" class="add_msg">不能为空!</span>
+                  <span id="serviceId_Msg" style="color:red;display:none;" class="add_msg">请输入小于20位的数字!</span>
                 </div>
                 <br>&nbsp;
               </div>
