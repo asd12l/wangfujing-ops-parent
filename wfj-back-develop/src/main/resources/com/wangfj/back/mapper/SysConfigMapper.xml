@@ -18,14 +18,18 @@
 		where sid = #{sid,jdbcType=INTEGER}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from sys_config
+		delete from
+		sys_config
 		where sid = #{sid,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.wangfj.back.entity.po.SysConfig">
-		insert into sys_config (sid, sys_key, sys_value, sys_desc
+		insert into sys_config (sid,
+		sys_key, sys_value, sys_desc
 		)
-		values (#{sid,jdbcType=INTEGER}, #{sysKey,jdbcType=VARCHAR},
-		#{sysValue,jdbcType=VARCHAR}, #{sysDesc,jdbcType=VARCHAR}
+		values (#{sid,jdbcType=INTEGER},
+		#{sysKey,jdbcType=VARCHAR},
+		#{sysValue,jdbcType=VARCHAR},
+		#{sysDesc,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.wangfj.back.entity.po.SysConfig">
@@ -77,26 +81,50 @@
 	<update id="updateByPrimaryKey" parameterType="com.wangfj.back.entity.po.SysConfig">
 		update sys_config
 		set sys_key = #{sysKey,jdbcType=VARCHAR},
-		sys_value = #{sysValue,jdbcType=VARCHAR},
+		sys_value =
+		#{sysValue,jdbcType=VARCHAR},
 		sys_desc = #{sysDesc,jdbcType=VARCHAR}
 		where sid = #{sid,jdbcType=INTEGER}
 	</update>
-	
+
 	<select id="selectAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from sys_config
 	</select>
-	
+
 	<select id="selectByKeys" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from sys_config
 		<where>
-            <foreach item="item" index="index" collection="list" open=" "
-                     separator="or" close=" ">
-                sys_key = #{item}
-            </foreach>
-        </where>
+			<foreach item="item" index="index" collection="list" open=" "
+				separator="or" close=" ">
+				sys_key = #{item}
+			</foreach>
+		</where>
+	</select>
+	
+	<select id="selectByRoleCodes" resultType="Map" parameterType="Map">
+		SELECT
+			per.*
+		FROM
+			role_permission per
+		JOIN limit_role role ON per.role_sid = role.sid
+		WHERE
+			per.permission_type = 3
+		<if test="sysValue != null">
+			AND per.col1 = #{sysValue,jdbcType=VARCHAR}
+		</if>
+		<if test="sysKey != null">
+			AND per.permission = #{sysKey,jdbcType=VARCHAR}
+		</if>
+		<if test="roleCodes != null">
+			AND role.roleCode in
+			<foreach item="code" index="index" collection="roleCodes" open="("
+				separator="," close=")">
+				#{code,jdbcType=VARCHAR}
+			</foreach>
+		</if>
 	</select>
 </mapper>
