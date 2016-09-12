@@ -1370,7 +1370,7 @@ var sysValue ='';
 
 	}
 	//点击tr事件
-	function trClick(orderNo,isCod,orderType,obj){
+	function trClick(orderNo,isCod,orderType,memberNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		if(isCod=='0'){
@@ -2713,7 +2713,7 @@ var sysValue ='';
 			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
 			async:false,
 			dataType: "json",
-			data:{"orderNo":orderNo,"sysValue":sysValue},
+			data:{"orderNo":orderNo,"memberNo" : memberNo,"sysValue":sysValue},
 			success:function(response) {
 				if(response.success=='true'){
 					var result = response.list;
@@ -3287,7 +3287,7 @@ var sysValue ='';
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													
 													<td align="center">
-														<a onclick="trClick('{$T.Result.orderNo}','{$T.Result.isCod}','{$T.Result.orderType}',this);" style="cursor:pointer;">
+														<a onclick="trClick('{$T.Result.orderNo}','{$T.Result.isCod}','{$T.Result.orderType}','{$T.Result.memberNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>

@@ -2297,6 +2297,13 @@ public class TestOnlineOmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("sysValue"))){
 			paramMap.put("sysValue", request.getParameter("sysValue"));
 		}
+		if(StringUtils.isNotEmpty(request.getParameter("memberNo"))){
+			paramMap.put("memberNo", request.getParameter("memberNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("saleNo"))){
+			paramMap.put("saleNo", request.getParameter("saleNo"));
+		}
+		
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {

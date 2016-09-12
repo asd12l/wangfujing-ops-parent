@@ -2648,7 +2648,7 @@
 		}
  	}
 	//点击tr事件
-	function trClick(orderNo,saleNo,obj){
+	function trClick(orderNo,saleNo,memberNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		 var newTr =  $(obj).parent().parent().clone(true);
@@ -3566,7 +3566,7 @@
 			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
 			async:false,
 			dataType: "json",
-			data:{"orderNo":orderNo,"sysValue":sysValue},
+			data:{"orderNo":orderNo,"saleNo" : saleNo,"memberNo" : memberNo,"sysValue":sysValue},
 			success:function(response) {
 				if(response.success=='true'){
 					var result = response.list;
@@ -4220,7 +4220,7 @@
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													
 													<td align="center">
-														<a id="{$T.Result.saleNo}_" onclick="trClick('{$T.Result.orderNo}','{$T.Result.saleNo}',this);" style="cursor:pointer;">
+														<a id="{$T.Result.saleNo}_" onclick="trClick('{$T.Result.orderNo}','{$T.Result.saleNo}','{$T.Result.memberNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.saleNo != '[object Object]'}{$T.Result.saleNo}
 						                   					{#/if}
 														</a>
