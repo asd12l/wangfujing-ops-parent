@@ -541,6 +541,8 @@ var sessionId = "<%=request.getSession().getId() %>";
 <!-- 点击编码或者名称查询详情 -->
 <script type="text/javascript">
 	function getView(data) {
+		LA.sysCode = "16";
+		LA.log("product.getView", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$("#pageBody").load(url, {
 			"backUrl" : "/jsp/product/ProductStatus.jsp"

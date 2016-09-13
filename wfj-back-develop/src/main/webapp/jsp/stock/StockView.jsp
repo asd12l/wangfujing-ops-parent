@@ -352,6 +352,8 @@
 
 	//库存历史记录
 	function getStockDiv(shoppeProSid, channelSid, channelName) {
+		LA.sysCode = "16";
+		LA.log("stock.getStock", "库存详情查询：" + shoppeProSid, getCookieValue("username"), sessionId);
 		$("#stockHisDiv").show();
 		//给显示渠道名称赋值
 		$("#stockHisChannelName").text(channelName);
@@ -569,6 +571,8 @@
 </script>
 <script type="text/javascript">
 	function getView(data) {
+		LA.sysCode = "16";
+		LA.log("stock.getView", "专柜商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/selectShoppeProductByCode1/" + data;
 		$(".loading-container").attr("class", "loading-container");
 		$("#pageBody").load(url, {
@@ -578,6 +582,8 @@
 		});
 	}
 	function getViewDetail(data) {
+		LA.sysCode = "16";
+		LA.log("stock.getView", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$(".loading-container").attr("class", "loading-container");
 		$("#pageBody").load(url, {

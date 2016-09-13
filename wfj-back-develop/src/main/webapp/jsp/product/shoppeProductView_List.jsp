@@ -278,6 +278,8 @@ Author: WangSy
 <!-- 点击编码或者名称查询详情 -->
 <script type="text/javascript">
 	function getView(data) {
+		LA.sysCode = "16";
+		LA.log("shoppeProduct.getView", "专柜商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/selectShoppeProductByCode1/" + data;
 		$(".loading-container").attr("class", "loading-container");
 		$("#pageBody").load(url, {
