@@ -68,8 +68,8 @@ function formatDate(time){
 
 //设置表单数据
 function setFormData(){
-	$("#channelPayType_form").val($("#channelPayType_input").val());
-	
+	$("#channelPayType_form").val($("#channelPayType_input").val());   //渠道类型
+	$("#businessID_form").val($("#businessID_input").val());   //商户ID
 	}
 //设置下拉框为只读
 
@@ -533,12 +533,16 @@ function saveSetMediumCre(){
 												<option value=" ">全部渠道</option>
 												
 										    </select>
+                                				&nbsp;&nbsp;
+                                				<label class="titname">商户ID：</label>
+                                				<input type="text" id="businessID_input" style="padding: 0 0;"/>
                                 				&nbsp;&nbsp;&nbsp;&nbsp;
                                 				<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
                                 			</li>
                                				
                             				
 												<li class="col-md-4">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             					<a class="btn btn-default shiny" onclick="addChannelAccount();">新建渠道号</a>&nbsp;&nbsp;
 												<!-- <a class="btn btn-yellow" onclick="excelOrder();">导出Excel</a> -->
 											   </li>
@@ -547,6 +551,7 @@ function saveSetMediumCre(){
                            			<form id="olv_form" action="">
 										<input type="hidden" id="pageSize_form" name="pageSize" value="10"/>
 										<input type="hidden" id="channelPayType_form" name="payType"/>
+										<input type="hidden" id="businessID_form" name="businessID"/>  
                                   	</form>
                                 <!--数据列表显示区域-->
                             	<div style="width:100%; height:0%; overflow-Y: hidden;">
