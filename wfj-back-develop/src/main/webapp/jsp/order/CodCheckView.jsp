@@ -28,7 +28,7 @@ $(function() {
 		dataType: "json",
 		success: function(response) {
 			logUrl = response.logUrl;
-			username - response.username;
+			username = response.username;
 			reloadjs();
 			var result = response.list[0];
 			$("#codAmount_input").val(result.thresholdAmount);
