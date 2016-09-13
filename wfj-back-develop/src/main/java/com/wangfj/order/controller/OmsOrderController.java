@@ -533,6 +533,13 @@ public class OmsOrderController {
 			m.put("pageCount", 0);
 			m.put("success", "false");
 		}
+		Cookie [] cookie = request.getCookies();
+		for(Cookie cok : cookie){
+			if(cok.getName().equals("username")){
+				m.put("userName", cok.getValue());
+			}
+		}
+		m.put("logUrl", CommonProperties.get("log_js"));
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
