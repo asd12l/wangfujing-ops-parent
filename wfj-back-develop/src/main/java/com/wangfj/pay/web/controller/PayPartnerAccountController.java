@@ -45,6 +45,7 @@ public class PayPartnerAccountController {
 		paramMap.put("pageSize", request.getParameter("pageSize"));
 		paramMap.put("pageNo", request.getParameter("page"));
 		paramMap.put("payType",request.getParameter("payType"));
+		paramMap.put("partner",request.getParameter("businessID"));  //商户ID
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
