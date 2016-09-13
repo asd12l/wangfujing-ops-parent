@@ -10,7 +10,6 @@
 <script src="${ctx}/assets/js/validation/bootstrapValidator.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
-	var url = __ctxPath + "/category/getAllCategory";
   	$(function(){
   		$("#sid").val(sid_);
   		$("#parentSid").val(parentSid_);
