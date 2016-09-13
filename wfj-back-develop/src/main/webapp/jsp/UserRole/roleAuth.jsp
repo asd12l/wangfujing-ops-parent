@@ -16,6 +16,7 @@
 <title>商品基本信息</title>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var zNodes="";
 	$(function(){
 		$("#sid").val(sid);
@@ -74,6 +75,8 @@
   	//保存数据
   	
   	function saveFrom(){
+  		LA.sysCode = "16";
+  		LA.log("role.savaLimitRoleResource", "修改角色资源权限：" + $("#theForm").serialize(), getCookieValue("username"), sessionId);
   		$.ajax({
   			 type:"post",
  	        contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -379,6 +382,17 @@ function saveRoleLimit(){
 	getDiv2PropsSid();
 	getManageCateSids();
 	updateMemberInfo();
+	LA.sysCode = "16";
+	LA.log("role.saveRoleLimit", "修改角色权限：" + {
+ 			"roleSid" : $("#roleSid1").val(),
+ 			"shopSids" : $("#shopSids").val(),
+ 			"shopGroupSids" : $("#shopGroupSids").val(),
+ 			"channelSids" : $("#channelSids").val(),
+ 			"manageCateSids" : $("#manageCateSids").val(),
+ 			"manageCateShopCodes" : $("#manageCateShopCodes").val(),
+ 			"manageCateLevels" : $("#manageCateLevels").val(),
+ 			"manageCateParentCodes" : $("#manageCateParentCodes").val()
+ 		}, getCookieValue("username"), sessionId);
 	$.ajax({
   		type: "post",
   		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -488,6 +502,8 @@ function loadMemberInfo(){
 	});
 }
 function updateMemberInfo(){
+	LA.sysCode = "16";
+	LA.log("role.updateMemberInfo", "修改用户敏感信息是否屏蔽：" + params, getCookieValue("username"), sessionId);
 	$.ajax({
 		type : "get",
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",

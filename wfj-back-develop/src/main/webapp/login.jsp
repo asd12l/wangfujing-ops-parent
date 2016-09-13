@@ -67,6 +67,7 @@
 </script>
 <script type="text/javascript">
 	var rootPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var /* loadSuccessDate, */ captchaSuc = false;
 	var startX = 0, startY = 0, maxRandomNum = "";
 	$(document).ready(function(){
@@ -169,6 +170,8 @@
 		});
 		$(".login").click(function(){
 			if(captchaSuc){
+				LA.sysCode = "16";
+				LA.log("login", "用户登录：" + $("#username").val() + "时间：" + new Date(), "", sessionId);
 				return true;
 			}
 			$(".dianji div").text("请验证登录！");

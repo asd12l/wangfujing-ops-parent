@@ -365,7 +365,8 @@ Author: WangSy
 				isParent:targetNode.isParent,
 				rootSid : rootSid
 			};
-	
+			LA.sysCode = "16";
+			LA.log("category.showCateDrop", "展示分类推拽：" + data, getCookieValue("username"), sessionId);
 			var confirmVal = false;
 			$.ajax({
 				async : false,
@@ -1783,6 +1784,13 @@ Author: WangSy
 		insert1 = insert1.replace(/\&/g, "%26");
 		insert1 = insert1.replace(/\+/g, "%2B");
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo").getSelectedNodes();
+		LA.sysCode = "16";
+		LA.log("category.showCateWeihu", "展示分类维护保存：" + {
+			'cid' : treeObj[0].id,
+			'propsid' : $("#Div2PropsSid").val(),
+			'name' : $("#name2").val(),
+			'notNull' : insert1
+		}, getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
 			url : __ctxPath + "/provalues/add",
@@ -1837,6 +1845,8 @@ Author: WangSy
 	}
 	/* 维护按钮 */
 	function updateRole() {
+		LA.sysCode = "16";
+		LA.log("category.showCateWeihu", "展示分类维护", getCookieValue("username"), sessionId);
 		$("#selectedProps").html("");
 		$("#pdict").val("");
 		/* 获取 zTree对象 */
