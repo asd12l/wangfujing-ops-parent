@@ -95,16 +95,16 @@ public class SysConfigController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		try{
-			String userName = "";
-			if(username != null && !"".equals(username)){
-				userName = username;
-			} else {
-				userName = CookiesUtil.getCookies(request, "username");
+			String userName = CookiesUtil.getCookies(request, "username");
+			if(userName == null || "".equals(userName)){
+				if(username != null && !"".equals(username)){
+					userName = username;
+				}
 			}
+			List<SysConfigVO> listVO = new ArrayList<SysConfigVO>();
+			SysConfigVO vo = new SysConfigVO();
+			listVO.add(vo);
 			if(userName != null && !"".equals(userName)){
-				List<SysConfigVO> listVO = new ArrayList<SysConfigVO>();
-				SysConfigVO vo = new SysConfigVO();
-				listVO.add(vo);
 				paramMap.put("userId", userName);
 				paramMap.put("systemCN", "SYSTEM_OPS");
 				String RolesJson = HttpUtil.HttpPost(SystemConfig.UAC_PATH, "/api/findRolesByUserAndSys.json", paramMap);
@@ -137,12 +137,12 @@ public class SysConfigController {
 					vo.setSysKey("memberInfo");
 					vo.setSysValue("1");
 				}
-				resultMap.put("data", listVO);
-				resultMap.put("success", true);
 			} else {
-				resultMap.put("msg", "查询为空");
-				resultMap.put("success", false);
+				vo.setSysKey("memberInfo");
+				vo.setSysValue("1");
 			}
+			resultMap.put("data", listVO);
+			resultMap.put("success", true);
 		} catch(Exception e){
 			e.printStackTrace();
 			resultMap.put("msg", "系统异常");
