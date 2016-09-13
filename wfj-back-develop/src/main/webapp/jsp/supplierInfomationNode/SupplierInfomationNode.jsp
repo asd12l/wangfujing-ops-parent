@@ -72,6 +72,9 @@
 		$("#shopSid_form").val($("#shopSid_select").val());
 		$("#businessPattern_form").val($("#businessPattern_select").val());
         var params = $("#supplierInfo_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('supplier.selectSupplier', '供应商查询：' + params, getCookieValue("username"),  sessionId);
         params = decodeURI(params);
         supplierInfoPagination.onLoad(params);
    	}
@@ -147,6 +150,11 @@
         function getView(data){
             var value = data;
             var url = __ctxPath+"/supplierDisplay/toSupplierDetail";
+
+            LA.sysCode = '16';
+            var sessionId = '<%=request.getSession().getId() %>';
+            LA.log('supplier.toSupplierDetail', '供应商详情：' + value, getCookieValue("username"),  sessionId);
+
             $("#pageBody").load(url,{"sid":value});
         }
 	</script>
