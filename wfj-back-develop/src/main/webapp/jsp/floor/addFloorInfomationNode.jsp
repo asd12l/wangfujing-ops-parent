@@ -65,7 +65,11 @@
  	  				$("#warning2").show();
 	  				return;
 				}
-	  			
+
+                LA.sysCode = '16';
+                var sessionId = '<%=request.getSession().getId() %>';
+                LA.log('floor.saveFloor', '添加楼层：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
+
   				var url = __ctxPath + "/floor/saveFloor";
   		  		$.ajax({
   					type: "post",
