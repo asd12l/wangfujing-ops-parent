@@ -29,6 +29,7 @@ Author: YeDong/zhangdl
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css" />
 <script type="text/javascript">
+var sessionId = "<%=request.getSession().getId() %>";
 	var productPagination;
 	$(function() {
 		selectAllShop();
@@ -44,6 +45,8 @@ Author: YeDong/zhangdl
 		$("#shop_from").val($("#shop_select option:selected").attr("code"));
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#product_form").serialize();
+		LA.sysCode = "16";
+		LA.log("erpProduct.productQuery", "大码商品查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		productPagination.onLoad(params);
 	}

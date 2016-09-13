@@ -21,6 +21,7 @@
 <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 
 	var stockPagination;
 	$(function() {
@@ -111,6 +112,8 @@
 		$("#shop_from").val($("#shop_select option:selected").attr("code"));
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#stock_form").serialize();
+		LA.sysCode = "16";
+		LA.log("stock.stockQuery", "库存查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		stockPagination.onLoad(params);
 	}
@@ -231,7 +234,15 @@
         }
 		var channelSid = $("#channelSid_select").val();
 		var shoppe = $("#shoppe_select").val();
-		
+		LA.sysCode = "16";
+		LA.log("stock.excelStock", "库存导出Excel：" + {
+            "skuCode" : skuCode,
+            "productCode" : productCode,
+            "supplierCode" : supplierCode,
+            "storeCode" : storeCode,
+            "channelSid" : channelSid,
+            "shoppe" : shoppe
+        }, getCookieValue("username"), sessionId);
 		var title = "stockSearch";
         $.ajax({
             type : "post",

@@ -55,6 +55,7 @@ Author: WangSy
 
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var categoryPagination;
 	var isAutoOpen = false, list_1, index_1=0;
 	/* 设置zTree参数 */
@@ -2130,6 +2131,8 @@ Author: WangSy
 </script>
 <script type="text/javascript">
 	function find(){
+		LA.sysCode = "16";
+		LA.log("category.find", "统计分类根据编码查询：" + $("#categoryCode").val(), getCookieValue("username"), sessionId);
 		refreshAllZTree();
 		$.ajax({
 			type : "post",

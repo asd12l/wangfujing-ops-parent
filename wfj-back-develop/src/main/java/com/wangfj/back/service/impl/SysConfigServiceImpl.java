@@ -88,8 +88,8 @@ public class SysConfigServiceImpl implements ISysConfigService {
 		Map<String, Object> paramMap1 = new HashMap<String, Object>(); 
 		List<String> paramList = new ArrayList<String>();
 		paramList.add(roleCode);
-		paramMap.put("roleCodes", paramList);
-		paramMap.put("sysKey", sysKey);
+		paramMap1.put("roleCodes", paramList);
+		paramMap1.put("sysKey", sysKey);
 		Map<String, Object> res = sysConfigMapper.selectByRoleCodes(paramMap1);
 		if(res != null){
 			long sid = Long.valueOf(res.get("sid").toString());
