@@ -5,10 +5,13 @@ import com.wangfj.back.entity.po.SysConfig;
 import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,21 +50,29 @@ public class MemberIntegralController {
                                      HttpServletResponse response) {
         log.info("======== getByMemberIntegral in  =========");
         response.setCharacterEncoding("utf-8");
+        String jsonString = "";
         String method = "/memberIntegral/getByMemberIntegral.do";
         Gson gson = new Gson();
-        List<Object> list = new ArrayList<Object>();
-        String jsonString = gson.toJson(list);
-        List<String> syslist = new ArrayList<String>();
-        syslist.add("memberInfo");
-        String sysValue="";
-        List<SysConfig> sysConfigs=null;
+        String json = "";
+        String sysValue = "";
+        String username = CookiesUtil.getCookies(request, "username");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("keys", "memberInfo");
+		paramMap.put("username", username);
+		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			sysConfigs = sysConfigService.selectByKeys(syslist);
-			sysValue = "";
-			SysConfig sysConfig = sysConfigs.get(0);
-			sysValue = sysConfig.getSysValue();
-		} catch (Exception e1) {
-			log.error("查询sysValue异常！查询结果sysConfigs="+sysConfigs+e1);
+			log.info("paramMap:" + paramMap);
+			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json)){
+				JSONObject jsonObject = JSONObject.fromObject(json);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+				JSONArray jsonArray = jsonObject.getJSONArray("data");
+				sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			log.error("查询屏显规则异常！返回结果json="+json);
 		}
         String rejson = null;
         //获取每页显示多少条数据
