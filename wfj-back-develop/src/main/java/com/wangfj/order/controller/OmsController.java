@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -336,7 +337,13 @@ public class OmsController {
 				}
 			}
 			list=list41;
-			
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 			Integer count = jsonObject2.getInt("count");
 			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			if (list != null && list.size() != 0) {
@@ -506,6 +513,13 @@ public class OmsController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -665,6 +679,13 @@ public class OmsController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -753,6 +774,13 @@ public class OmsController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -860,7 +888,13 @@ public class OmsController {
 				}
 			}
 			list=list3;
-			
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 			Integer count = jsonObject2.getInt("count");
 			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			if (list != null && list.size() != 0) {

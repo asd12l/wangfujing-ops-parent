@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -1942,6 +1943,13 @@ public class TestOnlineOmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -2114,6 +2122,13 @@ public class TestOnlineOmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");

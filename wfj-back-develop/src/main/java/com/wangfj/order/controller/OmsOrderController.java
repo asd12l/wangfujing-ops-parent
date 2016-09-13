@@ -19,6 +19,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -59,6 +60,31 @@ public class OmsOrderController {
 	private static final Logger logger = LoggerFactory.getLogger(OmsOrderController.class);
 	
 	public static final String FROM_SYSTEM = "ORDERBACK";
+	
+	
+	/**
+	 * ops销售模块页面LA埋点查询ops登录用户名
+	 * @Create in 2016-09-13 By XuZhou
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/buriedPoint")
+	@ResponseBody
+	public String buriedPoint(HttpServletRequest request,HttpServletResponse response){
+		JSONObject json = new JSONObject();
+		Cookie [] cookies = request.getCookies();
+		for(Cookie cookie : cookies){
+			if("username".equals(cookie.getName())){
+				json.put("username", cookie.getValue());
+				break;
+			}
+		}
+		json.put("logUrl", CommonProperties.get("log_js"));
+		return JSON.toJSONString(json);
+	}
+	
+	
 	
 	/**
 	 * 查询订单信息（带分页）
@@ -300,6 +326,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -505,17 +538,6 @@ public class OmsOrderController {
 					}
 				}
 				list=list41;
-				JSONObject jsonObjectMai = new JSONObject();
-				//===================页面埋点start================
-				Cookie [] cookie = request.getCookies();
-				for(Cookie cok : cookie){
-					if(cok.getName().equals("username")){
-						jsonObjectMai.put("userName", cok.getValue());
-					}
-				}
-				jsonObjectMai.put("logUrl", CommonProperties.get("log_js"));
-				m.put("data", jsonObjectMai);
-				//===================页面埋点end================
 				Integer count = jsonObject2.getInt("count");
 				int pageCount = count % size == 0 ? count / size : (count / size + 1);
 				if (list != null && list.size() != 0) {
@@ -841,7 +863,13 @@ public class OmsOrderController {
 				}
 			}
 			list=list3;
-			
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 			Integer count = jsonObject2.getInt("count");
 			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			if (list != null && list.size() != 0) {
@@ -1357,6 +1385,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -1445,6 +1480,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -1529,6 +1571,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -1613,6 +1662,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -2299,6 +2355,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -5325,6 +5388,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -5398,6 +5468,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");

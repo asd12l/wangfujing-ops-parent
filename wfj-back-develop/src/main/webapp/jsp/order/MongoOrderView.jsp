@@ -27,10 +27,45 @@
 /* 	saleMsgImage="http://172.16.200.4/images"; */
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
+	var logUrl = '';
+	var username = '';
 	$(function(){
 		$("#pro102").hide();
+		
+		//LA埋点
+		$.ajax({
+			url : __ctxPath + "/omsOrder/buriedPoint",
+			type : "post",
+			dataType : "json",
+			success : function(response){
+				logUrl = response.logUrl;
+				username - response.username;
+				reloadjs();
+			}
+		});
+		
+		
 	});
+	//引用埋点js方法
+	function reloadjs(){
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+		console.log(script);
+	} 
 	function fundOrder(){
+		LA.env = 'dev';
+// 		LA.sysCode = '47';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search', '订单Mongo查询', userName,  sessionId);
 		$("#pro102").show();
 		var d = $("#theForm111").serialize();
 		var url = __ctxPath + "/omsOrder/foundMongoOrder";
