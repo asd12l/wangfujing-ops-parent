@@ -27,6 +27,9 @@
 		$("#organizationName_form").val($("#organizationName_input").val());
 		$("#organizationCode_form").val($("#organizationCode_input").val());
 		var params = $("#shop_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('brand.queryOrganizationZero', '门店查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
 		shopPagination.onLoad(params);
 	}
@@ -85,6 +88,11 @@
 		$("#organizationCode_" + sid).css("color","red");
 		
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('brand.queryPageShopBrand', '根据门店查询门店品牌：' + sid, getCookieValue("username"),  sessionId);
+
 		var url = $("#ctxPath").val() + "/shopBrand/queryPageShopBrand";
 		brandPagination = $("#brandPagination").myPagination({
 			panel : {
