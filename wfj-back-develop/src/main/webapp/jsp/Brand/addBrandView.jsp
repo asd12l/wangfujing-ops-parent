@@ -83,6 +83,10 @@
                     return;
                 }*/
 
+                LA.sysCode = '16';
+                var sessionId = '<%=request.getSession().getId() %>';
+                LA.log('brand.addBrandGroup', '添加集团品牌：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
+
 				$.ajax({
 			        type:"post",
 			        contentType: "application/x-www-form-urlencoded;charset=utf-8",
