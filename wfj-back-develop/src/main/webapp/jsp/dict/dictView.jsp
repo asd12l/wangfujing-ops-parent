@@ -60,6 +60,10 @@
 	function dataDictQuery() {
 		$("#pid_from").val($("#pid_select").val());
 		var params = $("#dataDict_form").serialize();
+        var params = $("#contractLog_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('dataDict.queryPageDataDict', '数据字典查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
 		dataDictPagination.onLoad(params);
 	}
