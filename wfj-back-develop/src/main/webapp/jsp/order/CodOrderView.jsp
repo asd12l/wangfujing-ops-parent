@@ -190,7 +190,7 @@
 					}, 300);
 				},
              callback: function(data) {
-            	 userName = data.userName;
+            	 username = data.userName;
             	 logUrl = data.logUrl;
             	 reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);

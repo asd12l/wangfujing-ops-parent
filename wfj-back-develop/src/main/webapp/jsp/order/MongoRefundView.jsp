@@ -40,7 +40,7 @@
 			dataType : "json",
 			success : function(response){
 				logUrl = response.logUrl;
-				username - response.username;
+				username = response.username;
 				reloadjs();
 			}
 		});

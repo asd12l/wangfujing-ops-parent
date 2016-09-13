@@ -113,7 +113,7 @@
 					}, 300);
 				},
 				callback : function(data) {
-					 userName = data.userName;
+					 username = data.userName;
 	            	 logUrl = data.logUrl;
 	            	 reloadjs();
 					/* 使用模板 */
