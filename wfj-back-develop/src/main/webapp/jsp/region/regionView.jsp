@@ -29,6 +29,9 @@
 		$("#regionInnerCode_form").val($("#regionInnerCode_input").val());
 		$("#regionCode_form").val($("#regionCode_input").val());
         var params = $("#region_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('region.queryPageRegion', '行政区域查询：' + params, getCookieValue("username"),  sessionId);
         params = decodeURI(params);
         regionPagination.onLoad(params);
    	}
