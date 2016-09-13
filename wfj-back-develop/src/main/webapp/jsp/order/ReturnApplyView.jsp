@@ -25,6 +25,8 @@
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
 	
+	var userName;
+	var logUrl;
 	
 	var olvPagination;
 	$(function() {
@@ -98,7 +100,28 @@
         });
 	    initOlv();
 	});
+	
+function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+		console.log(script);
+	} 
+	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('returnApply-search', '退货申请单查询', userName,  sessionId);
 		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
 		$("#receptPhone_form").val($("#receptPhone_input").val().trim());
 		$("#refundApplyNo_form").val($("#refundApplyNo_input").val().trim());
@@ -170,6 +193,9 @@
 					}, 300);
 				},
              callback: function(data) {
+            	 userName = data.userName;
+            	 logUrl = data.logUrl;
+            	 reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }

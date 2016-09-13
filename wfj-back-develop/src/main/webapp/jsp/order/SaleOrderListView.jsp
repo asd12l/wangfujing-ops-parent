@@ -27,6 +27,9 @@
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
 	
+	var userName;
+	var logUrl;
+	
 	var qudaos='';
 	var mendians='' ;
 	var qudaos1='';
@@ -186,7 +189,27 @@
 	    initOlv();
 	});
 	
+    function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+		console.log(script);
+	}
+	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('sale-search', '销售单查询', userName,  sessionId);
 		$("#receptPhone_form").val($("#receptPhone_input").val());
 		$("#saleSource_form").val($("#saleSource_input").val());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
@@ -267,6 +290,9 @@
 					}, 300);
 				},
              callback: function(data) {
+            	 userName = data.userName;
+            	 logUrl = data.logUrl;
+            	 reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }
@@ -3964,6 +3990,10 @@
 	
 	//导出excel
 	function exportExecel() {
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('sale-export', '销售单导出', userName,  sessionId);
 		var orderNo = $("#orderNo_input").val().trim();
 		var receptPhone = $("#receptPhone_input").val().trim();
 		var saleNo = $("#saleNo_input").val().trim();

@@ -29,6 +29,8 @@
 	var supplyProductNo1;
 	var saleSum1;
 	var olvPagination;
+	var userName;
+	var logUrl;
 	$(function() {
 		$('#reservation').daterangepicker({
 			timePicker: true,
@@ -51,7 +53,27 @@
 		$("#reservation").val("");
 	    initOlv();
 	});
+	
+function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
+	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('exceptionAddress-search', '地址异常订单查询', userName,  sessionId)
 		$("#orderNo_form").val($("#orderNo_input").val());
 		$("#orderNo2_form").val($("#orderNo2_input").val());
 		$("#suppllyName_form").val($("#suppllyName_input").val());
@@ -176,6 +198,9 @@
                }, 300);
              }, */
              callback: function(data) {
+            	 userName = data.userName;
+            	    logUrl = data.logUrl;
+            	    reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }

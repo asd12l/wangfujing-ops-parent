@@ -186,7 +186,7 @@ function reloadjs(){
 	
 	function olvQuery(){
 		LA.env = 'dev';
-// 		LA.sysCode = '47';
+		LA.sysCode = '21';
 		var sessionId = '<%=request.getSession().getId()%>';
 		LA.log('search', '订单查询', userName,  sessionId);
 		$("#saleSource_form").val($("#saleSource_input").val());
@@ -3018,6 +3018,10 @@ function reloadjs(){
 	}
 	//导出excel
 	function exportExecel() {
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('export', '订单查询导出', userName,  sessionId);
 		var supplyProductNo = $("#supplyProductNo_input").val();
 		var orderNo = $("#orderNo_input").val();
 		var outOrderNo = $("#outOrderNo_input").val();

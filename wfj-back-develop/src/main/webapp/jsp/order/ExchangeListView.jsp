@@ -26,6 +26,8 @@
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
 	
+	var userName;
+	var logUrl;
 	
 	var olvPagination;
 	$(function() {
@@ -50,7 +52,27 @@
 		$("#reservation").val("");
 	    initOlv();
 	});
+	
+    function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
+	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('exchange-search', '换货单查询', userName,  sessionId);
 		$("#exchangeNo_form").val($("#exchangeNo_input").val());
 		$("#saleNo_form").val($("#saleNo_input").val());
 		$("#originalSaleNo_form").val($("#originalSaleNo_input").val());
@@ -120,6 +142,9 @@
 					}, 300);
 				},
              callback: function(data) {
+            	 userName = data.userName;
+            	    logUrl = data.logUrl;
+            	    reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }
