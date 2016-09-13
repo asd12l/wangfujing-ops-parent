@@ -14,7 +14,8 @@
 	__ctxPath = "${ctx}";
 	
 	var dataDictPagination;
-
+	var logUrl = '';
+	var username = '';
 	$(function() {
 		$.ajax({
 			type : "post",
@@ -64,7 +65,20 @@
 		params = decodeURI(params);
 		dataDictPagination.onLoad(params);
 	}
-
+	//引用埋点js方法
+ 	function reloadjs(){
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
 	//初始化数据字典列表
 	function initDataDict() {
 		var url = $("#ctxPath").val() + "/omsOrder/selectCodeListPage";
@@ -99,6 +113,9 @@
 					}, 300);
 				},
 				callback : function(data) {
+					 userName = data.userName;
+	            	 logUrl = data.logUrl;
+	            	 reloadjs();
 					/* 使用模板 */
 					$("#brand_tab tbody").setTemplateElement("brand-list").processTemplate(data);
 				}
@@ -108,6 +125,10 @@
 	
 	/* 添加数据 */
 	function addDataDict() {
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('insert addDataDict', '保存数据字典', username,  sessionId);
 		var url;
 		/* var typeValue=$("#pid_select");
 		var typeName=$("#name_from");
@@ -118,6 +139,10 @@
 	}
 
 	function modifyDataDict() {
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('updata modifyDataDict', '修改数据字典', username,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var sid = $(this).val();
@@ -158,6 +183,10 @@
 	}
 
 	function deleteDataDict() {
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('updata deleteDataDict', '删除数据字典', username,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var sid = $(this).val();

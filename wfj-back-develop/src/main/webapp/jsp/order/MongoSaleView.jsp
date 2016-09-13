@@ -61,6 +61,10 @@
 		console.log(script);
 	} 
 	function fundOrder(){
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search olvQuery', '操作日志查询', username,  sessionId);
 		$("#pro102").show();
 		var d = $("#theForm111").serialize();
 		var url = __ctxPath + "/omsOrder/foundMongoSale";
@@ -81,6 +85,10 @@
 		});
 	}
 	function fixOrder(){
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search olvQuery', '操作日志查询', username,  sessionId);
 		var d = $("#theForm111").serialize();
 		var url = __ctxPath + "/omsOrder/fixMongoSale";
   		$.ajax({

@@ -63,9 +63,9 @@
 	} 
 	function fundOrder(){
 		LA.env = 'dev';
-// 		LA.sysCode = '47';
+ 		LA.sysCode = '21';
 		var sessionId = '<%=request.getSession().getId()%>';
-		LA.log('search', '订单Mongo查询', userName,  sessionId);
+		LA.log('search olvQuery', '操作日志查询', username,  sessionId);
 		$("#pro102").show();
 		var d = $("#theForm111").serialize();
 		var url = __ctxPath + "/omsOrder/foundMongoOrder";
@@ -86,6 +86,10 @@
 		});
 	}
 	function fixOrder(){
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search olvQuery', '操作日志查询', username,  sessionId);
 		var d = $("#theForm111").serialize();
 		var url = __ctxPath + "/omsOrder/fixMongoOrder";
   		$.ajax({
