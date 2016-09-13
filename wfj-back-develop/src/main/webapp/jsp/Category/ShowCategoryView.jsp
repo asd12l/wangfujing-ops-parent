@@ -55,6 +55,7 @@ Author: WangSy
 
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var categoryPagination;
 	/* 设置zTree参数 */
 	var setting = {
@@ -1019,6 +1020,8 @@ Author: WangSy
 	}
 	//根部节点提交使用方法
 	function appGBFLDivSaveTo() {
+		LA.sysCode = "16";
+		LA.log("category.addRootShowCate", "添加展示分类根节点：" + $("#appGBFLDivForm").serialize(), getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
 			url : __ctxPath + "/category/add",
@@ -1392,6 +1395,11 @@ Author: WangSy
 			return false;
 		}
 		if (treeObj != "") {
+			LA.sysCode = "16";
+			LA.log("category.updateStatusShowCate", "停用展示分类节点：" + {
+				"id" : treeObj[0].id,
+				"categoryType":treeObj[0].categoryType
+			}, getCookieValue("username"), sessionId);
 			$.ajax({
 						type : "post",
 						url : __ctxPath + "/category/updateStatus",
@@ -1489,6 +1497,11 @@ Author: WangSy
 			return false;
 		}
 		if (treeObj != "") {
+			LA.sysCode = "16";
+			LA.log("category.delShowCate", "删除展示分类节点：" + {
+				"id" : treeObj[0].id,
+				"categoryType":treeObj[0].categoryType
+			}, getCookieValue("username"), sessionId);
 			$
 					.ajax({
 						type : "post",
@@ -1645,6 +1658,8 @@ Author: WangSy
 			$("#warning2").show();
 			return;
 		}
+		LA.sysCode = "16";
+		LA.log("category.saveDivFrom", "展示分类添加或修改保存：" + $("#divForm").serialize(), getCookieValue("username"), sessionId);
 		$
 				.ajax({
 					type : "post",

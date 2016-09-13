@@ -754,6 +754,8 @@ Author: WangSy
 			$("#cid").val(data);
 		}
 		var params = $("#category_form").serialize();
+		LA.sysCode = "16";
+		LA.log("category.categoryQuery", "统计分类查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		categoryPagination.onLoad(params);
 	}
@@ -1130,6 +1132,8 @@ Author: WangSy
 	}
 	/* 添加品类 */
 	function append() {
+		LA.sysCode = "16";
+		LA.log("category.append", "统计分类添加", getCookieValue("username"), sessionId);
 		/* 获取 zTree对象 */
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
 		/* 获取 zTree 的全部节点数据 */
@@ -1620,6 +1624,8 @@ Author: WangSy
 			$("#warning2").show();
 			return;
 		}
+		LA.sysCode = "16";
+		LA.log("category.saveDivFrom", "统计分类添加保存：" + $("#divForm").serialize(), getCookieValue("username"), sessionId);
 		$
 				.ajax({
 					type : "post",

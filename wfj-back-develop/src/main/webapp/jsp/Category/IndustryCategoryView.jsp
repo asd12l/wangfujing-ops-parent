@@ -2153,10 +2153,7 @@ Author: WangSy
 <script type="text/javascript">
 	function find(){
 		LA.sysCode = "16";
-		LA.log("category.find", "工业分类根据编码查询：" + {
-			"categoryType" : "0",
-			"categoryCode" : $("#categoryCode").val()
-		}, getCookieValue("username"), sessionId);
+		LA.log("category.find", "工业分类根据编码查询：" + $("#categoryCode").val(), getCookieValue("username"), sessionId);
 		refreshAllZTree();
 		$.ajax({
 			type : "post",

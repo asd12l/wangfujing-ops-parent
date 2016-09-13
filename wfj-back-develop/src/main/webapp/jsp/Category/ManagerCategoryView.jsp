@@ -54,6 +54,7 @@ Author: WangSy
 
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var cateShopCodeList = new Array();
 	var categoryPagination;
 	var isAutoOpen = false, list_1, index_1=0;
@@ -756,6 +757,8 @@ Author: WangSy
 			$("#cid").val(data);
 		}
 		var params = $("#category_form").serialize();
+		LA.sysCode = "16";
+		LA.log("category.categoryQuery", "管理分类查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		categoryPagination.onLoad(params);
 	}
@@ -2193,6 +2196,12 @@ Author: WangSy
 </script>
 <script type="text/javascript">
 	function find(){
+		LA.sysCode = "16";
+		LA.log("category.find", "管理分类查询：" + {
+			"categoryType" : "1",
+			"categoryCode" : $("#categoryCode").val() || "0",
+			"shopCode" : $("#shopCode").val()
+		}, getCookieValue("username"), sessionId);
 		refreshAllZTree();
 		$.ajax({
 			type : "post",
