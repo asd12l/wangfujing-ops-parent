@@ -15,7 +15,11 @@ var url = __ctxPath + "/category/getAllCategory";
 		$("#parentSid").val(parentSid_);
 		$("#groupSid").val(groupSid_);
 		$("#organizationCode").val(organizationCode_);
-		
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('storeInfo.queryListStoreInfo', '门店详情：' + organizationCode_+ "---" + groupSid_, getCookieValue("username"),  sessionId);
+
 		$.ajax({
 			type: "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",

@@ -48,6 +48,11 @@
 		  			return;
 				}
 				$("#groupSid").val(parentSid);
+
+                LA.sysCode = '16';
+                var sessionId = '<%=request.getSession().getId() %>';
+                LA.log('organization.saveOrganizationOne', '添加大区：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
+
 				var url = __ctxPath + "/organization/saveOrganizationOne";
 		  		$.ajax({
 					type: "post",
