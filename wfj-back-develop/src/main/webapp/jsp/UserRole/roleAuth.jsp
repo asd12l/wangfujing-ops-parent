@@ -378,6 +378,7 @@ function getManageCateSids(){
 function saveRoleLimit(){
 	getDiv2PropsSid();
 	getManageCateSids();
+	updateMemberInfo();
 	$.ajax({
   		type: "post",
   		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -475,11 +476,10 @@ function loadMemberInfo(){
 		success : function(response) {
 			if(response.success){
 				var ele = response.data;
-				if(ele.sysValue == 0){
+				if(ele.sysValue == 1){
 					$("#memberInfo").attr("checked", "checked");
 				}
 				$("#sysValue").val(ele.sysValue);
-				$("#memberInfo").click(updateMemberInfo);
 			} else {
 				$("#warning2Body").text(response.msg);
                 $("#warning2").show();
@@ -601,7 +601,7 @@ $(function(){
 													</div>
 												</div>
 												<div class="form-group">
-													<label class="col-lg-3 control-label" style="width: 180px">用户敏感信息是否展示：</label>
+													<label class="col-lg-3 control-label" style="width: 180px">用户敏感信息是否屏蔽：</label>
 													<label class="control-label"> 
 														<input type="checkbox" id="memberInfo" value="on" class="checkbox-slider toggle yesno"> 
 														<span class="text"></span>
