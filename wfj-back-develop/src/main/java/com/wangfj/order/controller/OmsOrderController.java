@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -381,7 +382,6 @@ public class OmsOrderController {
 				m.put("success", "true");
 			}else {
 				List<Object> list = (List<Object>) jsonObject2.get("list");
-				
 				String jsonStr2 = "";
 				Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
 				paramMap2.put("fromSystem", "OMSADMIN");
@@ -392,25 +392,7 @@ public class OmsOrderController {
 				JSONObject jsonObjectJ2 = JSONObject.fromObject(json2);
 				String codeData = jsonObjectJ2.getString("data");
 				JSONArray json2Object = JSONArray.fromObject(codeData);
-//				List<Object> list2 = JSONArray.toList(json2Object, Object.class);
-				
 				List<Object> list3 = new ArrayList<Object>();
-//				for (int i = 0; i < json2Object.size(); i++) {
-////					JSONObject jsonObject3 = JSONObject.fromObject(object2);
-//					JSONObject jsonObject3 = (JSONObject) json2Object.get(i);
-//					String codeValue = jsonObject3.getString("codeValue");
-//					String codeName = jsonObject3.getString("codeName");
-//					for (Object object : list) {
-//						JSONObject jsonObject4 = JSONObject.fromObject(object);
-//						String orderStatus = jsonObject4.getString("orderStatus");
-//						if(orderStatus.equals(codeValue)){
-//							orderStatus = codeName;
-//							jsonObject4.put("orderStatusDesc",orderStatus);
-////							object = JSONObject.toBean(jsonObject4, Object.class);
-//							list3.add(jsonObject4);
-//						}
-//					}
-//				}
 				for(int i=0; i<list.size(); i++){
 					Object object = list.get(i);
 					JSONObject jsonObject4 = JSONObject.fromObject(object);
@@ -440,11 +422,9 @@ public class OmsOrderController {
 						}
 					} catch (Exception e) {
 						list3.add(jsonObject4);
-						
 					}
 				}
 				list=list3;
-				
 				String jsonStr21 = "";
 				Map<Object, Object> paramMap21 = new HashMap<Object, Object>();
 				paramMap21.put("fromSystem", "OMSADMIN");
@@ -455,25 +435,7 @@ public class OmsOrderController {
 				JSONObject jsonObjectJ21 = JSONObject.fromObject(json21);
 				String codeData1 = jsonObjectJ21.getString("data");
 				JSONArray json2Object1 = JSONArray.fromObject(codeData1);
-//				List<Object> list2 = JSONArray.toList(json2Object, Object.class);
-				
 				List<Object> list4 = new ArrayList<Object>();
-//				for (int i = 0; i < json2Object1.size(); i++) {
-////					JSONObject jsonObject3 = JSONObject.fromObject(object2);
-//					JSONObject jsonObject3 = (JSONObject) json2Object1.get(i);
-//					String codeValue = jsonObject3.getString("codeValue");
-//					String codeName = jsonObject3.getString("codeName");
-//					for (Object object : list) {
-//						JSONObject jsonObject4 = JSONObject.fromObject(object);
-//						String orderType = jsonObject4.getString("orderType");
-//						if(orderType.equals(codeValue)){
-//							orderType = codeName;
-//							jsonObject4.put("orderType",orderType);
-////							object = JSONObject.toBean(jsonObject4, Object.class);
-//							list4.add(jsonObject4);
-//						}
-//					}
-//				}
 				for (int i = 0; i < list.size(); i++) {
 					Object object = list.get(i);
 					JSONObject jsonObject4 = JSONObject.fromObject(object);
@@ -503,7 +465,6 @@ public class OmsOrderController {
 					}
 				}
 				list=list4;
-				
 				//渠道字段转换(PCM接口)
 				String jsonStr22 = "";
 				Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
@@ -544,7 +505,17 @@ public class OmsOrderController {
 					}
 				}
 				list=list41;
-				
+				JSONObject jsonObjectMai = new JSONObject();
+				//===================页面埋点start================
+				Cookie [] cookie = request.getCookies();
+				for(Cookie cok : cookie){
+					if(cok.getName().equals("username")){
+						jsonObjectMai.put("userName", cok.getValue());
+					}
+				}
+				jsonObjectMai.put("logUrl", CommonProperties.get("log_js"));
+				m.put("data", jsonObjectMai);
+				//===================页面埋点end================
 				Integer count = jsonObject2.getInt("count");
 				int pageCount = count % size == 0 ? count / size : (count / size + 1);
 				if (list != null && list.size() != 0) {
