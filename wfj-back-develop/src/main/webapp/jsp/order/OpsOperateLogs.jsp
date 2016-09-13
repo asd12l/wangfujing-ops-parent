@@ -26,6 +26,8 @@
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
 	var olvPagination;
+	var logUrl = '';
+	var username = '';
 	$(function() {
 		$('#reservation').daterangepicker({
 			timePicker: true,
@@ -48,8 +50,25 @@
 		$("#reservation").val("");
 	    initOlv();
 	});
+	//引用埋点js方法
+	function reloadjs(){
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
 	function olvQuery(){
-		
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search olvQuery', '操作日志查询', username,  sessionId);
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
 		var strTime = $("#reservation").val();
 		if(strTime!=""){
@@ -109,6 +128,9 @@
 					}, 300);
 				},
              callback: function(data) {
+            	 username = data.username;
+            	 logUrl = data.logUrl;
+            	 reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }
