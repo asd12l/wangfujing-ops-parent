@@ -72,6 +72,7 @@ Author: WangSy
 	image = "http://images.shopin.net/images";
 	saleMsgImage = "http://images.shopin.net/images";
 	ctx = "http://www.shopin.net";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var productPagination;
 	$(function() {
 		selectAllShop();
@@ -166,6 +167,8 @@ Author: WangSy
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#product_form").serialize();
 		//alert("表单序列化后请求参数:"+params);
+		LA.sysCode = "16";
+		LA.log("shoppeProduct.productQuery", "专柜商品查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		productPagination.onLoad(params);
 	}
@@ -1656,6 +1659,11 @@ function getProPproductByProductCode(value){
 			$("#warning2").show();
 			return false;
 		}
+		LA.sysCode = "16";
+		LA.log("shoppeProduct.productQuery", "启用或停用专柜商品：" + {
+			"productCodes" : inT,
+			"status" : status
+		}, getCookieValue("username"), sessionId);
 		$
 				.ajax({
 					type : "post",
@@ -1817,7 +1825,21 @@ function getProPproductByProductCode(value){
             field5 = "";
         }
         var supplySid = $("#supplier_select").val();
-
+        LA.sysCode = "16";
+        LA.log("shoppeProduct.excelShoppeProduct", "专柜商品导出Excel：" + {
+            "shoppeProSid" : shoppeProSid,
+            "minShoppeProSid" : minShoppeProSid,
+            "maxShoppeProSid" : maxShoppeProSid,
+            "productDetailSid" : productDetailSid,
+            "minProductDetailSid" : minSkuCode,
+            "maxProductDetailSid" : maxSkuCode,
+            "shoppeProName" : shoppeProName,
+            "field4" : field4,
+            "saleStatus" : saleStatus,
+            "shoppeSid" : shoppeSid,
+            "field5" : field5,
+            "supplySid" : supplySid
+        }, getCookieValue("username"), sessionId);
         var title = "shoppProduct";
         $.ajax({
             type : "post",

@@ -29,6 +29,7 @@
 	src="${pageContext.request.contextPath}/assets/js/select2/select2.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var pricePagination;
 
 	$(function() {
@@ -180,6 +181,8 @@
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#price_form").serialize();
 		//alert("表单序列化后请求参数:"+params);
+		LA.sysCode = "16";
+		LA.log("price.priceQuery", "价格查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		pricePagination.onLoad(params);
 	}
@@ -267,7 +270,15 @@
 		var channelSid = "0"/* $("#channelSid_select option:selected").attr("sid") */;
 		var productSku = $("#productSku_input").val();
 		var shoppe = $("#shoppe_select").val();
-		
+		LA.sysCode = "16";
+		LA.log("price.excelPrice", "价格导出Excel：" + {
+            "productCode" : productCode,
+            "supplyCode" : supplyCode,
+            "storeCode" : storeCode,
+            "channelSid" : channelSid,
+            "productSku" : productSku,
+            "shoppe" : shoppe
+        }, getCookieValue("username"), sessionId);
 		var title = "priceSearch";
         $.ajax({
             type : "post",
