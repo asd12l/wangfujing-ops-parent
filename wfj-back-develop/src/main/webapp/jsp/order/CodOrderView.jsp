@@ -191,6 +191,7 @@
 				},
              callback: function(data) {
             	 username = data.userName;
+            	 alert("user"+username);
             	 logUrl = data.logUrl;
             	 reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);

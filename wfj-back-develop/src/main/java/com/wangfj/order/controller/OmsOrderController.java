@@ -154,8 +154,10 @@ public class OmsOrderController {
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			String data = jsonObject.getString("data");
 			JSONObject jsonObject2 = JSONObject.fromObject(data);
-			List<Object> list = (List<Object>) jsonObject2.get("list");
-			
+			List<Object> list = null;
+			String dd = jsonObject2.get("list").toString();
+			if( !"null".equals(dd) && null != dd){
+				list = (List<Object>) jsonObject2.get("list");
 			String jsonStr2 = "";
 			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
 			paramMap2.put("fromSystem", "OMSADMIN");
@@ -314,8 +316,9 @@ public class OmsOrderController {
 					list41.add(jsonObject41);
 				}
 			}
-			list=list41;
 			
+			list=list41;
+			}
 			Integer count = jsonObject2.getInt("count");
 			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			if (list != null && list.size() != 0) {
