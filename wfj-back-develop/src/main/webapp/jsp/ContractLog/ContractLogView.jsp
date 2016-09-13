@@ -132,6 +132,9 @@
             }
             $("#supplyCode_form").val(supplyCode);
             var params = $("#contractLog_form").serialize();
+            LA.sysCode = '16';
+            var sessionId = '<%=request.getSession().getId() %>';
+            LA.log('contractLog.findPageContract', '合同查询：' + params, getCookieValue("username"),  sessionId);
             params = decodeURI(params);
             contractLogPagination.onLoad(params);
         }
