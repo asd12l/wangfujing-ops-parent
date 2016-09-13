@@ -38,6 +38,7 @@ import com.wangfj.edi.bean.Member;
 import com.wangfj.edi.bean.MemberInfo;
 import com.wangfj.edi.util.HttpUtils;
 import com.wangfj.edi.util.PropertiesUtil;
+import com.wangfj.edi.util.RequestUtils;
 import com.wangfj.wms.util.CookiesUtil;
 import com.wangfj.wms.util.HttpUtilPcm;
 
@@ -295,8 +296,8 @@ public class EdiJmOrderController {
 			Map<String, Object> map = (Map) ordersDetailList.get(i);
 			String tid = map.get("tid") == null ? "" : map.get("tid").toString();
 			String ordersid = map.get("ordersid") == null ? "" : map.get("ordersid").toString();
-			String receiverName = map.get("receiverName") == null ? "" : map.get("receiverName").toString();
-			String receiverMobile = map.get("receiverMobile") == null ? "" : map.get("receiverMobile").toString();
+			String receiverName = map.get("receiverName") == null ? "" : RequestUtils.hideSecret(map.get("receiverName").toString(), 1, 0);
+			String receiverMobile = map.get("receiverMobile") == null ? "" : RequestUtils.hideSecret(map.get("receiverMobile").toString(),3,4);
 			String payment = map.get("payment") == null ? "" : map.get("payment").toString();
 			String tradeStatus = map.get("tradeStatus") == null ? "" : map.get("tradeStatus").toString();
 			String createDate = map.get("createDate") == null ? "" : map.get("createDate").toString();

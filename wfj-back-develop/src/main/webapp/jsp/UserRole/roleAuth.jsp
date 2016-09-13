@@ -378,6 +378,7 @@ function getManageCateSids(){
 function saveRoleLimit(){
 	getDiv2PropsSid();
 	getManageCateSids();
+	updateMemberInfo();
 	$.ajax({
   		type: "post",
   		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -454,6 +455,72 @@ function loadManageCateTree(){
 		$.fn.zTree.init($("#manageCateTree"), setting2, zTreeCate);
 	}
 }
+
+function loadMemberInfo(){
+	$.ajax({
+		type : "get",
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		url : __ctxPath + "/sysConfig/findSysConfigByRole",
+		async : false,
+		data : {
+			"roleSid" : $("#roleSid1").val(),
+			"roleCode" : $("#roleCode1").val()
+		},
+		dataType : "json",
+		ajaxStart : function() {
+			$("#loading-container").prop("class", "loading-container");
+		},
+		ajaxStop : function() {
+			$("#loading-container").addClass("loading-inactive");
+		},
+		success : function(response) {
+			if(response.success){
+				var ele = response.data;
+				if(ele.sysValue == 1){
+					$("#memberInfo").attr("checked", "checked");
+				}
+				$("#sysValue").val(ele.sysValue);
+			} else {
+				$("#warning2Body").text(response.msg);
+                $("#warning2").show();
+			}
+		}
+	});
+}
+function updateMemberInfo(){
+	$.ajax({
+		type : "get",
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		url : __ctxPath + "/sysConfig/editSysConfigByRole",
+		async : false,
+		data : {
+			"roleSid" : $("#roleSid1").val(),
+			"roleCode" : $("#roleCode1").val(),
+			"key" : "memberInfo",
+			"value" : $("#sysValue").val() == "1" ? "0" : "1"
+		},
+		dataType : "json",
+		ajaxStart : function() {
+			$("#loading-container").prop("class", "loading-container");
+		},
+		ajaxStop : function() {
+			$("#loading-container").addClass("loading-inactive");
+		},
+		success : function(response) {
+			if(response.success){
+				var ii = $("#sysValue").val();
+				if(ii == "1"){
+					$("#sysValue").val("0");
+				} else {
+					$("#sysValue").val("1");
+				}
+			} else {
+				$("#warning2Body").text(response.msg);
+                $("#warning2").show();
+			}
+		}
+	});
+}
 </script>
 <script type="text/javascript">
 $(function(){
@@ -462,6 +529,7 @@ $(function(){
 	selectAllChannel();
 	manageCateTree();
 	$("#save1").click(saveRoleLimit);
+	loadMemberInfo();
 });
 </script>
 </head>
@@ -531,6 +599,14 @@ $(function(){
 													<div class="col-lg-6" style="width: 25%;">
 														<input class="btn btn-success" style="width: 25%;" id="save1" type="button" value="保存" />&emsp;&emsp;
 													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-lg-3 control-label" style="width: 180px">用户敏感信息是否屏蔽：</label>
+													<label class="control-label"> 
+														<input type="checkbox" id="memberInfo" value="on" class="checkbox-slider toggle yesno"> 
+														<span class="text"></span>
+													</label> 
+													<input type="hidden" id="sysValue" name="sysValue" value="1">
 												</div>
 												<div style="overflow: auto;padding: 0 20px;">
 													<div style="width: 50%;float: left;">

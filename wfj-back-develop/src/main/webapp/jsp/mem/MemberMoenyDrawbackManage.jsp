@@ -358,7 +358,7 @@ function reset(){
 	$("#sid").val("");
 	$("#applyTime").val("");
 	$("#checkTime").val("");
-	$("#appyeName").val("");
+	$("#applyName").val("");
 	$("#checkStatus").val("");
 	$("#refundStatus").val("");
 	timePickInit();

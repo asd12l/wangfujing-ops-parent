@@ -295,9 +295,6 @@
 	<input type="hidden" id="ctxPath"
 		value="${pageContext.request.contextPath}" />
 	<!-- Main Container -->
-	<form action="do.jsp"> 
-	<input id="hd" name="hd" type="hidden" />
-	  <input type="sumbit" value="提交">  </form>
 	<div class="main-container container-fluid">
 		<!-- Page Container -->
 		<div class="page-container">
