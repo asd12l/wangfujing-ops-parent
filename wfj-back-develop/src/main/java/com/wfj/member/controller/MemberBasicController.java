@@ -239,17 +239,37 @@ public class MemberBasicController {
         
         Map<String, Object> paraMap = new HashMap<String, Object>();
         
-        //获取value值0或1,1隐藏，0不隐藏
+        /*//获取value值0或1,1隐藏，0不隐藏
 			List<String> paramKeys = new ArrayList<String>();
 			paramKeys.add("memberInfo");
 			List<SysConfig> list = isysConfigService.selectByKeys(paramKeys);
 			String value="";
 			for (int i = 0; i < list.size(); i++) {
 			 value=list.get(i).getSysValue();
+			}*/
+		 	//屏显
+		        String json = "";
+		        String sysValue = "";
+		        String username = CookiesUtil.getCookies(request, "username");
+				Map<Object, Object> paramMap = new HashMap<Object, Object>();
+				paramMap.put("keys", "memberInfo");
+				paramMap.put("username", username);
+			try {
+				log.info("paramMap:" + paramMap);
+				json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+				if(!StringUtils.isEmpty(json)){
+					JSONObject jsonObject = JSONObject.fromObject(json);
+					String isTrue = jsonObject.getString("success");
+					if(isTrue.equals("true")){
+					JSONArray jsonArray = jsonObject.getJSONArray("data");
+					sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+					}
+				}
+			} catch (Exception e) {
+				log.error("查询屏显规则异常！返回结果json="+json);
 			}
-			paraMap.put("mask", value);
-
 		
+		paraMap.put("mask", sysValue);	
         paraMap.put("currPage", String.valueOf(currPage));
         paraMap.put("pageSize", String.valueOf(pageSize));
         paraMap.put("cid", request.getParameter("cid"));
