@@ -148,10 +148,11 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
 		classMap.put("data", Member.class);
 		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
-		
+		String userName = CookiesUtil.getCookies(request, "username");
 		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
 			if(memberInfo.getSuccess()=="true"){
 				paramMap.put("memberInfo", memberInfo.getData().get(0).getSysValue());
+				paramMap.put("cookiUser", userName);
 			}
 		}
 		

@@ -37,6 +37,7 @@
 	var userName;
 	var logJs;
 	var memberInfo;
+	var cookiUser;
 
 	$(function() {
 		$('#startDate').daterangepicker(
@@ -97,6 +98,7 @@
 		xing+='*';
 		}
 		console.log("memberInfo:"+memberInfo);
+		console.log("cookiUser:"+cookiUser);
 		if(memberInfo=1){
 			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
 		}else{
