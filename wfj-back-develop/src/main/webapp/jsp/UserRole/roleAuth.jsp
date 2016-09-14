@@ -504,7 +504,7 @@ function loadMemberInfo(){
 }
 function updateMemberInfo(){
 	LA.sysCode = "16";
-	LA.log("role.updateMemberInfo", "修改用户敏感信息是否屏蔽：" + ($("#sysValue").val() == "1" ? "0" : "1"), getCookieValue("username"), sessionId);
+	LA.log("role.updateMemberInfo", "修改用户敏感信息是否屏蔽：" + $("#sysValue").val(), getCookieValue("username"), sessionId);
 	$.ajax({
 		type : "get",
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -514,7 +514,7 @@ function updateMemberInfo(){
 			"roleSid" : $("#roleSid1").val(),
 			"roleCode" : $("#roleCode1").val(),
 			"key" : "memberInfo",
-			"value" : $("#sysValue").val() == "1" ? "0" : "1"
+			"value" : $("#sysValue").val()
 		},
 		dataType : "json",
 		ajaxStart : function() {
@@ -525,12 +525,7 @@ function updateMemberInfo(){
 		},
 		success : function(response) {
 			if(response.success){
-				var ii = $("#sysValue").val();
-				if(ii == "1"){
-					$("#sysValue").val("0");
-				} else {
-					$("#sysValue").val("1");
-				}
+				
 			} else {
 				$("#warning2Body").text(response.msg);
                 $("#warning2").show();
@@ -547,6 +542,14 @@ $(function(){
 	manageCateTree();
 	$("#save1").click(saveRoleLimit);
 	loadMemberInfo();
+	$("#memberInfo").click(function(){
+		var ii = $("#sysValue").val();
+		if(ii == "1"){
+			$("#sysValue").val("0");
+		} else {
+			$("#sysValue").val("1");
+		}
+	});
 });
 </script>
 </head>
