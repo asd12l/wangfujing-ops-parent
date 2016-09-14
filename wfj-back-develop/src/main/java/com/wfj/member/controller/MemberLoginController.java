@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ import com.wangfj.back.entity.po.SysConfig;
 import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
 
 
 /**
@@ -66,15 +70,37 @@ public class MemberLoginController {
 		Map<Object, Object> paraMap = new HashMap<Object, Object>();
 		
 		//获取value值0或1,1隐藏，0不隐藏
-		List<String> paramKeys = new ArrayList<String>();
+		/*List<String> paramKeys = new ArrayList<String>();
 		paramKeys.add("memberInfo");
 		List<SysConfig> listValue = isysConfigService.selectByKeys(paramKeys);
 		String value="";
 		for (int i = 0; i < listValue.size(); i++) {
 		 value=listValue.get(i).getSysValue();
 		}
-		paraMap.put("mask", value);
+		paraMap.put("mask", value);*/
+		//屏显
+		 	String json = "";
+	        String sysValue = "";
+	        String username = CookiesUtil.getCookies(request, "username");
+			Map<Object, Object> paramMap = new HashMap<Object, Object>();
+			paramMap.put("keys", "memberInfo");
+			paramMap.put("username", username);
+		try {
+			logger.info("paramMap:" + paramMap);
+			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json)){
+				JSONObject jsonObject = JSONObject.fromObject(json);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+				JSONArray jsonArray = jsonObject.getJSONArray("data");
+				sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			logger.error("查询屏显规则异常！返回结果json="+json);
+		}
 		
+		paraMap.put("mask", sysValue);
 		paraMap.put("start", String.valueOf(start));
 		paraMap.put("limit", String.valueOf(pageSize));
 		
