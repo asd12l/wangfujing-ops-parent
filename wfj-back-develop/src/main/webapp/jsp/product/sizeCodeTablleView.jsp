@@ -280,6 +280,9 @@ function editSizeCodeTable(){
 }
 
 function saveSizeCodeTable(url){
+    LA.sysCode = '16';
+    var sessionId = '<%=request.getSession().getId() %>';
+    LA.log('product.addBrandCateInfo', '添加尺码对照表：', getCookieValue("username"),  sessionId);
 	$.ajax({
 		type : "post",
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
