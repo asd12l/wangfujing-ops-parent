@@ -382,7 +382,6 @@ function saveRoleLimit(){
 	
 	getDiv2PropsSid();
 	getManageCateSids();
-	alert("1");
 	updateMemberInfo();
 	LA.sysCode = "16";
 	LA.log("role.saveRoleLimit", "修改角色权限：" + {
@@ -504,7 +503,6 @@ function loadMemberInfo(){
 	});
 }
 function updateMemberInfo(){
-	alert("2");
 	LA.sysCode = "16";
 	LA.log("role.updateMemberInfo", "修改用户敏感信息是否屏蔽：" + ($("#sysValue").val() == "1" ? "0" : "1"), getCookieValue("username"), sessionId);
 	$.ajax({
