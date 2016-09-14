@@ -52,7 +52,9 @@
 	function priceLimitQuery(){
 		$("#organizationName_from").val($("#shopName_input").val());
         var params = $("#priceLimit_form").serialize();
-        //alert("表单序列化后请求参数:"+params);
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('priceLimit.editPriceLimit', '价格阀值查询：' + params, getCookieValue("username"),  sessionId);
         params = decodeURI(params);
         priceLimitPagination.onLoad(params);
    	}
