@@ -229,6 +229,11 @@ function saveFrom1(){
         return;
     }
     $("#stockInfo1").html(inT1);
+
+    LA.sysCode = '16';
+    var sessionId = '<%=request.getSession().getId() %>';
+    LA.log('stockWei.saveStockWei1', '库存跨渠道库存修改：' + $("#theForm1").serialize(), getCookieValue("username"),  sessionId);
+
     $.ajax({
         type: "post",
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
