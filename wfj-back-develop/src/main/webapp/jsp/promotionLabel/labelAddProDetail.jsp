@@ -128,6 +128,9 @@
 		$("#proDetail_isAddTag_from").val($("#proDetail_isAddTag_select").val());
 
 		var params = $("#proDetail_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('productTag.selectAllProduct', '商品促销标签查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
 		proDetailPagination.onLoad(params);
 	}
@@ -223,6 +226,11 @@
 			$("#warning2").show();
 			return false;
 		}
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('productTag.saveProductTag', '商品添加促销标签：', getCookieValue("username"),  sessionId);
+
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -266,6 +274,10 @@
 	}
 	//批量添加商品关系
 	function addProDetailTagList() {
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('productTag.saveProductTagBySelects', '商品批量添加促销标签：' + $("#proDetail_form").serialize(), getCookieValue("username"),  sessionId);
+
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -313,8 +325,12 @@
 			$("#warning2").show();
 			return false;
 		}
-		$
-				.ajax({
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('productTag.deleteProductTag', '商品删除促销标签：' + $("#proDetail_form").serialize(), getCookieValue("username"),  sessionId);
+
+		$.ajax({
 					type : "post",
 					contentType : "application/x-www-form-urlencoded;charset=utf-8",
 					url : __ctxPath + "/productTag/deleteProductTag",

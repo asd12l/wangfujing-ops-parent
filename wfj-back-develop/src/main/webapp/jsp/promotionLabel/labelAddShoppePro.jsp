@@ -50,7 +50,9 @@ Author: WangSy
 		$("#productCode_from").val($("#productCode_input").val());
 		$("#isAddTag_from").val($("#isAddTag_select").val());
 		var params = $("#product_form").serialize();
-		//alert("表单序列化后请求参数:"+params);
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('productTag.selectShoppeProduct', '专柜商品促销标签查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
 		productPagination.onLoad(params);
 	}
@@ -141,6 +143,11 @@ Author: WangSy
 			$("#warning2").show();
 			return false;
 		}
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('productTag.saveProductTag', '专柜商品添加促销标签：', getCookieValue("username"),  sessionId);
+
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -184,6 +191,10 @@ Author: WangSy
 	}
 	/* 批量添加专柜商品关系 */
 	function addProductTagList() {
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('productTag.saveShoppeProductTagBySelects', '专柜商品批量添加促销标签：', getCookieValue("username"),  sessionId);
+
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -231,8 +242,12 @@ Author: WangSy
 			$("#warning2").show();
 			return false;
 		}
-		$
-				.ajax({
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('productTag.deleteProductTag', '专柜商品删除促销标签：', getCookieValue("username"),  sessionId);
+
+		$.ajax({
 					type : "post",
 					contentType : "application/x-www-form-urlencoded;charset=utf-8",
 					url : __ctxPath + "/productTag/deleteProductTag",
