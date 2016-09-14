@@ -254,8 +254,10 @@ var sessionId = "<%=request.getSession().getId() %>";
 			return false;
 		}
 		var value = checkboxArray[0];
-		var url = __ctxPath + "/product/getProductDetail/" + value;
-		$("#pageBody").load(url);
+        var url = __ctxPath + "/product/getProductDetail/" + value;
+        LA.sysCode = "16";
+        LA.log("product.getProductDetail", "商品详情：" + value, getCookieValue("username"), sessionId);
+        $("#pageBody").load(url);
 	}
 </script>
 <!-- 商品下架 -->
@@ -281,6 +283,8 @@ var sessionId = "<%=request.getSession().getId() %>";
 			$("#warning2").show();
 			return false;
 		}
+        LA.sysCode = "16";
+        LA.log("product.sellProduct", "商品下架：", getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -337,6 +341,8 @@ var sessionId = "<%=request.getSession().getId() %>";
 			$("#warning2").show();
 			return false;
 		}
+        LA.sysCode = "16";
+        LA.log("product.sellProduct", "商品上架：", getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -394,6 +400,8 @@ var sessionId = "<%=request.getSession().getId() %>";
 			$("#warning2").show();
 			return false;
 		}
+        LA.sysCode = "16";
+        LA.log("product.deleteProduct", "商品停用：", getCookieValue("username"), sessionId);
 		$
 				.ajax({
 					type : "post",
@@ -468,6 +476,8 @@ var sessionId = "<%=request.getSession().getId() %>";
 			$("#warning2").show();
 			return false;
 		}
+        LA.sysCode = "16";
+        LA.log("product.deleteProduct", "商品启用：", getCookieValue("username"), sessionId);
 		$
 				.ajax({
 					type : "post",
@@ -542,7 +552,7 @@ var sessionId = "<%=request.getSession().getId() %>";
 <script type="text/javascript">
 	function getView(data) {
 		LA.sysCode = "16";
-		LA.log("product.getView", "商品详情查询：" + data, getCookieValue("username"), sessionId);
+		LA.log("product.getProductDetail", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$("#pageBody").load(url, {
 			"backUrl" : "/jsp/product/ProductStatus.jsp"
