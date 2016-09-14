@@ -180,6 +180,9 @@
 	function productLimitQuery(){
 		$("#brandSid_form").val($("#BrandCode").val());
         var params = $("#productLimit_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('priceLimit.queryPageLimit', '库存阀值管理：' + params, getCookieValue("username"),  sessionId);
         params = decodeURI(params);
         productLimitPagination.onLoad(params);
    	}
