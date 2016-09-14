@@ -46,16 +46,21 @@ Author: WangSy
 	}
 	function propsdictQuery() {
 		var pName =  $("#propsName_input").val();
-		if(pName.indexOf("%") == -1){		
-			$("#propsName_from").val($("#propsName_input").val());	
-			$("#channelSid_from").val($("#channelSid_select").val());
-			var params = $("#propsdict_form").serialize();
+        var sessionId = '<%=request.getSession().getId() %>';
+        if(pName.indexOf("%") == -1){
+            $("#propsName_from").val($("#propsName_input").val());
+            $("#channelSid_from").val($("#channelSid_select").val());
+            var params = $("#propsdict_form").serialize();
+            LA.sysCode = '16';
+            LA.log('propsdict.list', '属性字典查询：' + params, getCookieValue("username"),  sessionId);
 			params = decodeURI(params);
 			propsdictPagination.onLoad(params);
 		}else{
 			$("#propsName_from").val($("#propsName_input").val());
 			$("#channelSid_from").val($("#channelSid_select").val());
 			var params = $("#propsdict_form").serialize();
+            LA.sysCode = '16';
+            LA.log('propsdict.list', '属性字典查询：' + params, getCookieValue("username"),  sessionId);
 			//params = decodeURI(params);
 			propsdictPagination.onLoad(params);
 		}

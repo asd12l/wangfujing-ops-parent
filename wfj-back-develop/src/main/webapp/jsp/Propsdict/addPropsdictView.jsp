@@ -199,6 +199,11 @@ Author: WangSy
 		insert1 = insert1.replace(/\#/g, "%23");
 		insert1 = insert1.replace(/\&/g, "%26");
 		insert1 = insert1.replace(/\+/g, "%2B");
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('propsdict.add', '添加属性字典：', getCookieValue("username"),  sessionId);
+
 		$.ajax({
 					type : "post",
 					contentType : "application/x-www-form-urlencoded;charset=utf-8",

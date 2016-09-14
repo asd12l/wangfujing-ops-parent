@@ -250,6 +250,11 @@ Author: WangSy
 		if (deleteLength != 0) {//删除TR数据
 			json3 = deleteDate();
 		}
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('propsdict.add', '修改属性字典：', getCookieValue("username"),  sessionId);
+
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
