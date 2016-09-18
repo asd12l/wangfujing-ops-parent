@@ -744,10 +744,11 @@
 												{#/if}
 
 											</td>
-											<td align="center" id="withdrowMoneyStatus_{$T.Result.sid}" value="{$T.Result.withdrowMoneyStatus}">
-												{#if $T.Result.withdrowMoneyStatus == '0'}待退款
-												{#elseif $T.Result.withdrowMoneyStatus == '1'}已退款
-												{#/if}
+											<td align="center" id="refundStatus_{$T.Result.sid}" value="{$T.Result.refundStatus}">
+												{#if $T.Result.refundStatus == '1'}待退款
+												{#elseif $T.Result.refundStatus == '2'}退款成功
+												{#elseif $T.Result.refundStatus == '3'}退款失败
+				                   				{#/if}
 											</td>
 											<td align="center" id="checkName_{$T.Result.sid}" value="{$T.Result.checkName}">
 												{#if $T.Result.checkName != '[object Object]'}{$T.Result.checkName}
