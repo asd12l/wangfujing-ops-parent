@@ -74,6 +74,7 @@ function formatDate(time){
 //设置表单
 function setFormData(){
 	$("#platformName_form").val($("#platformName_input").val());
+	$("#platformId_form").val($("#platformId_input").val());
 }
 
 //查询数据
@@ -760,17 +761,22 @@ $(function(){
                                 				<label class="titname">平台名称：</label>
                                 				<input type="text" id="platformName_input" />
                                				</li>
-                            				<li class="col-md-4">
-                            					<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
+                               				<li class="col-md-4">
+                                				<label class="titname">平台ID：</label>
+                                				<input type="text" id="platformId_input" />
+                               				</li>
+                            				<li style="width:100px;">
+                            					<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>
 											</li>
-											<li class="col-md-4" >
-												<a onclick="showAddDiv();" class="btn btn-primary" style="float:right;margin-right:20px;width:100px;" > <i class="fa fa-plus"></i>新建</a>&nbsp;&nbsp;&nbsp;&nbsp;
+											<li >
+												<a onclick="showAddDiv();" class="btn btn-primary" style="float:right;margin-right:20px;width:100px;" > <i class="fa fa-plus"></i>新建</a>
 											</li>
                                 		</ul>
                                 	<!--隐藏参数-->
                            			<form id="olv_form" action="">
 										<input type="hidden" id="pageSize_form" name="pageSize" value="10"/>
 										<input type="hidden" id="platformName_form" name="platformName"/>
+										<input type="hidden" id="platformId_form" name="platformId"/>
                                   	</form>
                                 <!--数据列表显示区域-->
                             	<div style="width:100%; min-height:400px; overflow-Y: hidden;">

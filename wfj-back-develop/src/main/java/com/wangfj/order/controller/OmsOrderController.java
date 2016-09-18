@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +19,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -58,6 +60,31 @@ public class OmsOrderController {
 	private static final Logger logger = LoggerFactory.getLogger(OmsOrderController.class);
 	
 	public static final String FROM_SYSTEM = "ORDERBACK";
+	
+	
+	/**
+	 * ops销售模块页面LA埋点查询ops登录用户名
+	 * @Create in 2016-09-13 By XuZhou
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/buriedPoint")
+	@ResponseBody
+	public String buriedPoint(HttpServletRequest request,HttpServletResponse response){
+		JSONObject json = new JSONObject();
+		Cookie [] cookies = request.getCookies();
+		for(Cookie cookie : cookies){
+			if("username".equals(cookie.getName())){
+				json.put("username", cookie.getValue());
+				break;
+			}
+		}
+		json.put("logUrl", CommonProperties.get("log_js"));
+		return JSON.toJSONString(json);
+	}
+	
+	
 	
 	/**
 	 * 查询订单信息（带分页）
@@ -127,8 +154,10 @@ public class OmsOrderController {
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			String data = jsonObject.getString("data");
 			JSONObject jsonObject2 = JSONObject.fromObject(data);
-			List<Object> list = (List<Object>) jsonObject2.get("list");
-			
+			List<Object> list = null;
+			String dd = jsonObject2.get("list").toString();
+			if( !"null".equals(dd) && null != dd){
+				list = (List<Object>) jsonObject2.get("list");
 			String jsonStr2 = "";
 			Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
 			paramMap2.put("fromSystem", "OMSADMIN");
@@ -287,8 +316,9 @@ public class OmsOrderController {
 					list41.add(jsonObject41);
 				}
 			}
-			list=list41;
 			
+			list=list41;
+			}
 			Integer count = jsonObject2.getInt("count");
 			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			if (list != null && list.size() != 0) {
@@ -299,6 +329,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -381,7 +418,6 @@ public class OmsOrderController {
 				m.put("success", "true");
 			}else {
 				List<Object> list = (List<Object>) jsonObject2.get("list");
-				
 				String jsonStr2 = "";
 				Map<Object, Object> paramMap2 = new HashMap<Object, Object>();
 				paramMap2.put("fromSystem", "OMSADMIN");
@@ -392,25 +428,7 @@ public class OmsOrderController {
 				JSONObject jsonObjectJ2 = JSONObject.fromObject(json2);
 				String codeData = jsonObjectJ2.getString("data");
 				JSONArray json2Object = JSONArray.fromObject(codeData);
-//				List<Object> list2 = JSONArray.toList(json2Object, Object.class);
-				
 				List<Object> list3 = new ArrayList<Object>();
-//				for (int i = 0; i < json2Object.size(); i++) {
-////					JSONObject jsonObject3 = JSONObject.fromObject(object2);
-//					JSONObject jsonObject3 = (JSONObject) json2Object.get(i);
-//					String codeValue = jsonObject3.getString("codeValue");
-//					String codeName = jsonObject3.getString("codeName");
-//					for (Object object : list) {
-//						JSONObject jsonObject4 = JSONObject.fromObject(object);
-//						String orderStatus = jsonObject4.getString("orderStatus");
-//						if(orderStatus.equals(codeValue)){
-//							orderStatus = codeName;
-//							jsonObject4.put("orderStatusDesc",orderStatus);
-////							object = JSONObject.toBean(jsonObject4, Object.class);
-//							list3.add(jsonObject4);
-//						}
-//					}
-//				}
 				for(int i=0; i<list.size(); i++){
 					Object object = list.get(i);
 					JSONObject jsonObject4 = JSONObject.fromObject(object);
@@ -440,11 +458,9 @@ public class OmsOrderController {
 						}
 					} catch (Exception e) {
 						list3.add(jsonObject4);
-						
 					}
 				}
 				list=list3;
-				
 				String jsonStr21 = "";
 				Map<Object, Object> paramMap21 = new HashMap<Object, Object>();
 				paramMap21.put("fromSystem", "OMSADMIN");
@@ -455,25 +471,7 @@ public class OmsOrderController {
 				JSONObject jsonObjectJ21 = JSONObject.fromObject(json21);
 				String codeData1 = jsonObjectJ21.getString("data");
 				JSONArray json2Object1 = JSONArray.fromObject(codeData1);
-//				List<Object> list2 = JSONArray.toList(json2Object, Object.class);
-				
 				List<Object> list4 = new ArrayList<Object>();
-//				for (int i = 0; i < json2Object1.size(); i++) {
-////					JSONObject jsonObject3 = JSONObject.fromObject(object2);
-//					JSONObject jsonObject3 = (JSONObject) json2Object1.get(i);
-//					String codeValue = jsonObject3.getString("codeValue");
-//					String codeName = jsonObject3.getString("codeName");
-//					for (Object object : list) {
-//						JSONObject jsonObject4 = JSONObject.fromObject(object);
-//						String orderType = jsonObject4.getString("orderType");
-//						if(orderType.equals(codeValue)){
-//							orderType = codeName;
-//							jsonObject4.put("orderType",orderType);
-////							object = JSONObject.toBean(jsonObject4, Object.class);
-//							list4.add(jsonObject4);
-//						}
-//					}
-//				}
 				for (int i = 0; i < list.size(); i++) {
 					Object object = list.get(i);
 					JSONObject jsonObject4 = JSONObject.fromObject(object);
@@ -503,7 +501,6 @@ public class OmsOrderController {
 					}
 				}
 				list=list4;
-				
 				//渠道字段转换(PCM接口)
 				String jsonStr22 = "";
 				Map<Object, Object> paramMap22 = new HashMap<Object, Object>();
@@ -544,7 +541,6 @@ public class OmsOrderController {
 					}
 				}
 				list=list41;
-				
 				Integer count = jsonObject2.getInt("count");
 				int pageCount = count % size == 0 ? count / size : (count / size + 1);
 				if (list != null && list.size() != 0) {
@@ -562,6 +558,13 @@ public class OmsOrderController {
 			m.put("pageCount", 0);
 			m.put("success", "false");
 		}
+		Cookie [] cookie = request.getCookies();
+		for(Cookie cok : cookie){
+			if(cok.getName().equals("username")){
+				m.put("userName", cok.getValue());
+			}
+		}
+		m.put("logUrl", CommonProperties.get("log_js"));
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
@@ -863,7 +866,13 @@ public class OmsOrderController {
 				}
 			}
 			list=list3;
-			
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 			Integer count = jsonObject2.getInt("count");
 			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			if (list != null && list.size() != 0) {
@@ -1379,6 +1388,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -1467,6 +1483,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -1551,6 +1574,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -1635,6 +1665,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -2321,6 +2358,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -3870,6 +3914,13 @@ public class OmsOrderController {
 			} else {
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("success", "false");
 		}
@@ -5347,6 +5398,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -5420,6 +5478,13 @@ public class OmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");

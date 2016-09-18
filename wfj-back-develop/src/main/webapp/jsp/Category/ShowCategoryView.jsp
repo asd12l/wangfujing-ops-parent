@@ -55,6 +55,7 @@ Author: WangSy
 
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var categoryPagination;
 	/* 设置zTree参数 */
 	var setting = {
@@ -364,7 +365,8 @@ Author: WangSy
 				isParent:targetNode.isParent,
 				rootSid : rootSid
 			};
-	
+			LA.sysCode = "16";
+			LA.log("category.showCateDrop", "展示分类推拽：" + data, getCookieValue("username"), sessionId);
 			var confirmVal = false;
 			$.ajax({
 				async : false,
@@ -1019,6 +1021,8 @@ Author: WangSy
 	}
 	//根部节点提交使用方法
 	function appGBFLDivSaveTo() {
+		LA.sysCode = "16";
+		LA.log("category.addRootShowCate", "添加展示分类根节点：" + $("#appGBFLDivForm").serialize(), getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
 			url : __ctxPath + "/category/add",
@@ -1392,6 +1396,11 @@ Author: WangSy
 			return false;
 		}
 		if (treeObj != "") {
+			LA.sysCode = "16";
+			LA.log("category.updateStatusShowCate", "停用展示分类节点：" + {
+				"id" : treeObj[0].id,
+				"categoryType":treeObj[0].categoryType
+			}, getCookieValue("username"), sessionId);
 			$.ajax({
 						type : "post",
 						url : __ctxPath + "/category/updateStatus",
@@ -1489,6 +1498,11 @@ Author: WangSy
 			return false;
 		}
 		if (treeObj != "") {
+			LA.sysCode = "16";
+			LA.log("category.delShowCate", "删除展示分类节点：" + {
+				"id" : treeObj[0].id,
+				"categoryType":treeObj[0].categoryType
+			}, getCookieValue("username"), sessionId);
 			$
 					.ajax({
 						type : "post",
@@ -1645,6 +1659,8 @@ Author: WangSy
 			$("#warning2").show();
 			return;
 		}
+		LA.sysCode = "16";
+		LA.log("category.saveDivFrom", "展示分类添加或修改保存：" + $("#divForm").serialize(), getCookieValue("username"), sessionId);
 		$
 				.ajax({
 					type : "post",
@@ -1768,6 +1784,13 @@ Author: WangSy
 		insert1 = insert1.replace(/\&/g, "%26");
 		insert1 = insert1.replace(/\+/g, "%2B");
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo").getSelectedNodes();
+		LA.sysCode = "16";
+		LA.log("category.showCateWeihu", "展示分类维护保存：" + {
+			'cid' : treeObj[0].id,
+			'propsid' : $("#Div2PropsSid").val(),
+			'name' : $("#name2").val(),
+			'notNull' : insert1
+		}, getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
 			url : __ctxPath + "/provalues/add",
@@ -1822,6 +1845,8 @@ Author: WangSy
 	}
 	/* 维护按钮 */
 	function updateRole() {
+		LA.sysCode = "16";
+		LA.log("category.showCateWeihu", "展示分类维护", getCookieValue("username"), sessionId);
 		$("#selectedProps").html("");
 		$("#pdict").val("");
 		/* 获取 zTree对象 */

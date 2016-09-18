@@ -41,6 +41,7 @@ public class BusinessPlatformController {
 		paramMap.put("pageSize", request.getParameter("pageSize"));
 		paramMap.put("pageNo", request.getParameter("page"));
 		paramMap.put("name", request.getParameter("platformName"));
+		paramMap.put("platformId", request.getParameter("platformId"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);

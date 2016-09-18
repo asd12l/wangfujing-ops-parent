@@ -51,6 +51,10 @@
 			},
 			submitHandler : function(validator, form, submitButton) {
 				// Do nothing
+                LA.sysCode = '16';
+                var sessionId = '<%=request.getSession().getId() %>';
+                LA.log('dataDict.addDataDict', '添加数据字典：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
+
 				$.ajax({
 					type : "post",
 					contentType : "application/x-www-form-urlencoded;charset=utf-8",

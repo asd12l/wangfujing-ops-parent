@@ -32,6 +32,7 @@ Author: WangSy
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/selectAjax.css" />
 <script type="text/javascript">
+var sessionId = "<%=request.getSession().getId() %>";
 /* 色系列表 */
 	function fingColorDict() {
 		var proColor = $("#colorSid_select");// 色系对象
@@ -129,6 +130,7 @@ fingColorDict();
 		$(".listInfo li:eq(0)").click(findBrand); */
 	});
 	function productQuery() {
+		
 		var minSkuCode = $("#skuCode_input").val().trim();
 		var maxSkuCode = $("#maxSkuCode_input").val().trim();
 		if(minSkuCode != "" && maxSkuCode != ""){
@@ -159,6 +161,8 @@ fingColorDict();
 		$("#skuSale_from").val($("#skuSale_select").val());
 		
 		var params = $("#product_form").serialize();
+		LA.sysCode = "16";
+		LA.log("product.productQuery", "商品查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		productPagination.onLoad(params);
 	}
@@ -441,6 +445,8 @@ fingColorDict();
 <!-- 点击编码或者名称查询详情 -->
 <script type="text/javascript">
 	function getView(data) {
+		LA.sysCode = "16";
+		LA.log("product.getView", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$(".loading-container").attr("class", "loading-container");
 		$("#pageBody").load(url, {

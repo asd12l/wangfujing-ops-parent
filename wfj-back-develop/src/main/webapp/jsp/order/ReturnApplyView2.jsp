@@ -24,7 +24,8 @@
 /* 	saleMsgImage="http://172.16.200.4/images"; */
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
-	
+	var userName;
+	var logUrl;
 	
 	var olvPagination;
 	$(function() {
@@ -77,7 +78,27 @@
         });
 	    initOlv();
 	});
+	
+function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
+	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('return2Apply-search', '退货申请单查询2', userName,  sessionId);
 		$("#refundApplyNo_form").val($("#refundApplyNo_input").val().trim());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
 		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
@@ -298,6 +319,9 @@
 					}, 300);
 				},
              callback: function(data) {
+            	 userName = data.userName;
+            	    logUrl = data.logUrl;
+            	    reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }

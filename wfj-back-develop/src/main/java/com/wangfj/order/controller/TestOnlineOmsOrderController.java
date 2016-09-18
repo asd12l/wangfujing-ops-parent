@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -1942,7 +1943,21 @@ public class TestOnlineOmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 			m.put("pageCount", 0);
 			m.put("success", "false");
 		}
@@ -2114,6 +2129,13 @@ public class TestOnlineOmsOrderController {
 				m.put("pageCount", 0);
 				m.put("success", "false");
 			}
+			Cookie [] cookie = request.getCookies();
+			for(Cookie cok : cookie){
+				if(cok.getName().equals("username")){
+					m.put("userName", cok.getValue());
+				}
+			}
+			m.put("logUrl", CommonProperties.get("log_js"));
 		} catch (Exception e) {
 			m.put("pageCount", 0);
 			m.put("success", "false");
@@ -2297,6 +2319,13 @@ public class TestOnlineOmsOrderController {
 		if(StringUtils.isNotEmpty(request.getParameter("sysValue"))){
 			paramMap.put("sysValue", request.getParameter("sysValue"));
 		}
+		if(StringUtils.isNotEmpty(request.getParameter("memberNo"))){
+			paramMap.put("memberNo", request.getParameter("memberNo"));
+		}
+		if(StringUtils.isNotEmpty(request.getParameter("saleNo"))){
+			paramMap.put("saleNo", request.getParameter("saleNo"));
+		}
+		
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {

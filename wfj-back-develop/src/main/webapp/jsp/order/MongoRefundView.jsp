@@ -27,10 +27,43 @@
 /* 	saleMsgImage="http://172.16.200.4/images"; */
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
+	var logUrl = '';
+	var username = '';
 	$(function(){
 		$("#pro102").hide();
+		
+		
+		//LA埋点
+		$.ajax({
+			url : __ctxPath + "/omsOrder/buriedPoint",
+			type : "post",
+			dataType : "json",
+			success : function(response){
+				logUrl = response.logUrl;
+				username = response.username;
+				reloadjs();
+			}
+		});
 	});
+	//引用埋点js方法
+ 	function reloadjs(){
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
 	function fundOrder(){
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search olvQuery', '操作日志查询', username,  sessionId);
 		$("#pro102").show();
 		var d = $("#theForm111").serialize();
 		var url = __ctxPath + "/omsOrder/foundMongoRefund";
@@ -51,6 +84,10 @@
 		});
 	}
 	function fixOrder(){
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search olvQuery', '操作日志查询', username,  sessionId);
 		var d = $("#theForm111").serialize();
 		var url = __ctxPath + "/omsOrder/fixMongoRefund";
   		$.ajax({

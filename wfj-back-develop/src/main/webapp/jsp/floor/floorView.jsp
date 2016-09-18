@@ -57,6 +57,9 @@
 		$("#floorCode_form").val($("#floorCode_input").val());
 		$("#shopSid_form").val($("#shopSid_select").val());
         var params = $("#floor_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('floor.queryFloor', '楼层查询：' + params, getCookieValue("username"),  sessionId);
         params = decodeURI(params);
         floorPagination.onLoad(params);
    	}

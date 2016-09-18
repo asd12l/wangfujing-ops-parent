@@ -16,6 +16,7 @@
 <title>商品基本信息</title>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var zNodes="";
 	$(function(){
 		$("#sid").val(sid);
@@ -74,6 +75,8 @@
   	//保存数据
   	
   	function saveFrom(){
+  		LA.sysCode = "16";
+  		LA.log("role.savaLimitRoleResource", "修改角色资源权限：" + $("#theForm").serialize(), getCookieValue("username"), sessionId);
   		$.ajax({
   			 type:"post",
  	        contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -376,8 +379,21 @@ function getManageCateSids(){
 	$("#manageCateParentCodes").val(manageCateParentCodes);
 }
 function saveRoleLimit(){
+	
 	getDiv2PropsSid();
 	getManageCateSids();
+	updateMemberInfo();
+	LA.sysCode = "16";
+	LA.log("role.saveRoleLimit", "修改角色权限：" + {
+ 			"roleSid" : $("#roleSid1").val(),
+ 			"shopSids" : $("#shopSids").val(),
+ 			"shopGroupSids" : $("#shopGroupSids").val(),
+ 			"channelSids" : $("#channelSids").val(),
+ 			"manageCateSids" : $("#manageCateSids").val(),
+ 			"manageCateShopCodes" : $("#manageCateShopCodes").val(),
+ 			"manageCateLevels" : $("#manageCateLevels").val(),
+ 			"manageCateParentCodes" : $("#manageCateParentCodes").val()
+ 		}, getCookieValue("username"), sessionId);
 	$.ajax({
   		type: "post",
   		contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -454,6 +470,69 @@ function loadManageCateTree(){
 		$.fn.zTree.init($("#manageCateTree"), setting2, zTreeCate);
 	}
 }
+
+function loadMemberInfo(){
+	$.ajax({
+		type : "get",
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		url : __ctxPath + "/sysConfig/findSysConfigByRole",
+		async : false,
+		data : {
+			"roleSid" : $("#roleSid1").val(),
+			"roleCode" : $("#roleCode1").val()
+		},
+		dataType : "json",
+		ajaxStart : function() {
+			$("#loading-container").prop("class", "loading-container");
+		},
+		ajaxStop : function() {
+			$("#loading-container").addClass("loading-inactive");
+		},
+		success : function(response) {
+			if(response.success){
+				var ele = response.data;
+				if(ele.sysValue == 1){
+					$("#memberInfo").attr("checked", "checked");
+				}
+				$("#sysValue").val(ele.sysValue);
+			} else {
+				$("#warning2Body").text(response.msg);
+                $("#warning2").show();
+			}
+		}
+	});
+}
+function updateMemberInfo(){
+	LA.sysCode = "16";
+	LA.log("role.updateMemberInfo", "修改用户敏感信息是否屏蔽：" + $("#sysValue").val(), getCookieValue("username"), sessionId);
+	$.ajax({
+		type : "get",
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		url : __ctxPath + "/sysConfig/editSysConfigByRole",
+		async : false,
+		data : {
+			"roleSid" : $("#roleSid1").val(),
+			"roleCode" : $("#roleCode1").val(),
+			"key" : "memberInfo",
+			"value" : $("#sysValue").val()
+		},
+		dataType : "json",
+		ajaxStart : function() {
+			$("#loading-container").prop("class", "loading-container");
+		},
+		ajaxStop : function() {
+			$("#loading-container").addClass("loading-inactive");
+		},
+		success : function(response) {
+			if(response.success){
+				
+			} else {
+				$("#warning2Body").text(response.msg);
+                $("#warning2").show();
+			}
+		}
+	});
+}
 </script>
 <script type="text/javascript">
 $(function(){
@@ -462,6 +541,15 @@ $(function(){
 	selectAllChannel();
 	manageCateTree();
 	$("#save1").click(saveRoleLimit);
+	loadMemberInfo();
+	$("#memberInfo").click(function(){
+		var ii = $("#sysValue").val();
+		if(ii == "1"){
+			$("#sysValue").val("0");
+		} else {
+			$("#sysValue").val("1");
+		}
+	});
 });
 </script>
 </head>
@@ -531,6 +619,14 @@ $(function(){
 													<div class="col-lg-6" style="width: 25%;">
 														<input class="btn btn-success" style="width: 25%;" id="save1" type="button" value="保存" />&emsp;&emsp;
 													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-lg-3 control-label" style="width: 180px">用户敏感信息是否屏蔽：</label>
+													<label class="control-label"> 
+														<input type="checkbox" id="memberInfo" value="on" class="checkbox-slider toggle yesno"> 
+														<span class="text"></span>
+													</label> 
+													<input type="hidden" id="sysValue" name="sysValue" value="1">
 												</div>
 												<div style="overflow: auto;padding: 0 20px;">
 													<div style="width: 50%;float: left;">

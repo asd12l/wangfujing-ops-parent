@@ -10,7 +10,6 @@
 <script src="${ctx}/assets/js/validation/bootstrapValidator.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
-	var url = __ctxPath + "/category/getAllCategory";
   	$(function(){
   		//查询门店
   		var organizationCode = $("#organizationCode");

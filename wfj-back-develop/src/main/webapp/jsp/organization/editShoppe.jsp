@@ -177,6 +177,10 @@
 				//添加渠道
 				$("#channelCode").val(addChannelCode());
 
+                LA.sysCode = '16';
+                var sessionId = '<%=request.getSession().getId() %>';
+                LA.log('shoppe.updateShoppe', '修改专柜：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
+
 				$.ajax({
 					type : "post",
 					contentType : "application/x-www-form-urlencoded;charset=utf-8",

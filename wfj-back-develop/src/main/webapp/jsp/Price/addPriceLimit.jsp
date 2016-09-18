@@ -67,6 +67,10 @@
 			validating : 'glyphicon glyphicon-refresh'
 		},
 		submitHandler : function(validator, form, submitButton) {
+            LA.sysCode = '16';
+            var sessionId = '<%=request.getSession().getId() %>';
+            LA.log('priceLimit.savePriceLimit', '添加价格阀值：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
+
 			var url = __ctxPath + "/priceLimit/savePriceLimit";
 	  		$.ajax({
 				type: "post",

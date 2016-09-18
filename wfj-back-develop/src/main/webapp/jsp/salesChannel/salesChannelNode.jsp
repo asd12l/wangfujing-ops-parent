@@ -23,7 +23,9 @@
 		$("#channelName_form").val($("#channelName_input").val());
 		$("#channelCode_form").val($("#channelCode_input").val());
 		var params = $("#salesChannel_form").serialize();
-		//alert("表单序列化后请求参数:"+params);
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('channel.queryPageChannel', '销售渠道查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
 		salesChannelPagination.onLoad(params);
 	}

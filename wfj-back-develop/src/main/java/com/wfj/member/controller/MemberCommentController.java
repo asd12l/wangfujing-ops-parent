@@ -17,10 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.utils.StringUtils;
 import com.wangfj.back.entity.po.SysConfig;
 import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * Created by wangzi on 2016/7/26.
@@ -56,13 +62,27 @@ public class MemberCommentController {
 		Map<Object, Object> paraMap = new HashMap<Object, Object>();
 		System.out.println(request.getParameterMap());
 		//屏显规则
-        List<String> keys=new ArrayList<String>();
-        keys.add("memberInfo");
-        List<SysConfig>list1=sysConfigService.selectByKeys(keys);
-        String value="";
-        for(int i=0;i<list1.size();i++){
-        	value=list1.get(i).getSysValue();
-        }
+		String json = "";
+        String sysValue = "";
+        String username = CookiesUtil.getCookies(request, "username");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("keys", "memberInfo");
+		paramMap.put("username", username);
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			log.info("paramMap:" + paramMap);
+			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json)){
+				JSONObject jsonObject = JSONObject.fromObject(json);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+				JSONArray jsonArray = jsonObject.getJSONArray("data");
+				sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			log.error("查询屏显规则异常！返回结果json="+json);
+		}
 		paraMap.put("start", String.valueOf(start));
 		paraMap.put("limit", String.valueOf(pageSize));
 		paraMap.put("customeraccount", request.getParameter("customeraccount"));
@@ -82,7 +102,7 @@ public class MemberCommentController {
 		paraMap.put("deletnot", request.getParameter("deletnot"));
 		paraMap.put("cache",request.getParameter("modowtype"));
 		paraMap.put("start",start);
-		paraMap.put("mask", value);
+		paraMap.put("mask", sysValue);
 //		paraMap.put("cache",  request.getParameter("cache").replace("#",""));	//首位为#的是要求屏蔽的commentid主键字段
 		try {
 			String url = CommonProperties.get("member_ops_url");

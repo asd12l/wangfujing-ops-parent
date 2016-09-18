@@ -26,6 +26,9 @@
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
 	
+	var userName;
+	var logUrl;
+	
 	var qudaos='';
 	var mendians='' ;
 	var qudaos1='';
@@ -177,7 +180,27 @@
  		$("#reservation").val("");
 	    initOlv();
 	});
+	
+    function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
+	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('return-search', '退货单查询', userName,  sessionId);
 		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
 		$("#receptPhone_form").val($("#receptPhone_input").val().trim());
 		$("#refundApplyNo_form").val($("#refundApplyNo_input").val().trim());
@@ -263,7 +286,10 @@
 					}, 300);
 				},
              callback: function(data) {
-           		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
+            	 userName = data.userName;
+            	    logUrl = data.logUrl;
+            	    reloadjs();
+            	 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }
          });
@@ -3666,6 +3692,11 @@
 	}
 	//导出excel
 	function exportExecel() {
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('orderRefund-export', '退货单导出', userName,  sessionId);
+	
 		var orderNo =  $("#orderNo_input").val();
 		var refundApplyNo = $("#refundApplyNo_input").val();
 		var refundNo = $("#refundNo_input").val();

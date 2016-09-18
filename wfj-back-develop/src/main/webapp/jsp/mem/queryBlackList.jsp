@@ -280,6 +280,7 @@
     function submitRelieveBlack(){
       var sid=$("#relieveBlackSid").val();
       var relServiceId=$("#relServiceId").val();
+      var relServiceID=/^[0-9]\d{1,20}$/.test(relServiceId);
       var relieveReason=$("#relieveReason").val();
       if(relServiceId==""||relServiceId==null){
         $("#relServiceId_msg").show();
@@ -288,6 +289,10 @@
       if(relieveReason==""||relieveReason==null){
         $("#relieveReason_msg").show();
         return;
+      }
+      if(!relServiceID){
+    	$("#relServiceId_Msg").show();
+    	return;
       }
 
       var url = __ctxPath+"/memBasic/relieveBlackList";
@@ -645,6 +650,7 @@
                   <input type="text" class="form-control" name="name"
                          id="relServiceId" />
                   <span id="relServiceId_msg" style="color:red;display:none;" class="relieve_msg">不能为空!</span>
+                  <span id="relServiceId_Msg" style="color:red;display:none;" class="relieve_msg">请输入小于20位的数字!</span>
                 </div>
                 <br>&nbsp;
               </div>

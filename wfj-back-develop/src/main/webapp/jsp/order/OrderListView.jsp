@@ -26,6 +26,8 @@
 /* 	saleMsgImage="http://172.16.200.4/images"; */
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
+	var userName;
+	var logUrl;
 	
 	var olvPagination;
 	var qudaos='';
@@ -165,7 +167,28 @@ var sysValue ='';
 		$("#reservation").val("");
 	    initOlv();
 	});
+	
+function reloadjs(){
+		
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+		console.log(script);
+	} 
+	
 	function olvQuery(){
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search', '订单查询', userName,  sessionId);
 		$("#saleSource_form").val($("#saleSource_input").val());
 		$("#supplyProductNo_form").val($("#supplyProductNo_input").val());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
@@ -250,6 +273,9 @@ var sysValue ='';
 					}, 300);
 				},
              callback: function(data) {
+            	 userName = data.userName;
+            	 logUrl = data.logUrl;
+            	 reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }
@@ -1370,7 +1396,7 @@ var sysValue ='';
 
 	}
 	//点击tr事件
-	function trClick(orderNo,isCod,orderType,obj){
+	function trClick(orderNo,isCod,orderType,memberNo,obj){
 //		 var newTr1 = $(obj).removeAttr("onclick").removeClass("trClick");
 //		 var newTr =  newTr1.parent().parent().clone(true);
 		if(isCod=='0'){
@@ -2713,7 +2739,7 @@ var sysValue ='';
 			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
 			async:false,
 			dataType: "json",
-			data:{"orderNo":orderNo,"sysValue":sysValue},
+			data:{"orderNo":orderNo,"memberNo" : memberNo,"sysValue":sysValue},
 			success:function(response) {
 				if(response.success=='true'){
 					var result = response.list;
@@ -2992,6 +3018,10 @@ var sysValue ='';
 	}
 	//导出excel
 	function exportExecel() {
+		LA.env = 'dev';
+		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('export', '订单查询导出', userName,  sessionId);
 		var supplyProductNo = $("#supplyProductNo_input").val();
 		var orderNo = $("#orderNo_input").val();
 		var outOrderNo = $("#outOrderNo_input").val();
@@ -3287,7 +3317,7 @@ var sysValue ='';
 												<tr class="gradeX" id="gradeX{$T.Result.sid}" style="height:35px;">
 													
 													<td align="center">
-														<a onclick="trClick('{$T.Result.orderNo}','{$T.Result.isCod}','{$T.Result.orderType}',this);" style="cursor:pointer;">
+														<a onclick="trClick('{$T.Result.orderNo}','{$T.Result.isCod}','{$T.Result.orderType}','{$T.Result.memberNo}',this);" style="cursor:pointer;">
 															{#if $T.Result.orderNo != '[object Object]'}{$T.Result.orderNo}
 						                   					{#/if}
 														</a>

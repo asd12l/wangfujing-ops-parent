@@ -25,7 +25,8 @@
 /* 	saleMsgImage="http://172.16.200.4/images"; */
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
-	
+	var logUrl = '';
+	var username = '';
 	
 	var olvPagination;
 	$(function() {
@@ -93,7 +94,25 @@
 		$("#reservation").val("");
 	    initOlv();
 	});
+	//引用埋点js方法
+ 	function reloadjs(){
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
 	function olvQuery(){
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('search olvQuery', 'cod查询', username,  sessionId);
 		$("#orderNo_form").val($("#orderNo_input").val());
 		$("#outOrderNo_form").val($("#outOrderNo_input").val());
 		$("#orderStatus_form").val($("#orderStatus_select").val());
@@ -171,6 +190,10 @@
 					}, 300);
 				},
              callback: function(data) {
+            	 username = data.userName;
+            	 alert("user"+username);
+            	 logUrl = data.logUrl;
+            	 reloadjs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
              }
            }

@@ -133,22 +133,16 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			paramMap.put("pageCount", Integer.valueOf(0));
 		}
 		
-		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
-			paramMap.put("userName", CookiesUtil.getUserName(request));
-		}else{
-			paramMap.put("userName", "");
-		}
 		String js = (String) PropertiesUtil.getContextProperty("log_js");
 		paramMap.put("logJs", js);
 		
-		String url = (String) PropertiesUtil.getContextProperty("memberUrl");
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);
 		String s = HttpUtils.HttpdoGet(url);
 		JSONObject obj = JSONObject.fromObject(s);
 	
 		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
 		classMap.put("data", Member.class);
 		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
-		
 		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
 			if(memberInfo.getSuccess()=="true"){
 				paramMap.put("memberInfo", memberInfo.getData().get(0).getSysValue());

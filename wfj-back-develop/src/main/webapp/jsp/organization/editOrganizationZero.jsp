@@ -36,6 +36,10 @@
 			},
 			submitHandler : function(validator, form, submitButton) {
 				// Do nothing
+                LA.sysCode = '16';
+                var sessionId = '<%=request.getSession().getId() %>';
+                LA.log('organization.updateOrganizationZero', '修改集团：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
+
 				var url = __ctxPath + "/organization/updateOrganizationZero";
 				$.ajax({
 					type: "post",

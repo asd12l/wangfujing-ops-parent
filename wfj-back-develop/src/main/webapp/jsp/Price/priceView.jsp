@@ -29,6 +29,7 @@
 	src="${pageContext.request.contextPath}/assets/js/select2/select2.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var pricePagination;
 
 	$(function() {
@@ -107,6 +108,8 @@
 		$("#btDiv").hide();
 	}
 	function price(shoppeProSid) {
+		LA.sysCode = "16";
+		LA.log("price.priceDetailQuery", "价格详情查询：" + shoppeProSid, getCookieValue("username"), sessionId);
 		$("#cd-timeline").html("")
 		$
 				.ajax({
@@ -119,38 +122,40 @@
 					},
 					success : function(response) {
 						var result = response.list;
-						/* $("#prices").html(""); */
-						
-						for (var j = 0; j < result.length; j++) {
-							var ele = result[j];
+						if(result){
+							/* $("#prices").html(""); */
+							
+							for (var j = 0; j < result.length; j++) {
+								var ele = result[j];
 
-							var priceLine = "<div class='cd-timeline-block'>"
-									+ "<div class='cd-timeline-img cd-picture'>"
-									+ ele.promotionPrice
-									+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
-									+ ele.promotionBeginTime
-									+ "</span></div></div>"
-									+ "<div class='cd-timeline-block'>"
-									+ "<div class='cd-timeline-img cd-movie'>"
-									+ ele.promotionPrice
-									+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
-									+ ele.promotionEndTime
-									+ "</span></div></div>"
+								var priceLine = "<div class='cd-timeline-block'>"
+										+ "<div class='cd-timeline-img cd-picture'>"
+										+ ele.promotionPrice
+										+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+										+ ele.promotionBeginTime
+										+ "</span></div></div>"
+										+ "<div class='cd-timeline-block'>"
+										+ "<div class='cd-timeline-img cd-movie'>"
+										+ ele.promotionPrice
+										+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
+										+ ele.promotionEndTime
+										+ "</span></div></div>"
 
-							/* var li = "<li><div class='shiji' ><h1>"
-									+ ele.originalPrice + "</h1>" + "<p>"
-									+ ele.promotionBeginTime
-									+ "</p></div></li>";
-							//if (ele.promotionEndTime == '9999-12-31 23:59:59') {
-							li = li + "<li><div class='shiji' ><h1>"
-									+ ele.originalPrice + "</h1>" + "<p>"
-									+ ele.promotionEndTime + "</p></div></li>";
-							//}
-							$("#prices").append(li); */
-							$("#cd-timeline").append(priceLine);
+								/* var li = "<li><div class='shiji' ><h1>"
+										+ ele.originalPrice + "</h1>" + "<p>"
+										+ ele.promotionBeginTime
+										+ "</p></div></li>";
+								//if (ele.promotionEndTime == '9999-12-31 23:59:59') {
+								li = li + "<li><div class='shiji' ><h1>"
+										+ ele.originalPrice + "</h1>" + "<p>"
+										+ ele.promotionEndTime + "</p></div></li>";
+								//}
+								$("#prices").append(li); */
+								$("#cd-timeline").append(priceLine);
+							}
+							$('.shiji').slideDown(600);
+							$("#btDiv").show();
 						}
-						$('.shiji').slideDown(600);
-						$("#btDiv").show();
 					},
 					error : function(XMLHttpRequest, textStatus) {		      
 						var sstatus =  XMLHttpRequest.getResponseHeader("sessionStatus");
@@ -180,6 +185,8 @@
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#price_form").serialize();
 		//alert("表单序列化后请求参数:"+params);
+		LA.sysCode = "16";
+		LA.log("price.priceQuery", "价格查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		pricePagination.onLoad(params);
 	}
@@ -267,7 +274,15 @@
 		var channelSid = "0"/* $("#channelSid_select option:selected").attr("sid") */;
 		var productSku = $("#productSku_input").val();
 		var shoppe = $("#shoppe_select").val();
-		
+		LA.sysCode = "16";
+		LA.log("price.excelPrice", "价格导出Excel：" + {
+            "productCode" : productCode,
+            "supplyCode" : supplyCode,
+            "storeCode" : storeCode,
+            "channelSid" : channelSid,
+            "productSku" : productSku,
+            "shoppe" : shoppe
+        }, getCookieValue("username"), sessionId);
 		var title = "priceSearch";
         $.ajax({
             type : "post",
@@ -484,6 +499,8 @@
 </script>
 <script type="text/javascript">
 	function getView(data) {
+		LA.sysCode = "16";
+		LA.log("price.getView", "专柜商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/selectShoppeProductByCode1/" + data;
 		$(".loading-container").attr("class", "loading-container");
 		$("#pageBody").load(url, {
@@ -493,6 +510,8 @@
 		});
 	}
 	function getViewDetail(data) {
+		LA.sysCode = "16";
+		LA.log("price.getView", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$(".loading-container").attr("class", "loading-container");
 		$("#pageBody").load(url, {

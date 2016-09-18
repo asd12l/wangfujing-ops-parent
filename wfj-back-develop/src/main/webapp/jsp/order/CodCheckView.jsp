@@ -17,7 +17,8 @@ __ctxPath = "${ctx}";
 image="http://images.shopin.net/images";
 saleMsgImage="http://images.shopin.net/images";
 ctx="http://www.shopin.net";
-
+var logUrl = '';
+var username = '';
 $(function() {
 	
 	$.ajax({
@@ -26,6 +27,9 @@ $(function() {
 		url: __ctxPath+"/omsOrder/selectCodThreshold",
 		dataType: "json",
 		success: function(response) {
+			logUrl = response.logUrl;
+			username = response.userName;
+			reloadjs();
 			var result = response.list[0];
 			$("#codAmount_input").val(result.thresholdAmount);
 			return;
@@ -34,6 +38,10 @@ $(function() {
 	
 });
 	function save(){
+		LA.env = 'dev';
+ 		LA.sysCode = '21';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('updata save', 'cod阀门', username,  sessionId);
 		$("#btDiv2").show();
 		$("#divTitle2").html("温馨提示！");
 	}
@@ -91,6 +99,20 @@ $(function() {
 			$("#"+data).parent().siblings().find(".fa-minus").attr("class","fa fa-plus");
 		}
 	}
+	//引用埋点js方法
+ 	function reloadjs(){
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		/* help(); */ 
+		// Handle memory leak in IE 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logUrl; 
+		head.appendChild(script);
+	} 
 	
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});

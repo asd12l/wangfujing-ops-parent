@@ -7,12 +7,14 @@ import com.wangfj.back.entity.po.SysConfig;
 import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.wms.util.CookiesUtil;
 import com.wangfj.wms.util.HttpUtilPcm;
 import com.wangfj.wms.util.JsonUtil;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
- 
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -128,13 +130,27 @@ public class MemberBasicController {
             pageSize = 10;
         }
         //屏显规则
-        List<String> keys=new ArrayList<String>();
-        keys.add("memberInfo");
-        List<SysConfig>list1=sysConfigService.selectByKeys(keys);
-        String value="";
-        for(int i=0;i<list1.size();i++){
-        	value=list1.get(i).getSysValue();
-        }
+        String json = "";
+        String sysValue = "";
+        String username = CookiesUtil.getCookies(request, "username");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("keys", "memberInfo");
+		paramMap.put("username", username);
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			log.info("paramMap:" + paramMap);
+			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json)){
+				JSONObject jsonObject = JSONObject.fromObject(json);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+				JSONArray jsonArray = jsonObject.getJSONArray("data");
+				sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			log.error("查询屏显规则异常！返回结果json="+json);
+		}
         int start = (currPage - 1) * pageSize;
         Map<Object, Object> paraMap = new HashMap<Object, Object>();
         paraMap.put("start", String.valueOf(start));
@@ -147,7 +163,7 @@ public class MemberBasicController {
         paraMap.put("m_timePullEndDate",  request.getParameter("m_timePullEndDate"));
         paraMap.put("m_timeBackStartDate",  request.getParameter("m_timeBackStartDate"));
         paraMap.put("m_timeBackEndDate",  request.getParameter("m_timeBackEndDate"));
-        paraMap.put("mask", value);
+        paraMap.put("mask", sysValue);
         try {
             String url = CommonProperties.get("member_ops_url");
             log.info("======== getBlackList url "+url+"  =========");
@@ -223,17 +239,37 @@ public class MemberBasicController {
         
         Map<String, Object> paraMap = new HashMap<String, Object>();
         
-        //获取value值0或1,1隐藏，0不隐藏
+        /*//获取value值0或1,1隐藏，0不隐藏
 			List<String> paramKeys = new ArrayList<String>();
 			paramKeys.add("memberInfo");
 			List<SysConfig> list = isysConfigService.selectByKeys(paramKeys);
 			String value="";
 			for (int i = 0; i < list.size(); i++) {
 			 value=list.get(i).getSysValue();
+			}*/
+		 	//屏显
+		        String json = "";
+		        String sysValue = "";
+		        String username = CookiesUtil.getCookies(request, "username");
+				Map<Object, Object> paramMap = new HashMap<Object, Object>();
+				paramMap.put("keys", "memberInfo");
+				paramMap.put("username", username);
+			try {
+				log.info("paramMap:" + paramMap);
+				json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+				if(!StringUtils.isEmpty(json)){
+					JSONObject jsonObject = JSONObject.fromObject(json);
+					String isTrue = jsonObject.getString("success");
+					if(isTrue.equals("true")){
+					JSONArray jsonArray = jsonObject.getJSONArray("data");
+					sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+					}
+				}
+			} catch (Exception e) {
+				log.error("查询屏显规则异常！返回结果json="+json);
 			}
-			paraMap.put("mask", value);
-
 		
+		paraMap.put("mask", sysValue);	
         paraMap.put("currPage", String.valueOf(currPage));
         paraMap.put("pageSize", String.valueOf(pageSize));
         paraMap.put("cid", request.getParameter("cid"));
@@ -434,18 +470,26 @@ public class MemberBasicController {
         response.setCharacterEncoding("utf-8");
         String method = "/memRecord/getMemPurchase.do";
         String jsonString="";
-        //屏显判断
-        List<String >list = new ArrayList<String >();
-        list.add("memberInfo");
-        String sysValue="";
-       List<SysConfig> sysConfigs=null;
+        String json = "";
+        String sysValue = "";
+        String username = CookiesUtil.getCookies(request, "username");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("keys", "memberInfo");
+		paramMap.put("username", username);
+		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			sysConfigs = sysConfigService.selectByKeys(list);
-			sysValue = "";
-			SysConfig sysConfig = sysConfigs.get(0);
-			sysValue = sysConfig.getSysValue();
-		} catch (Exception e1) {
-			log.error("查询sysValue异常！查询结果sysConfigs="+sysConfigs+e1);
+			log.info("paramMap:" + paramMap);
+			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json)){
+				JSONObject jsonObject = JSONObject.fromObject(json);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+				JSONArray jsonArray = jsonObject.getJSONArray("data");
+				sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			log.error("查询屏显规则异常！返回结果json="+json);
 		}
         //获取每页显示多少条数据
         Integer pageSize = 0;
@@ -457,9 +501,9 @@ public class MemberBasicController {
             pageSize = 10;
         }
         Map<String, Object> paraMap = new HashMap<String, Object>();
-        paraMap.put("mask", sysValue);
         paraMap.put("currPage",currPage);
         paraMap.put("pageSize",pageSize);
+        paraMap.put("mask", sysValue);
         paraMap.put("username",request.getParameter("username"));
         paraMap.put("memberNo",request.getParameter("cid"));
         paraMap.put("mobile",request.getParameter("mobile"));
@@ -499,17 +543,26 @@ public class MemberBasicController {
         String method = "/memRecord/getMemRefund.do";
         String jsonString="";
         //屏显判断
-        List<String> syslist = new ArrayList<String>();
-        syslist.add("memberInfo");
-        String sysValue="";
-        List<SysConfig> sysConfigs=null;
+        String json = "";
+        String sysValue = "";
+        String username = CookiesUtil.getCookies(request, "username");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("keys", "memberInfo");
+		paramMap.put("username", username);
+		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			sysConfigs = sysConfigService.selectByKeys(syslist);
-			sysValue = "";
-			SysConfig sysConfig = sysConfigs.get(0);
-			sysValue = sysConfig.getSysValue();
-		} catch (Exception e1) {
-			log.error("查询sysValue异常！查询结果sysConfigs="+sysConfigs+e1);
+			log.info("paramMap:" + paramMap);
+			json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json)){
+				JSONObject jsonObject = JSONObject.fromObject(json);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+				JSONArray jsonArray = jsonObject.getJSONArray("data");
+				sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			log.error("查询屏显规则异常！返回结果json="+json);
 		}
         //获取每页显示多少条数据
         Integer pageSize = 0;

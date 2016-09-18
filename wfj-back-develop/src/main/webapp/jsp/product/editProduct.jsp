@@ -1286,6 +1286,11 @@ $.ajax({
 			var skuCode = $("#skuCode").val();
 			var primaryAttr = $("#primary_attr").val();
 			var productSku = $("#product_sku").val();
+
+            LA.sysCode = '16';
+            var sessionId = '<%=request.getSession().getId() %>';
+            LA.log('product.skuUpdateAttrOrSku', '修改商品：', getCookieValue("username"),  sessionId);
+
 			$.ajax({
 				type : "post",
 				contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -1328,6 +1333,11 @@ $.ajax({
 		    	var searchKey = $("#searchKey").val();
 				var keyWord = $("#keyWord").val();
 				var skuSid = $("#skuSid").val();
+
+            LA.sysCode = '16';
+            var sessionId = '<%=request.getSession().getId() %>';
+            LA.log('product.updateSkuInfoBySid', '修改商品：', getCookieValue("username"),  sessionId);
+
 				$.ajax({
 					type : "post",
 					contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -1410,6 +1420,11 @@ $.ajax({
 			}
 		    var spuJson = JSON.stringify(sppvs);
 			//alert(spuJson);
+
+            LA.sysCode = '16';
+            var sessionId = '<%=request.getSession().getId() %>';
+            LA.log('product.addProByEdit', '修改商品：', getCookieValue("username"),  sessionId);
+
 			$.ajax({
 				type : "post",
 				contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -1513,6 +1528,11 @@ $.ajax({
 					"channelSid" : "0"
 				});
 	            var sppvsJSON = JSON.stringify(sppvs);
+
+                LA.sysCode = '16';
+                var sessionId = '<%=request.getSession().getId() %>';
+                LA.log('productprops.addProductParameters', '修改商品：', getCookieValue("username"),  sessionId);
+
 				$.ajax({
 					type : "post",
 					contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -1691,6 +1711,10 @@ $.ajax({
 	}
 	//专柜商品启用或禁用
 	function editStatus(productCode,status){
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('product.UpdateProductStatusInfo', '专柜商品启用或禁用：', getCookieValue("username"),  sessionId);
+
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",
@@ -2122,8 +2146,10 @@ $.ajax({
 
 								});
 				var sppvsJSON = JSON.stringify(sppvs);
-				$
-						.ajax({
+                LA.sysCode = '16';
+                var sessionId = '<%=request.getSession().getId() %>';
+                LA.log('productprops.addProductParameters', '商品修改：' + sppvsJSON, getCookieValue("username"),  sessionId);
+				$.ajax({
 							type : "post",
 							contentType : "application/x-www-form-urlencoded;charset=utf-8",
 							url : __ctxPath

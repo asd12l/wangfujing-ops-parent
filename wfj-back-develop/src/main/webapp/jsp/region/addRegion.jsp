@@ -70,7 +70,11 @@
 			if (citySid != "") {
 				$("#parentId").val(citySid);
 			}
-			
+
+            LA.sysCode = '16';
+            var sessionId = '<%=request.getSession().getId() %>';
+            LA.log('region.addRegion', '添加行政区域：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
+
 			var url = __ctxPath + "/region/addRegion";
 	  		$.ajax({
 				type: "post",

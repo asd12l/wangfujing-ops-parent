@@ -27,7 +27,8 @@
 	});
 	
 	function brandQuery() {
-		$("#brandName_form").val($("#brandName_input").val());
+
+        $("#brandName_form").val($("#brandName_input").val());
 		$("#brandSid_form").val($("#brandSid_input").val());
 		var brandType = $("#brandType_input").val();
 		$("#brandType_form").val(brandType);
@@ -39,6 +40,10 @@
 			$("#shopType_span").hide();
 		}
 		var params = $("#brand_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('brand.queryBrand', '品牌查询：' + params, getCookieValue("username"),  sessionId);
+
 		params = decodeURI(params);
 		brandPagination.onLoad(params);
 		if(brandType == 1){

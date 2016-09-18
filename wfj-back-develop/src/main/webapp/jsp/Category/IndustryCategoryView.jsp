@@ -55,6 +55,7 @@ Author: WangSy
 
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 	var categoryPagination;
 	var isAutoOpen = false, list_1, index_1=0;
 	/* 设置zTree参数 */
@@ -753,6 +754,8 @@ Author: WangSy
 			$("#cid").val(data);
 		}
 		var params = $("#category_form").serialize();
+		LA.sysCode = "16";
+		LA.log("category.categoryQuery", "工业分类查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		categoryPagination.onLoad(params);
 	}
@@ -1129,6 +1132,8 @@ Author: WangSy
 	}
 	/* 添加品类 */
 	function append() {
+		LA.sysCode = "16";
+		LA.log("category.append", "工业分类添加", getCookieValue("username"), sessionId);
 		/* 获取 zTree对象 */
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
 		/* 获取 zTree 的全部节点数据 */
@@ -1625,6 +1630,8 @@ Author: WangSy
 			$("#warning2").show();
 			return;
 		}
+		LA.sysCode = "16";
+		LA.log("category.saveDivFrom", "工业分类添加保存：" + $("#divForm").serialize(), getCookieValue("username"), sessionId);
 		$
 				.ajax({
 					type : "post",
@@ -1747,6 +1754,13 @@ Author: WangSy
 		insert1 = insert1.replace(/\&/g, "%26");
 		insert1 = insert1.replace(/\+/g, "%2B");
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo").getSelectedNodes();
+		LA.sysCode = "16";
+		LA.log("category.saveDivFrom2", "工业分类节点维护保存：" + {
+			'cid' : treeObj[0].id,
+			'propsid' : $("#Div2PropsSid").val(),
+			'name' : $("#name2").val(),
+			'notNull' : insert1
+		}, getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
 			url : __ctxPath + "/provalues/add",
@@ -1801,6 +1815,8 @@ Author: WangSy
 	}
 	/* 维护按钮 */
 	function updateRole() {
+		LA.sysCode = "16";
+		LA.log("category.updateRole", "工业分类维护", getCookieValue("username"), sessionId);
 		$("#selectedProps").html("");
 		$("#pdict").val("");
 		/* 获取 zTree对象 */
@@ -2136,6 +2152,8 @@ Author: WangSy
 </script>
 <script type="text/javascript">
 	function find(){
+		LA.sysCode = "16";
+		LA.log("category.find", "工业分类根据编码查询：" + $("#categoryCode").val(), getCookieValue("username"), sessionId);
 		refreshAllZTree();
 		$.ajax({
 			type : "post",

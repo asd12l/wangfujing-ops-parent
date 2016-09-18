@@ -37,6 +37,9 @@
 	function brandRelationQuery() {
 		$("#brandName_from").val($("#brandName_input").val());
 		var params = $("#brandRelation_form").serialize();
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('brand.queryBrand', '品牌查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
 		brandRelationPagination.onLoad(params);
 	}
@@ -112,7 +115,11 @@
 		//点击变红
 		$(".brandGroupName").css("color", "#428bca");
 		$("#brandName1_" + sid).css("color", "red");
-		
+
+        LA.sysCode = '16';
+        var sessionId = '<%=request.getSession().getId() %>';
+        LA.log('brand.queryShopBrandPage', '根据集团品牌查询门店品牌：' + sid, getCookieValue("username"),  sessionId);
+
 		var url = $("#ctxPath").val()
 				+ "/brandRelationDisplay/queryShopBrandPage";
 		brandRelationPagination1 = $("#brandRelationPagination1").myPagination(
@@ -199,8 +206,13 @@
 			return false;
 		}
 		confirmOkAndNo(function(){
-			var value = checkboxArray[0];
-			var sid = $("#sid_" + value).text().trim();
+            var value = checkboxArray[0];
+            var sid = $("#sid_" + value).text().trim();
+
+            LA.sysCode = '16';
+            var sessionId = '<%=request.getSession().getId() %>';
+            LA.log('brand.deleteRelationBrand', '删除集团品牌与门店品牌的关系：' + sid, getCookieValue("username"),  sessionId);
+
 			$.ajax({
 				type : "post",
 				contentType : "application/x-www-form-urlencoded;charset=utf-8",
