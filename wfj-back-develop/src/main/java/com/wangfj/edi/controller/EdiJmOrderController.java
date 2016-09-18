@@ -138,7 +138,7 @@ public class EdiJmOrderController {
 		}
 		paramMap.put("logJs", js);
 		//添加隐藏私密信息
-		String url = (String) PropertiesUtil.getContextProperty("memberUrl");
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);;
 		String s = HttpUtils.HttpdoGet(url);
 		JSONObject obj = JSONObject.fromObject(s);
 	
