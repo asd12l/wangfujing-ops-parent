@@ -143,7 +143,7 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -401,6 +401,10 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
+			String result = sysValues.desensitization(request);
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone"), jsonStr);
@@ -581,7 +585,7 @@ public class OmsOrderController {
 		paramMap.put("orderNo", request.getParameter("orderNo"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -790,7 +794,7 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -984,7 +988,7 @@ public class OmsOrderController {
 		}
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -1242,7 +1246,7 @@ public class OmsOrderController {
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
