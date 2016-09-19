@@ -585,10 +585,10 @@ public class OmsOrderController {
 		paramMap.put("orderNo", request.getParameter("orderNo"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			String result = sysValues.desensitization(request);
+			/*String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
-			}
+			}*/
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_orderItem_list"), jsonStr);
