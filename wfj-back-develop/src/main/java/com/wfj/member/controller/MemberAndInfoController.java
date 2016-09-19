@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.utils.StringUtils;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 /**
  * Created by WangJW on 2016/2/29.
  * 会员信息相关controller
@@ -159,6 +165,28 @@ public class MemberAndInfoController {
 			if (pageSize == null || pageSize == 0) {
 				pageSize = 10;
 			}
+			//屏显规则
+			String json = "";
+	        String sysValue = "";
+	        String username = CookiesUtil.getCookies(request, "username");
+			Map<Object, Object> paramMap = new HashMap<Object, Object>();
+			paramMap.put("keys", "memberInfo");
+			paramMap.put("username", username);
+			Map<Object, Object> m = new HashMap<Object, Object>();
+			try {
+				log.info("paramMap:" + paramMap);
+				json = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+				if(!StringUtils.isEmpty(json)){
+					JSONObject jsonObject = JSONObject.fromObject(json);
+					String isTrue = jsonObject.getString("success");
+					if(isTrue.equals("true")){
+					JSONArray jsonArray = jsonObject.getJSONArray("data");
+					sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+					}
+				}
+			} catch (Exception e) {
+				log.error("查询屏显规则异常！返回结果json="+json);
+			}
 			int start = (currPage - 1) * pageSize;
 			Map<Object, Object> paraMap = new HashMap<Object, Object>();
 			paraMap.put("start", String.valueOf(start));
@@ -169,10 +197,11 @@ public class MemberAndInfoController {
 			paraMap.put("registfrom",  request.getParameter("regist_from"));
 			paraMap.put("membergrade",  request.getParameter("membergrade"));
 			paraMap.put("changetime",  request.getParameter("changetime"));
+			paraMap.put("mask", sysValue);
 			try {
-				String url = CommonProperties.get("member_core_url");
+				String url = CommonProperties.get("member_ops_url");
 				log.info("======== getByMemberGrade url "+url+"  =========");
-				//System.err.println("============== member_core_url:" + url);
+				//System.err.println("============== member_ops_url:" + url);
 				//System.err.println("=============method:"+method);
 				//System.err.println("======== getByMemberGrade url "+url+ method+"  =========");
 				jsonString = HttpUtil.HttpPost(url,method, paraMap);

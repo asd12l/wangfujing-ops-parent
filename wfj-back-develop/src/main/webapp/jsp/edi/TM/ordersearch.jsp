@@ -37,7 +37,6 @@
 	var userName;
 	var logJs;
 	var memberInfo;
-	var cookiUser;
 
 	$(function() {
 		$('#startDate').daterangepicker(
@@ -97,9 +96,7 @@
 		for (var i=0;i<len;i++) {
 		xing+='*';
 		}
-		console.log("memberInfo:"+memberInfo);
-		console.log("cookiUser:"+cookiUser);
-		if(memberInfo=1){
+		if(memberInfo==1){
 			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
 		}else{
 			return str;
@@ -269,6 +266,7 @@
 							userName = data.userName ;
 							logJs = data.logJs;
 							memberInfo=data.memberInfo;
+							console.log("memberInfo1:"+memberInfo);
 							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
@@ -432,8 +430,7 @@
 													<td align="center" id="unitCode_{$T.Result.sid}">{#if $T.Result.ordersid == null || $T.Result.ordersid == ""} --- {#else} {$T.Result.ordersid} {#/if}</td>
 													<td align="center" id="productCode_{$T.Result.sid}">{plusXing($T.Result.receiverName,1,0)}</td>
 													<td align="center" id="unitName_{$T.Result.sid}">{$T.Result.buyerNick}</td>
-													<td align="center"
-												id="saleStock_{$T.Result.receiverMobile}">{plusXing($T.Result.receiverMobile,3,4)}</td>
+													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{plusXing($T.Result.receiverMobile,3,4)}</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.updateDate} {#else} {$T.Result.cdate} {#/if}</td>
