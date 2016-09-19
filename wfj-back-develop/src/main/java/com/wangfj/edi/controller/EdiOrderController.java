@@ -307,6 +307,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 	@RequestMapping("/exportExcle")
 	public String exportExcle(String status,HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
+		String secertFlag = "";
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
 		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
 			paramMap.put("userName", CookiesUtil.getUserName(request));
@@ -333,6 +334,20 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		paramMap.put("endDate", request.getParameter("endDate"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		Map<Object, Object> orderVo = new HashMap<Object, Object>();
+		
+		String url1 = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);
+		String s = HttpUtils.HttpdoGet(url1);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				secertFlag = memberInfo.getData().get(0).getSysValue();
+			}
+		}
+		
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			orderVo.put("orderVo", jsonStr);
@@ -340,7 +355,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			String url=	(String) PropertiesUtil.getContextProperty("edi_order_export");
 			json =HttpUtilPcm.doPost(url, jsonStr);
 			String tradeSource = request.getParameter("tradesource");
-			excelOrderDetailReport(json,tradeSource,request,response);
+			excelOrderDetailReport(json,tradeSource,secertFlag,request,response);
 			logger.info("json:" + json);
 		} catch (Exception e) {
 			m.put("pageCount", 0);
@@ -386,7 +401,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		return json;
 	}
 	
-	private void excelOrderDetailReport( String json, String tradeSource, HttpServletRequest request,
+	private void excelOrderDetailReport( String json, String tradeSource,String secertFlag, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, FileNotFoundException {
 		List ordersDetailList = new ArrayList();
 
@@ -417,7 +432,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		HSSFSheet sheet = wb.getSheetAt(0);
 		
 		
-		fillContent(ordersDetailList, sheet);
+		fillContent(ordersDetailList, sheet,secertFlag);
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		wb.write(byteArrayOutputStream);
 		
@@ -433,7 +448,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 	    outputstream.flush(); // 刷数据
 	}
 	
-	private void fillContent(List ordersDetailList, HSSFSheet sheet) {
+	private void fillContent(List ordersDetailList, HSSFSheet sheet,String secertFlag) {
 		HSSFCellStyle style1 = sheet.getRow(2).getCell(0).getCellStyle();
 		HSSFCellStyle style2 = sheet.getRow(2).getCell(2).getCellStyle();
 		HSSFCellStyle style3 = sheet.getRow(2).getCell(4).getCellStyle();
@@ -443,10 +458,18 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		HSSFCellStyle numStyle = sheet.getRow(2).getCell(9).getCellStyle();
 		for (int i = 0; i < ordersDetailList.size(); i++) {
 			Map<String, Object> map = (Map) ordersDetailList.get(i);
+			String receiverName = "";
+			String receiverMobile = "";
 			String tid = map.get("tid") == null ? "" : map.get("tid").toString();
 			String ordersid = map.get("ordersid") == null ? "" : map.get("ordersid").toString();
-			String receiverName = map.get("receiverName") == null ? "" : RequestUtils.hideSecret(map.get("receiverName").toString(),1,0);
-			String receiverMobile = map.get("receiverMobile") == null ? "" : RequestUtils.hideSecret(map.get("receiverMobile").toString(),3,4);
+			if("1".equals(secertFlag)){
+				receiverName = map.get("receiverName") == null ? "" : RequestUtils.hideSecret(map.get("receiverName").toString(),1,0);
+				receiverMobile = map.get("receiverMobile") == null ? "" : RequestUtils.hideSecret(map.get("receiverMobile").toString(),3,4);
+			}else{
+				receiverName = map.get("receiverName") == null ? "" : map.get("receiverName").toString();
+				receiverMobile = map.get("receiverMobile") == null ? "" : map.get("receiverMobile").toString();
+			}
+			
 			String payment = map.get("payment") == null ? "" : map.get("payment").toString();
 			String tradeStatus = map.get("tradeStatus") == null ? "" : map.get("tradeStatus").toString();
 			String createDate = map.get("createDate") == null ? "" : map.get("createDate").toString();
