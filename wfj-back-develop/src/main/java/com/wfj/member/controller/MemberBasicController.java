@@ -105,6 +105,15 @@ public class MemberBasicController {
         }
         return jsonString;
     }
+    @ResponseBody
+    @RequestMapping(value ="/getUserName", method = { RequestMethod.POST, RequestMethod.GET })
+    public String getUserName(HttpServletRequest request,
+            HttpServletResponse response){
+    	String userName=CookiesUtil.getCookies(request, "username");
+			return userName;
+    	
+    }
+    
     /**
      * 查询黑名单
      * @param request
