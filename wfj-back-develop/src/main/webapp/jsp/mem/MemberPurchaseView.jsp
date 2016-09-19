@@ -247,25 +247,28 @@
 											</li>
 										</ul>
 
-                                   <table class="table table-bordered table-striped table-condensed table-hover flip-content"
-									id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
+                                   <!--  <table class="table table-bordered table-striped table-condensed table-hover flip-content"
+									id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">-->
+									<div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+									<table class="table-striped table-hover table-bordered"
+										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
 										<thead>
                                             <tr role="row" style='height:35px;'>
 												<th style="text-align: center;" width="2%">选择</th>
-												<th style="text-align: center;" width="8%">购买时间</th>
-												<th style="text-align: center;" width="8%">账户</th>
-												<th style="text-align: center;" width="8%">昵称</th>
-												<th style="text-align: center;" width="8%">真实姓名</th>
-												<th style="text-align: center;" width="8%">手机</th>
-												<th style="text-align: center;" width="8%">邮箱</th>
-												<th style="text-align: center;" width="8%">所属门店</th>
-												<th style="text-align: center;" width="8%">会员等级</th>
-												<th style="text-align: center;" width="8%">地址</th>
-												<th style="text-align: center;" width="8%">购买订单号</th>
-												<th style="text-align: center;" width="8%">销售单号</th>
-												<th style="text-align: center;" width="8%">订单总额</th>
-												<th style="text-align: center;" width="8%">支付方式</th>
-												<th style="text-align: center;" width="8%">订单状态</th>
+												<th style="text-align: center;" width="7%">购买时间</th>
+												<th style="text-align: center;" width="7%">账户</th>
+												<th style="text-align: center;" width="7%">昵称</th>
+												<th style="text-align: center;" width="7%">真实姓名</th>
+												<th style="text-align: center;" width="7%">手机</th>
+												<th style="text-align: center;" width="7%">邮箱</th>
+												<th style="text-align: center;" width="7%">所属门店</th>
+												<th style="text-align: center;" width="7%">会员等级</th>
+												<th style="text-align: center;" width="7%">地址</th>
+												<th style="text-align: center;" width="7%">购买订单号</th>
+												<th style="text-align: center;" width="7%">销售单号</th>
+												<th style="text-align: center;" width="7%">订单总额</th>
+												<th style="text-align: center;" width="7%">支付方式</th>
+												<th style="text-align: center;" width="7%">订单状态</th>
                                             </tr>
                                         </thead>
                                         <tbody>

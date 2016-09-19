@@ -726,6 +726,7 @@
     </script>
 </head>
 <body>
+<<<<<<< Updated upstream
 <input type="hidden" id="ctxPath"
        value="${pageContext.request.contextPath}"/>
 <!-- Main Container -->
@@ -848,6 +849,125 @@
                             </div>
                             <!-- Templates -->
                             <p style="display: none">
+=======
+	<input type="hidden" id="ctxPath"
+		value="${pageContext.request.contextPath}" />
+	<!-- Main Container -->
+	<div class="main-container container-fluid">
+		<!-- Page Container -->
+		<div class="page-container">
+			<!-- Page Body -->
+			<div class="page-body" id="pageBodyRight">
+				<div class="row">
+					<div class="col-xs-12 col-md-12">
+						<div class="widget">
+							<div class="widget-header ">
+								<h5 class="widget-caption">积分申请</h5>
+								<div class="widget-buttons">
+									<a href="#" data-toggle="maximize"></a> <a href="#"
+										data-toggle="collapse" onclick="tab('pro');"> <i
+										class="fa fa-minus" id="pro-i"></i>
+									</a> <a href="#" data-toggle="dispose"></a>
+								</div>
+							</div>
+							<div class="widget-body" id="pro">
+								<div class="table-toolbar">
+									<ul class="topList clearfix">
+										<li class="col-md-4"><label class="titname">申请单号：</label>
+											<input type="text" id="sid_input" /></li>
+										<li class="col-md-4"><label class="titname">申请时间：</label>
+											<input type="text" id="reservationAp" /></li>
+										<li class="col-md-4"><label class="titname">账号：</label> <input
+											type="text" id="login_input" /></li>
+										<li class="col-md-4"><label class="titname">手机号：</label>
+											<input type="text" id="mobile_input" /></li>
+										<li class="col-md-4"><label class="titname">邮箱：</label> <input
+											type="text" id="email_input" /></li>
+										<li class="col-md-4"><label class="titname">来源单号：</label>
+											<input type="text" id="from_order_input" /></li>
+										<li class="col-md-4"><label class="titname">申请人：</label>
+											<input type="text" id="applyName_input" /></li>
+										<li class="col-md-4"><label class="titname">单据状态：</label>
+											<select id="check_status_input">
+												<option value="">===请选择===</option>
+												<option value="1">待审核</option>
+												<option value="2">审核通过</option>
+												<option value="3">审核不通过</option>
+												<option value="4">取消审核</option>
+										</select></li>
+										<li class="col-md-4"><label class="titname">审核时间：</label>
+											<input type="text" id="reservationCh" /></li>
+										<li class="col-md-6"><a onclick="query();"
+											class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询
+										</a> <a onclick="reset();" class="btn btn-primary"> <i
+												class="fa fa-random"></i> 重置
+										</a></li>
+									</ul>
+									<div class="mtb10">
+										<a onclick="showIntegralDetail();" class="btn btn-info"> <i
+											class="fa fa-wrench"></i>查看积分申请
+										</a>&nbsp;&nbsp; <a onclick="showAddIntegral();"
+											class="btn btn-info"> <i class="fa fa-wrench"></i>新建积分申请
+										</a>&nbsp;&nbsp; <a onclick="editIntegralApply();"
+											class="btn btn-info"> <i class="fa fa-wrench"></i>编辑积分申请
+										</a>&nbsp;&nbsp; <a onclick="showCheckApply();"
+											class="btn btn-info"> <i class="fa fa-wrench"></i>审核积分申请
+										</a>&nbsp;&nbsp; <a onclick="cancleApply();" class="btn btn-info">
+											<i class="fa fa-wrench"></i>取消积分申请
+										</a>&nbsp;&nbsp;
+									</div>
+									<div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+									<table class="table-striped table-hover table-bordered"
+										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
+
+										<thead>
+											<tr role="row" style='height: 35px;'>
+												<th style="text-align: center;" width="2%">选择</th>
+												<th style="text-align: center;" width="6%">申请单号</th>
+												<th style="text-align: center;" width="6%">申请时间</th>
+												<th style="text-align: center;" width="6%">账号</th>
+												<th style="text-align: center;" width="6%">昵称</th>
+												<th style="text-align: center;" width="6%">真实姓名</th>
+												<th style="text-align: center;" width="6%">会员等级</th>
+												<th style="text-align: center;" width="6%">手机</th>
+												<th style="text-align: center;" width="6%">邮箱</th>
+												<th style="text-align: center;" width="5%">积分类型</th>
+												<th style="text-align: center;" width="5%">积分值</th>
+												<th style="text-align: center;" width="5%">剩余积分</th>
+												<th style="text-align: center;" width="6%">单据状态</th>
+												<th style="text-align: center;" width="5%">申请人</th>
+												<th style="text-align: center;" width="6%">审核时间</th>
+												<th style="text-align: center;" width="6%">订单号/退货单号</th>
+												<th style="text-align: center;" width="6%">申请理由</th>
+												<th style="text-align: center;" width="6%">备注</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+									<div class="pull-left" style="padding: 10px 0;">
+										<form id="product_form" action="">
+											<input type="hidden" id="login_from" name="login" /> <input
+												type="hidden" id="sid_from" name="sid" /> <input
+												type="hidden" id="m_timeApStartDate_form"
+												name="m_timeApStartDate" /> <input type="hidden"
+												id="m_timeApEndDate_form" name="m_timeApEndDate" /> <input
+												type="hidden" id="m_timeChStartDate_form"
+												name="m_timeChStartDate" /> <input type="hidden"
+												id="m_timeChEndDate_form" name="m_timeChEndDate" /> <input
+												type="hidden" id="mobile_from" name="mobile" /> <input
+												type="hidden" id="email_from" name="email" /> <input
+												type="hidden" id="fromOrder_from" name="fromOrder" /> <input
+												type="hidden" id="applyName_from" name="applyName" /> <input
+												type="hidden" id="check_status_from" name="check_status" />
+											<input type="hidden" id="cache" name="cache" value="1" />
+										</form>
+									</div>
+									<div id="olvPagination"></div>
+								</div>
+								<!-- Templates -->
+								<p style="display: none">
+>>>>>>> Stashed changes
 									<textarea id="olv-list" rows="0" cols="0">
 										{#template MAIN}
 											{#foreach $T.list as Result}

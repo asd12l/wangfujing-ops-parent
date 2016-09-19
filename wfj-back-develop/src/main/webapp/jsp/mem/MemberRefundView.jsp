@@ -192,25 +192,27 @@
 									</li>
 								</ul>
 
-								<table class="table table-bordered table-striped table-condensed table-hover flip-content"
-									   id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
+								<div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+									<table class="table-striped table-hover table-bordered"
+										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
+
 									<thead>
 									<tr role="row" style='height:35px;'>
 										<th style="text-align: center;" width="2%">选择</th>
-										<th style="text-align: center;" width="12%">退货申请时间</th>
-										<th style="text-align: center;" width="12%">购买时间</th>
-										<th style="text-align: center;" width="12%">账户</th>
-										<th style="text-align: center;" width="12%">昵称</th>
-										<th style="text-align: center;" width="12%">真实姓名</th>
-										<th style="text-align: center;" width="12%">手机</th>
-										<th style="text-align: center;" width="12%">邮箱</th>
-										<th style="text-align: center;" width="12">会员来源</th>
-										<th style="text-align: center;" width="12%">会员等级</th>
-										<th style="text-align: center;" width="12%">地址</th>
-										<th style="text-align: center;" width="12%">退货原因</th>
-										<th style="text-align: center;" width="12%">退货单号</th>
-										<th style="text-align: center;" width="12%">退货金额</th>
-										<th style="text-align: center;" width="12%">退货单状态</th>
+										<th style="text-align: center;" width="7%">退货申请时间</th>
+										<th style="text-align: center;" width="7%">购买时间</th>
+										<th style="text-align: center;" width="7%">账户</th>
+										<th style="text-align: center;" width="7%">昵称</th>
+										<th style="text-align: center;" width="7%">真实姓名</th>
+										<th style="text-align: center;" width="7%">手机</th>
+										<th style="text-align: center;" width="7%">邮箱</th>
+										<th style="text-align: center;" width="7%">会员来源</th>
+										<th style="text-align: center;" width="7%">会员等级</th>
+										<th style="text-align: center;" width="7%">地址</th>
+										<th style="text-align: center;" width="7%">退货原因</th>
+										<th style="text-align: center;" width="7%">退货单号</th>
+										<th style="text-align: center;" width="7%">退货金额</th>
+										<th style="text-align: center;" width="7%">退货单状态</th>
 									</tr>
 									</thead>
 									<tbody>
