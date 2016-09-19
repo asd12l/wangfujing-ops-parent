@@ -2515,7 +2515,7 @@ function reloadjs(){
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
-														{#if $T.Result.accountNo != '[object Object]' }
+														{#if $T.Result.accountNo != '[object Object]' && $T.Result.accountNo != null}
 															{$T.Result.accountNo}
 														{#else}
 															<span>——</span>
