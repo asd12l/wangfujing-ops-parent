@@ -317,14 +317,14 @@
 		//查看详细
 		function editMerchant(id){
 			$("#hsid").val(id);
-			$("#phone").html($("#applyName_"+id).html().trim());
+			$("#phone").html($("#applyName_"+id).val().trim());
 			$.ajax({
 				type: "post",
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
 				url:__ctxPath + "/memDrawback/getFuJiBalanceMoeny",
 				dataType:"json",
 				data: {
-					"phone":$("#applyName_"+id).html().trim()
+					"phone":$("#applyName_"+id).val().trim()
 				},
 				ajaxStart: function() {$("#loading-container").attr("class","loading-container");},
 				ajaxStop: function() {
@@ -356,7 +356,8 @@
 
 		//查看详细
 		function editMerchant1(id){
-			$("#phone1").html($("#applyName_"+id).html().trim());
+			$("#phone1").html($("#applyName_"+id).val().trim());
+//			alert($("#applyName_"+id).val());
 			$("#withdrowMoney1").html($("#withdrowMoney_"+id).html().trim());
 			$("#name1").html($("#name_"+id).val());
 			$("#bank1").html($("#bank_"+id).html().trim());
@@ -681,9 +682,12 @@
 											<td align="center">
 												<input type="hidden"  id="name_{$T.Result.sid}"  value="{$T.Result.name}">
 												<input type="hidden"  id="bankCardNo_{$T.Result.sid}"  value="{$T.Result.bankCardNo}">
+												<input type="hidden"  id="bankCardNoStr_{$T.Result.sid}"  value="{$T.Result.bankCardNoStr}">
 												<input type="hidden"  id="withdrowReason_{$T.Result.sid}"  value="{$T.Result.withdrowReason}">
 												<input type="hidden"  id="seqno_{$T.Result.sid}"  value="{$T.Result.seqno}">
 												<input type="hidden"  id="billno_{$T.Result.sid}"  value="{$T.Result.billno}">
+												<input type="hidden"  id="mobile_{$T.Result.sid}"  value="{$T.Result.mobile}">
+												<input type="hidden"  id="applyName_{$T.Result.sid}"  value="{$T.Result.applyName}">
 												{#if $T.Result.checkStatus == '1' || $T.Result.checkStatus == null}
 												<a href="javascript:editMerchant({$T.Result.sid});">
 													<span class="btn btn-blue"><i class="fa fa-edit"></i>查看</span>
@@ -695,12 +699,12 @@
 												<a onclick="javascript:editMerchant1({$T.Result.sid});">{#if $T.Result.sid != '[object Object]'}{$T.Result.seqno}
 													{#/if}</a>
 											</td>
-											<td align="center" id="mobile_{$T.Result.sid}" value="{$T.Result.mobile}">
-												{#if $T.Result.mobile!= '[object Object]'}{$T.Result.mobile}
+											<td align="center" id="mobileStr_{$T.Result.sid}" value="{$T.Result.mobileStr}">
+												{#if $T.Result.mobileStr!= '[object Object]'}{$T.Result.mobileStr}
 												{#/if}
 											</td>
-											<td align="center" id="applyName_{$T.Result.sid}" value="{$T.Result.applyName}">
-												{#if $T.Result.applyName!= '[object Object]'}{$T.Result.applyName}
+											<td align="center" id="applyNameStr_{$T.Result.sid}" value="{$T.Result.applyNameStr}">
+												{#if $T.Result.applyNameStr!= '[object Object]'}{$T.Result.applyNameStr}
 												{#elseif $T.Result.applyCustomer != '[object Object]'}-{$T.Result.applyCustomer}
 												{#/if}
 											</td>
