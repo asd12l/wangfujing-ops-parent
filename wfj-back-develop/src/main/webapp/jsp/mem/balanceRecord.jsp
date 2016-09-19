@@ -323,23 +323,23 @@ function successBtn(){
 												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.account != '[object Object]'}{$T.object.account}
+												{#if $T.object.accountStr != '[object Object]'}{$T.object.accountStr}
 				                   				{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.nickname!= '[object Object]'}{$T.object.nickname}
+												{#if $T.object.nicknameStr!= '[object Object]'}{$T.object.nicknameStr}
 				                   				{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.realname!= '[object Object]'}{$T.object.realname}
+												{#if $T.object.realnameStr!= '[object Object]'}{$T.object.realnameStr}
 				                   				{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.phone!= '[object Object]'}{$T.object.phone}
+												{#if $T.object.phoneStr!= '[object Object]'}{$T.object.phoneStr}
 				                   				{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.email != '[object Object]'}{$T.object.email}
+												{#if $T.object.emailStr != '[object Object]'}{$T.object.emailStr}
 				                   				{#/if}
 											</td>
 											<td align="center">

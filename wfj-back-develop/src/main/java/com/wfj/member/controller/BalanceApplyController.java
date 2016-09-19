@@ -5,8 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
 import com.wangfj.search.utils.CookieUtil;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
 import com.wfj.member.utils.Constants;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -94,6 +94,28 @@ public class BalanceApplyController {
         if(StringUtils.isNotBlank(hidCheckStatus)){
             map.put("status",hidCheckStatus);
         }
+        //屏显规则
+        String json1 = "";
+        String sysValue = "";
+        String username = CookiesUtil.getCookies(request, "username");
+        Map<Object, Object> paramMap = new HashMap<Object, Object>();
+        paramMap.put("keys", "memberInfo");
+        paramMap.put("username", username);
+        try {
+            logger.info("paramMap:" + paramMap);
+            json1 = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+            if(!StringUtils.isEmpty(json1)){
+                net.sf.json.JSONObject jsonObject = net.sf.json.JSONObject.fromObject(json1);
+                String isTrue = jsonObject.getString("success");
+                if(isTrue.equals("true")){
+                    net.sf.json.JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+                }
+            }
+        } catch (Exception e) {
+            logger.error("查询屏显规则异常！返回结果json="+json1);
+        }
+        map.put("mask",sysValue);
         String reqJsonString;
         try {
             String url = CommonProperties.get("member_ops_url");

@@ -338,7 +338,6 @@ public class MemberMoneyDrawbackController {
 			Map<Object, Object> paramMap = new HashMap<Object, Object>();
 			paramMap.put("keys", "memberInfo");
 			paramMap.put("username", username);
-			Map<Object, Object> m = new HashMap<Object, Object>();
 			try {
 				log.info("paramMap:" + paramMap);
 				json1 = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
