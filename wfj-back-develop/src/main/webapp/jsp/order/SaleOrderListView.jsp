@@ -4302,7 +4302,7 @@
 													</td>
 													
 													<td align="center" id="receptPhone_{$T.Result.sid}">
-														{#if $T.Result.receptPhone != '' && $T.Result.receptPhone != null}
+														{#if $T.Result.receptPhone != '[object Object]' }
 															{$T.Result.receptPhone}
 														{#else}
 															<span>——</span>
@@ -4404,35 +4404,35 @@
 													</td>
 													
 													<td align="center" id="authorityCard_{$T.Result.sid}">
-														{#if $T.Result.authorityCard != '' && $T.Result.authorityCard != null}
+														{#if $T.Result.authorityCard != '[object Object]'}
 															{$T.Result.authorityCard}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="qrcode_{$T.Result.sid}">
-														{#if $T.Result.qrcode != '' && $T.Result.qrcode != null}
+														{#if $T.Result.qrcode != '[object Object]'}
 															{$T.Result.qrcode}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="salesPaymentNo_{$T.Result.sid}">
-														{#if $T.Result.salesPaymentNo != '' && $T.Result.salesPaymentNo != null}
+														{#if $T.Result.salesPaymentNo != '[object Object]' }
 															{$T.Result.salesPaymentNo}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="employeeNo_{$T.Result.sid}">
-														{#if $T.Result.employeeNo != '' && $T.Result.employeeNo != null}
+														{#if $T.Result.employeeNo != '[object Object]'}
 															{$T.Result.employeeNo}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="casherNo_{$T.Result.sid}">
-														{#if $T.Result.casherNo != '' && $T.Result.casherNo != null}
+														{#if $T.Result.casherNo != '[object Object]' }
 															{$T.Result.casherNo}
 														{#else}
 															<span>——</span>
