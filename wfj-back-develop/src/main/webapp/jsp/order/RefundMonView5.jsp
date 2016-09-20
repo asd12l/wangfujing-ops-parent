@@ -167,6 +167,11 @@ Author: WangSy
 		//通过退货单号查询信息
 		var refundNo = refundNo_;
 		var returnType;
+		if(financeMemo_=='[object Object]'){
+			financeMemo_='';
+		}else{
+			financeMemo_=financeMemo_;
+		}
 		var financeMemos = financeMemo_;
 		console.log(financeMemos);
 		$("#financeMemo").val(financeMemos);
@@ -201,6 +206,23 @@ Author: WangSy
 					returnType = response.list[0].refundPath; //退货方式
 					var expressCompanyName = response.list[0].expressCompanyName; //快递公司
 					var courierNumber = response.list[0].courierNumber; //快递单号
+					
+					if(warehouseAddress=='[object Object]'){
+						warehouseAddress='';
+					}else{
+						warehouseAddress=warehouseAddress;
+					}
+					if(expressCompanyName=='[object Object]'){
+						expressCompanyName='';
+					}else{
+						expressCompanyName=expressCompanyName;
+					}
+					if(courierNumber=='[object Object]'){
+						courierNumber='';
+					}else{
+						courierNumber=courierNumber;
+					}
+					
 					$("#t1").text(expressCompanyName);
 					$("#t2").text(courierNumber);
 					$("#t3").text(warehouseAddress);

@@ -97,6 +97,10 @@
             $("#applyName_input").val("");
             $("#reservationAp").val("");
             $("#reservationCh").val("");
+            $("#mobile_input").val("");
+            $("#email_input").val("");
+            $("#from_order_input").val("");
+            $("#check_status_input").val("");
             productQuery();
         }
         //初始化包装单位列表
@@ -793,8 +797,6 @@
                                     <i class="fa fa-wrench"></i>取消积分申请
                                 </a>&nbsp;&nbsp;
                                 </div>
-                                <!--  <table class="table table-bordered table-striped table-condensed table-hover flip-content"
-                   id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">-->
                                 <div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
                                     <table class="table-striped table-hover table-bordered"
                                            id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
@@ -843,8 +845,8 @@
                                             <input type="hidden" id="cache" name="cache" value="1"/>
                                         </form>
                                     </div>
-                                    <div id="olvPagination"></div>
                                 </div>
+                                    <div id="olvPagination"></div>
                             </div>
                             <!-- Templates -->
                             <p style="display: none">

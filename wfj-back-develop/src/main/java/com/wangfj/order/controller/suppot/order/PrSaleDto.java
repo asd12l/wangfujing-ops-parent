@@ -1,180 +1,14 @@
-package com.wangfj.order.controller.suppot;
+package com.wangfj.order.controller.suppot.order;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.wangfj.order.controller.suppot.sale.OfSaleHistoryDto;
-import com.wangfj.order.controller.suppot.sale.OfSalePaymentsDto;
-import com.wangfj.order.controller.suppot.sale.OfSaveSaleItemDto;
-import com.wangfj.order.controller.suppot.sale.OfShippingFeeSalesSplitDto;
-
-public class ExcelSaleVo {
-	private Date saleTimeStart;
-	
-	private Date SaleTimeEnd;
-	private String sysValue;
-	private List<OfSaveSaleItemDto> products;
-	
-	private List<OfSaleHistoryDto> ofSaleHistoryDto;
-	
-	private List<OfShippingFeeSalesSplitDto> fShippingFeeSalesSplistDto;
-	
-	private List<OfSalePaymentsDto> fSalePaymentsDto;
-	
-	 public List<OfSaveSaleItemDto> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<OfSaveSaleItemDto> products) {
-		this.products = products;
-	}
-
-	public List<OfSaleHistoryDto> getOfSaleHistoryDto() {
-		return ofSaleHistoryDto;
-	}
-
-	public void setOfSaleHistoryDto(List<OfSaleHistoryDto> ofSaleHistoryDto) {
-		this.ofSaleHistoryDto = ofSaleHistoryDto;
-	}
-
-	public List<OfShippingFeeSalesSplitDto> getfShippingFeeSalesSplistDto() {
-		return fShippingFeeSalesSplistDto;
-	}
-
-	public void setfShippingFeeSalesSplistDto(
-			List<OfShippingFeeSalesSplitDto> fShippingFeeSalesSplistDto) {
-		this.fShippingFeeSalesSplistDto = fShippingFeeSalesSplistDto;
-	}
-
-	public List<OfSalePaymentsDto> getfSalePaymentsDto() {
-		return fSalePaymentsDto;
-	}
-
-	public void setfSalePaymentsDto(List<OfSalePaymentsDto> fSalePaymentsDto) {
-		this.fSalePaymentsDto = fSalePaymentsDto;
-	}
-
-	public String getSysValue() {
-		return sysValue;
-	}
-
-	public void setSysValue(String sysValue) {
-		this.sysValue = sysValue;
-	}
-	public Date getSaleTimeStart() {
-		return saleTimeStart;
-	}
-
-	public void setSaleTimeStart(Date saleTimeStart) {
-		this.saleTimeStart = saleTimeStart;
-	}
-
-	public Date getSaleTimeEnd() {
-		return SaleTimeEnd;
-	}
-
-	public void setSaleTimeEnd(Date saleTimeEnd) {
-		SaleTimeEnd = saleTimeEnd;
-	}
-
-	private String receptName;
-	private String receptCityName;
-	private String receptCityCode;
-	private String receptProvName;
-	private String receptAddress;
-	public String getShoppeProName() {
-		return shoppeProName;
-	}
-
-	public void setShoppeProName(String shoppeProName) {
-		this.shoppeProName = shoppeProName;
-	}
-
-	private String shoppeProName;
-	public String getReceptName() {
-		return receptName;
-	}
-
-	public void setReceptName(String receptName) {
-		this.receptName = receptName;
-	}
-
-	public String getReceptCityName() {
-		return receptCityName;
-	}
-
-	public void setReceptCityName(String receptCityName) {
-		this.receptCityName = receptCityName;
-	}
-
-	public String getReceptCityCode() {
-		return receptCityCode;
-	}
-
-	public void setReceptCityCode(String receptCityCode) {
-		this.receptCityCode = receptCityCode;
-	}
-
-	public String getReceptProvName() {
-		return receptProvName;
-	}
-
-	public void setReceptProvName(String receptProvName) {
-		this.receptProvName = receptProvName;
-	}
-
-	public String getReceptAddress() {
-		return receptAddress;
-	}
-
-	public void setReceptAddress(String receptAddress) {
-		this.receptAddress = receptAddress;
-	}
-
-	private String integral; //积分
-	
-	public String getIntegral() {
-		return integral;
-	}
-
-	public void setIntegral(String integral) {
-		this.integral = integral;
-	}
-
-	private BigDecimal couponAmount;//使用优惠券金额
-	
-	private BigDecimal accountBalanceAmount;//使用余额金额
-	
-	public BigDecimal getCouponAmount() {
-		return couponAmount;
-	}
-
-	public void setCouponAmount(BigDecimal couponAmount) {
-		this.couponAmount = couponAmount;
-	}
-
-	public BigDecimal getAccountBalanceAmount() {
-		return accountBalanceAmount;
-	}
-
-	public void setAccountBalanceAmount(BigDecimal accountBalanceAmount) {
-		this.accountBalanceAmount = accountBalanceAmount;
-	}
-
+public class PrSaleDto {
 	private Long sid;
 
 	private String saleNo;
-	private String receptPhone;
 	
-	public String getReceptPhone() {
-		return receptPhone;
-	}
-
-	public void setReceptPhone(String receptPhone) {
-		this.receptPhone = receptPhone;
-	}
-
 	private Integer isSynchronous;
 
 	private String orderNo;
@@ -288,9 +122,30 @@ public class ExcelSaleVo {
 	private String memberCardType;//会员卡类型
 	
 	private String problemDesc;//问题描述
+	
 	private String saleTimeStr;
 	private String latestUpdateTimeStr;
-    public String getSaleTimeStr() {
+	
+	private String receptPhone;
+	
+	private BigDecimal couponAmount;//使用优惠券金额
+	
+	private BigDecimal accountBalanceAmount;//使用余额金额
+	
+	private String receptName;//收件人姓名
+	
+	private String receptCityName;//收件人城市名称
+	
+	private String receptCityCode;//收件城市邮编
+	
+	private String receptProvName;//收件地区省份名称
+	
+	private String receptAddress;//收货地址
+	
+	
+	private String integral; //积分
+
+	public String getSaleTimeStr() {
 		return saleTimeStr;
 	}
 
@@ -306,7 +161,11 @@ public class ExcelSaleVo {
 		this.latestUpdateTimeStr = latestUpdateTimeStr;
 	}
 
-	public Long getSid() {
+	private List<PrSaveSaleItemDto> products;
+
+	private List<PrSaveSalePaymentsDto> salePayments;
+    
+    public Long getSid() {
         return sid;
     }
 
@@ -706,6 +565,22 @@ public class ExcelSaleVo {
 		this.fromSystem = fromSystem;
 	}
 
+	public List<PrSaveSaleItemDto> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<PrSaveSaleItemDto> products) {
+		this.products = products;
+	}
+
+	public List<PrSaveSalePaymentsDto> getSalePayments() {
+		return salePayments;
+	}
+
+	public void setSalePayments(List<PrSaveSalePaymentsDto> salePayments) {
+		this.salePayments = salePayments;
+	}
+
 	public Integer getIsSynchronous() {
 		return isSynchronous;
 	}
@@ -778,15 +653,41 @@ public class ExcelSaleVo {
 		this.problemDesc = problemDesc;
 	}
 
+	public String getReceptPhone() {
+		return receptPhone;
+	}
+
+	public void setReceptPhone(String receptPhone) {
+		this.receptPhone = receptPhone;
+	}
+
+	public BigDecimal getCouponAmount() {
+		return couponAmount;
+	}
+
+	public void setCouponAmount(BigDecimal couponAmount) {
+		this.couponAmount = couponAmount;
+	}
+
+	public BigDecimal getAccountBalanceAmount() {
+		return accountBalanceAmount;
+	}
+
+	public void setAccountBalanceAmount(BigDecimal accountBalanceAmount) {
+		this.accountBalanceAmount = accountBalanceAmount;
+	}
+
+	public String getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+
 	@Override
 	public String toString() {
-		return "ExcelSaleVo [receptName=" + receptName + ", receptCityName="
-				+ receptCityName + ", receptCityCode=" + receptCityCode
-				+ ", receptProvName=" + receptProvName + ", receptAddress="
-				+ receptAddress + ", shoppeProName=" + shoppeProName
-				+ ", integral=" + integral + ", couponAmount=" + couponAmount
-				+ ", accountBalanceAmount=" + accountBalanceAmount + ", sid="
-				+ sid + ", saleNo=" + saleNo + ", receptPhone=" + receptPhone
+		return "PrSaleDto [sid=" + sid + ", saleNo=" + saleNo
 				+ ", isSynchronous=" + isSynchronous + ", orderNo=" + orderNo
 				+ ", outOrderNo=" + outOrderNo + ", accountNo=" + accountNo
 				+ ", memberNo=" + memberNo + ", saleTime=" + saleTime
@@ -822,8 +723,14 @@ public class ExcelSaleVo {
 				+ memberCardNo + ", memberShipCardNo=" + memberShipCardNo
 				+ ", memberCardType=" + memberCardType + ", problemDesc="
 				+ problemDesc + ", saleTimeStr=" + saleTimeStr
-				+ ", latestUpdateTimeStr=" + latestUpdateTimeStr + "]";
+				+ ", latestUpdateTimeStr=" + latestUpdateTimeStr
+				+ ", receptPhone=" + receptPhone + ", couponAmount="
+				+ couponAmount + ", accountBalanceAmount="
+				+ accountBalanceAmount + ", receptName=" + receptName
+				+ ", receptCityName=" + receptCityName + ", receptCityCode="
+				+ receptCityCode + ", receptProvName=" + receptProvName
+				+ ", receptAddress=" + receptAddress + ", integral=" + integral
+				+ ", products=" + products + ", salePayments=" + salePayments
+				+ "]";
 	}
-
-
 }

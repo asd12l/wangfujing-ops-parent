@@ -4,8 +4,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class ExcelOrderVo {
+import com.wangfj.order.controller.suppot.order.CpsInfoDto;
+import com.wangfj.order.controller.suppot.order.OrderItemDto;
+import com.wangfj.order.controller.suppot.order.PaymentItemDto;
+import com.wangfj.order.controller.suppot.order.PrSaleDto;
 
+
+public class ExcelOrderVo {
 	private String orderNo;//订单号
 
 	private String outOrderNo;//外部订单号
@@ -23,8 +28,6 @@ public class ExcelOrderVo {
 	private String orderType;//订单类型
 
 	private String paymentClass;//支付类型
-	
-	private String shoppeProName;//商品名称
 
 	private Date saleTime;//销售时间
 
@@ -132,8 +135,27 @@ public class ExcelOrderVo {
 	private String realName; //真实姓名
     
     private String identityCard; //身份证号
+    
+    private CpsInfoDto cpsOrder;//cps信息
+    
+    private String calcBillId;//订单在富基的唯一标识 
+    private String shoppeProName; //商品名称
+    
+    private Date createdTime;  //创建时间
 	
+	public String getShoppeProName() {
+		return shoppeProName;
+	}
+
+	public void setShoppeProName(String shoppeProName) {
+		this.shoppeProName = shoppeProName;
+	}
+
+	private List<OrderItemDto> orderItemList;
 	
+	private List<PaymentItemDto> paymentItems;
+	
+	private List<PrSaleDto> saleOrders;
 	
 	public String getOrderNo() {
 		return orderNo;
@@ -195,14 +217,6 @@ public class ExcelOrderVo {
 		return orderType;
 	}
 
-	public String getShoppeProName() {
-		return shoppeProName;
-	}
-
-	public void setShoppeProName(String shoppeProName) {
-		this.shoppeProName = shoppeProName;
-	}
-	
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
 	}
@@ -535,6 +549,29 @@ public class ExcelOrderVo {
 		this.saleTimeStr = saleTimeStr;
 	}
 
+	public List<OrderItemDto> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(List<OrderItemDto> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
+	public List<PrSaleDto> getSaleOrders() {
+		return saleOrders;
+	}
+
+	public void setSaleOrders(List<PrSaleDto> saleOrders) {
+		this.saleOrders = saleOrders;
+	}
+
+	public List<PaymentItemDto> getPaymentItems() {
+		return paymentItems;
+	}
+
+	public void setPaymentItems(List<PaymentItemDto> paymentItems) {
+		this.paymentItems = paymentItems;
+	}
 
 	public String getLatestUpdateMan() {
 		return latestUpdateMan;
@@ -649,50 +686,62 @@ public class ExcelOrderVo {
 		this.integral = integral;
 	}
 
-	@Override
-	public String toString() {
-		return "ExcelOrderVo [orderNo=" + orderNo + ", outOrderNo="
-				+ outOrderNo + ", paymentNo=" + paymentNo + ", accountNo="
-				+ accountNo + ", memberNo=" + memberNo + ", salesPaymentNo="
-				+ salesPaymentNo + ", orderSource=" + orderSource
-				+ ", orderType=" + orderType + ", paymentClass=" + paymentClass
-				+ ", shoppeProName=" + shoppeProName + ", saleTime=" + saleTime
-				+ ", delayTime=" + delayTime + ", orderStatus=" + orderStatus
-				+ ", orderStatusDesc=" + orderStatusDesc + ", delivetyStatus="
-				+ delivetyStatus + ", delivetyStatusDesc=" + delivetyStatusDesc
-				+ ", payStatus=" + payStatus + ", payTime=" + payTime
-				+ ", deliveryMode=" + deliveryMode + ", deliveryModeName="
-				+ deliveryModeName + ", needInvoice=" + needInvoice
-				+ ", needSendCost=" + needSendCost + ", sendCost=" + sendCost
-				+ ", salesAmount=" + salesAmount + ", saleSum=" + saleSum
-				+ ", refundSum=" + refundSum + ", sendSum=" + sendSum
-				+ ", sendAmount=" + sendAmount + ", paymentAmount="
-				+ paymentAmount + ", couponAmount=" + couponAmount
-				+ ", integral=" + integral + ", cashAmount=" + cashAmount
-				+ ", cashIncome=" + cashIncome + ", accountBalanceAmount="
-				+ accountBalanceAmount + ", promotionAmount=" + promotionAmount
-				+ ", cancelReasonNo=" + cancelReasonNo + ", cancelReason="
-				+ cancelReason + ", customerComments=" + customerComments
-				+ ", callCenterComments=" + callCenterComments
-				+ ", receptPhone=" + receptPhone + ", receptName=" + receptName
-				+ ", receptCityNo=" + receptCityNo + ", receptCityName="
-				+ receptCityName + ", receptCityCode=" + receptCityCode
-				+ ", receptProvNo=" + receptProvNo + ", receptProvName="
-				+ receptProvName + ", receptAddress=" + receptAddress
-				+ ", extractFlag=" + extractFlag + ", recoveryFlag="
-				+ recoveryFlag + ", promFlag=" + promFlag + ", version="
-				+ version + ", memberType=" + memberType + ", isCod=" + isCod
-				+ ", receptDistrictNo=" + receptDistrictNo
-				+ ", receptDistrictName=" + receptDistrictName
-				+ ", invoiceTitle=" + invoiceTitle + ", saleTimeStr="
-				+ saleTimeStr + ", payTimeStr=" + payTimeStr
-				+ ", delayTimeStr=" + delayTimeStr + ", latestUpdateMan="
-				+ latestUpdateMan + ", contactNumber=" + contactNumber
-				+ ", requiredDeliveryDate=" + requiredDeliveryDate
-				+ ", realName=" + realName + ", identityCard=" + identityCard
-				+ "]";
+	public CpsInfoDto getCpsOrder() {
+		return cpsOrder;
 	}
 
-	
+	public void setCpsOrder(CpsInfoDto cpsOrder) {
+		this.cpsOrder = cpsOrder;
+	}
 
+	public String getCalcBillId() {
+		return calcBillId;
+	}
+
+	public void setCalcBillId(String calcBillId) {
+		this.calcBillId = calcBillId;
+	}
+
+	public Date getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	@Override
+	public String toString() {
+		return "ExcelOrderVo [orderNo=" + orderNo + ", outOrderNo=" + outOrderNo + ", paymentNo="
+				+ paymentNo + ", accountNo=" + accountNo + ", memberNo=" + memberNo
+				+ ", salesPaymentNo=" + salesPaymentNo + ", orderSource=" + orderSource
+				+ ", orderType=" + orderType + ", paymentClass=" + paymentClass + ", saleTime="
+				+ saleTime + ", delayTime=" + delayTime + ", orderStatus=" + orderStatus
+				+ ", orderStatusDesc=" + orderStatusDesc + ", delivetyStatus=" + delivetyStatus
+				+ ", delivetyStatusDesc=" + delivetyStatusDesc + ", payStatus=" + payStatus
+				+ ", payTime=" + payTime + ", deliveryMode=" + deliveryMode + ", deliveryModeName="
+				+ deliveryModeName + ", needInvoice=" + needInvoice + ", needSendCost="
+				+ needSendCost + ", sendCost=" + sendCost + ", salesAmount=" + salesAmount
+				+ ", saleSum=" + saleSum + ", refundSum=" + refundSum + ", sendSum=" + sendSum
+				+ ", sendAmount=" + sendAmount + ", paymentAmount=" + paymentAmount
+				+ ", couponAmount=" + couponAmount + ", integral=" + integral + ", cashAmount="
+				+ cashAmount + ", cashIncome=" + cashIncome + ", accountBalanceAmount="
+				+ accountBalanceAmount + ", promotionAmount=" + promotionAmount
+				+ ", cancelReasonNo=" + cancelReasonNo + ", cancelReason=" + cancelReason
+				+ ", customerComments=" + customerComments + ", callCenterComments="
+				+ callCenterComments + ", receptPhone=" + receptPhone + ", receptName=" + receptName
+				+ ", receptCityNo=" + receptCityNo + ", receptCityName=" + receptCityName
+				+ ", receptCityCode=" + receptCityCode + ", receptProvNo=" + receptProvNo
+				+ ", receptProvName=" + receptProvName + ", receptAddress=" + receptAddress
+				+ ", extractFlag=" + extractFlag + ", recoveryFlag=" + recoveryFlag + ", promFlag="
+				+ promFlag + ", version=" + version + ", memberType=" + memberType + ", isCod="
+				+ isCod + ", receptDistrictNo=" + receptDistrictNo + ", receptDistrictName="
+				+ receptDistrictName + ", invoiceTitle=" + invoiceTitle + ", saleTimeStr="
+				+ saleTimeStr + ", payTimeStr=" + payTimeStr + ", delayTimeStr=" + delayTimeStr
+				+ ", latestUpdateMan=" + latestUpdateMan + ", contactNumber=" + contactNumber
+				+ ", requiredDeliveryDate=" + requiredDeliveryDate + ", realName=" + realName
+				+ ", identityCard=" + identityCard + ", cpsOrder=" + cpsOrder + ", calcBillId="
+				+ calcBillId + ", shoppeProName=" + shoppeProName + ", createdTime=" + createdTime
+				+ "]";
+	}
 }

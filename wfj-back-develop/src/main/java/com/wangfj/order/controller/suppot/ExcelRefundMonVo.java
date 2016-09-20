@@ -5,6 +5,15 @@ import java.util.Date;
 import java.util.List;
 
 public class ExcelRefundMonVo {
+	
+	private String mumberCard;
+	
+	public String getMumberCard() {
+		return mumberCard;
+	}
+	public void setMumberCard(String mumberCard) {
+		this.mumberCard = mumberCard;
+	}
 	private List<RefundMonItemDto> refundMonItemList;
 	
 public List<RefundMonItemDto> getRefundMonItemList() {
@@ -189,6 +198,20 @@ private String refundMonNo;
 	}
 	public void setAllRefTimeStr(String allRefTimeStr) {
 		this.allRefTimeStr = allRefTimeStr;
+	}
+	@Override
+	public String toString() {
+		return "ExcelRefundMonVo [mumberCard=" + mumberCard + ", refundMonItemList="
+				+ refundMonItemList + ", refundMonNo=" + refundMonNo + ", orderNo=" + orderNo
+				+ ", outOrderNo=" + outOrderNo + ", applyNo=" + applyNo + ", financeMemo="
+				+ financeMemo + ", saleNo=" + saleNo + ", refundNo=" + refundNo + ", orderSource="
+				+ orderSource + ", accountNo=" + accountNo + ", memberNo=" + memberNo
+				+ ", refundClass=" + refundClass + ", reMonStatus=" + reMonStatus
+				+ ", needRefundMon=" + needRefundMon + ", readMoney=" + readMoney + ", bankName="
+				+ bankName + ", bankUser=" + bankUser + ", bankType=" + bankType + ", allRefTime="
+				+ allRefTime + ", allRefTimeStr=" + allRefTimeStr + ", allRefUser=" + allRefUser
+				+ ", confirmRefundTime=" + confirmRefundTime + ", confirmRefundTimeStr="
+				+ confirmRefundTimeStr + ", paymentType=" + paymentType + "]";
 	}
 	
 }
