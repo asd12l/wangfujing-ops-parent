@@ -226,14 +226,14 @@ function checkPass(){
 //查看详细
 function editMerchant(id){
 	$("#hsid").val(id);
-	$("#phone").html($("#applyName_"+id).html().trim());
+	$("#phone").html($("#applyName_"+id).val().trim());
 	$.ajax({
 		type: "post",
 		contentType: "application/x-www-form-urlencoded;charset=utf-8",
 		url:__ctxPath + "/memDrawback/getFuJiBalanceMoeny",
 		dataType:"json",
 		data: {
-			"phone":$("#applyName_"+id).html().trim()
+			"phone":$("#applyName_"+id).val().trim()
 		},
 		ajaxStart: function() {$("#loading-container").attr("class","loading-container");},
 		ajaxStop: function() {
@@ -264,7 +264,7 @@ function editMerchant(id){
 
 //查看详细
 function editMerchant1(id){
-	$("#phone1").html($("#applyName_"+id).html().trim());
+	$("#phone1").html($("#applyName_"+id).val().trim());
 	$("#withdrowMoney1").html($("#withdrowMoney_"+id).html().trim());
 	$("#name1").html($("#name_"+id).val());
 	$("#bank1").html($("#bank_"+id).html().trim());
@@ -590,6 +590,8 @@ function successBtn(){
 												<input type="hidden"  id="withdrowReason_{$T.Result.sid}"  value="{$T.Result.withdrowReason}">
 												<input type="hidden"  id="seqno_{$T.Result.sid}"  value="{$T.Result.seqno}">
 												<input type="hidden"  id="billno_{$T.Result.sid}"  value="{$T.Result.billno}">
+												<input type="hidden"  id="mobile_{$T.Result.sid}"  value="{$T.Result.mobile}">
+												<input type="hidden"  id="applyName_{$T.Result.sid}"  value="{$T.Result.applyName}">
 												{#if $T.Result.refundStatus == '1'}
 												 <a href="javascript:editMerchant({$T.Result.sid});">
 														    <span class="btn btn-blue"><i class="fa fa-edit"></i>查看</span>
@@ -601,12 +603,12 @@ function successBtn(){
 												<a onclick="javascript:editMerchant1({$T.Result.sid});">{#if $T.Result.sid != '[object Object]'}{$T.Result.seqno}
 				                   				{#/if}</a>
 											</td>
-											<td align="center" id="mobile_{$T.Result.sid}" value="{$T.Result.mobile}">
-												{#if $T.Result.mobile!= '[object Object]'}{$T.Result.mobile}
+											<td align="center" id="mobileStr_{$T.Result.sid}" value="{$T.Result.mobileStr}">
+												{#if $T.Result.mobileStr!= '[object Object]'}{$T.Result.mobileStr}
 				                   				{#/if}
 											</td>
-											<td align="center" id="applyName_{$T.Result.sid}" value="{$T.Result.applyName}">
-												{#if $T.Result.applyName!= '[object Object]'}{$T.Result.applyName}
+											<td align="center" id="applyNameStr_{$T.Result.sid}" value="{$T.Result.applyNameStr}">
+												{#if $T.Result.applyNameStr!= '[object Object]'}{$T.Result.applyNameStr}
 												{#elseif $T.Result.applyCustomer != '[object Object]'}-{$T.Result.applyCustomer}
 				                   				{#/if}
 											</td>
@@ -622,12 +624,12 @@ function successBtn(){
 												{#if $T.Result.bank != '[object Object]'}{$T.Result.bank}
 				                   				{#/if}
 			                   				</td>
-			                   				<td align="center" id="name_{$T.Result.sid}" value="{$T.Result.name}">
-												{#if $T.Result.name != '[object Object]'}{$T.Result.name}
+			                   				<td align="center" id="nameStr_{$T.Result.sid}" value="{$T.Result.nameStr}">
+												{#if $T.Result.nameStr != '[object Object]'}{$T.Result.nameStr}
 				                   				{#/if}
 			                   				</td>
-			                   				<td align="center" id="bankCardNo_{$T.Result.sid}" value="{$T.Result.bankCardNo}">
-												{#if $T.Result.bankCardNo != '[object Object]'}{$T.Result.bankCardNo}
+			                   				<td align="center" id="bankCardNoStr_{$T.Result.sid}" value="{$T.Result.bankCardNoStr}">
+												{#if $T.Result.bankCardNoStr != '[object Object]'}{$T.Result.bankCardNoStr}
 				                   				{#/if}
 			                   				</td>
 											<td align="center" id="withdrowMoney_{$T.Result.sid}" value="{$T.Result.withdrowMoney}">
@@ -658,9 +660,9 @@ function successBtn(){
 												{#if $T.Result.checkName != '[object Object]'}{$T.Result.checkName}
 				                   				{#/if}
 											</td>
-											<td align="center" id="checkTime_{$T.Result.sid}" value="{$T.Result.checkTime}">
-												{#if $T.Result.checkTime != '[object Object]'}{$T.Result.checkTime}
-				                   				{#/if}
+											<td align="center" id="checkTimeStr_{$T.Result.sid}" value="{$T.Result.checkTimeStr}">
+												{#if $T.Result.checkTimeStr != '[object Object]'}{$T.Result.checkTimeStr}
+												{#/if}
 											</td>
 											<td align="center" id="refundStatus_{$T.Result.sid}" value="{$T.Result.refundStatus}">
 												{#if $T.Result.refundStatus == '1'}待退款

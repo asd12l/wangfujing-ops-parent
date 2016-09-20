@@ -3,6 +3,8 @@ package com.wfj.member.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +46,28 @@ public class BalanceRecordController {
         map.put("page_size", pageSize);
         map.put("group_id",groupId);
         String reqJsonString;
+        //屏显规则
+        String json1 = "";
+        String sysValue = "";
+        String username = CookiesUtil.getCookies(request, "username");
+        Map<Object, Object> paramMap = new HashMap<Object, Object>();
+        paramMap.put("keys", "memberInfo");
+        paramMap.put("username", username);
+        try {
+            logger.info("paramMap:" + paramMap);
+            json1 = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+            if(!StringUtils.isEmpty(json1)){
+                net.sf.json.JSONObject jsonObject = net.sf.json.JSONObject.fromObject(json1);
+                String isTrue = jsonObject.getString("success");
+                if(isTrue.equals("true")){
+                    net.sf.json.JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+                }
+            }
+        } catch (Exception e) {
+            logger.error("查询屏显规则异常！返回结果json="+json1);
+        }
+        map.put("mask",sysValue);
         try {
             String url = CommonProperties.get("member_ops_url");
             logger.info("======== update url "+url+"  =========");

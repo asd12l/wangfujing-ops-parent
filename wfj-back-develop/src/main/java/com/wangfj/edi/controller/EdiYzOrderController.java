@@ -187,8 +187,23 @@ public class EdiYzOrderController {
 		String json = "";
 		String title = "有赞数据交互订单明细报表";
 		String jsons = "";
+		String secertFlag = "";
 		List<ExprotVo> epv = new ArrayList<ExprotVo>();
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		
+		String url1 = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);
+		String s = HttpUtils.HttpdoGet(url1);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				secertFlag = memberInfo.getData().get(0).getSysValue();
+			}
+		}
+		
 		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
 			paramMap.put("userName", CookiesUtil.getUserName(request));
 		}else{
@@ -247,7 +262,7 @@ public class EdiYzOrderController {
 					epv.add(exportYzvo);
 				}
 			}	
-			String result = allProSkusToExcel(response, epv, title);
+			String result = allProSkusToExcel(response, epv, title,secertFlag);
 			jsons = createSuccessResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -255,7 +270,7 @@ public class EdiYzOrderController {
 		//return jsons;
 	}
 	
-	public String allProSkusToExcel(HttpServletResponse response,List<ExprotVo> list, String title) {
+	public String allProSkusToExcel(HttpServletResponse response,List<ExprotVo> list, String title,String secertFlag) {
 		List<String> header = new ArrayList<String>();
 		
 		header.add("订单编号");
@@ -272,8 +287,13 @@ public class EdiYzOrderController {
 				
 			inlist.add(vo.getTid()==null?"":vo.getTid());			
 			inlist.add(vo.getOrdersId()==null?"":vo.getOrdersId().toString());
-			inlist.add(vo.getReceiverName()==null?"":RequestUtils.hideSecret(vo.getReceiverName(),1,0));
-			inlist.add(vo.getReceiverMobile()==null?"":RequestUtils.hideSecret(vo.getReceiverMobile(),3,4));
+			if("1".equals(secertFlag)){
+				inlist.add(vo.getReceiverName()==null?"":RequestUtils.hideSecret(vo.getReceiverName(),1,0));
+				inlist.add(vo.getReceiverMobile()==null?"":RequestUtils.hideSecret(vo.getReceiverMobile(),3,4));
+			}else{
+				inlist.add(vo.getReceiverName()==null?"": vo.getReceiverName());
+				inlist.add(vo.getReceiverMobile()==null?"": vo.getReceiverMobile());
+			}
 			inlist.add(vo.getPayment()==null?"":vo.getPayment().toString());
 			inlist.add(vo.getStatus()==null?"":getOrderStatus(vo.getStatus()));			
 			inlist.add(vo.getCreateDate()==null?"":vo.getCreateDate());

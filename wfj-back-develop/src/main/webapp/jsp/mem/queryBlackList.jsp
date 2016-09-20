@@ -234,6 +234,20 @@
 
     //解除黑名单
     function relieveBlack(){
+    	var url1 = __ctxPath+"/memBasic/getUserName";
+    	var userName="";
+    	$.ajax({
+            type : "post",
+           // contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : url1,
+           // dataType : "json",
+            success : function(data) {
+            	userName=data;
+            	$("#relServiceId").val(userName);
+            },
+            error:function(){
+            }
+    	});
       var checkboxArray=[];
       $("input[type='checkbox']:checked").each(function(i,team){
         var sid=$(this).val().trim();
@@ -258,29 +272,28 @@
       //清除隐藏div的数据
       $("#relieveBlackSid").val(sid);
       $(".relieve_msg").hide();
-      $("#relServiceId").val("");
-      $("#relieveReason").val("");
+     // $("#relServiceId").val(userName);
+      $("#relieveReason").val();
       $("#relieveBlackDiv").show();
     }
     function closeEdit(){
         //清除隐藏div表单内容
         $(".relieve_msg").hide();
-        $("#relServiceId").val("");
-        $("#relieveReason").val("");
+        $("#relServiceId").val();
+        $("#relieveReason").val();
         $("#editBlackDiv").hide();
       }
     
     function closeRelieveBlack(){
       //清除隐藏div表单内容
       $(".relieve_msg").hide();
-      $("#relServiceId").val("");
-      $("#relieveReason").val("");
+      $("#relServiceId").val();
+      $("#relieveReason").val();
       $("#relieveBlackDiv").hide();
     }
     function submitRelieveBlack(){
       var sid=$("#relieveBlackSid").val();
       var relServiceId=$("#relServiceId").val();
-      var relServiceID=/^[0-9]\d{1,20}$/.test(relServiceId);
       var relieveReason=$("#relieveReason").val();
       if(relServiceId==""||relServiceId==null){
         $("#relServiceId_msg").show();
@@ -289,10 +302,6 @@
       if(relieveReason==""||relieveReason==null){
         $("#relieveReason_msg").show();
         return;
-      }
-      if(!relServiceID){
-    	$("#relServiceId_Msg").show();
-    	return;
       }
 
       var url = __ctxPath+"/memBasic/relieveBlackList";
@@ -422,7 +431,7 @@
 
                 <!--  <table class="table table-bordered table-striped table-condensed table-hover flip-content"
                        id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">-->
-                       <div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+                  <div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
 									<table class="table-striped table-hover table-bordered"
 										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
                   <thead>
@@ -647,10 +656,9 @@
                 <label class="col-md-5 control-label"
                        style="line-height: 20px; text-align: right;">客服ID：</label>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" name="name"
+                  <input type="text" class="form-control" name="name" value="disabled" disabled
                          id="relServiceId" />
                   <span id="relServiceId_msg" style="color:red;display:none;" class="relieve_msg">不能为空!</span>
-                  <span id="relServiceId_Msg" style="color:red;display:none;" class="relieve_msg">请输入小于20位的数字!</span>
                 </div>
                 <br>&nbsp;
               </div>

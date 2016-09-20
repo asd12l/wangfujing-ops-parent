@@ -1,15 +1,12 @@
 package com.wfj.member.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
+import com.wangfj.back.util.HttpUtil;
+import com.wangfj.cms.utils.Constants;
+import com.wangfj.order.utils.CommonProperties;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
+import com.wfj.member.pojo.ResultVO;
 import net.sf.json.JSONObject;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wangfj.back.util.HttpUtil;
-import com.wangfj.cms.utils.Constants;
-import com.wangfj.order.utils.CommonProperties;
-import com.wfj.member.pojo.ResultVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by MaYong on 2015/11/24.
@@ -36,12 +33,12 @@ public class MemScoreController {
 	
 	/**
 	 * 积分记录查询
-	 * @param request
-	 * @param response
-	 * @param account
-	 * @param phone
-	 * @param email
-	 * @param time
+	 * @param
+	 * @param
+	 * @param
+	 * @param
+	 * @param
+	 * @param
 	 * @param page
 	 * @param pageSize
 	 * @return
@@ -85,6 +82,28 @@ public class MemScoreController {
 			map.put("page_size", pageSize);
 		}
 		String resultMemberScore = null;
+		//屏显规则
+		String json1 = "";
+		String sysValue = "";
+		String username = CookiesUtil.getCookies(request, "username");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("keys", "memberInfo");
+		paramMap.put("username", username);
+		try {
+			logger.info("paramMap:" + paramMap);
+			json1 = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json1)){
+				net.sf.json.JSONObject jsonObject = net.sf.json.JSONObject.fromObject(json1);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+					net.sf.json.JSONArray jsonArray = jsonObject.getJSONArray("data");
+					sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			logger.error("查询屏显规则异常！返回结果json="+json1);
+		}
+		map.put("mask",sysValue);
 		/**
 		 * 调用member-ops
 		 */

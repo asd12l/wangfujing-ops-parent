@@ -330,6 +330,7 @@
 											<td align="center">
 												{#if $T.Result.logdate != '[object Object]'}{$T.Result.logdate}
 												{#/if}
+
 											</td>
 											<td align="center">
 												{#if $T.object.account != '[object Object]'}{$T.object.account}

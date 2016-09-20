@@ -4,7 +4,35 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ExcelAllPosPlatformVo {
+	private BigDecimal totalAmount;//总金额
+	private String activity;//业务类型
+	private BigDecimal refundAmount;//退款金额
+	private BigDecimal amount;//金额
+	
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
 
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public String getActivity() {
+		return activity;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+
+	public BigDecimal getRefundAmount() {
+		return refundAmount;
+	}
+
+	public void setRefundAmount(BigDecimal refundAmount) {
+		this.refundAmount = refundAmount;
+	}
+//以下面为准
 	private String refundClass;//业务类型
 
 	private String paymentType;//支付方式

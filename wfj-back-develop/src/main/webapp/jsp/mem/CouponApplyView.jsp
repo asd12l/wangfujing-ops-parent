@@ -1,35 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 <!--Page Related Scripts-->
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/>
     <style type="text/css">
-        .trClick>td,.trClick>th{
-            color:red;
+        .trClick > td, .trClick > th {
+            color: red;
         }
     </style>
     <script type="text/javascript">
-	    __ctxPath = "${pageContext.request.contextPath}";
-	    image="http://images.shopin.net/images";
-	    saleMsgImage="http://images.shopin.net/images";
-	    ctx="http://www.shopin.net";
-        function successBtn(){
-            $("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
-            $("#pageBody").load(__ctxPath+"/jsp/mem/CouponApplyView.jsp");
+        __ctxPath = "${pageContext.request.contextPath}";
+        image = "http://images.shopin.net/images";
+        saleMsgImage = "http://images.shopin.net/images";
+        ctx = "http://www.shopin.net";
+        function successBtn() {
+            $("#modal-success").attr({
+                "style": "display:none;",
+                "aria-hidden": "true",
+                "class": "modal modal-message modal-success fade"
+            });
+            $("#pageBody").load(__ctxPath + "/jsp/mem/CouponApplyView.jsp");
         }
-        function closeEditIntegral(){
+        function closeEditIntegral() {
             $("#deitCouponApplyDiv").hide();
         }
 
         //审核积分申请
-        function showCheckApply(){
+        function showCheckApply() {
             $("#checkName_msg").hide();
-            var checkboxArray=[];
-            $("input[type='checkbox']:checked").each(function(i,team){
-                var sid=$(this).val();
+            var checkboxArray = [];
+            $("input[type='checkbox']:checked").each(function (i, team) {
+                var sid = $(this).val();
                 checkboxArray.push(sid);
             });
             if (checkboxArray.length > 1) {
@@ -41,9 +46,9 @@
                 $("#warning2").show();
                 return;
             }
-            var sid=checkboxArray[0];
-            var checkStatus=$("#check_status_"+sid).text().trim();
-            if(checkStatus=="审核通过"){
+            var sid = checkboxArray[0];
+            var checkStatus = $("#check_status_" + sid).text().trim();
+            if (checkStatus == "审核通过") {
                 $("#warning2Body").text("审核通过不能取消!");
                 $("#warning2").show();
                 return;
@@ -51,82 +56,86 @@
             $("#check_sid").val(sid);
             $("#checkIntegralDiv").show();
         }
-        function closeCheckApply(){
+        function closeCheckApply() {
             $("#checkIntegralDiv").hide();
         }
-        function checkIntegralApply(){
-            var sid=$("#check_sid").val().trim();
-            var checkName=$("#checkName").val().trim();
-            var checkStatus=$("input[name='check_status']:checked").val().trim();
-            var checkMemo=$("#check_memo").val().trim();
-            if(checkName==""||checkName==null){
+        function checkIntegralApply() {
+            var sid = $("#check_sid").val().trim();
+            var checkName = $("#checkName").val().trim();
+            var checkStatus = $("input[name='check_status']:checked").val().trim();
+            var checkMemo = $("#check_memo").val().trim();
+            if (checkName == "" || checkName == null) {
                 $("#checkName_msg").show();
                 return false;
             }
-            var url = __ctxPath+"/memberIntegral/checkMemberIntegral";
+            var url = __ctxPath + "/memberIntegral/checkMemberIntegral";
             $.ajax({
-                type : "post",
-                contentType : "application/x-www-form-urlencoded;charset=utf-8",
-                url : url,
-                dataType : "json",
-                ajaxStart : function() {
+                type: "post",
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                url: url,
+                dataType: "json",
+                ajaxStart: function () {
                     $("#loading-container").attr(
                             "class",
                             "loading-container");
                 },
-                ajaxStop : function() {
+                ajaxStop: function () {
                     //隐藏加载提示
                     setTimeout(
-                            function() {
+                            function () {
                                 $("#loading-container")
                                         .addClass(
-                                        "loading-inactive")
+                                                "loading-inactive")
                             }, 300);
                 },
-                data :{"sid":sid,"checkName":checkName,"checkStatus":checkStatus,"checkMemo":checkMemo},
-                success : function(response) {
+                data: {"sid": sid, "checkName": checkName, "checkStatus": checkStatus, "checkMemo": checkMemo},
+                success: function (response) {
                     if (response.success == "true") {
                         $("#modal-body-success")
                                 .html(
-                                "<div class='alert alert-success fade in'><strong>审核操作成功，返回列表页!</strong></div>");
+                                        "<div class='alert alert-success fade in'><strong>审核操作成功，返回列表页!</strong></div>");
                         $("#modal-success")
                                 .attr(
-                                {
-                                    "style" : "display:block;z-index:9999",
-                                    "aria-hidden" : "false",
-                                    "class" : "modal modal-message modal-success"
-                                });
+                                        {
+                                            "style": "display:block;z-index:9999",
+                                            "aria-hidden": "false",
+                                            "class": "modal modal-message modal-success"
+                                        });
                         $("#checkIntegralDiv").hide();
 
-                    } else  {
+                    } else {
                         $("#model-body-warning")
                                 .html(
-                                "<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
-                                + "操作失败!"
-                                + "</strong></div>");
+                                        "<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
+                                        + "操作失败!"
+                                        + "</strong></div>");
                         $("#modal-warning")
                                 .attr(
-                                {
-                                    "style" : "display:block;z-index:9999",
-                                    "aria-hidden" : "false",
-                                    "class" : "modal modal-message modal-warning"
-                                });
+                                        {
+                                            "style": "display:block;z-index:9999",
+                                            "aria-hidden": "false",
+                                            "class": "modal modal-message modal-warning"
+                                        });
                     }
                     return;
                 },
-                error : function() {
+                error: function () {
                     $("model-body-warning").html("<div class='alert alert-error fade in'><i class='fa-fw fa fa-times'></i><strong>系统出错!</strong></div>");
-                    $("#modal-warning").attr({"style" : "display:block;","aria-hidden" : "false","class" : "modal modal-message modal-error"});
+                    $("#modal-warning").attr({
+                        "style": "display:block;",
+                        "aria-hidden": "false",
+                        "class": "modal modal-message modal-error"
+                    });
                 }
 
             });
         }
 
         //取消积分申请
-        function cancleApply(){
-            var checkboxArray=[];
-            $("input[type='checkbox']:checked").each(function(i,team){
-                var sid=$(this).val();
+        function cancleApply() {
+            var checkboxArray = [];
+            $("input[type='checkbox']:checked").each(function (i, team) {
+                var sid = $(this).val();
                 checkboxArray.push(sid);
             });
             if (checkboxArray.length > 1) {
@@ -138,67 +147,71 @@
                 $("#warning2").show();
                 return;
             }
-            var sid=checkboxArray[0];
-            var checkStatus=$("#check_status_"+sid).text().trim();
-            if(checkStatus=="审核通过"){
+            var sid = checkboxArray[0];
+            var checkStatus = $("#check_status_" + sid).text().trim();
+            if (checkStatus == "审核通过") {
                 $("#warning2Body").text("审核通过不能取消!");
                 $("#warning2").show();
                 return;
             }
-            var url = __ctxPath+"/memberIntegral/cancleMemberIntegral";
+            var url = __ctxPath + "/memberIntegral/cancleMemberIntegral";
             $.ajax({
-                type : "post",
-                contentType : "application/x-www-form-urlencoded;charset=utf-8",
-                url : url,
-                dataType : "json",
-                ajaxStart : function() {
+                type: "post",
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                url: url,
+                dataType: "json",
+                ajaxStart: function () {
                     $("#loading-container").attr(
                             "class",
                             "loading-container");
                 },
-                ajaxStop : function() {
+                ajaxStop: function () {
                     //隐藏加载提示
                     setTimeout(
-                            function() {
+                            function () {
                                 $("#loading-container")
                                         .addClass(
-                                        "loading-inactive")
+                                                "loading-inactive")
                             }, 300);
                 },
-                data :{"sid":sid},
-                success : function(response) {
+                data: {"sid": sid},
+                success: function (response) {
                     if (response.success == "true") {
                         $("#modal-body-success")
                                 .html(
-                                "<div class='alert alert-success fade in'><strong>取消成功，返回列表页!</strong></div>");
+                                        "<div class='alert alert-success fade in'><strong>取消成功，返回列表页!</strong></div>");
                         $("#modal-success")
                                 .attr(
-                                {
-                                    "style" : "display:block;z-index:9999",
-                                    "aria-hidden" : "false",
-                                    "class" : "modal modal-message modal-success"
-                                });
+                                        {
+                                            "style": "display:block;z-index:9999",
+                                            "aria-hidden": "false",
+                                            "class": "modal modal-message modal-success"
+                                        });
                         $("#checkIntegralDiv").hide();
 
-                    } else  {
+                    } else {
                         $("#model-body-warning")
                                 .html(
-                                "<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
-                                + "操作失败!"
-                                + "</strong></div>");
+                                        "<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"
+                                        + "操作失败!"
+                                        + "</strong></div>");
                         $("#modal-warning")
                                 .attr(
-                                {
-                                    "style" : "display:block;z-index:9999",
-                                    "aria-hidden" : "false",
-                                    "class" : "modal modal-message modal-warning"
-                                });
+                                        {
+                                            "style": "display:block;z-index:9999",
+                                            "aria-hidden": "false",
+                                            "class": "modal modal-message modal-warning"
+                                        });
                     }
                     return;
                 },
-                error : function() {
+                error: function () {
                     $("model-body-warning").html("<div class='alert alert-error fade in'><i class='fa-fw fa fa-times'></i><strong>系统出错!</strong></div>");
-                    $("#modal-warning").attr({"style" : "display:block;","aria-hidden" : "false","class" : "modal modal-message modal-error"});
+                    $("#modal-warning").attr({
+                        "style": "display:block;",
+                        "aria-hidden": "false",
+                        "class": "modal modal-message modal-error"
+                    });
                 }
 
             });
@@ -211,12 +224,12 @@
                 if ($("#pro-i").attr("class") == "fa fa-minus") {
                     $("#pro-i").attr("class", "fa fa-plus");
                     $("#pro").css({
-                        "display" : "none"
+                        "display": "none"
                     });
                 } else {
                     $("#pro-i").attr("class", "fa fa-minus");
                     $("#pro").css({
-                        "display" : "block"
+                        "display": "block"
                     });
                 }
             }
@@ -224,7 +237,7 @@
     </script>
 </head>
 <body>
-<input type="hidden" id="ctxPath" value="${pageContext.request.contextPath}" />
+<input type="hidden" id="ctxPath" value="${pageContext.request.contextPath}"/>
 <!-- Main Container -->
 <div class="main-container container-fluid">
     <!-- Page Container -->
@@ -238,8 +251,9 @@
                             <h5 class="widget-caption">优惠券申请</h5>
                             <div class="widget-buttons">
                                 <a href="#" data-toggle="maximize"></a> <a href="#"
-                                                                           data-toggle="collapse" onclick="tab('pro');"> <i
-                                    class="fa fa-minus" id="pro-i"></i>
+                                                                           data-toggle="collapse" onclick="tab('pro');">
+                                <i
+                                        class="fa fa-minus" id="pro-i"></i>
                             </a> <a href="#" data-toggle="dispose"></a>
                             </div>
                         </div>
@@ -247,84 +261,91 @@
                             <div class="table-toolbar">
                                 <ul class="topList clearfix">
                                     <li class="col-md-4"><label class="titname">客户账号：</label>
-                                        <input type="text" id="login_name" /></li>
+                                        <input type="text" id="login_name"/></li>
                                     <li class="col-md-4"><label class="titname">单据号：</label>
-                                        <input type="text" id="sid" /></li>
+                                        <input type="text" id="sid"/></li>
                                     <li class="col-md-4"><label class="titname">子订单号/退货单号：</label>
-                                        <input type="text" id="order_input" /></li>
+                                        <input type="text" id="order_input"/></li>
                                     <li class="col-md-4"><label class="titname">申请时间：</label>
-                                        <input type="text" id="reservationAp" /></li>
+                                        <input type="text" id="reservationAp"/></li>
                                     <li class="col-md-4"><label class="titname">审核时间：</label>
-                                        <input type="text" id="reservationCh" /></li>
+                                        <input type="text" id="reservationCh"/></li>
                                     <li class="col-md-4"><label class="titname">申请人：</label>
-                                        <input type="text" id="applyName_input" /></li>
+                                        <input type="text" id="applyName_input"/></li>
                                     <li class="col-md-4"><label class="titname">单据状态：</label>
-                                     	<select id="checkStatus">
-                                     		<option value="">请选择</option>
-                                     		<option value="1">待审核</option>
-                                     		<option value="2">审核通过</option>
-                                     		<option value="3">审核不通过</option>
-                                     		<option value="4">取消</option>
-                                     	</select></li>
+                                        <select id="checkStatus">
+                                            <option value="">请选择</option>
+                                            <option value="1">待审核</option>
+                                            <option value="2">审核通过</option>
+                                            <option value="3">审核不通过</option>
+                                            <option value="4">取消</option>
+                                        </select></li>
                                     <li class="col-md-6">
                                         <a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
-                                        <a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
+                                        <a onclick="reset();" class="btn btn-primary"> <i class="fa fa-random"></i>
+                                            重置</a>
                                     </li>
                                 </ul>
                                 <div class="mtb10">
                                     <a onclick="showCouPonDetail();" class="btn btn-info"> <i class="fa fa-wrench"></i>查看优惠券申请</a>&nbsp;&nbsp;
                                     <a onclick="showAddCouPon();" class="btn btn-info"> <i class="fa fa-wrench"></i>新建优惠券申请</a>&nbsp;&nbsp;
                                     <a onclick="editCouPonApply();" class="btn btn-info"> <i class="fa fa-wrench"></i>编辑优惠券申请</a>&nbsp;&nbsp;
-                                    <a id="checkCouPonApply" class="btn btn-info"> <i class="fa fa-wrench"></i>审核优惠券申请</a>&nbsp;&nbsp;
+                                    <a id="checkCouPonApply" class="btn btn-info"> <i
+                                            class="fa fa-wrench"></i>审核优惠券申请</a>&nbsp;&nbsp;
                                     <a id="cancleCouPonApply" class="btn btn-info"> <i class="fa fa-wrench"></i>取消优惠券申请</a>&nbsp;&nbsp;
                                 </div>
-                                <table class="table table-bordered table-striped table-condensed table-hover flip-content"
-                                       id="olv_tab"  style=" width: 240%; background-color: #fff;margin-bottom: 0;">		<!-- 	width: 120%; -->
-                                    <thead>
-                                    <tr role="row" style='height:35px;'>
-                                        <th style="text-align: center;" width="10%">选择</th>
-                                        <th style="text-align: center;" width="10%">申请单号</th>
-                                       	<th style="text-align: center;" width="10%">申请时间</th>
-                                        <th style="text-align: center;" width="10%">账号</th>
-               							<th style="text-align: center;" width="10%">昵称</th>	
-               							<th style="text-align: center;" width="10%">真实姓名</th>
-               							<th style="text-align: center;" width="10%">会员等级</th>
-               							<th style="text-align: center;" width="10%">手机</th>
-               							<th style="text-align: center;" width="10%">邮箱</th>
-               							<th style="text-align: center;" width="10%">申请类型</th>
-               							<th style="text-align: center;" width="10%">凭证类型</th>
-               							<th style="text-align: center;" width="10%">券模板</th>
-               							<th style="text-align: center;" width="10%">券批次</th>
-               							<th style="text-align: center;" width="10%">券类型</th>
-               							<th style="text-align: center;" width="10%">券名称</th>
-               							<th style="text-align: center;" width="10%">金额</th>
-               							<th style="text-align: center;" width="10%">剩余金额</th>
-               							<th style="text-align: center;" width="10%">单据状态</th>
-               							<th style="text-align: center;" width="10%">审核时间</th>
-               							<th style="text-align: center;" width="10%">相关订单号</th>
-               							<th style="text-align: center;" width="10%">申请理由</th>
-               							<th style="text-align: center;" width="10%">备注</th>
-               							<th style="text-align: center;" width="10%">优惠券描述</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                                <div class="pull-left" style="padding: 10px 0;">
-                                    <form id="product_form" action="">
-                                        <input type="hidden" id="login_from" name="login" />
-                                        <input type="hidden" id="sid_from" name="sid" />
-                                        <input type="hidden" id="order_from" name="order" />
-                                        <input type="hidden" id="m_timeApStartDate_form" name="m_timeApStartDate"/>
-                                        <input type="hidden" id="m_timeApEndDate_form" name="m_timeApEndDate"/>
-                                        <input type="hidden" id="m_timeChStartDate_form" name="m_timeChStartDate"/>
-                                        <input type="hidden" id="m_timeChEndDate_form" name="m_timeChEndDate"/>
-                                        <input type="hidden" id="applyName_from" name="applyName" />
-                                        <input type="hidden" id="check_Status" name = "checkStatus" />
-                                        <input type="hidden" id="cache" name="cache" value="1" />
-                                    </form>
+                                <!--  <table class="table table-bordered table-striped table-condensed table-hover flip-content"
+                       id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">-->
+                                <div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+                                    <table class="table-striped table-hover table-bordered"
+                                           id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
+                                        <!-- 	width: 120%; -->
+                                        <thead>
+                                        <tr role="row" style='height:35px;'>
+                                            <th style="text-align: center;" width="2%">选择</th>
+                                            <th style="text-align: center;" width="5%">申请单号</th>
+                                            <th style="text-align: center;" width="5%">申请时间</th>
+                                            <th style="text-align: center;" width="5%">账号</th>
+                                            <th style="text-align: center;" width="3%">昵称</th>
+                                            <th style="text-align: center;" width="5%">真实姓名</th>
+                                            <th style="text-align: center;" width="5%">会员等级</th>
+                                            <th style="text-align: center;" width="5%">手机</th>
+                                            <th style="text-align: center;" width="5%">邮箱</th>
+                                            <th style="text-align: center;" width="5%">申请类型</th>
+                                            <th style="text-align: center;" width="5%">凭证类型</th>
+                                            <th style="text-align: center;" width="5%">券模板</th>
+                                            <th style="text-align: center;" width="5%">券批次</th>
+                                            <th style="text-align: center;" width="5%">券类型</th>
+                                            <th style="text-align: center;" width="5%">券名称</th>
+                                            <th style="text-align: center;" width="2%">金额</th>
+                                            <th style="text-align: center;" width="2%">剩余金额</th>
+                                            <th style="text-align: center;" width="3%">单据状态</th>
+                                            <th style="text-align: center;" width="5%">审核时间</th>
+                                            <th style="text-align: center;" width="5%">相关订单号</th>
+                                            <th style="text-align: center;" width="5%">申请理由</th>
+                                            <th style="text-align: center;" width="5%">备注</th>
+                                            <th style="text-align: center;" width="5%">优惠券描述</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <div class="pull-left" style="padding: 10px 0;">
+                                        <form id="product_form" action="">
+                                            <input type="hidden" id="login_from" name="login"/>
+                                            <input type="hidden" id="sid_from" name="sid"/>
+                                            <input type="hidden" id="order_from" name="order"/>
+                                            <input type="hidden" id="m_timeApStartDate_form" name="m_timeApStartDate"/>
+                                            <input type="hidden" id="m_timeApEndDate_form" name="m_timeApEndDate"/>
+                                            <input type="hidden" id="m_timeChStartDate_form" name="m_timeChStartDate"/>
+                                            <input type="hidden" id="m_timeChEndDate_form" name="m_timeChEndDate"/>
+                                            <input type="hidden" id="applyName_from" name="applyName"/>
+                                            <input type="hidden" id="check_Status" name="checkStatus"/>
+                                            <input type="hidden" id="cache" name="cache" value="1"/>
+                                        </form>
+                                    </div>
+                                    <div id="olvPagination"></div>
                                 </div>
-                                <div id="olvPagination"></div>
                             </div>
                             <!-- Templates -->
                             <p style="display:none">
@@ -334,20 +355,25 @@
 												<tr class="gradeX">
 													{#if $T.Result.check_status == "2" || $T.Result.check_status == "3" || $T.Result.check_status == "4"}
 													<td align="left">
-														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
+														<div class="checkbox"
+                                                             style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
-																<input type="checkbox" id="tdCheckbox_{$T.Result.sid}" value="{$T.Result.sid}"  disabled="disabled"  />
-																<span class=    "text"></span>
+																<input type="checkbox" id="tdCheckbox_{$T.Result.sid}"
+                                                                       value="{$T.Result.sid}" disabled="disabled"/>
+																<span class="text"></span>
 															</label>
 														</div>
 													</td>
 													{#/if} 
 													{#if $T.Result.check_status == "1"}
 														<td align="left">
-														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
+														<div class="checkbox"
+                                                             style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
-																	<input type="checkbox" id="tdCheckbox_{$T.Result.sid}" value="{$T.Result.sid}"/>
-																<span class=    "text"></span>
+																	<input type="checkbox"
+                                                                           id="tdCheckbox_{$T.Result.sid}"
+                                                                           value="{$T.Result.sid}"/>
+																<span class="text"></span>
 															</label>
 														</div>
 													</td>
@@ -510,7 +536,9 @@
     <div class="modal-dialog" style="width: 800px; height: auto; margin: 4% auto;">
         <div class="modal-content">
             <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close"  type="button" onclick="closeMerchant();">×</button>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closeMerchant();">
+                    ×
+                </button>
                 <h4 class="modal-title" id="divTitle">查看优惠券</h4>
             </div>
             <div class="page-body">
@@ -519,58 +547,64 @@
                         <div class="col-xs-12 col-md-12">
                             <input type="hidden" name="id" id="merchant_id">
                             <div class="col-md-12" style="padding: 10px 100px;">
-                                <label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">单据号：</label>
+                                <label class="col-md-5 control-label"
+                                       style="line-height: 20px; text-align: right;">单据号：</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="name" id="sid" />
+                                    <input type="text" class="form-control" name="name" id="sid"/>
                                 </div>
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12"  style="padding: 10px 100px;">
+                            <div class="col-md-12" style="padding: 10px 100px;">
                                 <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">用户编号：</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="feeCostRate" id="apply_cid" />
+                                    <input type="text" class="form-control" name="feeCostRate" id="apply_cid"/>
                                 </div>
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12"  style="padding: 10px 100px;">
-                                <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">申请人：</label>
+                            <div class="col-md-12" style="padding: 10px 100px;">
+                                <label class="col-md-5 control-label"
+                                       style="line-height: 20px; text-align: right;">申请人：</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="apply_name" readonly="readonly"/>
                                 </div>
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12"  style="padding: 10px 100px;">
-                                <label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">申请类型：</label>
+                            <div class="col-md-12" style="padding: 10px 100px;">
+                                <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">申请类型：</label>
                                 <div class="radio">
-                                    <label> 
-                                    	<input class="basic divtype cart_flag" type="radio" id="apply_type_0" name="apply_type" value="1" checked="checked" onclick="return false;"> 
-                                    	<span class="text">增积分</span>
+                                    <label>
+                                        <input class="basic divtype cart_flag" type="radio" id="apply_type_0"
+                                               name="apply_type" value="1" checked="checked" onclick="return false;">
+                                        <span class="text">增积分</span>
                                     </label>
-                                    <label> 
-                                    	<input class="basic divtype cart_flag" type="radio" id="apply_type_1" name="apply_type" value="2" onclick="return false;"> 
-                                    	<span class="text">减积分</span>
+                                    <label>
+                                        <input class="basic divtype cart_flag" type="radio" id="apply_type_1"
+                                               name="apply_type" value="2" onclick="return false;">
+                                        <span class="text">减积分</span>
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="col-md-12"  style="padding: 10px 100px;">
-                                <label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">凭证类型：</label>
+                            <div class="col-md-12" style="padding: 10px 100px;">
+                                <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">凭证类型：</label>
                                 <div class="radio">
-                                    <label> 
-                                    	<input class="basic divtype cart_flag" type="radio" id="source_type_0" name="source_type" value="1" checked="checked" onclick="return false;"> 
-                                    	<span class="text">订单号</span>
+                                    <label>
+                                        <input class="basic divtype cart_flag" type="radio" id="source_type_0"
+                                               name="source_type" value="1" checked="checked" onclick="return false;">
+                                        <span class="text">订单号</span>
                                     </label>
-                                    <label> 
-                                    	<input class="basic divtype cart_flag" type="radio" id="source_type_1" name="source_type" value="2" onclick="return false;"> 
-                                    	<span class="text">退货单号</span>
+                                    <label>
+                                        <input class="basic divtype cart_flag" type="radio" id="source_type_1"
+                                               name="source_type" value="2" onclick="return false;">
+                                        <span class="text">退货单号</span>
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
+                            <div class="col-md-12" style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">积分数量：</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="apply_num" readonly="readonly"/>
@@ -578,7 +612,7 @@
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
+                            <div class="col-md-12" style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">申请理由：</label>
                                 <div class="col-md-6">
                                     <input type="textarea" class="form-control" id="apply_reason" readonly="readonly"/>
@@ -586,7 +620,7 @@
                                 <br>&nbsp;
                             </div>
 
-                            <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
+                            <div class="col-md-12" style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">审核备注：</label>
                                 <div class="col-md-6">
                                     <input type="textarea" class="form-control" id="check_status" readonly="readonly"/>
@@ -600,7 +634,8 @@
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                            <input class="btn btn-danger" onclick="closeMerchant();" style="width: 25%;" id="submitEdit" type="button" value="关闭" />
+                            <input class="btn btn-danger" onclick="closeMerchant();" style="width: 25%;" id="submitEdit"
+                                   type="button" value="关闭"/>
                         </div>
                     </form>
                 </div>
@@ -613,26 +648,27 @@
 
 <!--审核优惠券 审核状态 和备注 -->
 <div class="modal modal-darkorange" id="checkCouponStatusDiv">
-	<div class="modal-dialog" style="width: 600px; height: auto; margin: 4% auto;">
+    <div class="modal-dialog" style="width: 600px; height: auto; margin: 4% auto;">
         <div class="modal-content">
             <div class="page-body">
                 <div class="row">
                     <form method="post" class="form-horizontal" id="editForm">
                         <div class="col-xs-12 col-md-12">
-                            <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
+                            <div class="col-md-12" style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">审核状态：</label>
                                 <div class="col-md-6">
                                     <select id="checkStatus_">
-                                    	<option value="2">审核通过</option>
-                                    	<option value="3">审核不通过</option>
+                                        <option value="2">审核通过</option>
+                                        <option value="3">审核不通过</option>
                                     </select>
                                 </div>
                                 <br>&nbsp;
                             </div>
-                            <div class="col-md-12"  style="padding: 10px 100px;" id="old_input">
+                            <div class="col-md-12" style="padding: 10px 100px;" id="old_input">
                                 <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">审核备注：</label>
                                 <div class="col-md-6">
-                                    <textarea class="form-control" rows="3" id="checkMemo_" name="checkMemo_"></textarea>
+                                    <textarea class="form-control" rows="3" id="checkMemo_"
+                                              name="checkMemo_"></textarea>
                                 </div>
                                 <br>&nbsp;
                             </div>
@@ -643,8 +679,10 @@
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                            <input class="btn btn-danger" id="commitCheckCoupon" style="width: 25%;" id="submitEdit" type="button" value="审核" />
-                            <input class="btn btn-danger" onclick="closeMerchant();" style="width: 25%;" id="submitEdit" type="button" value="关闭" />
+                            <input class="btn btn-danger" id="commitCheckCoupon" style="width: 25%;" id="submitEdit"
+                                   type="button" value="审核"/>
+                            <input class="btn btn-danger" onclick="closeMerchant();" style="width: 25%;" id="submitEdit"
+                                   type="button" value="关闭"/>
                         </div>
                     </form>
                 </div>
@@ -652,7 +690,7 @@
         </div>
         <!-- /.modal-content -->
     </div>
-<!-- /.modal-dialog -->
+    <!-- /.modal-dialog -->
 </div>
 
 
@@ -736,16 +774,16 @@
 </div>
 /.modal-dialog
 </div> -->
-    <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script>
-    <script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script>
-    <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
-	<!-- jquery validate 本地化信息文件 -->
-	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
-	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
-    <!--Bootstrap Date Range Picker-->	
-    <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/js/member/coupon/CouponApplyView.js"></script>
-    <script src="${pageContext.request.contextPath}/js/member/coupon/CouponApplyEntity.js"></script>
+<script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js"></script>
+<script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js"></script>
+<script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js"></script>
+<!-- jquery validate 本地化信息文件 -->
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+<!--Bootstrap Date Range Picker-->
+<script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
+<script src="${pageContext.request.contextPath}/js/member/coupon/CouponApplyView.js"></script>
+<script src="${pageContext.request.contextPath}/js/member/coupon/CouponApplyEntity.js"></script>
 </body>
 </html>

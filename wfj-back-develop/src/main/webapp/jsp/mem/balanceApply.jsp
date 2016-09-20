@@ -594,9 +594,10 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td align="center" id="memberAccount_{$T.Result.sid}">
-                                                {#if $T.Result.memberAccount != '[object
-                                                Object]'}{$T.Result.memberAccount}
+                                            <td align="center" id="memberAccountStr_{$T.Result.sid}">
+                                                <input type="hidden" id = "memberAccount_{$T.Result.sid}" value="{$T.Result.memberAccount}">
+                                                {#if $T.Result.memberAccountStr != '[object
+                                                Object]'}{$T.Result.memberAccountStr}
                                                 {#/if}
                                             </td>
                                             <td align="center" id="memberNum_{$T.Result.sid}">
