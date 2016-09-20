@@ -26,6 +26,9 @@ Author: WangSy
 		$(".select2-arrow b").attr("style", "line-height: 2;");
 		$("#resetQuery").attr("disabled", "disabled");
 		$("#materialNumber").hide();
+		$("#shoppeclose").click(function() {
+			$("#pageBody").load(__ctxPath + "/jsp/product/ProductView.jsp");
+		});
 	});
 	//专柜商品查询
 	function productQuery() {
