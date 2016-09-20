@@ -2967,10 +2967,15 @@ public class OmsOrderController {
 		}
 		map.put("start", String.valueOf(currPage));
 		map.put("limit", String.valueOf(size));
-		String jsonStr = JSON.toJSONString(map);
 		try {
+			String sysv = sysValues.desensitization(request);
+			if(sysv.equals("1")){
+				map.put("sysValue", sysv);
+			}
+			String jsonStr = JSON.toJSONString(map);
 			logger.info("导出Excel表格调oms接口入参:{}",jsonStr);
-			String json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone2"), jsonStr);
+//			String json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone2"), jsonStr);
+			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/order/selectOrderPageExcel.htm", jsonStr);
 			logger.info("导出Excel表格调oms接口出参:{}",json);
 			JSONObject js = JSONObject.fromObject(json);
 			String data = js.getString("data");
@@ -3331,11 +3336,15 @@ public class OmsOrderController {
 		map.put("start", String.valueOf(currPage));
 		map.put("limit", String.valueOf(size));
 		map.put("fromSystem", "OMSADMIN");
+		String sysv = sysValues.desensitization(request);
+		if(sysv.equals("1")){
+			map.put("sysValue", sysv);
+		}
 		String jsonStr = JSON.toJSONString(map);
 		try {
 //			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refund_list"), jsonStr);
 			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list_excel"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/refund/queryRefundExcel.htm", jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSelect/selectRefundExcel.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
@@ -4799,11 +4808,15 @@ public class OmsOrderController {
 		map.put("start", String.valueOf(currPage));
 		map.put("limit", String.valueOf(size));
 		map.put("fromSystem", "OMSADMIN");
+		String sysv = sysValues.desensitization(request);
+		if(sysv.equals("1")){
+			map.put("sysValue", sysv);
+		}
 		String jsonStr = JSON.toJSONString(map);
 		try {
 			String json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list_phone2"), jsonStr);
 //			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcelByPhone.htm", jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSelect/selectSaleByPhoneExcel.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
