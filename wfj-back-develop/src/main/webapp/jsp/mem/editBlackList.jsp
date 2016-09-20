@@ -238,9 +238,7 @@
     	var userName="";
     	$.ajax({
             type : "post",
-           // contentType : "application/x-www-form-urlencoded;charset=utf-8",
             url : url1,
-           // dataType : "json",
             success : function(data) {
             	userName=data;
             	$("#relServiceId").val(userName);
@@ -469,8 +467,8 @@
                     <input type="hidden" id="cache" name="cache" value="1" />
                   </form>
                 </div>
-                <div id="olvPagination"></div>
               </div>
+                <div id="olvPagination"></div>
               <!-- Templates -->
               <p style="display:none">
 									<textarea id="olv-list" rows="0" cols="0">
@@ -667,9 +665,15 @@
                 <label class="col-md-5 control-label"
                        style="line-height: 20px; text-align: right;">解除原因：</label>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" name="name"
-                         id="relieveReason" />
-                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">不能为空!</span>
+                	<select id="relieveReason" class="form-control" name="name">
+                             <option value="">请选择</option>
+                             <option value="用户申请解除通过">用户申请解除通过</option>
+                             <option value="用户购买信用良好">用户购买信用良好</option>
+                             <option value="误拉黑">误拉黑</option>
+                    </select>
+                  <!--  <input type="text" class="form-control" name="name"
+                         id="relieveReason" />-->
+                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">请选择解除原因!</span>
                 </div>
                 <br>&nbsp;
               </div>
