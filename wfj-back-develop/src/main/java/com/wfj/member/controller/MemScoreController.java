@@ -103,7 +103,7 @@ public class MemScoreController {
 		} catch (Exception e) {
 			logger.error("查询屏显规则异常！返回结果json="+json1);
 		}
-		map.put("mask","1");
+		map.put("mask",sysValue);
 		/**
 		 * 调用member-ops
 		 */
