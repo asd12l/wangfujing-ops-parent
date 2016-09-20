@@ -230,8 +230,8 @@
 										<input type="hidden" id="cache" name="cache" value="1" />
 									</form>
 								</div>
-								<div id="olvPagination"></div>
 							</div>
+								<div id="olvPagination"></div>
 							<!-- Templates -->
 							<p style="display:none">
 									<textarea id="olv-list" rows="0" cols="0">

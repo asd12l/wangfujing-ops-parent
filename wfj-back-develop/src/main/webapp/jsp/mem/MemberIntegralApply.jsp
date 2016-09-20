@@ -841,8 +841,8 @@
                                             <input type="hidden" id="cache" name="cache" value="1"/>
                                         </form>
                                     </div>
-                                    <div id="olvPagination"></div>
                                 </div>
+                                    <div id="olvPagination"></div>
                             </div>
                             <!-- Templates -->
                             <p style="display: none">
