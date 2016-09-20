@@ -76,7 +76,7 @@ public class MemScoreController {
 			map.put("integralType", hidIntegralType);
 		}
 		if(StringUtils.isNotBlank(start)){
-			map.put("page_no",start);
+			map.put("page_no",page);
 		}
 		if(StringUtils.isNotBlank(pageSize)){
 			map.put("page_size", pageSize);
@@ -103,7 +103,7 @@ public class MemScoreController {
 		} catch (Exception e) {
 			logger.error("查询屏显规则异常！返回结果json="+json1);
 		}
-		map.put("mask",sysValue);
+		map.put("mask","1");
 		/**
 		 * 调用member-ops
 		 */
