@@ -297,11 +297,11 @@
         $("#relServiceId_msg").show();
         return;
       }
-      if(relieveReason==""||relieveReason==null){
+      var reg = /^\s*$/g;
+      if(relieveReason==""||relieveReason==null ||reg.test(relieveReason)){
         $("#relieveReason_msg").show();
         return;
       }
-
       var url = __ctxPath+"/memBasic/relieveBlackList";
       $.ajax({
         type : "post",
@@ -665,15 +665,9 @@
                 <label class="col-md-5 control-label"
                        style="line-height: 20px; text-align: right;">解除原因：</label>
                 <div class="col-md-6">
-                	<select id="relieveReason" class="form-control" name="name">
-                             <option value="">请选择</option>
-                             <option value="用户申请解除通过">用户申请解除通过</option>
-                             <option value="用户购买信用良好">用户购买信用良好</option>
-                             <option value="误拉黑">误拉黑</option>
-                    </select>
-                  <!--  <input type="text" class="form-control" name="name"
-                         id="relieveReason" />-->
-                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">请选择解除原因!</span>
+                  <input type="text" class="form-control" name="name"
+                         id="relieveReason" />
+                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">请输入解除原因!</span>
                 </div>
                 <br>&nbsp;
               </div>
