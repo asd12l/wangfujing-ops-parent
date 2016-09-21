@@ -155,14 +155,15 @@ label{width: 70px;}
                                    				</li>
                                     				
 										<br>
-										<li class="col-md-9">
-										 <a class="btn btn-default shiny"onclick="query();">查询</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a class="btn btn-default shiny" onclick="add();">回复</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a class="btn btn-default shiny" onclick="modify();">修改</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a class="btn btn-default shiny" onclick="reply();">屏蔽</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a class="btn btn-default shiny" onclick="rereply();">恢复</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a class="btn btn-default shiny" onclick="delet();">删除</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <a class="btn btn-default shiny" onclick="reset();">重置</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<li class="col-md-7">
+										 <a class="btn btn-yellow"onclick="query();"><i class="fa fa-eye"></i>查询</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <a class="btn btn-primary" onclick="add();"><i class="fa fa-random"></i>回复</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <a class="btn btn-primary" onclick="modify();"><i class="glyphicon glyphicon-wrench"></i>修改</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <a class="btn btn-primary" onclick="reply();"><i class="glyphicon glyphicon-wrench"></i>屏蔽</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <a class="btn btn-primary" onclick="rereply();"><i class="glyphicon glyphicon-wrench"></i>恢复</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <a class="btn btn-primary" onclick="delet();"><i class="glyphicon glyphicon-wrench"></i>删除</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <a class="btn btn-primary" onclick="reset();"><i class="fa fa-random"></i>重置</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 <!--  <a class="btn btn-default shiny" onclick="reset();">重置</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
 										 </li>
 									</div>
 								</div>

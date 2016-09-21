@@ -76,7 +76,7 @@ public class MemScoreController {
 			map.put("integralType", hidIntegralType);
 		}
 		if(StringUtils.isNotBlank(start)){
-			map.put("page_no",start);
+			map.put("page_no",page);
 		}
 		if(StringUtils.isNotBlank(pageSize)){
 			map.put("page_size", pageSize);

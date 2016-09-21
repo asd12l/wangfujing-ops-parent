@@ -97,6 +97,10 @@
             $("#applyName_input").val("");
             $("#reservationAp").val("");
             $("#reservationCh").val("");
+            $("#mobile_input").val("");
+            $("#email_input").val("");
+            $("#from_order_input").val("");
+            $("#check_status_input").val("");
             productQuery();
         }
         //初始化包装单位列表

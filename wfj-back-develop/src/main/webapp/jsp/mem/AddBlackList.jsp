@@ -99,6 +99,18 @@
     }
 
     function pullBlack(){
+    	var url1 = __ctxPath+"/memBasic/getUserName";
+    	var userName="";
+    	$.ajax({
+            type : "post",
+            url : url1,
+            success : function(data) {
+            	userName=data;
+            	$("#serviceId").val(userName);
+            },
+            error:function(){
+            }
+    	});
       var checkboxArray=[];
       $("input[type='checkbox']:checked").each(function(i,team){
         var cid=$(this).val().trim();
@@ -123,7 +135,7 @@
       //清除隐藏div表单内容
       $("#pullBlackCid").val(cid);
       $(".add_msg").hide();
-      $("#serviceId").val("");
+      
       $("#pullType").val("0");
       $("#pullReason").val("");
 
@@ -142,7 +154,7 @@
     function submitPullBlack(){
       var cid=$("#pullBlackCid").val();
       var serviceId=$("#serviceId").val();
-      var serviceID=/^[0-9]\d{1,20}$/.test(serviceId);
+      //var serviceID=/^[0-9]\d{1,20}$/.test(serviceId);
       var pullType=$("#pullType").val();
       var pullReason=$("#pullReason").val();
       if(serviceId==""||serviceId==null){
@@ -153,10 +165,6 @@
         $("#pullReason_msg").show();
         return;
       }
-	  if(!serviceID){
-		  $("#serviceId_Msg").show();
-		  return;
-	  }
       var url = __ctxPath+"/memBasic/pullBlackList";
       $.ajax({
         type : "post",
@@ -400,7 +408,7 @@
                 <label class="col-md-5 control-label"
                        style="line-height: 20px; text-align: right;">客服ID：</label>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" name="name"
+                  <input type="text" class="form-control" name="name" value="disabled" disabled
                          id="serviceId" />
                   <span id="serviceId_msg" style="color:red;display:none;" class="add_msg">不能为空!</span>
                   <span id="serviceId_Msg" style="color:red;display:none;" class="add_msg">请输入小于20位的数字!</span>

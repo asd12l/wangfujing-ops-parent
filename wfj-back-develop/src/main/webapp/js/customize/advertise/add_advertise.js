@@ -134,7 +134,6 @@ function validform() {
 					},
 					startTime : {
 						required : true,
-						TimeVal : true
 					},
 					endTime : {
 						required : true,
