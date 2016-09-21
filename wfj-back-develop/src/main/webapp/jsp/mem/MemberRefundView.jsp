@@ -188,7 +188,7 @@
 									<li class="col-md-6">
 										<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
 										<a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
-										<a onclick="showMemRefundView();"class="btn btn-primary"> <i class="fa fa-random"></i> 查询用户退货记录</a>
+										<a onclick="showMemRefundView();"class="btn btn-primary" style="display:none"> <i class="fa fa-random"></i> 查询用户退货记录</a>
 									</li>
 								</ul>
 
@@ -288,7 +288,7 @@
 														{#/if}
 													</td>
 													<td align="center" id="levelName_{$T.Result.cid}">
-														{#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
+														{#if $T.Result.levelName == "" || $T.Result.levelName == null}--
 														{#else}{$T.Result.levelName}
 														{#/if}
 													</td>
