@@ -231,7 +231,7 @@
 												<input type="text" id="email_input" /></li>
 											<li class="col-md-4"><label class="titname">订单号：</label>
 												<input type="text" id="orderNo_input" /></li>
-											<li class="col-md-4"><label class="titname">外部单号：</label>
+											<li class="col-md-4"><label class="titname" >外部单号：</label>
 												<input type="text" id="outOrderNo_input" /></li>
 											<li class="col-md-4"><label class="titname">订单状态：</label>
 												<select class="form-control orderStatusSpace" id="saleStatus_select" data-bv-field="country" style="width:60%;">
@@ -313,9 +313,9 @@
 														{#else}{$T.Result.createdTime}
 														{#/if}
 													</td>
-													<td align="center" id="accountNo_{$T.Result.memberNo}">
-														{#if $T.Result.accountNo == "" || $T.Result.accountNo == null}--
-														{#else}{$T.Result.accountNo}
+													<td align="center" id="username_{$T.Result.memberNo}">
+														{#if $T.Result.username == "" || $T.Result.username == null}--
+														{#else}{$T.Result.username}
 														{#/if}
 													</td>
 													<td align="center" id="nickname_{$T.Result.memberNo}">
