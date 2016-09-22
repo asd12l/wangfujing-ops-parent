@@ -191,24 +191,27 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label class="col-lg-3 control-label">开始时间</label>
+				<div class="form-group">
+						<label class="col-lg-3 control-label"><span
+							style="color: red;">*</span>开始时间</label>
 						<div class="col-lg-6">
 							<div class="input-icon ">
 								<i class="fa"></i> <input type="text" class="form-control Wdate"
-									id="startTime_" name="startTime" placeholder=""
+									id="startTime" name="startTime" placeholder=""
 									onClick="WdatePicker()" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-lg-3 control-label">结束时间</label>
+						<label class="col-lg-3 control-label"><span
+							style="color: red;">*</span>结束时间</label>
 						<div class="col-lg-6">
 							<div class="input-icon ">
 								<i class="fa"></i> <input type="text" class="form-control Wdate"
-									id="endTime_" name="endTime" placeholder=""
+									id="endTime" name="endTime" placeholder=""
 									onClick="WdatePicker()" />
 							</div>
+
 						</div>
 					</div>
 					<div class="form-group">

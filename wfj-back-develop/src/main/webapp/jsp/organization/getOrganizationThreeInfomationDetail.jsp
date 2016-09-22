@@ -63,6 +63,9 @@ var url = __ctxPath + "/category/getAllCategory";
                     if(typeof result.faxNumber != "object") {
                         $("#faxNumber").val(result.faxNumber);
                     }
+                    if(typeof result.field1 != "object") {
+                        $("#field1").val(result.field1);
+                    }
 				}
 				return;
 			}
@@ -232,6 +235,14 @@ var url = __ctxPath + "/category/getAllCategory";
 											</div>											
 										</div>
 									</div>
+                                    <div class="form-group">
+                                        <div class="col-lg-8 col-sm-8 col-xs-8 col-lg-offset-2">
+                                            <label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 18%;">门店标识：</label>
+                                            <div class="col-lg-6 col-sm-6 col-xs-6" style="width: 75%;">
+                                                <input readonly="readonly" maxlength="20" type="text" class="form-control" id="field1" name="field1" placeholder="必填"/>
+                                            </div>
+                                        </div>
+                                    </div>
 									
 									<div class="form-group">
 									    <div class="col-lg-offset-4 col-lg-6">
