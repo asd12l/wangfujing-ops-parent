@@ -28,34 +28,34 @@
 		$("#reservation").daterangepicker();
 	    initOlv();
 	   
-	    $.ajax({
+	  //销售单来源（PCM接口）
+		$.ajax({
 			type : "post",
-			contentType: "application/x-www-form-urlencoded;charset=utf-8",
-			url : __ctxPath + "/memBasic/selectOrderFrom",
+			url : __ctxPath + "/stock/queryChannelListAddPermission",
 			dataType : "json",
 			async : false,
 			success : function(response) {
-				//订单来源
-           		var result = response.list;
+				var result = response.list;
 				var option = "";
 				for (var i = 0; i < result.length; i++) {
 					var ele = result[i];
 					option += "<option value='"+ele.channelCode+"'>"
 							+ ele.channelName + "</option>";
 				}
-				$("#orderFrom_input").append(option);
-           		return;
+				$("#saleSource_input").append(option);
+				return;
 			}
-	    });
-	   
+		});
+		//销售单状态
+		$("#saleStatus_select").one("click",function(){
 			$.ajax({
 				type: "post",
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
-				url: __ctxPath+"/testOnlineOmsOrder/selectCodelist?typeValue=order_status",
+				url: __ctxPath+"/testOnlineOmsOrder/selectCodelist?typeValue=sale_status",
 				dataType: "json",
 				success: function(response) {
 					var result = response;
-					var codeValue = $("#orderStatus_input");
+					var codeValue = $("#saleStatus_select");
 					for ( var i = 0; i < result.list.length; i++) {
 						var ele = result.list[i];
 						var option;
@@ -66,6 +66,7 @@
 					return;
 				}
 			});
+			});
 	});
 	
 	function productQuery(){
@@ -74,8 +75,8 @@
 		$("#email_form").val($("#email_input").val().trim());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
 		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
-		$("#orderStatus_form").val($("#orderStatus_input").val().trim());
-		$("#orderFrom_form").val($("#orderFrom_input").val().trim());
+		$("#orderStatus_form").val($("#saleStatus_select").val().trim());
+		$("#orderFrom_form").val($("#saleSource_input").val().trim());
 		$("#saleNo_form").val($("#saleNo_input").val().trim());
 		var buytime =  $("#reservation").val();
 		if (buytime!=""){
@@ -105,8 +106,8 @@
 		$("#outOrderNo_input").val("");
 		$("#saleNo_input").val("");
 		$("#reservation").val("");
-		$("#orderStatus_input").val("");
-		$("#orderFrom_input").val("");
+		$("#saleStatus_select").val("");
+		$("#saleSource_input").val("");
 		productQuery();
 	}
 	//初始化包装单位列表
@@ -230,16 +231,16 @@
 												<input type="text" id="email_input" /></li>
 											<li class="col-md-4"><label class="titname">订单号：</label>
 												<input type="text" id="orderNo_input" /></li>
-											<li class="col-md-4"><label class="titname">外部单号：</label>
+											<li class="col-md-4"><label class="titname" >外部单号：</label>
 												<input type="text" id="outOrderNo_input" /></li>
 											<li class="col-md-4"><label class="titname">订单状态：</label>
-												<select class="form-control orderStatusSpace" id="orderStatus_input" data-bv-field="country" style="width:60%;">
+												<select class="form-control orderStatusSpace" id="saleStatus_select" data-bv-field="country" style="width:60%;">
 												<option value="">请选择</option>
 												</select></li>
 											<li class="col-md-4"><label class="titname">销售单号：</label>
 												<input type="text" id="saleNo_input" /></li>
 											<li class="col-md-4 " ><label class="titname">订单来源：</label>
-												<select class="form-control orderFromSpace" id="orderFrom_input" data-bv-field="country" style="width:60%;">
+												<select class="form-control orderFromSpace" id="saleSource_input" data-bv-field="country" style="width:60%;">
 												<option value="">请选择</option>
 												</select></li>
 											<li class="col-md-6">
@@ -263,7 +264,7 @@
 												<th style="text-align: center;" width="7%">真实姓名</th>
 												<th style="text-align: center;" width="7%">手机</th>
 												<th style="text-align: center;" width="7%">邮箱</th>
-												<th style="text-align: center;" width="7%">所属门店</th>
+												<th style="text-align: center;" width="7%">订单来源</th>
 												<th style="text-align: center;" width="7%">会员等级</th>
 												<th style="text-align: center;" width="7%">地址</th>
 												<th style="text-align: center;" width="7%">购买订单号</th>
@@ -312,9 +313,9 @@
 														{#else}{$T.Result.createdTime}
 														{#/if}
 													</td>
-													<td align="center" id="accountNo_{$T.Result.memberNo}">
-														{#if $T.Result.accountNo == "" || $T.Result.accountNo == null}--
-														{#else}{$T.Result.accountNo}
+													<td align="center" id="username_{$T.Result.memberNo}">
+														{#if $T.Result.username == "" || $T.Result.username == null}--
+														{#else}{$T.Result.username}
 														{#/if}
 													</td>
 													<td align="center" id="nickname_{$T.Result.memberNo}">
