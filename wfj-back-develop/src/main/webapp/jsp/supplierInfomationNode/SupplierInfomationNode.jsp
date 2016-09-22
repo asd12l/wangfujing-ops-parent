@@ -341,7 +341,11 @@
 															<span>冻结</span>
 														{#/if}
 													</td>
-													<td align="center" id="shortName_{$T.Result.sid}">{$T.Result.shortName}</td>
+													<td align="center" id="shortName_{$T.Result.sid}">
+													    {#if $T.Result.shortName != '[object Object]'}
+													        {$T.Result.shortName}
+													    {#/if}
+													</td>
 													<td align="center">
 													    <span id="keySupplier_{$T.Result.sid}" style="display:none;">
 													        {$T.Result.keySupplier}
