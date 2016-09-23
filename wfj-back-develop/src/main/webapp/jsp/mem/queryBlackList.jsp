@@ -435,7 +435,7 @@
                   <thead>
                   <tr role="row" style='height:35px;'>
                     <th style="text-align: center;" width="2%">选择</th>
-                    <th style="text-align: center;" width="6%">账户</th>
+                    <th style="text-align: center;" width="6%">账号</th>
                     <th style="text-align: center;" width="6%">昵称</th>
                     <th style="text-align: center;" width="6%">真实姓名</th>
                     <th style="text-align: center;" width="6%">所属门店</th>
