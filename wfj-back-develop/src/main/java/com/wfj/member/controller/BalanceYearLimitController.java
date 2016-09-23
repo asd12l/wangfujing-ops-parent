@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +62,8 @@ public class BalanceYearLimitController {
     @ResponseBody
     public String insert(HttpServletRequest request, String setupComplaintBal, String setupCarriageBal, String year){
         Map<String,String> map = new HashMap<>();
+        setupComplaintBal= vilStr(setupComplaintBal);
+        setupCarriageBal = vilStr(setupCarriageBal);
         map.put("sid",Long.toString(System.currentTimeMillis()));
         map.put("setupComplaintBal", setupComplaintBal);
         map.put("usableComplaintBal",setupComplaintBal);
@@ -86,6 +89,8 @@ public class BalanceYearLimitController {
     @ResponseBody
     public String update(HttpServletRequest request, String sid, String setupComplaintBal, String setupCarriageBal, String year){
         Map<String,String> map = new HashMap<>();
+        setupComplaintBal= vilStr(setupComplaintBal);
+        setupCarriageBal = vilStr(setupCarriageBal);
         map.put("sid",sid);
         String url = CommonProperties.get("member_ops_url");
         String method = "/setYearBal/getBySid.do";
@@ -108,22 +113,27 @@ public class BalanceYearLimitController {
         if(jsonObject.getJSONObject("object") != null){
             JSONObject json = jsonObject.getJSONObject("object");
             String setupComplaintBalOld = json.getString("setupComplaintBal");
+//            setupComplaintBalOld= vilStr(setupComplaintBalOld);
             String setupCarriageBalOld = json.getString("setupCarriageBal");
+//            setupCarriageBalOld= vilStr(setupCarriageBalOld);
             String usableComplaintBalOld = json.getString("usableComplaintBal");
+//            usableComplaintBalOld = vilStr(usableComplaintBalOld);
             String usableCarriageBalOld = json.getString("usableCarriageBal");
+//            usableCarriageBalOld = vilStr(usableCarriageBalOld);
+            DecimalFormat df = new DecimalFormat("#0.00");
             if(Double.parseDouble(setupComplaintBal) < Double.parseDouble(setupComplaintBalOld)){
                 mapRequest.put("setupComplaintBal",setupComplaintBal);
-                mapRequest.put("usableComplaintBal",Double.toString(Double.parseDouble(usableComplaintBalOld) - (Double.parseDouble(setupComplaintBalOld) - Double.parseDouble(setupComplaintBal))));
+                mapRequest.put("usableComplaintBal",df.format(Double.parseDouble(usableComplaintBalOld) - (Double.parseDouble(setupComplaintBalOld) - Double.parseDouble(setupComplaintBal))));
             }else {
                 mapRequest.put("setupComplaintBal",setupComplaintBal);
-                mapRequest.put("usableComplaintBal",Double.toString(Double.parseDouble(usableComplaintBalOld) + (Double.parseDouble(setupComplaintBal) - Double.parseDouble(setupComplaintBalOld))));
+                mapRequest.put("usableComplaintBal",df.format(Double.parseDouble(usableComplaintBalOld) + (Double.parseDouble(setupComplaintBal) - Double.parseDouble(setupComplaintBalOld))));
             }
             if(Double.parseDouble(setupCarriageBal) < Double.parseDouble(setupCarriageBalOld)){
                 mapRequest.put("setupCarriageBal",setupCarriageBal);
-                mapRequest.put("usableCarriageBal",Double.toString(Double.parseDouble(usableCarriageBalOld) - (Double.parseDouble(setupCarriageBalOld) - Double.parseDouble(setupCarriageBal))));
+                mapRequest.put("usableCarriageBal",df.format(Double.parseDouble(usableCarriageBalOld) - (Double.parseDouble(setupCarriageBalOld) - Double.parseDouble(setupCarriageBal))));
             }else {
                 mapRequest.put("setupCarriageBal",setupCarriageBal);
-                mapRequest.put("usableCarriageBal",Double.toString(Double.parseDouble(usableCarriageBalOld) + (Double.parseDouble(setupCarriageBal) - Double.parseDouble(setupCarriageBalOld))));
+                mapRequest.put("usableCarriageBal",df.format(Double.parseDouble(usableCarriageBalOld) + (Double.parseDouble(setupCarriageBal) - Double.parseDouble(setupCarriageBalOld))));
             }
 
             try {
@@ -142,5 +152,20 @@ public class BalanceYearLimitController {
             errJson.put("desc", "没有改修改记录！");
             return errJson.toString();
         }
+    }
+    private String vilStr(String str){
+        StringBuffer sb = new StringBuffer(str);
+        if (str.indexOf(".") != -1){
+            String str1 =str.substring(str.indexOf(".")+1, str.length());
+            if (str1.length()<2){
+                sb.append("0");
+                str = sb.toString();
+
+            }
+        }else {
+            sb.append(".00");
+            str = sb.toString();
+        }
+        return str;
     }
 }
