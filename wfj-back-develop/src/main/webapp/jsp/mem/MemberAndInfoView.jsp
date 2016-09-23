@@ -126,7 +126,7 @@
 											<th style="text-align: center;" width="4%">兴趣</th>
 											<th style="text-align: center;" width="4%">婚姻状况</th>
 											<th style="text-align: center;" width="4%">月收入</th>
-											<th style="text-align: center;" width="5%">身份证号</th>
+											<th style="text-align: center;" width="5%">证件号</th>
 											<th style="text-align: center;" width="5%">教育程度</th>
 											<th style="text-align: center;" width="4%">所在行业</th>
 											<th style="text-align: center;" width="4%">绑定状态</th>
