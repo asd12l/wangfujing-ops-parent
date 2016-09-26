@@ -516,12 +516,12 @@ function successBtn(){
                                				</li>
                                 			
                                				<li class="col-md-4">
-		                           				<label class="titname">退款状态：</label>
+		                           				<label class="titname">提现状态：</label>
 		                           				<select  id="refundStatus">
 												<option value="">请选择</option>
 												<option value="1">待退款</option>
-												<option value="2">退款成功</option>
-												<option value="3">退款失败</option>
+												<option value="2">提现成功</option>
+												<option value="3">提现失败</option>
 												</select>
                                				</li>
                             				<li class="col-md-4">
@@ -562,7 +562,7 @@ function successBtn(){
                                             <th width="2%" style="text-align: center;">审核备注</th>
                                              <th width="2%" style="text-align: center;">审核人</th>
                                               <th width="2%" style="text-align: center;">审核时间</th>
-                                            <th width="2%" style="text-align: center;">退款状态</th>
+                                            <th width="2%" style="text-align: center;">提现状态</th>
                                             <th width="2%" style="text-align: center;">失败原因</th>
                                             <th width="2%" style="text-align: center;">退款人</th>
                                             <th width="2%" style="text-align: center;">退款时间</th>
@@ -666,8 +666,8 @@ function successBtn(){
 											</td>
 											<td align="center" id="refundStatus_{$T.Result.sid}" value="{$T.Result.refundStatus}">
 												{#if $T.Result.refundStatus == '1'}待退款
-												{#elseif $T.Result.refundStatus == '2'}退款成功
-												{#elseif $T.Result.refundStatus == '3'}退款失败
+												{#elseif $T.Result.refundStatus == '2'}提现成功
+												{#elseif $T.Result.refundStatus == '3'}提现失败
 				                   				{#/if}
 											</td>
 											<td align="center" id="failReason_{$T.Result.sid}" value="{$T.Result.failReason}">

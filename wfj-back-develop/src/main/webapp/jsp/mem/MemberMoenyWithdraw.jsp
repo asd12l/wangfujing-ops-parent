@@ -194,10 +194,11 @@
 		}
 	}
 	function verifyBankCardNo(){
-		var re = /^\d{16}|\d{19}$/;
+		var re1 = /^\d{16}$/g;
+		var re2 = /^\d{19}$/g;
 		var bankCardNo = $("#bankCardNo").val();
 		var bankCardNo2 = $("#bankCardNo2").val();
-		if(!re.test(bankCardNo)){
+		if(!re1.test(bankCardNo) && !re2.test(bankCardNo)){
 			$("#errBankCardNo").html("<span style=\"color:red\">银行卡号是16位或19位正整数！</span>");
 			return false;
 		}else{
@@ -206,10 +207,11 @@
 		}
 	}
 	function verifyBankCardNo2(){
-		var re = /^\d{16}|\d{19}$/;
+		var re1 = /^\d{16}$/g;
+		var re2 = /^\d{19}$/g;
 		var bankCardNo = $("#bankCardNo").val();
 		var bankCardNo2 = $("#bankCardNo2").val();
-		if(!re.test(bankCardNo2)){
+		if(!re1.test(bankCardNo2) && !re2.test(bankCardNo2)){
 			$("#errBankCardNo2").html("<span style=\"color:red\">银行卡号是16位或19位正整数！</span>");
 			return false;
 		}
