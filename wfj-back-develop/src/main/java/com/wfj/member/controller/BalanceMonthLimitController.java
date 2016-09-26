@@ -24,7 +24,7 @@ public class BalanceMonthLimitController {
 
     @RequestMapping("/getList")
     @ResponseBody
-    public String getList(HttpServletRequest request, Integer start, Integer pageSize, String year){
+    public String getList(HttpServletRequest request, Integer start, Integer pageSize, String year,String _site_id_param){
         log.debug("查询余额年限制，参数start:{}, pageSize:{}, year:{}",start,pageSize,year);
         if (pageSize == null || pageSize == 0) {
             pageSize = 10;
@@ -34,19 +34,27 @@ public class BalanceMonthLimitController {
         JSONObject json = new JSONObject();
         json.put("start", start);
         json.put("pageSize", pageSize);
-        json.put("year",year);
+        if(year != null && !"".equals(year)){
+        	json.put("year",year);
+        }
+        if(_site_id_param != null && !"".equals(_site_id_param)){
+        	json.put("year",_site_id_param);
+        }
         String url = CommonProperties.get("member_ops_url");
         String method = "/setMonthBal/select.do";
         String req;
         try {
             req = HttpUtil.doPost(url + method, json.toString());
             JSONObject resJson = JSONObject.parseObject(req);
-            JSONArray ja = resJson.getJSONArray("object");
+            JSONObject jsonObject=resJson.getJSONObject("object");
+            JSONArray ja = jsonObject.getJSONArray("list");
             if(ja == null || ja.size() == 0){
                 resJson.put("pageCount", 0);
                 return resJson.toString();
             }
-            int pageCount = ja.size() % pageSize == 0 ? ja.size() / pageSize : (ja.size() / pageSize + 1);
+            int count=jsonObject.getInteger("count");
+            int pageCount=count % pageSize  == 0 ? count /pageSize:count/pageSize+1;
+            //int pageCount = ja.size() % pageSize == 0 ? ja.size() / pageSize : (ja.size() / pageSize + 1);
             resJson.put("pageCount", pageCount);
             return resJson.toString();
         } catch (Exception e) {

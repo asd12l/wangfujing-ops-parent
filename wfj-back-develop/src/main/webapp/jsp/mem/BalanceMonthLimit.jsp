@@ -20,7 +20,16 @@
 		$(function() {
 			initUserRole();
 			$("#find").click(userRoleQuery);
+			$("#pageSelect").change(advertisingSpaceQuery);
 		});
+		function advertisingSpaceQuery() {
+			//$("#_site_id_param").val(siteSid);
+			$("#_site_id_param").val($("#year").val());
+			var params = $("#advertisingSpace_form").serialize();
+			params = decodeURI(params);
+			productPagination.onLoad(params);
+		}
+		
 		function userRoleQuery(){
 			var params = $("#product_form").serialize();
 			params = decodeURI(params);
@@ -163,13 +172,24 @@
 								<tbody>
 								</tbody>
 							</table>
+							<div class="pull-left" style="margin-top: 5px;">
+							<form id="advertisingSpace_form" action="">
+								<select id="pageSelect" name="pageSize">
+									<option>5</option>
+									<option selected="selected">10</option>
+									<option>15</option>
+									<option>20</option>
+								</select>
+								<input type="hidden" name="_site_id_param" id="_site_id_param"/>
+							</form>
+						</div>
 							<div id="productPagination"></div>
 						</div>
 						<!-- Templates -->
 						<p style="display:none">
 									<textarea id="balance-list" rows="0" cols="0">
 										{#template MAIN}
-											{#foreach $T.object as Result}
+											{#foreach $T.object.list as Result}
 												<tr class="gradeX">
 													<td align="left">
 														<div class="checkbox">
