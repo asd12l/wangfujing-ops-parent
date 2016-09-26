@@ -355,12 +355,14 @@ public class MemberMoneyDrawbackController {
 			map.put("mask",sysValue);
 			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
 			JSONObject json = JSONObject.parseObject(jsonString);
-			JSONArray ja = json.getJSONArray("object");
+			JSONObject jsonObject = json.getJSONObject("object");
+			JSONArray ja = jsonObject.getJSONArray("resList");
 			if(ja == null || ja.size() == 0){
 				json.put("pageCount", 0);
 				return json.toString();
 			}
-			int pageCount = ja.size() % 10 == 0 ? ja.size() / 10 : (ja.size() / 10 + 1);
+			int count = jsonObject.getInteger("count");
+			int pageCount = count % 10 == 0 ? count / 10 : (count / 10 + 1);
 			json.put("pageCount", pageCount);
 			return json.toString();
 		} catch (Exception e) {
@@ -556,7 +558,8 @@ public class MemberMoneyDrawbackController {
 			System.err.println("======== getWithdrawlsList url "+url+ method+"  =========");
 			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
 			JSONObject json = JSONObject.parseObject(jsonString);
-			JSONArray arr = json.getJSONArray("object");
+			JSONObject jsonObject = json.getJSONObject("object");
+			JSONArray arr = jsonObject.getJSONArray("resList");
 			List<Withdraw> list1 = new ArrayList<Withdraw>();
 			if (arr != null && arr.size() != 0) {
 				for (int i=0;i<arr.size();i++){
@@ -602,7 +605,7 @@ public class MemberMoneyDrawbackController {
 		List<List<String>> data = new ArrayList<List<String>>();
 		for(Withdraw vo:list){
 			List<String> inlist = new ArrayList<String>();
-			inlist.add(vo.getBillno()==null?"":vo.getBillno());
+			inlist.add(vo.getSeqno()==null?"":vo.getSeqno());
 			if (!"1".equals(sysValue)){
 				inlist.add(vo.getMobile()==null?"":vo.getMobile());
 			}else {

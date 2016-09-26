@@ -581,7 +581,7 @@ function successBtn(){
 							<p style="display:none">
 								<textarea id="olv-list" rows="0" cols="0">
 								{#template MAIN}
-									{#foreach $T.object as Result}
+									{#foreach $T.object.resList as Result}
 										<tr class="gradeX" id="gradeX{$T.Result.sid}" ondblclick="trClick('{$T.Result.orderTradeNo}',this)" style="height:35px;">
 											
 										<td align="center">
