@@ -93,12 +93,20 @@
 										</li>
 										<li class="col-md-4"><label class="titname">邮箱：</label>
 											<input type="text" id="email_input" /></li>
-										
-										<li class="col-md-4"><label class="titname">注册时间：</label>
-											<input type="text" id="registrationTime_input" /></li>
-										
-										<li class="col-md-4"><label class="titname">会员等级-X：</label>
-											<input type="text" id="memberLevel_input" /></li>
+										<!--先不展示 可能二期展示  -->
+										<!-- <li class="col-md-4"><label class="titname">注册时间：</label>
+											<input type="text" id="registrationTime_input" /></li> -->
+										<!--先不展示 可能二期展示  -->
+										<!-- <li class="col-md-4"><label class="titname">会员等级-X：</label>
+											<input type="text" id="memberLevel_input" />
+											<select id="memberLevel_input">
+											   <option value="" checked="checked">请选择</option>
+												<option value="I">V钻会员</option>
+												<option value="L">金钻会员</option>
+												<option value="K">红钻会员</option>
+												<option value=" ">黑钻会员</option>
+											</select>
+											</li> -->
 
 										<li class="col-md-6">
 											<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
@@ -149,8 +157,8 @@
 										<input type="hidden" id="email_from" name="email"/>
 										<input type="hidden" id="idType_from" name="idType"/>
 										<!-- 注册时间 -->
-										<input type="hidden" id="timeStartDate_form" name="timeStartDate"/>
-										<input type="hidden" id="timeEndDate_form" name="timeEndDate"/>
+										<input type="hidden" id="timeStartDate_form" name="m_timeStartDate"/>
+										<input type="hidden" id="timeEndDate_form" name="m_timeEndDate"/>
 										<!-- 会员等级 -->
 										<input type="hidden" id="memberLevel_from" name="memberLevel"/>
 										<input type="hidden" id="cache" name="cache" />
