@@ -78,6 +78,7 @@
 		$("#orderStatus_form").val($("#saleStatus_select").val().trim());
 		$("#orderFrom_form").val($("#saleSource_input").val().trim());
 		$("#saleNo_form").val($("#saleNo_input").val().trim());
+		$("#pageSelectNo").val($("#pageSelect").val());
 		var buytime =  $("#reservation").val();
 		if (buytime!=""){
 			buytime = buytime.split("-");
@@ -154,6 +155,7 @@
 			}
 			return data;
 			}
+		$("#pageSelect").change(productQuery);
     } 
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
@@ -231,7 +233,7 @@
 												<input type="text" id="email_input" /></li>
 											<li class="col-md-4"><label class="titname">订单号：</label>
 												<input type="text" id="orderNo_input" /></li>
-											<li class="col-md-4"><label class="titname" >外部单号：</label>
+											<li class="col-md-4"><label class="titname" >外部订单号：</label>
 												<input type="text" id="outOrderNo_input" /></li>
 											<li class="col-md-4"><label class="titname">订单状态：</label>
 												<select class="form-control orderStatusSpace" id="saleStatus_select" data-bv-field="country" style="width:60%;">
@@ -259,12 +261,12 @@
                                             <tr role="row" style='height:35px;'>
 												<th style="text-align: center;" width="2%">选择</th>
 												<th style="text-align: center;" width="7%">购买时间</th>
-												<th style="text-align: center;" width="7%">账户</th>
+												<th style="text-align: center;" width="7%">账号</th>
 												<th style="text-align: center;" width="7%">昵称</th>
 												<th style="text-align: center;" width="7%">真实姓名</th>
 												<th style="text-align: center;" width="7%">手机</th>
 												<th style="text-align: center;" width="7%">邮箱</th>
-												<th style="text-align: center;" width="7%">订单来源</th>
+												<th style="text-align: center;" width="7%">所属门店</th>
 												<th style="text-align: center;" width="7%">会员等级</th>
 												<th style="text-align: center;" width="7%">地址</th>
 												<th style="text-align: center;" width="7%">购买订单号</th>
@@ -289,10 +291,23 @@
 											<input type="hidden" id="saleNo_form" name="saleNo" />
 											<input type="hidden" id="m_buytimeStartDate_form" name="m_buytimeStartDate" />
 											<input type="hidden" id="m_buytimeEndDate_form" name="m_buytimeEndDate" />
+											<input type="hidden" id="pageSelectNo" name="pageSize" />
 											<input type="hidden" id="cache" name="cache" value="1" />
 									</form>
 								</div>
                                 </div>
+                                <div class="pull-left" style="margin-top: 5px;">
+									<form id="topic_form" action="">
+										<div class="col-lg-12">
+											<select id="pageSelect" name="pageSize">
+												<option>5</option>
+												<option selected="selected">10</option>
+												<option>15</option>
+												<option>20</option>
+											</select>
+										</div>
+									</form>
+								</div>
                                     <div id="olvPagination"></div>
 								<!-- Templates -->
 								<p style="display:none">
@@ -339,9 +354,9 @@
 														{#/if}
 													</td>
 
-													<td align="center" id="newOrderSource_{$T.Result.memberNo}">
-														{#if $T.Result.newOrderSource == "" || $T.Result.newOrderSource == null}--
-														{#else}{$T.Result.newOrderSource}
+													<td align="center" id="storeName_{$T.Result.memberNo}">
+														{#if $T.Result.storeName == "" || $T.Result.storeName == null}--
+														{#else}{$T.Result.storeName}
 														{#/if}
 													</td>
 													<td align="center" id="levelName_{$T.Result.memberNo}">
@@ -369,10 +384,9 @@
 														{#else}{$T.Result.paymentAmount}
 														{#/if}
 													</td>
-													<td align="center" id="isCod_{$T.Result.memberNo}">
-														{#if $T.Result.isCod == "0"}在线支付
-														{#else}货到付款
-														
+													<td align="center" id="payment_{$T.Result.memberNo}">
+														{#if $T.Result.payment == "" || $T.Result.payment == null}--
+														{#else}{$T.Result.payment}
 														{#/if}
 														
 													</td>

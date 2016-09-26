@@ -35,6 +35,7 @@
 			$("#email_form").val($("#email_input").val().trim());
 			$("#orderNo_form").val($("#orderNo_input").val().trim());
 			$("#refundNo_form").val($("#refundNo_input").val().trim());
+			$("#pageSelectNo").val($("#pageSelect").val());
 			var returnTime = $("#reservation").val();
 			if(returnTime!=""){
 				returnTime = returnTime.split("-");
@@ -106,6 +107,7 @@
 				}
 				return data;
 			}
+			$("#pageSelect").change(productQuery);
 		}
 		function successBtn(){
 			$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
@@ -201,10 +203,10 @@
 										<th style="text-align: center;" width="2%">选择</th>
 										<th style="text-align: center;" width="7%">退货申请时间</th>
 										<th style="text-align: center;" width="7%">购买时间</th>
-										<th style="text-align: center;" width="7%">账户</th>
+										<th style="text-align: center;" width="7%">账号</th>
 										<th style="text-align: center;" width="7%">昵称</th>
 										<th style="text-align: center;" width="7%">真实姓名</th>
-										<th style="text-align: center;" width="7%">手机</th>
+										<th style="text-align: center;" width="7%">手机号</th>
 										<th style="text-align: center;" width="7%">邮箱</th>
 										<th style="text-align: center;" width="7%">会员来源</th>
 										<th style="text-align: center;" width="7%">会员等级</th>
@@ -227,10 +229,24 @@
 										<input type="hidden" id="refundNo_form" name="refundNo"  />
 										<input type="hidden" id="m_startTime" name="startTime"  />
 										<input type="hidden" id="m_endTime" name="endTime"  />
+										<input type="hidden" id="pageSelectNo" name="pageSize" />
 										<input type="hidden" id="cache" name="cache" value="1" />
 									</form>
 								</div>
 							</div>
+							<div class="pull-left" style="margin-top: 5px;">
+									<form id="topic_form" action="">
+										<div class="col-lg-12">
+											<select id="pageSelect" name="pageSize">
+												<option>5</option>
+												<option selected="selected">10</option>
+												<option>15</option>
+												<option>20</option>
+											</select>
+										</div>
+									</form>
+								</div>
+							
 								<div id="olvPagination"></div>
 							<!-- Templates -->
 							<p style="display:none">

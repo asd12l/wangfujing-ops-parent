@@ -372,6 +372,7 @@
 
 		//导出excel
 		function excelOrder() {
+			debugger;
 			var url=__ctxPath+"/memDrawback/getWithdrawlsList";
 //	var remoteUrl="http://10.6.2.150/wfjpay/admin/order/orderExport.do?";
 			var remoteUrl=__ctxPath+"/memDrawback/getWithdrowToExcel?";
