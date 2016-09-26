@@ -41,12 +41,14 @@ public class BalanceYearLimitController {
         try {
             req = HttpUtil.doPost(url + method, json.toString());
             JSONObject resJson = JSONObject.parseObject(req);
-            JSONArray ja = resJson.getJSONArray("object");
+            JSONObject jsonObject = resJson.getJSONObject("object");
+            JSONArray ja = jsonObject.getJSONArray("list");
             if(ja == null || ja.size() == 0){
                 resJson.put("pageCount", 0);
                 return resJson.toString();
             }
-            int pageCount = ja.size() % pageSize == 0 ? ja.size() / pageSize : (ja.size() / pageSize + 1);
+            int count = jsonObject.getInteger("count");
+            int pageCount = count % pageSize == 0 ? count / pageSize : (count / pageSize + 1);
             resJson.put("pageCount", pageCount);
             return resJson.toString();
         } catch (Exception e) {
