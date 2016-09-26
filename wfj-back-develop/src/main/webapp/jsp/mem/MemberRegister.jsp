@@ -43,7 +43,7 @@
 	});
 	
 	function productQuery(){
-		var strTime = $("#reservation").val();
+		 var strTime = $("#reservation").val();
 		if(strTime!=""){
 			strTime = strTime.split("- ");
 			$("#m_timeStartDate_form").val(strTime[0].replace("/","-").replace("/","-"));
@@ -51,12 +51,30 @@
 		}else{
 			$("#m_timeStartDate_form").val("");
 			$("#m_timeEndDate_form").val("");
-		}
+		} 
+		   
         var params = $("#product_form").serialize();
         params = decodeURI(params);
         olvPagination.onLoad(params);
         olvPagination1.onLoad(params);
-   	}
+	}
+	$("#reservation").daterangepicker({
+		timePicker: true,
+		timePickerIncrement: 30,
+		format: 'YYYY/MM/DD HH:mm:ss',
+        locale : {
+            applyLabel : '确定',
+            cancelLabel : '取消',
+            fromLabel : '起始时间',
+            toLabel : '结束时间',
+            customRangeLabel : '自定义',
+            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+            firstDay : 1
+        }
+    }); 	
+	
 	// 查询
 	function query() {
 		$("#cache").val(0);

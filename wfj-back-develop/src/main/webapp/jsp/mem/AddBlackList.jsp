@@ -284,10 +284,10 @@
                   <thead>
                   <tr role="row" style='height:35px;'>
                     <th style="text-align: center;" width="2%">选择</th>
-                    <th style="text-align: center;" width="10%">账户</th>
+                    <th style="text-align: center;" width="10%">账号</th>
                     <th style="text-align: center;" width="10%">昵称</th>
                     <th style="text-align: center;" width="10%">真实姓名</th>
-                    <th style="text-align: center;" width="10%">手机</th>
+                    <th style="text-align: center;" width="10%">手机号</th>
                     <th style="text-align: center;" width="10%">邮箱</th>
                     <th style="text-align: center;" width="10">所属门店</th>
                     <th style="text-align: center;" width="10%">会员等级</th>
