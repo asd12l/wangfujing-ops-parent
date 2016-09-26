@@ -55,6 +55,7 @@
             $("#mobile_from").val($("#mobile_input").val());
             $("#email_from").val($("#email_input").val());
             $("#fromOrder_from").val($("#from_order_input").val());
+            $("#pageSelectNo").val($("#pageSelect").val());
             $("#check_status_from").val($("#check_status_input").val());
             var strApTime = $("#reservationAp").val();
 //            debugger;
@@ -147,6 +148,7 @@
                 }
                 return data;
             }
+            $("#pageSelect").change(productQuery);
         }
         function successBtn() {
             $("#modal-success").attr({
@@ -839,13 +841,26 @@
                                                                                   name="m_timeChEndDate"/> <input
                                                 type="hidden" id="mobile_from" name="mobile"/> <input
                                                 type="hidden" id="email_from" name="email"/> <input
-                                                type="hidden" id="fromOrder_from" name="fromOrder"/> <input
-                                                type="hidden" id="applyName_from" name="applyName"/> <input
+                                                type="hidden" id="fromOrder_from" name="fromOrder"/> 
+                                               <input type="hidden" id="pageSelectNo" name="pageSize" />
+                                                <input type="hidden" id="applyName_from" name="applyName"/> <input
                                                 type="hidden" id="check_status_from" name="check_status"/>
                                             <input type="hidden" id="cache" name="cache" value="1"/>
                                         </form>
                                     </div>
                                 </div>
+                                <div class="pull-left" style="margin-top: 5px;">
+									<form id="topic_form" action="">
+										<div class="col-lg-12">
+											<select id="pageSelect" name="pageSize">
+												<option>5</option>
+												<option selected="selected">10</option>
+												<option>15</option>
+												<option>20</option>
+											</select>
+										</div>
+									</form>
+								</div>
                                     <div id="olvPagination"></div>
                             </div>
                             <!-- Templates -->
