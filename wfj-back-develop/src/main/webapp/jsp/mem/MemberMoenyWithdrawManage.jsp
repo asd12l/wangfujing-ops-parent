@@ -411,7 +411,7 @@
 		//设置表单数据
 		function setFormData(){
 			var strTime = $("#applyTime").val();
-			if(strTime!=""){
+			if(strTime != '' && strTime != null && strTime != undefined){
 				strTime = strTime.split("-");
 				$("#hidStartApplyTime").val(strTime[0].replace("/","-").replace("/","-"));
 				$("#hidEndApplyTime").val(strTime[1].replace("/","-").replace("/","-"));
@@ -421,10 +421,10 @@
 			}
 
 			var strTime2 = $("#checkTime").val();
-			if(strTime2!=""){
-				strTime = strTime.split("-");
-				$("#hidStartCheckTime").val(strTime[0].replace("/","-").replace("/","-"));
-				$("#hidEndCheckTime").val(strTime[1].replace("/","-").replace("/","-"));
+			if(strTime2 != '' && strTime2 != null && strTime2 != undefined){
+				strTime2 = strTime2.split("-");
+				$("#hidStartCheckTime").val(strTime2[0].replace("/","-").replace("/","-"));
+				$("#hidEndCheckTime").val(strTime2[1].replace("/","-").replace("/","-"));
 			}else{
 				$("#hidStartCheckTime").val("");
 				$("#hidEndCheckTime").val("");
@@ -512,10 +512,11 @@
 					},
 					//回调
 					callback: function(data) {
-						for(var i in data.object){
-							data.object[i].checkTimeStr=formatDate(data.object[i].checkTime);
-							data.object[i].applyTimeStr=formatDate(data.object[i].applyTime);
+						for(var i in data.object.resList){
+							data.object.resList[i].checkTimeStr=formatDate(data.object.resList[i].checkTime);
+							data.object.resList[i].applyTimeStr=formatDate(data.object.resList[i].applyTime);
 						}
+//						alert();
 						$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
 					}
 				}
@@ -676,7 +677,7 @@
 							<p style="display:none">
 								<textarea id="olv-list" rows="0" cols="0">
 								{#template MAIN}
-									{#foreach $T.object as Result}
+									{#foreach $T.object.resList as Result}
 										<tr class="gradeX" id="gradeX{$T.Result.sid}" ondblclick="trClick('{$T.Result.orderTradeNo}',this)" style="height:35px;">
 
 											<td align="center">
