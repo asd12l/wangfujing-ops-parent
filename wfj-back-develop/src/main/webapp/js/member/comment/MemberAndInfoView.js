@@ -130,6 +130,9 @@ $("#registrationTime_input").daterangepicker({
 		$("#pay_code").val("");
 		$("#payCode").val("");
 		
+		$("#pay_mobile").attr("disabled",true);
+		$("#pay_mobile1").attr("disabled",true);
+		
 		$("#pay_password").attr("disabled",true);
 		$("#pay_code").attr("disabled",true);
 		var checkboxArray=[];
@@ -312,6 +315,11 @@ $("#registrationTime_input").daterangepicker({
 		$("#login_code").val("");
 		$("#login_me").val("");
 		 
+		$("#login_mobile").attr("disabled",true);
+		$("#login_email").attr("disabled",true);
+		$("#login_mobile1").attr("disabled",true);
+		$("#login_email1").attr("disabled",true);
+		
 		$("#login_password").attr("disabled",true);
 		$("#login_code").attr("disabled",true);
 		$("#sendcodeEmail").hide();
