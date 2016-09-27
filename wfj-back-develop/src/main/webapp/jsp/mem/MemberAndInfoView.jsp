@@ -110,7 +110,7 @@
 
 										<li class="col-md-6">
 											<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
-											<a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
+											<a onclick="reset();" class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
 										</li>
 									</ul>
 								</div>
@@ -141,7 +141,7 @@
 											<th style="text-align: center;" width="4%">绑定时间</th>
 											<th style="text-align: center;" width="4%">手机验证</th>
 											<th style="text-align: center;" width="4%">邮箱验证</th>
-											<th style="text-align: center;" width="4%">支付密码</th>
+											<th style="text-align: center;" width="4%">无卡化</th>
 										</tr>
 										</thead>
 										<tbody>
