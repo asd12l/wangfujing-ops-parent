@@ -508,10 +508,10 @@
                                         <label class="titname">客户账号：</label>
                                         <input type="text" id="memberAccount"/>
                                     </li>
-                                    <li class="col-md-4">
-                                        <label class="titname">子订单号/退货单号：</label>
-                                        <input type="text" id="voucherNum"/>
-                                    </li>
+                                    <%--<li class="col-md-4">--%>
+                                        <%--<label class="titname">子订单号/退货单号：</label>--%>
+                                        <%--<input type="text" id="voucherNum"/>--%>
+                                    <%--</li>--%>
 
                                     <li class="col-md-4">
                                         <label class="titname">申请人：</label>

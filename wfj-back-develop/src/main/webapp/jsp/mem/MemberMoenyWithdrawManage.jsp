@@ -791,8 +791,7 @@
 			</div>
 			<div class="page-body" id="pageBodyRight">
 				<div class="row">
-					<form method="post" class="form-horizontal" id="editForm">
-						<div class="col-xs-12 col-md-12">
+						<div class="col-xs-12 col-md-12" style="height:500px ; overflow-y:auto;">
 							<input type="hidden" name="hsid" id="hsid" value=""/>
 							<input type="hidden" name="hseqno" id="hseqno" value=""/>
 							<input type="hidden" name="hbillno" id="hbillno" value=""/>
@@ -905,7 +904,6 @@
 								<button onclick="checknopass();" style="width: 90px;float: left;" id="nopass" type="button">审核不通过</button>
 							</div>
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -926,8 +924,7 @@
 			</div>
 			<div class="page-body" id="pageBodyRight">
 				<div class="row">
-					<form method="post" class="form-horizontal" id="editForm">
-						<div class="col-xs-12 col-md-12">
+						<div class="col-xs-12 col-md-12" style="height:500px ; overflow-y:auto;">
 							<input type="hidden" name="hsid" id="hsid" value=""/>
 							<div class="col-md-12" id="" style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
@@ -1030,7 +1027,6 @@
 								<br>&nbsp;
 							</div>
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -1051,7 +1047,6 @@
 			</div>
 			<div class="page-body" id="pageBodyRight">
 				<div class="row">
-					<form method="post" class="form-horizontal" id="editForm">
 						<div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
 							<label class="col-md-5 control-label"
 								   style="line-height: 20px; text-align: right;">取消理由：</label>
@@ -1070,7 +1065,6 @@
 
 							</div>
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -1091,7 +1085,6 @@
 			</div>
 			<div class="page-body" id="pageBodyRight">
 				<div class="row">
-					<form method="post" class="form-horizontal" id="editForm">
 						<div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
 							<label class="col-md-5 control-label"
 								   style="line-height: 20px; text-align: right;">审核不通过理由：</label>
@@ -1110,7 +1103,6 @@
 
 							</div>
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>
