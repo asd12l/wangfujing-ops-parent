@@ -127,7 +127,7 @@ function ChannelOnRightClick(event, treeId, treeNode) {
 			$(".channel_root").show();
 			$(".channel_child").hide();
 		} else {
-			$(".channel_root").show();
+			$(".channel_root").hide();
 			$(".channel_child").show();
 		}
 		if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {

@@ -25,7 +25,22 @@
 	var cid;
 	var olvPagination;
 	$(function() {
-		$("#reservation").daterangepicker();
+		$("#reservation").daterangepicker({
+					timePicker: true,
+					timePickerIncrement: 30,
+					format: 'YYYY/MM/DD HH:mm:ss',
+			        locale : {
+			            applyLabel : '确定',
+			            cancelLabel : '取消',
+			            fromLabel : '起始时间',
+			            toLabel : '结束时间',
+			            customRangeLabel : '自定义',
+			            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+			            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+			                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+			            firstDay : 1
+			        }
+			    }); 
 	    initOlv();
 	   
 	  //销售单来源（PCM接口）
@@ -235,13 +250,13 @@
 												<input type="text" id="orderNo_input" /></li>
 											<li class="col-md-4"><label class="titname" >外部订单号：</label>
 												<input type="text" id="outOrderNo_input" /></li>
-											<li class="col-md-4"><label class="titname">订单状态：</label>
+											<li class="col-md-4"><label class="titname">销售单状态：</label>
 												<select class="form-control orderStatusSpace" id="saleStatus_select" data-bv-field="country" style="width:60%;">
 												<option value="">请选择</option>
 												</select></li>
 											<li class="col-md-4"><label class="titname">销售单号：</label>
 												<input type="text" id="saleNo_input" /></li>
-											<li class="col-md-4 " ><label class="titname">订单来源：</label>
+											<li class="col-md-4 " ><label class="titname">销售单来源：</label>
 												<select class="form-control orderFromSpace" id="saleSource_input" data-bv-field="country" style="width:60%;">
 												<option value="">请选择</option>
 												</select></li>
@@ -273,7 +288,7 @@
 												<th style="text-align: center;" width="7%">销售单号</th>
 												<th style="text-align: center;" width="7%">订单总额</th>
 												<th style="text-align: center;" width="7%">支付方式</th>
-												<th style="text-align: center;" width="7%">订单状态</th>
+												<th style="text-align: center;" width="7%">销售单状态</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -384,15 +399,15 @@
 														{#else}{$T.Result.paymentAmount}
 														{#/if}
 													</td>
-													<td align="center" id="payment_{$T.Result.memberNo}">
-														{#if $T.Result.payment == "" || $T.Result.payment == null}--
-														{#else}{$T.Result.payment}
+													<td align="center" id="paymentName_{$T.Result.memberNo}">
+														{#if $T.Result.paymentName == "" || $T.Result.paymentName == null}--
+														{#else}{$T.Result.paymentName}
 														{#/if}
 														
 													</td>
-													<td align="center" id="newOrderStatus_{$T.Result.memberNo}">
-														{#if $T.Result.newOrderStatus == "" || $T.Result.newOrderStatus == null}--
-														{#else}{$T.Result.newOrderStatus}
+													<td align="center" id="saleStatusDesc_{$T.Result.memberNo}">
+														{#if $T.Result.saleStatusDesc == "" || $T.Result.saleStatusDesc == null}--
+														{#else}{$T.Result.saleStatusDesc}
 														{#/if}
 													</td>
 									       		</tr>
