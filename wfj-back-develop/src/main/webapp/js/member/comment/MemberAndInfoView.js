@@ -1,11 +1,7 @@
-
-
 $(function() {
 		$("#registrationTime_input").daterangepicker();
 		initOlv();
 	});
-
-
 
 function productQuery(){
 		
@@ -15,10 +11,10 @@ function productQuery(){
 		$("#identityNo_from").val($("#identityNo_input").val().trim());
 		$("#email_from").val($("#email_input").val().trim());
 		$("#idType_from").val($("#idType_input").val().trim());
-		 //会员等级
-		$("#memberLevel_from").val($("#memberLevel_input").val().trim());
-		//注册时间
-		var strTime = $("#registrationTime_input").val().trim();
+		 //二期做会员等级
+		//$("#memberLevel_from").val($("#memberLevel_input").val().trim());
+		//注册时间二期做
+		/* var strTime = $("#registrationTime_input").val().trim();
 		if(strTime!=""){
 			strTime = strTime.split("- ");
 			$("#timeStartDate_form").val(strTime[0].replace("/","-").replace("/","-"));
@@ -26,7 +22,7 @@ function productQuery(){
 		}else{
 			$("#timeStartDate_form").val("");
 			$("#timeEndDate_form").val("");
-		}
+		} */
 		
 		
 		var params = $("#product_from").serialize();
@@ -35,7 +31,7 @@ function productQuery(){
 		olvPagination.onLoad(params);
 	}
 	
-$("#registrationTime_input").daterangepicker({
+/*$("#registrationTime_input").daterangepicker({
 	timePicker: true,
 	timePickerIncrement: 30,
 	format: 'YYYY/MM/DD HH:mm:ss',
@@ -50,10 +46,10 @@ $("#registrationTime_input").daterangepicker({
             '七月', '八月', '九月', '十月', '十一月', '十二月' ],
         firstDay : 1
     }
-}); 
+}); */
 	
 	// 查询
-	function query() {
+	function query(){
     	
 		$("#cache").val(0);
 		productQuery();
