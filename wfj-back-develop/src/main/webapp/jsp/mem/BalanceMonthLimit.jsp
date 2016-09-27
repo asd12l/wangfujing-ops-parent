@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/bootstrap/css/bootstrap-datetimepicker.min.css"/>
-    <script src="${ctx}/js/bootstrap/bootstrap-datetimepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap-datetimepicker.js"></script>
     <style type='text/css'>
 		/*#product_tab{width:70%;margin-left:130px;}*/
 		#sid0{width:30px;}
