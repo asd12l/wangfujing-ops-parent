@@ -29,6 +29,7 @@
 					timePicker: true,
 					timePickerIncrement: 30,
 					format: 'YYYY/MM/DD HH:mm:ss',
+					timePicker12Hour:false,
 			        locale : {
 			            applyLabel : '确定',
 			            cancelLabel : '取消',
@@ -339,8 +340,8 @@
 														</div>
 													</td> -->
 													<td align="center" id="createdTime_{$T.Result.memberNo}">
-														{#if $T.Result.createdTime == "" || $T.Result.createdTime == null}--
-														{#else}{$T.Result.createdTime}
+														{#if $T.Result.createdTimeStr == "" || $T.Result.createdTimeStr == null}--
+														{#else}{$T.Result.createdTimeStr}
 														{#/if}
 													</td>
 													<td align="center" id="username_{$T.Result.memberNo}">

@@ -29,6 +29,7 @@
 				timePicker: true,
 				timePickerIncrement: 30,
 				format: 'YYYY/MM/DD HH:mm:ss',
+				timePicker12Hour:false,
 		        locale : {
 		            applyLabel : '确定',
 		            cancelLabel : '取消',
