@@ -29,6 +29,7 @@
 					timePicker: true,
 					timePickerIncrement: 30,
 					format: 'YYYY/MM/DD HH:mm:ss',
+					timePicker12Hour:false,
 			        locale : {
 			            applyLabel : '确定',
 			            cancelLabel : '取消',
@@ -274,7 +275,7 @@
 										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
 										<thead>
                                             <tr role="row" style='height:35px;'>
-												<th style="text-align: center;" width="2%">选择</th>
+												<!-- <th style="text-align: center;" width="2%">选择</th> -->
 												<th style="text-align: center;" width="7%">购买时间</th>
 												<th style="text-align: center;" width="7%">账号</th>
 												<th style="text-align: center;" width="7%">昵称</th>
@@ -330,17 +331,17 @@
 										{#template MAIN}
 											{#foreach $T.list as Result}
 												<tr class="gradeX">
-													<td align="left">
+													<!-- <td align="left">
 														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
 																<input type="checkbox" id="tdCheckbox_{$T.Result.memberNo}" value="{$T.Result.memberNo}" >
 																<span class="text"></span>
 															</label>
 														</div>
-													</td>
+													</td> -->
 													<td align="center" id="createdTime_{$T.Result.memberNo}">
-														{#if $T.Result.createdTime == "" || $T.Result.createdTime == null}--
-														{#else}{$T.Result.createdTime}
+														{#if $T.Result.createdTimeStr == "" || $T.Result.createdTimeStr == null}--
+														{#else}{$T.Result.createdTimeStr}
 														{#/if}
 													</td>
 													<td align="center" id="username_{$T.Result.memberNo}">

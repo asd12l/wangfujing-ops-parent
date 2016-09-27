@@ -29,6 +29,7 @@
 				timePicker: true,
 				timePickerIncrement: 30,
 				format: 'YYYY/MM/DD HH:mm:ss',
+				timePicker12Hour:false,
 		        locale : {
 		            applyLabel : '确定',
 		            cancelLabel : '取消',
@@ -215,7 +216,7 @@
 
 									<thead>
 									<tr role="row" style='height:35px;'>
-										<th style="text-align: center;" width="2%">选择</th>
+										<!-- <th style="text-align: center;" width="2%">选择</th> -->
 										<th style="text-align: center;" width="7%">退货申请时间</th>
 										<th style="text-align: center;" width="7%">购买时间</th>
 										<th style="text-align: center;" width="7%">账号</th>
@@ -223,7 +224,7 @@
 										<th style="text-align: center;" width="7%">真实姓名</th>
 										<th style="text-align: center;" width="7%">手机号</th>
 										<th style="text-align: center;" width="7%">邮箱</th>
-										<th style="text-align: center;" width="7%">会员来源</th>
+										<!-- <th style="text-align: center;" width="7%">会员来源</th> -->
 										<th style="text-align: center;" width="7%">会员等级</th>
 										<th style="text-align: center;" width="7%">地址</th>
 										<th style="text-align: center;" width="7%">退货原因</th>
@@ -269,14 +270,14 @@
 										{#template MAIN}
 											{#foreach $T.list as Result}
 												<tr class="gradeX">
-													<td align="left">
+													<!-- <td align="left">
 														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
 																<input type="checkbox" id="tdCheckbox_{$T.Result.cid}" value="{$T.Result.cid}" >
 																<span class="text"></span>
 															</label>
 														</div>
-													</td>
+													</td> -->
 													<td align="center" id="refundTimeStr_{$T.Result.cid}">
 														{#if $T.Result.refundTimeStr == "" || $T.Result.refundTimeStr == null}--
 														{#else}{$T.Result.refundTimeStr}
@@ -313,11 +314,11 @@
 														{#/if}
 													</td>
 
-													<td align="center" id="regist_from_{$T.Result.cid}">
+													<!-- <td align="center" id="regist_from_{$T.Result.cid}">
 														{#if $T.Result.regist_from == "" || $T.Result.regist_from == null}--
 														{#else}{$T.Result.regist_from}
 														{#/if}
-													</td>
+													</td> -->
 													<td align="center" id="levelName_{$T.Result.cid}">
 														{#if $T.Result.levelName == "" || $T.Result.levelName == null}--
 														{#else}{$T.Result.levelName}
