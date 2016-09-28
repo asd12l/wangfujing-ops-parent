@@ -125,6 +125,7 @@
 		$("#reservation").val("");
 		$("#saleStatus_select").val("");
 		$("#saleSource_input").val("");
+		$("#topic_form")[0].reset();
 		productQuery();
 	}
 	//初始化包装单位列表
@@ -280,12 +281,12 @@
 												<th style="text-align: center;" width="7%">账号</th>
 												<th style="text-align: center;" width="7%">昵称</th>
 												<th style="text-align: center;" width="7%">真实姓名</th>
-												<th style="text-align: center;" width="7%">手机</th>
+												<th style="text-align: center;" width="7%">手机号</th>
 												<th style="text-align: center;" width="7%">邮箱</th>
 												<th style="text-align: center;" width="7%">所属门店</th>
-												<th style="text-align: center;" width="7%">会员等级</th>
-												<th style="text-align: center;" width="7%">地址</th>
-												<th style="text-align: center;" width="7%">购买订单号</th>
+												<!-- <th style="text-align: center;" width="7%">会员等级</th> -->
+												<th style="text-align: center;" width="16%">地址</th>
+												<th style="text-align: center;" width="7%">订单号</th>
 												<th style="text-align: center;" width="7%">销售单号</th>
 												<th style="text-align: center;" width="7%">订单总额</th>
 												<th style="text-align: center;" width="7%">支付方式</th>
@@ -330,7 +331,7 @@
 									<textarea id="olv-list" rows="0" cols="0">
 										{#template MAIN}
 											{#foreach $T.list as Result}
-												<tr class="gradeX">
+												<tr class="gradeX" style="height:35px;">
 													<!-- <td align="left">
 														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
@@ -375,11 +376,11 @@
 														{#else}{$T.Result.storeName}
 														{#/if}
 													</td>
-													<td align="center" id="levelName_{$T.Result.memberNo}">
+													<!-- <td align="center" id="levelName_{$T.Result.memberNo}">
 														{#if $T.Result.levelName == "" || $T.Result.levelName == null}--
 														{#else}{$T.Result.levelName}
 														{#/if}
-													</td>
+													</td> -->
 													<td align="center" id="receptAddress_{$T.Result.memberNo}">
 														{#if $T.Result.receptAddress == "" || $T.Result.receptAddress == null}--
 														{#else}{$T.Result.receptAddress}

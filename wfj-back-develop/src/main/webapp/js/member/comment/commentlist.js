@@ -33,9 +33,10 @@ var productPagination;
             }
         });
 		initProduct();
+		$("#pageSelect").change(productQuery);
 	});
+	
 	function productQuery() {
-		
 		$("#ordernumber_from").val($("#ordernumber_input").val());//
 		$("#ordernumber").val($("#ordernumber_input").val());
 		$("#customeraccount").val($("#customeraccount_input").val());//
@@ -92,6 +93,7 @@ var productPagination;
 		$("#endcommenttime").val("");
 		$("#startrecoverytime").val("");
 		$("#endrecoverytime").val("");
+		$("#pageSelect").val("10");
 		productQuery();
 	}
 	
