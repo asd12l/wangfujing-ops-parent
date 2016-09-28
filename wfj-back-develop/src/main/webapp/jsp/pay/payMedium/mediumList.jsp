@@ -106,8 +106,7 @@ function setFormData(){
 
 //查询数据
 function olvQuery(){
-	sendParameter();
-	LA.log('payMedium-query', '支付介质查询', userName, sessionId);
+	
 	//设置表单数据
 	setFormData();
 	//生成表单请求参数
@@ -186,6 +185,7 @@ function findMediumType(type){
 
 //初始化函数
 	function initOlv() {
+		
 	//请求地址
 	var url = __ctxPath+"/wfjpay/payMedium/findAllList";
 	setFormData();
@@ -240,6 +240,8 @@ function findMediumType(type){
         	 userName = data.userName ;
      		 logJs = data.logJs;
      		 reloadjs();
+     		 sendParameter();
+    		 LA.log('payMedium-query', '支付介质查询', userName, sessionId);
         	 $("#pageNo_form").val(data.pageNo);
        		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
          }

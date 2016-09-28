@@ -202,8 +202,6 @@ function setFormData(){
 
 //查询数据
 function olvQuery(){
-	sendParameter();
-	LA.log('payOrderCompensate-query', '支付日志异常状态明细查询', userName, sessionId);
 	//设置表单数据
 	setFormData();
 	//生成表单请求参数
@@ -279,6 +277,11 @@ function reset(){
 			},
          //回调
          callback: function(data) {
+        	 userName = data.userName ;
+     		 logJs = data.logJs;
+     		 reloadjs();
+     		 sendParameter();
+     		 LA.log('payOrderCompensate-query', '支付日志异常状态明细查询', userName, sessionId);
     		 for(var i in data.list){
     			 data.list[i ].createDate=formatDate(data.list[i].createDate);
     		 }
@@ -291,9 +294,6 @@ function reset(){
 	var bpIdDateUrl=__ctxPath+"/wfjpay/businessStation";
 	$.post(bpIdDateUrl,{flag:"0"},function(data){
 		if(data.success=="true"){
-			userName = data.userName ;
-    		logJs = data.logJs;
-    		reloadjs();
 			var html="";
 			var arr=data.list;
 			for(var i=0;i<arr.length;i++){

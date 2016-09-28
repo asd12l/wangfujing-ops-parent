@@ -56,7 +56,6 @@ __ctxPath = "${pageContext.request.contextPath}";
 		script.onload = script.onreadystatechange = null; 
 		} }; 
 		script.src= logJs; 
-		console.log(script.src);
 		head.appendChild(script);  
 		}
 	function sendParameter(){
@@ -141,9 +140,6 @@ function setFormData(){
 
 //查询数据
 function olvQuery(){
-	sendParameter();
-	LA.log('payMediumSystem-query', '支付介质系统查询', userName, sessionId);
-	
 	//sendParameter();
 	//设置表单数据
 	setFormData();
@@ -278,6 +274,7 @@ function saveSetMedium(){
 
 //初始化函数
 	function initOlv() {
+		
 	//请求地址
 	var url = __ctxPath+"/wfjpay/paySystem/findAllList";
 	setFormData();
@@ -329,9 +326,11 @@ function saveSetMedium(){
 			},
          //回调
          callback: function(data) {
-        	 userName = data.userName ;
+        	 userName = data.userName;
      		 logJs = data.logJs;
      		 reloadjs();
+     		 sendParameter();
+    		 LA.log('payMediumSystem-query', '支付介质系统查询', userName, sessionId);
         	 $("#pageNo_form").val(data.pageNo);
        		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
          }
