@@ -882,104 +882,94 @@
             </div>
             <div class="page-body" id="pageBodyRight">
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="height:400px ; overflow-y:auto;">
+                    <div class="col-xs-12 col-md-12" style="height:300px ; overflow-y:auto;">
                         <input type="hidden" name="hsid" id="hsid" value=""/>
                         <input type="hidden" name="hseqno" id="hseqno" value=""/>
                         <input type="hidden" name="hbillno" id="hbillno" value=""/>
-                        <div class="col-md-12" id="" style="padding: 10px 100px;">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">登录帐号：</label>
                             <div class="col-md-6" id="phone">
 
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">用户余额：</label>
                             <div class="col-md-6" id="balance">
 
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">提现金额：</label>
                             <div class="col-md-6">
                                 <input type="text" class="withdrowMoney"
-                                       id="withdrowMoney" readonly="readonly"/>
+                                       id="withdrowMoney"/>
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">开户名：</label>
                             <div class="col-md-6">
                                 <input type="text" class="name"
                                        id="name"/>
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">开户银行：</label>
                             <div class="col-md-6">
                                 <input type="text" class="bank"
                                        id="bank"/>
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">银行卡号：</label>
                             <div class="col-md-6">
                                 <input type="text" class="bankCard"
-                                       id="bankCard"/>
+                                       id="bankCard" style="width:150px;"/>
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">确认卡号：</label>
                             <div class="col-md-6">
                                 <input type="text" class="bankCard"
-                                       id="bankCard1"/>
+                                       id="bankCard1"  style="width:150px;"/>
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">申请理由：</label>
                             <div class="col-md-6">
-                                <input type="text" class="withdrowReason"
+                                <input  class="withdrowReason"
                                        id="withdrowReason"/>
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">退款介质：</label>
                             <div class="col-md-6" id="withdrowMedium">
                                 支付宝
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">退款类型：</label>
                             <div class="col-md-6" id="withdrowType">
                                 支付宝批量付
                             </div>
-                            <br>&nbsp;
                         </div>
                     </div>
                     <br>&nbsp;
@@ -1022,107 +1012,95 @@
             </div>
             <div class="page-body" id="pageBodyRight">
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="height:400px ; overflow-y:auto;">
+                    <div class="col-xs-12 col-md-12" style="height:300px ; overflow-y:auto;">
                         <input type="hidden" name="hsid" id="hsid" value=""/>
-                        <div class="col-md-12" id="" style="padding: 10px 100px;">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">登录帐号：</label>
                             <div class="col-md-6" id="phone1">
 
                             </div>
-                            <br>&nbsp;
                         </div>
-                        <div class="col-md-12" id="" style="padding: 10px 100px;">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">申请单号：</label>
                             <div class="col-md-6" id="seqno1">
 
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">流水号：</label>
                             <div class="col-md-6" id="billno1">
 
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">用户余额：</label>
                             <div class="col-md-6" id="balance1">
 
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">提现金额：</label>
                             <div class="col-md-6" id="withdrowMoney1">
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">开户名：</label>
                             <div class="col-md-6" id="name1">
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">开户银行：</label>
                             <div class="col-md-6" id="bank1">
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">银行卡号：</label>
                             <div class="col-md-6" id="bankCard11">
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">确认卡号：</label>
                             <div class="col-md-6" id="bankCard22">
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">申请理由：</label>
                             <div class="col-md-6" id="withdrowReason1">
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">退款介质：</label>
                             <div class="col-md-6" id="withdrowMedium1">
                                 支付宝
                             </div>
-                            <br>&nbsp;
                         </div>
 
-                        <div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+                        <div class="col-md-12">
                             <label class="col-md-5 control-label"
                                    style="line-height: 20px; text-align: right;">退款类型：</label>
                             <div class="col-md-6" id="withdrowType1">
                                 支付宝批量付
                             </div>
-                            <br>&nbsp;
                         </div>
                     </div>
                 </div>
