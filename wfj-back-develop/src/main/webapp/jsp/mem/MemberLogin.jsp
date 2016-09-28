@@ -52,9 +52,9 @@
         
    	}
 	$("#reservation").daterangepicker({
-		timePicker: true,
+		/* timePicker: true,
 		timePickerIncrement: 30,
-		format: 'YYYY/MM/DD HH:mm:ss',
+		format: 'YYYY/MM/DD HH:mm:ss', */
         locale : {
             applyLabel : '确定',
             cancelLabel : '取消',
