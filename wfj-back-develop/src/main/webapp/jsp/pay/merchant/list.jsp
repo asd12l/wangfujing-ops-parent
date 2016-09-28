@@ -27,10 +27,30 @@
 	charset="UTF-8"></script>
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <script type="text/javascript">
+
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
-
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+      var head= document.getElementsByTagName('head')[0]; 
+      var script= document.createElement('script'); 
+           script.type= 'text/javascript'; 
+           script.onload = script.onreadystatechange = function() { 
+      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+               script.onload = script.onreadystatechange = null; 
+               }}; 
+        script.src= logJs; 
+            head.appendChild(script);  
+}
+function sendParameter(){
+         LA.sysCode = '57';
+       }
+//接入log监控end
 //页码
 var olvPagination;
 //初始化参数
@@ -105,7 +125,11 @@ function olvQuery(){
          },
          //回调
          callback: function(data) {
-    		
+        	 userName = data.userName ;
+     		 logJs = data.logJs;
+     		 reloadjs();
+     		sendParameter();
+    		LA.log('merchant-query', '签约商户管理查询', userName, sessionId);
     		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
          }
        }
@@ -116,6 +140,8 @@ function olvQuery(){
 	
 //修改商户
 function editMerchant(id){
+	sendParameter();
+	LA.log('merchant-showModifyWindow', '签约商户管理修改签约商户窗口打开', userName, sessionId);
 	$("#merchant_id").val(id);
 	$("#qianyue_shanghuName").val($("#shanghuName_"+ id).html().trim());
 	$("#qianyueshanghu_Code").val($("#shanghuCode_" + id).html().trim());
@@ -142,6 +168,8 @@ function closeMerchant(){
 							validating : 'glyphicon glyphicon-refresh'
 						},
 						submitHandler : function(validator, form, submitButton) {
+							sendParameter();
+							LA.log('merchant-Modify', '修改签约商户', userName, sessionId);
 							var url =__ctxPath+"/wfjpay/updateMerchant"
 							$
 									.ajax({
@@ -251,6 +279,8 @@ function tab(data){
 }
  //添加商户管理
 function addMerchant(){
+	sendParameter();
+	LA.log('merchant-showAddMerchant', '添加签约商户页面打开', userName, sessionId);
 	var url = __ctxPath+"/jsp/pay/merchant/addMerchant.jsp";
 	$("#pageBody").load(url);
 	 

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.utils.StringUtils;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.pay.web.constant.Constants;
+import com.wangfj.pay.web.util.CookiesUtil;
 import com.wangfj.pay.web.util.HttpClientUtil;
 
 @Controller
@@ -68,6 +70,13 @@ public class MerchantController {
 			m.put("pageCount",0);
 			e.printStackTrace();
 		}
+		String js =CommonProperties.get(Constants.WFJ_LOG_JS);
+		m.put("logJs", js);
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			m.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			m.put("userName", "");
+		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
@@ -112,6 +121,13 @@ public class MerchantController {
 			m.put("success", "false");
 			//m.put("pageCount",0);
 			e.printStackTrace();
+		}
+		String js =CommonProperties.get(Constants.WFJ_LOG_JS);
+		m.put("logJs", js);
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			m.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			m.put("userName", "");
 		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);

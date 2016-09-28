@@ -7,9 +7,29 @@
 <script src="${ctx}/js/jquery-1.9.1.js"></script>
 <script src="${ctx}/js/jquery.form.js"></script>
 <script src="${ctx}/assets/js/validation/bootstrapValidator.js"></script>
+<script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <title>签约商户基本信息</title>
 <script type="text/javascript">
 __ctxPath = "${pageContext.request.contextPath}";
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+      var head= document.getElementsByTagName('head')[0]; 
+      var script= document.createElement('script'); 
+           script.type= 'text/javascript'; 
+           script.onload = script.onreadystatechange = function() { 
+      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+               script.onload = script.onreadystatechange = null; 
+               }}; 
+        script.src= logJs; 
+            head.appendChild(script);  
+}
+function sendParameter(){
+         LA.sysCode = '57';
+       }
+//接入log监控end
 $(function(){
 	 
 	$('#theForm').bootstrapValidator({
@@ -37,6 +57,12 @@ $(function(){
 		        url:__ctxPath + "/wfjpay/addMerchant",
 		        data: $("#theForm").serialize(),
 		        success: function(response) {
+		        	 userName = response.userName ;
+		     		 logJs = response.logJs;
+		     		 reloadjs();
+		     		 sendParameter();
+		    		LA.log('merchant-save', '添加签约商户', userName, sessionId);
+		    		console.log("-----------");
 		        	if(response.success == 'true'){
 						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>添加成功，返回列表页!</strong></div>");
 	  	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});

@@ -15,6 +15,7 @@
 <!--ztree-->
 <script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/ztree/css/zTreeStyle.css" type="text/css">
 <style type="text/css">
 .trClick>td,.trClick>th{
@@ -42,7 +43,25 @@
 <script type="text/javascript">
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
-
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+      var head= document.getElementsByTagName('head')[0]; 
+      var script= document.createElement('script'); 
+           script.type= 'text/javascript'; 
+           script.onload = script.onreadystatechange = function() { 
+      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+               script.onload = script.onreadystatechange = null; 
+               }}; 
+        script.src= logJs; 
+            head.appendChild(script);  
+}
+function sendParameter(){
+         LA.sysCode = '57';
+       }
+//接入log监控end
 //页码
 var olvPagination;
 //初始化参数
@@ -132,6 +151,9 @@ function queryChannelFeeRateByPartner(){
 	var param={"payPartner":"${param.payPartner}","payType":"${param.payType}"};
 	$.post(url,param,function(data){
 		if(data.success==true){
+			 userName = data.userName ;
+    		 logJs = data.logJs;
+    		 reloadjs();
 			var list=data.list;
 			var html="";
 			for(var i in list){
@@ -153,6 +175,8 @@ function queryChannelFeeRateByPartner(){
 
 //添加渠道费率
 function add(){
+	sendParameter();
+	LA.log('payChannelAccount-addChannelFee', '添加渠道费率', userName, sessionId);
 	if(!validate("add")){
 		return;
 	}
@@ -172,6 +196,8 @@ function add(){
 
 //修改渠道费率
 function update(){
+	sendParameter();
+	LA.log('payChannelAccount-modifyChannelFee', '修改渠道费率', userName, sessionId);
 	if(!validate("edit")){
 		return;
 	}
