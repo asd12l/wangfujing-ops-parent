@@ -220,8 +220,7 @@ function setFormData(){
 
 //查询数据
 function olvQuery(){
-	sendParameter();
-	LA.log('payOrder-query', '支付日志明细查询', userName, sessionId);
+	
 	//设置表单数据
 	setFormData();
 	//生成表单请求参数
@@ -302,6 +301,8 @@ function reset(){
         	 userName = data.userName ;
      		 logJs = data.logJs;
      		 reloadjs();
+     		 sendParameter();
+     		 LA.log('payOrder-query', '支付日志明细查询', userName, sessionId);
     		 for(var i in data.list){
     			 data.list[i ].createDate=formatDate(data.list[i].createDate);
     		 }

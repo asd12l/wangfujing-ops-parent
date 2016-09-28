@@ -319,10 +319,7 @@
 									//业务接口
 									var bpIdDateUrl=__ctxPath+"/wfjpay/businessStation";
 									$.post(bpIdDateUrl,{flag:"0"},function(data){
-										if(data.success=="true"){
-											 userName = data.userName ;
-								     		 logJs = data.logJs;
-								     		 reloadjs();
+										if(data.success=="true"){								     		 
 											var html="";
 											var arr=data.list;
 											for(var i=0;i<arr.length;i++){
@@ -343,9 +340,6 @@
     	 var bpIdDateUrl=__ctxPath+"/wfjpay/businessStation";
 			$.post(bpIdDateUrl,{flag:"0"},function(data){
 				if(data.success=="true"){
-					userName = data.userName ;
-		     		logJs = data.logJs;
-		     		reloadjs();
 					var html="";
 					var arr=data.list;
 					for(var i=0;i<arr.length;i++){
@@ -358,10 +352,7 @@
 			},"json");
      }
 	//查询数据
-	function olvQuery() {
-		sendParameter();
-		LA.log('statistics-query', '统计查询', userName, sessionId);
-			  
+	function olvQuery() {	  
 			   // alert(selectValue);
 			
 			/* alert($(this).children('option:selected').val()) */
@@ -432,6 +423,11 @@
 								},
 								//回调
 								callback : function(data) {
+									 userName = data.userName ;
+						     		 logJs = data.logJs;
+						     		 reloadjs();
+						      	  	sendParameter();
+						         	LA.log('statistics-query', '统计查询', userName, sessionId);
 									 tuTime=[];
 									 noOrder=[];
 									for ( var i in data.list) {
