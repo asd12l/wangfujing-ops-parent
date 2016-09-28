@@ -554,7 +554,7 @@
                                         <thead>
                                         <tr role="row" style='height:35px;'>
                                             <th width="1%" style="text-align: center;">操作</th>
-                                            <th width="2%" style="text-align: center;">客户登录账号</th>
+                                            <th width="2%" style="text-align: center;">客户账号</th>
                                             <th width="2%" style="text-align: center;">客户编号</th>
                                             <th width="2%" style="text-align: center;">申请时间</th>
                                             <th width="2%" style="text-align: center;">申请人</th>
