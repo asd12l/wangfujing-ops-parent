@@ -867,7 +867,7 @@
                                             <th style="text-align: center;" width="5%">昵称</th>
                                             <th style="text-align: center;" width="5%">真实姓名</th>
                                             <th style="text-align: center;" width="5%">会员等级</th>
-                                            <th style="text-align: center;" width="5%">手机</th>
+                                            <th style="text-align: center;" width="5%">手机号</th>
                                             <th style="text-align: center;" width="5%">邮箱</th>
                                             <th style="text-align: center;" width="5%">积分类型</th>
                                             <th style="text-align: center;" width="5%">积分值</th>
