@@ -61,8 +61,8 @@
     $(function() {
       timePickInit();
       initOlv();
+      $("#pageSelect").change(productQuery);
     });
-
     function productQuery(){
       $("#username_from").val($("#username_input").val().trim());
       $("#blacklisttype_from").val($("#blacklisttype_input").val().trim());
@@ -104,6 +104,7 @@
       $("#backId_input").val("");
       $("#username_input").val("");
       $("#blacklisttype_input").val("");
+      $("#pageSelect").val("10");
       productQuery();
     }
     //初始化包装单位列表
@@ -473,13 +474,13 @@
                     <th style="text-align: center;" width="6%">昵称</th>
                     <th style="text-align: center;" width="6%">真实姓名</th>
                     <th style="text-align: center;" width="6%">所属门店</th>
-                    <th style="text-align: center;" width="6%">当前会员等级</th>
-                    <th style="text-align: center;" width="6%">注册时间</th>
-                    <th style="text-align: center;" width="6%">拉黑客服</th>
+                    <!--  <th style="text-align: center;" width="6%">当前会员等级</th>-->
+                    <!--  <th style="text-align: center;" width="6%">注册时间</th>-->
+                    <th style="text-align: center;" width="6%">拉黑客服ID</th>
                     <th style="text-align: center;" width="8%">拉黑时间</th>
                     <th style="text-align: center;" width="6%">拉黑类型</th>
                     <th style="text-align: center;" width="6%">拉黑原因</th>
-                    <th style="text-align: center;" width="6%">解除客服</th>
+                    <th style="text-align: center;" width="6%">解除客服ID</th>
                     <th style="text-align: center;" width="8%">解除时间</th>
                     <th style="text-align: center;" width="6%">解除原因</th>
                     <th style="text-align: center;" width="6%">状态</th>
@@ -488,9 +489,16 @@
                   <tbody>
                   </tbody>
                 </table>
-                <div class="pull-left" style="padding: 10px 0;">
-                  <form id="product_form" action="">
-                    <input type="hidden" id="m_timePullStartDate_form" name="m_timePullStartDate"/>
+              </div>
+              <div class="pull-left" style="padding: 10px 0;">
+                   <form id="product_form" action="">
+												<select id="pageSelect" name="pageSize">
+													<option>5</option>
+													<option selected="selected">10</option>
+													<option>15</option>
+													<option>20</option>
+												</select>
+					<input type="hidden" id="m_timePullStartDate_form" name="m_timePullStartDate"/>
                     <input type="hidden" id="m_timePullEndDate_form" name="m_timePullEndDate"/>
                     <input type="hidden" id="m_timeBackStartDate_form" name="m_timeBackStartDate"/>
                     <input type="hidden" id="m_timeBackEndDate_form" name="m_timeBackEndDate"/>
@@ -501,7 +509,6 @@
                     <input type="hidden" id="cache" name="cache" value="1" />
                   </form>
                 </div>
-              </div>
                 <div id="olvPagination"></div>
               <!-- Templates -->
               <p style="display:none">
@@ -537,16 +544,20 @@
                                                     {#else}{$T.Result.memberSource}
                                                     {#/if}
                                                   </td>
+                                                  <!--  
                                                   <td align="center" id="memberLevel_{$T.Result.sid}">
                                                     {#if $T.Result.memberLevel == "" || $T.Result.memberLevel == null}--
                                                     {#else}{$T.Result.memberLevel}
                                                     {#/if}
                                                   </td>
+                                                  -->
+                                                  <!--  
                                                   <td align="center" id="registerTime_{$T.Result.sid}">
                                                     {#if $T.Result.registerTime == "" || $T.Result.registerTime == null}--
                                                     {#else}{$T.Result.registerTime}
                                                     {#/if}
                                                   </td>
+                                                  -->
                                                   <td align="center" id="pullId_{$T.Result.sid}">
                                                     {#if $T.Result.service_id == "" || $T.Result.service_id == null}--
                                                     {#else}{$T.Result.service_id}

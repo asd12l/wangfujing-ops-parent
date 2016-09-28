@@ -110,7 +110,7 @@ label{width: 70px;}
                                     				<input type="text" id="ordernumber_input">
                                    				</li>
                                    		<li class="col-md-4">
-                                    				<label class="titname" width="70px">客户账号：</label>
+                                    				<label class="titname" width="70px">账号：</label>
                                     				<input type="text" id="customeraccount_input">
                                    				</li>
                                    		<li class="col-md-4">
@@ -200,6 +200,12 @@ label{width: 70px;}
 								
 								<div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
+										<select id="pageSelect" name="pageSize">
+											<option>5</option>
+											<option selected="selected">10</option>
+											<option>15</option>
+											<option>20</option>
+										  </select>
 										<input type="hidden" id="customeraccount" name="customeraccount" />
 										<input type="hidden" id="ordernumber" name="ordernumber"/>
 										<input type="hidden" id="functype" name="functype"/>

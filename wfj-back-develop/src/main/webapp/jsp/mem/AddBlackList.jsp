@@ -27,8 +27,8 @@
     $(function() {
       $("#reservation").daterangepicker();
       initOlv();
+      $("#pageSelect").change(productQuery);
     });
-
     function productQuery(){
       $("#username_from").val($("#username_input").val().trim());
       $("#mobile_from").val($("#mobile_input").val().trim());
@@ -48,6 +48,7 @@
       $("#username_input").val("");
       $("#mobile_input").val("");
       $("#email_input").val("");
+      $("#pageSelect").val("10");
       productQuery();
     }
     //初始化包装单位列表
@@ -300,6 +301,12 @@
                 </table>
                 <div class="pull-left" style="padding: 10px 0;">
                   <form id="product_form" action="">
+                  				<select id="pageSelect" name="pageSize">
+									<option>5</option>
+									<option selected="selected">10</option>
+									<option>15</option>
+									<option>20</option>
+								</select>
                     <input type="hidden" id="username_from" name="cid" />
                     <input type="hidden" id="mobile_from" name="mobile" />
                     <input type="hidden" id="email_from" name="email" />
