@@ -246,7 +246,7 @@
                                             	<th width="5%" style="text-align: center;">昵称</th>
                                             	<th width="7%" style="text-align: center;">真实姓名</th>
                                             	<th width="5%" style="text-align: center;">会员来源</th>
-                                            	<th width="5%" style="text-align: center;">手机</th>
+                                            	<th width="5%" style="text-align: center;">手机号</th>
                                             	<th width="5%" style="text-align: center;">邮箱</th>
                                             	<th width="8%" style="text-align: center;">注册时间</th>
                                             	<th width="9%" style="text-align: center;">登录时间</th>
