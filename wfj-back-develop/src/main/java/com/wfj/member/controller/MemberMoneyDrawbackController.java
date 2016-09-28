@@ -354,18 +354,18 @@ public class MemberMoneyDrawbackController {
 			}
 			map.put("mask",sysValue);
 			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
-			net.sf.json.JSONObject json = net.sf.json.JSONObject.fromObject(jsonString);
-			net.sf.json.JSONObject jsonObject = json.getJSONObject("object");
-			net.sf.json.JSONArray ja = jsonObject.getJSONArray("resList");
+			JSONObject json = JSONObject.parseObject(jsonString);
+			JSONObject jsonObject = json.getJSONObject("object");
+			JSONArray ja = jsonObject.getJSONArray("resList");
 			if(ja == null || ja.size() == 0){
 				json.put("pageCount", 0);
 				return json.toString();
 			}
-			int count = jsonObject.getInt("count");
-			if (count == 0){
-				net.sf.json.JSONArray resList = new net.sf.json.JSONArray();
-				json.put("resList",resList);
-			}
+			int count = jsonObject.getInteger("count");
+//			if (count == 0){
+//				JSONArray resList = new JSONArray();
+//				json.put("resList",resList);
+//			}
 			int pageCount = count % 10 == 0 ? count / 10 : (count / 10 + 1);
 			json.put("pageCount", pageCount);
 			return json.toString();

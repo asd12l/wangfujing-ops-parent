@@ -449,11 +449,12 @@
                     },
                     //回调
                     callback: function (data) {
-
-                        for (var i in data.object.resList) {
-                            data.object.resList[i].checkTimeStr = formatDate(data.object.resList[i].checkTime);
-                            data.object.resList[i].applyTimeStr = formatDate(data.object.resList[i].applyTime);
-                            data.object.resList[i].refundTimeStr = formatDate(data.object.resList[i].refundTime);
+                        if (data.code="1"){
+                            for (var i in data.object.resList) {
+                                data.object.resList[i].checkTimeStr = formatDate(data.object.resList[i].checkTime);
+                                data.object.resList[i].applyTimeStr = formatDate(data.object.resList[i].applyTime);
+                                data.object.resList[i].refundTimeStr = formatDate(data.object.resList[i].refundTime);
+                            }
                         }
                         $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
                     }
