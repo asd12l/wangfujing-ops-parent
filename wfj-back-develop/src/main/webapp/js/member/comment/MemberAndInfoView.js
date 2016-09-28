@@ -63,7 +63,7 @@ function productQuery(){
 		$("#mobile_input").val("");
 		$("#identityNo_input").val("");
 		$("#email_input").val("");
-		$("#idType_input").val("1");
+		$("#idType_input").val("");
 		$("#registrationTime_input").val("");
 		$("#memberLevel_input").val("");
 		productQuery();
