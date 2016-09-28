@@ -47,6 +47,11 @@ function productQuery(){
         firstDay : 1
     }
 }); */
+
+//分页下拉选
+$(function() {
+      $("#pageSelect").change(productQuery);
+    });
 	
 	// 查询
 	function query(){
@@ -66,6 +71,7 @@ function productQuery(){
 		$("#idType_input").val("");
 		$("#registrationTime_input").val("");
 		$("#memberLevel_input").val("");
+		$("#pageSelect").val("10");
 		productQuery();
 	}
 	//初始化包装单位列表

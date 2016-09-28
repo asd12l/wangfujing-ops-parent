@@ -73,7 +73,7 @@
 											<input type="text" id="cid_input" /></li>
 										<li class="col-md-4"><label class="titname">所属门店：</label>
 											<input type="text" id="belongStore_input" /></li>
-										<li class="col-md-4"><label class="titname">手机号码：</label>
+										<li class="col-md-4"><label class="titname">手机号：</label>
 											<input type="text" id="mobile_input" /></li>
 										<br/>
 										<li class="col-md-4"><label class="titname">证件类型：</label>
@@ -126,7 +126,7 @@
 											<th style="text-align: center;" width="5%">所属门店</th>
 											<th style="text-align: center;" width="5%">会员等级</th>
 											<th style="text-align: center;" width="5%">注册时间</th>
-											<th style="text-align: center;" width="4%">手机</th>
+											<th style="text-align: center;" width="4%">手机号</th>
 											<th style="text-align: center;" width="4%">邮箱</th>
 											<th style="text-align: center;" width="4%">地址</th>
 											<th style="text-align: center;" width="4%">性别</th>
@@ -150,6 +150,12 @@
 								</div>
 								<div class="pull-left" style="padding: 10px 0;">
 									<form id="product_from" action="">
+									<select id="pageSelect" name="pageSize">
+													<option>5</option>
+													<option selected="selected">10</option>
+													<option>15</option>
+													<option>20</option>
+												</select>
 										<input type="hidden" id="cid_from" name="cid" />
 										<input type="hidden" id="belongStore_from" name="belongStore" />
 										<input type="hidden" id="mobile_from" name="mobile" />

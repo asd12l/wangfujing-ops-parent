@@ -26,10 +26,6 @@
 		var olvPagination;
 		$(function() {
 			$("#reservation").daterangepicker({
-				timePicker: true,
-				timePickerIncrement: 30,
-				format: 'YYYY/MM/DD HH:mm:ss',
-				timePicker12Hour:false,
 		        locale : {
 		            applyLabel : '确定',
 		            cancelLabel : '取消',
@@ -80,6 +76,21 @@
 			$("#orderNo_input").val("");
 			$("#reservation").val("");
 			$("#topic_form")[0].reset();
+			$("#reservation").daterangepicker({
+				startDate:moment().startOf('day'),
+				endDate:moment(),
+				locale : {
+		            applyLabel : '确定',
+		            cancelLabel : '取消',
+		            fromLabel : '起始时间',
+		            toLabel : '结束时间',
+		            customRangeLabel : '自定义',
+		            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+		            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+		                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+		            firstDay : 1
+		        }
+				});
 			productQuery();
 		}
 		//初始化包装单位列表
