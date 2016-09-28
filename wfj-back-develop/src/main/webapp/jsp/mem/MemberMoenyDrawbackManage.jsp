@@ -97,6 +97,7 @@
             timePickInit();
             //初始化
             initOlv();
+            $("#pageSelect").change(olvQuery);
         });
 
         function parseTime1(strTime) {
@@ -391,6 +392,7 @@
             $("#applyName").val("");
             $("#checkStatus").val("");
             $("#refundStatus").val("");
+            $("#pageSelect").val("10");
             timePickInit();
             olvQuery();
         }
@@ -566,18 +568,7 @@
                                         <a class="btn btn-yellow" onclick="excelOrder();">导出</a>
                                     </li>
                                 </ul>
-                                <!--隐藏参数-->
-                                <form id="olv_form" action="">
-                                    <input type="hidden" id="hidsid" name="hidsid"/>
-                                    <input type="hidden" id="hidStartApplyTime" name="hidStartApplyTime"/>
-                                    <input type="hidden" id="hidEndApplyTime" name="hidEndApplyTime"/>
-                                    <input type="hidden" id="hidStartCheckTime" name="hidStartCheckTime"/>
-                                    <input type="hidden" id="hidEndCheckTime" name="hidEndCheckTime"/>
-                                    <input type="hidden" id="hidapplyName" name="hidapplyName"/>
-                                    <input type="hidden" id="hidcheckStatus" name="hidcheckStatus"/>
-                                    <input type="hidden" id="hidrefundStatus" name="hidrefundStatus"/>
-                                </form>
-                                <!--数据列表显示区域-->
+
                                 <div style="width:100%; min-height:400px; overflow-Y: hidden;">
                                     <table class="table-striped table-hover table-bordered" id="olv_tab"
                                            style="width: 200%;background-color: #fff;margin-bottom: 0;">
@@ -608,6 +599,36 @@
                                         <tbody>
                                         </tbody>
                                     </table>
+                                    <!--隐藏参数-->
+                                    <%--<form id="" action="">
+                                        <input type="hidden" id="hidsid" name="hidsid"/>
+                                        <input type="hidden" id="hidStartApplyTime" name="hidStartApplyTime"/>
+                                        <input type="hidden" id="hidEndApplyTime" name="hidEndApplyTime"/>
+                                        <input type="hidden" id="hidStartCheckTime" name="hidStartCheckTime"/>
+                                        <input type="hidden" id="hidEndCheckTime" name="hidEndCheckTime"/>
+                                        <input type="hidden" id="hidapplyName" name="hidapplyName"/>
+                                        <input type="hidden" id="hidcheckStatus" name="hidcheckStatus"/>
+                                        <input type="hidden" id="hidrefundStatus" name="hidrefundStatus"/>
+                                    </form>--%>
+                                    <!--数据列表显示区域-->
+                                </div>
+                                <div class="pull-left" style="margin-top: 5px;">
+                                    <form id="olv_form" action="">
+                                        <select id="pageSelect" name="pageSize">
+                                            <option>5</option>
+                                            <option selected="selected">10</option>
+                                            <option>15</option>
+                                            <option>20</option>
+                                        </select>
+                                        <input type="hidden" id="hidsid" name="hidsid"/>
+                                        <input type="hidden" id="hidStartApplyTime" name="hidStartApplyTime"/>
+                                        <input type="hidden" id="hidEndApplyTime" name="hidEndApplyTime"/>
+                                        <input type="hidden" id="hidStartCheckTime" name="hidStartCheckTime"/>
+                                        <input type="hidden" id="hidEndCheckTime" name="hidEndCheckTime"/>
+                                        <input type="hidden" id="hidapplyName" name="hidapplyName"/>
+                                        <input type="hidden" id="hidcheckStatus" name="hidcheckStatus"/>
+                                        <input type="hidden" id="hidrefundStatus" name="hidrefundStatus"/>
+                                    </form>
                                 </div>
                                 <!--分页工具-->
                                 <div id="olvPagination"></div>

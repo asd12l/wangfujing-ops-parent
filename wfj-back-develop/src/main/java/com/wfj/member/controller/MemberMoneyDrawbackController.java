@@ -301,16 +301,24 @@ public class MemberMoneyDrawbackController {
 		}else{
 			currPage = Integer.parseInt(request.getParameter("page"));
 		}
-		int pageNo = (currPage - 1) * 10;
+		Integer size = null;
+		String pageSize = request.getParameter("pageSize");
+		if (pageSize == null || "0".equals(pageSize)){
+			size = 10;
+		}else{
+			size = Integer.valueOf(pageSize);
+		}
+		int pageNo = (currPage - 1) * size;
 		if(pageNo < 0){
 			pageNo = 0;
 		}
+
 		Gson gson = new Gson();
 		List<Object> list = new ArrayList<>();
 		String jsonString;
 		Map<Object, Object> map = new HashMap<>();
 		map.put("pageNo", pageNo);
-		map.put("pageSize", 10);
+		map.put("pageSize", size);
 		map.put("sid", hidsid);
 		map.put("startApplyTime", hidStartApplyTime);
 		map.put("endApplyTime", hidEndApplyTime);
@@ -366,7 +374,7 @@ public class MemberMoneyDrawbackController {
 //				JSONArray resList = new JSONArray();
 //				json.put("resList",resList);
 //			}
-			int pageCount = count % 10 == 0 ? count / 10 : (count / 10 + 1);
+			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			json.put("pageCount", pageCount);
 			return json.toString();
 		} catch (Exception e) {
