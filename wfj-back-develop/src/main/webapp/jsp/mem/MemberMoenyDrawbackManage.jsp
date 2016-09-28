@@ -448,6 +448,7 @@
                     },
                     //回调
                     callback: function (data) {
+
                         for (var i in data.object.resList) {
                             data.object.resList[i].checkTimeStr = formatDate(data.object.resList[i].checkTime);
                             data.object.resList[i].applyTimeStr = formatDate(data.object.resList[i].applyTime);
