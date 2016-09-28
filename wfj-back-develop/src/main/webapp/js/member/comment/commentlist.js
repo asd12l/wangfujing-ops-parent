@@ -79,7 +79,10 @@ var productPagination;
 	}
 	// 重置
 	function reset() {
-		$("#cache").val(1);
+		$("#modow").val(1);
+		$("#commentid").val('');
+		$("#datetimenow").val('');
+		$("#replyinfo").val('');
 		$("#ordernumber_input").val('');//
 		$("#customeraccount_input").val('');//
 		$("#commenttime_input").val('');//
