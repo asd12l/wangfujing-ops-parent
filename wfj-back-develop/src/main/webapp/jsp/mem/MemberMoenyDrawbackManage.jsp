@@ -293,6 +293,7 @@
 
         //查看详细
         function editMerchant1(id) {
+//            alert($("#applyName_" + id).val());
             $("#phone1").html($("#applyName_" + id).val().trim());
             $("#withdrowMoney1").html($("#withdrowMoney_" + id).html().trim());
             $("#name1").html($("#name_" + id).val());
@@ -759,7 +760,7 @@
 <div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
      id="editDiv">
     <div class="modal-dialog"
-         style="width: 800px; height: auto; margin: 4% auto;">
+         style="width: 600px; height: auto; margin: 4% auto;">
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close"
@@ -770,7 +771,7 @@
             <div class="page-body" id="pageBodyRight">
                 <div class="row">
                     <div class="col-xs-12 col-md-12" style="height:500px ; overflow-y:auto;">
-                        <input type="hidden" name="hsid" id="hsid" value=""/
+                        <input type="hidden" name="hsid" id="hsid" value=""/>
                         <input type="hidden" name="hseqno" id="hseqno" value=""/>
                         <input type="hidden" name="hbillno" id="hbillno" value=""/>
                         <div class="col-md-12" id="" style="padding: 10px 100px;">
@@ -901,8 +902,7 @@
 
 <div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
      id="editDiv1">
-    <div class="modal-dialog"
-         style="width:800px; height: auto; margin: 4% auto;">
+    <div class="modal-dialog" style="width:600px; height: auto; margin: 4% auto;">
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close"
@@ -912,9 +912,8 @@
             </div>
             <div class="page-body" id="pageBodyRight">
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="height:600px ; overflow-y:auto;>
-								<input type=" hidden
-                    " name="hsid" id="hsid" value=""/>
+                    <div class="col-xs-12 col-md-12" style="height:500px ; overflow-y:auto;">
+                        <input type="hidden" name="hsid" id="hsid" value=""/>
                     <div class="col-md-12" id="" style="padding: 10px 100px;">
                         <label class="col-md-5 control-label"
                                style="line-height: 20px; text-align: right;">登录帐号：</label>

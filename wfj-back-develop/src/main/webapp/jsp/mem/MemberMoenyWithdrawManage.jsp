@@ -782,7 +782,7 @@
 <div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
 	 id="editDiv">
 	<div class="modal-dialog"
-		 style="width: 800px; height: auto; margin: 4% auto;">
+		 style="width: 600px; height: auto; margin: 4% auto;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button aria-hidden="true" data-dismiss="modal" class="close"
@@ -791,7 +791,7 @@
 			</div>
 			<div class="page-body" id="pageBodyRight">
 				<div class="row">
-						<div class="col-xs-12 col-md-12" style="height:500px ; overflow-y:auto;">
+						<div class="col-xs-12 col-md-12" style="height:400px ; overflow-y:auto;">
 							<input type="hidden" name="hsid" id="hsid" value=""/>
 							<input type="hidden" name="hseqno" id="hseqno" value=""/>
 							<input type="hidden" name="hbillno" id="hbillno" value=""/>
@@ -892,16 +892,16 @@
 							</div>
 						</div>
 						<br>&nbsp;
-						<div class="form-group">
-							<div class="col-lg-offset-4 col-lg-7">
-								<button  style="width: 90px;float: left;" id="edit"
+						<div class="form-group" style="width: 600px">
+							<div class="col-lg-offset-4 col-lg-7" style="width: auto;margin-left: 80px;">
+								<button  style="width: 80px;float: left;" id="edit"
 										 type="button" onclick="editform();">保存</button>
 								&emsp;
-								<button onclick="giveup();" style="width: 90px;float: left;" id="cancel" type="button">取消</button>
+								<button onclick="giveup();" style="width: 80px;float: left;" id="cancel" type="button">取消</button>
 								&emsp;
 								<button onclick="checkPass();" style="width: 90px;float: left;" id="pass" type="button">审核通过</button>
 								&emsp;
-								<button onclick="checknopass();" style="width: 90px;float: left;" id="nopass" type="button">审核不通过</button>
+								<button onclick="checknopass();" style="width: 100px;float: left;" id="nopass" type="button">审核不通过</button>
 							</div>
 						</div>
 				</div>
@@ -915,7 +915,7 @@
 <div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
 	 id="editDiv1">
 	<div class="modal-dialog"
-		 style="width: 800px; height: auto; margin: 4% auto;">
+		 style="width: 600px; height: auto; margin: 4% auto;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button aria-hidden="true" data-dismiss="modal" class="close"
@@ -924,7 +924,7 @@
 			</div>
 			<div class="page-body" id="pageBodyRight">
 				<div class="row">
-						<div class="col-xs-12 col-md-12" style="height:500px ; overflow-y:auto;">
+						<div class="col-xs-12 col-md-12" style="height:400px ; overflow-y:auto;">
 							<input type="hidden" name="hsid" id="hsid" value=""/>
 							<div class="col-md-12" id="" style="padding: 10px 100px;">
 								<label class="col-md-5 control-label"
