@@ -150,6 +150,12 @@
 								</div>
 								<div class="pull-left" style="padding: 10px 0;">
 									<form id="product_from" action="">
+									<select id="pageSelect" name="pageSize">
+													<option>5</option>
+													<option selected="selected">10</option>
+													<option>15</option>
+													<option>20</option>
+												</select>
 										<input type="hidden" id="cid_from" name="cid" />
 										<input type="hidden" id="belongStore_from" name="belongStore" />
 										<input type="hidden" id="mobile_from" name="mobile" />

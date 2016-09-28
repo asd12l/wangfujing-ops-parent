@@ -67,6 +67,11 @@
             firstDay : 1
         }
     }); 
+	
+	//分页下拉选
+	$(function() {
+	      $("#pageSelect").change(productQuery);
+	    });
 	// 查询
 	function query() {
 		
@@ -82,6 +87,7 @@
 		$("#mobile_input").val("");
 		$("#email_input").val("");
 		$("#loginchannel_input").val("1");
+		$("#pageSelect").val("10");
 		productQuery();
 	}
 	
@@ -266,6 +272,12 @@
                                    </div>
                                   <div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
+									<select id="pageSelect" name="pageSize">
+													<option>5</option>
+													<option selected="selected">10</option>
+													<option>15</option>
+													<option>20</option>
+												</select>
 											<input type="hidden" id="username_from" name="username" />
 											<input type="hidden" id="loginTimeStartDate_form" name="loginTimeStartDate"/>
 											<input type="hidden" id="loginTimeEndDate_form" name="loginTimeEndDate"/> 
