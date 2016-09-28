@@ -79,6 +79,7 @@
 			$("#refundNo_input").val("");
 			$("#orderNo_input").val("");
 			$("#reservation").val("");
+			$("#topic_form")[0].reset();
 			productQuery();
 		}
 		//初始化包装单位列表
@@ -210,27 +211,27 @@
 									</li>
 								</ul>
 
-								<div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+								<div style="width:100%; height:300%; min-height:300px; overflow-Y:hidden;">
 									<table class="table-striped table-hover table-bordered"
 										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
 
 									<thead>
 									<tr role="row" style='height:35px;'>
 										<!-- <th style="text-align: center;" width="2%">选择</th> -->
-										<th style="text-align: center;" width="7%">退货申请时间</th>
-										<th style="text-align: center;" width="7%">购买时间</th>
-										<th style="text-align: center;" width="7%">账号</th>
-										<th style="text-align: center;" width="7%">昵称</th>
-										<th style="text-align: center;" width="7%">真实姓名</th>
-										<th style="text-align: center;" width="7%">手机号</th>
-										<th style="text-align: center;" width="7%">邮箱</th>
-										<!-- <th style="text-align: center;" width="7%">会员来源</th> -->
-										<th style="text-align: center;" width="7%">会员等级</th>
-										<th style="text-align: center;" width="7%">地址</th>
-										<th style="text-align: center;" width="7%">退货原因</th>
-										<th style="text-align: center;" width="7%">退货单号</th>
-										<th style="text-align: center;" width="7%">退货金额</th>
-										<th style="text-align: center;" width="7%">退货单状态</th>
+										<th style="text-align: center;" width="8%">退货时间</th>
+										<th style="text-align: center;" width="8%">购买时间</th>
+										<th style="text-align: center;" width="8%">账号</th>
+										<th style="text-align: center;" width="8%">昵称</th>
+										<th style="text-align: center;" width="8%">真实姓名</th>
+										<th style="text-align: center;" width="8%">手机号</th>
+										<th style="text-align: center;" width="8%">邮箱</th>
+										<!-- <th style="text-align: center;" width="8%">会员来源</th> -->
+										<!-- <th style="text-align: center;" width="8%">会员等级</th> -->
+										<th style="text-align: center;" width="12%">地址</th>
+										<th style="text-align: center;" width="8%">退货原因</th>
+										<th style="text-align: center;" width="8%">退货单号</th>
+										<th style="text-align: center;" width="8%">退货金额</th>
+										<th style="text-align: center;" width="8%">退货单状态</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -269,7 +270,7 @@
 									<textarea id="olv-list" rows="0" cols="0">
 										{#template MAIN}
 											{#foreach $T.list as Result}
-												<tr class="gradeX">
+												<tr class="gradeX" style="height:35px;">
 													<!-- <td align="left">
 														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
@@ -319,11 +320,11 @@
 														{#else}{$T.Result.regist_from}
 														{#/if}
 													</td> -->
-													<td align="center" id="levelName_{$T.Result.cid}">
+													<!-- <td align="center" id="levelName_{$T.Result.cid}">
 														{#if $T.Result.levelName == "" || $T.Result.levelName == null}--
 														{#else}{$T.Result.levelName}
 														{#/if}
-													</td>
+													</td> -->
 													<td align="center" id="receptAddress_{$T.Result.cid}">
 														{#if $T.Result.receptAddress == "" || $T.Result.receptAddress == null}--
 														{#else}{$T.Result.receptAddress}
