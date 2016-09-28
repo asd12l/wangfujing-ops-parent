@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/>
 <script src="${pageContext.request.contextPath}/js/jquery/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/js/jquery/1.10.4/css/jquery-ui.css"/>
 <style type="text/css">
 .ui-autocomplete{z-index:1100}
@@ -17,6 +18,26 @@
 <script type="text/javascript">
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+      var head= document.getElementsByTagName('head')[0]; 
+      var script= document.createElement('script'); 
+           script.type= 'text/javascript'; 
+           script.onload = script.onreadystatechange = function() { 
+      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+               script.onload = script.onreadystatechange = null; 
+               }}; 
+        script.src= logJs; 
+            head.appendChild(script);  
+}
+function sendParameter(){
+         LA.sysCode = '57';
+       }
+       
+//接入log监控end
 //初始化参数
 var userIds =[];//用户名数组
 var users;//用户对象集合
@@ -34,6 +55,7 @@ $(function() {
 
 //绑定事件
 function bindEvent(){
+	
 	$("#rightsQuery").click(function (){
 		$("#save").attr({"disabled":"disabled"});
 		$('input:checkbox').each(function () {
@@ -41,11 +63,14 @@ function bindEvent(){
 		});
 		//获取用户权限byUserId
 		var url=__ctxPath+"/wfjpay/userRights/findRightsByUserId";
+		sendParameter();
+		LA.log('UserRights-query', '用户权限查询', userName, sessionId);
 		var errorMsg=validate();
 		if(errorMsg!=""){
 			showWarning(errorMsg);
 			return;
 		}
+
 		var params={"userId":$("#userId").val()}
 		$.post(url,params,function(data){
 			if(data.success){
@@ -93,6 +118,9 @@ function queryBusiness(){
 	var url=__ctxPath+"/wfjpay/businessStation";
 	$.post(url,function(data){
 		if(data.success){
+			userName = data.userName ;
+    		 logJs = data.logJs;
+    		 reloadjs();
 			businessList=data.list;
 			var usersHtml="<div style='overflow-Y: scroll;width:100%;height:100%;'><form class='form-inline'>";
 			for (var i in businessList){
@@ -156,6 +184,8 @@ function showWarning(msg){
 
 //保存用户权限
 function saveUserRights(){
+	sendParameter();
+	LA.log('UserRights-save', '用户权限保存', userName, sessionId);
 	addBpIds=[];
 	delBpIds=[];
 	var errorMsg=validate();
@@ -163,6 +193,7 @@ function saveUserRights(){
 		showWarning(errorMsg);
 		return;
 	}
+	
 	var userId=$("#userId").val();
 	var bpIds=[];
 	$("input:checkbox[name='bpId']:checked").each(function(){

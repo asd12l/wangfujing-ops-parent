@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.utils.StringUtils;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.pay.web.constant.Constants;
+import com.wangfj.pay.web.util.CookiesUtil;
 import com.wangfj.pay.web.util.HttpClientUtil;
 
 /**

@@ -12,6 +12,7 @@
 <!--Bootstrap Date Range Picker-->
 <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/datetime/datepicker.js"></script>
+<script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <style type="text/css">
 .trClick>td,.trClick>th{
  color:red;
@@ -20,7 +21,25 @@
 <script type="text/javascript">
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
-
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+      var head= document.getElementsByTagName('head')[0]; 
+      var script= document.createElement('script'); 
+           script.type= 'text/javascript'; 
+           script.onload = script.onreadystatechange = function() { 
+      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+               script.onload = script.onreadystatechange = null; 
+               }}; 
+        script.src= logJs; 
+            head.appendChild(script);  
+}
+function sendParameter(){
+         LA.sysCode = '57';
+       }
+//接入log监控end
 //页码
 var olvPagination;
 //var format=new RegExp("^(((01[0-9]{2}|0[2-9][0-9]{2}|[1-9][0-9]{3})/(0?[13578]|1[02])/(0?[1-9]|[12]\\d|3[01]))|((01[0-9]{2}|0[2-9][0-9]{2}|[1-9][0-9]{3})/(0?[13456789]|1[012])/(0?[1-9]|[12]\\d|30))|((01[0-9]{2}|0[2-9][0-9]{2}|[1-9][0-9]{3})/0?2/(0?[1-9]|1\\d|2[0-8]))|(((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((04|08|12|16|[2468][048]|[3579][26])00))/0?2-29)) (20|21|22|23|[0-1]?\\d):[0-5]?\\d:[0-5]?\\d$");
@@ -135,6 +154,8 @@ function formateDate2(date){
 }
 //
 function singleOrderQuery(orderTradeNo) {
+	sendParameter();
+	LA.log('payOrderCompensate-batchObtaining', '支付日志异常获取订单状态', userName, sessionId);
 	if(orderTradeNo){
 		$("#orderTradeNo_form").val(orderTradeNo);
 	}else{
@@ -181,6 +202,8 @@ function setFormData(){
 
 //查询数据
 function olvQuery(){
+	sendParameter();
+	LA.log('payOrderCompensate-query', '支付日志异常状态明细查询', userName, sessionId);
 	//设置表单数据
 	setFormData();
 	//生成表单请求参数
@@ -191,6 +214,8 @@ function olvQuery(){
 	}
 //重置
 function reset(){
+	sendParameter();
+	LA.log('payOrderCompensate-reset', '支付日志异常状态明细查询条件明细重置', userName, sessionId);
 	$("#orderTradeNo_input").val("");
 	$("#bpId_input").val("");
 	$("#bpOrderId_input").val("");
@@ -201,6 +226,7 @@ function reset(){
 }
 //初始化函数
 	function initOlv() {
+		
 	//请求地址
 	var url = __ctxPath+"/wfjpay/order/findAllOrderCompensate";
 	setFormData();
@@ -265,6 +291,9 @@ function reset(){
 	var bpIdDateUrl=__ctxPath+"/wfjpay/businessStation";
 	$.post(bpIdDateUrl,{flag:"0"},function(data){
 		if(data.success=="true"){
+			userName = data.userName ;
+    		logJs = data.logJs;
+    		reloadjs();
 			var html="";
 			var arr=data.list;
 			for(var i=0;i<arr.length;i++){

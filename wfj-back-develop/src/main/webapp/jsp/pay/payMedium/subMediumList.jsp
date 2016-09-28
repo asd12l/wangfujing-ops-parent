@@ -15,6 +15,7 @@
 <!--ztree-->
 <script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/ztree/css/zTreeStyle.css" type="text/css">
 <style type="text/css">
 .trClick>td,.trClick>th{
@@ -42,7 +43,24 @@
 <script type="text/javascript">
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
-
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+var head= document.getElementsByTagName('head')[0]; 
+var script= document.createElement('script'); 
+script.type= 'text/javascript'; 
+script.onload = script.onreadystatechange = function() { 
+if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+script.onload = script.onreadystatechange = null; 
+} }; 
+script.src= logJs; 
+head.appendChild(script);  
+}
+function sendParameter(){
+LA.sysCode = '59';
+}
 //页码
 var olvPagination;
 //初始化参数
@@ -111,6 +129,9 @@ function setParamForm(type){
 
 //添加支付介质
 function add(){
+	sendParameter();
+	LA.log('payMedium-2-addMedium', '支付介质添加二级支付介质', userName, sessionId);
+
 	var url=__ctxPath+"/wfjpay/payMedium/addPayMedium";
 	setParamForm("add");
 	var param=$("#data_form").serialize();
@@ -127,6 +148,8 @@ function add(){
 
 //修改支付介质
 function edit(){
+	sendParameter();
+	LA.log('payMedium-2-modify', '支付介质修改二级支付介质', userName, sessionId);
 	var url=__ctxPath+"/wfjpay/payMedium/updatePayMedium";
 	setParamForm("edit");
 	var param=$("#data_form").serialize();
@@ -229,6 +252,9 @@ function deleteMedium(code){
 			},
          //回调
          callback: function(data) {
+        	 userName = data.userName ;
+     		 logJs = data.logJs;
+     		 reloadjs();
         	 $("#pageNo_form").val(data.pageNo);
        		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
          }
@@ -576,7 +602,7 @@ $(function(){
 	<div class="modal-dialog" style="width: 500px;height:400px;margin: 10% auto;">
 	    <div class="modal-content">
 		    <div class="widget-header">
-				<span class="widget-caption">添加一级介质</span>
+				<span class="widget-caption">添加二级介质</span>
 				<button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="document.getElementById('addDiv').style.display='none';" style="margin-right:10px;">×</button>
 			</div>
 			<form  id="addForm" method="post" class="form-horizontal" enctype="multipart/form-data">  

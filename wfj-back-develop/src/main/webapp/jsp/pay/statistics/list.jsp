@@ -13,6 +13,7 @@
 <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/datetime/datepicker.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/charts/chartjs/Chartq.js"></script>
+<script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <style type="text/css">
 .trClick>td, .trClick>th {
 	color: red;
@@ -21,7 +22,25 @@
 <script type="text/javascript">
 	//上下文路径
 	__ctxPath = "${pageContext.request.contextPath}";
-	
+	//接入log监控start
+	var userName;
+	var logJs;	
+	var sessionId = '<%=request.getSession().getId()%>';
+	function reloadjs(){
+	      var head= document.getElementsByTagName('head')[0]; 
+	      var script= document.createElement('script'); 
+	           script.type= 'text/javascript'; 
+	           script.onload = script.onreadystatechange = function() { 
+	      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+	               script.onload = script.onreadystatechange = null; 
+	               }}; 
+	        script.src= logJs; 
+	            head.appendChild(script);  
+	}
+	function sendParameter(){
+	         LA.sysCode = '57';
+	       }
+	//接入log监控end
 	//页码
 	var olvPagination;
 	var params;
@@ -160,6 +179,8 @@
 	}
 	//导出excel
 	function excelChannel() {
+		sendParameter();
+		LA.log('statistics-excel', '统计查询结果导出Excel', userName, sessionId);
 		var url=__ctxPath+"/wfjpay/statistics/checkStatisticsExport";
 //		var remoteUrl="http://10.6.2.150/wfjpay/admin/statistics_type/export.do?";
 		var remoteUrl=__ctxPath+"/wfjpay/statistics/getStatisticsToExcel?";
@@ -299,8 +320,10 @@
 									var bpIdDateUrl=__ctxPath+"/wfjpay/businessStation";
 									$.post(bpIdDateUrl,{flag:"0"},function(data){
 										if(data.success=="true"){
+											 userName = data.userName ;
+								     		 logJs = data.logJs;
+								     		 reloadjs();
 											var html="";
-											
 											var arr=data.list;
 											for(var i=0;i<arr.length;i++){
 												html+="<option value='"+arr[i].id+"'>"+arr[i].name+"</option>";
@@ -320,8 +343,10 @@
     	 var bpIdDateUrl=__ctxPath+"/wfjpay/businessStation";
 			$.post(bpIdDateUrl,{flag:"0"},function(data){
 				if(data.success=="true"){
+					userName = data.userName ;
+		     		logJs = data.logJs;
+		     		reloadjs();
 					var html="";
-					
 					var arr=data.list;
 					for(var i=0;i<arr.length;i++){
 						html+="<option value='"+arr[i].id+"'>"+arr[i].name+"</option>";
@@ -334,7 +359,8 @@
      }
 	//查询数据
 	function olvQuery() {
-		
+		sendParameter();
+		LA.log('statistics-query', '统计查询', userName, sessionId);
 			  
 			   // alert(selectValue);
 			

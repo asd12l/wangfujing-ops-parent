@@ -10,17 +10,38 @@
 <!--ztree-->
 <script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/ztree/css/zTreeStyle.css" type="text/css">
 <title>商品基本信息</title>
 
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	//接入log监控start
+	var userName;
+	var logJs;	
+	var sessionId = '<%=request.getSession().getId()%>';
+	function reloadjs(){
+	      var head= document.getElementsByTagName('head')[0]; 
+	      var script= document.createElement('script'); 
+	           script.type= 'text/javascript'; 
+	           script.onload = script.onreadystatechange = function() { 
+	      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+	               script.onload = script.onreadystatechange = null; 
+	               }}; 
+	        script.src= logJs; 
+	            head.appendChild(script);  
+	}
+	function sendParameter(){
+	         LA.sysCode = '57';
+	       }
+	//接入log监控end
 	var treeObj;
 	var treeObjcre;
 	var payCode;
 	var parCodecre;
 	$(function(){
 		channelType();
+		
 		
 		$('#theForm').bootstrapValidator({
 			message : 'This value is not valid',
@@ -289,6 +310,8 @@
   	
 	//保存数据
   	function saveFrom(){
+  		sendParameter();
+  		LA.log('payChannelAccount-save', '保存新建支付渠道账号', userName, sessionId);
 		var value=$("#partner").val();
   		$.ajax({
 	        type:"post",
