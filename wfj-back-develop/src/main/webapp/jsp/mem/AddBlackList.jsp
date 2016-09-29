@@ -40,11 +40,13 @@
     // 查询
     function query() {
       $("#cache").val(0);
+      $("#status").val("1");
       productQuery();
     }
     //重置
     function reset(){
       $("#cache").val(1);
+      $("#status").val("");
       $("#username_input").val("");
       $("#mobile_input").val("");
       $("#email_input").val("");
@@ -93,6 +95,7 @@
         }
         return data;
       }
+      
     }
     function successBtn(){
       $("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
@@ -310,6 +313,7 @@
                     <input type="hidden" id="username_from" name="cid" />
                     <input type="hidden" id="mobile_from" name="mobile" />
                     <input type="hidden" id="email_from" name="email" />
+                    <input type="hidden" id="status" name="status"/>
                     <input type="hidden" id="cache" name="cache" value="1" />
                   </form>
                 </div>
