@@ -66,7 +66,7 @@ $(function() {
 		$("#status").val("");
 		$("#cache").val(1);
 		$("#cid_input").val("");
-		$("#belongStore_input").val("21011");
+		$("#belongStore_input").val("");
 		$("#mobile_input").val("");
 		$("#identityNo_input").val("");
 		$("#email_input").val("");
