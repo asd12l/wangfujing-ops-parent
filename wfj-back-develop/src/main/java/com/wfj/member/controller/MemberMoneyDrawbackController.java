@@ -362,6 +362,14 @@ public class MemberMoneyDrawbackController {
 			}
 			map.put("mask",sysValue);
 			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
+			if (jsonString == null || "".equals(jsonString)){
+				log.info("调取member-ops失败");
+				JSONObject json = new JSONObject();
+				json.put("code", "0");
+				json.put("pageCount", 0);
+				jsonString = json.toString();
+				return jsonString;
+			}
 			JSONObject json = JSONObject.parseObject(jsonString);
 			JSONObject jsonObject = json.getJSONObject("object");
 			JSONArray ja = jsonObject.getJSONArray("resList");
@@ -381,6 +389,7 @@ public class MemberMoneyDrawbackController {
 			log.error(e.getMessage());
 			JSONObject json = new JSONObject();
 			json.put("code", "0");
+			json.put("pageCount", 0);
 			jsonString = json.toString();
 			return jsonString;
 		}
