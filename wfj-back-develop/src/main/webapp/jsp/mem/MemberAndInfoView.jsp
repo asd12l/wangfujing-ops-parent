@@ -72,7 +72,7 @@
 										<li class="col-md-4"><label class="titname">账号：</label>
 											<input type="text" id="cid_input" /></li>
 										<li class="col-md-4"><label class="titname">所属门店：</label>
-											<input type="text" id="belongStore_input" value="21011"/></li>
+											<input type="text" id="belongStore_input" /></li>
 										<li class="col-md-4"><label class="titname">手机号：</label>
 											<input type="text" id="mobile_input" /></li>
 										<br/>
