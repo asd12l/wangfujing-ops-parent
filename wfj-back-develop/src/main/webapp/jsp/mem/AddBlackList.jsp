@@ -288,13 +288,13 @@
                   <thead>
                   <tr role="row" style='height:35px;'>
                     <th style="text-align: center;" width="2%">选择</th>
-                    <th style="text-align: center;" width="10%">账号</th>
-                    <th style="text-align: center;" width="10%">昵称</th>
-                    <th style="text-align: center;" width="10%">真实姓名</th>
+                    <th style="text-align: center;" width="12%">账号</th>
+                    <th style="text-align: center;" width="12%">昵称</th>
+                    <th style="text-align: center;" width="12%">真实姓名</th>
                     <th style="text-align: center;" width="10%">手机号</th>
-                    <th style="text-align: center;" width="10%">邮箱</th>
+                    <th style="text-align: center;" width="12%">邮箱</th>
                     <th style="text-align: center;" width="10">所属门店</th>
-                    <th style="text-align: center;" width="10%">会员等级</th>
+                   <!--  <th style="text-align: center;" width="10%">会员等级</th> -->
                     <th style="text-align: center;" width="10%">地址</th>
                     <th style="text-align: center;" width="10%">拉黑</th>
                   </tr>
@@ -364,11 +364,11 @@
                                                     {#else}{$T.Result.cmmkt}
                                                     {#/if}
                                                   </td>
-                                                  <td align="center" id="levelName_{$T.Result.cid}">
+                                                  <!-- <td align="center" id="levelName_{$T.Result.cid}">
                                                     {#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
                                                     {#else}{$T.Result.levelName}
                                                     {#/if}
-                                                  </td>
+                                                  </td> -->
                                                   <td align="center" id="address_{$T.Result.cid}">
                                                     {#if $T.Result.address == "" || $T.Result.address == null}--
                                                     {#else}{$T.Result.address}
