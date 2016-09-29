@@ -129,7 +129,7 @@ public class HttpUtilPcm {
         gettMethod = new GetMethod(uri.toString());
 
         gettMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, encoding);
-        gettMethod.setRequestHeader("Connection", "close");
+//        gettMethod.setRequestHeader("Connection", "close");
             // 执行getMethod
 
             int statusCode = httpClient.executeMethod(gettMethod);
