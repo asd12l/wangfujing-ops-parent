@@ -72,7 +72,7 @@
 										<li class="col-md-4"><label class="titname">账号：</label>
 											<input type="text" id="cid_input" /></li>
 										<li class="col-md-4"><label class="titname">所属门店：</label>
-											<input type="text" id="belongStore_input" /></li>
+											<input type="text" id="belongStore_input" value="21011"/></li>
 										<li class="col-md-4"><label class="titname">手机号：</label>
 											<input type="text" id="mobile_input" /></li>
 										<br/>
@@ -162,6 +162,7 @@
 										<input type="hidden" id="identityNo_from" name="identityNo" />
 										<input type="hidden" id="email_from" name="email"/>
 										<input type="hidden" id="idType_from" name="idType"/>
+										<input type="hidden" id="status" name="status"/>
 										<!-- 注册时间 -->
 										<input type="hidden" id="timeStartDate_form" name="m_timeStartDate"/>
 										<input type="hidden" id="timeEndDate_form" name="m_timeEndDate"/>

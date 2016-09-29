@@ -275,6 +275,7 @@ public class MemberBasicController {
 		} catch (Exception e) {
 			log.error("查询屏显规则异常！返回结果json=" + json);
 		}
+		//初始化页面如果status为空择传入百货大楼门店号
 		String status=request.getParameter("status");
 		if(StringUtils.isEmpty(status)){
 			paraMap.put("belongStore","21011");	
