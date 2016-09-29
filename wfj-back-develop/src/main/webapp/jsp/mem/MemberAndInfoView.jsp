@@ -124,8 +124,8 @@
 											<th style="text-align: center;" width="5%">昵称</th>
 											<th style="text-align: center;" width="5%">真实姓名</th>
 											<th style="text-align: center;" width="5%">所属门店</th>
-											<th style="text-align: center;" width="5%">会员等级</th>
-											<th style="text-align: center;" width="5%">注册时间</th>
+										<!-- 	<th style="text-align: center;" width="5%">会员等级</th>
+											<th style="text-align: center;" width="5%">注册时间</th> -->
 											<th style="text-align: center;" width="4%">手机号</th>
 											<th style="text-align: center;" width="4%">邮箱</th>
 											<th style="text-align: center;" width="4%">地址</th>
@@ -207,7 +207,7 @@
 													    {#else}{$T.Result.cmmkt}
 													    {#/if}
 													</td>
-													<td align="center" id="levelName_{$T.Result.cid}">
+												<!-- 	<td align="center" id="levelName_{$T.Result.cid}">
 														{#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
 														{#else}{$T.Result.levelName}
 														{#/if}
@@ -216,7 +216,7 @@
 														{#if $T.Result.cmkhdate == "" || $T.Result.cmkhdate == null}--
 													    {#else}{$T.Result.cmkhdate}
 													    {#/if}
-													</td>
+													</td> -->
 
 													<td align="center" id="mobile_{$T.Result.cid}">
 														<input type="hidden" id="phone5_{$T.Result.cid}" value="{$T.Result.phone5}">
