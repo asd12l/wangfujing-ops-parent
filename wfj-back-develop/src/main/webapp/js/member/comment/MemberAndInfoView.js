@@ -3,6 +3,7 @@ $(function() {
 		initOlv();
 	});
 
+
 function productQuery(){
 		
 		$("#cid_from").val($("#cid_input").val().trim());
@@ -55,16 +56,17 @@ $(function() {
 	
 	// 查询
 	function query(){
-    	
+    	$("#status").val("1");
 		$("#cache").val(0);
 		productQuery();
 		
 	}
 	//重置
 	function reset(){
+		$("#status").val("");
 		$("#cache").val(1);
 		$("#cid_input").val("");
-		$("#belongStore_input").val("");
+		$("#belongStore_input").val("21011");
 		$("#mobile_input").val("");
 		$("#identityNo_input").val("");
 		$("#email_input").val("");
@@ -77,6 +79,8 @@ $(function() {
 	//初始化包装单位列表
 	function initOlv() {
 		var url = __ctxPath+"/memBasic/getMemBasicInfo";
+		//$("#belongStore_input").val("D001");
+		//var params = {"belongStore":"D001","cache":0};
 		olvPagination = $("#olvPagination").myPagination({
 			panel: {
 				tipInfo_on: true,
@@ -116,6 +120,7 @@ $(function() {
 			}
 			return data;
 		}
+		
 	}
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});

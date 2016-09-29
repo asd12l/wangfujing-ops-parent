@@ -249,12 +249,12 @@
                                         <thead>
                                             <tr role="row" style='height:35px;'>
                                             	<th width="8%" style="text-align: center;">账号</th>
-                                            	<th width="5%" style="text-align: center;">昵称</th>
+                                            	<th width="7%" style="text-align: center;">昵称</th>
                                             	<th width="7%" style="text-align: center;">真实姓名</th>
-                                            	<th width="5%" style="text-align: center;">会员来源</th>
-                                            	<th width="5%" style="text-align: center;">手机号</th>
-                                            	<th width="5%" style="text-align: center;">邮箱</th>
-                                            	<th width="8%" style="text-align: center;">注册时间</th>
+                                            	<th width="7%" style="text-align: center;">会员来源</th>
+                                            	<th width="7%" style="text-align: center;">手机号</th>
+                                            	<th width="7%" style="text-align: center;">邮箱</th>
+                                            	<!-- <th width="8%" style="text-align: center;">注册时间</th> -->
                                             	<th width="9%" style="text-align: center;">登录时间</th>
                                             	<th width="7%" style="text-align: center;">IP地址</th>
                                                 <th width="20%" style="text-align: center;">浏览器</th>
@@ -338,12 +338,12 @@
 													    {#else}{$T.Result.email}
 													    {#/if}
 													</td>
-													<td align="center" id="regist_time_{$T.Result.sid}">
-													<!-- 注册时间 -->
+													<!-- <td align="center" id="regist_time_{$T.Result.sid}">
+													注册时间
 														{#if $T.Result.regist_time == "" || $T.Result.regist_time == null}--
 													    {#else}{$T.Result.regist_time}
 													    {#/if}
-													</td>
+													</td> -->
 													<td align="center" id="loginTime_{$T.Result.sid}">
 														<!-- 登录时间 -->
 														{#if $T.Result.loginTime == "" || $T.Result.loginTime == null}--

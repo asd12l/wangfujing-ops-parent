@@ -72,7 +72,7 @@
 										<li class="col-md-4"><label class="titname">账号：</label>
 											<input type="text" id="cid_input" /></li>
 										<li class="col-md-4"><label class="titname">所属门店：</label>
-											<input type="text" id="belongStore_input" /></li>
+											<input type="text" id="belongStore_input" value="21011"/></li>
 										<li class="col-md-4"><label class="titname">手机号：</label>
 											<input type="text" id="mobile_input" /></li>
 										<br/>
@@ -124,8 +124,8 @@
 											<th style="text-align: center;" width="5%">昵称</th>
 											<th style="text-align: center;" width="5%">真实姓名</th>
 											<th style="text-align: center;" width="5%">所属门店</th>
-											<th style="text-align: center;" width="5%">会员等级</th>
-											<th style="text-align: center;" width="5%">注册时间</th>
+										<!-- 	<th style="text-align: center;" width="5%">会员等级</th>
+											<th style="text-align: center;" width="5%">注册时间</th> -->
 											<th style="text-align: center;" width="4%">手机号</th>
 											<th style="text-align: center;" width="4%">邮箱</th>
 											<th style="text-align: center;" width="4%">地址</th>
@@ -162,6 +162,7 @@
 										<input type="hidden" id="identityNo_from" name="identityNo" />
 										<input type="hidden" id="email_from" name="email"/>
 										<input type="hidden" id="idType_from" name="idType"/>
+										<input type="hidden" id="status" name="status"/>
 										<!-- 注册时间 -->
 										<input type="hidden" id="timeStartDate_form" name="m_timeStartDate"/>
 										<input type="hidden" id="timeEndDate_form" name="m_timeEndDate"/>
@@ -206,7 +207,7 @@
 													    {#else}{$T.Result.cmmkt}
 													    {#/if}
 													</td>
-													<td align="center" id="levelName_{$T.Result.cid}">
+												<!-- 	<td align="center" id="levelName_{$T.Result.cid}">
 														{#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
 														{#else}{$T.Result.levelName}
 														{#/if}
@@ -215,7 +216,7 @@
 														{#if $T.Result.cmkhdate == "" || $T.Result.cmkhdate == null}--
 													    {#else}{$T.Result.cmkhdate}
 													    {#/if}
-													</td>
+													</td> -->
 
 													<td align="center" id="mobile_{$T.Result.cid}">
 														<input type="hidden" id="phone5_{$T.Result.cid}" value="{$T.Result.phone5}">

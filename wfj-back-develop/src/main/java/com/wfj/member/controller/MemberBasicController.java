@@ -275,12 +275,18 @@ public class MemberBasicController {
 		} catch (Exception e) {
 			log.error("查询屏显规则异常！返回结果json=" + json);
 		}
-
+		//初始化页面如果status为空择传入百货大楼门店号
+		String status=request.getParameter("status");
+		if(StringUtils.isEmpty(status)){
+			paraMap.put("belongStore","21011");	
+		}else{
+			paraMap.put("belongStore", request.getParameter("belongStore"));
+		}
+		paraMap.put("status",request.getParameter("status"));
 		paraMap.put("mask", sysValue);
 		paraMap.put("currPage", String.valueOf(currPage));
 		paraMap.put("pageSize", String.valueOf(pageSize));
 		paraMap.put("cid", request.getParameter("cid"));
-		paraMap.put("belongStore", request.getParameter("belongStore"));
 		paraMap.put("mobile", request.getParameter("mobile"));
 		paraMap.put("idType", request.getParameter("idType"));
 		paraMap.put("identityNo", request.getParameter("identityNo"));
