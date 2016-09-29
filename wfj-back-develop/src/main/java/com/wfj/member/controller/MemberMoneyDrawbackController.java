@@ -361,7 +361,7 @@ public class MemberMoneyDrawbackController {
 				log.error("查询屏显规则异常！返回结果json="+json1);
 			}
 			map.put("mask",sysValue);
-			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
+			jsonString = HttpUtil.HttpPost(url,method, map);
 			if (jsonString == null || "".equals(jsonString)){
 				log.info("调取member-ops失败");
 				JSONObject json = new JSONObject();
@@ -386,7 +386,7 @@ public class MemberMoneyDrawbackController {
 			json.put("pageCount", pageCount);
 			return json.toString();
 		} catch (Exception e) {
-			log.error(e.getMessage());
+			log.error("getWithdrawlsList异常"+e.getMessage());
 			JSONObject json = new JSONObject();
 			json.put("code", "0");
 			json.put("pageCount", 0);
