@@ -378,6 +378,7 @@ public class MemberMoneyDrawbackController {
 			json.put("pageCount", pageCount);
 			return json.toString();
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			JSONObject json = new JSONObject();
 			json.put("code", "0");
 			jsonString = json.toString();
