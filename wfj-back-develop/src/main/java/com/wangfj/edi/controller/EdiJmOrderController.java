@@ -81,7 +81,7 @@ public class EdiJmOrderController {
 		paramMap.put("receiverMobile", request.getParameter("receiverMobile"));
 		paramMap.put("title", request.getParameter("title"));
 		paramMap.put("tradesource", tradesource);
-		
+		paramMap.put("ispreSale", request.getParameter("ispreSale"));
 		paramMap.put("symbol", request.getParameter("symbol"));
 		paramMap.put("totalAmount", request.getParameter("totalAmount"));
 		
