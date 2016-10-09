@@ -90,9 +90,9 @@ function reloadjs(){
 //解除黑名单
 	function removeBL(tid){
 		LA.env = 'dev';
-		LA.sysCode = '44';
+		LA.sysCode = '45';
 		var sessionId = '<%=request.getSession().getId()%>';
-		LA.log('tm-removeBL', '天猫解除黑名单', userName, sessionId);
+		LA.log('yz-removeBL', '有赞解除黑名单', userName, sessionId);
 	   	 $.ajax({
 	   		on: true,
 				url : __ctxPath + "/ediOrder/blacklistRemove?tid="+tid+"&channelCode=M4",
@@ -110,7 +110,7 @@ function reloadjs(){
 		  LA.env = 'dev';
 		  LA.sysCode = '45';
 		  var sessionId = '<%=request.getSession().getId()%>';
-		  LA.log('yz-search', '有赞搜索', userName, sessionId);
+		  LA.log('yz-search', '有赞黑名单搜索', userName, sessionId);
 		 
 		$("#tid_form").val($("#tid_input").val());
 		$("#ordersId_form").val($("#ordersId_input").val());
@@ -285,7 +285,6 @@ function reloadjs(){
 								<table class="table table-bordered table-striped table-condensed table-hover flip-content" id="stock_tab">
                                        <thead class="flip-content bordered-darkorange">
 										<tr role="row">
-													<th style="text-align: center;"></th>
 													<th style="text-align: center;">有赞订单编号</th>
 													<!-- tid -->
 													<th style="text-align: center;">王府井订单编号</th>
@@ -341,9 +340,6 @@ function reloadjs(){
 										{#template MAIN}
 											{#foreach $T.list as Result}
 												<tr class="gradeX">
-													<td align="center">
-														<a onclick="toggleShow('{$T.Result.tid}');" ><i class="fa fa-plus" id="toggle_{$T.Result.tid}"></i></a>
-													</td>
 													<td align="center" id="skuCode_{$T.Result.sid}">{$T.Result.tid}</td>
 													<td align="center" id="unitCode_{$T.Result.sid}">{#if $T.Result.ordersid == null || $T.Result.ordersid == ""} --- {#else} {$T.Result.ordersid} {#/if}</td>
 													<td align="center" id="productCode_{$T.Result.sid}">

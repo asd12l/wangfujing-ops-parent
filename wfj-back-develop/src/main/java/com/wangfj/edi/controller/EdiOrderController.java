@@ -398,13 +398,13 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			String url = "";
-			if("M4".equals(channelCode)){
-				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_yzrelieve");
-			}else if("JM".equals(channelCode)){
-				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_jmrelieve");
-			}else{
+//			if("M4".equals(channelCode)){
+//				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_yzrelieve");
+//			}else if("JM".equals(channelCode)){
+//				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_jmrelieve");
+//			}else{
 				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_relieve");
-			}
+//			}
 			HttpUtilPcm.doPost(url, jsonStr);
 		} catch (Exception e) {
 			map.put("pageCount", 0);
