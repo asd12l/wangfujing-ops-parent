@@ -173,20 +173,32 @@ var floorType="";
 			$("#brand_list,#link_list").hide();
 			$("#product_list a").click();
 			productList();
+			function load(){
+				$("#product_list a").click();
+			} 
 		}else if(floor_type==2){
 			productShow();
 			$("#product_list,#link_list").hide();
 			$("#brand_list a").click();
 			brandList();
+			function load(){
+				$("#brand_list a").click();  
+			} 
 		}else if(floor_type==3){
 			productShow();
 			$("#product_list,#brand_list").hide();
 			$("#link_list a").click();
 			linkList();
+			function load(){
+			    $("#link_list a").click();  
+			} 
 		}else{
 			divManagerShow();
 			$("#divTitle a").click();
 			initFloor(pageLayoutSid);
+			function load(){
+			   $("#divTitle a").click();  
+			} 
 		}
 	};
 	
