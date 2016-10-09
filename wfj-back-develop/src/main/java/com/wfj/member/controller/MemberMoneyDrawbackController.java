@@ -578,7 +578,12 @@ public class MemberMoneyDrawbackController {
 			System.err.println("============== member_ops_url:" + url);
 			System.err.println("=============method:"+method);
 			System.err.println("======== getWithdrawlsList url "+url+ method+"  =========");
-			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
+			jsonString = HttpUtil.HttpPost(url,method, map);
+			if (jsonString == null || "".equals(jsonString)){
+				log.error(url+method+"getWithdrowToExcel查询提现申请单详情失败!");
+				m.put("success", "false");
+				m.put("msg", "导出异常！");
+			}
 			JSONObject json = JSONObject.parseObject(jsonString);
 			JSONObject jsonObject = json.getJSONObject("object");
 			JSONArray arr = jsonObject.getJSONArray("resList");
