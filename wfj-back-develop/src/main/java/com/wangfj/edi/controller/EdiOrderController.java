@@ -377,6 +377,41 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		}
 		return json;
 	}
+	
+	/**
+	 * 解除黑名单关系
+	 * 
+	 */
+	@RequestMapping("/blacklistRemove")
+	public void blacklistRemove(String tid,String channelCode,HttpServletRequest request, HttpServletResponse response) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+
+		paramMap.put("tid", tid);
+		paramMap.put("channel", channelCode);
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url = "";
+			if("M4".equals(channelCode)){
+				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_yzrelieve");
+			}else if("JM".equals(channelCode)){
+				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_jmrelieve");
+			}else{
+				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_relieve");
+			}
+			HttpUtilPcm.doPost(url, jsonStr);
+		} catch (Exception e) {
+			map.put("pageCount", 0);
+			map.put("success", "false");
+		}
+	}
+	
 	/**
 	 * 修改异常订单
 	 * @Methods Name selectRefundApplyList
