@@ -144,7 +144,7 @@
 						message : '门店编码第一位不能为0且不超过18位的数字组成'
 					}
 				}
-			},
+			}/*,
             registeredAddress:{
                 validators : {
                     notEmpty : {
@@ -231,7 +231,7 @@
                         message : '传真不能为空'
                     }
                 }
-            }
+            }*/
 		}
 
 	}).find('button[data-toggle]').on(
@@ -414,12 +414,12 @@
 										</div>
 									</div>
 									
-									<div class="form-group">
+									<%--<div class="form-group">
 										<div class="col-lg-8 col-sm-8 col-xs-8 col-lg-offset-2">
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 18%;">注册地址：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6" style="width: 75%;">
 												<input  maxlength="20" type="text" class="form-control" id="registeredAddress" name="registeredAddress" placeholder="必填"/>
-											</div>											
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -427,7 +427,7 @@
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 18%;">邮编：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6" style="width: 75%;">
 												<input  maxlength="20" type="text" class="form-control" id="postCode" name="postCode" placeholder="必填"/>
-											</div>											
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -439,7 +439,7 @@
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 19%;">委托代理人：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6" style="width: 28%;">
 												<input  maxlength="20" type="text" class="form-control" id="agent" name="agent" placeholder="必填"/>
-											</div>											
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -447,7 +447,7 @@
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 18%;">税务登记号：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6" style="width: 75%;">
 												<input  maxlength="20" type="text" class="form-control" id="taxRegistrationNumber" name="taxRegistrationNumber" placeholder="必填"/>
-											</div>											
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -455,7 +455,7 @@
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 18%;">开户行：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6" style="width: 75%;">
 												<input  maxlength="20" type="text" class="form-control" id="bank" name="bank" placeholder="必填"/>
-											</div>											
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -463,7 +463,7 @@
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 18%;">开户行账号：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6" style="width: 75%;">
 												<input  maxlength="20" type="text" class="form-control" id="bankAccount" name="bankAccount" placeholder="必填"/>
-											</div>											
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -475,9 +475,9 @@
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 19%;">传真：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6" style="width: 28%;">
 												<input  maxlength="20" type="text" class="form-control" id="faxNumber" name="faxNumber" placeholder="必填"/>
-											</div>											
+											</div>
 										</div>
-									</div>
+									</div>--%>
 									
          							<div class="form-group">
 										<div class="col-lg-offset-4 col-lg-6">
