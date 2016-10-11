@@ -182,6 +182,7 @@ function editMerchant(id){
 		$("#input_memberUrl").show();
 	}
 	$("#editLabelDiv").show();
+	
 }
 //隐藏修改div
 function closeMerchant(){
