@@ -102,6 +102,27 @@ $(function(){
 						message : '费率不能为空'
 					}
 				}
+			},
+			yzShopUrl : {
+				validators : {
+					regexp: {
+                        regexp: /^((http|ftp|https):\/\/)(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,4})*(\/[a-zA-Z0-9\&%_\.\/-~-]*)?$/,
+                        message: '地址格式不正确'
+                    },
+					notEmpty : {
+						message : '地址不能为空'
+					}
+				}
+			},memberUrl : {
+				validators : {
+					regexp: {
+	                    regexp: /^((http|ftp|https):\/\/)(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,4})*(\/[a-zA-Z0-9\&%_\.\/-~-]*)?$/,
+	                    message: '地址格式不正确'
+	                },
+					notEmpty : {
+	                	message : '地址不能为空'
+					}
+				}
 			}
 			
 			
@@ -198,6 +219,17 @@ $(function(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 		$("#pageBody").load(__ctxPath+"/jsp/pay/merchant/list.jsp");
 	}
+  	
+  	//显示有赞商城或会员中心的地址输入框
+  	function showUrlInput(value){
+  		if(value==1){
+  			$("#input_memberUrl").hide();
+  			$("#input_yzShopUrl").show();
+  		}else if(value==0){
+  			$("#input_yzShopUrl").hide();
+  			$("#input_memberUrl").show();
+  		}
+  	}
 	</script> 
 	</head>
 <body>
@@ -238,10 +270,16 @@ $(function(){
 									id="merchantType_1" name="merchantType" value="2" onclick="attrChange(this.value)"> <span
 									class="text">外部</span>
 								</label> 
-								
-								
 							</div>
-							<div class="form-group"  style="display:none"  id="option_merchant">
+						
+							<div class="radio" style="display: none;">
+								<label> <input class="inverted" type="radio"
+									name="merchantType"> <span class="text"></span>
+								</label>
+							</div>
+						</div>
+						
+						<div class="form-group"  style="display:none"  id="option_merchant">
 								
 																
 									  <label class="col-lg-3 control-label">内部请选择</label>
@@ -253,22 +291,49 @@ $(function(){
 									  </li>
 								</ul>
 								</div>
+						</div>
+															
+						<div class="form-group"  style="display:none"  id="input_merchant">
+						   <label class="col-lg-3 control-label">外部请填写</label>
+						   <div class="col-lg-6">
+							<input type="text" class="form-control" id="text_merchant" name="merCode" placeholder="必填"/>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-lg-3 control-label">是否有赞商城</label>
+							<div class="radio">
+								<label style="width:70px;"> 
+									<input class="basic divtype cart_flag" type="radio" id="merchantType_0" name="isOpenYZShop" value="1" onclick="showUrlInput(this.value)">
+									<span class="text">是</span>
+								</label> 
+								<label>
+									<input class="basic divtype cart_flag" type="radio" id="merchantType_1" name="isOpenYZShop" value="0" onclick="showUrlInput(this.value)"> 
+									<span class="text">否</span>
+								</label> 
 							</div>
 							
-															
-							<div class="form-group"  style="display:none"  id="input_merchant">
-							   <label class="col-lg-3 control-label">外部请填写</label>
-							   <div class="col-lg-6">
-								<input type="text" class="form-control" id="text_merchant" name="merCode" placeholder="必填"/>
-								</div>
-								
-							</div>
 							<div class="radio" style="display: none;">
 								<label> <input class="inverted" type="radio"
-									name="merchantType"> <span class="text"></span>
+									name="isOpenYZShop"> <span class="text"></span>
 								</label>
 							</div>
 						</div>
+						
+						<div class="form-group"  style="display:none"  id="input_yzShopUrl">
+								<label class="col-lg-3 control-label">有赞商城地址</label>
+								<div class="col-lg-6">
+								<input type="text" class="form-control" id="text_merchant" name="yzShopUrl" placeholder="必填"/>
+								</div>
+							</div>
+
+							<div class="form-group"  style="display:none"  id="input_memberUrl">
+								<label class="col-lg-3 control-label">会员中心链接</label>
+								<div class="col-lg-6">
+								<input type="text" class="form-control" id="text_merchant" name="memberUrl" placeholder="必填"/>
+								</div>
+							</div>
+						
 						<div>
 						
 						

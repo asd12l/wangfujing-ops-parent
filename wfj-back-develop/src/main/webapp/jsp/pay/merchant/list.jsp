@@ -134,6 +134,13 @@ function olvQuery(){
          }
        }
      });
+	
+	//查询内部编码
+	neibuMerchant();
+	
+	$("#bpId_input").change(function(){
+		$("#text_merchant").val($(this).val());
+	});
 }	
 	
 
@@ -142,19 +149,44 @@ function olvQuery(){
 function editMerchant(id){
 	sendParameter();
 	LA.log('merchant-showModifyWindow', '签约商户管理修改签约商户窗口打开', userName, sessionId);
+	$("#editForm").data('bootstrapValidator').resetForm();
 	$("#merchant_id").val(id);
 	$("#qianyue_shanghuName").val($("#shanghuName_"+ id).html().trim());
 	$("#qianyueshanghu_Code").val($("#shanghuCode_" + id).html().trim());
 	$("#qianyueshanghu_feeCostRate").val($("#shanghuFee_" + id).html().trim()); 
+	var type=$("#type_"+id).html().trim();
+	var isYZ=$("#isYZ_"+id).html().trim();
+	var yzUrl=$("#yzUrl_"+id).html().trim();
+	var memberUrl=$("#memberUrl_"+id).html().trim();
+//	alert("type:"+type+"-"+"isYZ:"+isYZ+"-"+"yzUrl:"+yzUrl+"-"+"memberUrl:"+memberUrl);
+	if(type==1){
+		$("input[name=merchantType]:eq(0)").prop("checked",'checked');
+		$("#bpId_input").val($("#shanghuCode_" + id).html().trim());
+		$("#input_merchant").hide();
+		$("#option_merchant").show();
+	}else if(type==2){
+		$("input[name=merchantType]:eq(1)").prop("checked",'checked');
+		$("#text_merchant").val($("#shanghuCode_" + id).html().trim());
+		$("#option_merchant").hide();
+		$("#input_merchant").show();
+	}
+	if(isYZ==1){
+		$("input[name=isOpenYZShop]:eq(0)").prop("checked",'checked');
+		$("input[name=yzShopUrl]").val(yzUrl);
+		$("#input_memberUrl").hide();
+		$("#input_yzShopUrl").show();
+	}else if(isYZ==0){
+		$("input[name=isOpenYZShop]:eq(1)").prop("checked",'checked');
+		$("input[name=memberUrl]").val(memberUrl);
+		$("#input_yzShopUrl").hide();
+		$("#input_memberUrl").show();
+	}
 	$("#editLabelDiv").show();
-	
-	
-	
 }
 //隐藏修改div
 function closeMerchant(){
 	$("#editLabelDiv").hide();
-	$("#qianyueshanghu_Code").show();
+//	$("#qianyueshanghu_Code").show();
 }
 
 //修改提交
@@ -248,6 +280,71 @@ function closeMerchant(){
 						});
 							
 
+						},
+						fields : {
+							name : {
+								validators : {
+									notEmpty : {
+										message : '签约商户名称不能为空'
+									}
+								}
+							},
+							outMerCode : {
+								validators : {
+									regexp: {
+										regexp: /^[A-Za-z0-9\s]{1,12}$/,
+										message: '商户编码必须由数字或字母或空格12位组成'
+									},
+									notEmpty : {
+										message : '商户编码不能为空'
+									}
+								}
+							},
+							inMerCode : {
+								validators : {
+									regexp: {
+										regexp: /^[A-Za-z0-9\s]{1,12}$/,
+										message: '商户编码必须由数字或字母或空格12位组成'
+									},
+									notEmpty : {
+										message : '商户编码不能为空'
+									}
+								}
+							},
+							feeCostRate : {
+								validators : {
+									regexp: {
+										regexp: /^\d+(\.\d+)?$/,
+										message: '费率必须为正数'
+									},
+									notEmpty : {
+										message : '费率不能为空'
+									}
+								}
+							},
+							yzShopUrl : {
+								validators : {
+									regexp: {
+										regexp: /^((http|ftp|https):\/\/)(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,4})*(\/[a-zA-Z0-9\&%_\.\/-~-]*)?$/,
+										message: '地址格式不正确'
+									},
+									notEmpty : {
+										message : '地址不能为空'
+									}
+								}
+							},memberUrl : {
+								validators : {
+									regexp: {
+										regexp: /^((http|ftp|https):\/\/)(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,4})*(\/[a-zA-Z0-9\&%_\.\/-~-]*)?$/,
+										message: '地址格式不正确'
+									},
+									notEmpty : {
+										message : '地址不能为空'
+									}
+								}
+							}
+							
+							
 						}
 					}).find('button[data-toggle]').on(
 					'click',
@@ -297,14 +394,14 @@ function successBtn(){
 }
 function attrChange(value){
 		 if(value=="1"){
-			neibuMerchant();
+//			neibuMerchant();
 			$("#option_merchant").show();
 			 $("#input_merchant").hide();
-			 $("#qianyueshanghu_Code").hide();
+//			 $("#qianyueshanghu_Code").hide();
 		 }
 		 else if(value=="2"){
-			 $("#qianyueshanghu_Code").hide();
-			$("#option_merchant").hide();
+//			 $("#qianyueshanghu_Code").hide();
+			 $("#option_merchant").hide();
 			 $("#input_merchant").show();
 			 
 		 }
@@ -332,7 +429,18 @@ function  neibuMerchant(){
 			}
     	}
 	});
-	 }
+}
+
+//显示有赞商城或会员中心的地址输入框
+	function showUrlInput(value){
+		if(value==1){
+			$("#input_memberUrl").hide();
+			$("#input_yzShopUrl").show();
+		}else if(value==0){
+			$("#input_yzShopUrl").hide();
+			$("#input_memberUrl").show();
+		}
+	}
 </script> 
 </head>
 <body>
@@ -420,6 +528,24 @@ function  neibuMerchant(){
 												{#if $T.Result.feeCostRate!= '[object Object]'}{$T.Result.feeCostRate}
 				                   				{#/if}
 											</td>
+											-----------------------------》
+											<td align="center" id="type_{$T.Result.id}" style="display:none;">
+												{#if $T.Result.merchantType!= '[object Object]'}{$T.Result.merchantType}
+				                   				{#/if}
+											</td>
+											<td align="center" id="isYZ_{$T.Result.id}" style="display:none;">
+												{#if $T.Result.isOpenYZShop!= '[object Object]'}{$T.Result.isOpenYZShop}
+				                   				{#/if}
+											</td>
+											<td align="center" id="yzUrl_{$T.Result.id}" style="display:none;">
+												{#if $T.Result.yzShopUrl!= '[object Object]'}{$T.Result.yzShopUrl}
+				                   				{#/if}
+											</td>
+											<td align="center" id="memberUrl_{$T.Result.id}" style="display:none;">
+												{#if $T.Result.memberUrl!= '[object Object]'}{$T.Result.memberUrl}
+				                   				{#/if}
+											</td>
+											《--------------------------------
 											<td align="center" id=" ">
 											   <input type="hidden"  id="eidtMerchant_input"  value="{$T.Result.id}">
 											   <a href="javascript:editMerchant({$T.Result.id});">
@@ -446,19 +572,21 @@ function  neibuMerchant(){
 	<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;" 
 		id="editLabelDiv">
 		<div class="modal-dialog"
-			style="width: 800px; height: auto; margin: 4% auto;">
+			style="width: 850px; height: 550px; margin: 4% auto;">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button aria-hidden="true" data-dismiss="modal" class="close"
 						type="button" onclick="closeMerchant();">×</button>
 					<h4 class="modal-title" id="divTitle">修改签约商户</h4>
 				</div>
-				<div class="page-body" id="pageBodyRight">
+				<form method="post" class="form-horizontal" id="editForm">
+				<div class="page-body" id="pageBodyRight" style="overflow-y:scroll;height:450px;overflow-x:hidden;padding-bottom:20px;">
 					<div class="row">
-						<form method="post" class="form-horizontal" id="editForm">
+						
+						
 							<div class="col-xs-12 col-md-12">
 								<input type="hidden" name="id" id="merchant_id">
-									<div class="col-md-12" id="" style="padding: 10px 100px;">
+								<div class="col-md-12 form-group" id="" style="padding: 10px 100px;">
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">签约商户名称：</label>
 									<div class="col-md-6">
@@ -466,9 +594,9 @@ function  neibuMerchant(){
 											id="qianyue_shanghuName" />
 									</div>
 									<br>&nbsp;
-									</div>
-									
-								<div class="col-md-12" id="" style="padding: 10px 100px;">
+								</div>
+								
+								<div class="col-md-12 form-group" id="" style="padding: 10px 100px;">
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">签约商户费率：</label>
 										<div class="col-md-6">
@@ -478,72 +606,104 @@ function  neibuMerchant(){
 									<br>&nbsp;
 								</div>
 								
-								<div class="col-md-12" id="" style="padding: 10px 100px;" id="old_input">
+								<div class="col-md-12 form-group" id="" style="padding: 10px 100px;" id="old_input">
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">签约商户编码：</label>
-									<div class="col-md-6">
+									<div class="col-md-6" style="display:none;">
 										<input type="text" class="form-control" 
 											id="qianyueshanghu_Code" readonly="readonly"/>
 									</div>
 									<br>&nbsp;
-								   </div>
-								   
-							 <div class="col-md-12"  style="padding: 10px 100px;">
-							<label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">请选择商户编码修改方式：</label>
-							<div class="radio">
-								<label> <input class="basic divtype cart_flag" type="radio"
-									id="merchantType_0" name="merchantType" value="1" onclick="attrChange(this.value)"> <span
-									class="text">内部修改</span>
-								</label> 
-								<label> <input class="basic divtype cart_flag" type="radio"
-									id="merchantType_1" name="merchantType" value="2" onclick="attrChange(this.value)"> <span
-									class="text">外部修改</span>
-								</label> 		
-							</div>
-							</div>
-							
-							<div class="col-md-12"  style="display:none"  id="option_merchant">
-								
-																
-									  <label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">内部请选择</label>
-									  <div class="col-lg-6">
-									  <ul class="topList clearfix">
-									  <li class="col-md-2">
-											<select id="bpId_input" style="padding: 0 0;" name="merCode">										
-										</select>
-									  </li>
-								</ul>
 								</div>
-							</div>
+								   
+								<div class="col-md-12 form-group"  style="padding: 10px 100px;">
+									<label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">签约商户类型：</label>
+									<div class="radio">
+										<label> <input class="basic divtype cart_flag" type="radio"
+											id="merchantType_0" name="merchantType" value="1" onclick="attrChange(this.value)"> <span
+											class="text">内部</span>
+										</label> 
+										<label> <input class="basic divtype cart_flag" type="radio"
+											id="merchantType_1" name="merchantType" value="2" onclick="attrChange(this.value)"> <span
+											class="text">外部</span>
+										</label> 		
+									</div>
+								</div>
+							
+								<div class="col-md-12 form-group"  style="display:none"  id="option_merchant">
+									
+																	
+										  <label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">内部编码选择：</label>
+										  <div class="col-lg-6">
+										  <ul class="topList clearfix">
+										  <li class="col-md-2">
+												<select id="bpId_input" style="padding: 0 0;" name="inMerCode">										
+											</select>
+										  </li>
+									</ul>
+									</div>
+								</div>
 							
 															
-							<div class="col-md-12"  style="display:none"  id="input_merchant">
-							   <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">外部请填写</label>
-							   <div class="col-lg-6">
-								<input type="text" class="form-control" id="text_merchant" name="merCode" placeholder="必填"/>
+								<div class="col-md-12 form-group"  style="display:none"  id="input_merchant">
+								   <label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">外部编码输入：</label>
+								   <div class="col-lg-6">
+									<input type="text" class="form-control" id="text_merchant" name="outMerCode" placeholder="必填"/>
+									</div>
+									
+								</div>
+								<div class="radio form-group" style="display: none;">
+									<label> <input class="inverted" type="radio"
+										name="merchantType"> <span class="text"></span>
+									</label>
+								</div>
+								
+								<div class="col-md-12 form-group"  style="padding: 10px 100px;">
+									<label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">是否为有赞商城：</label>
+									<div class="radio">
+										<label> <input class="basic divtype cart_flag" type="radio"
+											id="merchantType_0" name="isOpenYZShop" value="1" onclick="showUrlInput(this.value)"> <span
+											class="text">是</span>
+										</label> 
+										<label> <input class="basic divtype cart_flag" type="radio"
+											id="merchantType_1" name="isOpenYZShop" value="0" onclick="showUrlInput(this.value)"> <span
+											class="text">否</span>
+										</label> 	
+										<label> <input class="inverted" type="radio"
+											name="isOpenYZShop"> <span class="text"></span>
+										</label>										
+									</div>
+								</div>
+										
+								<div class="col-md-12 form-group"  style="display:none"  id="input_yzShopUrl">
+									<label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">有赞商城地址</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="text_merchant" name="yzShopUrl" placeholder="必填"/>
+									</div>
+								</div>
+								<div class="col-md-12 form-group"  style="display:none"  id="input_memberUrl">
+									<label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">会员中心地址</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="text_merchant" name="memberUrl" placeholder="必填"/>
+									</div>
 								</div>
 								
 							</div>
-							<div class="radio" style="display: none;">
-								<label> <input class="inverted" type="radio"
-									name="merchantType"> <span class="text"></span>
-								</label>
-							</div>
-						
-								   
-							</div>
+							
 							<br>&nbsp;
-							<div class="form-group">
+							
+						
+					</div>
+				</div>
+				<div style="height:50px;padding:10px;background: #eee none repeat scroll 0 0;">
 								<div class="col-lg-offset-4 col-lg-6">
 									<button class="btn btn-success" style="width: 25%;" id="edit"
 										type="submit">保存</button>
 									&emsp;&emsp; <input class="btn btn-danger"
 										onclick="closeMerchant();" style="width: 25%;" id="close"
 										type="button" value="取消" />								</div>
-							</div>
-						</form>
-					</div>
 				</div>
+				</form>
 			</div>
 			<!-- /.modal-content -->
 		</div>

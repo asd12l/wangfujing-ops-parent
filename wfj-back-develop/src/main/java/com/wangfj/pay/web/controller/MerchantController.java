@@ -99,6 +99,9 @@ public class MerchantController {
 		paramMap.put("merCode",request.getParameter("merCode"));
 		paramMap.put("name",request.getParameter("name"));
 		paramMap.put("merchantType",request.getParameter("merchantType"));
+		paramMap.put("isOpenYZShop", request.getParameter("isOpenYZShop"));
+		paramMap.put("memberUrl", request.getParameter("memberUrl"));
+		paramMap.put("yzShopUrl", request.getParameter("yzShopUrl"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
@@ -149,9 +152,16 @@ public class MerchantController {
 		Map<String,String> paramMap = new HashMap<String,String>();
 		paramMap.put("feeCostRate", request.getParameter("feeCostRate"));
 		paramMap.put("id", request.getParameter("id"));
-		paramMap.put("merCode",request.getParameter("merCode"));
+		if("1".equals(request.getParameter("merchantType"))){
+			paramMap.put("merCode",request.getParameter("inMerCode"));
+		}else{
+			paramMap.put("merCode",request.getParameter("outMerCode"));
+		}
 		paramMap.put("name",request.getParameter("name"));
 		paramMap.put("merchantType",request.getParameter("merchantType"));
+		paramMap.put("isOpenYZShop", request.getParameter("isOpenYZShop"));
+		paramMap.put("memberUrl", request.getParameter("memberUrl"));
+		paramMap.put("yzShopUrl", request.getParameter("yzShopUrl"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
