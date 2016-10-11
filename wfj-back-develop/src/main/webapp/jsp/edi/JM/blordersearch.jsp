@@ -102,7 +102,6 @@
 		            reset(); 
         	   	}
     	});
-        reset();
    	}
 	function olvQuery(){
 		  LA.env = 'dev';

@@ -79,7 +79,6 @@
 		            reset(); 
         	   	}
     	});
-        reset();
    	}
 	
 	function reset() {
