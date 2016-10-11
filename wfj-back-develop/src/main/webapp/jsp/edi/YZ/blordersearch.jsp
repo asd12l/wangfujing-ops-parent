@@ -104,7 +104,6 @@ function reloadjs(){
 		            reset(); 
 	    	   	}
 		});
-	    reset();
 	}
 	function olvQuery(){
 		  LA.env = 'dev';

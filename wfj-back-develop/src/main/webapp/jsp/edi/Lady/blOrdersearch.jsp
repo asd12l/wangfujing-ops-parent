@@ -129,7 +129,6 @@
 		            reset(); 
         	   	}
     	});
-        reset();
    	}
     
 	function initStock() {

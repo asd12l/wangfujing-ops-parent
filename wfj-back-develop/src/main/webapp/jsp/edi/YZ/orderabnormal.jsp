@@ -116,9 +116,26 @@
 		var url = __ctxPath + "/jsp/edi/YZ/modifyorder.jsp?tid="+tid;
 		$("#pageBody").load(url);
 	}
-	
+	//加入黑名单  
+	function addBL(tid){
+		LA.env = 'dev';
+		LA.sysCode = '45';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('yz-addBL', '有赞加入黑名单', userName, sessionId);
+       	 $.ajax({
+       		on: true,
+    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=M4",
+    			dataType : "json",
+    			success : function(data) {
+		            reset();
+				},
+        	 	error:function(){ 
+		            reset(); 
+        	   	}
+    	});
+   	}
 	function initStock() {
-		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList?status=EC";
+		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList?status=EC&ispreSale=PT";
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
@@ -258,7 +275,7 @@
 													<!-- error_msg -->
 													<th style="text-align: center;">异常原因</th>
 													<!-- createDate -->
-													<th style="text-align: center;">操作</th>
+													<th style="text-align: center; width :120px; ">操作</th>
 													<!-- increment -->
 										</tr>
 									</thead>
@@ -320,6 +337,7 @@
 														{#else} 
 														 	<a class="btn btn-default btn-sm" onclick="modify('{$T.Result.tid}');">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
 														{#/if}
+														  <a class="btn btn-default btn-sm" onclick="addBL('{$T.Result.tid}');">拉黑</a>
 													</td>
 									       		</tr>
 									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">
