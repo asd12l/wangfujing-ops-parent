@@ -588,4 +588,34 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		cell0.setCellStyle(style);
 	}
 	
+	
+	/**
+	 * 添加黑名单
+	 * 
+	 */
+	@RequestMapping("/blacklistAdd")
+	public void blacklistAdd(String tid,String channelCode,HttpServletRequest request, HttpServletResponse response) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+
+		paramMap.put("tid", tid);
+		paramMap.put("channel", channelCode);
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url = "";
+
+			url = (String) PropertiesUtil.getContextProperty("edi_blacklist_add");
+			HttpUtilPcm.doPost(url, jsonStr);
+		} catch (Exception e) {
+			map.put("pageCount", 0);
+			map.put("success", "false");
+		}
+	}
+	
 }
