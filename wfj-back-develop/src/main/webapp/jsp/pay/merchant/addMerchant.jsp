@@ -32,6 +32,11 @@ function sendParameter(){
 //接入log监控end
 $(function(){
 	 
+	$("input[name=merchantType]:eq(0)").prop("checked",'checked');
+	attrChange(1);
+	$("input[name=isOpenYZShop]:eq(0)").prop("checked",'checked');
+	showUrlInput(1);
+	
 	$('#theForm').bootstrapValidator({
 		message : 'This value is not valid',
 		feedbackIcons : {
