@@ -330,7 +330,7 @@ $(function(){
 							</div>
 
 							<div class="form-group"  style="display:none"  id="input_memberUrl">
-								<label class="col-lg-4 control-label">会员中心链接：</label>
+								<label class="col-lg-4 control-label">会员中心地址：</label>
 								<div class="col-lg-4">
 								<input type="text" class="form-control" id="text_merchant" name="memberUrl" placeholder="必填"/>
 								</div>
