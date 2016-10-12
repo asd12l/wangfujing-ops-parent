@@ -82,7 +82,7 @@ $(function(){
 			name : {
 				validators : {
 					notEmpty : {
-						message : '品牌名称不能为空'
+						message : '签约商户名称不能为空'
 					}
 				}
 			},

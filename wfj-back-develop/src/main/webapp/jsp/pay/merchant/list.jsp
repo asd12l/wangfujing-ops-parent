@@ -138,9 +138,9 @@ function olvQuery(){
 	//查询内部编码
 	neibuMerchant();
 	
-	$("#bpId_input").change(function(){
-		$("#text_merchant").val($(this).val());
-	});
+//	$("#bpId_input").change(function(){
+//		$("#text_merchant").val($(this).val());
+//	});
 }	
 	
 
