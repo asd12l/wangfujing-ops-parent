@@ -268,7 +268,7 @@ $(function(){
 							<label class="col-lg-3 control-label">签约商户类型</label>
 							<div class="radio">
 								<label> <input class="basic divtype cart_flag" type="radio"
-									id="merchantType_0" name="merchantType" value="1" onclick="attrChange(this.value)"> <span
+									id="merchantType_0" name="merchantType" value="1" onclick="attrChange(this.value)" checked="checked"> <span
 									class="text">内部</span>
 								</label> 
 								<label> <input class="basic divtype cart_flag" type="radio"
@@ -284,7 +284,7 @@ $(function(){
 							</div>
 						</div>
 						
-						<div class="form-group"  style="display:none"  id="option_merchant">
+						<div class="form-group"  style=""  id="option_merchant">
 								
 																
 									  <label class="col-lg-3 control-label">内部请选择</label>
@@ -309,7 +309,7 @@ $(function(){
 							<label class="col-lg-3 control-label">是否有赞商城</label>
 							<div class="radio">
 								<label style="width:70px;"> 
-									<input class="basic divtype cart_flag" type="radio" id="merchantType_0" name="isOpenYZShop" value="1" onclick="showUrlInput(this.value)">
+									<input class="basic divtype cart_flag" type="radio" id="merchantType_0" name="isOpenYZShop" value="1" onclick="showUrlInput(this.value)" checked="checked">
 									<span class="text">是</span>
 								</label> 
 								<label>
@@ -325,7 +325,7 @@ $(function(){
 							</div>
 						</div>
 						
-						<div class="form-group"  style="display:none"  id="input_yzShopUrl">
+						<div class="form-group"  style=""  id="input_yzShopUrl">
 								<label class="col-lg-3 control-label">有赞商城地址</label>
 								<div class="col-lg-6">
 								<input type="text" class="form-control" id="text_merchant" name="yzShopUrl" placeholder="必填"/>
