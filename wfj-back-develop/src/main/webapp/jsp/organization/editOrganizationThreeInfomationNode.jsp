@@ -20,7 +20,7 @@ var url = __ctxPath + "/category/getAllCategory";
 		$("#organizationStatus").val(organizationStatus_);
 		$("#storeType").val(storeType_);
 		
-		/*$.ajax({
+		$.ajax({
 			type: "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
 			url: __ctxPath+"/storeInfo/queryListStoreInfo",
@@ -66,7 +66,7 @@ var url = __ctxPath + "/category/getAllCategory";
 				}
 				return;
 			}
-		});*/
+		});
 		
 		var parentSid = $("#parentSid");
 		$.ajax({
@@ -162,7 +162,7 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '门店名称必须是由1到20位的中文或"-"组成'
 					}
 				}
-			}/*,
+			},
 			registeredAddress:{
 				validators : {
 					notEmpty : {
@@ -249,7 +249,7 @@ var url = __ctxPath + "/category/getAllCategory";
 						message : '传真不能为空'
 					}
 				}
-			}*/
+			}
 		}
 
 	}).find('button[data-toggle]').on('click',function() {
@@ -326,7 +326,7 @@ var url = __ctxPath + "/category/getAllCategory";
 										</div>
 									</div> 
 									
-									<%--<div class="form-group">
+									<div class="form-group">
 										<div class="col-lg-8 col-sm-8 col-xs-8 col-lg-offset-2">
 											<label class="col-lg-3 col-sm-3 col-xs-3 control-label" style="width: 18%;">注册地址：</label>
 											<div class="col-lg-6 col-sm-6 col-xs-6" style="width: 75%;">
@@ -389,7 +389,7 @@ var url = __ctxPath + "/category/getAllCategory";
 												<input  maxlength="20" type="text" class="form-control" id="faxNumber" name="faxNumber" placeholder="必填"/>
 											</div>											
 										</div>
-									</div>--%>
+									</div>
 									
 									<div class="form-group">
 									    <div class="col-lg-offset-4 col-lg-6">
