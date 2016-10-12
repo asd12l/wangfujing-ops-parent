@@ -4,12 +4,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.wangfj.back.entity.po.SysConfig;
 import com.wangfj.back.service.ISysConfigService;
 import com.wangfj.order.entity.ExcelFile;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.order.utils.HttpUtil;
 import com.wangfj.search.utils.CookieUtil;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
 import com.wfj.member.pojo.ResultVO;
 import com.wfj.member.pojo.Withdraw;
 import com.wfj.member.utils.Constants;
@@ -300,16 +301,24 @@ public class MemberMoneyDrawbackController {
 		}else{
 			currPage = Integer.parseInt(request.getParameter("page"));
 		}
-		int pageNo = (currPage - 1) * 10;
+		Integer size = null;
+		String pageSize = request.getParameter("pageSize");
+		if (pageSize == null || "0".equals(pageSize)){
+			size = 10;
+		}else{
+			size = Integer.valueOf(pageSize);
+		}
+		int pageNo = (currPage - 1) * size;
 		if(pageNo < 0){
 			pageNo = 0;
 		}
+
 		Gson gson = new Gson();
 		List<Object> list = new ArrayList<>();
 		String jsonString;
 		Map<Object, Object> map = new HashMap<>();
 		map.put("pageNo", pageNo);
-		map.put("pageSize", 10);
+		map.put("pageSize", size);
 		map.put("sid", hidsid);
 		map.put("startApplyTime", hidStartApplyTime);
 		map.put("endApplyTime", hidEndApplyTime);
@@ -324,25 +333,63 @@ public class MemberMoneyDrawbackController {
 			System.err.println("============== member_ops_url:" + url);
 			System.err.println("=============method:"+method);
 			System.err.println("======== getWithdrawlsList url "+url+ method+"  =========");
-			List<String> keys=new ArrayList<String>();
+			/*List<String> keys=new ArrayList<String>();
 			keys.add("memberInfo");
 			List<SysConfig>list1=sysConfigService.selectByKeys(keys);
 			String value="";
 			value = list1.get(0).getSysValue();
-			map.put("mask",value);
-			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
+			map.put("mask",value);*/
+			//屏显规则
+			String json1 = "";
+			String sysValue = "";
+			String username = CookiesUtil.getCookies(request, "username");
+			Map<Object, Object> paramMap = new HashMap<Object, Object>();
+			paramMap.put("keys", "memberInfo");
+			paramMap.put("username", username);
+			try {
+				log.info("paramMap:" + paramMap);
+				json1 = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+				if(!StringUtils.isEmpty(json1)){
+					net.sf.json.JSONObject jsonObject = net.sf.json.JSONObject.fromObject(json1);
+					String isTrue = jsonObject.getString("success");
+					if(isTrue.equals("true")){
+						net.sf.json.JSONArray jsonArray = jsonObject.getJSONArray("data");
+						sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+					}
+				}
+			} catch (Exception e) {
+				log.error("查询屏显规则异常！返回结果json="+json1);
+			}
+			map.put("mask",sysValue);
+			jsonString = HttpUtil.HttpPost(url,method, map);
+			if (jsonString == null || "".equals(jsonString)){
+				log.info("调取member-ops失败");
+				JSONObject json = new JSONObject();
+				json.put("code", "0");
+				json.put("pageCount", 0);
+				jsonString = json.toString();
+				return jsonString;
+			}
 			JSONObject json = JSONObject.parseObject(jsonString);
-			JSONArray ja = json.getJSONArray("object");
+			JSONObject jsonObject = json.getJSONObject("object");
+			JSONArray ja = jsonObject.getJSONArray("resList");
 			if(ja == null || ja.size() == 0){
 				json.put("pageCount", 0);
 				return json.toString();
 			}
-			int pageCount = ja.size() % 10 == 0 ? ja.size() / 10 : (ja.size() / 10 + 1);
+			int count = jsonObject.getInteger("count");
+//			if (count == 0){
+//				JSONArray resList = new JSONArray();
+//				json.put("resList",resList);
+//			}
+			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			json.put("pageCount", pageCount);
 			return json.toString();
 		} catch (Exception e) {
+			log.error("getWithdrawlsList异常"+e.getMessage());
 			JSONObject json = new JSONObject();
 			json.put("code", "0");
+			json.put("pageCount", 0);
 			jsonString = json.toString();
 			return jsonString;
 		}
@@ -503,15 +550,43 @@ public class MemberMoneyDrawbackController {
 		map.put("mobile", request.getParameter("hidapplyName"));
 		map.put("checkStatus",request.getParameter("hidcheckStatus") );
 		map.put("refundStatus",request.getParameter("hidrefundStatus"));
+		//屏显规则
+		String json1 = "";
+		String sysValue = "";
+		String username = CookiesUtil.getCookies(request, "username");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("keys", "memberInfo");
+		paramMap.put("username", username);
+		try {
+			log.info("paramMap:" + paramMap);
+			json1 = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json1)){
+				net.sf.json.JSONObject jsonObject = net.sf.json.JSONObject.fromObject(json1);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+					net.sf.json.JSONArray jsonArray = jsonObject.getJSONArray("data");
+					sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			log.error("查询屏显规则异常！返回结果json="+json1);
+		}
+		map.put("mask",sysValue);
 		try {
 			String url = CommonProperties.get("member_ops_url");
 			log.info("======== getWithdrawlsList url "+url+"  =========");
 			System.err.println("============== member_ops_url:" + url);
 			System.err.println("=============method:"+method);
 			System.err.println("======== getWithdrawlsList url "+url+ method+"  =========");
-			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
+			jsonString = HttpUtil.HttpPost(url,method, map);
+			if (jsonString == null || "".equals(jsonString)){
+				log.error(url+method+"getWithdrowToExcel查询提现申请单详情失败!");
+				m.put("success", "false");
+				m.put("msg", "导出异常！");
+			}
 			JSONObject json = JSONObject.parseObject(jsonString);
-			JSONArray arr = json.getJSONArray("object");
+			JSONObject jsonObject = json.getJSONObject("object");
+			JSONArray arr = jsonObject.getJSONArray("resList");
 			List<Withdraw> list1 = new ArrayList<Withdraw>();
 			if (arr != null && arr.size() != 0) {
 				for (int i=0;i<arr.size();i++){
@@ -519,7 +594,7 @@ public class MemberMoneyDrawbackController {
 					Withdraw vo = (Withdraw) JSONObject.toJavaObject(obj,Withdraw.class);
 					list1.add(vo);
 				}
-				String result = allOrderToExcel(response, list1, title);
+				String result = allOrderToExcel(response, list1, title,sysValue);
 				m.put("success", "true");
 				m.put("msg", "导出成功！");
 			} else {
@@ -536,7 +611,7 @@ public class MemberMoneyDrawbackController {
 		return gson1.toJson(m);
 	}
 	
-	public String allOrderToExcel(HttpServletResponse response,List<Withdraw> list, String title) {
+	public String allOrderToExcel(HttpServletResponse response,List<Withdraw> list, String title,String sysValue) {
 		List<String> header = new ArrayList<String>();
 		
 		header.add("申请单号");
@@ -557,9 +632,13 @@ public class MemberMoneyDrawbackController {
 		List<List<String>> data = new ArrayList<List<String>>();
 		for(Withdraw vo:list){
 			List<String> inlist = new ArrayList<String>();
-			inlist.add(vo.getBillno()==null?"":vo.getBillno());
-			inlist.add(vo.getMobile()==null?"":vo.getMobile());
-			
+			inlist.add(vo.getSeqno()==null?"":vo.getSeqno());
+			if (!"1".equals(sysValue)){
+				inlist.add(vo.getMobile()==null?"":vo.getMobile());
+			}else {
+				inlist.add(vo.getMobileStr()==null?"":vo.getMobileStr());
+			}
+
 			if(vo.getApplyTime()!=null){
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				inlist.add(sdf.format(vo.getApplyTime()));
@@ -571,23 +650,23 @@ public class MemberMoneyDrawbackController {
 			inlist.add(vo.getWithdrowMoney()==null?"":vo.getWithdrowMoney()+"");
 			inlist.add(vo.getBalance()==null?"":vo.getBalance()+"");	
 			inlist.add(vo.getCancelReason()==null?"":vo.getCancelReason());
-			if(vo.getCheckStatus()=="1"){
+			if("1".equals(vo.getCheckStatus())){
 				inlist.add("待审核");
-			}else if(vo.getCheckStatus() == "2"){
+			}else if("2".equals(vo.getCheckStatus())){
 				inlist.add("审核通过");
-			}else if(vo.getCheckStatus() == "3"){
+			}else if("3".equals(vo.getCheckStatus())){
 				inlist.add("审核不通过");
-			}else if(vo.getCheckStatus() == "4"){
+			}else if("4".equals(vo.getCheckStatus())){
 				inlist.add("取消");
 			}else{
 				inlist.add("");
 			}
 			inlist.add(vo.getCheckMemo()==null?"":vo.getCheckMemo());
-			if(vo.getRefundStatus()=="1"){
+			if("1".equals(vo.getRefundStatus())){
 				inlist.add("待退款");
-			}else if(vo.getRefundStatus() == "2"){
+			}else if("2".equals(vo.getRefundStatus())){
 				inlist.add("退款成功");
-			}else if(vo.getRefundStatus() == "3"){
+			}else if("3".equals(vo.getRefundStatus())){
 				inlist.add("退款失败");
 			}else{
 				inlist.add("");

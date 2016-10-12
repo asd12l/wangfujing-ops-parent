@@ -2,9 +2,82 @@ package com.wangfj.order.controller.suppot;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
+import com.wangfj.order.controller.suppot.sale.OfSaleHistoryDto;
+import com.wangfj.order.controller.suppot.sale.OfSalePaymentsDto;
+import com.wangfj.order.controller.suppot.sale.OfSaveSaleItemDto;
+import com.wangfj.order.controller.suppot.sale.OfShippingFeeSalesSplitDto;
 
 public class ExcelSaleVo {
+	private Date saleTimeStart;
 	
+	private Date SaleTimeEnd;
+	private String sysValue;
+	private List<OfSaveSaleItemDto> products;
+	
+	private List<OfSaleHistoryDto> ofSaleHistoryDto;
+	
+	private List<OfShippingFeeSalesSplitDto> fShippingFeeSalesSplistDto;
+	
+	private List<OfSalePaymentsDto> fSalePaymentsDto;
+	
+	 public List<OfSaveSaleItemDto> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<OfSaveSaleItemDto> products) {
+		this.products = products;
+	}
+
+	public List<OfSaleHistoryDto> getOfSaleHistoryDto() {
+		return ofSaleHistoryDto;
+	}
+
+	public void setOfSaleHistoryDto(List<OfSaleHistoryDto> ofSaleHistoryDto) {
+		this.ofSaleHistoryDto = ofSaleHistoryDto;
+	}
+
+	public List<OfShippingFeeSalesSplitDto> getfShippingFeeSalesSplistDto() {
+		return fShippingFeeSalesSplistDto;
+	}
+
+	public void setfShippingFeeSalesSplistDto(
+			List<OfShippingFeeSalesSplitDto> fShippingFeeSalesSplistDto) {
+		this.fShippingFeeSalesSplistDto = fShippingFeeSalesSplistDto;
+	}
+
+	public List<OfSalePaymentsDto> getfSalePaymentsDto() {
+		return fSalePaymentsDto;
+	}
+
+	public void setfSalePaymentsDto(List<OfSalePaymentsDto> fSalePaymentsDto) {
+		this.fSalePaymentsDto = fSalePaymentsDto;
+	}
+
+	public String getSysValue() {
+		return sysValue;
+	}
+
+	public void setSysValue(String sysValue) {
+		this.sysValue = sysValue;
+	}
+	public Date getSaleTimeStart() {
+		return saleTimeStart;
+	}
+
+	public void setSaleTimeStart(Date saleTimeStart) {
+		this.saleTimeStart = saleTimeStart;
+	}
+
+	public Date getSaleTimeEnd() {
+		return SaleTimeEnd;
+	}
+
+	public void setSaleTimeEnd(Date saleTimeEnd) {
+		SaleTimeEnd = saleTimeEnd;
+	}
+
 	private String receptName;
 	private String receptCityName;
 	private String receptCityCode;

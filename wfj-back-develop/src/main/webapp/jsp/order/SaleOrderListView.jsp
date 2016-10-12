@@ -69,7 +69,7 @@
 			}
 		});
 		
-		//会员权限
+		/* //会员权限
 		$.ajax({
 			type: "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -84,7 +84,7 @@
 					}
 				return;
 			}
-		});
+		}); */
 		//销售单来源（PCM接口）
 		$.ajax({
 			type : "post",
@@ -3592,7 +3592,7 @@
 			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
 			async:false,
 			dataType: "json",
-			data:{"orderNo":orderNo,"saleNo" : saleNo,"memberNo" : memberNo,"sysValue":sysValue},
+			data:{"orderNo":orderNo,"saleNo" : saleNo,"memberNo" : memberNo/* ,"sysValue":sysValue */},
 			success:function(response) {
 				if(response.success=='true'){
 					var result = response.list;
@@ -3686,7 +3686,7 @@
 			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
 			async:false,
 			dataType: "json",
-			data:{"orderNo":orderNo,"sysValue":sysValue},
+			data:{"orderNo":orderNo/* ,"sysValue":sysValue */},
 			success:function(response) {
 				if(response.success=='true'){
 					var result = response.list;
@@ -4277,14 +4277,17 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountNo_{$T.Result.sid}">
-														{#if $T.Result.accountNo != '' && $T.Result.accountNo != null}
+														{#if $T.Result.accountNo != '[object Object]'}
 															{$T.Result.accountNo}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="memberNo_{$T.Result.sid}">
-														{#if $T.Result.memberNo != '[object Object]'}{$T.Result.memberNo}
+						                   				{#if $T.Result.memberNo != '[object Object]'}
+															{$T.Result.memberNo}
+														{#else}
+															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="saleType_{$T.Result.sid}">
@@ -4299,7 +4302,7 @@
 													</td>
 													
 													<td align="center" id="receptPhone_{$T.Result.sid}">
-														{#if $T.Result.receptPhone != '' && $T.Result.receptPhone != null}
+														{#if $T.Result.receptPhone != '[object Object]' }
 															{$T.Result.receptPhone}
 														{#else}
 															<span>——</span>
@@ -4368,68 +4371,68 @@
 						                   				{#/if}
 													</td>
 													<td align="center" id="integral_{$T.Result.sid}">
-														{#if $T.Result.integral != null}
+														{#if $T.Result.integral != '[object Object]'}
 															{$T.Result.integral}
 						                   				{#else}
 						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="shippingFee_{$T.Result.sid}">
-														{#if $T.Result.shippingFee != null}{$T.Result.shippingFee}
+														{#if $T.Result.shippingFee != '[object Object]'}{$T.Result.shippingFee}
 														{#else}
 						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													
 													<td align="center" id="discountAmount_{$T.Result.sid}">
-														{#if $T.Result.discountAmount != null}{$T.Result.discountAmount}
+														{#if $T.Result.discountAmount != '[object Object]'}{$T.Result.discountAmount}
 														{#else}
 						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="couponAmount_{$T.Result.sid}">
-														{#if $T.Result.couponAmount != null}{$T.Result.couponAmount}
+														{#if $T.Result.couponAmount != '[object Object]'}{$T.Result.couponAmount}
 														{#else}
 						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="accountBalanceAmount_{$T.Result.sid}">
-														{#if $T.Result.accountBalanceAmount != null}{$T.Result.accountBalanceAmount}
+														{#if $T.Result.accountBalanceAmount != '[object Object]'}{$T.Result.accountBalanceAmount}
 														{#else}
 						                   					<span>0</span>
 						                   				{#/if}
 													</td>
 													
 													<td align="center" id="authorityCard_{$T.Result.sid}">
-														{#if $T.Result.authorityCard != '' && $T.Result.authorityCard != null}
+														{#if $T.Result.authorityCard != '[object Object]'}
 															{$T.Result.authorityCard}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="qrcode_{$T.Result.sid}">
-														{#if $T.Result.qrcode != '' && $T.Result.qrcode != null}
+														{#if $T.Result.qrcode != '[object Object]'}
 															{$T.Result.qrcode}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="salesPaymentNo_{$T.Result.sid}">
-														{#if $T.Result.salesPaymentNo != '' && $T.Result.salesPaymentNo != null}
+														{#if $T.Result.salesPaymentNo != '[object Object]' }
 															{$T.Result.salesPaymentNo}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="employeeNo_{$T.Result.sid}">
-														{#if $T.Result.employeeNo != '' && $T.Result.employeeNo != null}
+														{#if $T.Result.employeeNo != '[object Object]'}
 															{$T.Result.employeeNo}
 														{#else}
 															<span>——</span>
 						                   				{#/if}
 													</td>
 													<td align="center" id="casherNo_{$T.Result.sid}">
-														{#if $T.Result.casherNo != '' && $T.Result.casherNo != null}
+														{#if $T.Result.casherNo != '[object Object]' }
 															{$T.Result.casherNo}
 														{#else}
 															<span>——</span>

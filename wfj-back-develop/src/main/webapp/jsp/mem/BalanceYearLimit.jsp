@@ -136,8 +136,8 @@
 									<div class="btn-group pull-right">
 
 										<select id="pageSelect" name="pageSize">
-											<option selected="selected">5</option>
-											<option >10</option>
+											<option>5</option>
+											<option selected="selected">10</option>
 											<option>15</option>
 											<option>20</option>
 										</select>
@@ -164,7 +164,7 @@
 						<p style="display:none">
 									<textarea id="balance-list" rows="0" cols="0">
 										{#template MAIN}
-											{#foreach $T.object as Result}
+											{#foreach $T.object.list as Result}
 												<tr class="gradeX">
 													<td align="left">
 														<div class="checkbox">

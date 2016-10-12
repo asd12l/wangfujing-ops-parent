@@ -57,6 +57,14 @@
             str = str.replace(/([0-9]+\.[0-9]{2})[0-9]*/, "$1");
             return str;
         }
+        function checkStr() {
+            var setupComplaintBal=$("#setupComplaintBal").val();
+            var setupCarriageBal=$("#setupCarriageBal").val();
+            setupComplaintBal = valStr(setupComplaintBal);
+            setupCarriageBal = valStr(setupCarriageBal);
+            $("#setupComplaintBal").val(setupComplaintBal);
+            $("#setupCarriageBal").val(setupCarriageBal);
+        }
         //保存数据
         function saveFrom(){
             $.ajax({
@@ -100,13 +108,13 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">投诉补偿额度</label>
                                     <div class="col-lg-4">
-                                        <input type="text" class="form-control" id="setupComplaintBal" name="setupComplaintBal" maxlength="10" placeholder="必填"/>
+                                        <input type="text" class="form-control" id="setupComplaintBal" name="setupComplaintBal" onblur="checkStr()" maxlength="10" placeholder="必填"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">运费补偿额度</label>
                                     <div class="col-lg-4">
-                                        <input type="text" class="form-control" id="setupCarriageBal"  name="setupCarriageBal" maxlength="10" placeholder="必填"/>
+                                        <input type="text" class="form-control" id="setupCarriageBal"  name="setupCarriageBal" onblur="checkStr()" maxlength="10" placeholder="必填"/>
                                     </div>
                                 </div>
                                 <div class="form-group">

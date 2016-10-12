@@ -132,14 +132,17 @@ public class SysConfigController {
 					} else {
 						vo.setSysKey("memberInfo");
 						vo.setSysValue("1");
+						System.out.println("没权限");
 					}
 				} else {
 					vo.setSysKey("memberInfo");
 					vo.setSysValue("1");
+					System.out.println("没权限");
 				}
 			} else {
 				vo.setSysKey("memberInfo");
 				vo.setSysValue("1");
+				System.out.println("用户名为空");
 			}
 			resultMap.put("data", listVO);
 			resultMap.put("success", true);

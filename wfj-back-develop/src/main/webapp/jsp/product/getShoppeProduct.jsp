@@ -204,9 +204,9 @@ Author: WangSy
 														<c:if test="${jsons[0].field4 == null}">
 																无
 															</c:if>
-														<c:if test="${jsons[0].field4 != null}">
+														<c:if test="${jsons[0].field4 != null && jsons[0].field4 != 'null'}">
 															${jsons[0].field4}
-															</c:if>
+                                                        </c:if>
 													</div>
 												</c:if>
 												<div class="col-md-12">
@@ -217,17 +217,17 @@ Author: WangSy
 													<c:if test="${jsons[0].operateMode != 2}">
 														<div class="col-md-4" id="divInputTax">
 															<label class="control-label">进项税：</label>
-															${jsons[0].inputTax}
+															    ${jsons[0].inputTax}
 															<c:if test="${jsons[0].inputTax == null}">
 																	无
-																</c:if>
+                                                            </c:if>
 														</div>
 														<div class="col-md-4" id="divOutputTax">
 															<label class="control-label">销项税：</label>
 															${jsons[0].outputTax}
 															<c:if test="${jsons[0].outputTax == null}">
 																	无
-																</c:if>
+                                                            </c:if>
 														</div>
 														<div class="col-md-4" id="divConsumptionTax">
 															<label class="control-label">消费税：</label>
@@ -290,7 +290,7 @@ Author: WangSy
 														</c:if>
 													</div>
 												</c:if>
-												<c:if test="${jsons[0].primaryAttr != null}">
+												<c:if test="${jsons[0].primaryAttr != null && jsons[0].primaryAttr != 'null'}">
 													<div class="col-md-4">
 														<label class="col-md-4 control-label"
 															style="width: 130px;">主属性：</label>
@@ -324,7 +324,7 @@ Author: WangSy
 														</c:if>
 													</div>
 												</c:if>
-												<c:if test="${jsons[0].features != null}">
+												<c:if test="${jsons[0].features != null && jsons[0].features != 'null'}">
 													<div class="col-md-4">
 														<label class="col-md-4 control-label"
 															style="width: 130px;">特性：</label> ${jsons[0].features}

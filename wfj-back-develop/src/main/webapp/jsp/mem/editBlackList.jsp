@@ -22,10 +22,44 @@
     image="http://images.shopin.net/images";
     saleMsgImage="http://images.shopin.net/images";
     ctx="http://www.shopin.net";
+    function timePickInit(){
+    	$('#reservationPull').daterangepicker({
+    		timePicker: true,
+    		timePickerIncrement: 30,
+    		format: 'YYYY/MM/DD HH:mm:ss',
+            locale : {
+                applyLabel : '确定',
+                cancelLabel : '取消',
+                fromLabel : '起始时间',
+                toLabel : '结束时间',
+                customRangeLabel : '自定义',
+                daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                firstDay : 1
+            }
+        }); 
+    	$('#reservationBack').daterangepicker({
+    		timePicker: true,
+    		timePickerIncrement: 30,
+    		format: 'YYYY/MM/DD HH:mm:ss',
+            locale : {
+                applyLabel : '确定',
+                cancelLabel : '取消',
+                fromLabel : '起始时间',
+                toLabel : '结束时间',
+                customRangeLabel : '自定义',
+                daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                firstDay : 1
+            }
+        }); 
+    }
+
     var olvPagination;
     $(function() {
-      $("#reservationPull").daterangepicker();
-      $("#reservationBack").daterangepicker();
+      timePickInit();
       initOlv();
     });
 
@@ -234,6 +268,18 @@
 
     //解除黑名单
     function relieveBlack(){
+    	var url1 = __ctxPath+"/memBasic/getUserName";
+    	var userName="";
+    	$.ajax({
+            type : "post",
+            url : url1,
+            success : function(data) {
+            	userName=data;
+            	$("#relServiceId").val(userName);
+            },
+            error:function(){
+            }
+    	});
       var checkboxArray=[];
       $("input[type='checkbox']:checked").each(function(i,team){
         var sid=$(this).val().trim();
@@ -258,23 +304,23 @@
       //清除隐藏div的数据
       $("#relieveBlackSid").val(sid);
       $(".relieve_msg").hide();
-      $("#relServiceId").val("");
-      $("#relieveReason").val("");
+     // $("#relServiceId").val(userName);
+      $("#relieveReason").val();
       $("#relieveBlackDiv").show();
     }
     function closeEdit(){
         //清除隐藏div表单内容
         $(".relieve_msg").hide();
-        $("#relServiceId").val("");
-        $("#relieveReason").val("");
+        $("#relServiceId").val();
+        $("#relieveReason").val();
         $("#editBlackDiv").hide();
       }
     
     function closeRelieveBlack(){
       //清除隐藏div表单内容
       $(".relieve_msg").hide();
-      $("#relServiceId").val("");
-      $("#relieveReason").val("");
+      $("#relServiceId").val();
+      $("#relieveReason").val();
       $("#relieveBlackDiv").hide();
     }
     function submitRelieveBlack(){
@@ -285,11 +331,11 @@
         $("#relServiceId_msg").show();
         return;
       }
-      if(relieveReason==""||relieveReason==null){
+      var reg = /^\s*$/g;
+      if(relieveReason==""||relieveReason==null ||reg.test(relieveReason)){
         $("#relieveReason_msg").show();
         return;
       }
-
       var url = __ctxPath+"/memBasic/relieveBlackList";
       $.ajax({
         type : "post",
@@ -417,13 +463,13 @@
 
                 <!--  <table class="table table-bordered table-striped table-condensed table-hover flip-content"
                        id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">-->
-                       <div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+                  <div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
 									<table class="table-striped table-hover table-bordered"
 										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
                   <thead>
                   <tr role="row" style='height:35px;'>
                     <th style="text-align: center;" width="2%">选择</th>
-                    <th style="text-align: center;" width="6%">账户</th>
+                    <th style="text-align: center;" width="6%">账号</th>
                     <th style="text-align: center;" width="6%">昵称</th>
                     <th style="text-align: center;" width="6%">真实姓名</th>
                     <th style="text-align: center;" width="6%">所属门店</th>
@@ -455,8 +501,8 @@
                     <input type="hidden" id="cache" name="cache" value="1" />
                   </form>
                 </div>
-                <div id="olvPagination"></div>
               </div>
+                <div id="olvPagination"></div>
               <!-- Templates -->
               <p style="display:none">
 									<textarea id="olv-list" rows="0" cols="0">
@@ -642,7 +688,7 @@
                 <label class="col-md-5 control-label"
                        style="line-height: 20px; text-align: right;">客服ID：</label>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" name="name"
+                  <input type="text" class="form-control" name="name" value="disabled" disabled
                          id="relServiceId" />
                   <span id="relServiceId_msg" style="color:red;display:none;" class="relieve_msg">不能为空!</span>
                 </div>
@@ -655,7 +701,7 @@
                 <div class="col-md-6">
                   <input type="text" class="form-control" name="name"
                          id="relieveReason" />
-                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">不能为空!</span>
+                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">请输入解除原因!</span>
                 </div>
                 <br>&nbsp;
               </div>

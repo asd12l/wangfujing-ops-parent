@@ -73,7 +73,7 @@
 											<input type="text" id="cid_input" /></li>
 										<li class="col-md-4"><label class="titname">所属门店：</label>
 											<input type="text" id="belongStore_input" /></li>
-										<li class="col-md-4"><label class="titname">手机号码：</label>
+										<li class="col-md-4"><label class="titname">手机号：</label>
 											<input type="text" id="mobile_input" /></li>
 										<br/>
 										<li class="col-md-4"><label class="titname">证件类型：</label>
@@ -93,16 +93,24 @@
 										</li>
 										<li class="col-md-4"><label class="titname">邮箱：</label>
 											<input type="text" id="email_input" /></li>
-										
-										<li class="col-md-4"><label class="titname">注册时间：</label>
-											<input type="text" id="registrationTime_input" /></li>
-										
-										<li class="col-md-4"><label class="titname">会员等级-X：</label>
-											<input type="text" id="memberLevel_input" /></li>
+										<!--先不展示 可能二期展示  -->
+										<!-- <li class="col-md-4"><label class="titname">注册时间：</label>
+											<input type="text" id="registrationTime_input" /></li> -->
+										<!--先不展示 可能二期展示  -->
+										<!-- <li class="col-md-4"><label class="titname">会员等级-X：</label>
+											<input type="text" id="memberLevel_input" />
+											<select id="memberLevel_input">
+											   <option value="" checked="checked">请选择</option>
+												<option value="I">V钻会员</option>
+												<option value="L">金钻会员</option>
+												<option value="K">红钻会员</option>
+												<option value=" ">黑钻会员</option>
+											</select>
+											</li> -->
 
 										<li class="col-md-6">
 											<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
-											<a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
+											<a onclick="reset();" class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
 										</li>
 									</ul>
 								</div>
@@ -116,9 +124,9 @@
 											<th style="text-align: center;" width="5%">昵称</th>
 											<th style="text-align: center;" width="5%">真实姓名</th>
 											<th style="text-align: center;" width="5%">所属门店</th>
-											<th style="text-align: center;" width="5%">会员等级</th>
-											<th style="text-align: center;" width="5%">注册时间</th>
-											<th style="text-align: center;" width="4%">手机</th>
+										<!-- 	<th style="text-align: center;" width="5%">会员等级</th>
+											<th style="text-align: center;" width="5%">注册时间</th> -->
+											<th style="text-align: center;" width="4%">手机号</th>
 											<th style="text-align: center;" width="4%">邮箱</th>
 											<th style="text-align: center;" width="4%">地址</th>
 											<th style="text-align: center;" width="4%">性别</th>
@@ -126,14 +134,14 @@
 											<th style="text-align: center;" width="4%">兴趣</th>
 											<th style="text-align: center;" width="4%">婚姻状况</th>
 											<th style="text-align: center;" width="4%">月收入</th>
-											<th style="text-align: center;" width="5%">身份证号</th>
+											<th style="text-align: center;" width="5%">证件号</th>
 											<th style="text-align: center;" width="5%">教育程度</th>
 											<th style="text-align: center;" width="4%">所在行业</th>
 											<th style="text-align: center;" width="4%">绑定状态</th>
 											<th style="text-align: center;" width="4%">绑定时间</th>
 											<th style="text-align: center;" width="4%">手机验证</th>
 											<th style="text-align: center;" width="4%">邮箱验证</th>
-											<th style="text-align: center;" width="4%">支付密码</th>
+											<th style="text-align: center;" width="4%">无卡化</th>
 										</tr>
 										</thead>
 										<tbody>
@@ -142,15 +150,22 @@
 								</div>
 								<div class="pull-left" style="padding: 10px 0;">
 									<form id="product_from" action="">
+									<select id="pageSelect" name="pageSize">
+													<option>5</option>
+													<option selected="selected">10</option>
+													<option>15</option>
+													<option>20</option>
+												</select>
 										<input type="hidden" id="cid_from" name="cid" />
 										<input type="hidden" id="belongStore_from" name="belongStore" />
 										<input type="hidden" id="mobile_from" name="mobile" />
 										<input type="hidden" id="identityNo_from" name="identityNo" />
 										<input type="hidden" id="email_from" name="email"/>
 										<input type="hidden" id="idType_from" name="idType"/>
+										<input type="hidden" id="status" name="status"/>
 										<!-- 注册时间 -->
-										<input type="hidden" id="timeStartDate_form" name="timeStartDate"/>
-										<input type="hidden" id="timeEndDate_form" name="timeEndDate"/>
+										<input type="hidden" id="timeStartDate_form" name="m_timeStartDate"/>
+										<input type="hidden" id="timeEndDate_form" name="m_timeEndDate"/>
 										<!-- 会员等级 -->
 										<input type="hidden" id="memberLevel_from" name="memberLevel"/>
 										<input type="hidden" id="cache" name="cache" />
@@ -192,7 +207,7 @@
 													    {#else}{$T.Result.cmmkt}
 													    {#/if}
 													</td>
-													<td align="center" id="levelName_{$T.Result.cid}">
+												<!-- 	<td align="center" id="levelName_{$T.Result.cid}">
 														{#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
 														{#else}{$T.Result.levelName}
 														{#/if}
@@ -201,7 +216,7 @@
 														{#if $T.Result.cmkhdate == "" || $T.Result.cmkhdate == null}--
 													    {#else}{$T.Result.cmkhdate}
 													    {#/if}
-													</td>
+													</td> -->
 
 													<td align="center" id="mobile_{$T.Result.cid}">
 														<input type="hidden" id="phone5_{$T.Result.cid}" value="{$T.Result.phone5}">

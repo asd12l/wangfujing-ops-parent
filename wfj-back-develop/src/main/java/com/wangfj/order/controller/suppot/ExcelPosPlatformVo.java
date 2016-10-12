@@ -5,6 +5,43 @@ import java.util.Date;
 
 public class ExcelPosPlatformVo {
 
+	private Date checkTime;//对账时间
+	private Date createdTime;//对账时间
+	private String checkTimeStr;
+	private String createdTimeStr;
+	private Long count;
+	
+	public Date getCheckTime() {
+		return checkTime;
+	}
+	public void setCheckTime(Date checkTime) {
+		this.checkTime = checkTime;
+	}
+	public Date getCreatedTime() {
+		return createdTime;
+	}
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
+	public String getCheckTimeStr() {
+		return checkTimeStr;
+	}
+	public void setCheckTimeStr(String checkTimeStr) {
+		this.checkTimeStr = checkTimeStr;
+	}
+	public String getCreatedTimeStr() {
+		return createdTimeStr;
+	}
+	public void setCreatedTimeStr(String createdTimeStr) {
+		this.createdTimeStr = createdTimeStr;
+	}
+	public Long getCount() {
+		return count;
+	}
+	public void setCount(Long count) {
+		this.count = count;
+	}
+	//原本的
 	private String orderNo;//订单号
 
 	private String outOrderNo;//外部订单号

@@ -81,7 +81,7 @@ public class EdiJmOrderController {
 		paramMap.put("receiverMobile", request.getParameter("receiverMobile"));
 		paramMap.put("title", request.getParameter("title"));
 		paramMap.put("tradesource", tradesource);
-		
+		paramMap.put("ispreSale", request.getParameter("ispreSale"));
 		paramMap.put("symbol", request.getParameter("symbol"));
 		paramMap.put("totalAmount", request.getParameter("totalAmount"));
 		
@@ -138,7 +138,7 @@ public class EdiJmOrderController {
 		}
 		paramMap.put("logJs", js);
 		//添加隐藏私密信息
-		String url = (String) PropertiesUtil.getContextProperty("memberUrl");
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);;
 		String s = HttpUtils.HttpdoGet(url);
 		JSONObject obj = JSONObject.fromObject(s);
 	
@@ -168,7 +168,22 @@ public class EdiJmOrderController {
 	@RequestMapping("/exportExcleJm")
 	public String exportExcle(String status,HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
+		String secertFlag = "";
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		
+		String url1 = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);
+		String s = HttpUtils.HttpdoGet(url1);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				secertFlag = memberInfo.getData().get(0).getSysValue();
+			}
+		}
+		
 		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
 			paramMap.put("userName", CookiesUtil.getUserName(request));
 		}else{
@@ -202,7 +217,7 @@ public class EdiJmOrderController {
 			
 			json =HttpUtilPcm.doPost(url, jsonStr);
 			
-			excelOrderDetailReport(json,request,response);
+			excelOrderDetailReport(json,secertFlag,request,response);
 			
 			logger.info("json:" + json);
 		} catch (Exception e) {
@@ -249,7 +264,7 @@ public class EdiJmOrderController {
 		return json;
 	}
 	
-	private void excelOrderDetailReport( String json, HttpServletRequest request,
+	private void excelOrderDetailReport( String json, String secertFlag, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, FileNotFoundException {
 		List ordersDetailList = new ArrayList();
 
@@ -268,7 +283,7 @@ public class EdiJmOrderController {
 		HSSFSheet sheet = wb.getSheetAt(0);
 		
 		
-		fillContent(ordersDetailList, sheet);
+		fillContent(ordersDetailList, sheet,secertFlag);
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		wb.write(byteArrayOutputStream);
 		
@@ -284,7 +299,7 @@ public class EdiJmOrderController {
 	    outputstream.flush(); // 刷数据
 	}
 	
-	private void fillContent(List ordersDetailList, HSSFSheet sheet) {
+	private void fillContent(List ordersDetailList, HSSFSheet sheet,String secertFlag) {
 		HSSFCellStyle style1 = sheet.getRow(2).getCell(0).getCellStyle();
 		HSSFCellStyle style2 = sheet.getRow(2).getCell(2).getCellStyle();
 		HSSFCellStyle style3 = sheet.getRow(2).getCell(4).getCellStyle();
@@ -295,9 +310,16 @@ public class EdiJmOrderController {
 		for (int i = 0; i < ordersDetailList.size(); i++) {
 			Map<String, Object> map = (Map) ordersDetailList.get(i);
 			String tid = map.get("tid") == null ? "" : map.get("tid").toString();
+			String receiverName = "";
+			String receiverMobile = "";
 			String ordersid = map.get("ordersid") == null ? "" : map.get("ordersid").toString();
-			String receiverName = map.get("receiverName") == null ? "" : RequestUtils.hideSecret(map.get("receiverName").toString(), 1, 0);
-			String receiverMobile = map.get("receiverMobile") == null ? "" : RequestUtils.hideSecret(map.get("receiverMobile").toString(),3,4);
+			if("1".equals(secertFlag)){
+				receiverName = map.get("receiverName") == null ? "" : RequestUtils.hideSecret(map.get("receiverName").toString(), 1, 0);
+				receiverMobile = map.get("receiverMobile") == null ? "" : RequestUtils.hideSecret(map.get("receiverMobile").toString(),3,4);
+			}else {
+				receiverName = map.get("receiverName") == null ? "" : map.get("receiverName").toString();
+				receiverMobile = map.get("receiverMobile") == null ? "" : map.get("receiverMobile").toString();
+			}
 			String payment = map.get("payment") == null ? "" : map.get("payment").toString();
 			String tradeStatus = map.get("tradeStatus") == null ? "" : map.get("tradeStatus").toString();
 			String createDate = map.get("createDate") == null ? "" : map.get("createDate").toString();

@@ -4,7 +4,213 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.wangfj.order.controller.suppot.refund.OfDeductionDto;
+import com.wangfj.order.controller.suppot.refund.OfReturnPaymentsDTO;
+import com.wangfj.order.controller.suppot.refund.SaveOfRefundItemDTO;
+
 public class ExcelRefundVo {
+	
+	private String refundStatusDesc;
+	private String latestUpdateTimeStr;// 最后"更新时间
+	private String createdTimeStr;// 创建时间
+	private String productType;// 商品类别
+	private BigDecimal incomeAmount;
+	private BigDecimal tax;
+	private String managerCateNo;//
+	private String staticsCateNo;// 统计分类
+	private String saleItemNo;//销售单item
+	private Integer isSynchronous;
+    private String createdMode;
+	private Date createdTimeStart;
+	private Date createdTimeEnd;
+    private String startRefundTimeStr;
+    private String endRefundTimeStr;
+	private String problemDesc;
+	private String packStatus;//包装情况
+    private String productsStatus;//商品情况
+    private String orderchannel;
+    private BigDecimal paymentAmountSum;
+    private String sysValue; //脱敏标识
+	
+	
+	public String getRefundStatusDesc() {
+		return refundStatusDesc;
+	}
+	public void setRefundStatusDesc(String refundStatusDesc) {
+		this.refundStatusDesc = refundStatusDesc;
+	}
+	public String getLatestUpdateTimeStr() {
+		return latestUpdateTimeStr;
+	}
+	public void setLatestUpdateTimeStr(String latestUpdateTimeStr) {
+		this.latestUpdateTimeStr = latestUpdateTimeStr;
+	}
+	public String getCreatedTimeStr() {
+		return createdTimeStr;
+	}
+	public void setCreatedTimeStr(String createdTimeStr) {
+		this.createdTimeStr = createdTimeStr;
+	}
+	public String getProductType() {
+		return productType;
+	}
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+	public BigDecimal getIncomeAmount() {
+		return incomeAmount;
+	}
+	public void setIncomeAmount(BigDecimal incomeAmount) {
+		this.incomeAmount = incomeAmount;
+	}
+	public BigDecimal getTax() {
+		return tax;
+	}
+	public void setTax(BigDecimal tax) {
+		this.tax = tax;
+	}
+	public String getManagerCateNo() {
+		return managerCateNo;
+	}
+	public void setManagerCateNo(String managerCateNo) {
+		this.managerCateNo = managerCateNo;
+	}
+	public String getStaticsCateNo() {
+		return staticsCateNo;
+	}
+	public void setStaticsCateNo(String staticsCateNo) {
+		this.staticsCateNo = staticsCateNo;
+	}
+	public String getSaleItemNo() {
+		return saleItemNo;
+	}
+	public void setSaleItemNo(String saleItemNo) {
+		this.saleItemNo = saleItemNo;
+	}
+	public Integer getIsSynchronous() {
+		return isSynchronous;
+	}
+	public void setIsSynchronous(Integer isSynchronous) {
+		this.isSynchronous = isSynchronous;
+	}
+	public String getCreatedMode() {
+		return createdMode;
+	}
+	public void setCreatedMode(String createdMode) {
+		this.createdMode = createdMode;
+	}
+	public Date getCreatedTimeStart() {
+		return createdTimeStart;
+	}
+	public void setCreatedTimeStart(Date createdTimeStart) {
+		this.createdTimeStart = createdTimeStart;
+	}
+	public Date getCreatedTimeEnd() {
+		return createdTimeEnd;
+	}
+	public void setCreatedTimeEnd(Date createdTimeEnd) {
+		this.createdTimeEnd = createdTimeEnd;
+	}
+	public String getStartRefundTimeStr() {
+		return startRefundTimeStr;
+	}
+	public void setStartRefundTimeStr(String startRefundTimeStr) {
+		this.startRefundTimeStr = startRefundTimeStr;
+	}
+	public String getEndRefundTimeStr() {
+		return endRefundTimeStr;
+	}
+	public void setEndRefundTimeStr(String endRefundTimeStr) {
+		this.endRefundTimeStr = endRefundTimeStr;
+	}
+	public String getProblemDesc() {
+		return problemDesc;
+	}
+	public void setProblemDesc(String problemDesc) {
+		this.problemDesc = problemDesc;
+	}
+	public String getPackStatus() {
+		return packStatus;
+	}
+	public void setPackStatus(String packStatus) {
+		this.packStatus = packStatus;
+	}
+	public String getProductsStatus() {
+		return productsStatus;
+	}
+	public void setProductsStatus(String productsStatus) {
+		this.productsStatus = productsStatus;
+	}
+	public String getOrderchannel() {
+		return orderchannel;
+	}
+	public void setOrderchannel(String orderchannel) {
+		this.orderchannel = orderchannel;
+	}
+	public BigDecimal getPaymentAmountSum() {
+		return paymentAmountSum;
+	}
+	public void setPaymentAmountSum(BigDecimal paymentAmountSum) {
+		this.paymentAmountSum = paymentAmountSum;
+	}
+	public String getSysValue() {
+		return sysValue;
+	}
+	public void setSysValue(String sysValue) {
+		this.sysValue = sysValue;
+	}
+	private String productClass;// 大中小类
+	private Date refundTimeStart;
+	private Date refundTimeEnd;
+	
+	public String getProductClass() {
+		return productClass;
+	}
+	public void setProductClass(String productClass) {
+		this.productClass = productClass;
+	}
+	public Date getRefundTimeStart() {
+		return refundTimeStart;
+	}
+	public void setRefundTimeStart(Date refundTimeStart) {
+		this.refundTimeStart = refundTimeStart;
+	}
+	public Date getRefundTimeEnd() {
+		return refundTimeEnd;
+	}
+	public void setRefundTimeEnd(Date refundTimeEnd) {
+		this.refundTimeEnd = refundTimeEnd;
+	}
+	private String fromSystem;
+	
+	public String getFromSystem() {
+		return fromSystem;
+	}
+	public void setFromSystem(String fromSystem) {
+		this.fromSystem = fromSystem;
+	}
+	public List<SaveOfRefundItemDTO> getProducts() {
+		return products;
+	}
+	public void setProducts(List<SaveOfRefundItemDTO> products) {
+		this.products = products;
+	}
+	public List<OfDeductionDto> getDeduction() {
+		return deduction;
+	}
+	public void setDeduction(List<OfDeductionDto> deduction) {
+		this.deduction = deduction;
+	}
+	public List<OfReturnPaymentsDTO> getReturnPayments() {
+		return returnPayments;
+	}
+	public void setReturnPayments(List<OfReturnPaymentsDTO> returnPayments) {
+		this.returnPayments = returnPayments;
+	}
+	private List<SaveOfRefundItemDTO> products; // 商品详情
+	private List<OfDeductionDto> deduction;// 扣款介质
+	private List<OfReturnPaymentsDTO> returnPayments;// 退货单支付介质
+	
 	private Long sid;
 	private String refundReasionNo;
 	private String outOrderNo;
@@ -451,31 +657,46 @@ public void setShoppeProName(String shoppeProName) {
 	}
 	@Override
 	public String toString() {
-		return "ExcelRefundVo [sid=" + sid + ", accountNo=" + accountNo + ", memberNo="
+		return "ExcelRefundVo [refundStatusDesc=" + refundStatusDesc + ", latestUpdateTimeStr="
+				+ latestUpdateTimeStr + ", createdTimeStr=" + createdTimeStr + ", productType="
+				+ productType + ", incomeAmount=" + incomeAmount + ", tax=" + tax
+				+ ", managerCateNo=" + managerCateNo + ", staticsCateNo=" + staticsCateNo
+				+ ", saleItemNo=" + saleItemNo + ", isSynchronous=" + isSynchronous
+				+ ", createdMode=" + createdMode + ", createdTimeStart=" + createdTimeStart
+				+ ", createdTimeEnd=" + createdTimeEnd + ", startRefundTimeStr="
+				+ startRefundTimeStr + ", endRefundTimeStr=" + endRefundTimeStr + ", problemDesc="
+				+ problemDesc + ", packStatus=" + packStatus + ", productsStatus=" + productsStatus
+				+ ", orderchannel=" + orderchannel + ", paymentAmountSum=" + paymentAmountSum
+				+ ", sysValue=" + sysValue + ", productClass=" + productClass + ", refundTimeStart="
+				+ refundTimeStart + ", refundTimeEnd=" + refundTimeEnd + ", fromSystem="
+				+ fromSystem + ", products=" + products + ", deduction=" + deduction
+				+ ", returnPayments=" + returnPayments + ", sid=" + sid + ", refundReasionNo="
+				+ refundReasionNo + ", outOrderNo=" + outOrderNo + ", receptPhone=" + receptPhone
+				+ ", shoppeProName=" + shoppeProName + ", totalDiscount=" + totalDiscount
+				+ ", quanAmount=" + quanAmount + ", accountNo=" + accountNo + ", memberNo="
 				+ memberNo + ", refundNo=" + refundNo + ", refundApplyNo=" + refundApplyNo
 				+ ", originalSalesNo=" + originalSalesNo + ", orderNo=" + orderNo
 				+ ", externalRefundNo=" + externalRefundNo + ", refundTime=" + refundTime
 				+ ", refundStatus=" + refundStatus + ", refundTarget=" + refundTarget
-				+ ", refundType=" + refundType + ", refundClass=" + refundClass
-				+ ", refundAmount=" + refundAmount + ", refundNum=" + refundNum
-				+ ", needRefundAmount=" + needRefundAmount + ", shopNo=" + shopNo
-				+ ", shopName=" + shopName + ", supplyNo=" + supplyNo + ", supplyName="
-				+ supplyName + ", shoppeNo=" + shoppeNo + ", shoppeName=" + shoppeName
-				+ ", shippingFee=" + shippingFee + ", createMode=" + createMode
-				+ ", exchangeNo=" + exchangeNo + ", originalDeliveryNo=" + originalDeliveryNo
-				+ ", sendToPoserp=" + sendToPoserp + ", sendToSaperp=" + sendToSaperp
-				+ ", operator=" + operator + ", operatorStore=" + operatorStore
+				+ ", refundType=" + refundType + ", refundClass=" + refundClass + ", refundAmount="
+				+ refundAmount + ", refundNum=" + refundNum + ", needRefundAmount="
+				+ needRefundAmount + ", shopNo=" + shopNo + ", shopName=" + shopName + ", supplyNo="
+				+ supplyNo + ", supplyName=" + supplyName + ", shoppeNo=" + shoppeNo
+				+ ", shoppeName=" + shoppeName + ", shippingFee=" + shippingFee + ", createMode="
+				+ createMode + ", exchangeNo=" + exchangeNo + ", originalDeliveryNo="
+				+ originalDeliveryNo + ", sendToPoserp=" + sendToPoserp + ", sendToSaperp="
+				+ sendToSaperp + ", operator=" + operator + ", operatorStore=" + operatorStore
 				+ ", salesPaymentNo=" + salesPaymentNo + ", createdTime=" + createdTime
-				+ ", latestUpdateTime=" + latestUpdateTime + ", latestUpdateMan="
-				+ latestUpdateMan + ", returnShippingFee=" + returnShippingFee
-				+ ", refundToBit=" + refundToBit + ", rebateStatus=" + rebateStatus
-				+ ", employeeNo=" + employeeNo + ", casherNo=" + casherNo + ", calcBillid="
-				+ calcBillid + ", bankServiceCharge=" + bankServiceCharge + ", refundPath="
-				+ refundPath + ", warehouseAddress=" + warehouseAddress + ", employeeName="
-				+ employeeName + ", memberCardNo=" + memberCardNo + ", memberShipCardNo="
-				+ memberShipCardNo + ", memberCardType=" + memberCardType
-				+ ", expressCompanyCode=" + expressCompanyCode + ", expressCompanyName="
-				+ expressCompanyName + ", courierNumber=" + courierNumber + "]";
+				+ ", latestUpdateTime=" + latestUpdateTime + ", latestUpdateMan=" + latestUpdateMan
+				+ ", returnShippingFee=" + returnShippingFee + ", refundToBit=" + refundToBit
+				+ ", rebateStatus=" + rebateStatus + ", employeeNo=" + employeeNo + ", casherNo="
+				+ casherNo + ", calcBillid=" + calcBillid + ", bankServiceCharge="
+				+ bankServiceCharge + ", refundPath=" + refundPath + ", warehouseAddress="
+				+ warehouseAddress + ", employeeName=" + employeeName + ", memberCardNo="
+				+ memberCardNo + ", memberShipCardNo=" + memberShipCardNo + ", memberCardType="
+				+ memberCardType + ", expressCompanyCode=" + expressCompanyCode
+				+ ", expressCompanyName=" + expressCompanyName + ", courierNumber=" + courierNumber
+				+ ", start=" + start + ", limit=" + limit + "]";
 	}
 		
 }

@@ -143,7 +143,7 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -401,7 +401,7 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -585,10 +585,10 @@ public class OmsOrderController {
 		paramMap.put("orderNo", request.getParameter("orderNo"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			String result = sysValues.desensitization();
+			/*String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
-			}
+			}*/
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_orderItem_list"), jsonStr);
@@ -794,7 +794,7 @@ public class OmsOrderController {
 		paramMap.put("start", String.valueOf(currPage));
 		paramMap.put("limit", String.valueOf(size));
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -988,7 +988,7 @@ public class OmsOrderController {
 		}
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -1246,7 +1246,7 @@ public class OmsOrderController {
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -2967,10 +2967,15 @@ public class OmsOrderController {
 		}
 		map.put("start", String.valueOf(currPage));
 		map.put("limit", String.valueOf(size));
-		String jsonStr = JSON.toJSONString(map);
 		try {
+			String sysv = sysValues.desensitization(request);
+			if(sysv.equals("1")){
+				map.put("sysValue", sysv);
+			}
+			String jsonStr = JSON.toJSONString(map);
 			logger.info("导出Excel表格调oms接口入参:{}",jsonStr);
 			String json = HttpUtilPcm.doPost(CommonProperties.get("select_order_list_phone2"), jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/order/selectOrderPageExcel.htm", jsonStr);
 			logger.info("导出Excel表格调oms接口出参:{}",json);
 			JSONObject js = JSONObject.fromObject(json);
 			String data = js.getString("data");
@@ -3331,11 +3336,15 @@ public class OmsOrderController {
 		map.put("start", String.valueOf(currPage));
 		map.put("limit", String.valueOf(size));
 		map.put("fromSystem", "OMSADMIN");
+		String sysv = sysValues.desensitization(request);
+		if(sysv.equals("1")){
+			map.put("sysValue", sysv);
+		}
 		String jsonStr = JSON.toJSONString(map);
 		try {
 //			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_refund_list"), jsonStr);
 			String json = HttpUtilPcm.doPost(CommonProperties.get("select_refund_list_excel"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/refund/queryRefundExcel.htm", jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSelect/selectRefundExcel.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
@@ -4799,11 +4808,15 @@ public class OmsOrderController {
 		map.put("start", String.valueOf(currPage));
 		map.put("limit", String.valueOf(size));
 		map.put("fromSystem", "OMSADMIN");
+		String sysv = sysValues.desensitization(request);
+		if(sysv.equals("1")){
+			map.put("sysValue", sysv);
+		}
 		String jsonStr = JSON.toJSONString(map);
 		try {
 			String json = HttpUtilPcm.doPost(CommonProperties.get("select_sale_list_phone2"), jsonStr);
 //			String json = HttpUtilPcm.doPost(CommonProperties.get("excel_sale_list_phone"), jsonStr);
-//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSale/querySaleExcelByPhone.htm", jsonStr);
+//			String json = HttpUtilPcm.doPost("http://localhost:8087/oms-core-sdc/ofSelect/selectSaleByPhoneExcel.htm", jsonStr);
 			
 			JSONObject js = JSONObject.fromObject(json);
 //			Object objs = js.get("data");
@@ -5280,6 +5293,7 @@ public class OmsOrderController {
 			paramMap.put("deliveryNo", request.getParameter("deliveryNo"));
 		}
 		paramMap.put("fromSystem", "OMSADMIN");
+		paramMap.put("operatorSource", "TMS");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);

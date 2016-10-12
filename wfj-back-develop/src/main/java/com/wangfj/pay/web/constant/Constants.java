@@ -105,4 +105,6 @@ public class Constants {
 	public static final String SELECT_PAY_CHANNEL_TYPE="select_pay_channel_type";
 	//查询支付渠道(下拉选)
 	public static final String SELECT_PAY_CHANNEL="select_pay_channel";
+	//netty项目ops接入log监控地址2016-09-27
+	public static final String WFJ_LOG_JS="log_js";
 }

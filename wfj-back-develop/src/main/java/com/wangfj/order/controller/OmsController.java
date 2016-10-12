@@ -224,7 +224,7 @@ public class OmsController {
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -389,7 +389,7 @@ public class OmsController {
 		paramMap.put("saleStatus", "08");//已签收
 		paramMap.put("fromSystem", "PCM");
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -555,7 +555,7 @@ public class OmsController {
 		paramMap.put("saleStatus", "09");//已拒收
 		paramMap.put("fromSystem", "PCM");
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -816,7 +816,7 @@ public class OmsController {
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -1016,7 +1016,7 @@ public class OmsController {
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -1173,7 +1173,7 @@ public class OmsController {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		paramMap.put("fromSystem", "PCM");
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}

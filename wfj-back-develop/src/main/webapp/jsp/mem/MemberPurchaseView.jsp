@@ -25,37 +25,49 @@
 	var cid;
 	var olvPagination;
 	$(function() {
-		$("#reservation").daterangepicker();
+		$("#reservation").daterangepicker({
+			        locale : {
+			            applyLabel : '确定',
+			            cancelLabel : '取消',
+			            fromLabel : '起始时间',
+			            toLabel : '结束时间',
+			            customRangeLabel : '自定义',
+			            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+			            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+			                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+			            firstDay : 1
+			        }
+			    }); 
 	    initOlv();
 	   
-	    $.ajax({
+	  //销售单来源（PCM接口）
+		$.ajax({
 			type : "post",
-			contentType: "application/x-www-form-urlencoded;charset=utf-8",
-			url : __ctxPath + "/memBasic/selectOrderFrom",
+			url : __ctxPath + "/stock/queryChannelListAddPermission",
 			dataType : "json",
 			async : false,
 			success : function(response) {
-				//订单来源
-           		var result = response.list;
+				var result = response.list;
 				var option = "";
 				for (var i = 0; i < result.length; i++) {
 					var ele = result[i];
 					option += "<option value='"+ele.channelCode+"'>"
 							+ ele.channelName + "</option>";
 				}
-				$("#orderFrom_input").append(option);
-           		return;
+				$("#saleSource_input").append(option);
+				return;
 			}
-	    });
-	   
+		});
+		//销售单状态
+		$("#saleStatus_select").one("click",function(){
 			$.ajax({
 				type: "post",
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
-				url: __ctxPath+"/testOnlineOmsOrder/selectCodelist?typeValue=order_status",
+				url: __ctxPath+"/testOnlineOmsOrder/selectCodelist?typeValue=sale_status",
 				dataType: "json",
 				success: function(response) {
 					var result = response;
-					var codeValue = $("#orderStatus_input");
+					var codeValue = $("#saleStatus_select");
 					for ( var i = 0; i < result.list.length; i++) {
 						var ele = result.list[i];
 						var option;
@@ -66,6 +78,7 @@
 					return;
 				}
 			});
+			});
 	});
 	
 	function productQuery(){
@@ -74,9 +87,10 @@
 		$("#email_form").val($("#email_input").val().trim());
 		$("#orderNo_form").val($("#orderNo_input").val().trim());
 		$("#outOrderNo_form").val($("#outOrderNo_input").val().trim());
-		$("#orderStatus_form").val($("#orderStatus_input").val().trim());
-		$("#orderFrom_form").val($("#orderFrom_input").val().trim());
+		$("#orderStatus_form").val($("#saleStatus_select").val().trim());
+		$("#orderFrom_form").val($("#saleSource_input").val().trim());
 		$("#saleNo_form").val($("#saleNo_input").val().trim());
+		$("#pageSelectNo").val($("#pageSelect").val());
 		var buytime =  $("#reservation").val();
 		if (buytime!=""){
 			buytime = buytime.split("-");
@@ -105,6 +119,24 @@
 		$("#outOrderNo_input").val("");
 		$("#saleNo_input").val("");
 		$("#reservation").val("");
+		$("#saleStatus_select").val("");
+		$("#saleSource_input").val("");
+		$("#topic_form")[0].reset();
+		$("#reservation").daterangepicker({
+			startDate:moment().startOf('day'),
+			endDate:moment(),
+			locale : {
+	            applyLabel : '确定',
+	            cancelLabel : '取消',
+	            fromLabel : '起始时间',
+	            toLabel : '结束时间',
+	            customRangeLabel : '自定义',
+	            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+	            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+	                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+	            firstDay : 1
+	        }
+			});
 		productQuery();
 	}
 	//初始化包装单位列表
@@ -151,6 +183,7 @@
 			}
 			return data;
 			}
+		$("#pageSelect").change(productQuery);
     } 
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
@@ -228,44 +261,47 @@
 												<input type="text" id="email_input" /></li>
 											<li class="col-md-4"><label class="titname">订单号：</label>
 												<input type="text" id="orderNo_input" /></li>
-											<li class="col-md-4"><label class="titname">外部单号：</label>
+											<li class="col-md-4"><label class="titname" >外部订单号：</label>
 												<input type="text" id="outOrderNo_input" /></li>
-											<li class="col-md-4"><label class="titname">订单状态：</label>
-												<select class="form-control orderStatusSpace" id="orderStatus_input" data-bv-field="country" style="width:60%;">
+											<li class="col-md-4"><label class="titname">销售单状态：</label>
+												<select class="form-control orderStatusSpace" id="saleStatus_select" data-bv-field="country" style="width:60%;">
 												<option value="">请选择</option>
 												</select></li>
 											<li class="col-md-4"><label class="titname">销售单号：</label>
 												<input type="text" id="saleNo_input" /></li>
-											<li class="col-md-4 " ><label class="titname">订单来源：</label>
-												<select class="form-control orderFromSpace" id="orderFrom_input" data-bv-field="country" style="width:60%;">
+											<li class="col-md-4 " ><label class="titname">销售单来源：</label>
+												<select class="form-control orderFromSpace" id="saleSource_input" data-bv-field="country" style="width:60%;">
 												<option value="">请选择</option>
 												</select></li>
 											<li class="col-md-6">
 												<a onclick="query();" class="btn btn-yellow"> <i class="fa fa-eye"></i> 查询</a>
 												<a onclick="reset();"class="btn btn-primary"> <i class="fa fa-random"></i> 重置</a>
-												<a onclick="showMemPurchaseView();"class="btn btn-primary"> <i class="fa fa-random"></i> 查询用户购买记录</a>
+												<a onclick="showMemPurchaseView();"class="btn btn-primary"  style="display:none"> <i class="fa fa-random"></i> 查询用户购买记录</a>
 											</li>
 										</ul>
 
-                                   <table class="table table-bordered table-striped table-condensed table-hover flip-content"
-									id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">
+                                   <!--  <table class="table table-bordered table-striped table-condensed table-hover flip-content"
+									id="olv_tab" style="width: 200%;background-color: #fff;margin-bottom: 0;">-->
+									<div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+									<table class="table-striped table-hover table-bordered"
+										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
 										<thead>
                                             <tr role="row" style='height:35px;'>
-												<th style="text-align: center;" width="2%">选择</th>
-												<th style="text-align: center;" width="8%">购买时间</th>
-												<th style="text-align: center;" width="8%">账户</th>
-												<th style="text-align: center;" width="8%">昵称</th>
-												<th style="text-align: center;" width="8%">真实姓名</th>
-												<th style="text-align: center;" width="8%">手机</th>
-												<th style="text-align: center;" width="8%">邮箱</th>
-												<th style="text-align: center;" width="8%">所属门店</th>
-												<th style="text-align: center;" width="8%">会员等级</th>
-												<th style="text-align: center;" width="8%">地址</th>
-												<th style="text-align: center;" width="8%">购买订单号</th>
-												<th style="text-align: center;" width="8%">销售单号</th>
-												<th style="text-align: center;" width="8%">订单总额</th>
-												<th style="text-align: center;" width="8%">支付方式</th>
-												<th style="text-align: center;" width="8%">订单状态</th>
+												<!-- <th style="text-align: center;" width="2%">选择</th> -->
+												<th style="text-align: center;" width="7%">购买时间</th>
+												<th style="text-align: center;" width="7%">账号</th>
+												<th style="text-align: center;" width="7%">昵称</th>
+												<th style="text-align: center;" width="7%">真实姓名</th>
+												<th style="text-align: center;" width="7%">手机号</th>
+												<th style="text-align: center;" width="7%">邮箱</th>
+												<th style="text-align: center;" width="7%">所属门店</th>
+												<!-- <th style="text-align: center;" width="7%">会员等级</th> -->
+												<th style="text-align: center;" width="16%">地址</th>
+												<th style="text-align: center;" width="7%">订单号</th>
+												<th style="text-align: center;" width="7%">销售单号</th>
+												<th style="text-align: center;" width="7%">订单总额</th>
+												<th style="text-align: center;" width="7%">支付方式</th>
+												<th style="text-align: center;" width="7%">销售单状态</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -283,33 +319,46 @@
 											<input type="hidden" id="saleNo_form" name="saleNo" />
 											<input type="hidden" id="m_buytimeStartDate_form" name="m_buytimeStartDate" />
 											<input type="hidden" id="m_buytimeEndDate_form" name="m_buytimeEndDate" />
+											<input type="hidden" id="pageSelectNo" name="pageSize" />
 											<input type="hidden" id="cache" name="cache" value="1" />
 									</form>
 								</div>
-                                    <div id="olvPagination"></div>
                                 </div>
+                                <div class="pull-left" style="margin-top: 5px;">
+									<form id="topic_form" action="">
+										<div class="col-lg-12">
+											<select id="pageSelect" name="pageSize">
+												<option>5</option>
+												<option selected="selected">10</option>
+												<option>15</option>
+												<option>20</option>
+											</select>
+										</div>
+									</form>
+								</div>
+                                    <div id="olvPagination"></div>
 								<!-- Templates -->
 								<p style="display:none">
 									<textarea id="olv-list" rows="0" cols="0">
 										{#template MAIN}
 											{#foreach $T.list as Result}
-												<tr class="gradeX">
-													<td align="left">
+												<tr class="gradeX" style="height:35px;">
+													<!-- <td align="left">
 														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
 																<input type="checkbox" id="tdCheckbox_{$T.Result.memberNo}" value="{$T.Result.memberNo}" >
 																<span class="text"></span>
 															</label>
 														</div>
-													</td>
+													</td> -->
 													<td align="center" id="createdTime_{$T.Result.memberNo}">
-														{#if $T.Result.createdTime == "" || $T.Result.createdTime == null}--
-														{#else}{$T.Result.createdTime}
+														{#if $T.Result.createdTimeStr == "" || $T.Result.createdTimeStr == null}--
+														{#else}{$T.Result.createdTimeStr}
 														{#/if}
 													</td>
-													<td align="center" id="accountNo_{$T.Result.memberNo}">
-														{#if $T.Result.accountNo == "" || $T.Result.accountNo == null}--
-														{#else}{$T.Result.accountNo}
+													<td align="center" id="username_{$T.Result.memberNo}">
+														{#if $T.Result.username == "" || $T.Result.username == null}--
+														{#else}{$T.Result.username}
 														{#/if}
 													</td>
 													<td align="center" id="nickname_{$T.Result.memberNo}">
@@ -333,16 +382,16 @@
 														{#/if}
 													</td>
 
-													<td align="center" id="newOrderSource_{$T.Result.memberNo}">
-														{#if $T.Result.newOrderSource == "" || $T.Result.newOrderSource == null}--
-														{#else}{$T.Result.newOrderSource}
+													<td align="center" id="storeName_{$T.Result.memberNo}">
+														{#if $T.Result.storeName == "" || $T.Result.storeName == null}--
+														{#else}{$T.Result.storeName}
 														{#/if}
 													</td>
-													<td align="center" id="levelName_{$T.Result.memberNo}">
-														{#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
+													<!-- <td align="center" id="levelName_{$T.Result.memberNo}">
+														{#if $T.Result.levelName == "" || $T.Result.levelName == null}--
 														{#else}{$T.Result.levelName}
 														{#/if}
-													</td>
+													</td> -->
 													<td align="center" id="receptAddress_{$T.Result.memberNo}">
 														{#if $T.Result.receptAddress == "" || $T.Result.receptAddress == null}--
 														{#else}{$T.Result.receptAddress}
@@ -363,16 +412,15 @@
 														{#else}{$T.Result.paymentAmount}
 														{#/if}
 													</td>
-													<td align="center" id="isCod_{$T.Result.memberNo}">
-														{#if $T.Result.isCod == "0"}在线支付
-														{#else}货到付款
-														
+													<td align="center" id="paymentName_{$T.Result.memberNo}">
+														{#if $T.Result.paymentName == "" || $T.Result.paymentName == null}--
+														{#else}{$T.Result.paymentName}
 														{#/if}
 														
 													</td>
-													<td align="center" id="newOrderStatus_{$T.Result.memberNo}">
-														{#if $T.Result.newOrderStatus == "" || $T.Result.newOrderStatus == null}--
-														{#else}{$T.Result.newOrderStatus}
+													<td align="center" id="saleStatusDesc_{$T.Result.memberNo}">
+														{#if $T.Result.saleStatusDesc == "" || $T.Result.saleStatusDesc == null}--
+														{#else}{$T.Result.saleStatusDesc}
 														{#/if}
 													</td>
 									       		</tr>

@@ -63,6 +63,26 @@
         stockPagination.onLoad(params);
 	}
 	
+	//加入黑名单
+	function addBL(tid){
+		LA.env = 'dev';
+		LA.sysCode = '44';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('tm-addBL', '天猫加入黑名单', userName, sessionId);
+       	 $.ajax({
+       		on: true,
+    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=C7",
+    			dataType : "json",
+    			success : function(data) {
+		            reset();
+				},
+        	 	error:function(){ 
+		            reset(); 
+        	   	}
+    	});
+        reset();
+   	}
+	
 	function reset() {
 		$("#tid_form").val("");
 		$("#ordersId_form").val("");
@@ -89,7 +109,7 @@
 		for (var i=0;i<len;i++) {
 		xing+='*';
 		}
-		if(memberInfo=1){
+		if(memberInfo==1){
 			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
 		}else{
 			return str;
@@ -227,6 +247,7 @@
 													<!-- payment -->
 													<th style="text-align: center;">状态</th>
 													<th style="text-align: center;">下单时间</th>
+													<th style="text-align: center;">操作</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -270,6 +291,9 @@
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
+									       		    <td align="center">
+														<input type="button" value="移至黑名单" onclick="addBL('{$T.Result.tid}')"></input>
+													</td>
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	

@@ -55,7 +55,7 @@
 		for (var i=0;i<len;i++) {
 		xing+='*';
 		}
-		if(memberInfo=1){
+		if(memberInfo==1){
 			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
 		}else{
 			return str;
@@ -305,7 +305,9 @@
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
 													<td align="center" id="">
 														<a class="btn btn-default shiny" onclick="modify('{$T.Result.tid}')">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+														<input type="button" value="移至黑名单" onclick="addBL('{$T.Result.tid}')"></input>
 													</td>
+													
 									       		</tr>
 									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">
 									       			<td colspan="11">

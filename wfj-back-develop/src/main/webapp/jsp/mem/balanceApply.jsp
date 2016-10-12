@@ -508,10 +508,10 @@
                                         <label class="titname">客户账号：</label>
                                         <input type="text" id="memberAccount"/>
                                     </li>
-                                    <li class="col-md-4">
-                                        <label class="titname">子订单号/退货单号：</label>
-                                        <input type="text" id="voucherNum"/>
-                                    </li>
+                                    <%--<li class="col-md-4">--%>
+                                        <%--<label class="titname">子订单号/退货单号：</label>--%>
+                                        <%--<input type="text" id="voucherNum"/>--%>
+                                    <%--</li>--%>
 
                                     <li class="col-md-4">
                                         <label class="titname">申请人：</label>
@@ -554,7 +554,7 @@
                                         <thead>
                                         <tr role="row" style='height:35px;'>
                                             <th width="1%" style="text-align: center;">操作</th>
-                                            <th width="2%" style="text-align: center;">客户登录账号</th>
+                                            <th width="2%" style="text-align: center;">客户账号</th>
                                             <th width="2%" style="text-align: center;">客户编号</th>
                                             <th width="2%" style="text-align: center;">申请时间</th>
                                             <th width="2%" style="text-align: center;">申请人</th>
@@ -594,9 +594,10 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td align="center" id="memberAccount_{$T.Result.sid}">
-                                                {#if $T.Result.memberAccount != '[object
-                                                Object]'}{$T.Result.memberAccount}
+                                            <td align="center" id="memberAccountStr_{$T.Result.sid}">
+                                                <input type="hidden" id = "memberAccount_{$T.Result.sid}" value="{$T.Result.memberAccount}">
+                                                {#if $T.Result.memberAccountStr != '[object
+                                                Object]'}{$T.Result.memberAccountStr}
                                                 {#/if}
                                             </td>
                                             <td align="center" id="memberNum_{$T.Result.sid}">

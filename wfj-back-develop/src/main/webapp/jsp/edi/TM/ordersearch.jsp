@@ -96,8 +96,7 @@
 		for (var i=0;i<len;i++) {
 		xing+='*';
 		}
-		console.log("memberInfo:"+memberInfo);
-		if(memberInfo=1){
+		if(memberInfo==1){
 			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
 		}else{
 			return str;
@@ -149,6 +148,26 @@
 		stockPagination.onLoad(params);
 
 	}
+	
+	//加入黑名单
+	function addBL(tid){
+		LA.env = 'dev';
+		LA.sysCode = '44';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('tm-addBL', '天猫加入黑名单', userName, sessionId);
+       	 $.ajax({
+       		on: true,
+    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=C7",
+    			dataType : "json",
+    			success : function(data) {
+		            reset();
+				},
+        	 	error:function(){ 
+		            reset(); 
+        	   	}
+    	});
+        reset();
+   	}
 
 	// 导出excel
 	function exportexcle() {
@@ -233,7 +252,7 @@
 
 	function initStock() {
 		var url = $("#ctxPath").val()
-				+ "/ediOrder/selectOrderList?tradesource=C7";
+				+ "/ediOrder/selectOrderList?ispreSale=PT&tradesource=C7";
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
@@ -267,6 +286,7 @@
 							userName = data.userName ;
 							logJs = data.logJs;
 							memberInfo=data.memberInfo;
+							console.log("memberInfo1:"+memberInfo);
 							reloadjs();
 							$("#stock_tab tbody").setTemplateElement(
 									"stock-list").processTemplate(data);
@@ -383,6 +403,8 @@
 												<!-- tradeStatus -->
 												<th style="text-align: center;">下单时间</th>
 												<!-- createDate -->
+												<th style="text-align: center;">操作</th>
+												<!-- ispreSale -->
 												<!-- 													<th style="text-align: center;">操作</th>
  -->
 												<!-- increment -->
@@ -430,11 +452,13 @@
 													<td align="center" id="unitCode_{$T.Result.sid}">{#if $T.Result.ordersid == null || $T.Result.ordersid == ""} --- {#else} {$T.Result.ordersid} {#/if}</td>
 													<td align="center" id="productCode_{$T.Result.sid}">{plusXing($T.Result.receiverName,1,0)}</td>
 													<td align="center" id="unitName_{$T.Result.sid}">{$T.Result.buyerNick}</td>
-													<td align="center"
-												id="saleStock_{$T.Result.receiverMobile}">{plusXing($T.Result.receiverMobile,3,4)}</td>
+													<td align="center" id="saleStock_{$T.Result.receiverMobile}">{plusXing($T.Result.receiverMobile,3,4)}</td>
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.updateDate} {#else} {$T.Result.cdate} {#/if}</td>
+													<td align="center">
+														<input type="button" value="移至黑名单" onclick="addBL('{$T.Result.tid}')"></input>
+													</td>
 													<!-- <td align="center" id="">
 														<a class="btn btn-default shiny" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->

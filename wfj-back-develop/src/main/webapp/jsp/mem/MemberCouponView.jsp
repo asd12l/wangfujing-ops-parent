@@ -345,27 +345,27 @@
 												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.account != '[object Object]'}{$T.object.account}
+												{#if $T.Result.username != '[object Object]'}{$T.Result.username}
 												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.nickname!= '[object Object]'}{$T.object.nickname}
+												{#if $T.Result.nickName!= '[object Object]'}{$T.Result.nickName}
 												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.realname!= '[object Object]'}{$T.object.realname}
+												{#if $T.Result.realName!= '[object Object]'}{$T.Result.realName}
 												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.phone!= '[object Object]'}{$T.object.phone}
+												{#if $T.Result.cmmobile!= '[object Object]'}{$T.Result.cmmobile}
 												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.email != '[object Object]'}{$T.object.email}
+												{#if $T.Result.cmemail != '[object Object]'}{$T.Result.cmemail}
 												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.level != '[object Object]'}{$T.object.level}
+												{#if $T.Result.level != '[object Object]'}{$T.Result.level}
 												{#/if}
 											</td>
 											<td align="center">

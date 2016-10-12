@@ -22,11 +22,17 @@
 			$("#save").click(function(){
 				var setupComplaintBal=$("#setupComplaintBal").val();
 				var setupCarriageBal=$("#setupCarriageBal").val();
+				setupComplaintBal = valStr(setupComplaintBal);
+				setupCarriageBal = valStr(setupCarriageBal);
+				$("#setupComplaintBal").val(setupComplaintBal);
+				$("#setupCarriageBal").val(setupCarriageBal);
 				var filter  = /^[0-9].*$/;
 				if(filter.test(setupComplaintBal) && filter.test(setupCarriageBal)){
 					saveFrom();
 				}else{
-					alert("请输入正数！");
+//					alert("请输入正数！");
+					$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!请输入数字</strong></div>");
+					$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 					return false;
 				}
 
@@ -35,7 +41,27 @@
 				$("#pageBody").load(__ctxPath+"/jsp/mem/BalanceYearLimit.jsp");
 			});
 		});
-
+		function checkStr() {
+			var setupComplaintBal=$("#setupComplaintBal").val();
+			var setupCarriageBal=$("#setupCarriageBal").val();
+			setupComplaintBal = valStr(setupComplaintBal);
+			setupCarriageBal = valStr(setupCarriageBal);
+			$("#setupComplaintBal").val(setupComplaintBal);
+			$("#setupCarriageBal").val(setupCarriageBal);
+		}
+		function valStr(str){
+			//先把非数字的都替换掉，除了数字和.
+			str = str.replace(/[^\d.]/g, "");
+			//必须保证第一个为数字而不是.
+			str = str.replace(/^\./g, "");
+			//保证只有出现一个.而没有多个.
+			str = str.replace(/\.{2,}/g, ".");
+			//保证.只出现一次，而不能出现两次以上
+			str = str.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+			//保证.只后面只能出现两位有效数字
+			str = str.replace(/([0-9]+\.[0-9]{2})[0-9]*/, "$1");
+			return str;
+		}
 
 
 		function Check(limit) {
@@ -61,7 +87,7 @@
 								"<i class=''></i><strong>添加成功，返回列表页!</strong></div>");
 						$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
 					}else{
-						$("#model-body-success").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!"+response.desc+"</strong></div>");
+						$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>添加失败!"+response.desc+"</strong></div>");
 						$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
 					}
 				}
@@ -89,13 +115,13 @@
 								<div class="form-group">
 									<label class="col-lg-3 control-label">投诉补偿额度</label>
 									<div class="col-lg-4">
-										<input type="text" class="form-control" id="setupComplaintBal" maxlength="10" name="setupComplaintBal" placeholder="必填"/>
+										<input type="text" class="form-control" id="setupComplaintBal" maxlength="10" name="setupComplaintBal" onblur="checkStr()" placeholder="必填"/>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-lg-3 control-label">运费补偿额度</label>
 									<div class="col-lg-4">
-										<input type="text" class="form-control" id="setupCarriageBal" maxlength="10"  name="setupCarriageBal" placeholder="必填"/>
+										<input type="text" class="form-control" id="setupCarriageBal" maxlength="10"  name="setupCarriageBal" onblur="checkStr()" placeholder="必填"/>
 									</div>
 								</div>
 								<div class="form-group">

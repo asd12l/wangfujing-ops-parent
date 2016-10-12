@@ -58,7 +58,7 @@
 		for (var i=0;i<len;i++) {
 		xing+='*';
 		}
-		if(memberInfo=1){
+		if(memberInfo==1){
 			return str.substring(0,frontLen)+xing+str.substring(str.length-endLen);
 		}else{
 			return str;

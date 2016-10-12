@@ -2,22 +2,23 @@ package com.wfj.member.pojo;
 
 import java.util.Date;
 
-
 public class Withdraw {
 
 	private Long sid;//申请单号
-	
+
 	private Long memberSid;//申请单号
 
 	private String applyNo;//在富基申请提现时返回单号
 
 	private String applyName;//申请人
 
+	private String applyNameStr;
+
 	private Date applyTime;//申请时间
-	
+
 	private Date startApplyTime;
 	private Date endApplyTime;
-	
+
 	private String applyTimeStr;
 
 	private String withdrowReason;//申请原因
@@ -26,12 +27,18 @@ public class Withdraw {
 
 	private String name;//开户名称
 
+	private String nameStr;
+
 	private String bankCardNo;//银行卡号
-	
+
+	private String bankCardNoStr;
+
 	private String mobile;//申请人手机号
 
+	private String mobileStr;
+
 	private Double withdrowMoney;//提现金额
-	
+
 	private String withdrowMoneyStatus;//提现状态
 
 	private Double balance;//余额
@@ -45,33 +52,87 @@ public class Withdraw {
 	private String checkName;//审核人
 
 	private Date checkTime;//审核时间
-	
+
 	private String checkTimeStr;
-	
+
 	private Date startCheckTime;
 	private Date endCheckTime;
 
 	private String refundStatus; //退款状态
 
 	private String failReason;//失败原因
-	
+
 	private String refundName;
-	
+
+	private String refundNameStr;
+
 	private Date refundTime; //退款时间
 
+	private String refundTimeStr;
+
 	private String withdrowType; //退款类型
-	
+
 	private String withdrowMedium; //退款介质
-	
+
 	private String seqno; //20位的申请单号
-	
+
 	private String billno; //流水单号
-	
+
+	private String applyCustomer; //申请客服
+
 	private Integer pageNo;
-	
+
 	private Integer pageSize;
-	
-	
+
+
+	public String getApplyNameStr() {
+		return applyNameStr;
+	}
+
+	public void setApplyNameStr(String applyNameStr) {
+		this.applyNameStr = applyNameStr;
+	}
+
+	public String getNameStr() {
+		return nameStr;
+	}
+
+	public void setNameStr(String nameStr) {
+		this.nameStr = nameStr;
+	}
+
+	public String getBankCardNoStr() {
+		return bankCardNoStr;
+	}
+
+	public void setBankCardNoStr(String bankCardNoStr) {
+		this.bankCardNoStr = bankCardNoStr;
+	}
+
+	public String getMobileStr() {
+		return mobileStr;
+	}
+
+	public void setMobileStr(String mobileStr) {
+		this.mobileStr = mobileStr;
+	}
+
+	public String getRefundNameStr() {
+		return refundNameStr;
+	}
+
+	public void setRefundNameStr(String refundNameStr) {
+		this.refundNameStr = refundNameStr;
+	}
+
+	public String getApplyCustomer() {
+		return applyCustomer;
+	}
+
+	public void setApplyCustomer(String applyCustomer) {
+		this.applyCustomer = applyCustomer;
+	}
+
 	public Date getStartCheckTime() {
 		return startCheckTime;
 	}
@@ -111,7 +172,7 @@ public class Withdraw {
 	public void setRefundTime(Date refundTime) {
 		this.refundTime = refundTime;
 	}
-	
+
 	public String getBillno() {
 		return billno;
 	}
@@ -344,5 +405,13 @@ public class Withdraw {
 	public void setFailReason(String failReason) {
 		this.failReason = failReason;
 	}
-	
+
+	public String getRefundTimeStr() {
+		return refundTimeStr;
+	}
+
+	public void setRefundTimeStr(String refundTimeStr) {
+		this.refundTimeStr = refundTimeStr;
+	}
+
 }

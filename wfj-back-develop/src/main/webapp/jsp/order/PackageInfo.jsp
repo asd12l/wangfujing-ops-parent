@@ -84,7 +84,7 @@
 			url:__ctxPath + "/omsOrder/saveOpsOperateLogs",
 			async:false,
 			dataType: "json",
-			data:{"orderNo":orderNo,"operateMan":userName,"buttonType":"查询","pageName":"OpsOperateLogs.jsp"},
+			data:{"orderNo":orderNo,"operateMan":userName,"buttonType":"查询","pageName":"PackageInfo.jsp"},
 			success : function(response) {
 				if (response.success == "true") {
 					console.log("日志保存成功！");

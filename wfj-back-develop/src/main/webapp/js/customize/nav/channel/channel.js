@@ -127,7 +127,7 @@ function ChannelOnRightClick(event, treeId, treeNode) {
 			$(".channel_root").show();
 			$(".channel_child").hide();
 		} else {
-			$(".channel_root").show();
+			$(".channel_root").hide();
 			$(".channel_child").show();
 		}
 		if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
@@ -217,7 +217,7 @@ function loadDir() {
 		success : function(response) {
 			var channelPath = $(".channel_path");
 			var result = response.list;
-			channelPath.html("<option value='/'> 请选择访问路径 </option>");
+			channelPath.html("<option value=''> 请选择访问路径 </option>");
 			for (var i = 0; i < result.length; i++) {
 				var ele = result[i];
 				if (ele.id == "") continue;
@@ -288,6 +288,7 @@ function tab(data) {
  */
 function addChannel() {
 	$("#addChannelForm")[0].reset();
+	$(".error").html("");
 	// --Fuelux Spinner--
 	$('.spinner').spinner('value', 1);
 	$("#addChannelDIV").show();

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.utils.StringUtils;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.pay.web.constant.Constants;
+import com.wangfj.pay.web.util.CookiesUtil;
 import com.wangfj.pay.web.util.HttpClientUtil;
 
 @Controller
@@ -68,6 +70,13 @@ public class MerchantController {
 			m.put("pageCount",0);
 			e.printStackTrace();
 		}
+		String js =CommonProperties.get(Constants.WFJ_LOG_JS);
+		m.put("logJs", js);
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			m.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			m.put("userName", "");
+		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
@@ -90,6 +99,9 @@ public class MerchantController {
 		paramMap.put("merCode",request.getParameter("merCode"));
 		paramMap.put("name",request.getParameter("name"));
 		paramMap.put("merchantType",request.getParameter("merchantType"));
+		paramMap.put("isOpenYZShop", request.getParameter("isOpenYZShop"));
+		paramMap.put("memberUrl", request.getParameter("memberUrl"));
+		paramMap.put("yzShopUrl", request.getParameter("yzShopUrl"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
@@ -113,6 +125,13 @@ public class MerchantController {
 			//m.put("pageCount",0);
 			e.printStackTrace();
 		}
+		String js =CommonProperties.get(Constants.WFJ_LOG_JS);
+		m.put("logJs", js);
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			m.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			m.put("userName", "");
+		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
@@ -133,9 +152,16 @@ public class MerchantController {
 		Map<String,String> paramMap = new HashMap<String,String>();
 		paramMap.put("feeCostRate", request.getParameter("feeCostRate"));
 		paramMap.put("id", request.getParameter("id"));
-		paramMap.put("merCode",request.getParameter("merCode"));
+		if("1".equals(request.getParameter("merchantType"))){
+			paramMap.put("merCode",request.getParameter("inMerCode"));
+		}else{
+			paramMap.put("merCode",request.getParameter("outMerCode"));
+		}
 		paramMap.put("name",request.getParameter("name"));
 		paramMap.put("merchantType",request.getParameter("merchantType"));
+		paramMap.put("isOpenYZShop", request.getParameter("isOpenYZShop"));
+		paramMap.put("memberUrl", request.getParameter("memberUrl"));
+		paramMap.put("yzShopUrl", request.getParameter("yzShopUrl"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);

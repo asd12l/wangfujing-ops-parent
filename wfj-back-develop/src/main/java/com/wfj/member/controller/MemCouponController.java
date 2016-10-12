@@ -1,17 +1,13 @@
 package com.wfj.member.controller;
-import java.beans.PropertyDescriptor;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.wangfj.order.utils.CommonProperties;
+import com.wangfj.order.utils.HttpUtil;
+import com.wangfj.search.utils.CookieUtil;
+import com.wangfj.wms.util.CookiesUtil;
+import com.wangfj.wms.util.HttpUtilPcm;
+import com.wfj.member.pojo.CouponAppplyDto;
+import com.wfj.member.pojo.ResultVO;
+import com.wfj.member.utils.Constants;
 import net.sf.json.JSONObject;
-
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -21,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.wangfj.order.utils.CommonProperties;
-import com.wangfj.order.utils.HttpUtil;
-import com.wangfj.search.utils.CookieUtil;
-import com.wfj.member.utils.Constants;
-import com.wfj.member.pojo.CouponAppplyDto;
-import com.wfj.member.pojo.ResultVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.beans.PropertyDescriptor;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Qihl on 2016/07/12.
@@ -74,6 +70,28 @@ public class MemCouponController {
         String url = CommonProperties.get("member_ops_url");
 		String method = "/memberCoupon/getMemberCoupon.do";
         String resultString = null;
+		//屏显规则
+		String json1 = "";
+		String sysValue = "";
+		String username = CookiesUtil.getCookies(request, "username");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("keys", "memberInfo");
+		paramMap.put("username", username);
+		try {
+			logger.info("paramMap:" + paramMap);
+			json1 = HttpUtilPcm.HttpGet(CommonProperties.get("select_ops_sysConfig"),"findSysConfigByKeys",paramMap);
+			if(!StringUtils.isEmpty(json1)){
+				net.sf.json.JSONObject jsonObject = net.sf.json.JSONObject.fromObject(json1);
+				String isTrue = jsonObject.getString("success");
+				if(isTrue.equals("true")){
+					net.sf.json.JSONArray jsonArray = jsonObject.getJSONArray("data");
+					sysValue = jsonArray.getJSONObject(0).getString("sysValue");
+				}
+			}
+		} catch (Exception e) {
+			logger.error("查询屏显规则异常！返回结果json="+json1);
+		}
+		paraMap.put("mask",sysValue);
 		try {
             logger.info("========	wfj-back-develop to Member-ops "+url+method+"  =========parameter:"+paraMap);
             resultString = HttpUtil.HttpPost(url, method, paraMap);

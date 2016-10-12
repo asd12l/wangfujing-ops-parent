@@ -1878,7 +1878,7 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -2106,7 +2106,7 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("limit", String.valueOf(size));
 		paramMap.put("fromSystem", "PCM");
 		try {
-			String result = sysValues.desensitization();
+			String result = sysValues.desensitization(request);
 			if(result.equals("1")){
 				paramMap.put("sysValue", result);
 			}
@@ -2316,9 +2316,9 @@ public class TestOnlineOmsOrderController {
 		String json = "";
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
 		paramMap.put("orderNo", request.getParameter("orderNo"));
-		if(StringUtils.isNotEmpty(request.getParameter("sysValue"))){
+		/*if(StringUtils.isNotEmpty(request.getParameter("sysValue"))){
 			paramMap.put("sysValue", request.getParameter("sysValue"));
-		}
+		}*/
 		if(StringUtils.isNotEmpty(request.getParameter("memberNo"))){
 			paramMap.put("memberNo", request.getParameter("memberNo"));
 		}
@@ -2329,6 +2329,10 @@ public class TestOnlineOmsOrderController {
 		paramMap.put("fromSystem", "PCM");
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
+			String result = sysValues.desensitization(request);
+			if(result.equals("1")){
+				paramMap.put("sysValue", result);
+			}
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			json = HttpUtilPcm.doPost(CommonProperties.get("select_customer_info"), jsonStr);

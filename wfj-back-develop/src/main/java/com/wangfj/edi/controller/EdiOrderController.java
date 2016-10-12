@@ -133,22 +133,16 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			paramMap.put("pageCount", Integer.valueOf(0));
 		}
 		
-		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
-			paramMap.put("userName", CookiesUtil.getUserName(request));
-		}else{
-			paramMap.put("userName", "");
-		}
 		String js = (String) PropertiesUtil.getContextProperty("log_js");
 		paramMap.put("logJs", js);
 		
-		String url = (String) PropertiesUtil.getContextProperty("memberUrl");
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);
 		String s = HttpUtils.HttpdoGet(url);
 		JSONObject obj = JSONObject.fromObject(s);
 	
 		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
 		classMap.put("data", Member.class);
 		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
-		
 		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
 			if(memberInfo.getSuccess()=="true"){
 				paramMap.put("memberInfo", memberInfo.getData().get(0).getSysValue());
@@ -234,6 +228,20 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		String js = (String) PropertiesUtil.getContextProperty("log_js");
 		paramMap.put("logJs", js);
 		
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);;
+		String s = HttpUtils.HttpdoGet(url);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				paramMap.put("memberInfo", memberInfo.getData().get(0).getSysValue());
+			}
+		}
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
@@ -313,6 +321,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 	@RequestMapping("/exportExcle")
 	public String exportExcle(String status,HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
+		String secertFlag = "";
 		Map<Object, Object> paramMap = new HashMap<Object, Object>();
 		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
 			paramMap.put("userName", CookiesUtil.getUserName(request));
@@ -339,6 +348,20 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		paramMap.put("endDate", request.getParameter("endDate"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		Map<Object, Object> orderVo = new HashMap<Object, Object>();
+		
+		String url1 = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);
+		String s = HttpUtils.HttpdoGet(url1);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				secertFlag = memberInfo.getData().get(0).getSysValue();
+			}
+		}
+		
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			orderVo.put("orderVo", jsonStr);
@@ -346,7 +369,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 			String url=	(String) PropertiesUtil.getContextProperty("edi_order_export");
 			json =HttpUtilPcm.doPost(url, jsonStr);
 			String tradeSource = request.getParameter("tradesource");
-			excelOrderDetailReport(json,tradeSource,request,response);
+			excelOrderDetailReport(json,tradeSource,secertFlag,request,response);
 			logger.info("json:" + json);
 		} catch (Exception e) {
 			m.put("pageCount", 0);
@@ -354,6 +377,41 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		}
 		return json;
 	}
+	
+	/**
+	 * 解除黑名单关系
+	 * 
+	 */
+	@RequestMapping("/blacklistRemove")
+	public void blacklistRemove(String tid,String channelCode,HttpServletRequest request, HttpServletResponse response) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+
+		paramMap.put("tid", tid);
+		paramMap.put("channel", channelCode);
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url = "";
+//			if("M4".equals(channelCode)){
+//				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_yzrelieve");
+//			}else if("JM".equals(channelCode)){
+//				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_jmrelieve");
+//			}else{
+				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_relieve");
+//			}
+			HttpUtilPcm.doPost(url, jsonStr);
+		} catch (Exception e) {
+			map.put("pageCount", 0);
+			map.put("success", "false");
+		}
+	}
+	
 	/**
 	 * 修改异常订单
 	 * @Methods Name selectRefundApplyList
@@ -392,7 +450,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		return json;
 	}
 	
-	private void excelOrderDetailReport( String json, String tradeSource, HttpServletRequest request,
+	private void excelOrderDetailReport( String json, String tradeSource,String secertFlag, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, FileNotFoundException {
 		List ordersDetailList = new ArrayList();
 
@@ -423,7 +481,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		HSSFSheet sheet = wb.getSheetAt(0);
 		
 		
-		fillContent(ordersDetailList, sheet);
+		fillContent(ordersDetailList, sheet,secertFlag);
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		wb.write(byteArrayOutputStream);
 		
@@ -439,7 +497,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 	    outputstream.flush(); // 刷数据
 	}
 	
-	private void fillContent(List ordersDetailList, HSSFSheet sheet) {
+	private void fillContent(List ordersDetailList, HSSFSheet sheet,String secertFlag) {
 		HSSFCellStyle style1 = sheet.getRow(2).getCell(0).getCellStyle();
 		HSSFCellStyle style2 = sheet.getRow(2).getCell(2).getCellStyle();
 		HSSFCellStyle style3 = sheet.getRow(2).getCell(4).getCellStyle();
@@ -449,10 +507,18 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		HSSFCellStyle numStyle = sheet.getRow(2).getCell(9).getCellStyle();
 		for (int i = 0; i < ordersDetailList.size(); i++) {
 			Map<String, Object> map = (Map) ordersDetailList.get(i);
+			String receiverName = "";
+			String receiverMobile = "";
 			String tid = map.get("tid") == null ? "" : map.get("tid").toString();
 			String ordersid = map.get("ordersid") == null ? "" : map.get("ordersid").toString();
-			String receiverName = map.get("receiverName") == null ? "" : RequestUtils.hideSecret(map.get("receiverName").toString(),1,0);
-			String receiverMobile = map.get("receiverMobile") == null ? "" : RequestUtils.hideSecret(map.get("receiverMobile").toString(),3,4);
+			if("1".equals(secertFlag)){
+				receiverName = map.get("receiverName") == null ? "" : RequestUtils.hideSecret(map.get("receiverName").toString(),1,0);
+				receiverMobile = map.get("receiverMobile") == null ? "" : RequestUtils.hideSecret(map.get("receiverMobile").toString(),3,4);
+			}else{
+				receiverName = map.get("receiverName") == null ? "" : map.get("receiverName").toString();
+				receiverMobile = map.get("receiverMobile") == null ? "" : map.get("receiverMobile").toString();
+			}
+			
 			String payment = map.get("payment") == null ? "" : map.get("payment").toString();
 			String tradeStatus = map.get("tradeStatus") == null ? "" : map.get("tradeStatus").toString();
 			String createDate = map.get("createDate") == null ? "" : map.get("createDate").toString();
@@ -520,6 +586,36 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		HSSFCell cell0 = row.createCell(cellNum);
 		cell0.setCellValue(cellValue);
 		cell0.setCellStyle(style);
+	}
+	
+	
+	/**
+	 * 添加黑名单
+	 * 
+	 */
+	@RequestMapping("/blacklistAdd")
+	public void blacklistAdd(String tid,String channelCode,HttpServletRequest request, HttpServletResponse response) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+
+		paramMap.put("tid", tid);
+		paramMap.put("channel", channelCode);
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url = "";
+
+			url = (String) PropertiesUtil.getContextProperty("edi_blacklist_add");
+			HttpUtilPcm.doPost(url, jsonStr);
+		} catch (Exception e) {
+			map.put("pageCount", 0);
+			map.put("success", "false");
+		}
 	}
 	
 }
