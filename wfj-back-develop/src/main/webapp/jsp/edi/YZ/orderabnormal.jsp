@@ -117,23 +117,26 @@
 		$("#pageBody").load(url);
 	}
 	//加入黑名单  
-	function addBL(tid){
-		LA.env = 'dev';
-		LA.sysCode = '45';
-		var sessionId = '<%=request.getSession().getId()%>';
-		LA.log('yz-addBL', '有赞加入黑名单', userName, sessionId);
-       	 $.ajax({
-       		on: true,
-    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=M4",
-    			dataType : "json",
-    			success : function(data) {
-		            reset();
-				},
-        	 	error:function(){ 
-		            reset(); 
-        	   	}
-    	});
-   	}
+	
+		function addBL(tid){
+			LA.env = 'dev';
+			LA.sysCode = '45';
+			var sessionId = '<%=request.getSession().getId()%>';
+			LA.log('yz-addBL', '有赞加入黑名单', userName, sessionId);
+	       	 $.ajax({
+	       		on: true,
+	    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=M4",
+	    			dataType : "json",
+	    			success : function(data) {
+			            reset();
+					},
+	        	 	error:function(){ 
+			            reset(); 
+	        	   	}
+	    	});
+	   	}
+	
+	
 	function initStock() {
 		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList?status=EC&ispreSale=PT";
 		stockPagination = $("#stockPagination").myPagination(

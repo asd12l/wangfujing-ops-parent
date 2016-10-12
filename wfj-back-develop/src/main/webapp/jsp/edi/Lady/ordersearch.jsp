@@ -86,6 +86,25 @@
 		
 	}
 	
+	//加入黑名单
+	function addBL(tid){
+		LA.env = 'dev';
+		LA.sysCode = '44';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('Lady-addBL', '爱逛街加入黑名单', userName, sessionId);
+       	 $.ajax({
+       		on: true,
+    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=CA",
+    			dataType : "json",
+    			success : function(data) {
+		            reset();
+				},
+        	 	error:function(){ 
+		            reset(); 
+        	   	}
+    	});
+   	}
+	
 	function olvQuery(){
 		LA.env = 'dev';
 		  LA.sysCode = '44';
@@ -181,7 +200,7 @@
 		if (count > 0){
 			var form = $('#stock_form');
 			form.attr("method","post");
- 			form.attr('action', $("#ctxPath").val() + "/ediOrder/exportExcle?tradesource=CA");
+ 			form.attr('action', $("#ctxPath").val() + "/ediOrder/exportExcle?tradesource=CA&ispreSale=PT");
  			form.submit();
 			/* window.open($("#ctxPath").val() + "/ediOrder/exportExcle?tradesource=CA&&tid="+tid+"&&ordersId="+ordersId
 					+"&&startDate="+startDate+"&&endDate="+endDate
@@ -222,7 +241,7 @@
 	}
 
 	function initStock() {
-		var url = $("#ctxPath").val()+"/ediOrder/selectOrderList?tradesource=CA";
+		var url = $("#ctxPath").val()+"/ediOrder/selectOrderList?tradesource=CA&ispreSale=PT";
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
@@ -374,7 +393,7 @@
 													<!-- tradeStatus -->
 													<th style="text-align: center;">下单时间</th>
 													<!-- createDate -->
-													<!-- <th style="text-align: center;">操作</th> -->
+													<th style="text-align: center;">操作</th>
 													<!-- increment -->
 										</tr>
 									</thead>
@@ -426,6 +445,9 @@
 													<!-- <td align="center" id="">
 														<a class="btn btn-default shiny" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->
+													<td align="center">
+														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
+													</td>
 									       		</tr>
 									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">
 									       			<td colspan="9">

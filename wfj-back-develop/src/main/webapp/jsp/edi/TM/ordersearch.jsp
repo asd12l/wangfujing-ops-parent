@@ -166,7 +166,6 @@
 		            reset(); 
         	   	}
     	});
-        reset();
    	}
 
 	// 导出excel
@@ -207,7 +206,7 @@
 		if (count > 0) {
 			var form = $('#stock_form');
 			form.attr("method","post");
- 			form.attr('action', $("#ctxPath").val() + "/ediOrder/exportExcle?tradesource=C7");
+ 			form.attr('action', $("#ctxPath").val() + "/ediOrder/exportExcle?tradesource=C7&ispreSale=PT");
  			form.submit();
 			/* window.open($("#ctxPath").val()
 					+ "/ediOrder/exportExcle?tradesource=C7&&tid=" + tid
@@ -457,7 +456,7 @@
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.updateDate} {#else} {$T.Result.cdate} {#/if}</td>
 													<td align="center">
-														<input type="button" value="移至黑名单" onclick="addBL('{$T.Result.tid}')"></input>
+														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
 													</td>
 													<!-- <td align="center" id="">
 														<a class="btn btn-default shiny" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;

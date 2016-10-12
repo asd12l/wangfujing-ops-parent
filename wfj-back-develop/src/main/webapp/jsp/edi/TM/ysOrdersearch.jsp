@@ -68,7 +68,7 @@
 		LA.env = 'dev';
 		LA.sysCode = '44';
 		var sessionId = '<%=request.getSession().getId()%>';
-		LA.log('tm-addBL', '天猫加入黑名单', userName, sessionId);
+		LA.log('tm-addBL', '天猫预售加入黑名单', userName, sessionId);
        	 $.ajax({
        		on: true,
     			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=C7",
@@ -80,7 +80,6 @@
 		            reset(); 
         	   	}
     	});
-        reset();
    	}
 	
 	function reset() {
@@ -292,7 +291,7 @@
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
 									       		    <td align="center">
-														<input type="button" value="移至黑名单" onclick="addBL('{$T.Result.tid}')"></input>
+														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
 													</td>
 									       		</tr>
 											{#/for}
