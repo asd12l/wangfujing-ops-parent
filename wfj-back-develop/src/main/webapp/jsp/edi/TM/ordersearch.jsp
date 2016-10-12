@@ -402,7 +402,7 @@
 												<!-- tradeStatus -->
 												<th style="text-align: center;">下单时间</th>
 												<!-- createDate -->
-												<th style="text-align: center;">操作</th>
+												<!-- <th style="text-align: center;">操作</th>-->
 												<!-- ispreSale -->
 												<!-- 													<th style="text-align: center;">操作</th>
  -->
@@ -455,9 +455,9 @@
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.updateDate} {#else} {$T.Result.cdate} {#/if}</td>
-													<td align="center">
+													<!-- <td align="center">
 														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
-													</td>
+													</td> -->
 													<!-- <td align="center" id="">
 														<a class="btn btn-default shiny" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->

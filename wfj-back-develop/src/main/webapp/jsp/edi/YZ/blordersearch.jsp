@@ -359,7 +359,7 @@ function reloadjs(){
 														<a class="btn btn-default btn-sm" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->
 													<td align="center">
-														<input type="button" value="解除" onclick="removeBL('{$T.Result.tid}')"></input>
+														<a class="btn btn-default btn-sm" onclick="removeBL('{$T.Result.tid}');">解除</a>
 													</td>
 									       		</tr>
 									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">

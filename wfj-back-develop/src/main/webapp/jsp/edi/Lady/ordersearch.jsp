@@ -393,7 +393,7 @@
 													<!-- tradeStatus -->
 													<th style="text-align: center;">下单时间</th>
 													<!-- createDate -->
-													<th style="text-align: center;">操作</th>
+                                                    <!--<th style="text-align: center;">操作</th> -->
 													<!-- increment -->
 										</tr>
 									</thead>
@@ -444,10 +444,10 @@
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
 													<!-- <td align="center" id="">
 														<a class="btn btn-default shiny" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
-													</td> -->
-													<td align="center">
-														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
-													</td>
+													</td>  -->
+ 													<!-- <td align="center"> 
+ 														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a> 
+ 													</td> -->
 									       		</tr>
 									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">
 									       			<td colspan="9">

@@ -290,7 +290,7 @@
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
 													<td align="center">
-														<input type="button" value="解除" onclick="removeBL('{$T.Result.tid}')"></input>
+														<a class="btn btn-default btn-sm" onclick="removeBL('{$T.Result.tid}');">解除</a>
 													</td>
 									       		</tr>
 											{#/for}
