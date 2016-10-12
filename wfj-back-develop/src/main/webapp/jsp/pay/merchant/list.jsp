@@ -28,8 +28,10 @@
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
+<style>
+	.selectDiv i{margin-right:20px;}
+</style>	
 <script type="text/javascript">
-
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
 //接入log监控start
@@ -573,7 +575,7 @@ function  neibuMerchant(){
 	<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;" 
 		id="editLabelDiv">
 		<div class="modal-dialog"
-			style="width: 850px; height: 550px; margin: 4% auto;">
+			style="width: 700px; height: 500px; margin: 4% auto;">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button aria-hidden="true" data-dismiss="modal" class="close"
@@ -581,13 +583,13 @@ function  neibuMerchant(){
 					<h4 class="modal-title" id="divTitle">修改签约商户</h4>
 				</div>
 				<form method="post" class="form-horizontal" id="editForm">
-				<div class="page-body" id="pageBodyRight" style="overflow-y:scroll;height:450px;overflow-x:hidden;padding-bottom:20px;">
+				<div class="page-body" id="pageBodyRight" style="min-height:400px;overflow-x:hidden;padding-bottom:20px;">
 					<div class="row">
 						
 						
 							<div class="col-xs-12 col-md-12">
 								<input type="hidden" name="id" id="merchant_id">
-								<div class="col-md-12 form-group" id="" style="padding: 10px 100px;">
+								<div class="col-md-12 form-group" id="" style="">
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">签约商户名称：</label>
 									<div class="col-md-6">
@@ -597,16 +599,17 @@ function  neibuMerchant(){
 									<br>&nbsp;
 								</div>
 								
-								<div class="col-md-12 form-group" id="" style="padding: 10px 100px;">
+								<div class="col-md-12 form-group" id="" style="">
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">签约商户费率：</label>
-										<div class="col-md-6">
+									<div class="col-md-6">
 										<input type="text" class="form-control" name="feeCostRate"
 											id="qianyueshanghu_feeCostRate" />
 									</div>
 									<br>&nbsp;
 								</div>
 								
+								<!--
 								<div class="col-md-12 form-group" id="" style="padding: 10px 100px;" id="old_input">
 									<label class="col-md-5 control-label"
 										style="line-height: 20px; text-align: right;">签约商户编码：</label>
@@ -616,8 +619,9 @@ function  neibuMerchant(){
 									</div>
 									<br>&nbsp;
 								</div>
-								   
-								<div class="col-md-12 form-group"  style="padding: 10px 100px;">
+								--> 
+								
+								<div class="col-md-12 form-group"  style="">
 									<label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">签约商户类型：</label>
 									<div class="radio">
 										<label> <input class="basic divtype cart_flag" type="radio"
@@ -631,17 +635,11 @@ function  neibuMerchant(){
 									</div>
 								</div>
 							
-								<div class="col-md-12 form-group"  style="display:none"  id="option_merchant">
-									
-																	
-										  <label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">内部编码选择：</label>
-										  <div class="col-lg-6">
-										  <ul class="topList clearfix">
-										  <li class="col-md-2">
-												<select id="bpId_input" style="padding: 0 0;" name="inMerCode">										
-											</select>
-										  </li>
-									</ul>
+								<div class="col-md-12 form-group selectDiv"  style="display:none"  id="option_merchant">						
+									<label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">内部编码选择：</label>
+									<div class="col-lg-6">
+										<select id="bpId_input" class="form-control " name="inMerCode">										
+										</select>
 									</div>
 								</div>
 							
@@ -659,7 +657,7 @@ function  neibuMerchant(){
 									</label>
 								</div>
 								
-								<div class="col-md-12 form-group"  style="padding: 10px 100px;">
+								<div class="col-md-12 form-group"  style="">
 									<label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">是否为有赞商城：</label>
 									<div class="radio">
 										<label> <input class="basic divtype cart_flag" type="radio"
@@ -677,13 +675,13 @@ function  neibuMerchant(){
 								</div>
 										
 								<div class="col-md-12 form-group"  style="display:none"  id="input_yzShopUrl">
-									<label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">有赞商城地址</label>
+									<label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">有赞商城地址：</label>
 									<div class="col-lg-6">
 										<input type="text" class="form-control" id="text_merchant" name="yzShopUrl" placeholder="必填"/>
 									</div>
 								</div>
 								<div class="col-md-12 form-group"  style="display:none"  id="input_memberUrl">
-									<label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">会员中心地址</label>
+									<label class="col-md-5 control-label" style="line-height: 20px; text-align: right;">会员中心地址：</label>
 									<div class="col-lg-6">
 										<input type="text" class="form-control" id="text_merchant" name="memberUrl" placeholder="必填"/>
 									</div>

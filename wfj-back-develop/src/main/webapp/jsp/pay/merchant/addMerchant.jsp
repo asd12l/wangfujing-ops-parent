@@ -9,6 +9,9 @@
 <script src="${ctx}/assets/js/validation/bootstrapValidator.js"></script>
 <script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <title>签约商户基本信息</title>
+<style>
+	.selectDiv i{margin-right:20px;}
+</style>
 <script type="text/javascript">
 __ctxPath = "${pageContext.request.contextPath}";
 //接入log监控start
@@ -250,22 +253,22 @@ $(function(){
 							<div class="widget-body">
 								<form id="theForm" method="post" class="form-horizontal" enctype="multipart/form-data">        
 									<div class="form-group">
-										<label class="col-lg-3 control-label">签约商户名称</label>
-										<div class="col-lg-6">
+										<label class="col-lg-4 control-label">签约商户名称：</label>
+										<div class="col-lg-4">
 											<input type="text" class="form-control" id="addMerchantName" name="name" placeholder="必填"/>
 										</div>
 									</div>
         
 								
 									<div class="form-group">
-										<label class="col-lg-3 control-label">签约商户费率</label>
-										<div class="col-lg-6">
+										<label class="col-lg-4 control-label">签约商户费率：</label>
+										<div class="col-lg-4">
 											<input type="text" class="form-control" id="addMerchantFee" name="feeCostRate" placeholder="必填"/>
 										</div>
 									</div>
 									
 						<div class="form-group">
-							<label class="col-lg-3 control-label">签约商户类型</label>
+							<label class="col-lg-4 control-label">签约商户类型：</label>
 							<div class="radio">
 								<label> <input class="basic divtype cart_flag" type="radio"
 									id="merchantType_0" name="merchantType" value="1" onclick="attrChange(this.value)" checked="checked"> <span
@@ -284,29 +287,23 @@ $(function(){
 							</div>
 						</div>
 						
-						<div class="form-group"  style=""  id="option_merchant">
-								
-																
-									  <label class="col-lg-3 control-label">内部请选择</label>
-									  <div class="col-lg-6">
-									  <ul class="topList clearfix">
-									  <li class="col-md-2">
-											<select id="bpId_input" style="padding: 0 0;" name="merCode">										
-										</select>
-									  </li>
-								</ul>
-								</div>
+						<div class="form-group selectDiv"  style=""  id="option_merchant" >
+							<label class="col-lg-4 control-label">内部请选择：</label>
+							<div class="col-lg-4">
+								<select id="bpId_input" class="form-control" style="padding: 0 0;" name="merCode">										
+								</select>
+							</div>
 						</div>
 															
 						<div class="form-group"  style="display:none"  id="input_merchant">
-						   <label class="col-lg-3 control-label">外部请填写</label>
-						   <div class="col-lg-6">
+						   <label class="col-lg-4 control-label">外部请填写：</label>
+						   <div class="col-lg-4">
 							<input type="text" class="form-control" id="text_merchant" name="merCode" placeholder="必填"/>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label class="col-lg-3 control-label">是否有赞商城</label>
+							<label class="col-lg-4 control-label">是否有赞商城：</label>
 							<div class="radio">
 								<label style="width:70px;"> 
 									<input class="basic divtype cart_flag" type="radio" id="merchantType_0" name="isOpenYZShop" value="1" onclick="showUrlInput(this.value)" checked="checked">
@@ -326,15 +323,15 @@ $(function(){
 						</div>
 						
 						<div class="form-group"  style=""  id="input_yzShopUrl">
-								<label class="col-lg-3 control-label">有赞商城地址</label>
-								<div class="col-lg-6">
+								<label class="col-lg-4 control-label">有赞商城地址：</label>
+								<div class="col-lg-4">
 								<input type="text" class="form-control" id="text_merchant" name="yzShopUrl" placeholder="必填"/>
 								</div>
 							</div>
 
 							<div class="form-group"  style="display:none"  id="input_memberUrl">
-								<label class="col-lg-3 control-label">会员中心链接</label>
-								<div class="col-lg-6">
+								<label class="col-lg-4 control-label">会员中心链接：</label>
+								<div class="col-lg-4">
 								<input type="text" class="form-control" id="text_merchant" name="memberUrl" placeholder="必填"/>
 								</div>
 							</div>
@@ -344,7 +341,7 @@ $(function(){
 						
 						</div>						
 									<!-- <div class="form-group">
-										<label class="col-lg-3 control-label">签约商户编码</label>
+										<label class="col-lg-4 control-label">签约商户编码</label>
 										<div class="col-lg-6">
 											<input type="text" class="form-control" id="addMerchantCode" name="merCode" placeholder="必填"/>
 										</div>
