@@ -107,4 +107,9 @@ public class Constants {
 	public static final String SELECT_PAY_CHANNEL="select_pay_channel";
 	//netty项目ops接入log监控地址2016-09-27
 	public static final String WFJ_LOG_JS="log_js";
+
+	//券地址
+	public static final String COUPON_CORE_URL = "coupon_core_url";
+	//有赞券核销列表
+	public static final String SELECT_YZ_COUPON_VERIFY_LIST = "select_yz_coupon_verify_list";
 }
