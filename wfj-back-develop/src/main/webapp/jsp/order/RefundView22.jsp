@@ -206,14 +206,21 @@ Author: WangSy
 		success : function(response) {
 			if (response.success == "true") {
 				refundType = response.list[0].refundPath;
-				expressCompanyName = response.list[0].expressCompanyName;//快递公司
-				courierNumber = response.list[0].courierNumber;//快递单号
-				address = response.list[0].warehouseAddress;//退货地址
-				
-				/* $("#refundType").text(refundType) */;
-				$("#expressCompanyName").val(expressCompanyName);
-				$("#courierNumber").val(courierNumber);
-				$("#warehouseAddress").val(address);
+				if(response.list[0].expressCompanyName == "[object Object]" || response.list[0].expressCompanyName == undefined){
+					$("#expressCompanyName").val("");
+				}else{
+					$("#expressCompanyName").val(response.list[0].expressCompanyName);
+				}
+				if(response.list[0].courierNumber == "[object Object]" || response.list[0].courierNumber == undefined){
+					$("#courierNumber").val("");
+				}else{
+					$("#courierNumber").val(response.list[0].courierNumber);
+				}
+				if(response.list[0].warehouseAddress == "[object Object]" || response.list[0].warehouseAddress == undefined){
+					$("#warehouseAddress").val("");
+				}else{
+					$("#warehouseAddress").val(response.list[0].warehouseAddress);
+				}
 			} 
 		}
 	});
