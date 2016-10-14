@@ -122,4 +122,9 @@ public class Constants {
     //保存活动门店配置信息
     public static final String SAVE_COUPON_ACTIVITY_INFO="save_coupon_activity_info";
     
+
+	//券地址
+	public static final String COUPON_CORE_URL = "coupon_core_url";
+	//有赞券核销列表
+	public static final String SELECT_YZ_COUPON_VERIFY_LIST = "select_yz_coupon_verify_list";
 }

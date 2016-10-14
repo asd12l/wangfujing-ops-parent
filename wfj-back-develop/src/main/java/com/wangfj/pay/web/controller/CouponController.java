@@ -27,14 +27,73 @@ import com.wangfj.pay.web.vo.ZtreeNodesVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-/**
- * 券
- * @author Administrator
- * @date 2016年10月11日 下午1:34:36
- */
 @Controller
+@RequestMapping(value="/wfjpay/coupon")
 public class CouponController {
 	private static final Logger logger = LoggerFactory.getLogger(CouponController.class);
+	private static final String EXPORT_SIZE="10000";
+	
+	/**
+	 * 查询支付日志明细
+	 * @Methods Name order
+	 * @Create In 2015-12-16 By yangyinbo
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findAllYZCouponByPage")
+	public String findAllYZCouponByPage(HttpServletRequest request, HttpServletResponse response) {
+		String json = "";
+		Map<String,String> paramMap = new HashMap<String,String>();
+		paramMap.put("pageSize", request.getParameter("pageSize"));
+		paramMap.put("pageNo", request.getParameter("page"));
+		paramMap.put("orderId", request.getParameter("orderId"));
+		paramMap.put("outerTid", request.getParameter("outerTid"));
+		paramMap.put("outerItemId", request.getParameter("outerItemId"));
+		paramMap.put("verifyStoreId",request.getParameter("verifyStoreId"));
+		paramMap.put("verifyStartTime",request.getParameter("verifyStartTime"));
+		paramMap.put("verifyEndTime", request.getParameter("verifyEndTime"));
+		paramMap.put("sortParam", request.getParameter("sortParam"));
+		paramMap.put("sortType", request.getParameter("sortType"));
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url=CommonProperties.get(Constants.COUPON_CORE_URL)+"/"+CommonProperties.get(Constants.SELECT_YZ_COUPON_VERIFY_LIST);
+//			url="http://localhost:80/wfjpay-verify/Coupon/findAllYZCouponByPage.do";
+			json=HttpClientUtil.post(url, paramMap);
+			logger.info("json:" + json);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+			JSONObject object=jsonObject.getJSONObject("data");
+			List<Object> list = (List<Object>)object.get("listData");
+			if (list != null && list.size() != 0) {
+				m.put("list", list);
+				m.put("success", "true");
+				m.put("pageCount",object.getString("totalPages"));
+			} else {
+				m.put("success", "false");
+				m.put("pageCount",0);
+				if(list.size()==0){
+					m.put("msg","emptyData");
+				}
+			}
+		} catch (Exception e) {
+			m.put("success", "false");
+			m.put("pageCount",0);
+			e.printStackTrace();
+		}
+		String js =CommonProperties.get(Constants.WFJ_LOG_JS);
+		m.put("logJs", js);
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			m.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			m.put("userName", "");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
+	
 	/**
 	 * 分页查询活动配置信息
 	 * @param request
@@ -215,7 +274,8 @@ public class CouponController {
 			}
 			Codelist.add(z);
 		}
-			logger.info("活动门店配置信息:" + Codelist);
+			logger.info("json:" + json);
+			List<Object> list = (List<Object>)object.fromObject(object);
 			if (Codelist != null && Codelist.size() != 0) {
 				m.put("list", Codelist);
 				m.put("success", "true");
@@ -271,4 +331,5 @@ public class CouponController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
+
 }
