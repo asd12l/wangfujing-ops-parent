@@ -100,7 +100,7 @@ public class CouponController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("/font/coupon/findAllList")
+	@RequestMapping("/findAllList")
 	@ResponseBody
 	public String findAllList(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
@@ -111,7 +111,7 @@ public class CouponController {
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
-			String url=CommonProperties.get(Constants.VERIFY_CORE_URL)+"/"+CommonProperties.get(Constants.FIND_COUPON_TYPE_INFO);
+			String url=CommonProperties.get(Constants.COUPON_CORE_URL)+"/"+CommonProperties.get(Constants.FIND_COUPON_TYPE_INFO);
 			json=HttpClientUtil.post(url, paramMap);
 			logger.info("json:" + json);
 			JSONObject jsonObject = JSONObject.fromObject(json);
@@ -150,7 +150,7 @@ public class CouponController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("/font/coupon/updateActivity")
+	@RequestMapping("/updateActivity")
 	@ResponseBody
 	public String updateActivity(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
@@ -164,7 +164,7 @@ public class CouponController {
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
-			String url=CommonProperties.get(Constants.VERIFY_CORE_URL)+"/"+CommonProperties.get(Constants.UPDATE_COUPON_INFO);
+			String url=CommonProperties.get(Constants.COUPON_CORE_URL)+"/"+CommonProperties.get(Constants.UPDATE_COUPON_INFO);
 			json=HttpClientUtil.post(url, paramMap);
 			logger.info("json:" + json);
 			JSONObject jsonObject = JSONObject.fromObject(json);
@@ -196,7 +196,7 @@ public class CouponController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("/font/coupon/saveLogInfo")
+	@RequestMapping("/saveLogInfo")
 	@ResponseBody
 	public String saveLogInfo(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
@@ -208,7 +208,7 @@ public class CouponController {
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
-			String url=CommonProperties.get(Constants.VERIFY_CORE_URL)+"/"+CommonProperties.get(Constants.SAVE_COUPON_LOG_INFO);
+			String url=CommonProperties.get(Constants.COUPON_CORE_URL)+"/"+CommonProperties.get(Constants.SAVE_COUPON_LOG_INFO);
 			json=HttpClientUtil.post(url, paramMap);
 			logger.info("json:" + json);
 			JSONObject jsonObject = JSONObject.fromObject(json);
@@ -230,7 +230,7 @@ public class CouponController {
 	/**
 	 * 查询活动对应门店信息
 	 */
-	@RequestMapping("/font/coupon/findAllCouponList")
+	@RequestMapping("/findAllCouponList")
 	@ResponseBody
 	public String findAllListNoParam(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
@@ -241,7 +241,7 @@ public class CouponController {
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
-			String url=CommonProperties.get(Constants.VERIFY_CORE_URL)+"/"+CommonProperties.get(Constants.SELECT_COUPON_STORE_LIST);
+			String url=CommonProperties.get(Constants.COUPON_CORE_URL)+"/"+CommonProperties.get(Constants.SELECT_COUPON_STORE_LIST);
 			json=HttpClientUtil.post(url, paramMap);
 			logger.info("活动门店信息:" + jsonStr);
 			//
@@ -300,7 +300,7 @@ public class CouponController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("/font/coupon/saveActivityInfo")
+	@RequestMapping("/saveActivityInfo")
 	@ResponseBody
 	public String saveActivityInfo(HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
@@ -312,7 +312,7 @@ public class CouponController {
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
-			String url=CommonProperties.get(Constants.VERIFY_CORE_URL)+"/"+CommonProperties.get(Constants.SAVE_COUPON_ACTIVITY_INFO);
+			String url=CommonProperties.get(Constants.COUPON_CORE_URL)+"/"+CommonProperties.get(Constants.SAVE_COUPON_ACTIVITY_INFO);
 			json=HttpClientUtil.post(url, paramMap);
 			logger.info("json:" + json);
 			JSONObject jsonObject = JSONObject.fromObject(json);

@@ -49,8 +49,6 @@ public class Constants {
     public static final String MEDIUM_CORE_URL = "medium_core_url"; 
     //查询支付系统
     public static final String FIND_ALL_PAY_SYSTEM_LIST="find_all_pay_system_list";
-    //查询门店信息
-    public static final String FIND_ALL_OUTLET_ENCODE="find_all_outlet_encode";
     //查询支付介质zTree
     public static final String FIND_ALL_PAY_MEDIUM_ZTREE = "find_all_pay_medium_zTree";
     //检查支付系统
@@ -109,8 +107,6 @@ public class Constants {
 	public static final String SELECT_PAY_CHANNEL="select_pay_channel";
 	//netty项目ops接入log监控地址2016-09-27
 	public static final String WFJ_LOG_JS="log_js";
-	//券核销信息地址
-	public static final String VERIFY_CORE_URL="verify_core_url";
 	//查询券核销配置信息
     public static final String FIND_COUPON_TYPE_INFO="find_coupon_type_info";
     //修改券活动配置信息
