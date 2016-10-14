@@ -386,7 +386,6 @@ function savelog(){
 function setLogFrom(){
 	var logInfo = oldInfo + newInfo;
 	var createTime = parseTime1(new Date().Format("yyyy-MM-dd hh:mm:ss"));
-	console.log("保存日志的信息："+logInfo+createTime+userName);
 	$("#content_form").val(oldInfo+">>>>>>"+newInfo);
 	$("#uesrName_form").val(userName);
 	$("#creatTime_form").val(createTime);
