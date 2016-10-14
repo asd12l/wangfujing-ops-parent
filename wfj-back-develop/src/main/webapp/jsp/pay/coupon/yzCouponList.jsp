@@ -273,18 +273,23 @@ function initOlv() {
 				$("#loading-container").addClass("loading-inactive");
 			}, 300);
 		},
-	 //回调
-	 callback: function(data) {
-		 userName = data.userName ;
-		 logJs = data.logJs;
-		 reloadjs();
-		 sendParameter();
-		 LA.log('payOrder-query', '支付日志明细查询', userName, sessionId);
-		 
-	//	 for(var i in data.list){
-		//	 data.list[i ].createDate=formatDate(data.list[i].createDate);
-		 //}
-		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
+		error:function(){
+			//隐藏加载提示
+			setTimeout(function() {
+				$("#loading-container").addClass("loading-inactive");
+			}, 300);
+			alert("有赞券核销查询超时！");
+		},
+		//超时时间
+		timeout:30*1000,
+		//回调
+		callback: function(data) {
+			userName = data.userName ;
+			logJs = data.logJs;
+			reloadjs();
+			sendParameter();
+			LA.log('payOrder-query', '支付日志明细查询', userName, sessionId);
+			$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
 	 }
    }
  });
@@ -361,7 +366,7 @@ function successBtn(){
                                 				<input type="text" id="outerTid_input"/>
                                 			</li>
                                				<li class="col-md-4">
-                               					<label class="titname">sku：</label>
+                               					<label class="titname">SKU：</label>
                                					<input type="text" id="outerItemId_input"/>
                                				</li>
                                 			<li class="col-md-4" style="display:none">
@@ -397,7 +402,7 @@ function successBtn(){
                                             <th width="3%" style="text-align: center;">商品名称</th>
                                             <th width="2%" style="text-align: center;">支付日期</th>
                                             <th width="2%" style="text-align: center;">支付时间</th>
-                                            <th width="2%" style="text-align: center;">支付金额</th>
+                                            <th width="2%" style="text-align: center;">支付金额(元)</th>
                                             <th width="2%" style="text-align: center;">核销门店</th>
                                             <th width="2%" style="text-align: center;">核销金额(元)</th>
                                             <th width="2%" style="text-align: center;">核销日期</th>
