@@ -2207,7 +2207,7 @@ $.ajax({
 			"aria-hidden" : "true",
 			"class" : "modal modal-message modal-success fade"
 		});
-        $("#pageBody").load(__ctxPath + "/product/getProductDetail/" +productDetail.sid,
+        $("#pageBody").load(__ctxPath + "/product/getProductDetail/" +productDetail.skuCode,
         		{
         	      "tabMark1" : tabMark1  
         		});
