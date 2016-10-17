@@ -216,7 +216,7 @@ function setFormData(){
 	$("#orderId_form").val($("#orderId_input").val())
 	$("#outerTid_form").val($("#outerTid_input").val());
 	$("#outerItemId_form").val($("#outerItemId_input").val());
-//	$("#verifyStoreId_form").val($("#verifyStoreId_input").val());
+	$("#verifyStoreId_form").val($("#verifyStoreId_input").val());
 	var strStartTime = $("#verifyStartTime_input").val();
 	var strEndTime = $("#verifyEndTime_input").val();
 	$("#verifyStartTime_form").val(parseTime1(strStartTime));
@@ -230,7 +230,7 @@ function reset(){
 	$("#orderId_input").val("");
 	$("#outerTid_input").val("");
 	$("#outerItemId_input").val("");
-//	$("#verifyStoreId_input").val("");
+	$("#verifyStoreId_input").val("");
 	timePickInit();
 	olvQuery();
 }
@@ -369,7 +369,7 @@ function successBtn(){
                                					<label class="titname">SKU：</label>
                                					<input type="text" id="outerItemId_input"/>
                                				</li>
-                                			<li class="col-md-4" style="display:none">
+                                			<li class="col-md-4">
                                 					<label class="titname">核销门店：</label>
                                     				<input type="text" id="verifyStoreId_input"/>
 											</li>
@@ -385,7 +385,7 @@ function successBtn(){
 										<input type="hidden" id="orderId_form" name="orderId"/>
 										<input type="hidden" id="outerTid_form" name="outerTid"/>
 										<input type="hidden" id="outerItemId_form" name="outerItemId"/>
-										<input type="hidden" id="verifyStoreId_form" name="verifyStoreId" value="D00001"/>
+										<input type="hidden" id="verifyStoreId_form" name="verifyStoreId"/>
 										<input type="hidden" id="verifyStartTime_form" name="verifyStartTime"/>
 										<input type="hidden" id="verifyEndTime_form" name="verifyEndTime"/>
 										<input type="hidden" id="sortType_form" name="sortType" value="-1"/>
@@ -423,66 +423,66 @@ function successBtn(){
 								<textarea id="olv-list" rows="0" cols="0">
 									{#template MAIN}
 										{#foreach $T.list as Result}
-											<tr class="gradeX" id="gradeX{$T.Result.id}" ondblclick="trClick('{$T.Result.orderTradeNo}',this)" style="height:35px;">
+											<tr class="gradeX" id="gradeX{$T.Result.id}" style="height:35px;">
 												
 												<td align="center" id="orderId_{$T.Result.id}">
-													{#if $T.Result.orderId.length >0}
+													{#if typeof $T.Result.orderId=="string"}
 														{$T.Result.orderId}
 					                   				{#/if}
 												</td>
 												<td align="center" id="outerTid_{$T.Result.id}">
-													{#if $T.Result.outerTid.length >0}
+													{#if typeof $T.Result.outerTid=="string"}
 														{$T.Result.outerTid}
 					                   				{#/if}
 												</td>
 												<td align="center" id="outerItemId_{$T.Result.id}">
-													{#if $T.Result.outerItemId.length >0}
+													{#if typeof $T.Result.outerItemId=="string"}
 														{$T.Result.outerItemId}
 					                   				{#/if}
 												</td>
 												<td align="center" id="goodsName_{$T.Result.id}">
-													{#if $T.Result.goodsName.length >0}
+													{#if typeof $T.Result.goodsName=="string"}
 														{$T.Result.goodsName}
 					                   				{#/if}
 												</td>
 												<td align="center" id="paymentDate_{$T.Result.id}">
-													{#if $T.Result.paymentDate.length >0}
+													{#if typeof $T.Result.paymentDate=="string"}
 														{$T.Result.paymentDate}
 					                   				{#/if}
 												</td>
 												<td align="center" id="paymentTime_{$T.Result.id}">
-													{#if $T.Result.paymentTime.length >0}
+													{#if typeof $T.Result.paymentTime=="string"}
 														{$T.Result.paymentTime}
 					                   				{#/if}
 												</td>
 												<td align="center" id="payment_{$T.Result.id}">
-													{#if $T.Result.payment!=null}
+													{#if !isNaN($T.Result.payment)}
 														{$T.Result.payment}
 					                   				{#/if}
 				                   				</td>
 												<td align="center" id="verifyStoreId_{$T.Result.id}">
-													{#if $T.Result.verifyStoreId.length >0}
+													{#if typeof $T.Result.verifyStoreId=="string"}
 														{$T.Result.verifyStoreId}
 					                   				{#/if}
 												</td>
 												<td align="center" id="totalFee_{$T.Result.id}">
-													{#if $T.Result.totalFee!=null}
+													{#if !isNaN($T.Result.totalFee)}
 														{$T.Result.totalFee}
 					                   				{#/if}
 												</td>
 												<td align="center" id="verifyDate_{$T.Result.id}">
-													{#if $T.Result.verifyDate.length >0}
+													{#if typeof $T.Result.verifyDate=="string"}
 														{$T.Result.verifyDate}
 					                   				{#/if}
 												</td>
 												<td align="center" id="verifyTime_{$T.Result.id}">
-													{#if $T.Result.verifyTime.length >0}
+													{#if typeof $T.Result.verifyTime=="string"}
 														{$T.Result.verifyTime}
 					                   				{#/if}
 												</td>
 								       		</tr>
 										{#/for}
-								    {#/template MAIN}	
+									{#/template MAIN}
 								</textarea>
 							</p>
                         </div>
