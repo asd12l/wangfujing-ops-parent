@@ -721,12 +721,12 @@ function saveSetCoupon(){
 		    <div class="widget-header">
 				<span class="widget-caption">配置活动门店</span>
 				<div class="widget-buttons">
-					<a href="#" data-toggle="collapse" >
+					<!-- <a href="#" data-toggle="collapse" >
 	            		<i class="fa fa-plus-square-o" id="open1" style="font-size:20px;"></i>
 	            	</a>
 	            	<a href="#" data-toggle="collapse" >
 	            		<i class="fa fa-plus-square"  style="font-size:20px;" id="open2"></i>
-	            	</a>
+	            	</a> -->
 	            	<a href="#" data-toggle="collapse" onclick="document.getElementById('setOutletEncodeDiv').style.display='none';" style="margin-right:10px;">
             			<i class="fa fa-times"  style="font-size:20px;" id="pro-i"></i>
             		</a>
