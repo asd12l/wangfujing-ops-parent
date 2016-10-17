@@ -216,7 +216,7 @@ function setFormData(){
 	$("#orderId_form").val($("#orderId_input").val())
 	$("#outerTid_form").val($("#outerTid_input").val());
 	$("#outerItemId_form").val($("#outerItemId_input").val());
-//	$("#verifyStoreId_form").val($("#verifyStoreId_input").val());
+	$("#verifyStoreId_form").val($("#verifyStoreId_input").val());
 	var strStartTime = $("#verifyStartTime_input").val();
 	var strEndTime = $("#verifyEndTime_input").val();
 	$("#verifyStartTime_form").val(parseTime1(strStartTime));
@@ -230,7 +230,7 @@ function reset(){
 	$("#orderId_input").val("");
 	$("#outerTid_input").val("");
 	$("#outerItemId_input").val("");
-//	$("#verifyStoreId_input").val("");
+	$("#verifyStoreId_input").val("");
 	timePickInit();
 	olvQuery();
 }
@@ -372,7 +372,7 @@ function successBtn(){
                                					<label class="titname">SKU：</label>
                                					<input type="text" id="outerItemId_input"/>
                                				</li>
-                                			<li class="col-md-4" style="display:none;">
+                                			<li class="col-md-4">
                                 					<label class="titname">核销门店：</label>
                                     				<input type="text" id="verifyStoreId_input"/>
 											</li>
@@ -388,7 +388,8 @@ function successBtn(){
 										<input type="hidden" id="orderId_form" name="orderId"/>
 										<input type="hidden" id="outerTid_form" name="outerTid"/>
 										<input type="hidden" id="outerItemId_form" name="outerItemId"/>
-										<input type="hidden" id="verifyStoreId_form" name="verifyStoreId" value="D00001"/>
+										<input type="hidden" id="verifyStoreId_form" name="verifyStoreId"/>
+										<input type="hidden" id="storeId_form" name="storeId" value="D001"/>
 										<input type="hidden" id="verifyStartTime_form" name="verifyStartTime"/>
 										<input type="hidden" id="verifyEndTime_form" name="verifyEndTime"/>
 										<input type="hidden" id="sortType_form" name="sortType" value="-1"/>

@@ -58,6 +58,7 @@ public class CouponController {
 		paramMap.put("verifyEndTime", request.getParameter("verifyEndTime"));
 		paramMap.put("sortParam", request.getParameter("sortParam"));
 		paramMap.put("sortType", request.getParameter("sortType"));
+		paramMap.put("storeId", request.getParameter("storeId"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		try {
 			//调用券核销系统查询数据
