@@ -54,7 +54,8 @@ var format=/^[\s]*[\d]{4}(\/|-)(0?[1-9]|1[012])(\/|-)(0?[1-9]|[12][0-9]|30|31)[\
 function timePickInit(){
 	var endTime=new Date();
 	var startTime=new Date();
-	startTime.setDate(endTime.getDate()-30);
+//	startTime.setDate(endTime.getDate()-30);
+    endTime.setDate(endTime.getDate()+15);
 	$('#timeStart_input').daterangepicker({
 		startDate:startTime,
 //		endDate:endTime,
@@ -62,7 +63,7 @@ function timePickInit(){
 		timePickerSeconds:true,
 		timePicker24Hour:true,
 //		minDate:startTime,
-	//	maxDate:endTime,
+//		maxDate:endTime,
 //		linkedCalendars:false,
 		opens:'center',
 		showDropdowns : true,
@@ -322,16 +323,21 @@ function showEditDiv(id){
 	$("#timeStart_input").val($("#activityBeginTime_"+id).text().trim());
 	$("#timeEnd_input").val($("#activityEndTime_"+id).text().trim());
     oldInfo = "修改前数据活动ID:"+$("#activityID_input").val().trim()+"修改前对应的核销时间:"+
-    "核销开始时间:"+$("#timeStart_input").val().trim()+
-    "核销结束时间:"+$("#timeEnd_input").val().trim();       
+    "BeginTime:"+$("#timeStart_input").val().trim()+
+    ",EndTime:"+$("#timeEnd_input").val().trim();       
 }
 function editInfo(){
 	 sendParameter();
 	 LA.log('couponDeploy-timeModify', '有赞券活动时间修改', userName, sessionId);
-		newInfo = "修改后对应的核销时间:"+"核销开始时间:"+$("#timeStart_input").val().trim()+
-	                  "核销结束时间:"+$("#timeEnd_input").val().trim();
+		newInfo = "修改后对应的核销时间:BeginTime:"+$("#timeStart_input").val().trim()+
+	                  ",EndTime:"+$("#timeEnd_input").val().trim();
 	        var url=__ctxPath+"/wfjpay/coupon/updateActivity";
 	    	setParamForm();
+	    	var errorMsg=validate();
+	    	if(errorMsg!=""){
+	    		showWarning(errorMsg);
+	    		return;
+	    	}
 	    	var param=$("#data_form").serialize();
 	    	savelog();
 	    	$.ajax({
@@ -363,6 +369,42 @@ function setParamForm(){
 	$("#activityEndTime_form").val(parseTime1(timeEnd));
 	var timeupdate = new Date().Format("yyyy-MM-dd hh:mm:ss");
 	$("#activityUpdateTime_form").val(parseTime1(timeupdate));
+	
+}
+//警告窗口
+function showWarning(msg){
+	$("#model-body-warning").html("<div class='alert alert-warning fade in'><i class='fa-fw fa fa-times'></i><strong>"+msg+"</strong></div>");
+	$("#modal-warning").attr({"style":"display:block;z-index:9999;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+}
+function validate(){
+	var timeStart = $("#timeStart_input").val();
+	var timeEnd = $("#timeEnd_input").val();
+	if(parseTime1(timeEnd)<=parseTime1(timeStart)){
+		return "核销开始时间不能大于等于核销结束时间！";
+	}
+	
+	/* var userId=$("#userId").val();
+	//效验用户是否选择一条权限?
+	if($("input:checkbox[name='bpId']:checked")<=0){
+		//TODO 用户没有选择一条权限，视为全部取消
+	}
+	//效验用户名是否为空
+	if(userId.trim()==""){
+		return "请输入用户名！";
+	}
+	//效验用户名是否存在
+	var flag=true;
+	for(var i in userIds){
+		if(userIds[i]==userId){
+			flag=false;
+			break;
+		}
+	}
+	if(flag){
+		return "当前用户不存在!";
+	} */
+	//效验成功
+	return "";
 }
 //记录日志
 function savelog(){
@@ -466,14 +508,16 @@ function saveSetCoupon(){
 			}
 		}
 		if(flag){
+			
 			var obj=new Object();
 			obj.id=newZtree[i].id;
 			obj.pId=newZtree[i].pId;
 			obj.name=newZtree[i].name;
 			obj.checked=true;
 			addZtree.push(obj);
+			addInfo += newZtree[i].name;//记录日志
 		}
-		addInfo += newZtree[i].name;
+		
 	}
 	//获取删除的
 	var delInfo = "";
@@ -492,8 +536,9 @@ function saveSetCoupon(){
 			obj.name=oldZtree[i].name;
 			obj.checked=false;
 			delZtree.push(obj);
+			delInfo += oldZtree[i].name;//记录日志
 		}
-		delInfo += oldZtree[i].name;
+		
 	}
 	var item_id=$("#numberParam_set").val();
 	newInfo = "修改后本活动编号"+item_id+"对应门店信息:增加的门店:"+addInfo+",删除的门店:"+delInfo;
