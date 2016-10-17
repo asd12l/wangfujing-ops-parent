@@ -336,11 +336,11 @@
 													</td>
 													<td align="center" id="">
 														{#if $T.Result.errorMsg != null && $T.Result.errorMsg != "" && $T.Result.errorMsg == "自营订单，没有外部订单号"} 
-															<a class="btn btn-default btn-sm" >修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+															<a class="btn btn-default shiny" >修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
 														{#else} 
-														 	<a class="btn btn-default btn-sm" onclick="modify('{$T.Result.tid}');">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+														 	<a class="btn btn-default shiny" onclick="modify('{$T.Result.tid}');">修改</a>
 														{#/if}
-														  <a class="btn btn-default btn-sm" onclick="addBL('{$T.Result.tid}');">拉黑</a>
+														  <!-- <a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}');">拉黑</a> -->
 													</td>
 									       		</tr>
 									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">
