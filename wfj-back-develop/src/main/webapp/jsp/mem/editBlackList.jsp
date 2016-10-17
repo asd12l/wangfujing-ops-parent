@@ -22,10 +22,44 @@
     image="http://images.shopin.net/images";
     saleMsgImage="http://images.shopin.net/images";
     ctx="http://www.shopin.net";
+    function timePickInit(){
+    	$('#reservationPull').daterangepicker({
+    		timePicker: true,
+    		timePickerIncrement: 30,
+    		format: 'YYYY/MM/DD HH:mm:ss',
+            locale : {
+                applyLabel : '确定',
+                cancelLabel : '取消',
+                fromLabel : '起始时间',
+                toLabel : '结束时间',
+                customRangeLabel : '自定义',
+                daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                firstDay : 1
+            }
+        }); 
+    	$('#reservationBack').daterangepicker({
+    		timePicker: true,
+    		timePickerIncrement: 30,
+    		format: 'YYYY/MM/DD HH:mm:ss',
+            locale : {
+                applyLabel : '确定',
+                cancelLabel : '取消',
+                fromLabel : '起始时间',
+                toLabel : '结束时间',
+                customRangeLabel : '自定义',
+                daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                firstDay : 1
+            }
+        }); 
+    }
+
     var olvPagination;
     $(function() {
-      $("#reservationPull").daterangepicker();
-      $("#reservationBack").daterangepicker();
+      timePickInit();
       initOlv();
     });
 
@@ -297,11 +331,11 @@
         $("#relServiceId_msg").show();
         return;
       }
-      if(relieveReason==""||relieveReason==null){
+      var reg = /^\s*$/g;
+      if(relieveReason==""||relieveReason==null ||reg.test(relieveReason)){
         $("#relieveReason_msg").show();
         return;
       }
-
       var url = __ctxPath+"/memBasic/relieveBlackList";
       $.ajax({
         type : "post",
@@ -435,7 +469,7 @@
                   <thead>
                   <tr role="row" style='height:35px;'>
                     <th style="text-align: center;" width="2%">选择</th>
-                    <th style="text-align: center;" width="6%">账户</th>
+                    <th style="text-align: center;" width="6%">账号</th>
                     <th style="text-align: center;" width="6%">昵称</th>
                     <th style="text-align: center;" width="6%">真实姓名</th>
                     <th style="text-align: center;" width="6%">所属门店</th>
@@ -665,15 +699,9 @@
                 <label class="col-md-5 control-label"
                        style="line-height: 20px; text-align: right;">解除原因：</label>
                 <div class="col-md-6">
-                	<select id="relieveReason" class="form-control" name="name">
-                             <option value="">请选择</option>
-                             <option value="用户申请解除通过">用户申请解除通过</option>
-                             <option value="用户购买信用良好">用户购买信用良好</option>
-                             <option value="误拉黑">误拉黑</option>
-                    </select>
-                  <!--  <input type="text" class="form-control" name="name"
-                         id="relieveReason" />-->
-                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">请选择解除原因!</span>
+                  <input type="text" class="form-control" name="name"
+                         id="relieveReason" />
+                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">请输入解除原因!</span>
                 </div>
                 <br>&nbsp;
               </div>

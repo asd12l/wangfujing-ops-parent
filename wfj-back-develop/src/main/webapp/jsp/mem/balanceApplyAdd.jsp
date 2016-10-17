@@ -87,7 +87,7 @@
                         <div class="widget-body">
                             <form id="theForm" method="post" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">客户登录账号</label>
+                                    <label class="col-lg-3 control-label">客户账号</label>
                                     <div class="col-lg-4">
                                         <input type="text" class="form-control" id="memberAccount" name="memberAccount" placeholder="必填"/>
                                     </div>

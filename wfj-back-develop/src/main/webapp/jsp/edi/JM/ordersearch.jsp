@@ -85,7 +85,24 @@
 		script.src= logJs; 
 		head.appendChild(script);  
 	}
-	
+	//加入黑名单  
+	function addBL(tid){
+		LA.env = 'dev';
+		LA.sysCode = '47';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('jm-addBL', '聚美加入黑名单', userName, sessionId);
+       	 $.ajax({
+       		on: true,
+    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=C8",
+    			dataType : "json",
+    			success : function(data) {
+		            reset();
+				},
+        	 	error:function(){ 
+		            reset(); 
+        	   	}
+    	});
+	}
 	function olvQuery(){
 		  LA.env = 'dev';
 		  LA.sysCode = '47';
@@ -184,7 +201,7 @@
 		if (count > 0){
 			var form = $('#stock_form');
 			form.attr("method","post");
- 			form.attr('action', $("#ctxPath").val() + "/ediJmOrder/exportExcleJm?tradesource=C8");
+ 			form.attr('action', $("#ctxPath").val() + "/ediJmOrder/exportExcleJm?tradesource=C8&ispreSale=PT");
  			form.submit();
 			/* window.open($("#ctxPath").val() + "/ediJmOrder/exportExcleJm?tradesource=C8&&tid="+tid+"&&ordersId="+ordersId
 					+"&&startDate="+startDate+"&&endDate="+endDate
@@ -225,7 +242,7 @@
 	}
 
 	function initStock() {
-		var url = $("#ctxPath").val() + "/ediJmOrder/selectJmOrderCatchList?tradesource=C8";
+		var url = $("#ctxPath").val() + "/ediJmOrder/selectJmOrderCatchList?tradesource=C8&ispreSale=PT";
 		
 		stockPagination = $("#stockPagination").myPagination(
 				{
@@ -377,7 +394,7 @@
 													<!-- tradeStatus -->
 													<th style="text-align: center;">下单时间</th>
 													<!-- createDate -->
-													<!-- <th style="text-align: center;">操作</th> -->
+													<!--<th style="text-align: center;">操作</th>-->
 													<!-- increment -->
 										</tr>
 									</thead>
@@ -442,7 +459,10 @@
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.update} {#else} {$T.Result.cdate} {#/if}</td>
-													<!-- <td align="center" id="">
+													<!-- <td align="center">
+														<a class="btn btn-default btn-sm" onclick="addBL('{$T.Result.tid}');">拉黑</a>
+													</td>
+													<td align="center" id="">
 														<a class="btn btn-default btn-sm" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->
 									       		</tr>

@@ -148,6 +148,25 @@
 		stockPagination.onLoad(params);
 
 	}
+	
+	//加入黑名单
+	function addBL(tid){
+		LA.env = 'dev';
+		LA.sysCode = '44';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('tm-addBL', '天猫加入黑名单', userName, sessionId);
+       	 $.ajax({
+       		on: true,
+    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=C7",
+    			dataType : "json",
+    			success : function(data) {
+		            reset();
+				},
+        	 	error:function(){ 
+		            reset(); 
+        	   	}
+    	});
+   	}
 
 	// 导出excel
 	function exportexcle() {
@@ -187,7 +206,7 @@
 		if (count > 0) {
 			var form = $('#stock_form');
 			form.attr("method","post");
- 			form.attr('action', $("#ctxPath").val() + "/ediOrder/exportExcle?tradesource=C7");
+ 			form.attr('action', $("#ctxPath").val() + "/ediOrder/exportExcle?tradesource=C7&ispreSale=PT");
  			form.submit();
 			/* window.open($("#ctxPath").val()
 					+ "/ediOrder/exportExcle?tradesource=C7&&tid=" + tid
@@ -232,7 +251,7 @@
 
 	function initStock() {
 		var url = $("#ctxPath").val()
-				+ "/ediOrder/selectOrderList?tradesource=C7";
+				+ "/ediOrder/selectOrderList?ispreSale=PT&tradesource=C7";
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
@@ -383,6 +402,8 @@
 												<!-- tradeStatus -->
 												<th style="text-align: center;">下单时间</th>
 												<!-- createDate -->
+												<!-- <th style="text-align: center;">操作</th>-->
+												<!-- ispreSale -->
 												<!-- 													<th style="text-align: center;">操作</th>
  -->
 												<!-- increment -->
@@ -434,6 +455,9 @@
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.updateDate} {#else} {$T.Result.cdate} {#/if}</td>
+													<!-- <td align="center">
+														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
+													</td> -->
 													<!-- <td align="center" id="">
 														<a class="btn btn-default shiny" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->

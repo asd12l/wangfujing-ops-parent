@@ -36,6 +36,7 @@ import com.wangfj.pay.web.constant.Constants;
 import com.wangfj.pay.web.util.HttpClientUtil;
 import com.wangfj.pay.web.vo.ExcelStaticsVo;
 import com.wangfj.search.utils.CookieUtil;
+import com.wangfj.wms.util.CookiesUtil;
 import com.wangfj.wms.util.JsonUtil;
 @Controller
 @RequestMapping(value = "/wfjpay")
@@ -101,6 +102,13 @@ public class StaticsController {
 				m.put("success", "false");
 				m.put("pageCount",0);
 				e.printStackTrace();
+			}
+			String js =CommonProperties.get(Constants.WFJ_LOG_JS);
+			m.put("logJs", js);
+			if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+				m.put("userName", CookiesUtil.getUserName(request));
+			}else{
+				m.put("userName", "");
 			}
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 			return gson.toJson(m);

@@ -110,7 +110,7 @@ label{width: 70px;}
                                     				<input type="text" id="ordernumber_input">
                                    				</li>
                                    		<li class="col-md-4">
-                                    				<label class="titname" width="70px">客户账号：</label>
+                                    				<label class="titname" width="70px">账号：</label>
                                     				<input type="text" id="customeraccount_input">
                                    				</li>
                                    		<li class="col-md-4">
@@ -174,14 +174,14 @@ label{width: 70px;}
 									<thead class="flip-content bordered-darkorange">
 										<tr>
 											<th style="text-align: center;" width="50px">选择</th>
-											<th style="text-align: center;" width="120px">账号</th>
+											<th style="text-align: center;" width="70px">账号</th>
 											<th style="text-align: center;" width="120px">订单编号</th>
 											<th style="text-align: center;" width="120px">订单明细号</th>
 											<th style="text-align: center;" width="75px">商品名</th>
 											<th style="text-align: center;" width="75px">评论时间</th>
 											<th style="text-align: center;" width="60px">好评度</th>
 											<th style="text-align: center;" width="100px">评论内容</th>
-											<th style="text-align: center;" width="120px">客服ID</th>
+											<th style="text-align: center;" width="70px">客服ID</th>
 											<th style="text-align: center;" width="75px">回复时间</th>
 											<th style="text-align: center;" width="120px">回复内容</th>
 											<th style="text-align: center;" width="60px">是否有敏感词</th>
@@ -190,7 +190,7 @@ label{width: 70px;}
 											<th style="text-align: center;" width="50px">是否审核</th>
 											<th style="text-align: center;" width="50px">是否升级</th>
 											<th style="text-align: center;" width="50px">是否解决</th>
-											<th style="text-align: center;" width="50px">物流评级</th>
+											<!-- <th style="text-align: center;" width="50px">物流评级</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -200,6 +200,12 @@ label{width: 70px;}
 								
 								<div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
+										<select id="pageSelect" name="pageSize">
+											<option>5</option>
+											<option selected="selected">10</option>
+											<option>15</option>
+											<option>20</option>
+										  </select>
 										<input type="hidden" id="customeraccount" name="customeraccount" />
 										<input type="hidden" id="ordernumber" name="ordernumber"/>
 										<input type="hidden" id="functype" name="functype"/>

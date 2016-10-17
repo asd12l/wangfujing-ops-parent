@@ -25,7 +25,19 @@
 		var cid;
 		var olvPagination;
 		$(function() {
-			$("#reservation").daterangepicker();
+			$("#reservation").daterangepicker({
+		        locale : {
+		            applyLabel : '确定',
+		            cancelLabel : '取消',
+		            fromLabel : '起始时间',
+		            toLabel : '结束时间',
+		            customRangeLabel : '自定义',
+		            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+		            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+		                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+		            firstDay : 1
+		        }
+		    }); 
 			initOlv();
 		});
 
@@ -35,6 +47,7 @@
 			$("#email_form").val($("#email_input").val().trim());
 			$("#orderNo_form").val($("#orderNo_input").val().trim());
 			$("#refundNo_form").val($("#refundNo_input").val().trim());
+			$("#pageSelectNo").val($("#pageSelect").val());
 			var returnTime = $("#reservation").val();
 			if(returnTime!=""){
 				returnTime = returnTime.split("-");
@@ -62,6 +75,22 @@
 			$("#refundNo_input").val("");
 			$("#orderNo_input").val("");
 			$("#reservation").val("");
+			$("#topic_form")[0].reset();
+			$("#reservation").daterangepicker({
+				startDate:moment().startOf('day'),
+				endDate:moment(),
+				locale : {
+		            applyLabel : '确定',
+		            cancelLabel : '取消',
+		            fromLabel : '起始时间',
+		            toLabel : '结束时间',
+		            customRangeLabel : '自定义',
+		            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+		            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+		                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+		            firstDay : 1
+		        }
+				});
 			productQuery();
 		}
 		//初始化包装单位列表
@@ -106,6 +135,7 @@
 				}
 				return data;
 			}
+			$("#pageSelect").change(productQuery);
 		}
 		function successBtn(){
 			$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
@@ -192,27 +222,27 @@
 									</li>
 								</ul>
 
-								<div style="width:100%; height:0%; min-height:300px; overflow-Y:hidden;">
+								<div style="width:100%; height:300%; min-height:300px; overflow-Y:hidden;">
 									<table class="table-striped table-hover table-bordered"
 										   id="olv_tab" style="width: 220%;background-color: #fff;margin-bottom: 0;">
 
 									<thead>
 									<tr role="row" style='height:35px;'>
-										<th style="text-align: center;" width="2%">选择</th>
-										<th style="text-align: center;" width="7%">退货申请时间</th>
-										<th style="text-align: center;" width="7%">购买时间</th>
-										<th style="text-align: center;" width="7%">账户</th>
-										<th style="text-align: center;" width="7%">昵称</th>
-										<th style="text-align: center;" width="7%">真实姓名</th>
-										<th style="text-align: center;" width="7%">手机</th>
-										<th style="text-align: center;" width="7%">邮箱</th>
-										<th style="text-align: center;" width="7%">会员来源</th>
-										<th style="text-align: center;" width="7%">会员等级</th>
-										<th style="text-align: center;" width="7%">地址</th>
-										<th style="text-align: center;" width="7%">退货原因</th>
-										<th style="text-align: center;" width="7%">退货单号</th>
-										<th style="text-align: center;" width="7%">退货金额</th>
-										<th style="text-align: center;" width="7%">退货单状态</th>
+										<!-- <th style="text-align: center;" width="2%">选择</th> -->
+										<th style="text-align: center;" width="8%">退货时间</th>
+										<th style="text-align: center;" width="8%">购买时间</th>
+										<th style="text-align: center;" width="8%">账号</th>
+										<th style="text-align: center;" width="8%">昵称</th>
+										<th style="text-align: center;" width="8%">真实姓名</th>
+										<th style="text-align: center;" width="8%">手机号</th>
+										<th style="text-align: center;" width="8%">邮箱</th>
+										<!-- <th style="text-align: center;" width="8%">会员来源</th> -->
+										<!-- <th style="text-align: center;" width="8%">会员等级</th> -->
+										<th style="text-align: center;" width="12%">地址</th>
+										<th style="text-align: center;" width="8%">退货原因</th>
+										<th style="text-align: center;" width="8%">退货单号</th>
+										<th style="text-align: center;" width="8%">退货金额</th>
+										<th style="text-align: center;" width="8%">退货单状态</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -227,25 +257,39 @@
 										<input type="hidden" id="refundNo_form" name="refundNo"  />
 										<input type="hidden" id="m_startTime" name="startTime"  />
 										<input type="hidden" id="m_endTime" name="endTime"  />
+										<input type="hidden" id="pageSelectNo" name="pageSize" />
 										<input type="hidden" id="cache" name="cache" value="1" />
 									</form>
 								</div>
 							</div>
+							<div class="pull-left" style="margin-top: 5px;">
+									<form id="topic_form" action="">
+										<div class="col-lg-12">
+											<select id="pageSelect" name="pageSize">
+												<option>5</option>
+												<option selected="selected">10</option>
+												<option>15</option>
+												<option>20</option>
+											</select>
+										</div>
+									</form>
+								</div>
+							
 								<div id="olvPagination"></div>
 							<!-- Templates -->
 							<p style="display:none">
 									<textarea id="olv-list" rows="0" cols="0">
 										{#template MAIN}
 											{#foreach $T.list as Result}
-												<tr class="gradeX">
-													<td align="left">
+												<tr class="gradeX" style="height:35px;">
+													<!-- <td align="left">
 														<div class="checkbox" style="margin-bottom: 0;margin-top: 0;padding-left: 3px;">
 															<label style="padding-left:9px;">
 																<input type="checkbox" id="tdCheckbox_{$T.Result.cid}" value="{$T.Result.cid}" >
 																<span class="text"></span>
 															</label>
 														</div>
-													</td>
+													</td> -->
 													<td align="center" id="refundTimeStr_{$T.Result.cid}">
 														{#if $T.Result.refundTimeStr == "" || $T.Result.refundTimeStr == null}--
 														{#else}{$T.Result.refundTimeStr}
@@ -282,16 +326,16 @@
 														{#/if}
 													</td>
 
-													<td align="center" id="regist_from_{$T.Result.cid}">
+													<!-- <td align="center" id="regist_from_{$T.Result.cid}">
 														{#if $T.Result.regist_from == "" || $T.Result.regist_from == null}--
 														{#else}{$T.Result.regist_from}
 														{#/if}
-													</td>
-													<td align="center" id="levelName_{$T.Result.cid}">
+													</td> -->
+													<!-- <td align="center" id="levelName_{$T.Result.cid}">
 														{#if $T.Result.levelName == "" || $T.Result.levelName == null}--
 														{#else}{$T.Result.levelName}
 														{#/if}
-													</td>
+													</td> -->
 													<td align="center" id="receptAddress_{$T.Result.cid}">
 														{#if $T.Result.receptAddress == "" || $T.Result.receptAddress == null}--
 														{#else}{$T.Result.receptAddress}

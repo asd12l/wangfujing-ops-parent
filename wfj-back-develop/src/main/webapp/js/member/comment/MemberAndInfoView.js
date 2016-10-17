@@ -1,10 +1,7 @@
-
-
 $(function() {
 		$("#registrationTime_input").daterangepicker();
 		initOlv();
 	});
-
 
 
 function productQuery(){
@@ -15,10 +12,10 @@ function productQuery(){
 		$("#identityNo_from").val($("#identityNo_input").val().trim());
 		$("#email_from").val($("#email_input").val().trim());
 		$("#idType_from").val($("#idType_input").val().trim());
-		 //会员等级
-		$("#memberLevel_from").val($("#memberLevel_input").val().trim());
-		//注册时间
-		var strTime = $("#registrationTime_input").val().trim();
+		 //二期做会员等级
+		//$("#memberLevel_from").val($("#memberLevel_input").val().trim());
+		//注册时间二期做
+		/* var strTime = $("#registrationTime_input").val().trim();
 		if(strTime!=""){
 			strTime = strTime.split("- ");
 			$("#timeStartDate_form").val(strTime[0].replace("/","-").replace("/","-"));
@@ -26,7 +23,7 @@ function productQuery(){
 		}else{
 			$("#timeStartDate_form").val("");
 			$("#timeEndDate_form").val("");
-		}
+		} */
 		
 		
 		var params = $("#product_from").serialize();
@@ -35,48 +32,55 @@ function productQuery(){
 		olvPagination.onLoad(params);
 	}
 	
-	
-	
-/* 		$('#registrationTime_input').daterangepicker({
-		timePicker: true,
-		timePickerIncrement: 30,
-		format: 'YYYY-MM-DD ',
-        locale : {
-            applyLabel : '确定',
-            cancelLabel : '取消',
-            fromLabel : '起始时间',
-            toLabel : '结束时间',
-            customRangeLabel : '自定义',
-            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
-            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
-                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
-            firstDay : 1
-        }
-    }); */
+/*$("#registrationTime_input").daterangepicker({
+	timePicker: true,
+	timePickerIncrement: 30,
+	format: 'YYYY/MM/DD HH:mm:ss',
+    locale : {
+        applyLabel : '确定',
+        cancelLabel : '取消',
+        fromLabel : '起始时间',
+        toLabel : '结束时间',
+        customRangeLabel : '自定义',
+        daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+        monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+            '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+        firstDay : 1
+    }
+}); */
+
+//分页下拉选
+$(function() {
+      $("#pageSelect").change(productQuery);
+    });
 	
 	// 查询
-	function query() {
-    	
+	function query(){
+    	$("#status").val("1");
 		$("#cache").val(0);
 		productQuery();
 		
 	}
 	//重置
 	function reset(){
+		$("#status").val("");
 		$("#cache").val(1);
 		$("#cid_input").val("");
 		$("#belongStore_input").val("");
 		$("#mobile_input").val("");
 		$("#identityNo_input").val("");
 		$("#email_input").val("");
-		$("#idType_input").val("1");
+		$("#idType_input").val("");
 		$("#registrationTime_input").val("");
 		$("#memberLevel_input").val("");
+		$("#pageSelect").val("10");
 		productQuery();
 	}
 	//初始化包装单位列表
 	function initOlv() {
 		var url = __ctxPath+"/memBasic/getMemBasicInfo";
+		//$("#belongStore_input").val("D001");
+		//var params = {"belongStore":"D001","cache":0};
 		olvPagination = $("#olvPagination").myPagination({
 			panel: {
 				tipInfo_on: true,
@@ -116,6 +120,7 @@ function productQuery(){
 			}
 			return data;
 		}
+		
 	}
 	function successBtn(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
@@ -131,6 +136,9 @@ function productQuery(){
 		$("#pay_mobile").val("");
 		$("#pay_code").val("");
 		$("#payCode").val("");
+		
+		$("#pay_mobile").attr("disabled",true);
+		$("#pay_mobile1").attr("disabled",true);
 		
 		$("#pay_password").attr("disabled",true);
 		$("#pay_code").attr("disabled",true);
@@ -314,6 +322,11 @@ function productQuery(){
 		$("#login_code").val("");
 		$("#login_me").val("");
 		 
+		$("#login_mobile").attr("disabled",true);
+		$("#login_email").attr("disabled",true);
+		$("#login_mobile1").attr("disabled",true);
+		$("#login_email1").attr("disabled",true);
+		
 		$("#login_password").attr("disabled",true);
 		$("#login_code").attr("disabled",true);
 		$("#sendcodeEmail").hide();

@@ -15,6 +15,7 @@
 <!--ztree-->
 <script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/ztree/css/zTreeStyle.css" type="text/css">
 <style type="text/css">
 .trClick>td,.trClick>th{
@@ -42,7 +43,25 @@
 <script type="text/javascript">
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
-
+	//接入log监控start
+	    var userName;
+		var logJs;	
+		var sessionId = '<%=request.getSession().getId()%>';
+	function reloadjs(){
+		var head= document.getElementsByTagName('head')[0]; 
+		var script= document.createElement('script'); 
+		script.type= 'text/javascript'; 
+		script.onload = script.onreadystatechange = function() { 
+		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+		script.onload = script.onreadystatechange = null; 
+		} }; 
+		script.src= logJs; 
+		head.appendChild(script);  
+		}
+	function sendParameter(){
+		LA.sysCode = '59';
+	}
+	//接入log监控end
 //页码
 var olvPagination;
 var oldZtree=[];
@@ -121,6 +140,7 @@ function setFormData(){
 
 //查询数据
 function olvQuery(){
+	//sendParameter();
 	//设置表单数据
 	setFormData();
 	//生成表单请求参数
@@ -144,10 +164,14 @@ function setParamForm(type){
 
 //添加支付系统
 function add(){
+	sendParameter();
+	LA.log('payMediumSystem-add', '新建门店支付系统', userName, sessionId);
+	
 	var url=__ctxPath+"/wfjpay/paySystem/addPaySystem";
 	setParamForm("add");
 	var param=$("#data_form").serialize();
 	$.post(url,param,function(data){
+		
 		if(data.success==true){
 			$("#modal-success").attr({"style" : "display:block;z-index:9999;","aria-hidden" : "false","class" : "modal modal-message modal-success"});
 			$("#modal-success .btn-success").attr("onclick","closeAddDiv();successBtn();");
@@ -160,6 +184,8 @@ function add(){
 
 //修改支付系统
 function edit(){
+	sendParameter();
+	LA.log('payMediumSystem-Modify', '支付介质系统修改', userName, sessionId);
 	var url=__ctxPath+"/wfjpay/payMedium/updatePaySystem";
 	setParamForm("edit");
 	var param=$("#data_form").serialize();
@@ -177,6 +203,8 @@ function edit(){
 
 //保存设置支付介质
 function saveSetMedium(){
+	sendParameter();
+	LA.log('payMediumSystem-settings-save', '支付介质系统设置支付介质保存', userName, sessionId);
 	addZtree=[];
 	delZtree=[];
 	newZtree=[];
@@ -246,6 +274,7 @@ function saveSetMedium(){
 
 //初始化函数
 	function initOlv() {
+		
 	//请求地址
 	var url = __ctxPath+"/wfjpay/paySystem/findAllList";
 	setFormData();
@@ -297,6 +326,11 @@ function saveSetMedium(){
 			},
          //回调
          callback: function(data) {
+        	 userName = data.userName;
+     		 logJs = data.logJs;
+     		 reloadjs();
+     		 sendParameter();
+    		 LA.log('payMediumSystem-query', '支付介质系统查询', userName, sessionId);
         	 $("#pageNo_form").val(data.pageNo);
        		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
          }
@@ -358,6 +392,8 @@ function zTreeBeforeCheck(treeId, treeNode){
 }
 //显示设置支付介质页面
 function showSetMediumDiv(id){
+	sendParameter();
+	LA.log('payMediumSystem-Settings', '支付介质系统设置支付介质界面打开', userName, sessionId);
 	var url=__ctxPath+"/wfjpay/paySystem/findAllMediumList";
 	$("#numberParam_set").val(id);
 	var param={

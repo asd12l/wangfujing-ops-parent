@@ -27,15 +27,39 @@
 	charset="UTF-8"></script>
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
-	
-	<script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.excheck-3.5.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/ztree/css/zTreeStyle.css" type="text/css">
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript"
+	src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/ztree/css/zTreeStyle.css"
+	type="text/css">
 <script type="text/javascript">
 
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
-
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+      var head= document.getElementsByTagName('head')[0]; 
+      var script= document.createElement('script'); 
+           script.type= 'text/javascript'; 
+           script.onload = script.onreadystatechange = function() { 
+      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+               script.onload = script.onreadystatechange = null; 
+               }}; 
+        script.src= logJs; 
+            head.appendChild(script);  
+}
+function sendParameter(){
+         LA.sysCode = '57';
+       }
+//接入log监控end
 //页码
 var olvPagination;
 //初始化参数
@@ -78,6 +102,7 @@ function setFormData(){
 
 //查询数据
 function olvQuery(){
+	
 	//alert("jinrufiafangfa");
 	//设置表单数据
 /* 	setFormData();
@@ -132,6 +157,11 @@ function olvQuery(){
          },
          //回调
          callback: function(data) {
+        	 userName = data.userName ;
+     		 logJs = data.logJs;
+     		 reloadjs();
+     		sendParameter();
+     		LA.log('payChannelAccount-query', '支付渠道账号查询', userName, sessionId);
         	 for(var i in data.list){
         		 data.list[i ].createDate=formatDate(data.list[i].createDate);
         	 }
@@ -145,6 +175,8 @@ function olvQuery(){
 	
 //修改商户
 function editChannelAccount(id){
+	sendParameter();
+	LA.log('payChannelAccount-modifyPage', '修改支付渠道账号页面打开', userName, sessionId);
 	if($("#channelAccount_id").val(id)==null){
 		alert("请选择要修改的商户");
 	}
@@ -190,8 +222,9 @@ function closeMerchant(){
 						},
 						submitHandler : function(validator, form, submitButton) {
 							var url =__ctxPath+"/wfjpay/updatechannelPartnerAccount"
-							$
-									.ajax({
+							sendParameter();
+							LA.log('payChannelAccount-modify', '修改支付渠道账号', userName, sessionId);
+							$.ajax({
 										type : "post",
 										contentType : "application/x-www-form-urlencoded;charset=utf-8",
 										url : url,
@@ -298,6 +331,8 @@ function tab(data){
 }
  //添加商户管理
 function addChannelAccount(){
+	sendParameter();
+	LA.log('payChannelAccount-addPage', '新建支付渠道账号页面打开', userName, sessionId);
 	var url = __ctxPath+"/jsp/pay/channelAccount/addChannelAccount.jsp";
 	$("#pageBody").load(url);
 	 
@@ -470,6 +505,8 @@ function saveSetMediumCre(){
 	}
 	//设置费率
 	function setFeeRate(id){
+		sendParameter();
+  		LA.log('payChannelAccount-feePage', '渠道费率设置页面打开', userName, sessionId);
 		//商户ID
 		var partnerId=$("#partner_"+id).text().trim();
 		var payTypeName=$("#payTypeCode_"+id).text().trim();
@@ -501,87 +538,87 @@ function saveSetMediumCre(){
 		
 	
 	
-</script> 
+</script>
 </head>
 <body>
-<input type="hidden" id="ctxPath" value="${pageContext.request.contextPath}" />
-<!-- Main Container -->
-<div class="main-container container-fluid">
-    <!-- 内容显示区域 -->
-    <div class="page-container">
-            <!-- Page Body -->
-            <div class="page-body" id="pageBodyRight">
-                <div class="row">
-                    <div class="col-xs-12 col-md-12">
-                        <div class="widget">
-                            <div class="widget-header ">
-                                <h5 class="widget-caption">支付渠道账号</h5>
-                                <div class="widget-buttons">
-                                    <a href="#" data-toggle="maximize"></a>
-                                    <a href="#" data-toggle="collapse" onclick="tab('pro');">
-                                        <i class="fa fa-minus" id="pro-i"></i>
-                                    </a>
-                                    <a href="#" data-toggle="dispose"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body" id="pro">
-                                <div class="table-toolbar">
-                                		<ul class="topList clearfix">                           			
-                                			<li class="col-md-8">
-                                				<label class="titname">渠道类型：</label>
-                                			<select id="channelPayType_input" style="padding: 0 0;">
+	<input type="hidden" id="ctxPath"
+		value="${pageContext.request.contextPath}" />
+	<!-- Main Container -->
+	<div class="main-container container-fluid">
+		<!-- 内容显示区域 -->
+		<div class="page-container">
+			<!-- Page Body -->
+			<div class="page-body" id="pageBodyRight">
+				<div class="row">
+					<div class="col-xs-12 col-md-12">
+						<div class="widget">
+							<div class="widget-header ">
+								<h5 class="widget-caption">支付渠道账号</h5>
+								<div class="widget-buttons">
+									<a href="#" data-toggle="maximize"></a> <a href="#"
+										data-toggle="collapse" onclick="tab('pro');"> <i
+										class="fa fa-minus" id="pro-i"></i>
+									</a> <a href="#" data-toggle="dispose"></a>
+								</div>
+							</div>
+							<div class="widget-body" id="pro">
+								<div class="table-toolbar">
+									<ul class="topList clearfix">
+										<li class="col-md-8"><label class="titname">渠道类型：</label>
+											<select id="channelPayType_input" style="padding: 0 0;">
 												<option value=" ">全部渠道</option>
-												
-										    </select>
-                                				&nbsp;&nbsp;
-                                				<label class="titname">商户ID：</label>
-                                				<input type="text" id="businessID_input" style="padding: 0 0;"/>
-                                				&nbsp;&nbsp;&nbsp;&nbsp;
-                                				<a class="btn btn-default shiny" onclick="olvQuery();">查询</a>&nbsp;&nbsp;
-                                			</li>
-                               				
-                            				
-												<li class="col-md-4">
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            					<a class="btn btn-default shiny" onclick="addChannelAccount();">新建渠道号</a>&nbsp;&nbsp;
-												<!-- <a class="btn btn-yellow" onclick="excelOrder();">导出Excel</a> -->
-											   </li>
-                                		</ul>
-                                	<!--隐藏参数-->
-                           			<form id="olv_form" action="">
-										<input type="hidden" id="pageSize_form" name="pageSize" value="10"/>
-										<input type="hidden" id="channelPayType_form" name="payType"/>
-										<input type="hidden" id="businessID_form" name="businessID"/>  
-                                  	</form>
-                                <!--数据列表显示区域-->
-                            	<div style="width:100%; height:0%; overflow-Y: hidden;">
-                                <table class="table-striped table-hover table-bordered" id="olv_tab" style="width: 100%;background-color: #fff;margin-bottom: 0;">
-                                    <thead>
-                                        <tr role="row" style='height:35px;'>
-                                            <th width="3%" style="text-align: center;">类型</th>
-                                            <th width="3%" style="text-align: center;">商户ID</th>
-                                            <th width="3%" style="text-align: center;">支付介质</th>
-                                            <th width="3%" style="text-align: center;display:none;">费率（%）</th>
-                                            <th width="3%" style="text-align: center;">最后修改时间</th>
-                                            <th width="3%" style="text-align: center;">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                                </div>
-                               
-                                <!--分页工具-->
-                                <div id="olvPagination"></div>
-                            </div>
-                            <!--模板数据-->
-							<!-- Templates -->
-							<!--默认隐藏-->
-							<p style="display:none">
-								<textarea id="olv-list" rows="0" cols="0">
+
+										</select> &nbsp;&nbsp; <label class="titname">商户ID：</label> <input
+											type="text" id="businessID_input" style="padding: 0 0;" />
+											&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-default shiny"
+											onclick="olvQuery();">查询</a>&nbsp;&nbsp;</li>
+
+
+										<li class="col-md-4">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+											class="btn btn-default shiny" onclick="addChannelAccount();">新建渠道号</a>&nbsp;&nbsp;
+											<!-- <a class="btn btn-yellow" onclick="excelOrder();">导出Excel</a> -->
+										</li>
+									</ul>
+									<!--隐藏参数-->
+									<form id="olv_form" action="">
+										<input type="hidden" id="pageSize_form" name="pageSize"
+											value="10" /> <input type="hidden" id="channelPayType_form"
+											name="payType" /> <input type="hidden" id="businessID_form"
+											name="businessID" />
+									</form>
+									<!--数据列表显示区域-->
+									<div style="width: 100%; height: 0%; overflow-Y: hidden;">
+										<table class="table-striped table-hover table-bordered"
+											id="olv_tab"
+											style="width: 100%; background-color: #fff; margin-bottom: 0;">
+											<thead>
+												<tr role="row" style='height: 35px;'>
+													<th width="3%" style="text-align: center;">类型</th>
+													<th width="3%" style="text-align: center;">商户ID</th>
+													<th width="3%" style="text-align: center;">支付介质</th>
+													<th width="3%" style="text-align: center; display: none;">费率（%）</th>
+													<th width="3%" style="text-align: center;">最后修改时间</th>
+													<th width="3%" style="text-align: center;">操作</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+
+									<!--分页工具-->
+									<div id="olvPagination"></div>
+								</div>
+								<!--模板数据-->
+								<!-- Templates -->
+								<!--默认隐藏-->
+								<p style="display: none">
+									<textarea id="olv-list" rows="0" cols="0">
 								{#template MAIN}
 									{#foreach $T.list as Result}
-									<tr class="gradeX" id="merchant_tr" onclick="" style="height:35px;"  value="{$T.Result.id}">
+									<tr class="gradeX" id="merchant_tr" onclick=""
+											style="height: 35px;" value="{$T.Result.id}">
 										   <td align="center" id="payTypeCode_{$T.Result.id}">
 												{#if $T.Result.payTypeCode != '[object Object]'}{$T.Result.payTypeCode}
 				                   				{#/if}
@@ -596,7 +633,8 @@ function saveSetMediumCre(){
 												{#if $T.Result.payMediumCode!= '[object Object]'}{$T.Result.payMediumCode}
 				                   				{#/if}
 											</td>
-											<td align="center" id="qudaoFee_{$T.Result.id}" style="display:none;">
+											<td align="center" id="qudaoFee_{$T.Result.id}"
+												style="display: none;">
 												{#if $T.Result.feeCostRate!= '[object Object]'}{$T.Result.feeCostRate}
 				                   				{#/if}
 											</td>
@@ -604,36 +642,50 @@ function saveSetMediumCre(){
 												{#if $T.Result.createDate!= '[object Object]'}{$T.Result.createDate}
 				                   				{#/if}
 											</td>
-											<td align="center" id="publicKey_{$T.Result.id}" style="display:none;">
+											<td align="center" id="publicKey_{$T.Result.id}"
+												style="display: none;">
 												{#if $T.Result.publicKey!= '[object Object]'}{$T.Result.publicKey}
 				                   				{#/if}
 											</td>
-											<td align="center" id="privateKey_{$T.Result.id}" style="display:none;">
+											<td align="center" id="privateKey_{$T.Result.id}"
+												style="display: none;">
 												{#if $T.Result.privateKey!= '[object Object]'}{$T.Result.privateKey}
 				                   				{#/if}
 											</td>
 											<td align="center" id=" ">
-											   <input type="hidden"  id="eidtMerchant_input_{$T.Result.id}"  value="{$T.Result.id}">
-											   <input type="hidden"  id="payTypeval_input_{$T.Result.id}"  value="{#if $T.Result.payTypeCode!= '[object Object]'}{$T.Result.payTypeCode}
+											   <input type="hidden"
+												id="eidtMerchant_input_{$T.Result.id}"
+												value="{$T.Result.id}">
+											   <input type="hidden" id="payTypeval_input_{$T.Result.id}"
+												value="{#if $T.Result.payTypeCode!= '[object Object]'}{$T.Result.payTypeCode}
 				                   				{#/if}">
-											   <input type="hidden"  id="miyaoinput_key_{$T.Result.id}"   value="{#if $T.Result.encryptKey!= '[object Object]'}{$T.Result.encryptKey}
+											   <input type="hidden" id="miyaoinput_key_{$T.Result.id}"
+												value="{#if $T.Result.encryptKey!= '[object Object]'}{$T.Result.encryptKey}
 				                   				{#/if}">
-											   <input type="hidden" id="miyaoinput_path_{$T.Result.id}"   value="{#if $T.Result.keyPath!= '[object Object]'}{$T.Result.keyPath}
+											   <input type="hidden" id="miyaoinput_path_{$T.Result.id}"
+												value="{#if $T.Result.keyPath!= '[object Object]'}{$T.Result.keyPath}
 				                   				{#/if}">
-											   <input type="hidden" id="salser_input_{$T.Result.id}"   value="{#if $T.Result.sellerEmail!= '[object Object]'}{$T.Result.sellerEmail}
+											   <input type="hidden" id="salser_input_{$T.Result.id}"
+												value="{#if $T.Result.sellerEmail!= '[object Object]'}{$T.Result.sellerEmail}
 				                   				{#/if}">
-											   <input type="hidden" id="branchid_input_{$T.Result.id}"   value="{#if $T.Result.branchId!= '[object Object]'}{$T.Result.branchId}
+											   <input type="hidden" id="branchid_input_{$T.Result.id}"
+												value="{#if $T.Result.branchId!= '[object Object]'}{$T.Result.branchId}
 				                   				{#/if}">
-											   <input type="hidden" id="paymediumcodecre_input_{$T.Result.id}"   value="{#if $T.Result.payMediumCodeCredit!= '[object Object]'}{$T.Result.payMediumCodeCredit}
+											   <input type="hidden"
+												id="paymediumcodecre_input_{$T.Result.id}"
+												value="{#if $T.Result.payMediumCodeCredit!= '[object Object]'}{$T.Result.payMediumCodeCredit}
 				                   				{#/if}">
-											   <input type="hidden" id="appid_input_{$T.Result.id}"   value=" {#if $T.Result.appid!= '[object Object]'}{$T.Result.appid}
+											   <input type="hidden" id="appid_input_{$T.Result.id}"
+												value=" {#if $T.Result.appid!= '[object Object]'}{$T.Result.appid}
 				                   				{#/if}">
 											   <a href="javascript:editChannelAccount({$T.Result.id});">
 											   		<span class="btn btn-blue"><i class="fa fa-edit"></i>修改</span>
 											   </a>
-											   <a onclick="setFeeRate({$T.Result.id});" class="btn btn-default purple btn-sm fa fa-cog"> 设置费率</a>
+											   <a onclick="setFeeRate({$T.Result.id});"
+												class="btn btn-default purple btn-sm fa fa-cog"> 设置费率</a>
 											</td>
-											<td align="center" id="payType_{$T.Result.id}" style="display:none;">
+											<td align="center" id="payType_{$T.Result.id}"
+												style="display: none;">
 												{#if $T.Result.payType!= '[object Object]'}{$T.Result.payType}
 				                   				{#/if}
 			                   				</td>
@@ -641,20 +693,20 @@ function saveSetMediumCre(){
 									{#/for}
 							    {#/template MAIN}	
 								</textarea>
-							</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Page Body -->
-        </div>
-        <!-- /Page Content -->
-    </div>
-    <!-- /Page Container -->
-    <!-- Main Container -->
-</div>   
- 
-	<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;" 
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Page Body -->
+			</div>
+			<!-- /Page Content -->
+		</div>
+		<!-- /Page Container -->
+		<!-- Main Container -->
+	</div>
+
+	<div class="modal modal-darkorange" style="background: 0.5, 0.5, 0.5;"
 		id="editLabelDiv">
 		<div class="modal-dialog"
 			style="width: 1200px; height: auto; margin: 4% auto;">
@@ -667,23 +719,24 @@ function saveSetMediumCre(){
 				<div class="page-body" id="pageBodyRight">
 					<div class="row">
 						<form method="post" class="form-horizontal" id="editForm">
-							<div class="col-xs-12 col-md-12" style="overflow-y:scroll;height:350px;">
-								<input type="hidden" name="id" id="channelAccount_id">
-								<input type="hidden" name="payType" id="channelAccount_payType">
+							<div class="col-xs-12 col-md-12"
+								style="overflow-y: scroll; height: 350px;">
+								<input type="hidden" name="id" id="channelAccount_id"> <input
+									type="hidden" name="payType" id="channelAccount_payType">
 								<div class="col-md-12" id="" style="padding: 10px 100px;">
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">商户类型：</label>
 									<div class="col-md-3">
-										<input type="text" class="form-control" 
-											id="channelPayTypeform_input"   readonly= "true"/>			
+										<input type="text" class="form-control"
+											id="channelPayTypeform_input" readonly="true" />
 									</div>
-									
-										<label class="col-md-3 control-label"
+
+									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">商户ID：</label>
 									<div class="col-md-3">
 										<input type="text" class="form-control" name="partner"
 											id="qudao_Code" />
-											
+
 									</div>
 									<br>&nbsp;
 								</div>
@@ -691,88 +744,95 @@ function saveSetMediumCre(){
 								<div class="col-md-12" id="" style="padding: 10px 100px;">
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">卖家邮箱：</label>
-										<div class="col-md-3">
+									<div class="col-md-3">
 										<input type="text" class="form-control" name="sellerEmail"
 											id="salser_email" />
 									</div>
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">密钥文件路径：</label>
-										<div class="col-md-3">
+									<div class="col-md-3">
 										<input type="text" class="form-control" name="keyPath"
 											id="miyao_path" />
 									</div>
-									
+
 								</div>
-								
+
 								<div class="col-md-12" id="" style="padding: 10px 100px;">
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">支付介质编码：</label>
-										<div class="col-md-3">
+									<div class="col-md-3">
 										<input type="text" class="form-control" name="payMediumCode"
-											id="paydium_Code"  readonly="readonly" />
-											</div>
-										<div class="col-md-3" style="float:right">
-										 <a class="btn btn-default purple btn-sm fa fa-cog" onclick="showSetMediumDiv()"> 设置支付介质</a>	
+											id="paydium_Code" readonly="readonly" />
 									</div>
-									
-									
+									<div class="col-md-3" style="float: right">
+										<a class="btn btn-default purple btn-sm fa fa-cog"
+											onclick="showSetMediumDiv()"> 设置支付介质</a>
+									</div>
+
+
 								</div>
 								<div class="col-md-12" id="" style="padding: 10px 100px;">
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">信用卡支付介质：</label>
-										<div class="col-md-3">
-										<input type="text" class="form-control" name="payMediumCodeCre"
-											id="payMediumCode_Cre" readonly="readonly"/>
+									<div class="col-md-3">
+										<input type="text" class="form-control"
+											name="payMediumCodeCre" id="payMediumCode_Cre"
+											readonly="readonly" />
 									</div>
-									<div class="col-md-3" style="float:right">
-										 <a class="btn btn-default purple btn-sm fa fa-cog" onclick="showSetMediumDivCre()"> 设置支付介质</a>	
+									<div class="col-md-3" style="float: right">
+										<a class="btn btn-default purple btn-sm fa fa-cog"
+											onclick="showSetMediumDivCre()"> 设置支付介质</a>
 									</div>
-									
-									
+
+
 								</div>
-								
+
 								<div class="col-md-12" id="" style="padding: 10px 100px;">
-								    <label class="col-md-3 control-label"
+									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">微信支付公众号码：</label>
-										<div class="col-md-3">
+									<div class="col-md-3">
 										<input type="text" class="form-control" name="appid"
 											id="app_Id" />
-										</div>
+									</div>
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">商户开户分行号：</label>
-										<div class="col-md-3">
+									<div class="col-md-3">
 										<input type="text" class="form-control" name="branchId"
 											id="branchId_Code" />
-										</div>
+									</div>
 								</div>
-								
+
 								<div class="col-md-12" id="" style="padding: 10px 100px;">
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">密钥：</label>
 									<div class="col-md-3">
-									<input type="text" class="form-control" name="encryptKey"
-										id="miyao_key" />
+										<input type="text" class="form-control" name="encryptKey"
+											id="miyao_key" />
 									</div>
 								</div>
-								
+
 								<div class="col-md-12" id="" style="padding: 10px 100px;">
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">支付宝公钥：</label>
 									<div class="col-md-9">
-										<textarea class="form-control" maxlength="1024" name="publicKey" id="public_key" style="resize:none;height:100px;"/>
+										<textarea class="form-control" maxlength="1024"
+											name="publicKey" id="public_key"
+											style="resize: none; height: 100px;" />
 										</textarea>
 									</div>
 								</div>
-								
+
 								<div class="col-md-12" id="" style="padding: 10px 100px;">
 									<label class="col-md-3 control-label"
 										style="line-height: 20px; text-align: right;">支付宝私钥：</label>
 									<div class="col-md-9">
-										<textarea class="form-control" maxlength="2048" name="privateKey" id="private_key" style="resize:none;height:100px;"/>
+										<textarea class="form-control" maxlength="2048"
+											name="privateKey" id="private_key"
+											style="resize: none; height: 100px;" />
 										</textarea>
 									</div>
 								</div>
-								
+
 							</div>
 							<br>&nbsp;
 							<div class="form-group">
@@ -781,7 +841,8 @@ function saveSetMediumCre(){
 										type="submit">保存</button>
 									&emsp;&emsp; <input class="btn btn-danger"
 										onclick="closeMerchant();" style="width: 25%;" id="close"
-										type="button" value="取消" />								</div>
+										type="button" value="取消" />
+								</div>
 							</div>
 						</form>
 					</div>
@@ -791,83 +852,101 @@ function saveSetMediumCre(){
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	
-	<div class="modal modal-darkorange" id="setPayMediumDiv">
-	<div class="modal-dialog" style="width: 450px;height:30%;margin: 5% auto;">
-	    <div class="modal-content">
-		    <div class="widget-header">
-				<span class="widget-caption">设置支付介质</span>
-				<div class="widget-buttons">
-					<!-- <a href="#" data-toggle="collapse" >
-	            		<i class="fa fa-plus-square-o" id="open1" style="font-size:20px;"></i>
-	            	</a> -->
-	            	<a href="#" data-toggle="collapse" >
-	            		<i class="fa fa-plus-square"  style="font-size:20px;" id="open2"></i>
-	            	</a>
-	            	<a href="#" data-toggle="collapse" onclick="document.getElementById('setPayMediumDiv').style.display='none';" style="margin-right:10px;">
-            			<i class="fa fa-times"  style="font-size:20px;" id="pro-i"></i>
-            		</a>
-				</div>
-			</div>
-			<div class="widget-body" style="">
-				<form id="setPayMediumForm">
-					<input type="hidden" name="id" id="numberParam_set">
-				</form>
-				<div class="zTreeDemoBackground left" style="padding-left:20px;">
-					<ul id="treeDemo" class="ztree" style="overflow-y:scroll;height:400px;" ></ul>
-				</div>
-			
-			
-			
-			</div>
-			<!--修改保存/取消-->
-	        <div class="modal-footer" style="text-align:center;">
-	        	<button class="btn btn-success" style="width: 100px;" id="saveSet" type="submit"  onclick="saveSetMedium();">保存</button>&emsp;&emsp;
-	        	<input class="btn btn-danger" style="width: 100px;" id="close" type="button" value="取消" onclick="document.getElementById('setPayMediumDiv').style.display='none';"/>
-	        	<input class="btn btn-danger" style="display:none" id="editReset" type="reset" value="取消"/>
-	        </div>
-	    </div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div>
 
-<div class="modal modal-darkorange" id="setPayMediumCreDiv">
-	<div class="modal-dialog" style="width: 450px;height:30%;margin: 5% auto;">
-	    <div class="modal-content">
-		    <div class="widget-header">
-				<span class="widget-caption">设置支付介质</span>
-				<div class="widget-buttons">
-					<!-- <a href="#" data-toggle="collapse" >
+	<div class="modal modal-darkorange" id="setPayMediumDiv">
+		<div class="modal-dialog"
+			style="width: 450px; height: 30%; margin: 5% auto;">
+			<div class="modal-content">
+				<div class="widget-header">
+					<span class="widget-caption">设置支付介质</span>
+					<div class="widget-buttons">
+						<!-- <a href="#" data-toggle="collapse" >
 	            		<i class="fa fa-plus-square-o" id="open1" style="font-size:20px;"></i>
 	            	</a> -->
-	            	<a href="#" data-toggle="collapse" >
-	            		<i class="fa fa-plus-square"  style="font-size:20px;" id="open3"></i>
-	            	</a>
-	            	<a href="#" data-toggle="collapse" onclick="document.getElementById('setPayMediumCreDiv').style.display='none';" style="margin-right:10px;">
-            			<i class="fa fa-times"  style="font-size:20px;" id="pro-i"></i>
-            		</a>
+						<a href="#" data-toggle="collapse"> <i
+							class="fa fa-plus-square" style="font-size: 20px;" id="open2"></i>
+						</a> <a href="#" data-toggle="collapse"
+							onclick="document.getElementById('setPayMediumDiv').style.display='none';"
+							style="margin-right: 10px;"> <i class="fa fa-times"
+							style="font-size: 20px;" id="pro-i"></i>
+						</a>
+					</div>
+				</div>
+				<div class="widget-body" style="">
+					<form id="setPayMediumForm">
+						<input type="hidden" name="id" id="numberParam_set">
+					</form>
+					<div class="zTreeDemoBackground left" style="padding-left: 20px;">
+						<ul id="treeDemo" class="ztree"
+							style="overflow-y: scroll; height: 400px;"></ul>
+					</div>
+
+
+
+				</div>
+				<!--修改保存/取消-->
+				<div class="modal-footer" style="text-align: center;">
+					<button class="btn btn-success" style="width: 100px;" id="saveSet"
+						type="submit" onclick="saveSetMedium();">保存</button>
+					&emsp;&emsp; <input class="btn btn-danger" style="width: 100px;"
+						id="close" type="button" value="取消"
+						onclick="document.getElementById('setPayMediumDiv').style.display='none';" />
+					<input class="btn btn-danger" style="display: none" id="editReset"
+						type="reset" value="取消" />
 				</div>
 			</div>
-			<div class="widget-body" style="">
-				<form id="setPayMediumCreDiv">
-					<input type="hidden" name="id" id="numberParam_set">
-				</form>
-				<div class="zTreeDemoBackground left" style="padding-left:20px;">
-					<ul id="treeDemoCre" class="ztree" style="overflow-y:scroll;height:400px;" ></ul>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<div class="modal modal-darkorange" id="setPayMediumCreDiv">
+		<div class="modal-dialog"
+			style="width: 450px; height: 30%; margin: 5% auto;">
+			<div class="modal-content">
+				<div class="widget-header">
+					<span class="widget-caption">设置支付介质</span>
+					<div class="widget-buttons">
+						<!-- <a href="#" data-toggle="collapse" >
+	            		<i class="fa fa-plus-square-o" id="open1" style="font-size:20px;"></i>
+	            	</a> -->
+						<a href="#" data-toggle="collapse"> <i
+							class="fa fa-plus-square" style="font-size: 20px;" id="open3"></i>
+						</a> <a href="#" data-toggle="collapse"
+							onclick="document.getElementById('setPayMediumCreDiv').style.display='none';"
+							style="margin-right: 10px;"> <i class="fa fa-times"
+							style="font-size: 20px;" id="pro-i"></i>
+						</a>
+					</div>
 				</div>
-			
-			
-			
+				<div class="widget-body" style="">
+					<form id="setPayMediumCreDiv">
+						<input type="hidden" name="id" id="numberParam_set">
+					</form>
+					<div class="zTreeDemoBackground left" style="padding-left: 20px;">
+						<ul id="treeDemoCre" class="ztree"
+							style="overflow-y: scroll; height: 400px;"></ul>
+					</div>
+
+
+
+				</div>
+				<!--修改保存/取消-->
+				<div class="modal-footer" style="text-align: center;">
+					<button class="btn btn-success" style="width: 100px;" id="saveSet"
+						type="submit" onclick="saveSetMediumCre();">保存</button>
+					&emsp;&emsp; <input class="btn btn-danger" style="width: 100px;"
+						id="close" type="button" value="取消"
+						onclick="document.getElementById('setPayMediumCreDiv').style.display='none';" />
+					<input class="btn btn-danger" style="display: none" id="editReset"
+						type="reset" value="取消" />
+				</div>
 			</div>
-			<!--修改保存/取消-->
-	        <div class="modal-footer" style="text-align:center;">
-	        	<button class="btn btn-success" style="width: 100px;" id="saveSet" type="submit"  onclick="saveSetMediumCre();">保存</button>&emsp;&emsp;
-	        	<input class="btn btn-danger" style="width: 100px;" id="close" type="button" value="取消" onclick="document.getElementById('setPayMediumCreDiv').style.display='none';"/>
-	        	<input class="btn btn-danger" style="display:none" id="editReset" type="reset" value="取消"/>
-	        </div>
-	    </div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div>
-<script>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<script>
 //页面加载完成后执行函数
 jQuery(document).ready(
 		function () {
@@ -891,6 +970,6 @@ jQuery(document).ready(
 			);
 		}
 	);	
-</script> 
+</script>
 </body>
 </html>

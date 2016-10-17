@@ -175,7 +175,7 @@ function reloadjs(){
 		if (count > 0){
 			var form = $('#stock_form');
 			form.attr("method","post");
- 			form.attr('action', $("#ctxPath").val() + "/ediYzOrder/exportExcleYz?tradesource=M4");
+ 			form.attr('action', $("#ctxPath").val() + "/ediYzOrder/exportExcleYz?tradesource=M4&ispreSale=PT");
  			form.submit();
 		}else {
 			
@@ -191,9 +191,28 @@ function reloadjs(){
 		}
 		
 	}
+	
+	//加入黑名单  
+	function addBL(tid){
+		LA.env = 'dev';
+		LA.sysCode = '45';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('yz-addBL', '有赞加入黑名单', userName, sessionId);
+       	 $.ajax({
+       		on: true,
+    			url : __ctxPath + "/ediOrder/blacklistAdd?tid="+tid+"&channelCode=M4",
+    			dataType : "json",
+    			success : function(data) {
+		            reset();
+				},
+        	 	error:function(){ 
+		            reset(); 
+        	   	}
+    	});
+   	}
 
 	function initStock() {
-		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList";
+		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList?ispreSale=PT";
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
@@ -401,6 +420,9 @@ function reloadjs(){
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.cdate}">{#if $T.Result.cdate == null || $T.Result.cdate == ""} {$T.Result.update} {#else} {$T.Result.cdate} {#/if}</td>
+													<!-- <td align="center">
+														<a class="btn btn-default btn-sm" onclick="addBL('{$T.Result.tid}');">拉黑</a>
+													</td> -->
 													<!-- <td align="center" id="">
 														<a class="btn btn-default btn-sm" onclick="modify()">发货</a>&nbsp;&nbsp;&nbsp;&nbsp;
 													</td> -->

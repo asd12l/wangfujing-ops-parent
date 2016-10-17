@@ -323,27 +323,27 @@ function successBtn(){
 												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.accountStr != '[object Object]'}{$T.object.accountStr}
-				                   				{#/if}
+												{#if $T.Result.username != '[object Object]'}{$T.Result.username}
+												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.nicknameStr!= '[object Object]'}{$T.object.nicknameStr}
-				                   				{#/if}
+												{#if $T.Result.nickName!= '[object Object]'}{$T.Result.nickName}
+												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.realnameStr!= '[object Object]'}{$T.object.realnameStr}
-				                   				{#/if}
+												{#if $T.Result.realName!= '[object Object]'}{$T.Result.realName}
+												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.phoneStr!= '[object Object]'}{$T.object.phoneStr}
-				                   				{#/if}
+												{#if $T.Result.cmmobile!= '[object Object]'}{$T.Result.cmmobile}
+												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.emailStr != '[object Object]'}{$T.object.emailStr}
-				                   				{#/if}
+												{#if $T.Result.cmemail != '[object Object]'}{$T.Result.cmemail}
+												{#/if}
 											</td>
 											<td align="center">
-												{#if $T.object.level != '[object Object]'}{$T.object.level}
+												{#if $T.Result.level != '[object Object]'}{$T.Result.level}
 												{#/if}
 											</td>
 											<td align="center">

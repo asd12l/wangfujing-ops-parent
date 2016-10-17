@@ -173,20 +173,32 @@ var floorType="";
 			$("#brand_list,#link_list").hide();
 			$("#product_list a").click();
 			productList();
+			function load(){
+				$("#product_list a").click();
+			} 
 		}else if(floor_type==2){
 			productShow();
 			$("#product_list,#link_list").hide();
 			$("#brand_list a").click();
 			brandList();
+			function load(){
+				$("#brand_list a").click();  
+			} 
 		}else if(floor_type==3){
 			productShow();
 			$("#product_list,#brand_list").hide();
 			$("#link_list a").click();
 			linkList();
+			function load(){
+			    $("#link_list a").click();  
+			} 
 		}else{
 			divManagerShow();
 			$("#divTitle a").click();
 			initFloor(pageLayoutSid);
+			function load(){
+			   $("#divTitle a").click();  
+			} 
 		}
 	};
 	
@@ -535,6 +547,7 @@ var floorType="";
 	 * 添加块组/块按钮
 	 */
 	function addDiv(){
+		$(".error").html("");
 		$("#floorDIV").show();
 		clearInput();
 		// --Fuelux Spinner--
@@ -1022,6 +1035,7 @@ var floorType="";
 	 * 添加引导链接
 	 */
 	function addLink(){
+		$(".error").html("");
 		$("#addLinkForm")[0].reset();
 		$("#msg_pict").addClass("hide");
 		$("#hidden_pict").val("");
@@ -1063,6 +1077,15 @@ var floorType="";
 	 * 添加引导链接
 	 */
 	function addLinkForm(){
+		 if($("#id_pict").val()==""){
+			 alert("图片地址为空，请选择文件！")
+			 return;
+		 }
+		if($("#id_subTitle").val()==""){
+			alert("背景图片为空，请选择文件！");
+			return;
+		}
+		
 		if(validformAddLink().form()){
 	  		$.ajax({
 		        type:"post",

@@ -16,9 +16,9 @@ var url = __ctxPath + "/category/getAllCategory";
 		$("#parentSid").val(parentSid_);
 		$("#groupSid").val(groupSid_);
 		$("#organizationCode").val(organizationCode_);
-		/* $("#organizationName").val(organizationName_);
+        $("#organizationName").val(organizationName_);
 		$("#organizationStatus").val(organizationStatus_);
-		$("#storeType").val(storeType_); */
+		$("#storeType").val(storeType_);
 		
 		$.ajax({
 			type: "post",

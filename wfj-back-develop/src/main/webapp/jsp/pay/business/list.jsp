@@ -12,6 +12,7 @@ pageEncoding="UTF-8"%>
 <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/validation/bootstrapValidator.js"></script>
+<script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <style type="text/css">
 .trClick>td,.trClick>th{
  color:red;
@@ -34,7 +35,25 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript">
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
-
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+      var head= document.getElementsByTagName('head')[0]; 
+      var script= document.createElement('script'); 
+           script.type= 'text/javascript'; 
+           script.onload = script.onreadystatechange = function() { 
+      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+               script.onload = script.onreadystatechange = null; 
+               }}; 
+        script.src= logJs; 
+            head.appendChild(script);  
+}
+function sendParameter(){
+         LA.sysCode = '57';
+       }
+//接入log监控end
 //页码
 var olvPagination;
 //初始化参数
@@ -90,6 +109,8 @@ function olvQuery(){
 
 //添加业务平台数据
 function add(){
+	sendParameter();
+	LA.log('BusinessPlatformManager-add', '新建业务平台接口', userName, sessionId);
 	var url=__ctxPath+"/wfjpay/addBusinessPlatform";
 	var bpName=$("#bpName_add").val();
 	var redirectUrl=$("#redirectUrl_add").val();
@@ -139,6 +160,8 @@ function edit(){
 			status:status,
 			description:description
 	}
+	sendParameter();
+	LA.log('BusinessPlatformManager-modify', '业务平台接口修改', userName, sessionId);
 	$.post(url,param,function(data){
 		if(data.success=="true"){
 			$("#modal-success").attr({"style" : "display:block;z-index:9999;","aria-hidden" : "false","class" : "modal modal-message modal-success"});
@@ -182,6 +205,8 @@ function cleanErrorMsg(type){
 }
 //添加支付渠道
 function addPayChannel(){
+	sendParameter();
+	LA.log('BusinessPlatformManager-addPayChannel', '业务平台接口收银台添加支付渠道', userName, sessionId);
 	var url=__ctxPath+"/wfjpay/business/addPayChannel";
 	var bpId=$("#cashierBpId").val();
 	var clientType=$("#clientType_add").val();
@@ -212,6 +237,8 @@ function addPayChannel(){
 }
 //删除支付渠道
 function deletePayChannel(id){
+	sendParameter();
+	LA.log('BusinessPlatformManager-deletePayChannel', '业务平台接口收银台支付渠道删除', userName, sessionId);
 	var url=__ctxPath+"/wfjpay/business/deletePayChannel";
 	var payService=$("#payService").val();
 	var param={
@@ -230,6 +257,8 @@ function deletePayChannel(id){
 }
 //更新支付渠道
 function updatePayChannel(id){
+	sendParameter();
+	LA.log('BusinessPlatformManager-updatePayChannel', '业务平台接口收银台支付渠道修改', userName, sessionId);
 	var url=__ctxPath+"/wfjpay/business/updatePayChannel";
 	var bpId=$("#cashierBpId").val();
 	var clientType=$("#clientType_edit").val();
@@ -305,6 +334,7 @@ function selectChannelAccount(type,id){
 
 //初始化函数
 	function initOlv() {
+		
 	//请求地址
 	var url = __ctxPath+"/wfjpay/business";
 	setFormData();
@@ -356,6 +386,11 @@ function selectChannelAccount(type,id){
 			},
          //回调
          callback: function(data) {
+        	 userName = data.userName ;
+     		 logJs = data.logJs;
+     		 reloadjs();
+     		 sendParameter();
+    		 LA.log('BusinessPlatformManager-query', '业务平台接口管理查询', userName, sessionId);
         	 for(var i in data.list){
         		 data.list[i ].lastDate=formatDate(data.list[i].lastDate);
         		 //备注消息大于20个英文字符时，隐藏多余的文字
@@ -417,6 +452,8 @@ function showAddDiv(){
 
 //显示添加渠道窗口
 function showAddPayChannel(){
+	sendParameter();
+	LA.log('BusinessPlatformManager-showAddPayChannel', '业务平台接口管理收银台添加渠道窗口打开', userName, sessionId);
 	cleanErrorMsg("add");
 	$("#clientType_add option").get(0).selected=true;
 	$("#payType_add option").get(0).selected=true;
@@ -484,6 +521,8 @@ function showEditDiv(id){
 }
 //显示收银台窗口
 function showCashierDesk(id){
+	sendParameter();
+	LA.log('BusinessPlatformManager-checkstandShow', '业务平台接口管理收银台窗口打开', userName, sessionId);
 	channelType_add();
 	channelType_edit();
 	$("#cashierPlatformName").val($("#bpName_"+id).text().trim());

@@ -22,13 +22,47 @@
     image="http://images.shopin.net/images";
     saleMsgImage="http://images.shopin.net/images";
     ctx="http://www.shopin.net";
+    function timePickInit(){
+    	$('#reservationPull').daterangepicker({
+    		//timePicker: true,
+    		//timePickerIncrement: 30,
+    		//format: 'YYYY/MM/DD HH:mm:ss',
+            locale : {
+                applyLabel : '确定',
+                cancelLabel : '取消',
+                fromLabel : '起始时间',
+                toLabel : '结束时间',
+                customRangeLabel : '自定义',
+                daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                firstDay : 1
+            }
+        }); 
+    	$('#reservationBack').daterangepicker({
+    		//timePicker: true,
+    		//timePickerIncrement: 30,
+    		//format: 'YYYY/MM/DD HH:mm:ss',
+            locale : {
+                applyLabel : '确定',
+                cancelLabel : '取消',
+                fromLabel : '起始时间',
+                toLabel : '结束时间',
+                customRangeLabel : '自定义',
+                daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                firstDay : 1
+            }
+        }); 
+    }
+
     var olvPagination;
     $(function() {
-      $("#reservationPull").daterangepicker();
-      $("#reservationBack").daterangepicker();
+      timePickInit();
       initOlv();
+      $("#pageSelect").change(productQuery);
     });
-
     function productQuery(){
       $("#username_from").val($("#username_input").val().trim());
       $("#blacklisttype_from").val($("#blacklisttype_input").val().trim());
@@ -70,6 +104,39 @@
       $("#backId_input").val("");
       $("#username_input").val("");
       $("#blacklisttype_input").val("");
+      $("#pageSelect").val("10");
+      $('#reservationPull').daterangepicker({
+  		//timePicker: true,
+  		//timePickerIncrement: 30,
+  		//format: 'YYYY/MM/DD HH:mm:ss',
+          locale : {
+              applyLabel : '确定',
+              cancelLabel : '取消',
+              fromLabel : '起始时间',
+              toLabel : '结束时间',
+              customRangeLabel : '自定义',
+              daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+              monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                  '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+              firstDay : 1
+          }
+      }); 
+  	$('#reservationBack').daterangepicker({
+  		//timePicker: true,
+  		//timePickerIncrement: 30,
+  		//format: 'YYYY/MM/DD HH:mm:ss',
+          locale : {
+              applyLabel : '确定',
+              cancelLabel : '取消',
+              fromLabel : '起始时间',
+              toLabel : '结束时间',
+              customRangeLabel : '自定义',
+              daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+              monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                  '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+              firstDay : 1
+          }
+      }); 
       productQuery();
     }
     //初始化包装单位列表
@@ -297,11 +364,11 @@
         $("#relServiceId_msg").show();
         return;
       }
-      if(relieveReason==""||relieveReason==null){
+      var reg = /^\s*$/g;
+      if(relieveReason==""||relieveReason==null ||reg.test(relieveReason)){
         $("#relieveReason_msg").show();
         return;
       }
-
       var url = __ctxPath+"/memBasic/relieveBlackList";
       $.ajax({
         type : "post",
@@ -435,17 +502,17 @@
                   <thead>
                   <tr role="row" style='height:35px;'>
                     <th style="text-align: center;" width="2%">选择</th>
-                    <th style="text-align: center;" width="6%">账户</th>
+                    <th style="text-align: center;" width="6%">账号</th>
                     <th style="text-align: center;" width="6%">昵称</th>
                     <th style="text-align: center;" width="6%">真实姓名</th>
                     <th style="text-align: center;" width="6%">所属门店</th>
-                    <th style="text-align: center;" width="6%">当前会员等级</th>
-                    <th style="text-align: center;" width="6%">注册时间</th>
-                    <th style="text-align: center;" width="6%">拉黑客服</th>
+                    <!--  <th style="text-align: center;" width="6%">当前会员等级</th>-->
+                    <!--  <th style="text-align: center;" width="6%">注册时间</th>-->
+                    <th style="text-align: center;" width="6%">拉黑客服ID</th>
                     <th style="text-align: center;" width="8%">拉黑时间</th>
                     <th style="text-align: center;" width="6%">拉黑类型</th>
                     <th style="text-align: center;" width="6%">拉黑原因</th>
-                    <th style="text-align: center;" width="6%">解除客服</th>
+                    <th style="text-align: center;" width="6%">解除客服ID</th>
                     <th style="text-align: center;" width="8%">解除时间</th>
                     <th style="text-align: center;" width="6%">解除原因</th>
                     <th style="text-align: center;" width="6%">状态</th>
@@ -454,9 +521,16 @@
                   <tbody>
                   </tbody>
                 </table>
-                <div class="pull-left" style="padding: 10px 0;">
-                  <form id="product_form" action="">
-                    <input type="hidden" id="m_timePullStartDate_form" name="m_timePullStartDate"/>
+              </div>
+              <div class="pull-left" style="padding: 10px 0;">
+                   <form id="product_form" action="">
+												<select id="pageSelect" name="pageSize">
+													<option>5</option>
+													<option selected="selected">10</option>
+													<option>15</option>
+													<option>20</option>
+												</select>
+					<input type="hidden" id="m_timePullStartDate_form" name="m_timePullStartDate"/>
                     <input type="hidden" id="m_timePullEndDate_form" name="m_timePullEndDate"/>
                     <input type="hidden" id="m_timeBackStartDate_form" name="m_timeBackStartDate"/>
                     <input type="hidden" id="m_timeBackEndDate_form" name="m_timeBackEndDate"/>
@@ -467,7 +541,6 @@
                     <input type="hidden" id="cache" name="cache" value="1" />
                   </form>
                 </div>
-              </div>
                 <div id="olvPagination"></div>
               <!-- Templates -->
               <p style="display:none">
@@ -503,16 +576,20 @@
                                                     {#else}{$T.Result.memberSource}
                                                     {#/if}
                                                   </td>
+                                                  <!--  
                                                   <td align="center" id="memberLevel_{$T.Result.sid}">
                                                     {#if $T.Result.memberLevel == "" || $T.Result.memberLevel == null}--
                                                     {#else}{$T.Result.memberLevel}
                                                     {#/if}
                                                   </td>
+                                                  -->
+                                                  <!--  
                                                   <td align="center" id="registerTime_{$T.Result.sid}">
                                                     {#if $T.Result.registerTime == "" || $T.Result.registerTime == null}--
                                                     {#else}{$T.Result.registerTime}
                                                     {#/if}
                                                   </td>
+                                                  -->
                                                   <td align="center" id="pullId_{$T.Result.sid}">
                                                     {#if $T.Result.service_id == "" || $T.Result.service_id == null}--
                                                     {#else}{$T.Result.service_id}
@@ -665,15 +742,9 @@
                 <label class="col-md-5 control-label"
                        style="line-height: 20px; text-align: right;">解除原因：</label>
                 <div class="col-md-6">
-                	<select id="relieveReason" class="form-control" name="name">
-                             <option value="">请选择</option>
-                             <option value="用户申请解除通过">用户申请解除通过</option>
-                             <option value="用户购买信用良好">用户购买信用良好</option>
-                             <option value="误拉黑">误拉黑</option>
-                    </select>
-                  <!--  <input type="text" class="form-control" name="name"
-                         id="relieveReason" />-->
-                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">请选择解除原因!</span>
+                  <input type="text" class="form-control" name="name"
+                         id="relieveReason" />
+                  <span id="relieveReason_msg" style="color:red;display:none;" class="relieve_msg">请输入解除原因!</span>
                 </div>
                 <br>&nbsp;
               </div>

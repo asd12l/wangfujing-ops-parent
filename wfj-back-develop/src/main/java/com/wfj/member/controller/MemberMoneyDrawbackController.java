@@ -301,16 +301,24 @@ public class MemberMoneyDrawbackController {
 		}else{
 			currPage = Integer.parseInt(request.getParameter("page"));
 		}
-		int pageNo = (currPage - 1) * 10;
+		Integer size = null;
+		String pageSize = request.getParameter("pageSize");
+		if (pageSize == null || "0".equals(pageSize)){
+			size = 10;
+		}else{
+			size = Integer.valueOf(pageSize);
+		}
+		int pageNo = (currPage - 1) * size;
 		if(pageNo < 0){
 			pageNo = 0;
 		}
+
 		Gson gson = new Gson();
 		List<Object> list = new ArrayList<>();
 		String jsonString;
 		Map<Object, Object> map = new HashMap<>();
 		map.put("pageNo", pageNo);
-		map.put("pageSize", 10);
+		map.put("pageSize", size);
 		map.put("sid", hidsid);
 		map.put("startApplyTime", hidStartApplyTime);
 		map.put("endApplyTime", hidEndApplyTime);
@@ -353,19 +361,35 @@ public class MemberMoneyDrawbackController {
 				log.error("查询屏显规则异常！返回结果json="+json1);
 			}
 			map.put("mask",sysValue);
-			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
+			jsonString = HttpUtil.HttpPost(url,method, map);
+			if (jsonString == null || "".equals(jsonString)){
+				log.info("调取member-ops失败");
+				JSONObject json = new JSONObject();
+				json.put("code", "0");
+				json.put("pageCount", 0);
+				jsonString = json.toString();
+				return jsonString;
+			}
 			JSONObject json = JSONObject.parseObject(jsonString);
-			JSONArray ja = json.getJSONArray("object");
+			JSONObject jsonObject = json.getJSONObject("object");
+			JSONArray ja = jsonObject.getJSONArray("resList");
 			if(ja == null || ja.size() == 0){
 				json.put("pageCount", 0);
 				return json.toString();
 			}
-			int pageCount = ja.size() % 10 == 0 ? ja.size() / 10 : (ja.size() / 10 + 1);
+			int count = jsonObject.getInteger("count");
+//			if (count == 0){
+//				JSONArray resList = new JSONArray();
+//				json.put("resList",resList);
+//			}
+			int pageCount = count % size == 0 ? count / size : (count / size + 1);
 			json.put("pageCount", pageCount);
 			return json.toString();
 		} catch (Exception e) {
+			log.error("getWithdrawlsList异常"+e.getMessage());
 			JSONObject json = new JSONObject();
 			json.put("code", "0");
+			json.put("pageCount", 0);
 			jsonString = json.toString();
 			return jsonString;
 		}
@@ -554,9 +578,15 @@ public class MemberMoneyDrawbackController {
 			System.err.println("============== member_ops_url:" + url);
 			System.err.println("=============method:"+method);
 			System.err.println("======== getWithdrawlsList url "+url+ method+"  =========");
-			jsonString = HttpUtil.doPost(url+method, net.sf.json.JSONObject.fromObject(map).toString());
+			jsonString = HttpUtil.HttpPost(url,method, map);
+			if (jsonString == null || "".equals(jsonString)){
+				log.error(url+method+"getWithdrowToExcel查询提现申请单详情失败!");
+				m.put("success", "false");
+				m.put("msg", "导出异常！");
+			}
 			JSONObject json = JSONObject.parseObject(jsonString);
-			JSONArray arr = json.getJSONArray("object");
+			JSONObject jsonObject = json.getJSONObject("object");
+			JSONArray arr = jsonObject.getJSONArray("resList");
 			List<Withdraw> list1 = new ArrayList<Withdraw>();
 			if (arr != null && arr.size() != 0) {
 				for (int i=0;i<arr.size();i++){
@@ -602,7 +632,7 @@ public class MemberMoneyDrawbackController {
 		List<List<String>> data = new ArrayList<List<String>>();
 		for(Withdraw vo:list){
 			List<String> inlist = new ArrayList<String>();
-			inlist.add(vo.getBillno()==null?"":vo.getBillno());
+			inlist.add(vo.getSeqno()==null?"":vo.getSeqno());
 			if (!"1".equals(sysValue)){
 				inlist.add(vo.getMobile()==null?"":vo.getMobile());
 			}else {

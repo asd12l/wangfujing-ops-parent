@@ -7,11 +7,39 @@
 <script src="${ctx}/js/jquery-1.9.1.js"></script>
 <script src="${ctx}/js/jquery.form.js"></script>
 <script src="${ctx}/assets/js/validation/bootstrapValidator.js"></script>
+<script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <title>签约商户基本信息</title>
+<style>
+	.selectDiv i{margin-right:20px;}
+</style>
 <script type="text/javascript">
 __ctxPath = "${pageContext.request.contextPath}";
+//接入log监控start
+var userName;
+var logJs;	
+var sessionId = '<%=request.getSession().getId()%>';
+function reloadjs(){
+      var head= document.getElementsByTagName('head')[0]; 
+      var script= document.createElement('script'); 
+           script.type= 'text/javascript'; 
+           script.onload = script.onreadystatechange = function() { 
+      if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+               script.onload = script.onreadystatechange = null; 
+               }}; 
+        script.src= logJs; 
+            head.appendChild(script);  
+}
+function sendParameter(){
+         LA.sysCode = '57';
+       }
+//接入log监控end
 $(function(){
 	 
+	$("input[name=merchantType]:eq(0)").prop("checked",'checked');
+	attrChange(1);
+	$("input[name=isOpenYZShop]:eq(0)").prop("checked",'checked');
+	showUrlInput(1);
+	
 	$('#theForm').bootstrapValidator({
 		message : 'This value is not valid',
 		feedbackIcons : {
@@ -37,6 +65,12 @@ $(function(){
 		        url:__ctxPath + "/wfjpay/addMerchant",
 		        data: $("#theForm").serialize(),
 		        success: function(response) {
+		        	 userName = response.userName ;
+		     		 logJs = response.logJs;
+		     		 reloadjs();
+		     		 sendParameter();
+		    		LA.log('merchant-save', '添加签约商户', userName, sessionId);
+		    		console.log("-----------");
 		        	if(response.success == 'true'){
 						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>添加成功，返回列表页!</strong></div>");
 	  	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -51,7 +85,7 @@ $(function(){
 			name : {
 				validators : {
 					notEmpty : {
-						message : '品牌名称不能为空'
+						message : '签约商户名称不能为空'
 					}
 				}
 			},
@@ -74,6 +108,27 @@ $(function(){
                     },
 					notEmpty : {
 						message : '费率不能为空'
+					}
+				}
+			},
+			yzShopUrl : {
+				validators : {
+					regexp: {
+                        regexp: /^((http|ftp|https):\/\/)(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,4})*(\/[a-zA-Z0-9\&%_\.\/-~-]*)?$/,
+                        message: '地址格式不正确'
+                    },
+					notEmpty : {
+						message : '地址不能为空'
+					}
+				}
+			},memberUrl : {
+				validators : {
+					regexp: {
+	                    regexp: /^((http|ftp|https):\/\/)(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,4})*(\/[a-zA-Z0-9\&%_\.\/-~-]*)?$/,
+	                    message: '地址格式不正确'
+	                },
+					notEmpty : {
+	                	message : '地址不能为空'
 					}
 				}
 			}
@@ -172,6 +227,17 @@ $(function(){
 		$("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
 		$("#pageBody").load(__ctxPath+"/jsp/pay/merchant/list.jsp");
 	}
+  	
+  	//显示有赞商城或会员中心的地址输入框
+  	function showUrlInput(value){
+  		if(value==1){
+  			$("#input_memberUrl").hide();
+  			$("#input_yzShopUrl").show();
+  		}else if(value==0){
+  			$("#input_yzShopUrl").hide();
+  			$("#input_memberUrl").show();
+  		}
+  	}
 	</script> 
 	</head>
 <body>
@@ -187,68 +253,95 @@ $(function(){
 							<div class="widget-body">
 								<form id="theForm" method="post" class="form-horizontal" enctype="multipart/form-data">        
 									<div class="form-group">
-										<label class="col-lg-3 control-label">签约商户名称</label>
-										<div class="col-lg-6">
+										<label class="col-lg-4 control-label">签约商户名称：</label>
+										<div class="col-lg-4">
 											<input type="text" class="form-control" id="addMerchantName" name="name" placeholder="必填"/>
 										</div>
 									</div>
         
 								
 									<div class="form-group">
-										<label class="col-lg-3 control-label">签约商户费率</label>
-										<div class="col-lg-6">
+										<label class="col-lg-4 control-label">签约商户费率：</label>
+										<div class="col-lg-4">
 											<input type="text" class="form-control" id="addMerchantFee" name="feeCostRate" placeholder="必填"/>
 										</div>
 									</div>
 									
 						<div class="form-group">
-							<label class="col-lg-3 control-label">签约商户类型</label>
+							<label class="col-lg-4 control-label">签约商户类型：</label>
 							<div class="radio">
 								<label> <input class="basic divtype cart_flag" type="radio"
-									id="merchantType_0" name="merchantType" value="1" onclick="attrChange(this.value)"> <span
+									id="merchantType_0" name="merchantType" value="1" onclick="attrChange(this.value)" checked="checked"> <span
 									class="text">内部</span>
 								</label> 
 								<label> <input class="basic divtype cart_flag" type="radio"
 									id="merchantType_1" name="merchantType" value="2" onclick="attrChange(this.value)"> <span
 									class="text">外部</span>
 								</label> 
-								
-								
 							</div>
-							<div class="form-group"  style="display:none"  id="option_merchant">
-								
-																
-									  <label class="col-lg-3 control-label">内部请选择</label>
-									  <div class="col-lg-6">
-									  <ul class="topList clearfix">
-									  <li class="col-md-2">
-											<select id="bpId_input" style="padding: 0 0;" name="merCode">										
-										</select>
-									  </li>
-								</ul>
-								</div>
-							</div>
-							
-															
-							<div class="form-group"  style="display:none"  id="input_merchant">
-							   <label class="col-lg-3 control-label">外部请填写</label>
-							   <div class="col-lg-6">
-								<input type="text" class="form-control" id="text_merchant" name="merCode" placeholder="必填"/>
-								</div>
-								
-							</div>
+						
 							<div class="radio" style="display: none;">
 								<label> <input class="inverted" type="radio"
 									name="merchantType"> <span class="text"></span>
 								</label>
 							</div>
 						</div>
+						
+						<div class="form-group selectDiv"  style=""  id="option_merchant" >
+							<label class="col-lg-4 control-label">内部请选择：</label>
+							<div class="col-lg-4">
+								<select id="bpId_input" class="form-control" style="padding: 0 0;" name="merCode">										
+								</select>
+							</div>
+						</div>
+															
+						<div class="form-group"  style="display:none"  id="input_merchant">
+						   <label class="col-lg-4 control-label">外部请填写：</label>
+						   <div class="col-lg-4">
+							<input type="text" class="form-control" id="text_merchant" name="merCode" placeholder="必填"/>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-lg-4 control-label">是否有赞商城：</label>
+							<div class="radio">
+								<label style="width:70px;"> 
+									<input class="basic divtype cart_flag" type="radio" id="merchantType_0" name="isOpenYZShop" value="1" onclick="showUrlInput(this.value)" checked="checked">
+									<span class="text">是</span>
+								</label> 
+								<label>
+									<input class="basic divtype cart_flag" type="radio" id="merchantType_1" name="isOpenYZShop" value="0" onclick="showUrlInput(this.value)"> 
+									<span class="text">否</span>
+								</label> 
+							</div>
+							
+							<div class="radio" style="display: none;">
+								<label> <input class="inverted" type="radio"
+									name="isOpenYZShop"> <span class="text"></span>
+								</label>
+							</div>
+						</div>
+						
+						<div class="form-group"  style=""  id="input_yzShopUrl">
+								<label class="col-lg-4 control-label">有赞商城地址：</label>
+								<div class="col-lg-4">
+								<input type="text" class="form-control" id="text_merchant" name="yzShopUrl" placeholder="必填"/>
+								</div>
+							</div>
+
+							<div class="form-group"  style="display:none"  id="input_memberUrl">
+								<label class="col-lg-4 control-label">会员中心地址：</label>
+								<div class="col-lg-4">
+								<input type="text" class="form-control" id="text_merchant" name="memberUrl" placeholder="必填"/>
+								</div>
+							</div>
+						
 						<div>
 						
 						
 						</div>						
 									<!-- <div class="form-group">
-										<label class="col-lg-3 control-label">签约商户编码</label>
+										<label class="col-lg-4 control-label">签约商户编码</label>
 										<div class="col-lg-6">
 											<input type="text" class="form-control" id="addMerchantCode" name="merCode" placeholder="必填"/>
 										</div>

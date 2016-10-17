@@ -91,7 +91,7 @@ public class EdiYzOrderController {
 		
 		paramMap.put("symbol", request.getParameter("symbol"));
 		paramMap.put("amount", request.getParameter("amount"));
-		
+		paramMap.put("ispreSale", request.getParameter("ispreSale"));
 		if(request.getParameter("exceptionType") != null && request.getParameter("exceptionType") != ""){
 			paramMap.put("exceptionType", request.getParameter("exceptionType"));
 		}

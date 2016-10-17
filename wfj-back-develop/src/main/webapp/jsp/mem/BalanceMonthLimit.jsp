@@ -7,7 +7,9 @@
 	<script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/>
-	<style type='text/css'>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/bootstrap/css/bootstrap-datetimepicker.min.css"/>
+    <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap-datetimepicker.js"></script>
+    <style type='text/css'>
 		/*#product_tab{width:70%;margin-left:130px;}*/
 		#sid0{width:30px;}
 		td,th{text-align:center;}
@@ -18,9 +20,24 @@
 		__ctxPath = "${pageContext.request.contextPath}";
 		var productPagination;
 		$(function() {
+            $("#year").datetimepicker({
+                startView: 4,
+                minView: 4,
+                format: 'yyyy',
+                autoclose: false
+            });
 			initUserRole();
 			$("#find").click(userRoleQuery);
+			$("#pageSelect").change(advertisingSpaceQuery);
 		});
+		function advertisingSpaceQuery() {
+			//$("#_site_id_param").val(siteSid);
+			$("#_site_id_param").val($("#year").val());
+			var params = $("#advertisingSpace_form").serialize();
+			params = decodeURI(params);
+			productPagination.onLoad(params);
+		}
+
 		function userRoleQuery(){
 			var params = $("#product_form").serialize();
 			params = decodeURI(params);
@@ -142,6 +159,7 @@
 									<div class="mtb10">
 										<span>年份：</span>
 										<input type="text" id="year" name="year"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span class="add-on"><i class="icon-th"></i></span>
 										<a class="btn btn-default shiny" id="find">查询</a>
 									</div>
 
@@ -163,13 +181,24 @@
 								<tbody>
 								</tbody>
 							</table>
+							<div class="pull-left" style="margin-top: 5px;">
+							<form id="advertisingSpace_form" action="">
+								<select id="pageSelect" name="pageSize">
+									<option>5</option>
+									<option selected="selected">10</option>
+									<option>15</option>
+									<option>20</option>
+								</select>
+								<input type="hidden" name="_site_id_param" id="_site_id_param"/>
+							</form>
+						</div>
 							<div id="productPagination"></div>
 						</div>
 						<!-- Templates -->
 						<p style="display:none">
 									<textarea id="balance-list" rows="0" cols="0">
 										{#template MAIN}
-											{#foreach $T.object as Result}
+											{#foreach $T.object.list as Result}
 												<tr class="gradeX">
 													<td align="left">
 														<div class="checkbox">

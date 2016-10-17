@@ -228,6 +228,20 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		String js = (String) PropertiesUtil.getContextProperty("log_js");
 		paramMap.put("logJs", js);
 		
+		String url = (String) PropertiesUtil.getContextProperty("memberUrl")+CookiesUtil.getUserName(request);;
+		String s = HttpUtils.HttpdoGet(url);
+		JSONObject obj = JSONObject.fromObject(s);
+	
+		Map<String, Class<Member>> classMap = new HashMap<String, Class<Member>>();
+		classMap.put("data", Member.class);
+		MemberInfo memberInfo = (MemberInfo) JSONObject.toBean(obj, MemberInfo.class,classMap);
+		
+		if(StringUtils.isNotEmpty(memberInfo.getSuccess())){
+			if(memberInfo.getSuccess()=="true"){
+				paramMap.put("memberInfo", memberInfo.getData().get(0).getSysValue());
+			}
+		}
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		System.out.println(gson.toJson(paramMap));
 		return gson.toJson(paramMap);
@@ -363,6 +377,41 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		}
 		return json;
 	}
+	
+	/**
+	 * 解除黑名单关系
+	 * 
+	 */
+	@RequestMapping("/blacklistRemove")
+	public void blacklistRemove(String tid,String channelCode,HttpServletRequest request, HttpServletResponse response) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+
+		paramMap.put("tid", tid);
+		paramMap.put("channel", channelCode);
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url = "";
+//			if("M4".equals(channelCode)){
+//				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_yzrelieve");
+//			}else if("JM".equals(channelCode)){
+//				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_jmrelieve");
+//			}else{
+				url = (String) PropertiesUtil.getContextProperty("edi_blacklist_relieve");
+//			}
+			HttpUtilPcm.doPost(url, jsonStr);
+		} catch (Exception e) {
+			map.put("pageCount", 0);
+			map.put("success", "false");
+		}
+	}
+	
 	/**
 	 * 修改异常订单
 	 * @Methods Name selectRefundApplyList
@@ -537,6 +586,36 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		HSSFCell cell0 = row.createCell(cellNum);
 		cell0.setCellValue(cellValue);
 		cell0.setCellStyle(style);
+	}
+	
+	
+	/**
+	 * 添加黑名单
+	 * 
+	 */
+	@RequestMapping("/blacklistAdd")
+	public void blacklistAdd(String tid,String channelCode,HttpServletRequest request, HttpServletResponse response) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+
+		paramMap.put("tid", tid);
+		paramMap.put("channel", channelCode);
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url = "";
+
+			url = (String) PropertiesUtil.getContextProperty("edi_blacklist_add");
+			HttpUtilPcm.doPost(url, jsonStr);
+		} catch (Exception e) {
+			map.put("pageCount", 0);
+			map.put("success", "false");
+		}
 	}
 	
 }

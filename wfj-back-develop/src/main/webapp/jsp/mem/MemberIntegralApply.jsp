@@ -38,8 +38,34 @@
 
         var olvPagination;
         $(function () {
-            $("#reservationAp").daterangepicker();
-            $("#reservationCh").daterangepicker();
+        	$("#reservationAp").daterangepicker({
+		        locale : {
+		            applyLabel : '确定',
+		            cancelLabel : '取消',
+		            fromLabel : '起始时间',
+		            toLabel : '结束时间',
+		            opens:'left',
+		            customRangeLabel : '自定义',
+		            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+		            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+		                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+		            firstDay : 1
+		        }
+		    });
+            $("#reservationCh").daterangepicker({
+		        locale : {
+		            applyLabel : '确定',
+		            cancelLabel : '取消',
+		            fromLabel : '起始时间',
+		            toLabel : '结束时间',
+		            customRangeLabel : '自定义',
+		            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+		            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+		                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+		            firstDay : 1
+		        }
+		    });
+            
             $("#modal-success").attr({
                 "style": "display:none;",
                 "aria-hidden": "true",
@@ -55,9 +81,9 @@
             $("#mobile_from").val($("#mobile_input").val());
             $("#email_from").val($("#email_input").val());
             $("#fromOrder_from").val($("#from_order_input").val());
+            $("#pageSelectNo").val($("#pageSelect").val());
             $("#check_status_from").val($("#check_status_input").val());
             var strApTime = $("#reservationAp").val();
-//            debugger;
             var strChTime = $("#reservationCh").val();
             if (strApTime != "") {
                 strApTime = strApTime.split("- ");
@@ -101,6 +127,37 @@
             $("#email_input").val("");
             $("#from_order_input").val("");
             $("#check_status_input").val("");
+            $("#topic_form")[0].reset();
+            $("#reservationAp").daterangepicker({
+    			startDate:moment().startOf('day'),
+    			endDate:moment(),
+    			locale : {
+    	            applyLabel : '确定',
+    	            cancelLabel : '取消',
+    	            fromLabel : '起始时间',
+    	            toLabel : '结束时间',
+    	            customRangeLabel : '自定义',
+    	            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+    	            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+    	                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+    	            firstDay : 1
+    	        }
+    			});
+            $("#reservationCh").daterangepicker({
+    			startDate:moment().startOf('day'),
+    			endDate:moment(),
+    			locale : {
+    	            applyLabel : '确定',
+    	            cancelLabel : '取消',
+    	            fromLabel : '起始时间',
+    	            toLabel : '结束时间',
+    	            customRangeLabel : '自定义',
+    	            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+    	            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+    	                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+    	            firstDay : 1
+    	        }
+    			});
             productQuery();
         }
         //初始化包装单位列表
@@ -147,6 +204,7 @@
                 }
                 return data;
             }
+            $("#pageSelect").change(productQuery);
         }
         function successBtn() {
             $("#modal-success").attr({
@@ -809,7 +867,7 @@
                                             <th style="text-align: center;" width="5%">昵称</th>
                                             <th style="text-align: center;" width="5%">真实姓名</th>
                                             <th style="text-align: center;" width="5%">会员等级</th>
-                                            <th style="text-align: center;" width="5%">手机</th>
+                                            <th style="text-align: center;" width="5%">手机号</th>
                                             <th style="text-align: center;" width="5%">邮箱</th>
                                             <th style="text-align: center;" width="5%">积分类型</th>
                                             <th style="text-align: center;" width="5%">积分值</th>
@@ -839,13 +897,26 @@
                                                                                   name="m_timeChEndDate"/> <input
                                                 type="hidden" id="mobile_from" name="mobile"/> <input
                                                 type="hidden" id="email_from" name="email"/> <input
-                                                type="hidden" id="fromOrder_from" name="fromOrder"/> <input
-                                                type="hidden" id="applyName_from" name="applyName"/> <input
+                                                type="hidden" id="fromOrder_from" name="fromOrder"/> 
+                                               <input type="hidden" id="pageSelectNo" name="pageSize" />
+                                                <input type="hidden" id="applyName_from" name="applyName"/> <input
                                                 type="hidden" id="check_status_from" name="check_status"/>
                                             <input type="hidden" id="cache" name="cache" value="1"/>
                                         </form>
                                     </div>
                                 </div>
+                                <div class="pull-left" style="margin-top: 5px;">
+									<form id="topic_form" action="">
+										<div class="col-lg-12">
+											<select id="pageSelect" name="pageSize">
+												<option>5</option>
+												<option selected="selected">10</option>
+												<option>15</option>
+												<option>20</option>
+											</select>
+										</div>
+									</form>
+								</div>
                                     <div id="olvPagination"></div>
                             </div>
                             <!-- Templates -->

@@ -51,6 +51,27 @@
         olvPagination.onLoad(params);
         
    	}
+	$("#reservation").daterangepicker({
+		/* timePicker: true,
+		timePickerIncrement: 30,
+		format: 'YYYY/MM/DD HH:mm:ss', */
+        locale : {
+            applyLabel : '确定',
+            cancelLabel : '取消',
+            fromLabel : '起始时间',
+            toLabel : '结束时间',
+            customRangeLabel : '自定义',
+            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+            firstDay : 1
+        }
+    }); 
+	
+	//分页下拉选
+	$(function() {
+	      $("#pageSelect").change(productQuery);
+	    });
 	// 查询
 	function query() {
 		
@@ -66,6 +87,7 @@
 		$("#mobile_input").val("");
 		$("#email_input").val("");
 		$("#loginchannel_input").val("1");
+		$("#pageSelect").val("10");
 		productQuery();
 	}
 	
@@ -227,12 +249,12 @@
                                         <thead>
                                             <tr role="row" style='height:35px;'>
                                             	<th width="8%" style="text-align: center;">账号</th>
-                                            	<th width="5%" style="text-align: center;">昵称</th>
+                                            	<th width="7%" style="text-align: center;">昵称</th>
                                             	<th width="7%" style="text-align: center;">真实姓名</th>
-                                            	<th width="5%" style="text-align: center;">会员来源</th>
-                                            	<th width="5%" style="text-align: center;">手机</th>
-                                            	<th width="5%" style="text-align: center;">邮箱</th>
-                                            	<th width="8%" style="text-align: center;">注册时间</th>
+                                            	<th width="7%" style="text-align: center;">会员来源</th>
+                                            	<th width="7%" style="text-align: center;">手机号</th>
+                                            	<th width="7%" style="text-align: center;">邮箱</th>
+                                            	<!-- <th width="8%" style="text-align: center;">注册时间</th> -->
                                             	<th width="9%" style="text-align: center;">登录时间</th>
                                             	<th width="7%" style="text-align: center;">IP地址</th>
                                                 <th width="20%" style="text-align: center;">浏览器</th>
@@ -250,6 +272,12 @@
                                    </div>
                                   <div class="pull-left" style="padding: 10px 0;">
 									<form id="product_form" action="">
+									<select id="pageSelect" name="pageSize">
+													<option>5</option>
+													<option selected="selected">10</option>
+													<option>15</option>
+													<option>20</option>
+												</select>
 											<input type="hidden" id="username_from" name="username" />
 											<input type="hidden" id="loginTimeStartDate_form" name="loginTimeStartDate"/>
 											<input type="hidden" id="loginTimeEndDate_form" name="loginTimeEndDate"/> 
@@ -310,12 +338,12 @@
 													    {#else}{$T.Result.email}
 													    {#/if}
 													</td>
-													<td align="center" id="regist_time_{$T.Result.sid}">
-													<!-- 注册时间 -->
+													<!-- <td align="center" id="regist_time_{$T.Result.sid}">
+													注册时间
 														{#if $T.Result.regist_time == "" || $T.Result.regist_time == null}--
 													    {#else}{$T.Result.regist_time}
 													    {#/if}
-													</td>
+													</td> -->
 													<td align="center" id="loginTime_{$T.Result.sid}">
 														<!-- 登录时间 -->
 														{#if $T.Result.loginTime == "" || $T.Result.loginTime == null}--

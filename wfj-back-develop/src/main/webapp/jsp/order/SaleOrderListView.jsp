@@ -69,7 +69,7 @@
 			}
 		});
 		
-		//会员权限
+		/* //会员权限
 		$.ajax({
 			type: "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -84,7 +84,7 @@
 					}
 				return;
 			}
-		});
+		}); */
 		//销售单来源（PCM接口）
 		$.ajax({
 			type : "post",
@@ -3592,7 +3592,7 @@
 			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
 			async:false,
 			dataType: "json",
-			data:{"orderNo":orderNo,"saleNo" : saleNo,"memberNo" : memberNo,"sysValue":sysValue},
+			data:{"orderNo":orderNo,"saleNo" : saleNo,"memberNo" : memberNo/* ,"sysValue":sysValue */},
 			success:function(response) {
 				if(response.success=='true'){
 					var result = response.list;
@@ -3686,7 +3686,7 @@
 			url:__ctxPath + "/testOnlineOmsOrder/selectCustomerInfo",
 			async:false,
 			dataType: "json",
-			data:{"orderNo":orderNo,"sysValue":sysValue},
+			data:{"orderNo":orderNo/* ,"sysValue":sysValue */},
 			success:function(response) {
 				if(response.success=='true'){
 					var result = response.list;

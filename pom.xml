@@ -550,6 +550,9 @@
 	<profiles>
 		<profile>
 			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<resources.active>1-dev</resources.active>
 			</properties>
@@ -563,9 +566,7 @@
 		</profile>
 		<profile>
 			<id>pre</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+		
 			<properties>
 				<resources.active>3-pre</resources.active>
 			</properties>			

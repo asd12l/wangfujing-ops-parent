@@ -15,6 +15,7 @@ $(function(){
  */
 function toNav(sid) {
 	if(sid!=''){
+		$("#navTree").show();
 		$.fn.zTree.init($("#navTree"), {
 			async: {
 				enable : true,
@@ -35,6 +36,8 @@ function toNav(sid) {
 		});
 		zTree = $.fn.zTree.getZTreeObj("navTree");
 		rMenu = $("#rMenu");
+	}else{
+		$("#navTree").hide();
 	}
 };
 
@@ -195,6 +198,7 @@ function loadNav(sid) {
  * 添加导航
  */
 function addNav() {
+	$(".error").html("");
 	// --Fuelux Spinner--
 	$('.spinner').spinner('value', 1);
 	$("#addNavDIV").show();

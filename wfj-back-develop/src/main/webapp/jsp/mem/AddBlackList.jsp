@@ -27,8 +27,8 @@
     $(function() {
       $("#reservation").daterangepicker();
       initOlv();
+      $("#pageSelect").change(productQuery);
     });
-
     function productQuery(){
       $("#username_from").val($("#username_input").val().trim());
       $("#mobile_from").val($("#mobile_input").val().trim());
@@ -40,14 +40,17 @@
     // 查询
     function query() {
       $("#cache").val(0);
+      $("#status").val("1");
       productQuery();
     }
     //重置
     function reset(){
       $("#cache").val(1);
+      $("#status").val("");
       $("#username_input").val("");
       $("#mobile_input").val("");
       $("#email_input").val("");
+      $("#pageSelect").val("10");
       productQuery();
     }
     //初始化包装单位列表
@@ -92,6 +95,7 @@
         }
         return data;
       }
+      
     }
     function successBtn(){
       $("#modal-success").attr({"style":"display:none;","aria-hidden":"true","class":"modal modal-message modal-success fade"});
@@ -284,13 +288,13 @@
                   <thead>
                   <tr role="row" style='height:35px;'>
                     <th style="text-align: center;" width="2%">选择</th>
-                    <th style="text-align: center;" width="10%">账户</th>
-                    <th style="text-align: center;" width="10%">昵称</th>
-                    <th style="text-align: center;" width="10%">真实姓名</th>
-                    <th style="text-align: center;" width="10%">手机</th>
-                    <th style="text-align: center;" width="10%">邮箱</th>
+                    <th style="text-align: center;" width="12%">账号</th>
+                    <th style="text-align: center;" width="12%">昵称</th>
+                    <th style="text-align: center;" width="12%">真实姓名</th>
+                    <th style="text-align: center;" width="10%">手机号</th>
+                    <th style="text-align: center;" width="12%">邮箱</th>
                     <th style="text-align: center;" width="10">所属门店</th>
-                    <th style="text-align: center;" width="10%">会员等级</th>
+                   <!--  <th style="text-align: center;" width="10%">会员等级</th> -->
                     <th style="text-align: center;" width="10%">地址</th>
                     <th style="text-align: center;" width="10%">拉黑</th>
                   </tr>
@@ -300,9 +304,16 @@
                 </table>
                 <div class="pull-left" style="padding: 10px 0;">
                   <form id="product_form" action="">
+                  				<select id="pageSelect" name="pageSize">
+									<option>5</option>
+									<option selected="selected">10</option>
+									<option>15</option>
+									<option>20</option>
+								</select>
                     <input type="hidden" id="username_from" name="cid" />
                     <input type="hidden" id="mobile_from" name="mobile" />
                     <input type="hidden" id="email_from" name="email" />
+                    <input type="hidden" id="status" name="status"/>
                     <input type="hidden" id="cache" name="cache" value="1" />
                   </form>
                 </div>
@@ -353,11 +364,11 @@
                                                     {#else}{$T.Result.cmmkt}
                                                     {#/if}
                                                   </td>
-                                                  <td align="center" id="levelName_{$T.Result.cid}">
+                                                  <!-- <td align="center" id="levelName_{$T.Result.cid}">
                                                     {#if $T.Result.levelName == "" || $T.Result.levelName == null}V钻会员
                                                     {#else}{$T.Result.levelName}
                                                     {#/if}
-                                                  </td>
+                                                  </td> -->
                                                   <td align="center" id="address_{$T.Result.cid}">
                                                     {#if $T.Result.address == "" || $T.Result.address == null}--
                                                     {#else}{$T.Result.address}
