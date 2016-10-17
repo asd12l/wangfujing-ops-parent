@@ -278,7 +278,7 @@
 													<!-- error_msg -->
 													<th style="text-align: center;">异常原因</th>
 													<!-- createDate -->
-													<th style="text-align: center; width :120px; ">操作</th>
+													<th style="text-align: center;">操作</th>
 													<!-- increment -->
 										</tr>
 									</thead>
