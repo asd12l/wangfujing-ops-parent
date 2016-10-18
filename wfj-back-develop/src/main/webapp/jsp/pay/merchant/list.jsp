@@ -152,6 +152,7 @@ function editMerchant(id){
 	sendParameter();
 	LA.log('merchant-showModifyWindow', '签约商户管理修改签约商户窗口打开', userName, sessionId);
 	$("#editForm").data('bootstrapValidator').resetForm();
+	$("#editForm")[0].reset();
 	$("#merchant_id").val(id);
 	$("#qianyue_shanghuName").val($("#shanghuName_"+ id).html().trim());
 	$("#qianyueshanghu_Code").val($("#shanghuCode_" + id).html().trim());
@@ -171,6 +172,10 @@ function editMerchant(id){
 		$("#text_merchant").val($("#shanghuCode_" + id).html().trim());
 		$("#option_merchant").hide();
 		$("#input_merchant").show();
+	}else{
+		$("input[name=merchantType]:eq(0)").prop("checked",'checked');
+		$("#input_merchant").hide();
+		$("#option_merchant").show();
 	}
 	if(isYZ==1){
 		$("input[name=isOpenYZShop]:eq(0)").prop("checked",'checked');
@@ -638,7 +643,7 @@ function  neibuMerchant(){
 								<div class="col-md-12 form-group selectDiv"  style="display:none"  id="option_merchant">						
 									<label class="col-md-5 control-label"  style="line-height: 20px; text-align: right;">内部编码选择：</label>
 									<div class="col-lg-6">
-										<select id="bpId_input" class="form-control " name="inMerCode">										
+										<select id="bpId_input" class="form-control" name="inMerCode">										
 										</select>
 									</div>
 								</div>
