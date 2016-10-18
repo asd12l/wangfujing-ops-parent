@@ -108,13 +108,13 @@ function timePickInit(){
           firstDay : 1
       	},
 		singleDatePicker:true});
+		$("#verifyEndTime_input").on('apply.daterangepicker', function(ev, picker) {
+			$(this).val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
+		});
+		$("#verifyEndTime_input").on('cancel.daterangepicker', function(ev, picker) {
+			$(this).val('');
+		});
 	}
-	$("#verifyEndTime_input").on('apply.daterangepicker', function(ev, picker) {
-		$(this).val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
-	});
-	$("#verifyEndTime_input").on('cancel.daterangepicker', function(ev, picker) {
-		$(this).val('');
-	});
 
 //页面加载完成后自动执行
 $(function() {
