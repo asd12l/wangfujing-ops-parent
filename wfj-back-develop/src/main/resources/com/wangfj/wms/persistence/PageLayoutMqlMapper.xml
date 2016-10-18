@@ -277,7 +277,6 @@
 		select *
 		from PAGE_LAYOUT pl
 		<where>
-			1=1
 			<if test="sid != null">
 				and pl.sid = #{sid,jdbcType=INTEGER}
 			</if>

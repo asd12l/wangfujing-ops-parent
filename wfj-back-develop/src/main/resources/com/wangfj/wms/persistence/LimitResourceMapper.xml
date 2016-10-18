@@ -29,7 +29,6 @@
 		from
 		limit_resources
 		<where>
-			1=1
 			<!-- delFlag=0 -->
 			<if test="delFlag==null">
 				and delFlag=0

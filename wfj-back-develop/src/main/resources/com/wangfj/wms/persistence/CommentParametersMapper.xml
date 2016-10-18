@@ -25,7 +25,6 @@
 		<include refid="Base_Column_List" />
 		from comment_parameters
 		<where>
-			1=1
 			<if test="sid != null">
 				and sid = #{sid,jdbcType=INTEGER}
 			</if>

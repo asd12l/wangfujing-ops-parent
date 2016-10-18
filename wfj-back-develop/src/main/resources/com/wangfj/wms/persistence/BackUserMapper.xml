@@ -29,7 +29,6 @@
 		userName, r.user_pwd passWord, r.status,r.type,ur.role_sid roleSid
 		from users r left join user_role ur on r.sid=ur.users_sid
 		<where>
-			1=1
 			<if test="userName != null">
 				and r.user_name like "%"#{userName}"%"
 			</if>
@@ -44,7 +43,6 @@
 		select count(*)
 		from users r left join user_role ur on r.sid=ur.users_sid
 		<where>
-			1=1
 			<if test="userName != null">
 				and r.user_name like "%"#{userName}"%"
 			</if>

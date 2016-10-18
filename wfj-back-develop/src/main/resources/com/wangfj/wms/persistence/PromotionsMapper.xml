@@ -104,7 +104,6 @@
   	<include refid="Base_Column_List" />
   	from promotions
   	<where>
-  		1=1
   	 	<if test="proSid != null and proSid !='' ">
   			and sid = #{proSid}
   		</if>
