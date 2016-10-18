@@ -875,7 +875,7 @@
 												<td align="center" id="billsNo_{$T.Result.sid}">
 													{#if $T.Result.billsNo != '[object Object]'}
 														{$T.Result.billsNo}
-													{#else}
+													{#/if}
 												</td>
 												<td align="center" id="proSum_{$T.Result.sid}">{$T.Result.proSum}</td>
 												<td align="center" id="changeSum_{$T.Result.sid}">{$T.Result.changeSum}</td>
