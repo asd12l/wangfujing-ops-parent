@@ -872,7 +872,11 @@
 									<!--  {#template MAIN}
 										{#foreach $T.list as Result}
 											<tr class="gradeX">
-												<td align="center" id="billsNo_{$T.Result.sid}">{$T.Result.billsNo}</td>
+												<td align="center" id="billsNo_{$T.Result.sid}">
+													{#if $T.Result.billsNo != '[object Object]'}
+														{$T.Result.billsNo}
+													{#else}
+												</td>
 												<td align="center" id="proSum_{$T.Result.sid}">{$T.Result.proSum}</td>
 												<td align="center" id="changeSum_{$T.Result.sid}">{$T.Result.changeSum}</td>
 												<td align="center" id="changeTime_{$T.Result.sid}">{$T.Result.changeTime}</td>
