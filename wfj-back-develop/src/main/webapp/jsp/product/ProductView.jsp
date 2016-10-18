@@ -489,7 +489,7 @@ fingColorDict();
 						success : function(response) {
 							if(response.success=="true"){
 								TIPSDiv.css({"left":e.pageX + "px","top":(e.pageY - TIPSTop) + "px"});
-								TIPSDiv.find("img:eq(0)").prop("src", response.pictureUrl);
+								TIPSDiv.find("img:eq(0)").attr("src", response.pictureUrl);
 								$("#TIPS").show();
 							}
 						}	
@@ -517,7 +517,7 @@ fingColorDict();
 		value="${pageContext.request.contextPath}" />
 	<!-- Main Container -->
 	<div class="main-container container-fluid">
-		<div id="TIPS" style="z-index: 9999;position: absolute;">
+		<div id="TIPS" style="z-index: 9999;position: absolute;display: none;">
 			<img style="width:110px;height:110px;" src="" alt="">
 		</div>
 		<!-- Page Container -->
