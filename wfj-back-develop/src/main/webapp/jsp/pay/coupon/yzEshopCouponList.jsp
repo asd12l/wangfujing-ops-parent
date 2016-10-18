@@ -47,10 +47,13 @@ var olvPagination;
 var format=/^[\s]*[\d]{4}(\/|-)(0?[1-9]|1[012])(\/|-)(0?[1-9]|[12][0-9]|30|31)[\s]*(0?[0-9]|1[0-9]|2[0-3])(:([0-5][0-9])){2}[\s]*$/;
 //初始时间选择器
 function timePickInit(){
+	$("#verifyStartTime_input").val('');
+	$("#verifyEndTime_input").val('');
 	var endTime=new Date();
 	var startTime=new Date();
 	startTime.setDate(endTime.getDate()-30);
 	$('#verifyStartTime_input').daterangepicker({
+		autoUpdateInput: false,
 		startDate:startTime,
 //		endDate:endTime,
 		timePicker:true,
@@ -72,9 +75,16 @@ function timePickInit(){
           monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
               '七月', '八月', '九月', '十月', '十一月', '十二月' ],
           firstDay : 1
-      },
+		},
 		singleDatePicker:true});
+	$("#verifyStartTime_input").on('apply.daterangepicker', function(ev, picker) {
+		$(this).val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
+	});
+	$("#verifyStartTime_input").on('cancel.daterangepicker', function(ev, picker) {
+	      $(this).val('');
+	});
 	$('#verifyEndTime_input').daterangepicker({
+		autoUpdateInput: false,
 		startDate:endTime,
 //		endDate:endTime,
 		timePicker:true,
@@ -86,7 +96,7 @@ function timePickInit(){
 		opens:'center',
 		showDropdowns : true,
 		locale : {
-		  	format: "YYYY/MM/DD HH:mm:ss",
+		  format: "YYYY/MM/DD HH:mm:ss",
           applyLabel : '确定',
           cancelLabel : '取消',
           fromLabel : '起始时间',
@@ -96,9 +106,15 @@ function timePickInit(){
           monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
               '七月', '八月', '九月', '十月', '十一月', '十二月' ],
           firstDay : 1
-      },
+      	},
 		singleDatePicker:true});
-}
+	}
+	$("#verifyEndTime_input").on('apply.daterangepicker', function(ev, picker) {
+		$(this).val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
+	});
+	$("#verifyEndTime_input").on('cancel.daterangepicker', function(ev, picker) {
+		$(this).val('');
+	});
 
 //页面加载完成后自动执行
 $(function() {
