@@ -52,7 +52,6 @@
 		<include refid="Base_Column_List" />
 		from erweima_promotions
 		<where>
-			1=1
 			<if test="sid != null and sid !='' ">
 				and sid = #{sid}
 			</if>

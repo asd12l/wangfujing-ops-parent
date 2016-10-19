@@ -62,7 +62,6 @@
 		<include refid="Base_Column_List" />
 		from mobile_flash_promotions
 		<where>
-			1=1
 			<if test="endDay != null">
 				and end_time &lt;= DATE_FORMAT(#{endDay},'%Y-%m-%d %T')
 			</if>

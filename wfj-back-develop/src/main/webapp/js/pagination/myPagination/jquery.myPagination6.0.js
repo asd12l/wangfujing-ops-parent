@@ -63,10 +63,9 @@
 				contentType: "application/x-www-form-urlencoded;utf-8",
 				async: !0,
 				cache: !1,
-				timeout: 6e4,
-				error: function() {
-					alert("\u8bbf\u95ee\u670d\u52a1\u5668\u8d85\u65f6\uff0c\u8bf7\u91cd\u8bd5\uff0c\u8c22\u8c22\uff01")
-				},
+				timeout: opts.ajax.timeout,
+				//扩展，错误函数
+				error: opts.ajax.error,
 				success: function(a) {
 					opts.ajax.ajaxStop(),
 					responseHandle(a),
@@ -199,6 +198,7 @@
 				url: "jsonTest.php",
 				dataType: "json",
 				param: !1,
+				timeout: 6e4,
 				onClick: function() {
 					return ! 1
 				},
@@ -210,6 +210,9 @@
 				},
 				callback: function() {
 					return ! 1
+				},
+				error: function(){
+					alert("\u8bbf\u95ee\u670d\u52a1\u5668\u8d85\u65f6\uff0c\u8bf7\u91cd\u8bd5\uff0c\u8c22\u8c22\uff01");
 				}
 			},
 			panel: {

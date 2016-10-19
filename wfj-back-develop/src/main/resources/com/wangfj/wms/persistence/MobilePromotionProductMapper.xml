@@ -30,7 +30,6 @@
 		<include refid="Base_Column_List" />
 		from mobile_promotion_product
 		<where>
-			1=1
 			<if test="shopSid != null and shopSid != '' ">
 				and shop_sid = #{shopSid}
 			</if>
@@ -90,7 +89,6 @@
 		resultType="java.lang.Integer">
 		select count(*) from mobile_promotion_product
 		<where>
-			1=1
 			<if test="productSid != null and productSid != '' ">
 				and product_sid = #{productSid}
 			</if>

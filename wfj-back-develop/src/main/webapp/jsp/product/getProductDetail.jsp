@@ -68,7 +68,7 @@ $(function(){
 var channelCodeList = new Array();
 
 function goEditPro(b){
-	productDetail = ${jsonsSku[0] };
+	productDetail = JSON.parse('${jsonsSku[0] }');
 	productChangePropId = "${jsonsSku[0].sid }";
 	category_Sid = "${jsonsSku[0].category }";
 	category_Name = "${jsonsSku[0].categoryName }";

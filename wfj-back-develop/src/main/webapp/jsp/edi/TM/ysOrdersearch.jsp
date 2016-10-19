@@ -246,7 +246,7 @@
 													<!-- payment -->
 													<th style="text-align: center;">状态</th>
 													<th style="text-align: center;">下单时间</th>
-													<th style="text-align: center;">操作</th>
+													<!-- <th style="text-align: center;">操作</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -290,9 +290,9 @@
 													<td align="center" id="edefectiveStock_{$T.Result.payment}">{$T.Result.payment}</td>
 													<td align="center" id="returnStock_{$T.Result.tradeStatus}">{$T.Result.tradeStatus}</td>
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
-									       		    <td align="center">
+									       		    <!-- <td align="center">
 														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
-													</td>
+													</td> -->
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	
