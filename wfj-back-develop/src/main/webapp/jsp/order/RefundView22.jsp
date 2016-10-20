@@ -380,7 +380,9 @@ Author: WangSy
 		}else{
 			$("#isRefundFee").text("是");
 		}
-		$("#refundFee").text(returnShippingFee);
+		if(returnShippingFee != '[object Object]'){
+			$("#refundFee").text(returnShippingFee);			
+		}
 		/* $("#refundFee").hide();
 		$("#isRefundFee").change(function() {
 			if ($("#type").val() != 0) {
