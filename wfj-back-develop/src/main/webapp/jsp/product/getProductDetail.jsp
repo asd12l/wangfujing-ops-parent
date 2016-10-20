@@ -356,7 +356,7 @@ $(function(){
 							+ "<div class='col-md-5'>"
 							+ "<input id='rightvalueSid_"+cp.propSid+"' type='hidden' name='rightvalueSid' value='"+cp.valueSid+"'>"
 							+ "<input id='rightvalueName_"+cp.propSid+"' type='hidden' name='rightvalueName' value='"+cp.valueName+"'>";
-					if (cp.valueSid == null) {
+					if (cp.valueSid == null || cp.valueSid == 0) {
 						if (cp.valueName == 'undefined') {
 							option += "<input type='text' disabled='disabled' id='rightvalueInput_"
 									+ cp.propSid

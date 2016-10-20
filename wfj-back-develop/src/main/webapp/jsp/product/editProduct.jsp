@@ -387,7 +387,7 @@ Author: WangSy
 					+ "<div class='col-md-5'>"
 					+ "<input id='rightvalueSid_"+category_id+"' type='hidden' name='rightvalueSid' value='"+cp.valueSid+"'>"
 					+ "<input id='rightvalueName_"+category_id+"' type='hidden' name='rightvalueName' value='"+cp.valueName+"'>";
-			if (cp.valueSid == null) {
+			if (cp.valueSid == null || cp.valueSid == 0) {
 				if (cp.valueName == 'undefined') {
 					option += "<input type='text' class='rightyz' name='"+ cp.propName +"' id='rightvalueInput_"
 							+ category_id
@@ -593,7 +593,7 @@ Author: WangSy
 											+ "<div class='col-md-5'>"
 											+ "<input id='rightvalueSid_"+cp.propSid+"' type='hidden' name='rightvalueSid' value='"+cp.valueSid+"'>"
 											+ "<input id='rightvalueName_"+cp.propSid+"' type='hidden' name='rightvalueName' value='"+cp.valueName+"'>";
-									if (cp.valueSid == null) {
+									if (cp.valueSid == null || cp.valueSid == 0) {
 										if (cp.valueName == 'undefined') {
 											option += "<input type='text' id='rightvalueInput_"
 													+ cp.propSid
@@ -1890,7 +1890,7 @@ $.ajax({
 										+ "<div class='col-md-5'>"
 										+ "<input id='rightvalueSid_"+cp.propSid+"' type='hidden' name='rightvalueSid' value='"+cp.valueSid+"'>"
 										+ "<input id='rightvalueName_"+cp.propSid+"' type='hidden' name='rightvalueName' value='"+cp.valueName+"'>";
-								if (cp.valueSid == null) {
+								if (cp.valueSid == null || cp.valueSid == 0) {
 									if (cp.valueName == 'undefined') {
 										option += "<input type='text' id='rightvalueInput_"
 												+ cp.propSid
