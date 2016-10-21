@@ -138,7 +138,7 @@
 	
 	
 	function initStock() {
-		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList?status=EC&ispreSale=PT";
+		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList?status=EC";
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
@@ -340,7 +340,7 @@
 														{#else} 
 														 	<a class="btn btn-default shiny" onclick="modify('{$T.Result.tid}');">修改</a>
 														{#/if}
-														  <!-- <a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}');">拉黑</a> -->
+														    <a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}');">拉黑</a>
 													</td>
 									       		</tr>
 									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">
