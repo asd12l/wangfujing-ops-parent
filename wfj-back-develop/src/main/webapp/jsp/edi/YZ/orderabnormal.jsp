@@ -138,7 +138,7 @@
 	
 	
 	function initStock() {
-		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList?status=EC";
+		var url = $("#ctxPath").val() + "/ediYzOrder/selectYzOrderCatchList?status=EC&ispreSale=PT";
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
