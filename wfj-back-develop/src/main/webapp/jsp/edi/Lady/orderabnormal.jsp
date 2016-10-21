@@ -323,7 +323,7 @@
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
 													<td align="center" id="">
 														<a class="btn btn-default shiny" onclick="modify('{$T.Result.tid}')">修改</a>
-													    <a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
+													    <!-- <a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a> -->
 													</td>
 									       		</tr>
 									       		<tr class="gradeX" id="items_{$T.Result.tid}" style="display:none">
