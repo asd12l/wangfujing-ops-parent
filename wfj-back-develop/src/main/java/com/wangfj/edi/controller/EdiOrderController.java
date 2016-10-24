@@ -66,6 +66,7 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 	@RequestMapping("/selectOrderList")
 	public String selectOrderList(String status,String tradesource,HttpServletRequest request, HttpServletResponse response) {
 		String json = "";
+		String json1 = "";
 		Integer pageSize = request.getParameter("pageSize")==null?null:Integer.parseInt(request.getParameter("pageSize"));
 		Integer currentPage = Integer.parseInt(request.getParameter("page"));
 		if(pageSize==null || pageSize==0){
@@ -105,10 +106,19 @@ private static final Logger logger = LoggerFactory.getLogger(EdiOrderController.
 		paramMap.put("endDate", request.getParameter("endDate"));
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		Map<Object, Object> orderVo = new HashMap<Object, Object>();
+		String tid=request.getParameter("tid");
+		String action = request.getParameter("action");
 		try {
 			String jsonStr = JSON.toJSONString(paramMap);
 			orderVo.put("orderVo", jsonStr);
 			logger.info("jsonStr:" + jsonStr);
+			
+			if(tid !=null && tid!="" && "obtain".equals(action)){
+				String url1=	(String) PropertiesUtil.getContextProperty("edi_order_catch")+tid;
+				json1 =HttpUtilPcm.doPost(url1, jsonStr);
+				System.out.println(json1);
+			}
+			
 			String url=	(String) PropertiesUtil.getContextProperty("edi_order");
 			paramMap.put("currentPage", currentPage);
 			paramMap.put("pageSize", pageSize);

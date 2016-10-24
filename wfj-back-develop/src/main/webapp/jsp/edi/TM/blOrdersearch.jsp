@@ -81,6 +81,20 @@
     	});
    	}
 	
+	function  obtain(){
+		LA.env = 'dev';
+		LA.sysCode = '44';
+		var sessionId = '<%=request.getSession().getId()%>';
+		LA.log('tm-bl-obtain', '天猫黑名单订单获取', userName,  sessionId);
+		$("#tid_form").val($("#tid_input").val());
+		$("#action_form").val("");
+		$("#action_form").val("obtain");
+		/* $("#skuid_form").val($("#skuid_input").val()); */
+		var params = $("#stock_form").serialize();
+		params = decodeURI(params);
+		stockPagination.onLoad(params);
+	}
+	
 	function reset() {
 		$("#tid_form").val("");
 		$("#ordersId_form").val("");
@@ -223,7 +237,10 @@
 										<li class="col-md-6"><a id="editabledatatable_new" 
 											onclick="olvQuery();" class="btn btn-yellow"> <i
 												class="fa fa-eye"></i> 查询
-										</a>  <a id="editabledatatable_new" onclick="reset();"
+										</a>  
+										<a class="btn btn-default shiny" onclick="obtain();" class="btn btn-default">获取</a>
+										
+										<a id="editabledatatable_new" onclick="reset();"
 											class="btn btn-primary"> <i class="fa fa-random"></i> 重置
 										</a></li>
 									</ul>
