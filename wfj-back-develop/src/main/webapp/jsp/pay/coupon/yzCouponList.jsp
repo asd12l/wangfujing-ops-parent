@@ -37,7 +37,7 @@ function reloadjs(){
             head.appendChild(script);  
 }
 function sendParameter(){
-         LA.sysCode = '57';
+         LA.sysCode = '48';
        }
 //接入log监控end
 //页码
@@ -242,7 +242,7 @@ function setFormData(){
 //重置
 function reset(){
 	sendParameter();
-	LA.log('payOrder-reset', '支付日志明细查询条件重置', userName, sessionId);
+	LA.log('yzCoupon-reset', '有赞券核销查询条件重置', userName, sessionId);
 	$("#orderId_input").val("");
 	$("#outerTid_input").val("");
 	$("#outerItemId_input").val("");
@@ -304,7 +304,7 @@ function initOlv() {
 			logJs = data.logJs;
 			reloadjs();
 			sendParameter();
-			LA.log('payOrder-query', '支付日志明细查询', userName, sessionId);
+			LA.log('yzCoupon-query', '有赞券核销查询', userName, sessionId);
 			$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
 	 }
    }
