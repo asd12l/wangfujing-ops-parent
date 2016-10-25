@@ -71,7 +71,7 @@
 				$("#parentId").val(citySid);
 			}
 
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             var sessionId = '<%=request.getSession().getId() %>';
             LA.log('region.addRegion', '添加行政区域：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

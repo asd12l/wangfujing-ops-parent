@@ -156,7 +156,7 @@
 		$("#endDate_from").val($("#endDate_input").val());
 
 		var params = $("#label_form").serialize();
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('proLabel.queryProLabel', '促销活动标签查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
@@ -328,7 +328,7 @@
 							var operaterName =$('input[name="operaterName"]').val();
 							var status = $('input[name="status"]:checked').val();
 
-                            LA.sysCode = '16';
+                            LA.sysCode = '10';
                             var sessionId = '<%=request.getSession().getId() %>';
                             LA.log('proLabel.saveProLabel', '添加促销活动标签：', getCookieValue("username"),  sessionId);
 
@@ -418,7 +418,7 @@
 		var endDate = $("#endDate_" + sid).html().trim();
 		var operaterName = $("#operaterName_" + sid).html().trim();
 
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('proLabel.editProLabel', '启用停用促销活动标签：', getCookieValue("username"),  sessionId);
 
@@ -462,7 +462,7 @@
 
 							var url = $("#ctxPath").val() + "/proLabel/editProLabel.htm";
 
-                            LA.sysCode = '16';
+                            LA.sysCode = '10';
                             var sessionId = '<%=request.getSession().getId() %>';
                             LA.log('proLabel.editProLabel', '修改促销活动标签：', getCookieValue("username"),  sessionId);
 

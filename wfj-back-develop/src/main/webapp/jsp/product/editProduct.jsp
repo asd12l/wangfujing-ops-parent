@@ -1287,7 +1287,7 @@ $.ajax({
 			var primaryAttr = $("#primary_attr").val();
 			var productSku = $("#product_sku").val();
 
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             var sessionId = '<%=request.getSession().getId() %>';
             LA.log('product.skuUpdateAttrOrSku', '修改商品：', getCookieValue("username"),  sessionId);
 
@@ -1334,7 +1334,7 @@ $.ajax({
 				var keyWord = $("#keyWord").val();
 				var skuSid = $("#skuSid").val();
 
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             var sessionId = '<%=request.getSession().getId() %>';
             LA.log('product.updateSkuInfoBySid', '修改商品：', getCookieValue("username"),  sessionId);
 
@@ -1421,7 +1421,7 @@ $.ajax({
 		    var spuJson = JSON.stringify(sppvs);
 			//alert(spuJson);
 
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             var sessionId = '<%=request.getSession().getId() %>';
             LA.log('product.addProByEdit', '修改商品：', getCookieValue("username"),  sessionId);
 
@@ -1529,7 +1529,7 @@ $.ajax({
 				});
 	            var sppvsJSON = JSON.stringify(sppvs);
 
-                LA.sysCode = '16';
+                LA.sysCode = '10';
                 var sessionId = '<%=request.getSession().getId() %>';
                 LA.log('productprops.addProductParameters', '修改商品：', getCookieValue("username"),  sessionId);
 
@@ -1711,7 +1711,7 @@ $.ajax({
 	}
 	//专柜商品启用或禁用
 	function editStatus(productCode,status){
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('product.UpdateProductStatusInfo', '专柜商品启用或禁用：', getCookieValue("username"),  sessionId);
 
@@ -2146,7 +2146,7 @@ $.ajax({
 
 								});
 				var sppvsJSON = JSON.stringify(sppvs);
-                LA.sysCode = '16';
+                LA.sysCode = '10';
                 var sessionId = '<%=request.getSession().getId() %>';
                 LA.log('productprops.addProductParameters', '商品修改：' + sppvsJSON, getCookieValue("username"),  sessionId);
 				$.ajax({

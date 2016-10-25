@@ -52,7 +52,7 @@
 	function priceLimitQuery(){
 		$("#organizationName_from").val($("#shopName_input").val());
         var params = $("#priceLimit_form").serialize();
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('priceLimit.editPriceLimit', '价格阀值查询：' + params, getCookieValue("username"),  sessionId);
         params = decodeURI(params);

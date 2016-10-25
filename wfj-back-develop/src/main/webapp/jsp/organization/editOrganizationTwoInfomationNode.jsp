@@ -65,7 +65,7 @@
 			var groupSid = $("#parentSid option:selected").attr("groupSid");
 			$("#groupSid").val(groupSid);
 
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             var sessionId = '<%=request.getSession().getId() %>';
             LA.log('organization.updateOrganizationZero', '修改城市：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

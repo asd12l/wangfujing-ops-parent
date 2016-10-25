@@ -31,7 +31,7 @@
   			},
   			submitHandler : function(validator, form, submitButton) {
   				// Do nothing
-                LA.sysCode = '16';
+                LA.sysCode = '10';
                 var sessionId = '<%=request.getSession().getId() %>';
                 LA.log('floor.updatefloor', '修改楼层：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

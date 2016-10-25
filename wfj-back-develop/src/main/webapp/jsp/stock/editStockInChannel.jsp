@@ -205,7 +205,7 @@ function saveFrom(){
     }
     $("#stockInfo").html(inT);
 
-    LA.sysCode = '16';
+    LA.sysCode = '10';
     var sessionId = '<%=request.getSession().getId() %>';
     LA.log('stockWei.saveStockWei', '库存渠道内库存修改：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

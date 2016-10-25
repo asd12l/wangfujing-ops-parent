@@ -16,7 +16,7 @@ var url = __ctxPath + "/category/getAllCategory";
 		$("#groupSid").val(groupSid_);
 		$("#organizationCode").val(organizationCode_);
 
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('storeInfo.queryListStoreInfo', '门店详情：' + organizationCode_+ "---" + groupSid_, getCookieValue("username"),  sessionId);
 

@@ -40,7 +40,7 @@
 			$("#shopType_span").hide();
 		}
 		var params = $("#brand_form").serialize();
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('brand.queryBrand', '品牌查询：' + params, getCookieValue("username"),  sessionId);
 

@@ -51,7 +51,7 @@
 			},
 			submitHandler : function(validator, form, submitButton) {
 				// Do nothing
-                LA.sysCode = '16';
+                LA.sysCode = '10';
                 var sessionId = '<%=request.getSession().getId() %>';
                 LA.log('dataDict.addDataDict', '添加数据字典：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

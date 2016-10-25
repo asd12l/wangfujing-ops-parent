@@ -280,7 +280,7 @@ function editSizeCodeTable(){
 }
 
 function saveSizeCodeTable(url){
-    LA.sysCode = '16';
+    LA.sysCode = '10';
     var sessionId = '<%=request.getSession().getId() %>';
     LA.log('product.addBrandCateInfo', '添加尺码对照表：', getCookieValue("username"),  sessionId);
 	$.ajax({

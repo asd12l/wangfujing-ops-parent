@@ -27,7 +27,7 @@
 		$("#organizationName_form").val($("#organizationName_input").val());
 		$("#organizationCode_form").val($("#organizationCode_input").val());
 		var params = $("#shop_form").serialize();
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('brand.queryOrganizationZero', '门店查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
@@ -89,7 +89,7 @@
 		
 		$(obj).addClass("trClick").siblings().removeClass("trClick");
 
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('brand.queryPageShopBrand', '根据门店查询门店品牌：' + sid, getCookieValue("username"),  sessionId);
 

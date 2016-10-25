@@ -2147,7 +2147,7 @@ function querySkulist() {
 		$("#parameters").html(inT);
 		$("#skuProps").html(sku);
 
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('product.addProduct', '添加商品：' + $("#baseForm").serialize(), getCookieValue("username"),  sessionId);
 
@@ -2368,7 +2368,7 @@ var KLNum_decimalLength = 0;
 			urlPath = "/product/saveShoppeProduct";
 		}
 
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('product.addProduct', '添加专柜商品：' + $("#proForm").serialize(), getCookieValue("username"),  sessionId);
 

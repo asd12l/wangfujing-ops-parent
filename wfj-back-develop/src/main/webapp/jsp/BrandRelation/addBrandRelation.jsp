@@ -189,7 +189,7 @@ function inselect(){
 			}
   			$("#selectRHidden").val(selectR);
 
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             var sessionId = '<%=request.getSession().getId() %>';
             LA.log('brand.addBrandRelation', '添加门店品牌与集团品牌的关系：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

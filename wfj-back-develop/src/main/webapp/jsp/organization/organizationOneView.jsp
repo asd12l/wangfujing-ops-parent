@@ -46,7 +46,7 @@
 		$("#organizationName_form").val($("#organizationName_input").val());
 		$("#organizationCode_form").val($("#organizationCode_input").val());
 		var params = $("#organization_form").serialize();
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('organization.queryOrganizationZero', '大区查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);

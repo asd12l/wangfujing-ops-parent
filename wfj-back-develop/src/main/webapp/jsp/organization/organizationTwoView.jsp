@@ -48,7 +48,7 @@
 		$("#organizationName_from").val($("#organizationName_input").val());
 		$("#organizationCode_from").val($("#organizationCode_input").val());
         var params = $("#organizationTwo_form").serialize();
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('organization.queryOrganizationZero', '城市查询：' + params, getCookieValue("username"),  sessionId);
         params = decodeURI(params);

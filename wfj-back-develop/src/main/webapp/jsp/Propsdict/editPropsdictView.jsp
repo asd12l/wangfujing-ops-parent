@@ -251,7 +251,7 @@ Author: WangSy
 			json3 = deleteDate();
 		}
 
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('propsdict.add', '修改属性字典：', getCookieValue("username"),  sessionId);
 

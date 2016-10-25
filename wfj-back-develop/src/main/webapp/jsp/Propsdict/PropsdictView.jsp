@@ -51,7 +51,7 @@ Author: WangSy
             $("#propsName_from").val($("#propsName_input").val());
             $("#channelSid_from").val($("#channelSid_select").val());
             var params = $("#propsdict_form").serialize();
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             LA.log('propsdict.list', '属性字典查询：' + params, getCookieValue("username"),  sessionId);
 			params = decodeURI(params);
 			propsdictPagination.onLoad(params);
@@ -59,7 +59,7 @@ Author: WangSy
 			$("#propsName_from").val($("#propsName_input").val());
 			$("#channelSid_from").val($("#channelSid_select").val());
 			var params = $("#propsdict_form").serialize();
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             LA.log('propsdict.list', '属性字典查询：' + params, getCookieValue("username"),  sessionId);
 			//params = decodeURI(params);
 			propsdictPagination.onLoad(params);

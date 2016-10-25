@@ -79,7 +79,7 @@
                     return;
                 }
 
-                LA.sysCode = '16';
+                LA.sysCode = '10';
                 var sessionId = '<%=request.getSession().getId() %>';
                 LA.log('organization.saveOrganizationOne', '添加门店：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

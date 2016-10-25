@@ -139,7 +139,7 @@
 		$("#supplySid_form").val($("#supplySid_select").val());
 		$("#supplyCode_form").val($("#supplyCode_input").val());
 		var params = $("#shoppe_form").serialize();
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('shoppe.queryShoppe', '专柜查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);

@@ -111,7 +111,7 @@
 				//给所属集团sid赋值
 				$("#groupSid").val($("#shopSid option:selected").attr("groupSid"));
 
-                LA.sysCode = '16';
+                LA.sysCode = '10';
                 var sessionId = '<%=request.getSession().getId() %>';
                 LA.log('shoppe.saveShoppe', '添加专柜：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

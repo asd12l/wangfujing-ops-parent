@@ -38,7 +38,7 @@
 				var parentSid = $("#parentSid").val();
 				$("#groupSid").val(parentSid);
 
-                LA.sysCode = '16';
+                LA.sysCode = '10';
                 var sessionId = '<%=request.getSession().getId() %>';
                 LA.log('organization.updateOrganizationZero', '修改大区：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

@@ -66,7 +66,7 @@
 	});
   	//保存数据
   	function saveFrom(){
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('brand.modifyBrandRelation', '修改门店品牌与集团品牌的关系：' + params, getCookieValue("username"),  sessionId);
 

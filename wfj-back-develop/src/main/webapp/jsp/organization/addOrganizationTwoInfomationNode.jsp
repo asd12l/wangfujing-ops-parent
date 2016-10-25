@@ -69,7 +69,7 @@
 				return;
 			}
 
-            LA.sysCode = '16';
+            LA.sysCode = '10';
             var sessionId = '<%=request.getSession().getId() %>';
             LA.log('organization.saveOrganizationOne', '添加城市：' + $("#theForm").serialize(), getCookieValue("username"),  sessionId);
 

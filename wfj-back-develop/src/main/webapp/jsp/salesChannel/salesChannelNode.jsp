@@ -23,7 +23,7 @@
 		$("#channelName_form").val($("#channelName_input").val());
 		$("#channelCode_form").val($("#channelCode_input").val());
 		var params = $("#salesChannel_form").serialize();
-        LA.sysCode = '16';
+        LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
         LA.log('channel.queryPageChannel', '销售渠道查询：' + params, getCookieValue("username"),  sessionId);
 		params = decodeURI(params);
