@@ -1354,7 +1354,7 @@ function reloadjs(){
 							}else{
 								priceLine = "<div class='cd-timeline-block'>"
 									+ "<div class='cd-timeline-img cd-picture'>"
-									+"已发出"+
+									+"已发出"
 									+ "</div><div class='cd-timeline-content'><span class='cd-date'>"
 									+ ele.deliveryDateStr  +ele.deliveryRecord
 									+ "</span></div></div>";
