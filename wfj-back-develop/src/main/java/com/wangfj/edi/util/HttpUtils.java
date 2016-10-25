@@ -22,7 +22,6 @@ public class HttpUtils {
 		try {
 			URI uri = new URI(url, false, encoding);
 			gettMethod = new GetMethod(uri.toString());
-			gettMethod.setRequestHeader("Connection", "close");
 			gettMethod.setRequestHeader("Content-type", "text/html;charset=utf-8");
 			gettMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, encoding);
 			httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(5000); // 连接5秒超时
