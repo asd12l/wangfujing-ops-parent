@@ -170,7 +170,7 @@
 		});
 		$(".login").click(function(){
 			if(captchaSuc){
-				LA.sysCode = "16";
+				LA.sysCode = "19";
 				LA.log("login", "用户登录：" + $("#username").val() + "时间：" + new Date(), "", sessionId);
 				return true;
 			}
