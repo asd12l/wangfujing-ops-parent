@@ -754,7 +754,7 @@ Author: WangSy
 			$("#cid").val(data);
 		}
 		var params = $("#category_form").serialize();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.categoryQuery", "统计分类查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		categoryPagination.onLoad(params);
@@ -1132,7 +1132,7 @@ Author: WangSy
 	}
 	/* 添加品类 */
 	function append() {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.append", "统计分类添加", getCookieValue("username"), sessionId);
 		/* 获取 zTree对象 */
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
@@ -1624,7 +1624,7 @@ Author: WangSy
 			$("#warning2").show();
 			return;
 		}
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.saveDivFrom", "统计分类添加保存：" + $("#divForm").serialize(), getCookieValue("username"), sessionId);
 		$
 				.ajax({
@@ -2137,7 +2137,7 @@ Author: WangSy
 </script>
 <script type="text/javascript">
 	function find(){
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.find", "统计分类根据编码查询：" + $("#categoryCode").val(), getCookieValue("username"), sessionId);
 		refreshAllZTree();
 		$.ajax({

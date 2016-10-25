@@ -365,7 +365,7 @@ Author: WangSy
 				isParent:targetNode.isParent,
 				rootSid : rootSid
 			};
-			LA.sysCode = "16";
+			LA.sysCode = '10';
 			LA.log("category.showCateDrop", "展示分类推拽：" + data, getCookieValue("username"), sessionId);
 			var confirmVal = false;
 			$.ajax({
@@ -1021,7 +1021,7 @@ Author: WangSy
 	}
 	//根部节点提交使用方法
 	function appGBFLDivSaveTo() {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.addRootShowCate", "添加展示分类根节点：" + $("#appGBFLDivForm").serialize(), getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
@@ -1396,7 +1396,7 @@ Author: WangSy
 			return false;
 		}
 		if (treeObj != "") {
-			LA.sysCode = "16";
+			LA.sysCode = '10';
 			LA.log("category.updateStatusShowCate", "停用展示分类节点：" + {
 				"id" : treeObj[0].id,
 				"categoryType":treeObj[0].categoryType
@@ -1498,7 +1498,7 @@ Author: WangSy
 			return false;
 		}
 		if (treeObj != "") {
-			LA.sysCode = "16";
+			LA.sysCode = '10';
 			LA.log("category.delShowCate", "删除展示分类节点：" + {
 				"id" : treeObj[0].id,
 				"categoryType":treeObj[0].categoryType
@@ -1659,7 +1659,7 @@ Author: WangSy
 			$("#warning2").show();
 			return;
 		}
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.saveDivFrom", "展示分类添加或修改保存：" + $("#divForm").serialize(), getCookieValue("username"), sessionId);
 		$
 				.ajax({
@@ -1784,7 +1784,7 @@ Author: WangSy
 		insert1 = insert1.replace(/\&/g, "%26");
 		insert1 = insert1.replace(/\+/g, "%2B");
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo").getSelectedNodes();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.showCateWeihu", "展示分类维护保存：" + {
 			'cid' : treeObj[0].id,
 			'propsid' : $("#Div2PropsSid").val(),
@@ -1845,7 +1845,7 @@ Author: WangSy
 	}
 	/* 维护按钮 */
 	function updateRole() {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.showCateWeihu", "展示分类维护", getCookieValue("username"), sessionId);
 		$("#selectedProps").html("");
 		$("#pdict").val("");

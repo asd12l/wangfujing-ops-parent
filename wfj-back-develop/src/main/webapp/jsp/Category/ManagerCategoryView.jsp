@@ -757,7 +757,7 @@ Author: WangSy
 			$("#cid").val(data);
 		}
 		var params = $("#category_form").serialize();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.categoryQuery", "管理分类查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		categoryPagination.onLoad(params);
@@ -2196,7 +2196,7 @@ Author: WangSy
 </script>
 <script type="text/javascript">
 	function find(){
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.find", "管理分类查询：" + {
 			"categoryType" : "1",
 			"categoryCode" : $("#categoryCode").val() || "0",

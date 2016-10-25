@@ -75,7 +75,7 @@
   	//保存数据
   	
   	function saveFrom(){
-  		LA.sysCode = "16";
+  		LA.sysCode = '10';
   		LA.log("role.savaLimitRoleResource", "修改角色资源权限：" + $("#theForm").serialize(), getCookieValue("username"), sessionId);
   		$.ajax({
   			 type:"post",
@@ -383,7 +383,7 @@ function saveRoleLimit(){
 	getDiv2PropsSid();
 	getManageCateSids();
 	updateMemberInfo();
-	LA.sysCode = "16";
+	LA.sysCode = '10';
 	LA.log("role.saveRoleLimit", "修改角色权限：" + {
  			"roleSid" : $("#roleSid1").val(),
  			"shopSids" : $("#shopSids").val(),
@@ -503,7 +503,7 @@ function loadMemberInfo(){
 	});
 }
 function updateMemberInfo(){
-	LA.sysCode = "16";
+	LA.sysCode = '10';
 	LA.log("role.updateMemberInfo", "修改用户敏感信息是否屏蔽：" + $("#sysValue").val(), getCookieValue("username"), sessionId);
 	$.ajax({
 		type : "get",

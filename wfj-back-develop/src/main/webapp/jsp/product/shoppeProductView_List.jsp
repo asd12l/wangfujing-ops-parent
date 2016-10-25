@@ -167,7 +167,7 @@ Author: WangSy
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#product_form").serialize();
 		//alert("表单序列化后请求参数:"+params);
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("shoppeProduct.productQuery", "专柜商品查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		productPagination.onLoad(params);
@@ -278,7 +278,7 @@ Author: WangSy
 <!-- 点击编码或者名称查询详情 -->
 <script type="text/javascript">
 	function getView(data) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("shoppeProduct.getView", "专柜商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/selectShoppeProductByCode1/" + data;
 		$(".loading-container").attr("class", "loading-container");
@@ -1661,7 +1661,7 @@ function getProPproductByProductCode(value){
 			$("#warning2").show();
 			return false;
 		}
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("shoppeProduct.productQuery", "启用或停用专柜商品：" + {
 			"productCodes" : inT,
 			"status" : status
@@ -1827,7 +1827,7 @@ function getProPproductByProductCode(value){
             field5 = "";
         }
         var supplySid = $("#supplier_select").val();
-        LA.sysCode = "16";
+        LA.sysCode = '10';
         LA.log("shoppeProduct.excelShoppeProduct", "专柜商品导出Excel：" + {
             "shoppeProSid" : shoppeProSid,
             "minShoppeProSid" : minShoppeProSid,

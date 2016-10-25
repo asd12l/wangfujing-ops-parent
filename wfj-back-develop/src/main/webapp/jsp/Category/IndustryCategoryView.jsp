@@ -754,7 +754,7 @@ Author: WangSy
 			$("#cid").val(data);
 		}
 		var params = $("#category_form").serialize();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.categoryQuery", "工业分类查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		categoryPagination.onLoad(params);
@@ -1132,7 +1132,7 @@ Author: WangSy
 	}
 	/* 添加品类 */
 	function append() {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.append", "工业分类添加", getCookieValue("username"), sessionId);
 		/* 获取 zTree对象 */
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
@@ -1630,7 +1630,7 @@ Author: WangSy
 			$("#warning2").show();
 			return;
 		}
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.saveDivFrom", "工业分类添加保存：" + $("#divForm").serialize(), getCookieValue("username"), sessionId);
 		$
 				.ajax({
@@ -1754,7 +1754,7 @@ Author: WangSy
 		insert1 = insert1.replace(/\&/g, "%26");
 		insert1 = insert1.replace(/\+/g, "%2B");
 		var treeObj = $.fn.zTree.getZTreeObj("treeDemo").getSelectedNodes();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.saveDivFrom2", "工业分类节点维护保存：" + {
 			'cid' : treeObj[0].id,
 			'propsid' : $("#Div2PropsSid").val(),
@@ -1815,7 +1815,7 @@ Author: WangSy
 	}
 	/* 维护按钮 */
 	function updateRole() {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.updateRole", "工业分类维护", getCookieValue("username"), sessionId);
 		$("#selectedProps").html("");
 		$("#pdict").val("");
@@ -2152,7 +2152,7 @@ Author: WangSy
 </script>
 <script type="text/javascript">
 	function find(){
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("category.find", "工业分类根据编码查询：" + $("#categoryCode").val(), getCookieValue("username"), sessionId);
 		refreshAllZTree();
 		$.ajax({

@@ -159,7 +159,7 @@ fingColorDict();
 		$("#skuSale_from").val($("#skuSale_select").val());
 		
 		var params = $("#product_form").serialize();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("product.productQuery", "商品查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		productPagination.onLoad(params);
@@ -261,7 +261,7 @@ fingColorDict();
 		}
 		var value = checkboxArray[0];
 		var url = __ctxPath + "/product/getProductDetail/" + value;
-        LA.sysCode = "16";
+        LA.sysCode = '10';
         LA.log("product.getProductDetail", "商品详情查询：" + value, getCookieValue("username"), sessionId);
 		$("#pageBody").load(url);
 	}
@@ -289,7 +289,7 @@ fingColorDict();
 			$("#warning2").show();
 			return false;
 		}
-        LA.sysCode = "16";
+        LA.sysCode = '10';
         LA.log("product.sellProduct", "商品下架：", getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
@@ -366,7 +366,7 @@ fingColorDict();
 			$("#warning2").show();
 			return false;
 		} */
-        LA.sysCode = "16";
+        LA.sysCode = '10';
         LA.log("product.sellProduct", "商品上架：", getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
@@ -434,7 +434,7 @@ fingColorDict();
 			$("#warning2").show();
 			return false;
 		}
-        LA.sysCode = "16";
+        LA.sysCode = '10';
         LA.log("product.deleteProduct", "商品停用：", getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
@@ -502,7 +502,7 @@ fingColorDict();
 			$("#warning2").show();
 			return false;
 		}
-        LA.sysCode = "16";
+        LA.sysCode = '10';
         LA.log("product.deleteProduct", "商品启用：", getCookieValue("username"), sessionId);
 		$.ajax({
 			type : "post",
@@ -567,7 +567,7 @@ fingColorDict();
 <!-- 点击编码或者名称查询详情 -->
 <script type="text/javascript">
 	function getView(data) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("product.getProductDetail", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$("#pageBody").load(url, {

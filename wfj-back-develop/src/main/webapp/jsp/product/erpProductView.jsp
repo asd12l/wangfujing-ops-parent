@@ -45,7 +45,7 @@ var sessionId = "<%=request.getSession().getId() %>";
 		$("#shop_from").val($("#shop_select option:selected").attr("code"));
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#product_form").serialize();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("erpProduct.productQuery", "大码商品查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		productPagination.onLoad(params);
@@ -106,7 +106,7 @@ var sessionId = "<%=request.getSession().getId() %>";
 	});
 
 	function showDetail(sid) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("erpProduct.showDetail", "大码商品详情查询：" + sid, getCookieValue("username"), sessionId);
 		for (var i = 0; i < dataList.length; i++) {
 			if (sid == dataList[i].sid) {

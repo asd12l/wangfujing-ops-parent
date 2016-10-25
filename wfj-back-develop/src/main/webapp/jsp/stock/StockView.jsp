@@ -112,7 +112,7 @@
 		$("#shop_from").val($("#shop_select option:selected").attr("code"));
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#stock_form").serialize();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("stock.stockQuery", "库存查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		stockPagination.onLoad(params);
@@ -234,7 +234,7 @@
         }
 		var channelSid = $("#channelSid_select").val();
 		var shoppe = $("#shoppe_select").val();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("stock.excelStock", "库存导出Excel：" + {
             "skuCode" : skuCode,
             "productCode" : productCode,
@@ -352,7 +352,7 @@
 
 	//库存历史记录
 	function getStockDiv(shoppeProSid, channelSid, channelName) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("stock.getStock", "库存详情查询：" + shoppeProSid, getCookieValue("username"), sessionId);
 		$("#stockHisDiv").show();
 		//给显示渠道名称赋值
@@ -571,7 +571,7 @@
 </script>
 <script type="text/javascript">
 	function getView(data) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("stock.getView", "专柜商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/selectShoppeProductByCode1/" + data;
 		$(".loading-container").attr("class", "loading-container");
@@ -582,7 +582,7 @@
 		});
 	}
 	function getViewDetail(data) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("stock.getView", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$(".loading-container").attr("class", "loading-container");

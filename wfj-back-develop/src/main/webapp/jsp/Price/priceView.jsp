@@ -108,7 +108,7 @@
 		$("#btDiv").hide();
 	}
 	function price(shoppeProSid) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("price.priceDetailQuery", "价格详情查询：" + shoppeProSid, getCookieValue("username"), sessionId);
 		$("#cd-timeline").html("")
 		$
@@ -185,7 +185,7 @@
 		$("#supplier_from").val($("#supplier_select option:selected").attr("code"));
 		var params = $("#price_form").serialize();
 		//alert("表单序列化后请求参数:"+params);
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("price.priceQuery", "价格查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		pricePagination.onLoad(params);
@@ -274,7 +274,7 @@
 		var channelSid = "0"/* $("#channelSid_select option:selected").attr("sid") */;
 		var productSku = $("#productSku_input").val();
 		var shoppe = $("#shoppe_select").val();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("price.excelPrice", "价格导出Excel：" + {
             "productCode" : productCode,
             "supplyCode" : supplyCode,
@@ -499,7 +499,7 @@
 </script>
 <script type="text/javascript">
 	function getView(data) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("price.getView", "专柜商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/selectShoppeProductByCode1/" + data;
 		$(".loading-container").attr("class", "loading-container");
@@ -510,7 +510,7 @@
 		});
 	}
 	function getViewDetail(data) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("price.getView", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$(".loading-container").attr("class", "loading-container");

@@ -161,7 +161,7 @@ fingColorDict();
 		$("#skuSale_from").val($("#skuSale_select").val());
 		
 		var params = $("#product_form").serialize();
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("product.productQuery", "商品查询：" + params, getCookieValue("username"), sessionId);
 		params = decodeURI(params);
 		productPagination.onLoad(params);
@@ -445,7 +445,7 @@ fingColorDict();
 <!-- 点击编码或者名称查询详情 -->
 <script type="text/javascript">
 	function getView(data) {
-		LA.sysCode = "16";
+		LA.sysCode = '10';
 		LA.log("product.getView", "商品详情查询：" + data, getCookieValue("username"), sessionId);
 		var url = __ctxPath + "/product/getProductDetail/" + data;
 		$(".loading-container").attr("class", "loading-container");
