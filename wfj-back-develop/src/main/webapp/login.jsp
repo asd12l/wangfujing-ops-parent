@@ -170,8 +170,8 @@
 		});
 		$(".login").click(function(){
 			if(captchaSuc){
-				LA.sysCode = "19";
-				LA.log("login", "用户登录：" + $("#username").val() + "时间：" + new Date(), "", sessionId);
+				LA.sysCode = '19';
+				LA.log("login.login", "用户登录：" + $("#username").val() + "时间：" + new Date(), $("#username").val(), sessionId);
 				return true;
 			}
 			$(".dianji div").text("请验证登录！");
