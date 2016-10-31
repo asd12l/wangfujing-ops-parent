@@ -57,6 +57,14 @@ a:hover{color: black;text-decoration: none;}
 	text-align: center;
 	visibility: hidden;
 }
+ul,p{margin:0;padding:0;}
+ul li{list-style:none;}
+body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei","冬青黑体简体中文 w3",宋体,Arial,Tahoma,sans-serif,serif;word-wrap:break-word;background: #F0F0F0;}
+.box { width:940px;margin:18px auto 0 auto; }
+.event_list { width:850px;float:right;background:url('/ops/jsp/edi/images/dian3.png') 139px 0 repeat-y;margin:10px 0 20px 0; }
+.event_list li { background:url('/ops/jsp/edi/images/jian.png') 136px -80px no-repeat; }
+.event_list li span { width:127px;text-align:right;display:block;float:left;margin-top:10px; }
+.event_list li p { width:680px;margin-left:24px;display:inline-block;padding-left:10px;background:url('/ops/jsp/edi/images/jian.png') -21px 0 no-repeat;line-height:25px;_float:left; }
 
 </style>
 
@@ -70,6 +78,41 @@ a:hover{color: black;text-decoration: none;}
 	
 	var userName;
 	var logJs;
+	
+	  document.onkeydown=function(event){
+	    	 var e = event || window.event || arguments.callee.caller.arguments[0];
+	    	 if(e && e.keyCode==27){ 
+	 			$("#btDiv").hide();
+	    	}
+	    	              
+	    };
+	    function closeBtDiv() {
+			$("#btDiv").hide();
+		}
+	    function stock() {
+	    	$("#cd-timeline").html("");
+	  /* $.ajax({  
+	    	type:'get',      
+	    	url:"/Commoditymessage/selectCommoditySearch?outer_id=",  
+	    	data:formParam,  
+	    	cache:false,  
+	    	dataType:'json',  
+	    	success:function(data){  
+	    		//todo
+	    	}  
+	    }); */
+	    var priceLine ="<div class='box'><ul class='event_list'><div>"
+	    	+"<li><span>"+"8个"+"</span>"
+	    	+"<p><span style='width:60%;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0;'>"+"一个小插件   "+"[2016-10-28 13:21:00]</span>"
+	    	+"</p></li>"
+	    	+"<li><span>"+"7个"+"</span>"
+	    	+"<p><span style='font-size:12px;color:red;width:60%;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0;'>"+"一个小插件   "+"[2016-10-28 13:21:00]</span>"
+	    	+"</p></li>"
+	    	+"</div></ul></div></div>";
+		
+		$("#cd-timeline").append(priceLine);
+		$("#btDiv").show();
+		}
 	
 	
 	function reloadjs(){
@@ -460,6 +503,7 @@ a:hover{color: black;text-decoration: none;}
 											<th style="text-align: center;">品牌名称</th><!-- brand_name -->
 											<th style="text-align: center;">商品名称</th><!--sku_name  -->
 											<th style="text-align: center;">操作</th><!-- operation -->
+											<th style="text-align: center;">库存</th><!-- stock -->
 										</tr>
 									</thead>
 									<tbody>
@@ -495,6 +539,11 @@ a:hover{color: black;text-decoration: none;}
 													<td align="center">
 														<input type="button" value="解除关联" onclick="removeRelation('{$T.Result.outer_id}','{$T.Result.num_iid}')"></input>
 													</td>
+													<td>
+														<a onclick="stock()">
+															库存时间轴
+														</a>
+													</td>
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	
@@ -504,12 +553,36 @@ a:hover{color: black;text-decoration: none;}
 					</div>
 				</div>
 			</div>
-			<!-- /Page Body -->
 		</div>
-		<!-- /Page Content -->
 	</div>
-	<!-- /Page Container -->
-	<!-- Main Container -->
+	</div>
+	<div class="modal modal-darkorange" 
+		id="btDiv">
+		<div class="modal-dialog"
+			style="width: 800px; height: auto; margin: 4% auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close"
+						type="button" onclick="closeBtDiv();">×</button>
+					<h2 class="modal-title" id="divTitle">库存变化时间轴</h2>
+				</div>
+				<div class="page-body" id="pageBodyRight"
+					style="overflow-x: hidden; height: 400px;">
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<div class="widget">
+								<section id="cd-timeline">
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default"
+						onclick="closeBtDiv();" type="button">关闭</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

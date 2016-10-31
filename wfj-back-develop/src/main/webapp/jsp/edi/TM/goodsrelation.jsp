@@ -4,59 +4,82 @@
 <html>
 <head>
 <!--Jquery Select2-->
-<script src="${pageContext.request.contextPath}/assets/js/select2/select2.js"></script>
-<script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js"></script>
-<script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js"></script>
-<script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css" />
-<script src="${pageContext.request.contextPath}/js/jquery/jquery.form.js"></script>
+<script
+	src="${pageContext.request.contextPath}/assets/js/select2/select2.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css" />
+<script
+	src="${pageContext.request.contextPath}/js/jquery/jquery.form.js"></script>
 <style>
-.jiechu{
+.jiechu {
 	cursor: pointer;
 	color: red;
 }
-a:hover{color: black;text-decoration: none;}
 
-.shoudong{
+a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.shoudong {
 	width: 400px;
 	height: 130px;
 	border: 1px solid red;
 	vertical-align: middle;
 	MARGIN-LEFT: 350px;
 	margin-top: -134px;
-	z-index:99999;
+	z-index: 99999;
 	background: #F8F6F5;
 	position: fixed;
 	text-align: center;
 	visibility: hidden;
 }
-.one{
+
+.one {
 	width: 400px;
 	height: 30px;
 	margin: 0 auto;
 	margin-top: 20px;
 }
-.two{
+
+.two {
 	width: 300px;
 	height: 42px;
 	margin: 0 auto;
 	margin-top: 32px;
 }
-.piliang{
+
+.piliang {
 	width: 400px;
 	height: 130px;
 	border: 1px solid red;
 	vertical-align: middle;
 	MARGIN-LEFT: 350px;
 	margin-top: -134px;
-	z-index:99999;
+	z-index: 99999;
 	background: #F8F6F5;
 	position: fixed;
 	text-align: center;
 	visibility: hidden;
 }
 
+
+ul,p{margin:0;padding:0;}
+ul li{list-style:none;}
+body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei","冬青黑体简体中文 w3",宋体,Arial,Tahoma,sans-serif,serif;word-wrap:break-word;background: #F0F0F0;}
+.box { width:940px;margin:18px auto 0 auto; }
+.event_list { width:850px;float:right;background:url('/ops/jsp/edi/images/dian3.png') 139px 0 repeat-y;margin:10px 0 20px 0; }
+.event_list li { background:url('/ops/jsp/edi/images/jian.png') 136px -80px no-repeat; }
+.event_list li span { width:127px;text-align:right;display:block;float:left;margin-top:10px; }
+.event_list li p { width:680px;margin-left:24px;display:inline-block;padding-left:10px;background:url('/ops/jsp/edi/images/jian.png') -21px 0 no-repeat;line-height:25px;_float:left; }
 </style>
 
 <script type="text/javascript">
@@ -68,6 +91,41 @@ a:hover{color: black;text-decoration: none;}
 	ctx = "http://www.shopin.net";
     var userName;
     var logJs;
+    //ESC事件
+    document.onkeydown=function(event){
+    	 var e = event || window.event || arguments.callee.caller.arguments[0];
+    	 if(e && e.keyCode==27){ 
+ 			$("#btDiv").hide();
+    	}
+    	              
+    };
+    function closeBtDiv() {
+		$("#btDiv").hide();
+	}
+    function stock() {
+    	$("#cd-timeline").html("");
+  /* $.ajax({  
+    	type:'get',      
+    	url:"/Commoditymessage/selectCommoditySearch?outer_id=",  
+    	data:formParam,  
+    	cache:false,  
+    	dataType:'json',  
+    	success:function(data){  
+    		//todo
+    	}  
+    }); */
+	var priceLine ="<div class='box'><ul class='event_list'><div>"
+	+"<li><span>"+"8个"+"</span>"
+	+"<p><span style='width:60%;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0;'>"+"一个小插件   "+"[2016-10-28 13:21:00]</span>"
+	+"</p></li>"
+	+"<li><span>"+"7个"+"</span>"
+	+"<p><span style='font-size:12px;color:red;width:60%;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0;'>"+"一个小插件   "+"[2016-10-28 13:21:00]</span>"
+	+"</p></li>"
+	+"</div></ul></div></div>";
+	
+	$("#cd-timeline").append(priceLine);
+	$("#btDiv").show();
+	}
 	
 	function initStock() {
 		var url = $("#ctxPath").val() + "/Commoditymessage/selectCommoditySearch?type=ITEMADD";
@@ -332,19 +390,20 @@ a:hover{color: black;text-decoration: none;}
 		LA.sysCode = '44';
 		var sessionId = '<%=request.getSession().getId()%>';
 		LA.log('tm-removeRelation', '天猫解除关联', userName, sessionId);
-       	 $.ajax({
-       		on: true,
-    			url : __ctxPath + "/ediGoods/goodsRemove?outerid="+outerid+"&numiid="+numiid+"&channelCode=C7",
-    			dataType : "json",
-    			success : function(data) {
-		            reset();
-				},
-        	 	error:function(){ 
-		            reset(); 
-        	   	}
-    	});
-        reset();
-   	}
+		$.ajax({
+			on : true,
+			url : __ctxPath + "/ediGoods/goodsRemove?outerid=" + outerid
+					+ "&numiid=" + numiid + "&channelCode=C7",
+			dataType : "json",
+			success : function(data) {
+				reset();
+			},
+			error : function() {
+				reset();
+			}
+		});
+		reset();
+	}
 </script>
 </head>
 
@@ -365,118 +424,129 @@ a:hover{color: black;text-decoration: none;}
 								<div class="widget-buttons">
 									<a href="#" data-toggle="maximize"></a> <a href="#"
 										data-toggle="collapse" onclick="tab('pro');"> <i
-										class="fa fa-minus" id="pro-i"></i> </a> <a href="#"
-										data-toggle="dispose"></a>
+										class="fa fa-minus" id="pro-i"></i>
+									</a> <a href="#" data-toggle="dispose"></a>
 								</div>
 							</div>
 							<div class="widget-body" id="pro">
 								<div class="table-toolbar">
-																		
-								<div class="table-toolbar" style="z-index:-1;">
-									<ul class="listInfo clearfix">
-										<li>
-											<span>天猫ID：</span>
-											<input type="text" id="num_iids" style="width: 150px"/>
-										</li>
-										<li>
-											<span>商家编码：</span>
-											<input type="text" id="outer_ids" style="width: 150px"/>
-										</li>
-										<li>
-											<span>商品名称：</span>
-											<input type="text" id="sku_names" style="width: 150px"/>
-										</li>
-										<li>
-											<span>品牌名称：</span>
-											<input type="text" id="brand_names" style="width: 150px"/>
-										</li>
-										
-										<form id="goods_form" action="">
-											<input type="hidden" id="num_iid" name="num_iid" />
-											<input type="hidden" id="outer_id" name="outer_id" />
-											<input type="hidden" id="sku_name" name="sku_name" />
-											<input type="hidden" id="brand_name" name="brand_name" />
-											<input type="hidden" id="pageSelect" name="pageSize" />
-											<input type="hidden" id="new_refundId_from" name="new_refundId" />
-										</form>
-										
-										<li style="height:35px;margin-top:0">
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<a style="width:150px" class="btn btn-default shiny" onclick="vis();">手 动 关 联</a>
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<a style="width:150px" class="btn btn-default shiny" onclick="viss();">批 量 关 联</a>
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<!-- <a style="width:150px" class="btn btn-default shiny" onclick="automatic();">自 动 关 联</a> -->
-										</li>
-										<li style="height:35px;margin-top:0;float:right">
-											<a class="btn btn-default shiny" onclick="goodsQuery();">查询</a>&nbsp;&nbsp;&nbsp;&nbsp;
-											<a class="btn btn-default shiny" onclick="reset();">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										</li>
-									</ul>
-								</div>
-								
-								<!-- 手动关联点击弹出 -->
-								<div class="shoudong" id="yincang">
-									<div class="one">
-										<span>请输入天猫ID：</span>
-										<input type="text" id="numiid" name="numiid" style="width: 150px"/>
+
+									<div class="table-toolbar" style="z-index: -1;">
+										<ul class="listInfo clearfix">
+											<li><span>天猫ID：</span> <input type="text" id="num_iids"
+												style="width: 150px" /></li>
+											<li><span>商家编码：</span> <input type="text" id="outer_ids"
+												style="width: 150px" /></li>
+											<li><span>商品名称：</span> <input type="text" id="sku_names"
+												style="width: 150px" /></li>
+											<li><span>品牌名称：</span> <input type="text"
+												id="brand_names" style="width: 150px" /></li>
+
+											<form id="goods_form" action="">
+												<input type="hidden" id="num_iid" name="num_iid" /> <input
+													type="hidden" id="outer_id" name="outer_id" /> <input
+													type="hidden" id="sku_name" name="sku_name" /> <input
+													type="hidden" id="brand_name" name="brand_name" /> <input
+													type="hidden" id="pageSelect" name="pageSize" /> <input
+													type="hidden" id="new_refundId_from" name="new_refundId" />
+											</form>
+
+											<li style="height: 35px; margin-top: 0">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+												style="width: 150px" class="btn btn-default shiny"
+												onclick="vis();">手 动 关 联</a>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a style="width: 150px" class="btn btn-default shiny"
+												onclick="viss();">批 量 关 联</a>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<!-- <a style="width:150px" class="btn btn-default shiny" onclick="automatic();">自 动 关 联</a> -->
+											</li>
+											<li style="height: 35px; margin-top: 0; float: right"><a
+												class="btn btn-default shiny" onclick="goodsQuery();">查询</a>&nbsp;&nbsp;&nbsp;&nbsp;
+												<a class="btn btn-default shiny" onclick="reset();">重置</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											</li>
+										</ul>
 									</div>
-									<div class="two">
-										<a class="btn btn-default shiny" onclick="manual();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提 交&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<a class="btn btn-default shiny" onclick="hidd();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 闭&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-									</div>
-								</div>
-								
-								<!-- 批量关联关联点击弹出 -->
-								<div class="piliang" id="piliang">
-									<form action="#" style="display: inline;" id="impDataForm" method="post" enctype="multipart/form-data">
+
+									<!-- 手动关联点击弹出 -->
+									<div class="shoudong" id="yincang">
 										<div class="one">
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											请选择文件：<input type="file" name="file" id="file" style="display: inline;">
+											<span>请输入天猫ID：</span> <input type="text" id="numiid"
+												name="numiid" style="width: 150px" />
 										</div>
-									</form>
-									<div class="two">
-										<a class="btn btn-default shiny" onclick="batchAssociated();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提 交&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<a class="btn btn-default shiny" onclick="hidds();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 闭&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+										<div class="two">
+											<a class="btn btn-default shiny" onclick="manual();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提
+												交&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<a class="btn btn-default shiny" onclick="hidd();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关
+												闭&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+										</div>
 									</div>
-								</div>
-								
-								<table class="table table-bordered table-striped table-condensed table-hover flip-content" id="goods_table">
-                                       <thead class="flip-content bordered-darkorange">
-										<tr role="row">
-											<th style="text-align: center;">天猫ID</th><!-- num_iid -->
-											<th style="text-align: center;">商家编码</th><!--outer_id -->
-											<th style="text-align: center;">品牌名称</th><!-- brand_name -->
-											<th style="text-align: center;">商品名称</th><!--sku_name  -->
-											<th style="text-align: center;">操作</th><!-- operation -->
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-								<div class="pull-left" style="margin-top: 5px;">
-									<form id="stock_form" action="">
-										<div class="col-lg-12">
-	                                        	<select id="pageSelect2" name="pageSize2" style="padding: 0 12px;">
+
+									<!-- 批量关联关联点击弹出 -->
+									<div class="piliang" id="piliang">
+										<form action="#" style="display: inline;" id="impDataForm"
+											method="post" enctype="multipart/form-data">
+											<div class="one">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												请选择文件：<input type="file" name="file" id="file"
+													style="display: inline;">
+											</div>
+										</form>
+										<div class="two">
+											<a class="btn btn-default shiny" onclick="batchAssociated();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提
+												交&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<a class="btn btn-default shiny" onclick="hidds();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关
+												闭&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+										</div>
+									</div>
+
+									<table
+										class="table table-bordered table-striped table-condensed table-hover flip-content"
+										id="goods_table">
+										<thead class="flip-content bordered-darkorange">
+											<tr role="row">
+												<th style="text-align: center;">天猫ID</th>
+												<!-- num_iid -->
+												<th style="text-align: center;">商家编码</th>
+												<!--outer_id -->
+												<th style="text-align: center;">品牌名称</th>
+												<!-- brand_name -->
+												<th style="text-align: center;">商品名称</th>
+												<!--sku_name  -->
+												<th style="text-align: center;">操作</th>
+												<!-- operation -->
+												<th style="text-align: center;">库存</th>
+												<!-- stock -->
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+									<div class="pull-left" style="margin-top: 5px;">
+										<form id="stock_form" action="">
+											<div class="col-lg-12">
+												<select id="pageSelect2" name="pageSize2"
+													style="padding: 0 12px;">
 													<option>5</option>
 													<option>10</option>
 													<option selected="selected">15</option>
 													<option>20</option>
 												</select>
-											</div>&nbsp; 
-										 <input type="hidden" id="new_refundId_from2" name="new_refundId2" />
-									</form>
+											</div>
+											&nbsp; <input type="hidden" id="new_refundId_from2"
+												name="new_refundId2" />
+										</form>
+									</div>
+									<div id="olvPagination"></div>
 								</div>
-								<div id="olvPagination"></div>
-							</div>
-							<!-- Templates -->
-							<p style="display: none">
-								<textarea id="goods-list" rows="0" cols="0">
+								<!-- Templates -->
+								<p style="display: none">
+									<textarea id="goods-list" rows="0" cols="0">
 										{#template MAIN}
 											{#foreach $T.list as Result}
 												<tr style="height: 10px" class="gradeX">
@@ -485,23 +555,57 @@ a:hover{color: black;text-decoration: none;}
 													<td align="center" id="productCode_{$T.Result.sid}">{#if $T.Result.brand_name == null || $T.Result.brand_name == ""} --- {#else} {$T.Result.brand_name} {#/if}</td>
 													<td align="center" id="unitName_{$T.Result.sid}">{$T.Result.sku_name}</td>
 													<td align="center">
-														<input type="button" value="解除关联" onclick="removeRelation('{$T.Result.outer_id}','{$T.Result.num_iid}')"></input>
+														<input type="button" value="解除关联"
+												onclick="removeRelation('{$T.Result.outer_id}','{$T.Result.num_iid}')"></input>
+													</td>
+													<td>
+														<a onclick="stock()">
+															库存时间轴
+														</a>
 													</td>
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	
 								</textarea>
-							</p>
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
+				<!-- /Page Body -->
 			</div>
-			<!-- /Page Body -->
+			<!-- /Page Content -->
 		</div>
-		<!-- /Page Content -->
+		<!-- /Page Container -->
+		<!-- Main Container -->
 	</div>
-	<!-- /Page Container -->
-	<!-- Main Container -->
+	<div class="modal modal-darkorange" 
+		id="btDiv">
+		<div class="modal-dialog"
+			style="width: 800px; height: auto; margin: 4% auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close"
+						type="button" onclick="closeBtDiv();">×</button>
+					<h2 class="modal-title" id="divTitle">库存变化时间轴</h2>
+				</div>
+				<div class="page-body" id="pageBodyRight"
+					style="overflow-x: hidden; height: 400px;">
+					<div class="row">
+						<div class="col-xs-12 col-md-12">
+							<div class="widget">
+								<section id="cd-timeline">
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default"
+						onclick="closeBtDiv();" type="button">关闭</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
