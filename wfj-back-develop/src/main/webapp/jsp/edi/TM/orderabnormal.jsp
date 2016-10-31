@@ -324,8 +324,13 @@
 													<td align="center" id="errorMsg_{$T.Result.errorMsg}">{$T.Result.errorMsg}</td>
 													<td align="center" id="lockedStock_{$T.Result.updateDate}">{$T.Result.updateDate}</td>
 													<td align="center" id="">
+													{#if $T.Result.ispreSale == "SP"}
+														<a class="btn btn-default shiny" onclick="modify('{$T.Result.tid}')" disabled>修改</a>
+														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')" disabled>拉黑</a>
+													{#else} 
 														<a class="btn btn-default shiny" onclick="modify('{$T.Result.tid}')">修改</a>
 														<a class="btn btn-default shiny" onclick="addBL('{$T.Result.tid}')">拉黑</a>
+													{#/if}
 													</td>
 													
 									       		</tr>
