@@ -17,7 +17,7 @@ function searchSupplier(storeCode, prefix){
                     var data = dataList[i];
                     var li = "<li sid='" + data.sid + "' supplierCode='" + data.supplierCode
                         + "' organizationCode='" + data.storeCode + "' businessPattern='" + data.businessPattern + "'>"
-                        + data.supplierName + "</li>";
+                        + data.supplierCode + " - " + data.supplierName + "</li>";
                     dataUl.append(li);
                 }
                 $("#dataList_hidden").show();

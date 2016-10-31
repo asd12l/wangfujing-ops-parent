@@ -80,7 +80,7 @@
                             var option = "<option value='" + ele.sid + "' organizationCode='" + ele.organizationCode
                                     + "' businessPattern='" + ele.businessPattern + "'>" + ele.supplyName + "</option>";
                             $("#supplySid").html(option);
-                            $("#supplySid_input").val(ele.supplyName);
+                            $("#supplySid_input").val(ele.supplyCode + " - " + ele.supplyName);
 						}
 					}
 				}
