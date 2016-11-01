@@ -548,7 +548,7 @@
 													<option value="">请选择</option>
 												</select>
                                                 <input id="supplySid_input" class="_input" type="text"
-                                                       value="" placeholder="请输入供应商名称或编码">
+                                                       value="" placeholder="请输入供应商名称或编码" autocomplete="off">
                                                 <div id="dataList_hidden" class="_hiddenDiv" style="width:91%;">
                                                     <ul></ul>
                                                 </div>
