@@ -30,7 +30,7 @@ var url = __ctxPath + "/category/getAllCategory";
 			},
 			dataType: "json",
 			success: function(response) {
-				if(response.success){
+				if(response.success == "true"){
 					var result = (response.list)[0];
 					$("#organizationName").val(result.organizationName);
 					$("#organizationStatus").val(result.organizationStatus);
