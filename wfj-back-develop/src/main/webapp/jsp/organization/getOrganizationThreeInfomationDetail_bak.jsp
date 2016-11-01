@@ -14,6 +14,7 @@
             $("#parentSid").val(parentSid_);
             $("#groupSid").val(groupSid_);
             $("#organizationCode").val(organizationCode_);
+            $("#organizationName").val(organizationName_);
 
             LA.sysCode = '10';
             var sessionId = '<%=request.getSession().getId() %>';

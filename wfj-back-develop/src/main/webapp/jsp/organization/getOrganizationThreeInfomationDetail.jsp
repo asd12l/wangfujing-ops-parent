@@ -10,11 +10,11 @@
 <script src="${ctx}/assets/js/validation/bootstrapValidator.js"></script>
 <script type="text/javascript">
 __ctxPath = "${pageContext.request.contextPath}";
-var url = __ctxPath + "/category/getAllCategory";
 	$(function(){
 		$("#parentSid").val(parentSid_);
 		$("#groupSid").val(groupSid_);
 		$("#organizationCode").val(organizationCode_);
+        $("#organizationName").val(organizationName_);
 
         LA.sysCode = '10';
         var sessionId = '<%=request.getSession().getId() %>';
