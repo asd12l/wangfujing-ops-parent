@@ -503,7 +503,7 @@ body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei",
 											<th style="text-align: center;">品牌名称</th><!-- brand_name -->
 											<th style="text-align: center;">商品名称</th><!--sku_name  -->
 											<th style="text-align: center;">操作</th><!-- operation -->
-											<th style="text-align: center;">库存</th><!-- stock -->
+											<!-- <th style="text-align: center;">库存</th>stock -->
 										</tr>
 									</thead>
 									<tbody>
@@ -539,11 +539,11 @@ body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei",
 													<td align="center">
 														<input type="button" value="解除关联" onclick="removeRelation('{$T.Result.outer_id}','{$T.Result.num_iid}')"></input>
 													</td>
-													<td>
+													<!-- <td>
 														<a onclick="stock()">
 															库存时间轴
 														</a>
-													</td>
+													</td> -->
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	
