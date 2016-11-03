@@ -115,6 +115,12 @@
 											</select>
 										</div>
 									</div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">排序</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" id="orderno" name="orderno" onkeyup="value=value.replace(/[^0-9]+/g,'');" placeholder="必须是数字"/>
+                                        </div>
+                                    </div>
          							<div class="form-group">
 										<div class="col-lg-offset-4 col-lg-6">
 											<input class="btn btn-success" style="width: 25%;" id="save" type="button" value="保存" />&emsp;&emsp;
