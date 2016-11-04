@@ -238,7 +238,7 @@
 											onclick="olvQuery();" class="btn btn-yellow"> <i
 												class="fa fa-eye"></i> 查询
 										</a>  
-										<a class="btn btn-default shiny" onclick="obtain();" class="btn btn-default">获取</a>
+										<a onclick="obtain();" class="btn btn-primary"> <i class="fa fa-share"></i>获取</a>
 										
 										<a id="editabledatatable_new" onclick="reset();"
 											class="btn btn-primary"> <i class="fa fa-random"></i> 重置
