@@ -549,7 +549,8 @@ body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei",
 													</td>
 													<td align="center" id="unitName_{$T.Result.sid}">{$T.Result.sku_name}</td>
 													<td align="center">
-														<input type="button" value="解除关联" onclick="removeRelation('{$T.Result.outer_id}','{$T.Result.num_iid}')"></input>
+														<!-- <input type="button" value="解除关联" onclick="removeRelation('{$T.Result.outer_id}','{$T.Result.num_iid}')"></input> -->
+														<a class="btn btn-default shiny" onclick="removeRelation('{$T.Result.outer_id}','{$T.Result.num_iid}')">解除关联</a>
 													</td>
 													<td>
 														<a onclick="stockChange('{$T.Result.outer_id}')">
