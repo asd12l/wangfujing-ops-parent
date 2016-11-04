@@ -102,29 +102,41 @@ body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei",
     function closeBtDiv() {
 		$("#btDiv").hide();
 	}
-    function stock() {
+    
+    
+    function stockChange(outerid) {
     	$("#cd-timeline").html("");
-  /* $.ajax({  
-    	type:'get',      
-    	url:"/Commoditymessage/selectCommoditySearch?outer_id=",  
-    	data:formParam,  
-    	cache:false,  
-    	dataType:'json',  
-    	success:function(data){  
-    		//todo
-    	}  
-    }); */
-	var priceLine ="<div class='box'><ul class='event_list'><div>"
-	+"<li><span>"+"8个"+"</span>"
-	+"<p><span style='width:60%;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0;'>"+"一个小插件   "+"[2016-10-28 13:21:00]</span>"
-	+"</p></li>"
-	+"<li><span>"+"7个"+"</span>"
-	+"<p><span style='font-size:12px;color:red;width:60%;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0;'>"+"一个小插件   "+"[2016-10-28 13:21:00]</span>"
-	+"</p></li>"
-	+"</div></ul></div></div>";
-	
-	$("#cd-timeline").append(priceLine);
-	$("#btDiv").show();
+    	var priceLine; 
+	 	$.ajax({  
+	    	url: __ctxPath + "/ediGoods/selectCommoditySearch?outer_id=" + outerid + "&channelCode=C7",  
+	    	cache:false,
+	    	dataType:"json",  
+	 	 	success : function(data) {
+	 	 		var s = "";
+		 		if(data.success){
+		 			for(var o in data.list){
+		 				var type ="";
+		 				var remarks = "";
+		 				type = "[" + data.list[o].type ;
+						if(data.list[o].remarks){
+							remarks = "," + data.list[o].remarks + ",";
+		 				}
+		 				if (data.list[o].error_msg) {
+		 					s = s + "<li><span>"+data.list[o].proNum+"</span>"
+			 				+"<p><span style='font-size:12px;color:red;width:60%;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0;'>" + type + remarks + "推库存失败,原因是:" + data.list[o].error_msg + "],["+ data.list[o].cdate +"]</span>"
+			 				+"</p></li>" 
+		 				}else{
+		 					s = s + "<li><span>"+data.list[o].proNum+"</span>"
+			 				+"<p><span style='width:60%;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0;'>" + type  + remarks + "],["+ data.list[o].cdate +"]</span>"
+			 				+"</p></li>" 
+		 				}
+		 			}
+		 			priceLine =  "<div class='box'><ul class='event_list'><div>" + s + "</div></ul></div></div>" 
+		 			$("#cd-timeline").append(priceLine);
+		 			$("#btDiv").show();
+		 		}
+         	}
+	    });
 	}
 	
 	function initStock() {
@@ -520,7 +532,7 @@ body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei",
 												<!--sku_name  -->
 												<th style="text-align: center;">操作</th>
 												<!-- operation -->
-												<!-- <th style="text-align: center;">库存</th> -->
+												<th style="text-align: center;">库存</th>
 												<!-- stock -->
 											</tr>
 										</thead>
@@ -558,11 +570,11 @@ body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei",
 														<input type="button" value="解除关联"
 												onclick="removeRelation('{$T.Result.outer_id}','{$T.Result.num_iid}')"></input>
 													</td>
-													<!-- <td>
-														<a onclick="stock()">
+													<td>
+														<a onclick="stockChange('{$T.Result.outer_id}')">
 															库存时间轴
 														</a>
-													</td> -->
+													</td>
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	
