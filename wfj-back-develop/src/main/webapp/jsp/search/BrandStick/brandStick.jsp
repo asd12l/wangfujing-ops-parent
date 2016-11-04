@@ -15,6 +15,8 @@ td,th{text-align:center;}
 </style>
 <script type="text/javascript">
 			__ctxPath = "${pageContext.request.contextPath}";
+			LA.sysCode = '43';
+			var sessionId = "<%=request.getSession().getId() %>";
 			var productPagination;
 			$(function() {
 				initUserRole();
@@ -104,6 +106,7 @@ td,th{text-align:center;}
 		             },
 		             callback: function(data) {
 						 if(data.success == true){
+							 LA.log('search.brandStick', '品牌坑位列表查询', getCookieValue("username"), sessionId);
 							 $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
 						 }else{
 							 $("#model-body-warning").html("<div class='alert alert-warning fade in'><i></i><strong>"+data.message+"</strong></div>");
@@ -149,8 +152,9 @@ td,th{text-align:center;}
 									},
 
 							success: function(response) {
-								console.log(response);
 								if(response.success == true){
+									LA.log('search.brandStickDelete', '品牌坑位删除 sid:'+value+" brandId:"+brandId+" spuId:"+spuId+
+											" orders:"+orders + " deleteOperator:"+deleteOperator, getCookieValue("username"), sessionId);
 									$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 										"<i class='fa-fw fa fa-times'></i><strong>删除成功，返回列表页!</strong></div>");
 					  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});

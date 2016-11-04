@@ -16,6 +16,8 @@
   <script type="text/javascript">
   var tree =[];
   var resourcePagination;
+  LA.sysCode = '43';
+  var sessionId = "<%=request.getSession().getId() %>";
   $(function(){
 	  $.ajax({
 	        type:"post",
@@ -51,6 +53,7 @@
 				"channel":$("#channel").val()
 			},
 			success: function(response) {
+				LA.log('search.categoryIndex', '分类索引刷新 categoryId:'+$("#categoryId").val()+" channel:"+$("#channel").val(), getCookieValue("username"), sessionId);
 				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class=''></i><strong>刷新成功</strong></div>");

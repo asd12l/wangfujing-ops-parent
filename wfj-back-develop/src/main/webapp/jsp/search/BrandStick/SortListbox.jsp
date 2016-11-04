@@ -13,6 +13,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
   <script type="text/javascript">
+	  LA.sysCode = '43';
+	  var sessionId = "<%=request.getSession().getId() %>";
   var tree =[];
   var resourcePagination;
   $(function(){
@@ -83,6 +85,7 @@
 	         },
 	         callback: function(data) {
 				 if(data.success == true){
+					 LA.log('search.sort', '分类坑位查询 cid:'+$("#cid").val(), getCookieValue("username"), sessionId);
 					 $("#resource_tab tbody").setTemplateElement("resource-list").processTemplate(data);
 
 				 }else{
@@ -143,6 +146,8 @@
 			},
 			success: function(response) {
 				if(response.success == true){
+					LA.log('search.sortDelete', '分类坑位删除 sid:'+value+" categoryId:"+categoryId+" spuId:"+spuId+" orders:"+orders+
+							" deleteOperator:"+deleteOperator, getCookieValue("username"), sessionId);
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>删除成功，返回列表页!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
