@@ -51,8 +51,8 @@ public class StaticController {
             header.setDestUrl(SystemConfig.STATIC_SYSTEM_URL + "/static/o_index.do");
             logger.info(className + ":url:" + SystemConfig.STATIC_SYSTEM_URL + "/static/o_index.do");
         } else {
-            header.setDestUrl(SystemConfig.STATIC_SYSTEM_URL + "/static/o_channl.do");
-            logger.info(className + ":url:" + SystemConfig.STATIC_SYSTEM_URL + "/static/o_channl.do");
+            header.setDestUrl(SystemConfig.STATIC_SYSTEM_URL + "/static/o_newChannelStatic.do");
+            logger.info(className + ":url:" + SystemConfig.STATIC_SYSTEM_URL + "/static/o_newChannelStatic.do");
         }
         header.setCallbackUrl(SystemConfig.LOCAL_URL + "/statics/index");
         header.setDestCallType(0);
