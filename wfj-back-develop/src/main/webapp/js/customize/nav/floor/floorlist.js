@@ -1077,14 +1077,14 @@ var floorType="";
 	 * 添加引导链接
 	 */
 	function addLinkForm(){
-		 if($("#id_pict").val()==""){
+		 /*if($("#id_pict").val()==""){
 			 alert("图片地址为空，请选择文件！")
 			 return;
 		 }
 		if($("#id_subTitle").val()==""){
 			alert("背景图片为空，请选择文件！");
 			return;
-		}
+		}*/
 		
 		if(validformAddLink().form()){
 	  		$.ajax({
