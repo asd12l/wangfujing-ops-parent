@@ -117,6 +117,11 @@ public class Constants {
     public static final String SELECT_COUPON_STORE_LIST="select_coupon_store_list";
     //保存活动门店配置信息
     public static final String SAVE_COUPON_ACTIVITY_INFO="save_coupon_activity_info";
+    //統計查詢2016-11-09
+    public static final String SELECT_PAY_MENT_DATE_LIST="select_pay_ment_date_list";
+    //导出统计查询Excel 2016-11-09
+    public static final String SELECT_PAY_MENT_DATE_LIST_EXCSL="select_pay_ment_date_list_excsl";
+    
     
 
 	//券地址
