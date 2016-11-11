@@ -2,6 +2,7 @@ var tree = [];
 	var resourcePagination;
 	var nodeId = "";
 	$(function() {
+		loadLogJs();
 		channelPagination = $("#channelPagination").myPagination(
 				{
 					panel : {
@@ -46,7 +47,37 @@ var tree = [];
 			$("#pageBody").load(__ctxPath+"/jsp/web/ftp/ftp_list.jsp");
 		});
 	});
-	
+	function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
 	//折叠面板函数
 	function tab(data) {
 		if (data == 'pro') {//基本
@@ -65,6 +96,9 @@ var tree = [];
 	}
 	//修改ftp
 	function editDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('ftpList-editDir', '修改ftp', userName,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var id = $(this).val();
@@ -110,12 +144,18 @@ var tree = [];
 	
 	//新建ftp
 	function addDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('ftpList-addDir', '新建ftp', userName,  sessionId);
 		var url = __ctxPath+"/jsp/web/ftp/add_ftp.jsp";
 		$("#pageBody").load(url);
 	}
 	
 	//删除ftp
 	function delDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('ftpList-delDir', '删除ftp', userName,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var id = $(this).val();

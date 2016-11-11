@@ -16,7 +16,10 @@ Author: WangSy
 <link rel="stylesheet" type="text/css" 
 	href="${pageContext.request.contextPath}/jsp/web/css/webStyle.css" />
 <script type="text/javascript">
-	__ctxPath = "${pageContext.request.contextPath}";</script>
+	__ctxPath = "${pageContext.request.contextPath}";
+	 var sessionId = "<%=request.getSession().getId() %>";
+	</script>
+	
 <script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/validation/bootstrapValidator.js"></script>
 <script src="${pageContext.request.contextPath}/js/customize/advertise/advertise.js"></script>

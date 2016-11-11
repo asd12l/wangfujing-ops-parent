@@ -22,6 +22,7 @@
 	src="${pageContext.request.contextPath}/assets/js/fuelux/treeview/bootstrap-treeview.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 </script>
 <script	src="${pageContext.request.contextPath}/js/customize/site/sitelist.js"></script>
 </head>
