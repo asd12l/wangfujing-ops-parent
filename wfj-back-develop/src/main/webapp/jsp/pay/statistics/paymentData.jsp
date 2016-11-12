@@ -3,20 +3,13 @@
     <!--Page Related Scripts-->
 <html>
 <head>
-
-
- 
 <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script> 
-<%-- <script src="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.js">  </script>  --%>
  <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script> 
- <%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/msgbox/msgbox.css"/> --%>
-<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css"/> --%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dateTime/datePicker.css"/> 
 <!--Bootstrap Date Range Picker-->
 <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.min.js"></script> 
 <script src="${pageContext.request.contextPath}/assets/js/datetime/datepicker.js"></script>
 <!-- Bootstrap multiselect -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/js/bootstrap-3.3.2.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/js/bootstrap_master/dist/css/bootstrap-multiselect.css" type="text/css"> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/bootstrap-multiselect.js"></script>
 <!-- end -->
@@ -112,15 +105,17 @@ function timePickInit(){
 }
 //页面加载完成后自动执行
 $(function() {
-	selectStart();
+	
 	//渲染日期
 	timePickInit();
 	//动态获取支付渠道
     payChannelType();
     //获取门店编码
     neibuMerchant();
+    selectStart();
 	//初始化
     initOlv();
+    
 });
 function selectStart(){
     $('#payTypes_info').multiselect({
@@ -272,25 +267,7 @@ function reset(){
 	$("#merCodes_info").multiselect().val([]).multiselect("refresh");
 	timePickInit();
 }
-//统计查询
-function queryCount(){
-	var countDataUrl=__ctxPath+"/wfjpay/balance/count";
-	//设置表单数据
-	setFormData();
-	var param=$("#olv_form").serialize();
-	$.post(countDataUrl,param,function(data){
-		if(data.success=="true"){
-			var obj=data.object;
-			var incomingCount=obj.TOTAL_COUNT+"(元)";
-			var payCount=obj.TOTAL_FEE+"(元)";
-			$("#incomingCount").html(incomingCount);
-			$("#payCount").html(payCount);
-		}else{
-			$("#incomingCount").html("0(元)");
-			$("#payCount").html("0(元)");
-		}
-	},"json");
-}
+
 var payChannelOption ="";
 //动态获取支付渠道类型
 function payChannelType(){
