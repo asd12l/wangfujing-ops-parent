@@ -22,11 +22,11 @@
  color:red;
 }
  .topList li input,.topList li select{
- min-width:80px;
+ min-width:100px;
  } 
  
  .multiselect-selected{
-  background-color:#20B2AA;
+  background-color:#ebebeb;
   width:170px
  }
 </style>
