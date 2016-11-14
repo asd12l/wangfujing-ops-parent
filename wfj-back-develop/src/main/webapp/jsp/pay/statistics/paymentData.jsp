@@ -21,8 +21,13 @@
 .trClick>td,.trClick>th{
  color:red;
 }
-.topList li input,.topList li select{
+ .topList li input,.topList li select{
  min-width:80px;
+ } 
+ 
+ .multiselect-selected{
+  background-color:#20B2AA;
+  width:170px
  }
 </style>
 <script type="text/javascript">
@@ -106,9 +111,12 @@ function timePickInit(){
     },
 		singleDatePicker:true});
 }
+$(document).ready(function() {
+	selectStart();
+  });
+
 //页面加载完成后自动执行
 $(function() {
-	selectStart();
 	//渲染日期
 	timePickInit();
 	//动态获取支付渠道
@@ -120,9 +128,11 @@ $(function() {
 });
 function selectStart(){
     $('#payTypes_info').multiselect({
+    	buttonWidth: '180px',
+    	selectedClass: 'multiselect-selected',
     	includeSelectAllOption: true,
+    	enableFiltering: true,
         nonSelectedText:'请选择平台类型',
-        enableFiltering: true,
         selectAllText:"全选/取消全选",
         filterPlaceholder:'搜索',
         allSelectedText:'已选中所有平台类型',
@@ -131,9 +141,11 @@ function selectStart(){
     		});
    
      $('#merCodes_info').multiselect({
+    	buttonWidth: '165px',
     	includeSelectAllOption: true,
+    	selectedClass: 'multiselect-selected',
+    	enableFiltering: true,
         nonSelectedText:'请选择门店',
-        enableFiltering: true,
         selectAllText:"全选/取消全选",
         filterPlaceholder:'搜索',
         allSelectedText:'已选中所有门店',
