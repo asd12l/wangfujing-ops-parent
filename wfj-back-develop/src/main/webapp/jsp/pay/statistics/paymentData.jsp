@@ -3,6 +3,7 @@
     <!--Page Related Scripts-->
 <html>
 <head>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/jquery-2.1.3.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script> 
  <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script> 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dateTime/datePicker.css"/> 
@@ -12,6 +13,8 @@
 <!-- Bootstrap multiselect -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/js/bootstrap_master/dist/css/bootstrap-multiselect.css" type="text/css"> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/bootstrap-multiselect.js"></script>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/js/bootstrap_master/dist/css/bootstrap-3.3.2.min.css" type="text/css">      
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/bootstrap-3.3.2.min.js"></script>  --%>
 <!-- end -->
 <script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <style type="text/css">
@@ -21,6 +24,78 @@
 .topList li input,.topList li select{
  min-width:80px;
  }
+ 
+*::after, *::before {
+    box-sizing: border-box;
+}
+*::after, *::before {
+    box-sizing: border-box;
+}
+.btn-group.open .dropdown-toggle {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
+}
+.btn-group .dropdown-toggle:active, .btn-group.open .dropdown-toggle {
+    outline: 0 none;
+}
+.btn-group > .btn:first-child {
+    margin-left: 0;
+}
+.btn-default.active, .btn-default:active, .open > .dropdown-toggle.btn-default {
+    background-image: none;
+}
+.btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open > .dropdown-toggle.btn-default {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #333;
+}
+.btn-group-vertical > .btn, .btn-group > .btn {
+    float: left;
+    position: relative;
+}
+.btn-default {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+}
+.btn {
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+    cursor: pointer;
+}
+button, select {
+    text-transform: none;
+}
+button {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+}
+
 </style>
 <script type="text/javascript">
 //上下文路径
@@ -105,17 +180,15 @@ function timePickInit(){
 }
 //页面加载完成后自动执行
 $(function() {
-	
+	selectStart();
 	//渲染日期
 	timePickInit();
 	//动态获取支付渠道
     payChannelType();
     //获取门店编码
     neibuMerchant();
-    selectStart();
-	//初始化
-    initOlv();
-    
+    //初始化
+    initOlv();  
 });
 function selectStart(){
     $('#payTypes_info').multiselect({
@@ -235,15 +308,16 @@ function setFormData(){
 function olvQuery(){
 	//设置表单数据
 	setFormData();
-	var errorMsg=validate();
-	if(errorMsg!=""){
-		showWarning(errorMsg);
-		return;
-	}
+	
 	//生成表单请求参数
     var params = $("#olv_form").serialize();
     params = decodeURI(params);
     //根据参数读取数据
+    var errorMsg=validate();
+	if(errorMsg!=""){
+		showWarning(errorMsg);
+		return;
+	}
     olvPagination.onLoad(params);
 }
 function validate(){
@@ -271,7 +345,7 @@ function reset(){
 var payChannelOption ="";
 //动态获取支付渠道类型
 function payChannelType(){
-		var url=__ctxPath+"/wfjpay/selectPayChannel";
+		var url=__ctxPath+"/wfjpay/selectChannelType";
 		$.ajax({
 			url:url,
 			type:"post",
@@ -281,8 +355,10 @@ function payChannelType(){
 						$.each(data.list, function(index, html) {
 							if(html.name == "WECHATPAY_OFFLINE"){
 								$("#payTypes_info").append( $('<option selected="selected"></option>').text(html.value).val(html.name));
+							}else{
+								 $("#payTypes_info").append( $('<option></option>').text(html.value).val(html.name));
 							}
-						  $("#payTypes_info").append( $('<option></option>').text(html.value).val(html.name));
+						 
 						  
 					      });
 					    $("#payTypes_info").multiselect('rebuild');
@@ -316,53 +392,21 @@ function  neibuMerchant(){
 	function initOlv() {
 	//请求地址
 	var url = __ctxPath+"/wfjpay/selectpayMentDate";
-	setFormData();
 	
+	setFormData();
+	//生成表单请求参数
+    var params = $("#olv_form").serialize();
+	console.log(params);
+    params = decodeURI(params);
 	//分页工具
 	olvPagination = $("#olvPagination").myPagination({
-       /* panel: {
-		 //启用跳页
-         tipInfo_on: true,
-         //跳页信息
-         tipInfo: '&nbsp;&nbsp;跳{input}/{sumPage}页',
-         //跳页样式
-         tipInfo_css: {
-           width: '25px',
-           height: "20px",
-           border: "2px solid #f0f0f0",
-           padding: "0 0 0 5px",
-           margin: "0 5px 0 5px",
-           color: "#48b9ef"
-         }
-       }, */
-     // debug: true,
        //ajax请求
        ajax: {
          on: true,
          url: url,
          //数据类型
          dataType: 'json',
-         param:$("#olv_form").serialize(),
-         //请求开始函数
-//         ajaxStart: function() {
-//           ZENG.msgbox.show(" 正在加载中，请稍后...", 1, 1000);
-//         },
-//         //请求结束函数
-//         ajaxStop: function() {
-//           //隐藏加载提示
-//           setTimeout(function() {
-//             ZENG.msgbox.hide();
-//           }, 300);
-//         },
-        /*  ajaxStart : function() {
-				$("#loading-container").attr("class","loading-container");
-			},
-			ajaxStop : function() {
-				//隐藏加载提示
-				setTimeout(function() {
-					$("#loading-container").addClass("loading-inactive");
-				}, 300);
-			}, */
+         param:params,
          //回调
          callback: function(data) {
         	 userName = data.userName ;
@@ -371,8 +415,7 @@ function  neibuMerchant(){
         	 sendParameter();
         	 LA.log('accountDetails-query', '对账明细查询', userName, sessionId);
 			if(data.success=="true"){
-				console.log("进来了");
-				var couponTotalFee = 0;
+				/* var couponTotalFee = 0;
 				var payToalCount = 0;
 				var payTotalFee = 0;
 				var refundTotalCount = 0;
@@ -384,12 +427,13 @@ function  neibuMerchant(){
 					payTotalFee += arr[i].payTotalFee;
 					refundTotalCount += arr[i].refundTotalCount;
 					refundTotalFee += arr[i].refundTotalFee;
-				}
-				$("#payTotalFee_count").html(payTotalFee+" 万元;");
-				$("#payToal_count").html(payToalCount+" 笔;");
-				$("#refundTotalFee_count").html(refundTotalFee+" 万元;");
-				$("#refundTotal_count").html(refundTotalCount+" 笔;");
-				$("#couponTotalFee_count").html(couponTotalFee+"  万元;");
+				} */
+				var arr = data.countList;
+				$("#payTotalFee_count").html(arr[0]+" 万元;");
+				$("#payToal_count").html(arr[1]+" 笔;");
+				$("#refundTotalFee_count").html(arr[2]+" 万元;");
+				$("#refundTotal_count").html(arr[3]+" 笔;");
+				$("#couponTotalFee_count").html(arr[4]+"  万元;");
 	
 		   		$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
 		   	
@@ -504,20 +548,20 @@ function successBtn(){
                                 </table>
                                 </div>
 
-                                <div style="width:100%;height:50px;margin-top:5px;padding-left:200px;">
+                                <div style="width:100%;height:50px;margin-top:5px;padding-left:100px;">
                         			 <table style="width:100%;height:40px;text-align:left;">
                         				<tr>
-                        				    <td><b><h4>【总计:】</h4></b></td>
-                        					<td>支付金额:</td>
-                        					<td style="width:50px;"><span id="payTotalFee_count"></span></td>
-                        					<td>支付笔数:</td>
-	                    					<td style="width:50px;"><span id="payToal_count"></span></td>
-	                    					<td>退款金额:</td>
-	                    					<td style="width:50px;"><span id="refundTotalFee_count"></span></td>
-	                    					<td>退款笔数:</td>
-	                    					<td style="width:50px;"><span id="refundTotal_count"></span></td>
-	                    					<td>活动金额(正向):</td>
-	                    					<td style="width:50px;"><span id="couponTotalFee_count"></span></td>
+                        				    <td style="width:15px;color:red;">【总计】</td>
+                        					<td style="width:30px;">支付金额:</td>
+                        					<td style="width:30px;"><span id="payTotalFee_count"></span></td>
+                        					<td style="width:30px;">支付笔数:</td>
+	                    					<td style="width:30px;"><span id="payToal_count"></span></td>
+	                    					<td style="width:30px;">退款金额:</td>
+	                    					<td style="width:30px;"><span id="refundTotalFee_count"></span></td>
+	                    					<td style="width:30px;">退款笔数:</td>
+	                    					<td style="width:30px;"><span id="refundTotal_count"></span></td>
+	                    					<td style="width:30px;">活动金额:</td>
+	                    					<td style="width:30px;"><span id="couponTotalFee_count"></span></td>
                         				<tr>
                         			</table>  
 

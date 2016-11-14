@@ -2,6 +2,7 @@ package com.wangfj.pay.web.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,9 +28,7 @@ import com.wangfj.order.entity.ExcelFile;
 import com.wangfj.order.utils.CommonProperties;
 import com.wangfj.pay.web.constant.Constants;
 import com.wangfj.pay.web.util.HttpClientUtil;
-import com.wangfj.pay.web.vo.ExcelOrderVo;
 import com.wangfj.pay.web.vo.ExcelPayStaticsVo;
-import com.wangfj.search.utils.CookieUtil;
 import com.wangfj.wms.util.CookiesUtil;
 
 import net.sf.json.JSONArray;
@@ -70,10 +69,41 @@ public class PayMentDateController {
 			JSONObject jsonObject = JSONObject.fromObject(json);
 			//JSONObject object=jsonObject.getJSONObject("data");
 			List<Object> list = (List<Object>)jsonObject.get("data");
+			//计算开始
+			JSONArray arr = jsonObject.getJSONArray("data");
+			List<ExcelPayStaticsVo> countlist = new ArrayList<ExcelPayStaticsVo>();
+			if (arr != null && arr.size() != 0) {
+				for (int i=0;i<arr.size();i++){
+					JSONObject obj = arr.getJSONObject(i);
+					ExcelPayStaticsVo vo = (ExcelPayStaticsVo) JSONObject.toBean(obj,ExcelPayStaticsVo.class);
+					countlist.add(vo);
+				}
+			}
+			List<String> countList = new ArrayList<String>();
+			//countList.add("总计");//门店编号
+			//countList.add("");//门店名称
+			BigDecimal payTotalFee = BigDecimal.ZERO;
+			Integer PayToalCount = 0;
+			BigDecimal RefundTotalFee = BigDecimal.ZERO;;
+			Integer RefundTotalCount = 0;
+			BigDecimal CouponTotalFee = BigDecimal.ZERO;;
+			for(ExcelPayStaticsVo vo:countlist){
+				payTotalFee = payTotalFee.add(BigDecimal.valueOf((vo.getPayTotalFee())));
+				PayToalCount += vo.getPayToalCount();
+				RefundTotalFee = RefundTotalFee.add(BigDecimal.valueOf((vo.getRefundTotalFee())));
+				RefundTotalCount += vo.getRefundTotalCount();
+				CouponTotalFee = CouponTotalFee.add(BigDecimal.valueOf((vo.getCouponTotalFee())));
+			}
+			countList.add(payTotalFee.toString());
+			countList.add(PayToalCount.toString());
+			countList.add(RefundTotalFee.toString());
+			countList.add(RefundTotalCount.toString());
+			countList.add(CouponTotalFee.toString());
+			//计算结束
 			if (list != null && list.size() != 0) {
 				m.put("list", list);
 				m.put("success", "true");
-				
+				m.put("countList", countList);
 			//	m.put("pageCount",object.getString("totalPages"));
 			} else {
 				m.put("success", "false");
@@ -107,7 +137,7 @@ public class PayMentDateController {
 	@ResponseBody
 	@RequestMapping(value = "/getPayMentDateToExcel",method={RequestMethod.GET,RequestMethod.POST})
 	public String getStockToExcel(HttpServletRequest request, HttpServletResponse response){
-		String title = "payRecorder_"+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"_";
+		
 		String json="";
 		Map<String,String> paramMap = new HashMap<String,String>();
 		Map<Object, Object> m = new HashMap<Object, Object>();
@@ -123,6 +153,9 @@ public class PayMentDateController {
 		if(StringUtils.isNotEmpty(request.getParameter("merCodes"))){
 			paramMap.put("merCodes", request.getParameter("merCodes"));
 		}
+	//	String title = "payRecorder_"+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"_";
+		String title = new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(request.getParameter("startTime"))))+
+				"-"+new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(request.getParameter("endTime"))));
 	//	paramMap.put("pageSize", EXPORT_SIZE);
 	//	paramMap.put("pageNo", "1");
 	//	paramMap.put("userId", CookieUtil.getUserName(request));
@@ -191,6 +224,29 @@ public class PayMentDateController {
 			inlist.add(vo.getCouponTotalFee()==null?"":String.valueOf(vo.getCouponTotalFee()));
 			data.add(inlist);
 		}
+		//总计
+		List<String> countList = new ArrayList<String>();
+		countList.add("总计");//门店编号
+		countList.add("");//门店名称
+		BigDecimal payTotalFee = BigDecimal.ZERO;
+		Integer PayToalCount = 0;
+		BigDecimal RefundTotalFee = BigDecimal.ZERO;;
+		Integer RefundTotalCount = 0;
+		BigDecimal CouponTotalFee = BigDecimal.ZERO;;
+		for(ExcelPayStaticsVo vo:list){
+			payTotalFee = payTotalFee.add(BigDecimal.valueOf((vo.getPayTotalFee())));
+			PayToalCount += vo.getPayToalCount();
+			RefundTotalFee = RefundTotalFee.add(BigDecimal.valueOf((vo.getRefundTotalFee())));
+			RefundTotalCount += vo.getRefundTotalCount();
+			CouponTotalFee = CouponTotalFee.add(BigDecimal.valueOf((vo.getCouponTotalFee())));
+		}
+		countList.add(payTotalFee.toString());
+		countList.add(PayToalCount.toString());
+		countList.add(RefundTotalFee.toString());
+		countList.add(RefundTotalCount.toString());
+		countList.add(CouponTotalFee.toString());
+		data.add(countList);
+		
 		ExcelFile ef = new ExcelFile(title, header, data);
 		try {
 			OutputStream file = response.getOutputStream();
