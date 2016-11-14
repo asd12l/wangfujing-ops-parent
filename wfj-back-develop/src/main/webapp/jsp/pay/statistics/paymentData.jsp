@@ -3,19 +3,19 @@
     <!--Page Related Scripts-->
 <html>
 <head>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/jquery-2.1.3.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js">  </script> 
- <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script> 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dateTime/datePicker.css"/> 
+<script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" >   </script> 
 <!--Bootstrap Date Range Picker-->
 <script src="${pageContext.request.contextPath}/assets/js/datetime/moment.min.js"></script> 
 <script src="${pageContext.request.contextPath}/assets/js/datetime/datepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dateTime/datePicker.css"/>
 <!-- Bootstrap multiselect -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/js/bootstrap_master/dist/css/bootstrap-multiselect.css" type="text/css"> 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/bootstrap-multiselect.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/js/bootstrap_master/dist/css/bootstrap-3.3.2.min.css" type="text/css">      
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/js/bootstrap_master/dist/css/bootstrap-3.3.2.min.css" type="text/css">      
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/bootstrap-3.3.2.min.js"></script>  --%>
-<!-- end -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/js/bootstrap_master/dist/css/bootstrap-multiselect.css" type="text/css"> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap_master/dist/js/bootstrap-multiselect.js"></script> 
+<!-- end --> 
 <script type="text/javascript"src="http://10.6.2.152:8081/log-analytics/wfj-log.js"></script>
 <style type="text/css">
 .trClick>td,.trClick>th{
@@ -24,78 +24,6 @@
 .topList li input,.topList li select{
  min-width:80px;
  }
- 
-*::after, *::before {
-    box-sizing: border-box;
-}
-*::after, *::before {
-    box-sizing: border-box;
-}
-.btn-group.open .dropdown-toggle {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
-}
-.btn-group .dropdown-toggle:active, .btn-group.open .dropdown-toggle {
-    outline: 0 none;
-}
-.btn-group > .btn:first-child {
-    margin-left: 0;
-}
-.btn-default.active, .btn-default:active, .open > .dropdown-toggle.btn-default {
-    background-image: none;
-}
-.btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open > .dropdown-toggle.btn-default {
-    background-color: #e6e6e6;
-    border-color: #adadad;
-    color: #333;
-}
-.btn-group-vertical > .btn, .btn-group > .btn {
-    float: left;
-    position: relative;
-}
-.btn-default {
-    background-color: #fff;
-    border-color: #ccc;
-    color: #333;
-}
-.btn {
-    -moz-user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857;
-    margin-bottom: 0;
-    padding: 6px 12px;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-}
-button, input, select, textarea {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-}
-button, html input[type="button"], input[type="reset"], input[type="submit"] {
-    cursor: pointer;
-}
-button, select {
-    text-transform: none;
-}
-button {
-    overflow: visible;
-}
-button, input, optgroup, select, textarea {
-    color: inherit;
-    font: inherit;
-    margin: 0;
-}
-* {
-    box-sizing: border-box;
-}
-
 </style>
 <script type="text/javascript">
 //上下文路径
@@ -396,7 +324,6 @@ function  neibuMerchant(){
 	setFormData();
 	//生成表单请求参数
     var params = $("#olv_form").serialize();
-	console.log(params);
     params = decodeURI(params);
 	//分页工具
 	olvPagination = $("#olvPagination").myPagination({
@@ -429,11 +356,11 @@ function  neibuMerchant(){
 					refundTotalFee += arr[i].refundTotalFee;
 				} */
 				var arr = data.countList;
-				$("#payTotalFee_count").html(arr[0]+" 万元;");
-				$("#payToal_count").html(arr[1]+" 笔;");
-				$("#refundTotalFee_count").html(arr[2]+" 万元;");
-				$("#refundTotal_count").html(arr[3]+" 笔;");
-				$("#couponTotalFee_count").html(arr[4]+"  万元;");
+				$("#payTotalFee_count").html(arr[0]+"万元");
+				$("#payToal_count").html(arr[1]+"笔");
+				$("#refundTotalFee_count").html(arr[2]+"万元");
+				$("#refundTotal_count").html(arr[3]+"笔");
+				$("#couponTotalFee_count").html(arr[4]+"万元");
 	
 		   		$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
 		   	
