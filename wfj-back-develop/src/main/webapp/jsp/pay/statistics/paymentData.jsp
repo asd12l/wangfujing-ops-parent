@@ -206,6 +206,14 @@ function excelBalance() {
 	var remoteUrl=__ctxPath+"/wfjpay/getPayMentDateToExcel?";
 	var params = $("#olv_form").serialize();
   params = decodeURI(params);
+  
+//根据参数读取数据
+  var errorMsg=validate();
+	if(errorMsg!=""){
+		showWarning(errorMsg);
+		return;
+	}
+  
   var downloadUrl=remoteUrl+params;
 	$.post(url,params,function(data){
 		if($("#olv_tab tbody tr").size()==0){

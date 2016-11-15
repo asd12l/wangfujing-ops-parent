@@ -64,6 +64,7 @@ public class PayMentDateController {
 			String jsonStr = JSON.toJSONString(paramMap);
 			logger.info("jsonStr:" + jsonStr);
 			String url=CommonProperties.get(Constants.PAY_CORE_URL)+"/"+CommonProperties.get(Constants.SELECT_PAY_MENT_DATE_LIST);
+			logger.info("--------------------------"+url);
 			json=HttpClientUtil.post(url, paramMap);
 			logger.info("json:" + json);
 			JSONObject jsonObject = JSONObject.fromObject(json);
