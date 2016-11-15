@@ -487,7 +487,7 @@ function successBtn(){
                                 </table>
                                 </div>
 
-                                <div style="width:100%;height:50px;margin-top:5px;padding-left:100px;">
+                                <div style="width:100%;height:50px;margin-top:5px;padding-left:0px;">
                         			 <table style="width:100%;height:40px;text-align:left;">
                         				<tr>
                         				    <td style="width:15px;color:red;">【总计】</td>
