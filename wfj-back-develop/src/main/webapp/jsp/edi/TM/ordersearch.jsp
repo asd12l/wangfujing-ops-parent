@@ -251,7 +251,7 @@
 
 	function initStock() {
 		var url = $("#ctxPath").val()
-				+ "/ediOrder/selectOrderList?ispreSale=PT&tradesource=C7";
+				+ "/ediOrder/selectOrderList?ispreSale=PTYSC&tradesource=C7";
 		stockPagination = $("#stockPagination").myPagination(
 				{
 					panel : {
