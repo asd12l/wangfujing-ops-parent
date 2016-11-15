@@ -209,7 +209,7 @@ public class PayMentDateController {
 		header.add("支付笔数");
 		header.add("退款金额(万元)");
 		header.add("退款笔数");
-		header.add("活动金额(正向)");
+		header.add("活动金额(元,正向)");
 	
 	
 		List<List<String>> data = new ArrayList<List<String>>();

@@ -372,7 +372,7 @@ function  neibuMerchant(){
 				$("#payToal_count").html(arr[1]+"笔");
 				$("#refundTotalFee_count").html(arr[2]+"万元");
 				$("#refundTotal_count").html(arr[3]+"笔");
-				$("#couponTotalFee_count").html(arr[4]+"万元");
+				$("#couponTotalFee_count").html(arr[4]+"元");
 	
 		   		$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
 		   	
@@ -479,7 +479,7 @@ function successBtn(){
                                             <th width="2.5%" style="text-align: center;">支付笔数</th>
                                             <th width="2.5%" style="text-align: center;">退款金额(万元)</th>
                                             <th width="2.5%" style="text-align: center;">退款笔数</th>
-                                            <th width="2.5%" style="text-align: center;">活动金额(万元,正向)</th>
+                                            <th width="2.5%" style="text-align: center;">活动金额(元,正向)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
