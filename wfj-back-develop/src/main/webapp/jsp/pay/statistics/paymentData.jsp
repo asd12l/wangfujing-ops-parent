@@ -479,7 +479,7 @@ function successBtn(){
                                             <th width="2.5%" style="text-align: center;">支付笔数</th>
                                             <th width="2.5%" style="text-align: center;">退款金额(万元)</th>
                                             <th width="2.5%" style="text-align: center;">退款笔数</th>
-                                            <th width="2.5%" style="text-align: center;">活动金额(正向)</th>
+                                            <th width="2.5%" style="text-align: center;">活动金额(万元,正向)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -487,7 +487,7 @@ function successBtn(){
                                 </table>
                                 </div>
 
-                                <div style="width:100%;height:50px;margin-top:5px;padding-left:0px;">
+                                <div style="width:100%;height:50px;margin-top:5px;padding-left:50px;">
                         			 <table style="width:100%;height:40px;text-align:left;">
                         				<tr>
                         				    <td style="width:15px;color:red;">【总计】</td>
