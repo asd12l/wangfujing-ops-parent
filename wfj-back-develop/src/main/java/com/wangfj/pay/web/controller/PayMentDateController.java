@@ -218,13 +218,13 @@ public class PayMentDateController {
 		List<List<String>> data = new ArrayList<List<String>>();
 		for(ExcelPayStaticsVo vo:list){
 			List<String> inlist = new ArrayList<String>();
-			inlist.add(vo.getStoreNo()==null?"":vo.getStoreNo());
+			inlist.add(vo.getStoreNo()==null?"":vo.getStoreNo().toString());
 			inlist.add(vo.getStoreName()==null?"":vo.getStoreName());			
-			inlist.add(vo.getPayTotalFee()==null?"":String.valueOf(vo.getPayTotalFee()));
-			inlist.add(vo.getPayToalCount()==null?"":String.valueOf(vo.getPayToalCount()));
-			inlist.add(vo.getRefundTotalFee()==null?"":String.valueOf(vo.getRefundTotalFee()));
-			inlist.add(vo.getRefundTotalCount()==null?"":String.valueOf(vo.getRefundTotalCount()));
-			inlist.add(vo.getCouponTotalFee()==null?"":String.valueOf(vo.getCouponTotalFee()));
+			inlist.add(vo.getPayTotalFee()==null?"":String.valueOf(vo.getPayTotalFee()).toString());
+			inlist.add(vo.getPayToalCount()==null?"":String.valueOf(vo.getPayToalCount()).toString());
+			inlist.add(vo.getRefundTotalFee()==null?"":String.valueOf(vo.getRefundTotalFee()).toString());
+			inlist.add(vo.getRefundTotalCount()==null?"":String.valueOf(vo.getRefundTotalCount()).toString());
+			inlist.add(vo.getCouponTotalFee()==null?"":String.valueOf(vo.getCouponTotalFee()).toString());
 			data.add(inlist);
 		}
 		//总计
