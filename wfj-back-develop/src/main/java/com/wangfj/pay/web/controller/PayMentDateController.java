@@ -3,6 +3,7 @@ package com.wangfj.pay.web.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,11 +96,12 @@ public class PayMentDateController {
 				RefundTotalCount += vo.getRefundTotalCount();
 				CouponTotalFee = CouponTotalFee.add(BigDecimal.valueOf((vo.getCouponTotalFee())));
 			}
-			countList.add(payTotalFee.toString());
+			
+			countList.add(payTotalFee.setScale(4).toString());
 			countList.add(PayToalCount.toString());
-			countList.add(RefundTotalFee.toString());
+			countList.add(RefundTotalFee.setScale(4).toString());
 			countList.add(RefundTotalCount.toString());
-			countList.add(CouponTotalFee.toString());
+			countList.add(CouponTotalFee.setScale(2).toString());
 			//计算结束
 			if (list != null && list.size() != 0) {
 				m.put("list", list);
