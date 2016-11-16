@@ -44,7 +44,8 @@
   <script type="text/javascript">
   
   __ctxPath = "${pageContext.request.contextPath}";
-	
+  LA.sysCode = '43';
+  var sessionId = "<%=request.getSession().getId() %>";
 	$(function(){
 		$("#set1").click(function(){
 			var spuId=$("#spuId").val();
@@ -70,7 +71,8 @@
 	        	spuId:$("#spuId").val()
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据spuId刷新索引 spuId:'+$("#spuId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>刷新成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -108,7 +110,8 @@
 	        	spuId:$("#spuId").val()
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据spuId移除索引 spuId:'+$("#spuId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>移除成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -147,7 +150,8 @@
 	        	
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据brandId刷新索引 brandId:'+$("#brandId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>刷新成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -186,7 +190,8 @@
 	        	
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据brandId移除索引 brandId:'+$("#brandId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>移除成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -225,7 +230,8 @@
 	        	
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据skuId刷新索引 skuId:'+$("#skuId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>刷新成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -264,7 +270,8 @@
 	        	
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据skuId移除索引 skuId:'+$("#skuId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>移除成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -303,7 +310,8 @@
 	        	
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据itemId刷新索引 itemId:'+$("#itemId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class=''></i><strong>刷新成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -342,7 +350,8 @@
 	        	
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据itemId移除索引 itemId:'+$("#itemId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>移除成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -381,7 +390,8 @@
 	        	
 	        },
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '根据categoryId刷新索引 categoryId:'+$("#categoryId").val(), getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class='fa-fw fa fa-times'></i><strong>刷新成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -415,7 +425,8 @@
 	        url:__ctxPath + "/onlineIndex/allFresh",
 	        dataType: "json",
 	        success:function(response) {
-	        	if(response.success == true){
+				LA.log('search.onlineIndex', '线上索引全量刷新', getCookieValue("username"), sessionId);
+				if(response.success == true){
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class=''></i><strong>刷新成功!</strong></div>");
 	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});

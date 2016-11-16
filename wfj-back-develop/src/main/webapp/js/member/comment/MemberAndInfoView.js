@@ -1,8 +1,40 @@
+
 $(function() {
 		$("#registrationTime_input").daterangepicker();
 		initOlv();
+		loadLogJs();
 	});
-
+function loadLogJs(){
+    $.ajax({
+        type : "get",
+        contentType : "application/x-www-form-urlencoded;charset=utf-8",
+        url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+        async : false,
+        data : {
+            "key" : "log_js"
+        },
+        dataType : "json",
+        ajaxStart : function() {
+            $("#loading-container").prop("class", "loading-container");
+        },
+        ajaxStop : function() {
+            $("#loading-container").addClass("loading-inactive");
+        },
+        success : function(response) {
+            if(response.success){
+                var logjs_url = response.value;
+                var _script=document.createElement('script');
+                _script.setAttribute('charset','gbk');
+                _script.setAttribute('type','text/javascript');
+                _script.setAttribute('src',logjs_url);
+                document.getElementsByTagName('head')[0].appendChild(_script);
+            } else {
+                $("#warning2Body").text(response.msg);
+                $("#warning2").show();
+            }
+        }
+    });
+}
 
 function productQuery(){
 		
@@ -56,6 +88,9 @@ $(function() {
 	
 	// 查询
 	function query(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('memberAndInfo-Query', '会员基本信息查询', userName,  sessionId);
     	$("#status").val("1");
 		$("#cache").val(0);
 		productQuery();
@@ -63,6 +98,9 @@ $(function() {
 	}
 	//重置
 	function reset(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('memberAndInfo-reset', '会员基本信息重置查询', userName,  sessionId);
 		$("#status").val("");
 		$("#cache").val(1);
 		$("#cid_input").val("");
@@ -128,7 +166,9 @@ $(function() {
 	}
 	//重置支付密码
 	function showResetPayPwd(){
-	
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('memberAndInfo-showResetPayPwd', '重置支付密码', userName,  sessionId);
 		//清空表单内容
 		$("#payCode_msg").html("");
 		$("#payPwd_msg").html("");
@@ -309,7 +349,9 @@ $(function() {
 	
 	//重置登录密码
 	function showResetLoginPwd(){
-		 
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('memberAndInfo-showResetLoginPwd', '重置登陆密码', userName,  sessionId);
 		//清空表单内容
 		$("#mobileCode_msg").html("");
 		$("#emailCode_msg").html("");

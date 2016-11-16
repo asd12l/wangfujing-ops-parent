@@ -6,6 +6,7 @@ image = "http://images.shopin.net/images";
 
 	var advertisingPagination;
 	$(function() {
+		loadLogJs();
 		$("#pageSelect").change(advertisingQuery);
 		//新建频道时选定目录下的模板列表
 		$(".channel_path").change(function(){
@@ -15,9 +16,41 @@ image = "http://images.shopin.net/images";
 		
 		$("#advertise_space_list").change(function(){
 			loadAdvertiseList();
+			
 		});
 	});
 	
+	function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
 	//测试购物车栏广告
 	function showCart(){
 		$.ajax({
@@ -120,12 +153,18 @@ image = "http://images.shopin.net/images";
 		loadAdvertiseList();
 	}
 	function addPropsdict() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('adcertise-addPropsdict', '添加广告位', userName,  sessionId);
 		//获取列表上的广告版位
 		var _spaceId = $("#advertise_space_list").val();
 		$("#pageBody").load(__ctxPath + "/jsp/advertise/addAdvertise.jsp?_site_id_param="+siteSid+"&&site_name="+siteName+"&&_spaceId="+_spaceId);
 	}
 	
 	function editPropsdict() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('adcertise-editPropsdict', '编辑广告位', userName,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var productSid = $(this).val();
@@ -206,6 +245,9 @@ image = "http://images.shopin.net/images";
 	}
 	
 	function delPropsdict() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('adcertise-delPropsdict', '删除广告位', userName,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var productSid = $(this).val();

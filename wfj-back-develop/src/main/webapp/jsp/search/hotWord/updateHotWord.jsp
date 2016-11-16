@@ -11,6 +11,8 @@
 <script src="${ctx}/assets/js/validation/bootstrapValidator.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
 	$(function(){
 		//点击事件，获取站点的信息
 			$.ajax({
@@ -130,6 +132,8 @@
 			
 			success: function(response) {
 				if(response.success==true){
+					LA.log('search.hotWordUpdate', '热词配置修改 site:'+$("#site").val()+"channel:"+$("#channel").val()+"value:"+$("#value").val()
+							+"link:"+$("#link").val()+"orders:"+$("#orders").val(), getCookieValue("username"), sessionId);
 					$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>修改成功，返回列表页!</strong></div>");
 		     	  	$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
 				}else {

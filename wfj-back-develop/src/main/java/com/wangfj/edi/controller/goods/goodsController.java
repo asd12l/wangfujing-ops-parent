@@ -322,4 +322,51 @@ public class goodsController {
 			map.put("success", "false");
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("/selectCommoditySearch")
+	public String selectCommoditySearch(String outer_id,String channelCode,HttpServletRequest request, HttpServletResponse response) {
+		String json = "";
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			paramMap.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			paramMap.put("userName", "");
+		}
+
+		paramMap.put("channel_code", channelCode);
+		paramMap.put("outer_id", outer_id);
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url = "";
+			if("M4".equals(channelCode)){
+				url = (String) PropertiesUtil.getContextProperty("edi_goods_yzstock");
+			}else{
+				url = (String) PropertiesUtil.getContextProperty("edi_goods_stock");
+			}
+			json = HttpUtilPcm.doPost(url, jsonStr);
+			if (!"".equals(json)) {
+				JSONObject jsonPage = JSONObject.fromObject(json);
+				if (jsonPage != null) {
+					map.put("list", jsonPage.get("list"));
+					map.put("success", "true");
+				} else {
+					map.put("list", null);
+					map.put("success", "false");
+				}
+			} else {
+				map.put("list", null);
+				map.put("success", "false");
+			}
+			logger.info("json:" + json);
+		} catch (Exception e) {
+			map.put("success", "false");
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		System.out.println(gson.toJson(map));
+		return gson.toJson(map);
+	}
 }

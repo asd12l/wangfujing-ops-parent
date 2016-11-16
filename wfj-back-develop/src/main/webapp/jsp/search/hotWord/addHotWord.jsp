@@ -11,6 +11,8 @@
 <script src="${ctx}/assets/js/validation/bootstrapValidator.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
   	$(function(){
   		$("#close").click(function(){ 
   			$("#pageBody").load(__ctxPath+"/jsp/search/hotWord/hotWordManage.jsp");
@@ -38,6 +40,8 @@
 				},
 				success: function(response) {
 					if(response.success==true){
+						LA.log('search.hotWordAdd', '热词配置添加 site:'+$("#site").val()+"channel:"+$("#channel").val()+"value:"+$("#value").val()
+								+"link:"+$("#link").val()+"orders:"+$("#orders").val(), getCookieValue("username"), sessionId);
 						$("#modal-body-success").html("<div class='alert alert-success fade in'><strong>添加成功，返回列表页!</strong></div>");
 	 	     	  		$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
 					}else{

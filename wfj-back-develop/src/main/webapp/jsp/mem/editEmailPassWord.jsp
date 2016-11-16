@@ -9,7 +9,9 @@
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
 	var url = __ctxPath+ "/member/getByMemberAndInfo";
+	var sessionId = "<%=request.getSession().getId() %>";
   	$(function(){
+  		loadLogJs();
   		$("#sid").val(sid_);
   		$("#username").val(username_);
   		$("#mobile").val(mobile_);
@@ -20,9 +22,43 @@
   		});
 	});
   	
+  	function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
 		//重置密码发送邮箱
 		var second = 60;
 	    function sendEmail() {
+	    	userName = getCookieValue("username");
+	    	LA.sysCode = '64';
+			LA.log('editEmailPassWord-sendEmail', '重置密码发送邮箱', userName,  sessionId);
 	    	var email = $("#email").val();
 			$('#showMsg').html("");
 			var sid=$("#sid").val();

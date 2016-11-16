@@ -28,7 +28,7 @@
 		                        </div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label">
-		                            	<span style="color:red;">*</span>图片地址： 
+		                            	图片地址：
 		                            </label>
 		                            <div class="col-sm-9">
 										<input onchange="uploadlinkImg(this.id)" type="file" id="id_pict" name="name_pict" accept=".gif,.jpg,.png" />
@@ -40,7 +40,7 @@
 								</div> 
 								<div class="form-group">
 		                            <label class="col-sm-3 control-label">
-		                            	<span style="color:red;">*</span>背景图片：
+		                            	背景图片：
 		                            </label>
 		                            <div class="col-sm-9">
 										<input onchange="uploadlinkImg(this.id)" type="file" id="id_subTitle" name="name_subTitle" accept=".gif,.jpg,.png" /> 

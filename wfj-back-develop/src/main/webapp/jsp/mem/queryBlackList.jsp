@@ -22,6 +22,7 @@
     image="http://images.shopin.net/images";
     saleMsgImage="http://images.shopin.net/images";
     ctx="http://www.shopin.net";
+    var sessionId = "<%=request.getSession().getId() %>";
     function timePickInit(){
     	$('#reservationPull').daterangepicker({
     		//timePicker: true,
@@ -63,6 +64,38 @@
       initOlv();
       $("#pageSelect").change(productQuery);
     });
+    
+    function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
     function productQuery(){
       $("#username_from").val($("#username_input").val().trim());
       $("#blacklisttype_from").val($("#blacklisttype_input").val().trim());
@@ -92,11 +125,17 @@
     }
     // 查询
     function query() {
+    	userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('queryBlackList-Query', '黑名单信息查询 ', userName,  sessionId);
       $("#cache").val(0);
       productQuery();
     }
     //重置
     function reset(){
+    	userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('queryBlackList-reset', '黑名单信息重置查询 ', userName,  sessionId);
       $("#cache").val(1);
       $("#reservationPull").val("");
       $("#reservationBack").val("");
@@ -171,6 +210,7 @@
             }, 300);
           },
           callback: function(data) {
+        	  loadLogJs();
             $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
           }
         }
@@ -188,6 +228,9 @@
     }
 
     function editBlack(){
+    	userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('queryBlackList-editBlack', '黑名单信息查询 编辑黑名单', userName,  sessionId);
       var checkboxArray=[];
       $("input[type='checkbox']:checked").each(function(i,team){
         var sid=$(this).val().trim();
@@ -301,6 +344,9 @@
 
     //解除黑名单
     function relieveBlack(){
+    	userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('queryBlackList-relieveBlack', '黑名单信息查询 解除黑名单', userName,  sessionId);
     	var url1 = __ctxPath+"/memBasic/getUserName";
     	var userName="";
     	$.ajax({

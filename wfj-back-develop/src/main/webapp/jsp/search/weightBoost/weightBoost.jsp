@@ -12,6 +12,8 @@
 	href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css" />
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
 	var t;
 	var blackPagination;
 	var brandType_ = $("#brandType_from").val($("#blackType").val());
@@ -22,6 +24,7 @@
 	function blackQuery() {
 		$("#id_from").val($("#id").val());
 		var params = $("#black_form").serialize();
+		LA.log('search.weightBoost', '商品权值列表查询', getCookieValue("username"), sessionId);
 		//alert("表单序列化后请求参数:"+params);
 		params = decodeURI(params);
 		blackPagination.onLoad(params);
@@ -36,6 +39,7 @@
 	}
 	//初始化加权列表
 	function initBrand() {
+		LA.log('search.weightBoost', '商品加权列表查询', getCookieValue("username"), sessionId);
 		var url = $("#ctxPath").val() + "/weight/getList";
 		blackPagination = $("#blackPagination")
 				.myPagination(
@@ -171,6 +175,7 @@
 					},
 					success : function(response) {
 						if (response.success == true) {
+							LA.log('search.weightBoostDelete', '商品权值删除 skuId:'+value, getCookieValue("username"), sessionId);
 							$("#modal-body-success")
 									.html(
 											"<div class='alert alert-success fade in'>"

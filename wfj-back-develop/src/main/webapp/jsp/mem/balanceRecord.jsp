@@ -21,6 +21,7 @@
 <script type="text/javascript">
 //上下文路径
 __ctxPath = "${pageContext.request.contextPath}";
+var sessionId = "<%=request.getSession().getId() %>";
 
 //页码
 var olvPagination;
@@ -109,6 +110,38 @@ function formateDate2(date){
 	return year+"/"+month+"/"+day;
 }
 
+function loadLogJs(){
+    $.ajax({
+        type : "get",
+        contentType : "application/x-www-form-urlencoded;charset=utf-8",
+        url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+        async : false,
+        data : {
+            "key" : "log_js"
+        },
+        dataType : "json",
+        ajaxStart : function() {
+            $("#loading-container").prop("class", "loading-container");
+        },
+        ajaxStop : function() {
+            $("#loading-container").addClass("loading-inactive");
+        },
+        success : function(response) {
+            if(response.success){
+                var logjs_url = response.value;
+                var _script=document.createElement('script');
+                _script.setAttribute('charset','gbk');
+                _script.setAttribute('type','text/javascript');
+                _script.setAttribute('src',logjs_url);
+                document.getElementsByTagName('head')[0].appendChild(_script);
+            } else {
+                $("#warning2Body").text(response.msg);
+                $("#warning2").show();
+            }
+        }
+    });
+}
+
 //设置表单数据
 function setFormData(){
 	var strTime = $("#time").val();
@@ -127,6 +160,9 @@ function setFormData(){
 
 //查询数据
 function olvQuery(){
+	userName = getCookieValue("username");
+	LA.sysCode = '64';
+	LA.log('banceRecord-olvQuery', '余额记录查询', userName,  sessionId);
 	//设置表单数据
 	setFormData();
 	//生成表单请求参数
@@ -137,6 +173,9 @@ function olvQuery(){
 	}
 //重置
 function reset(){
+	userName = getCookieValue("username");
+	LA.sysCode = '64';
+	LA.log('banceRecord-reset', '余额记录重置查询', userName,  sessionId);
 	$("#phone").val("");
 	$("#account").val("");
 	$("#email").val("");
@@ -200,6 +239,7 @@ function reset(){
 			},
          //回调
          callback: function(data) {
+        	 loadLogJs();
     		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
          }
        }

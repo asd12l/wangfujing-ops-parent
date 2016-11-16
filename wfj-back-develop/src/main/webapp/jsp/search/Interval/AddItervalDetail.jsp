@@ -10,6 +10,8 @@
 <title>app基本信息</title>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
 	$(function(){
   		$("#save").click(function(){
   			var lower_limit=$("#lower_limit").val();
@@ -70,6 +72,9 @@
 	        success:function(response) {
 				console.log(response);
 	        	if(response.success == true){
+					LA.log('search.intervalDetailAdd', '价格区间详情添加 contentSid:'+$("#contentSid").val()+
+							" lower_limit:"+$("#lower_limit").val()+" upper_limit:"+$("#upper_limit").val()
+							+" order_by:"+$("#order_by").val()+" show_text:"+$("#show_text").val(), getCookieValue("username"), sessionId);
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class=''></i><strong>添加成功，返回列表页!</strong></div>");
   	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});

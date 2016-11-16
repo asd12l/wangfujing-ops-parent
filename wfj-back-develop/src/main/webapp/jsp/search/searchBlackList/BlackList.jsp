@@ -12,6 +12,8 @@
 	href="${pageContext.request.contextPath}/js/pagination/myPagination/page.css" />
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
 	var t;
 	var blackPagination;
 	var brandType_ = $("#brandType_from").val($("#blackType").val());
@@ -71,6 +73,7 @@
 						               }, 300);
 						             },
 								callback : function(data) {
+									LA.log('search.blackList', '黑名单列表查询 blackType:'+$("#blackType").val() +" id:"+$("#id").val(), getCookieValue("username"), sessionId);
 									if(data.success == true){
 										$("#brand_tab tbody").setTemplateElement("black-list").processTemplate(data);
 									}else{
@@ -146,6 +149,7 @@
 						"type":type
 					},
 					success : function(response) {
+						LA.log('search.blackListDelete', '黑名删除 id:'+value +" type:"+type, getCookieValue("username"), sessionId);
 						if (response.success == true) {
 							$("#modal-body-success")
 									.html(

@@ -33,6 +33,7 @@
 	image="http://images.shopin.net/images";
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net";
+	var sessionId = "<%=request.getSession().getId() %>";
 	 
 	var olvPagination;
 	

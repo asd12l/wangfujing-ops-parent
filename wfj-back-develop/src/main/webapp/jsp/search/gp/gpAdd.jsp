@@ -11,6 +11,8 @@
 <title>app基本信息</title>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
 	$(function(){
   		$("#save").click(function(){
 			var title = $("#title").val();
@@ -39,6 +41,7 @@
 	        data:$("#theForm").serialize(),
 	        success:function(response) {
 	        	if(response.success == true){
+					LA.log('search.gp', 'gp添加 title:'+$("#title").val()+"ids:"+$("#ids").val(), getCookieValue("username"), sessionId);
 					$("#hidGpId").val(response.gp.gp);
 					$("#regp").html(response.urlTemplate+response.gp.gp);
 					$("#addDIV").show();

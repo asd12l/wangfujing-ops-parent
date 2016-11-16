@@ -8,7 +8,8 @@
 <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js" ></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
-
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
 	var hotWordPagination;
 	$(function() {
 	    inithotWord();
@@ -22,7 +23,8 @@
 		$("#hotWordSite").val(siteSid);
 		$("#hotWordChannel").val(channelSid);
         var params = $("#hotWord_form").serialize();
-        params = decodeURI(params);
+		LA.log('search.hotWord', '热词配置列表查询 siteSid:'+$("#site").val()+"channelSid:"+$("#channel").val(), getCookieValue("username"), sessionId);
+		params = decodeURI(params);
         hotWordPagination.onLoad(params);
    	}
 	function reset(){
@@ -31,6 +33,7 @@
 		hotWordQuery();
 	}
  	function inithotWord() {
+		LA.log('search.hotWord', '热词配置列表查询 siteSid:'+$("#site").val()+"channelSid:"+$("#channel").val(), getCookieValue("username"), sessionId);
 		var url = $("#ctxPath").val()+"/hotWord/getList";
 		hotWordPagination = $("#hotWordPagination").myPagination({
 			panel: {
@@ -75,6 +78,7 @@
  	
  	//点击事件，获取站点的信息
  	$("#site").one("click",function(){
+		LA.log('search.hotWord', '热词配置管理获取站点信息', getCookieValue("username"), sessionId);
 		$.ajax({
 			type: "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -137,6 +141,7 @@
  		var channel = $("#channel");
 		var sid = $("#site").val();
 		channel.html("<option value=''>请选择</option>");
+		LA.log('search.hotWord', '热词配置管理查询频道信息 siteId:'+sid, getCookieValue("username"), sessionId);
 		$.ajax({
 			type: "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
@@ -249,6 +254,11 @@
 			},
 			success: function(response) {
 				if(response.success==true){
+					LA.log('search.hotWordDelete', '删除热词配置 sid:'+value+"site:"+$("#channel_"+value).attr("value")+
+							"channel:"+$("#channel_"+value).attr("value")+"value:"+$("#value_"+value).attr("value")+
+							"link:"+$("#link_"+value).attr("value")+"orders:"+$("#orders_"+value).attr("value")+
+							"enabled:"+$("#enabled_"+value).attr("value"),
+							getCookieValue("username"), sessionId);
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<strong>删除成功，返回列表页!</strong></div>");
 					$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
@@ -298,6 +308,7 @@
 					success: function(response) {
 						console.log(response);
 						if(response.success == true){
+							LA.log('search.hotWord', '热词配置使有效或无效 sid:'+sid+"enabled:"+$("#enabled_"+value).attr("value"), getCookieValue("username"), sessionId);
 							$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 								"<i class=''></i><strong>操作成功，返回列表页!</strong></div>");
 			  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});
