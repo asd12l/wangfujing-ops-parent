@@ -15,11 +15,11 @@ public class ExcelPayStaticsVo implements Serializable{
 	
 	private String storeNo;
 	private String storeName;
-	private Double payTotalFee;
+	private String payTotalFee;
 	private Integer payToalCount;
-	private Double refundTotalFee;
+	private String refundTotalFee;
 	private Integer refundTotalCount;
-	private Double couponTotalFee;
+	private String couponTotalFee;
 	public String getStoreNo() {
 		return storeNo;
 	}
@@ -32,10 +32,10 @@ public class ExcelPayStaticsVo implements Serializable{
 	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}
-	public Double getPayTotalFee() {
+	public String getPayTotalFee() {
 		return payTotalFee;
 	}
-	public void setPayTotalFee(Double payTotalFee) {
+	public void setPayTotalFee(String payTotalFee) {
 		this.payTotalFee = payTotalFee;
 	}
 	public Integer getPayToalCount() {
@@ -44,10 +44,10 @@ public class ExcelPayStaticsVo implements Serializable{
 	public void setPayToalCount(Integer payToalCount) {
 		this.payToalCount = payToalCount;
 	}
-	public Double getRefundTotalFee() {
+	public String getRefundTotalFee() {
 		return refundTotalFee;
 	}
-	public void setRefundTotalFee(Double refundTotalFee) {
+	public void setRefundTotalFee(String refundTotalFee) {
 		this.refundTotalFee = refundTotalFee;
 	}
 	public Integer getRefundTotalCount() {
@@ -56,10 +56,10 @@ public class ExcelPayStaticsVo implements Serializable{
 	public void setRefundTotalCount(Integer refundTotalCount) {
 		this.refundTotalCount = refundTotalCount;
 	}
-	public Double getCouponTotalFee() {
+	public String getCouponTotalFee() {
 		return couponTotalFee;
 	}
-	public void setCouponTotalFee(Double couponTotalFee) {
+	public void setCouponTotalFee(String couponTotalFee) {
 		this.couponTotalFee = couponTotalFee;
 	}
 	@Override

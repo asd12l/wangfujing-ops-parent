@@ -86,15 +86,15 @@ public class PayMentDateController {
 			//countList.add("");//门店名称
 			BigDecimal payTotalFee = BigDecimal.ZERO;
 			Integer PayToalCount = 0;
-			BigDecimal RefundTotalFee = BigDecimal.ZERO;;
+			BigDecimal RefundTotalFee = BigDecimal.ZERO;
 			Integer RefundTotalCount = 0;
-			BigDecimal CouponTotalFee = BigDecimal.ZERO;;
+			BigDecimal CouponTotalFee = BigDecimal.ZERO;
 			for(ExcelPayStaticsVo vo:countlist){
-				payTotalFee = payTotalFee.add(BigDecimal.valueOf((vo.getPayTotalFee())));
+				payTotalFee = payTotalFee.add(new BigDecimal((vo.getPayTotalFee())));
 				PayToalCount += vo.getPayToalCount();
-				RefundTotalFee = RefundTotalFee.add(BigDecimal.valueOf((vo.getRefundTotalFee())));
+				RefundTotalFee = RefundTotalFee.add(new BigDecimal((vo.getRefundTotalFee())));
 				RefundTotalCount += vo.getRefundTotalCount();
-				CouponTotalFee = CouponTotalFee.add(BigDecimal.valueOf((vo.getCouponTotalFee())));
+				CouponTotalFee = CouponTotalFee.add(new BigDecimal((vo.getCouponTotalFee())));
 			}
 			
 			countList.add(payTotalFee.setScale(4).toString());
@@ -237,11 +237,11 @@ public class PayMentDateController {
 		Integer RefundTotalCount = 0;
 		BigDecimal CouponTotalFee = BigDecimal.ZERO;;
 		for(ExcelPayStaticsVo vo:list){
-			payTotalFee = payTotalFee.add(BigDecimal.valueOf((vo.getPayTotalFee())));
+			payTotalFee = payTotalFee.add(new BigDecimal((vo.getPayTotalFee())));
 			PayToalCount += vo.getPayToalCount();
-			RefundTotalFee = RefundTotalFee.add(BigDecimal.valueOf((vo.getRefundTotalFee())));
+			RefundTotalFee = RefundTotalFee.add(new BigDecimal((vo.getRefundTotalFee())));
 			RefundTotalCount += vo.getRefundTotalCount();
-			CouponTotalFee = CouponTotalFee.add(BigDecimal.valueOf((vo.getCouponTotalFee())));
+			CouponTotalFee = CouponTotalFee.add(new BigDecimal((vo.getCouponTotalFee())));
 		}
 		countList.add(payTotalFee.setScale(4).toString());
 		countList.add(PayToalCount.toString());
