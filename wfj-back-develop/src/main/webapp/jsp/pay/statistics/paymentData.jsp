@@ -120,11 +120,12 @@ $(function() {
 	//渲染日期
 	timePickInit();
 	//动态获取支付渠道
-    payChannelType();
+   // payChannelType();
     //获取门店编码
     neibuMerchant();
     //初始化
     initOlv();  
+   // olvQuery();
 });
 function selectStart(){
     $('#payTypes_info').multiselect({
@@ -322,12 +323,12 @@ function  neibuMerchant(){
   		$.ajax({
 	        type:"post",
 	        contentType: "application/x-www-form-urlencoded;charset=utf-8",
-	        url:__ctxPath + "/wfjpay/paySystem/findAllListNoParam",
+	        url:__ctxPath + "/wfjpay/selectMerCode",
 	        dataType: "json",
 	        success:function(response) {
 	        	if(response.success == 'true'){
 	  				$.each(response.list, function(index, html) {
-					$("#merCodes_info").append( $('<option selected="selected"></option>').text(html.name).val(html.id));
+					$("#merCodes_info").append( $('<option selected="selected"></option>').text(html.name).val(html.merCode));
 				      });
 	  				$("#merCodes_info").multiselect('rebuild');
 				}else{
@@ -375,15 +376,16 @@ function  neibuMerchant(){
 					refundTotalCount += arr[i].refundTotalCount;
 					refundTotalFee += arr[i].refundTotalFee;
 				} */
-				var arr = data.countList;
+				
+	
+		   		$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
+				$("#trShows").css({"display":""}); 
+		   		var arr = data.countList;
 				$("#payTotalFee_count").html(arr[0]+"万元");
 				$("#payToal_count").html(arr[1]+"笔");
 				$("#refundTotalFee_count").html(arr[2]+"万元");
 				$("#refundTotal_count").html(arr[3]+"笔");
 				$("#couponTotalFee_count").html(arr[4]+"元");
-	
-		   		$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
-		   	
 			}else{
 				$("#olv_tab tbody").setTemplateElement("olv-list").processTemplate("");
 				$("#page_form").val(1);
@@ -455,6 +457,8 @@ function successBtn(){
                                				<li class="col-md-4">
                                					<label class="titname">支付渠道：</label>
                                					    <select id="payTypes_info"  multiple="multiple">
+                               					      <option value="WECHATPAY_OFFLINE"  selected="selected">微信线下支付</option>
+                               					      <option value="ALIPAY_OFFLINE">支付宝线下支付</option>
 	                               				    </select> 
                                				</li>
                                				
@@ -495,7 +499,7 @@ function successBtn(){
                                 </table>
                                 </div>
 
-                                <div style="width:100%;height:50px;margin-top:5px;padding-left:50px;">
+                               <!--  <div style="width:100%;height:50px;margin-top:5px;padding-left:50px;">
                         			 <table style="width:100%;height:40px;text-align:left;">
                         				<tr>
                         				    <td style="width:15px;color:red;">【总计】</td>
@@ -512,7 +516,7 @@ function successBtn(){
                         				<tr>
                         			</table>  
 
-                       			</div>
+                       			</div> -->
                                 
                                 <!--分页工具-->
                                <!--  <div id="olvPagination" ></div> -->
@@ -563,9 +567,49 @@ function successBtn(){
 											
 							       		</tr>
 									{#/for}
-							    {#/template MAIN}	
+									
+									<tr class="gradeX" id="trShows" style="height:35px;display:none;" >
+											<!--门店编号-->	
+											<td align="center" id="">
+												<b>总计</b>
+											</td>
+											<!--门店名称-->
+											<td align="center" id="">
+											</td>
+											<!--支付金额-->
+											<td align="center">
+											    <b><span id="payTotalFee_count"></span></b>   
+											</td>
+											<!--支付笔数-->
+											<td align="center"  id="">
+											   <b><span id="payToal_count"></span></b>  
+											</td>
+											<!--退款金额-->
+											<td align="center"  id="">
+											   <b><span id="refundTotalFee_count"></span></b>  
+											</td>
+											<!-- 退款笔数 -->
+											<td align="center"  id="">
+											   <b><span id="refundTotal_count"></span></b>  
+			                   				</td>
+											<!--活动金额-->
+											<td align="center"  id="" >
+											   <b><span id="couponTotalFee_count"></span></b>  
+											</td>
+							    	</tr>
+									
+							    {#/template MAIN}
+							    
+							    
+							    	
 								</textarea>
 							</p>
+							
+							
+					
+							
+						
+							
 								
                         </div>
                     </div>

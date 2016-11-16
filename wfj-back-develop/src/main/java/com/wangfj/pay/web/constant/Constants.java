@@ -121,7 +121,8 @@ public class Constants {
     public static final String SELECT_PAY_MENT_DATE_LIST="select_pay_ment_date_list";
     //导出统计查询Excel 2016-11-09
     public static final String SELECT_PAY_MENT_DATE_LIST_EXCSL="select_pay_ment_date_list_excsl";
-    
+    //门店编码
+    public static final String SELECT_MERCHANT_CODELIST="select_merchant_codelist";
     
 
 	//券地址

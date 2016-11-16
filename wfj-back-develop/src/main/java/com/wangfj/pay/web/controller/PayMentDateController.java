@@ -155,8 +155,8 @@ public class PayMentDateController {
 			paramMap.put("merCodes", request.getParameter("merCodes"));
 		}
 	//	String title = "payRecorder_"+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"_";
-		String title = new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(request.getParameter("startTime"))))+
-				"-"+new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(request.getParameter("endTime"))));
+		String title = "("+new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(request.getParameter("startTime"))))+")"+
+				"-"+"("+new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(request.getParameter("endTime"))))+")";
 	//	paramMap.put("pageSize", EXPORT_SIZE);
 	//	paramMap.put("pageNo", "1");
 	//	paramMap.put("userId", CookieUtil.getUserName(request));
