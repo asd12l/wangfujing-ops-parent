@@ -88,7 +88,9 @@
 			$("#isDisplay1").attr("checked","checked");
 		}
 		$("#status").val(status_);
-		$("#brandDesc").val(brandDesc_);
+		if(brandDesc_ != '[object Object]') {
+			$("#brandDesc").val(brandDesc_);
+		}
 		
 		//查询集团品牌
 		/* $.ajax({
