@@ -49,7 +49,7 @@ function reloadjs(){
             head.appendChild(script);  
 }
 function sendParameter(){
-         LA.sysCode = '57';
+         LA.sysCode = '56';
        }
 //接入log监控end
 //页码
@@ -202,7 +202,7 @@ function formateDate2(date){
 //导出excel
 function excelBalance() {
 	sendParameter();
-	LA.log('accountDetails-excel', '对账明细导出Excel', userName, sessionId);
+	LA.log('paymentData-excel', '支付结果统计导出Excel', userName, sessionId);
 	var url=__ctxPath+"/wfjpay/selectpayMentDate";
 	var remoteUrl=__ctxPath+"/wfjpay/getPayMentDateToExcel?";
 	var params = $("#olv_form").serialize();
@@ -285,7 +285,7 @@ function showWarning(msg){
 //重置
 function reset(){
 	sendParameter();
-	LA.log('accountDetails-reset', '对账明细查询条件重置', userName, sessionId);
+	LA.log('paymentData-reset', '支付结果统计查询条件重置', userName, sessionId);
 	$("#payTypes_info").multiselect().val([]).multiselect("refresh");
 	$("#merCodes_info").multiselect().val([]).multiselect("refresh");
 	timePickInit();
@@ -361,7 +361,7 @@ function  neibuMerchant(){
     		 logJs = data.logJs;
     		 reloadjs();
         	 sendParameter();
-        	 LA.log('accountDetails-query', '对账明细查询', userName, sessionId);
+        	 LA.log('paymentData-query', '支付结果统计查询', userName, sessionId);
 			if(data.success=="true"){
 				/* var couponTotalFee = 0;
 				var payToalCount = 0;
