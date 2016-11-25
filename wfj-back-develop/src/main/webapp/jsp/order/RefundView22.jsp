@@ -432,6 +432,15 @@ Author: WangSy
 		var expressCompanyName = $("#expressCompanyName").val();
 		var courierNumber = $("#courierNumber").val();
 		var warehouseAddress = $("#warehouseAddress").val();
+		if(expressCompanyName == ""){
+			$("#model-body-warning").html("<div class='alert alert-warning fade in'><strong>快递公司不能为空！</strong></div>");
+     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+     	  	return;
+		}else if(courierNumber == ""){
+			$("#model-body-warning").html("<div class='alert alert-warning fade in'><strong>快递单号不能为空！</strong></div>");
+     	  	$("#modal-warning").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-warning"});
+     	  	return;
+		}
 		$.ajax({
 			type : "post",
 			contentType: "application/x-www-form-urlencoded;charset=utf-8",
