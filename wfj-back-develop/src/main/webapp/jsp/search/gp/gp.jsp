@@ -16,6 +16,8 @@
     <title></title>
     <script type="text/javascript">
         __ctxPath = "${pageContext.request.contextPath}";
+        LA.sysCode = '43';
+        var sessionId = "<%=request.getSession().getId() %>";
         var productPagination;
         $(function() {
             initUserRole();
@@ -70,6 +72,7 @@
                     },
                     callback: function(data) {
                         if(data.success == true){
+                            LA.log('search.gp', 'gp管理列表查询', getCookieValue("username"), sessionId);
                             $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
                         }else{
                             $("#model-body-warning").html("<div class='alert alert-warning fade in'><i></i><strong>"+data.message+"</strong></div>");

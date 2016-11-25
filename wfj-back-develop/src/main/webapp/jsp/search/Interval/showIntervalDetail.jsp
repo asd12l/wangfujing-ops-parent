@@ -16,7 +16,8 @@ td,th{text-align:center;}
 <title></title>
 <script type="text/javascript">
 			__ctxPath = "${pageContext.request.contextPath}";
-			
+			LA.sysCode = '43';
+			var sessionId = "<%=request.getSession().getId() %>";
 			var productPagination;
 			$(function() {
 				
@@ -75,7 +76,8 @@ td,th{text-align:center;}
 		             },
 		             callback: function(data) {
 		               //使用模板
-		               $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
+						 LA.log('search.intervalDetail', '价格区间详情列表查询', getCookieValue("username"), sessionId);
+						 $("#product_tab tbody").setTemplateElement("product-list").processTemplate(data);
 		             }
 		           }
 		           
@@ -119,6 +121,7 @@ td,th{text-align:center;}
 
 							success: function(response) {
 								if(response.success==true){
+									LA.log('search.intervalDetailDelete', '价格区间详情删除 contentSid:'+contentSid+"sid:"+value, getCookieValue("username"), sessionId);
 									$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 										"<i class='fa-fw fa fa-times'></i><strong>删除成功，返回列表页!</strong></div>");
 					  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});

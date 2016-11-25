@@ -8,6 +8,8 @@
 <script type="text/javascript">
 	
 	__ctxPath = "${pageContext.request.contextPath}";
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
 	$(function(){
   		$("#save").click(function(){
   		    var spuId=$("#spuId").val();
@@ -39,6 +41,8 @@
 	        success:function(response) {
 	        	console.log(response);
 	        	if(response.success == true){
+					LA.log('search.brandStickAdd', '品牌坑位添加 username:'+$("#username").val()+" brandId:"+$("#brandId").val()+
+							" spuId:"+$("#spuId").val()+" orders:"+$("#orders").val(), getCookieValue("username"), sessionId);
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class=''></i><strong>添加成功，返回列表页!</strong></div>");
   	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});

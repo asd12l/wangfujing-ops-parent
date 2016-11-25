@@ -2,6 +2,7 @@ var tree = [];
 	var resourcePagination;
 	var nodeId = "";
 	$(function() {
+		loadLogJs();
 		channelPagination = $("#channelPagination").myPagination(
 				{
 					panel : {
@@ -78,6 +79,37 @@ var tree = [];
 	function closeDiv(obj){
 		$(".modal-darkorange").hide();
 	}
+	function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
 	//折叠面板函数
 	function tab(data) {
 		if (data == 'pro') {//基本
@@ -151,6 +183,9 @@ var tree = [];
 	}
 	//修改server
 	function editDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('server-editDir', '修改server', userName,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var id = $(this).val();
@@ -196,6 +231,9 @@ var tree = [];
 	
 	//新建server
 	function addDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('server-addDir', '新建server', userName,  sessionId);
 		var url = __ctxPath+"/jsp/web/server/add_server.jsp";
 		$("#pageBody").load(url);
 	}
@@ -205,6 +243,9 @@ var tree = [];
 	 * @returns {Boolean}
 	 */
 	function delDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('server-delDir', '删除server', userName,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var id = $(this).val();

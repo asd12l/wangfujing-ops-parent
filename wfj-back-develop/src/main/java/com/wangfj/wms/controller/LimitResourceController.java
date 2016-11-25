@@ -374,6 +374,7 @@ public class LimitResourceController {
 		String parentSid = request.getParameter("parentSid");
 		String isLeaf = request.getParameter("isLeaf");
 		String rsUrl = request.getParameter("rsUrl");
+        String orderno = request.getParameter("orderno");
 		LimitResource resource = new LimitResource();
 		
 		if(sid != null && sid.length()>0){
@@ -397,6 +398,9 @@ public class LimitResourceController {
 		if(isLeaf != null && isLeaf.length()>0){
 			resource.setIsLeaf(Integer.valueOf(isLeaf));
 		}
+        if (orderno != null && !"".equals(orderno) && orderno.length() > 0){
+            resource.setOrderno(Integer.parseInt(orderno));
+        }
 		return resource;
 	}
 

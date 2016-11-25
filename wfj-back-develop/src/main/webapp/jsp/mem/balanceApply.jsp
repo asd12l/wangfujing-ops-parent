@@ -23,6 +23,7 @@
     <script type="text/javascript">
         //上下文路径
         __ctxPath = "${pageContext.request.contextPath}";
+        var sessionId = "<%=request.getSession().getId() %>";
 
         //页码
         var olvPagination;
@@ -100,6 +101,38 @@
             //初始化
             initOlv();
         });
+        
+        function loadLogJs(){
+            $.ajax({
+                type : "get",
+                contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+                async : false,
+                data : {
+                    "key" : "log_js"
+                },
+                dataType : "json",
+                ajaxStart : function() {
+                    $("#loading-container").prop("class", "loading-container");
+                },
+                ajaxStop : function() {
+                    $("#loading-container").addClass("loading-inactive");
+                },
+                success : function(response) {
+                    if(response.success){
+                        var logjs_url = response.value;
+                        var _script=document.createElement('script');
+                        _script.setAttribute('charset','gbk');
+                        _script.setAttribute('type','text/javascript');
+                        _script.setAttribute('src',logjs_url);
+                        document.getElementsByTagName('head')[0].appendChild(_script);
+                    } else {
+                        $("#warning2Body").text(response.msg);
+                        $("#warning2").show();
+                    }
+                }
+            });
+        }
 
         function parseTime1(strTime) {
             if (format.test(strTime)) {
@@ -157,12 +190,18 @@
 
         //添加申请
         function addApply() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('balanceApply-addApply', '余额申请添加申请', userName,  sessionId);
             var url = __ctxPath + "/jsp/mem/balanceApplyAdd.jsp";
             $("#pageBody").load(url);
         }
 
         //审核申请
         function checkApply() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('balanceApply-checkApply', '余额申请审核申请', userName,  sessionId);
             var checkboxArray = [];
             $("input[type='checkbox']:checked").each(function (i, team) {
                 var productSid = $(this).val();
@@ -346,6 +385,9 @@
 
         //查询数据
         function olvQuery() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('balanceApply-olvQuery', '余额申请查询', userName,  sessionId);
             //设置表单数据
             setFormData();
             //生成表单请求参数
@@ -356,6 +398,9 @@
         }
         //重置
         function reset() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('balanceApply-reset', '余额申请重置查询', userName,  sessionId);
             $("#memberNum").val("");
             $("#applyTime").val("");
             $("#checkTime").val("");
@@ -422,6 +467,7 @@
                     },
                     //回调
                     callback: function (data) {
+                    	loadLogJs();
                         $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
                     }
                 }

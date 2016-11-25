@@ -31,6 +31,7 @@
 	src="${pageContext.request.contextPath}/js/customize/common/common.js">
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 </script>
 </head>
 <body>

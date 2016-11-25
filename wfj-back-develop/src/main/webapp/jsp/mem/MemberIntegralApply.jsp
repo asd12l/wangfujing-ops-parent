@@ -25,18 +25,21 @@
             src="${pageContext.request.contextPath}/assets/js/datetime/moment.js"></script>
     <script
             src="${pageContext.request.contextPath}/assets/js/datetime/daterangepicker.js"></script>
+            
     <style type="text/css">
         .trClick > td, .trClick > th {
             color: red;
         }
     </style>
     <script type="text/javascript">
+    var sessionId = "<%=request.getSession().getId() %>";
         __ctxPath = "${pageContext.request.contextPath}";
         image = "http://images.shopin.net/images";
         saleMsgImage = "http://images.shopin.net/images";
         ctx = "http://www.shopin.net";
 
         var olvPagination;
+        var userName="";
         $(function () {
         	$("#reservationAp").daterangepicker({
 		        locale : {
@@ -73,8 +76,41 @@
             });
             initOlv();
         });
-
+        function loadLogJs(){
+            $.ajax({
+                type : "get",
+                contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+                async : false,
+                data : {
+                    "key" : "log_js"
+                },
+                dataType : "json",
+                ajaxStart : function() {
+                    $("#loading-container").prop("class", "loading-container");
+                },
+                ajaxStop : function() {
+                    $("#loading-container").addClass("loading-inactive");
+                },
+                success : function(response) {
+                    if(response.success){
+                        var logjs_url = response.value;
+                        var _script=document.createElement('script');
+                        _script.setAttribute('charset','gbk');
+                        _script.setAttribute('type','text/javascript');
+                        _script.setAttribute('src',logjs_url);
+                        document.getElementsByTagName('head')[0].appendChild(_script);
+                    } else {
+                        $("#warning2Body").text(response.msg);
+                        $("#warning2").show();
+                    }
+                }
+            });
+        }
         function productQuery() {
+    		userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('IntegralApply-Query', '积分申请查询', userName,  sessionId);
             $("#login_from").val($("#login_input").val());
             $("#sid_from").val($("#sid_input").val());
             $("#applyName_from").val($("#applyName_input").val());
@@ -116,6 +152,9 @@
         }
         //重置
         function reset() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('IntegralApply-reset', '积分申请重置查询', userName,  sessionId);
             $("#cache").val(1);
             $("#login_input").val("");
             $("#sid_input").val("");
@@ -193,6 +232,7 @@
                                 }, 300);
                             },
                             callback: function (data) {
+                            	 loadLogJs();
                                 $("#olv_tab tbody").setTemplateElement("olv-list")
                                         .processTemplate(data);
                             }
@@ -216,6 +256,9 @@
         }
         //查看积分申请
         function showIntegralDetail() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('IntegralApply-showIntegralDetail', '查看积分申请详情', userName,  sessionId);
             var checkboxArray = [];
             $("input[type='checkbox']:checked").each(function (i, team) {
                 var sid = $(this).val();
@@ -265,6 +308,9 @@
             $("#editLabelDiv").hide();
         }
         function showAddIntegral() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('IntegralApply-AddIntegral', '添加积分申请', userName,  sessionId);
             //清空表单内容
             $("#login_name_add").val("");
             $("#apply_name_add").val("");
@@ -316,6 +362,7 @@
         }
         //添加积分申请
         function submitAddIntegral() {
+        	
             $(".add_msg").hide();
             var loginName = $("#login_name_add").val().trim();
             var applyName = $("#apply_name_add").val().trim();
@@ -439,6 +486,9 @@
 
         //编辑积分申请
         function editIntegralApply() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('IntegralApply-editIntegral', '编辑积分申请', userName,  sessionId);
             $(".edit_msg").hide();
 
             //回显
@@ -583,6 +633,9 @@
 
         //审核积分申请
         function showCheckApply() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('IntegralApply-checkIntegral', '审核积分申请', userName,  sessionId);
             $("#checkName_msg").hide();
             var checkboxArray = [];
             $("input[type='checkbox']:checked").each(function (i, team) {
@@ -686,6 +739,9 @@
 
         //取消积分申请
         function cancleApply() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('IntegralApply-cancleIntegral', '取消积分申请', userName,  sessionId);
             var checkboxArray = [];
             $("input[type='checkbox']:checked").each(function (i, team) {
                 var sid = $(this).val();

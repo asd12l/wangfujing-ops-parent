@@ -1,6 +1,9 @@
 
 
 function setAdvertisingProduct(advertisingId){
+	userName = getCookieValue("username");
+	LA.sysCode = '54';
+	LA.log('adcertise-setAdvertisingProduct', '配置商品', userName,  sessionId);
 	$("#advertising_list").hide();
 	$("#advertise_product").show();
 	$("#advertise_id_hide").val(advertisingId);

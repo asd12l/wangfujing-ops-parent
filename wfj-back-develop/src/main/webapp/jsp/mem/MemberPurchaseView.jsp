@@ -22,6 +22,7 @@
 		image="http://images.shopin.net/images";
 	saleMsgImage="http://images.shopin.net/images";
 	ctx="http://www.shopin.net"; 
+	var sessionId = "<%=request.getSession().getId() %>";
 	var cid;
 	var olvPagination;
 	$(function() {
@@ -80,7 +81,37 @@
 			});
 			});
 	});
-	
+	function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }s
 	function productQuery(){
 		$("#username_form").val($("#username_input").val().trim());
 		$("#mobile_form").val($("#mobile_input").val().trim());
@@ -106,11 +137,17 @@
    	}
 	// 查询
 	function query() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('memberPurchase-Query', '购买记录查询', userName,  sessionId);
 		$("#cache").val(0);
 		productQuery();
 	}
 	//重置
 	function reset(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('memberPurchase-Query', '购买记录重置查询', userName,  sessionId);
 		$("#cache").val(1);
 		$("#username_input").val("");
 		$("#mobile_input").val("");
@@ -172,6 +209,7 @@
 					}, 300);
 				},
              callback: function(data) {
+            	 loadLogJs();
            		 $("#olv_tab tbody").setTemplateElement("olv-list").processTemplate(data);
            		
 				}

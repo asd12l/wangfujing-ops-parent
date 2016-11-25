@@ -117,10 +117,11 @@
 		rsName_ = $("#rsName_"+value).text().trim();
 		rsCode_ = $("#rsCode_"+value).text().trim();
 		parentSid_=$("#parentSid_"+value).text().trim();
-		rsUrl_=$("#rsUrl_"+value).val();
-		delFlag_ = $("#delFlag_"+value).attr("value");
-		isLeaf_=$("#isLeaf_"+value).attr("value");
-		var url = __ctxPath+"/jsp/UserRole/updateResource.jsp";
+        rsUrl_=$("#rsUrl_"+value).val();
+        delFlag_ = $("#delFlag_"+value).attr("value");
+        isLeaf_=$("#isLeaf_"+value).attr("value");
+        orderno_ = $("#orderno_"+value).text().trim();
+        var url = __ctxPath+"/jsp/UserRole/updateResource.jsp";
 		$("#pageBody").load(url);
 	}
 	//禁用角色
@@ -214,6 +215,7 @@
                                                 <th>父资源id</th>
                                                 <th>是否有效</th>
                                                 <th>是否为叶子节点</th>
+                                                <th>排序</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -258,6 +260,7 @@
 						           							根节点
 						                   				{#/if}
 													</td>
+									       		    <td id="orderno_{$T.Result.sid}">{$T.Result.orderno}</td>
 									       		</tr>
 											{#/for}
 									    {#/template MAIN}	-->

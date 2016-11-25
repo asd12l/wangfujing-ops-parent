@@ -13,6 +13,8 @@
 <title>区间信息</title>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	LA.sysCode = '43';
+	var sessionId = "<%=request.getSession().getId() %>";
 	$(function(){
   		$("#save").click(function(){
   			saveFrom();
@@ -60,6 +62,7 @@
  	        data: $("#theForm").serialize(),
 	        success:function(response) {
 	        	if(response.success == true){
+					LA.log('search.intervalUpdate', '修改价格区间 channel:'+$("#channel").val(), getCookieValue("username"), sessionId);
 					$("#modal-body-success").html("<div class='alert alert-success fade in'>"+
 						"<i class=''></i><strong>修改成功，返回列表页!</strong></div>");
   	  				$("#modal-success").attr({"style":"display:block;","aria-hidden":"false","class":"modal modal-message modal-success"});

@@ -30,9 +30,11 @@ var ip = "";
 var port = "";
 var domain = "";
 
+
 $(function() {
 	topicValidform();
 	editValidform();
+	loadLogJs();
 //	$(".tpl_path").change(function(){
 //		var path=$(this).val();
 //		initTplList(path);
@@ -438,6 +440,9 @@ function initTplList(path){
 	 * @returns {Boolean}
 	 */
 	function editDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('toplist-editDir', '修改专题活动', userName,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var id = $(this).val();
@@ -489,9 +494,42 @@ function initTplList(path){
 			});
 		}
 	};
-	
+	function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
 	//打开添加活动窗口
 	function addDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('toplist-addDir', '添加专题活动', userName,  sessionId);
 		//alert("6767")
 		var time2 = new Date().Format("yyyy-MM-dd hh:mm:ss");
 		$("#msg1").addClass("hide");
@@ -568,6 +606,7 @@ function initTplList(path){
 	 * @param id
 	 */
 	function del_topic(id){
+		
 		bootbox.setDefaults("locale","zh_CN");
 		bootbox.confirm("确定删除吗？", function(r){
 			if(r){
@@ -580,6 +619,9 @@ function initTplList(path){
 	 * @returns {Boolean}
 	 */
 	function delDir(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '54';
+		LA.log('toplist-delDir', '删除专题活动', userName,  sessionId);
 		var checkboxArray = [];
 		$("input[type='checkbox']:checked").each(function(i, team) {
 			var id = $(this).val();
@@ -682,6 +724,9 @@ function initTplList(path){
 	 * @param id
 	 */
 	function static_topic(id){
+		userName = getCookieValue("username");
+    	LA.sysCode = '53';
+		LA.log('toplist-static_topic', '静态化专题活动页面', userName,  sessionId);
 		$.ajax({
 			type : "post",
 			contentType : "application/x-www-form-urlencoded;charset=utf-8",

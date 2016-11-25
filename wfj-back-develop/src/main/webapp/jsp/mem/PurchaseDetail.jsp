@@ -22,13 +22,45 @@
     image="http://images.shopin.net/images";
     saleMsgImage="http://images.shopin.net/images";
     ctx="http://www.shopin.net";
+    var sessionId = "<%=request.getSession().getId() %>";
     var olvPagination;
     $(function() {
       $("#reservation").daterangepicker();
       $("#purchase_cid").val(cid);
       initOlv();
+      loadLogJs();
     });
-
+    function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
     function productQuery(){
       $("#orderNo_from").val($("#orderNo_input").val().trim());
       $("#outOrderNo_from").val($("#outOrderNo_input").val().trim());

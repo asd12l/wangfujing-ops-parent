@@ -12,6 +12,7 @@
 		<result column="delFlag" property="delFlag" jdbcType="INTEGER" />
 		<result column="parentSid" property="parentSid" jdbcType="BIGINT" />
 		<result column="isLeaf" property="isLeaf" jdbcType="INTEGER" />
+        <result column="orderno" property="orderno" javaType="INTEGER"/>
 	</resultMap>
 	<sql id="Base_Column_List">
 		sid,rsName,rsCode,createTime,updateTime,delFlag,parentSid,isLeaf
@@ -70,7 +71,7 @@
 	<insert id="insert" parameterType="com.wangfj.wms.domain.entity.LimitResource"
 		useGeneratedKeys="true" keyProperty="sid">
 		insert into limit_resources(
-		sid,rsName,rsCode,createTime,updateTime,delFlag,parentSid,isLeaf,rsUrl
+		sid,rsName,rsCode,createTime,updateTime,delFlag,parentSid,isLeaf,rsUrl,orderno
 		)values(
 		#{sid,jdbcType=BIGINT},
 		#{rsName,jdbcType=VARCHAR},
@@ -80,7 +81,8 @@
 		#{delFlag,jdbcType=INTEGER},
 		#{parentSid,jdbcType=BIGINT},
 		#{isLeaf,jdbcType=INTEGER},
-		#{rsUrl,jdbcType=VARCHAR}
+		#{rsUrl,jdbcType=VARCHAR},
+		#{orderno,jdbcType=INTEGER}
 		)
 	</insert>
 
@@ -109,8 +111,11 @@
 				isLeaf = #{isLeaf,jdbcType=INTEGER},
 			</if>
 			<if test="rsUrl != null">
-				rsUrl = #{rsUrl,jdbcType=VARCHAR}
+				rsUrl = #{rsUrl,jdbcType=VARCHAR},
 			</if>
+            <if test="orderno != null">
+                orderno = #{orderno,jdbcType=INTEGER}
+            </if>
 		</set>
 		where sid = #{sid,jdbcType=BIGINT}
 	</update>
