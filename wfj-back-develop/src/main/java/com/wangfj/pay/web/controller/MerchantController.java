@@ -189,5 +189,49 @@ public class MerchantController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(m);
 	}
-
+	
+	/**
+	 * 门店信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/selectMerCode")
+	public String selectMerCode(HttpServletRequest request, HttpServletResponse response) {
+		String json = "";
+		Map<String,String> paramMap = new HashMap<String,String>();
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		try {
+			String jsonStr = JSON.toJSONString(paramMap);
+			logger.info("jsonStr:" + jsonStr);
+			String url=CommonProperties.get(Constants.PAY_CORE_URL)+"/"+CommonProperties.get(Constants.SELECT_MERCHANT_CODELIST);
+			json=HttpClientUtil.post(url, paramMap);
+			logger.info("json:" + json);
+			JSONObject jsonObject = JSONObject.fromObject(json);
+		//	JSONObject object=jsonObject.getJSONObject("data");
+			List<Object> list = (List<Object>)jsonObject.get("data");
+			if (list != null && list.size() != 0) {
+				m.put("list", list);
+				m.put("success", "true");
+			//	m.put("pageCount",object.getString("totalPages"));
+			} else {
+				m.put("success", "false");
+				m.put("pageCount",0);
+			}
+		} catch (Exception e) {
+			m.put("success", "false");
+			m.put("pageCount",0);
+			e.printStackTrace();
+		}
+		String js =CommonProperties.get(Constants.WFJ_LOG_JS);
+		m.put("logJs", js);
+		if(StringUtils.isNotEmpty(CookiesUtil.getUserName(request))){
+			m.put("userName", CookiesUtil.getUserName(request));
+		}else{
+			m.put("userName", "");
+		}
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(m);
+	}
 }

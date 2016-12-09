@@ -18,6 +18,7 @@
 <script src="${pageContext.request.contextPath}/js/pagination/myPagination/jquery.myPagination6.0.js"></script>
 <script type="text/javascript"> 
  __ctxPath = "${pageContext.request.contextPath}";
+ var sessionId = "<%=request.getSession().getId() %>";
 </script>
 <script src="${pageContext.request.contextPath}/js/pagination/jTemplates/jquery-jtemplates.js"></script>
 <script src="${pageContext.request.contextPath}/js/ajaxfileupload.js"></script>

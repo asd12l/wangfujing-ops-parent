@@ -4,6 +4,7 @@
 	var rcNodeId = "";
 	var siteSid = "";
 	var siteName = "";
+	var sessionId = "<%=request.getSession().getId() %>";
 	
 	//ajax全局设置
 	$(document).ajaxStart(function(){
@@ -16,6 +17,37 @@
 		},300);
     })
     
+    function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
 	//关闭弹窗
 	function closeDiv(obj) {
 	    clearInput();
@@ -33,6 +65,7 @@
 	//初始化
 	$(function() {
 		initSiteSelect();
+		loadLogJs();
 	});	
 	
 	
@@ -190,6 +223,10 @@
 	
 	//弹出上传文件框
 	function toUploadFile(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '53';
+		LA.log('resource-toUploadFile', '资源文件上传', userName,  sessionId);
+		siteId = $("#site_list").val();
 		var dpath = $("#desFile1").val();
 		if(dpath==""){
 			$("#warning2Body").text("请选择左侧资源目录上传!");
@@ -240,6 +277,9 @@
 	
 	//打开资源目录上传窗口
 	function openZipPage(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '53';
+		LA.log('resource-openZipPage', '资源站点目录上传', userName,  sessionId);
 		siteId = $("#site_list").val();
 		if(siteId==""){
 			$("#warning2Body").text("请选择站点!");

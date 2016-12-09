@@ -131,7 +131,11 @@ public class CategoryPropsDictController {
 			map.put("delete1", vo.getDelete1());
 		}
 		if (null != vo.getChannelSid() & !"".equals(vo.getChannelSid())) {
-			map.put("channelSid", vo.getChannelSid());
+			if (vo.getChannelSid().equals("1")){
+				map.put("channelSid", 0);
+			} else {
+				map.put("channelSid", vo.getChannelSid());				
+			}
 		} else {
 			map.put("channelSid", 0);
 		}

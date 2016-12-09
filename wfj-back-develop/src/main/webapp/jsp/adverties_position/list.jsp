@@ -22,6 +22,7 @@ Author: WangSy
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.validate.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery/jquery.validate.messages_cn.js"></script>
 <script src="${pageContext.request.contextPath}/js/customize/common/common.js"></script>
+<script type="text/javascript">var sessionId = "<%=request.getSession().getId() %>";</script>
 </head>
 <body>
 	<input type="hidden" id="ctxPath"

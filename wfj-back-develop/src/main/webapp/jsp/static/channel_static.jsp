@@ -40,6 +40,7 @@
 	src="${pageContext.request.contextPath}/assets/js/fuelux/treeview/bootstrap-contextmenu.js"></script>
 <script type="text/javascript">
 	__ctxPath = "${pageContext.request.contextPath}";
+	var sessionId = "<%=request.getSession().getId() %>";
 
 	var root = "";
 	var tree = [];
@@ -58,6 +59,7 @@
 	var indexFlag = "";
 	$(function() {
 		$("#pageSelect").change(recordQuery);
+		loadLogJs();
 	});
 	function initTree() {
 		initChannelTree();
@@ -111,6 +113,37 @@
 			}
 		});
 	}
+	function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
 	function filter(treeId, parentNode, childNodes) {
 		if (!childNodes)
 			return null;
@@ -220,6 +253,9 @@
 		}); */
 	}
 	function toStatic() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '53';
+		LA.log('channelstatic-toStatic', '生成频道页静态化', userName,  sessionId);
 		$
 				.ajax({
 					type : "post",
@@ -259,6 +295,10 @@
 				});
 	}
 	function siteStatic() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '53';
+		LA.log('channelstatic-siteStatic', '全站点静态化', userName,  sessionId);
+		$
 		$
 				.ajax({
 					type : "post",

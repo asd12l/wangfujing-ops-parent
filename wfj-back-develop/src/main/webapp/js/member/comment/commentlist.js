@@ -1,4 +1,5 @@
 var productPagination;
+var sessionId = "<%=request.getSession().getId() %>";
 	$(function() {
 		$('#commenttime_input').daterangepicker({
  			//timePicker: true,
@@ -32,10 +33,41 @@ var productPagination;
                 firstDay : 1
             }
         });
+		loadLogJs();
 		initProduct();
 		$("#pageSelect").change(productQuery);
 	});
-	
+	function loadLogJs(){
+        $.ajax({
+            type : "get",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+            async : false,
+            data : {
+                "key" : "log_js"
+            },
+            dataType : "json",
+            ajaxStart : function() {
+                $("#loading-container").prop("class", "loading-container");
+            },
+            ajaxStop : function() {
+                $("#loading-container").addClass("loading-inactive");
+            },
+            success : function(response) {
+                if(response.success){
+                    var logjs_url = response.value;
+                    var _script=document.createElement('script');
+                    _script.setAttribute('charset','gbk');
+                    _script.setAttribute('type','text/javascript');
+                    _script.setAttribute('src',logjs_url);
+                    document.getElementsByTagName('head')[0].appendChild(_script);
+                } else {
+                    $("#warning2Body").text(response.msg);
+                    $("#warning2").show();
+                }
+            }
+        });
+    }
 	function productQuery() {
 		$("#ordernumber_from").val($("#ordernumber_input").val());//
 		$("#ordernumber").val($("#ordernumber_input").val());
@@ -53,6 +85,9 @@ var productPagination;
 	}
 	// 查询
 	function query() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('commentList-Query', '评论管理查询', userName,  sessionId);
 		$("#modow").val('');
 		$("#replyinfo").val('');
 		$("#datetimenow").val('');
@@ -79,6 +114,9 @@ var productPagination;
 	}
 	// 重置
 	function reset() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('commentList-Query', '评论管理重置查询', userName,  sessionId);
 		$("#modow").val(1);
 		$("#commentid").val('');
 		$("#datetimenow").val('');
@@ -174,6 +212,9 @@ var productPagination;
 				});
 	}
 	function delet(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('commentList-delet', '评论管理删除', userName,  sessionId);
 		$("#typepdiv").html("<label class='col-md-5 control-label'  style='line-height: 20px; text-align: right;'>删除原因：</label><div class='col-md-6'>	<input type='text' style='line-height:150px;width:200px'   id='replyinfosite' /><br/><span id='replyinfo_msg' style='color:red;'></span></div><br>&nbsp;");		
 		$("#typetable").html("		<a onclick='deletstrue();' id='delets' class='btn btn-info'>删除</a>&nbsp;&nbsp;<a onclick='closeLogin();' class='btn btn-primary'>取消</a>&nbsp;&nbsp;");
 		$("#customerservicenumber_from").val(getCookieValue("username"));
@@ -211,6 +252,9 @@ var productPagination;
 		$("#mdeyes").hide;
 	}
 	function reply(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('commentList-reply', '评论管理屏蔽', userName,  sessionId);
 		$("#customerservicenumber_from").val(getCookieValue("username"));
 		$("#modow").val('4');
 		var checkboxArray=[];
@@ -248,6 +292,9 @@ var productPagination;
 	}
 	
 	function add() {
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('commentList-add', '评论管理添加', userName,  sessionId);
 		$("#customerservicenumber_from").val(getCookieValue("username"));
 		$("#typepdiv").html("<label class='col-md-5 control-label'  style='line-height: 20px; text-align: right;'>回复信息：</label><div class='col-md-6'>	<input type='text' style='line-height:150px;width:200px'   id='replyinfosite' /><br/><span id='replyinfo_msg' style='color:red;'></span></div><br>&nbsp;");
 		$("#typetable").html("		<a onclick='replystrue();' id='delets' class='btn btn-info'>回复</a>&nbsp;&nbsp;<a onclick='closeLogin();' class='btn btn-primary'>取消</a>&nbsp;&nbsp;");
@@ -294,6 +341,9 @@ var productPagination;
 		}
 	}
 	function rereply(){
+		userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('commentList-rereply', '评论管理恢复', userName,  sessionId);
 		$("#modow").val('4');
 		var checkboxArray=[];
 		$("input[type='checkbox']:checked").each(function(i,team){
@@ -329,6 +379,9 @@ var productPagination;
 	}
     function modify(){
 		//清空表单内容
+    	userName = getCookieValue("username");
+    	LA.sysCode = '64';
+		LA.log('commentList-modify', '评论管理修改', userName,  sessionId);
     	$("#whether_shielding_from").val('');
 		$("#customerservicenumber_from").val(getCookieValue("username"));
 		$("#typepdiv").html("<label class='col-md-5 control-label'  style='line-height: 20px; text-align: right;'>回复信息：</label><div class='col-md-6'>	<input type='text' style='line-height:150px;width:200px'   id='replyinfosite' /><br/><span id='replyinfo_msg' style='color:red;'></span></div><br>&nbsp;");

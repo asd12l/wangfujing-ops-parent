@@ -31,6 +31,7 @@
 <script src="${pageContext.request.contextPath}/js/ajaxfileupload.js"></script>
 <!--Fuelux Spinner-->
 <script src="${pageContext.request.contextPath}/assets/js/fuelux/spinner/fuelux.spinner.min.js"></script>
+<script type="text/javascript">var sessionId = "<%=request.getSession().getId() %>";</script>
 </head>
 <body>
 	<input type="hidden" id="ctxPath"

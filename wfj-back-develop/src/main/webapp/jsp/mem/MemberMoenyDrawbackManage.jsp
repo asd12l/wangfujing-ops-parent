@@ -23,6 +23,7 @@
     <script type="text/javascript">
         //上下文路径
         __ctxPath = "${pageContext.request.contextPath}";
+        var sessionId = "<%=request.getSession().getId() %>";
 
         //页码
         var olvPagination;
@@ -93,6 +94,8 @@
         }
         //页面加载完成后自动执行
         $(function () {
+        	
+        	loadLogJs();
             //渲染日期
             timePickInit();
             //初始化
@@ -100,6 +103,37 @@
             $("#pageSelect").change(olvQuery);
         });
 
+        function loadLogJs(){
+            $.ajax({
+                type : "get",
+                contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                url : __ctxPath + "/loadSystemParam/findValueFronSystemParamByKey",
+                async : false,
+                data : {
+                    "key" : "log_js"
+                },
+                dataType : "json",
+                ajaxStart : function() {
+                    $("#loading-container").prop("class", "loading-container");
+                },
+                ajaxStop : function() {
+                    $("#loading-container").addClass("loading-inactive");
+                },
+                success : function(response) {
+                    if(response.success){
+                        var logjs_url = response.value;
+                        var _script=document.createElement('script');
+                        _script.setAttribute('charset','gbk');
+                        _script.setAttribute('type','text/javascript');
+                        _script.setAttribute('src',logjs_url);
+                        document.getElementsByTagName('head')[0].appendChild(_script);
+                    } else {
+                        $("#warning2Body").text(response.msg);
+                        $("#warning2").show();
+                    }
+                }
+            });
+        }
         function parseTime1(strTime) {
             if (format.test(strTime)) {
                 var ymdArr = strTime.split(" ")[0].split("/");//年月日
@@ -156,6 +190,9 @@
 
         //退款失败
         function checknopass() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('memberMoenyDrawback-checknopass', '余额提现退款退款失败', userName,  sessionId);
             $("#editDiv").hide();
             $("#nopassDiv").show();
         }
@@ -207,6 +244,9 @@
 
         //退款成功
         function checkPass() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('memberMoenyDrawback-checkPass', '余额提现退款退款成功', userName,  sessionId);
             var sid = $("#hsid").val();
             var billno = $("#hbillno").val();
             $("#editDiv").hide();
@@ -294,6 +334,9 @@
 
         //查看详细
         function editMerchant1(id) {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('memberMoenyDrawback-editMerchant1', '余额提现退款查看详细', userName,  sessionId);
 //            alert($("#applyName_" + id).val());
             $("#phone1").html($("#applyName_" + id).val().trim());
             $("#withdrowMoney1").html($("#withdrowMoney_" + id).html().trim());
@@ -311,6 +354,9 @@
 
         //导出excel
         function excelOrder() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('memberMoenyDrawback-excelOrder', '余额提现退款导出excel', userName,  sessionId);
             var url = __ctxPath + "/memDrawback/getWithdrawlsList";
 //	var remoteUrl="http://10.6.2.150/wfjpay/admin/order/orderExport.do?";
             var remoteUrl = __ctxPath + "/memDrawback/getWithdrowToExcel?";
@@ -376,6 +422,9 @@
 
         //查询数据
         function olvQuery() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('memberMoenyDrawback-olvQuery', '余额提现退款查询', userName,  sessionId);
             //设置表单数据
             setFormData();
             //生成表单请求参数
@@ -386,6 +435,9 @@
         }
         //重置
         function reset() {
+        	userName = getCookieValue("username");
+        	LA.sysCode = '64';
+    		LA.log('memberMoenyDrawback-reset', '余额提现退款重置查询', userName,  sessionId);
             $("#sid").val("");
             $("#applyTime").val("");
             $("#checkTime").val("");

@@ -91,8 +91,10 @@
 				var option = "";
 				for (var i = 0; i < result.length; i++) {
 					var ele = result[i];
-					option += "<option value='"+ele.channelCode+"'>"
-							+ ele.channelName + "</option>";
+					if(ele.channelCode != "C8"){
+						option += "<option value='"+ele.channelCode+"'>"
+						+ ele.channelName + "</option>";
+					}
 				}
 				$("#orderSource_select").append(option);
 				return;
